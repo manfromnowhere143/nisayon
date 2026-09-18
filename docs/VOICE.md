@@ -3,6 +3,14 @@
 The voice is Daniel's: ambitious about the problem, exact about the evidence,
 direct with the reader. Technical depth should make the work easier to inspect.
 
+Write with calm confidence, curiosity, humility and dignity. Honesty takes
+precedence over presentation. Show progress through a better question, a checked
+result or a corrected explanation. Use connected prose and restrained diagrams;
+avoid stock model phrasing, repeated rhetorical contrasts and decorative claims.
+The README should give readers a clear route from the problem to the evidence
+and reproduction. Keep the private writing archive private; its narrative style
+does not transfer another project's scientific claims to Nisayon.
+
 ## Standing authorship rule
 
 Daniel's instruction, 18 September 2026: for his work performed in these

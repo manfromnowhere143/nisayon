@@ -1,27 +1,28 @@
 # Nisayon
 
-**Turn a failed deployment into a tested correction.**
+**Experiments for robot-policy integration.**
 
-A robot policy works. A deployment changes. The robot fails. An old observation,
-a changed action convention, or state carried through a reset can suggest
-different corrections. Nisayon executes bounded experiments, checks whether the
-evidence can support a decision, and tests a frozen correction on fresh conditions.
-It returns unresolved when the available evidence is insufficient.
+A robot policy can fail after a deployment change while its learned weights
+stay fixed. An observation arrives late, an action changes meaning, or recurrent
+state survives a reset. Each suggests a different correction. A successful
+rerun alone does not tell us whether that correction deserves acceptance.
 
-The implementation runs one frozen robomimic BC-RNN Lift policy in a headless
-CPU robosuite/MuJoCo simulator. It records intended and executed actions,
-observation timing, measured reset state, source identities, outcomes and costs.
-It supports finite deployment edits and full closed-loop reruns. Changed actions
-require recomputed future observations; recorded future observations cannot
-establish a counterfactual execution. The evaluator also checks provenance,
-timing, candidate scope, fresh confirmation and preserved task progress.
+Nisayon executes bounded experiments, checks the evidence and tests a frozen
+correction on fresh conditions. It keeps failed attempts and returns unresolved
+when the observations cannot support a decision. The current implementation
+runs one frozen robomimic BC-RNN Lift policy in a headless CPU robosuite/MuJoCo
+simulator. Its scope is explicit and its results are open to inspection.
+
+[Results](#what-the-experiments-found) · [Run it](#reproduce) ·
+[Experiment records](docs/experiments/README.md) · [Release](docs/RELEASE.md) ·
+[Apache-2.0](LICENSE)
 
 ## What the experiments found
 
 **No decision or efficiency advantage has been demonstrated.** Both comparisons
 are retained, including failed, invalid, unsupported and unresolved assignments.
 
-| Development comparison | Accepted repairs A / B | Simulator runs per arm | Own trial phases A / B |
+| Development comparison | Accepted A / B | Runs per arm | Trial time A / B |
 |---|---:|---:|---:|
 | [Scripted diagnostic procedures, ten incidents](docs/experiments/MATCHED_COMPARISON.md) | 6/10 / 6/10 | 569 | 881.95 s / 926.20 s |
 | [Live model, three paired repetitions of one known incident](docs/experiments/BOUNDED_AGENT_COMPARISON.md) | 3/3 / 3/3 | 210 | 422.27 s / 435.16 s |
@@ -47,7 +48,34 @@ explains why free diagnosis still cannot meet a 2× total-cost target with these
 fixed confirmation schedules. A broader three-arm screen remains a proposal in
 the [research plan](docs/RESEARCH_PLAN.md).
 
-## Run the small example
+## How a correction earns acceptance
+
+```mermaid
+flowchart LR
+    accTitle: Nisayon's implemented experiment path
+    accDescr: Reproduce the reference and regression, execute diagnostic reruns, freeze a candidate and its rule, then confirm on fresh conditions. Diagnostic gaps stop the path. Every outcome is retained.
+    R["Reference and regression"] --> D["Diagnostic reruns"]
+    D --> F["Freeze candidate<br/>and acceptance rule"]
+    D --> U["Stop with a retained reason<br/>invalid · unsupported · unresolved"]
+    F --> C["Fresh reference<br/>and correction pairs"]
+    C --> V["Accept, reject<br/>or leave unresolved"]
+```
+
+Changing an action requires recomputing its affected future state and
+observations. Replaying observations from the old trajectory cannot establish
+what the intervention would do. Nisayon therefore executes each supported
+intervention as a full closed-loop rerun; partial continuation is unsupported.
+
+The evaluator checks source and configuration identity, acquisition timing,
+reset evidence, candidate scope, confirmation freshness and task progress.
+Stopping the robot fails the progress obligation. A completed process, a valid
+measurement and an accepted repair are distinct results. The
+[contract](docs/evaluation/CONFIRMATION_OBLIGATION.md) and
+[adversarial controls](docs/evaluation/CONTROLS.md) make those distinctions executable.
+
+## Reproduce
+
+### Check the source and retained scores
 
 With Python 3.12 and [uv](https://docs.astral.sh/uv/) installed:
 
@@ -66,8 +94,10 @@ Those commands re-score the retained compact evidence. They do not execute
 physics or independently reconstruct every raw store. Exact historical source,
 protocol identities and reproduction limits are in the [release notes](docs/RELEASE.md).
 
-For five known-condition simulator executions—two references, a sign regression,
-a correction and action suppression—use a new output directory:
+### Run five simulator trajectories
+
+The example executes two references, a sign regression, a correction and action
+suppression on a known condition. Use a new output directory:
 
 ```sh
 uv sync --frozen --extra simulation
@@ -94,20 +124,35 @@ The [first joint experiment](docs/experiments/LIFT_PROTOCOL_V3.md) documents the
 larger, already completed fresh confirmation; its spent seeds must not be reused
 as new confirmation.
 
-## Inspect and extend
+## What would justify the next experiment
 
-[Architecture](docs/ARCHITECTURE.md) · [Development](docs/DEVELOPMENT.md) ·
-[Evaluation contract](docs/evaluation/CONFIRMATION_OBLIGATION.md) ·
-[Validity controls](docs/evaluation/CONTROLS.md) · [Sources](docs/SOURCES.md)
+The scripted comparison exposed a fixed selector that already knew its remedy.
+Replacing it with a live model gave both arms a more direct procedure, but the
+optional audit still changed no decision. That is a sharper account of the
+limitation, with the original negative results preserved.
+
+Another comparison needs an ambiguous engineering decision that ordinary
+telemetry cannot already resolve equally cheaply, and enough avoidable work
+for the extra experiment to earn its cost. The
+[trace analysis](docs/experiments/UNUSED_AUDIT.md) sets out that requirement.
+Repeating the same known repair would add runs without answering it.
+
+## Read and contribute
+
+| To inspect | Start here |
+|---|---|
+| Measurements, failures and corrections | [Experiment records](docs/experiments/README.md) |
+| Implemented boundaries and proposed extensions | [Architecture](docs/ARCHITECTURE.md) |
+| Installation, tests and command records | [Development](docs/DEVELOPMENT.md) |
+| Exact historical sources and reproduction limits | [Research release](docs/RELEASE.md) |
+| A concrete defect or contribution | [Contribution guide](CONTRIBUTING.md) |
+
+Reports preserve the state known when they were written. The release notes
+identify subsequent corrections; the original records remain available.
 
 Licensed under [Apache-2.0](LICENSE). Copyright 2026 Daniel Wahnich.
 [Licensing scope and third-party assets](docs/LICENSING.md) distinguish the
 released source from separately obtained dependencies and policy weights.
-
-`nisayon start` reads the handoff and shared memory. `nisayon run --label NAME --
-COMMAND` records command arguments, process status, logs, hashes and wall time.
-Failed attempts remain discoverable. A completed process is not a scientific
-acceptance, and an integrity check does not prove physical truth.
 
 We let experiments overturn our explanations. We preserve failures and
 uncertainty. We accept an improvement only when fresh, valid tests support it.

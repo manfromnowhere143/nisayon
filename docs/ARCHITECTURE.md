@@ -3,13 +3,18 @@
 **Design v0.1 · 17 September 2026 · product architecture proposed.**
 
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
-fresh-confirmation service and integrated Fable evaluator run today. The
+bounded model-request interface, fresh-confirmation service and integrated
+evaluator run today. The
 [first case](experiments/LIFT_PROTOCOL_V3.md) retains a regression, correction and
 32 paired fresh development conditions. The
 [ten-case scripted comparison](experiments/MATCHED_COMPARISON.md) confirms six
-incidents in each arm without a demonstrated cost advantage. A general
-intervention compiler, adaptive selector, isolated agent interface and reserved
-screen remain targets. Their presence in a diagram is not a result.
+incidents in each arm without a demonstrated cost advantage. The
+[bounded model comparison](experiments/BOUNDED_AGENT_COMPARISON.md) also tied
+on three paired repetitions of one known incident. A general intervention
+compiler, adaptive experiment selector and reserved screen remain targets.
+The diagrams below describe that proposed architecture; the
+[README's experiment path](../README.md#how-a-correction-earns-acceptance)
+describes the implemented workflow.
 
 ## The problem we intend to own
 
@@ -32,6 +37,8 @@ the observation needed to distinguish incompatible explanations.
 
 ```mermaid
 flowchart TB
+    accTitle: Proposed Nisayon architecture
+    accDescr: A proposed compiler checks interventions before a worker executes them. A separate confirmation evaluator assesses frozen corrections. Attempts, outcomes and unresolved questions enter case history. Some components remain proposed.
     I[Versioned case<br/>Working and changed deployments] --> A[Engineer or agent<br/>Hypotheses and candidate corrections]
     Q[Qualified backend capabilities<br/>State, reset, clocks and replay] --> C
     A --> C[Experiment compiler<br/>Intervention and dependency checks]
@@ -105,6 +112,8 @@ implementation**. Partial reuse must agree with it under stated premises.
 
 ```mermaid
 sequenceDiagram
+    accTitle: Proposed intervention and confirmation sequence
+    accDescr: The compiler checks a proposed intervention, the worker executes supported plans, and the evaluator assesses a frozen correction on fresh conditions. Unsupported requests and every observed result are retained. This is the proposed architecture.
     participant Agent
     participant Compiler
     participant Worker
