@@ -77,7 +77,10 @@ measurement and an accepted repair are distinct results. The
 
 ### Check the source and retained scores
 
-With Python 3.12 and [uv](https://docs.astral.sh/uv/) installed:
+Install Python 3.12, Git, [uv](https://docs.astral.sh/uv/) and
+[ripgrep](https://github.com/BurntSushi/ripgrep#installation). Workspace search
+uses the `rg` executable. On macOS, `brew install ripgrep` supplies it; on
+Debian or Ubuntu, use `sudo apt-get install ripgrep`. Then run:
 
 ```sh
 uv sync --frozen

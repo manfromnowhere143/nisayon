@@ -7,6 +7,12 @@ reserved screen remains unrun. See the [release scope](RELEASE.md).
 
 ## Local setup
 
+Install Git, Python 3.12, uv and ripgrep (`rg`) before the Python environment.
+Workspace search calls ripgrep directly. Use `brew install ripgrep` on macOS
+or `sudo apt-get install ripgrep` on Debian/Ubuntu. CI installs this system
+prerequisite explicitly and reports its version; Python dependencies use the
+committed lockfile. Base CI checks do not install the optional simulator stack.
+
 ```sh
 uv sync --frozen
 make check
