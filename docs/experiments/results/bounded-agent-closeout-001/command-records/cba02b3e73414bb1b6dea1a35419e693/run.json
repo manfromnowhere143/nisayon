@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "cba02b3e73414bb1b6dea1a35419e693",
+  "label": "bounded-decision-schema-qualification",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.agent_diagnostics import response_schema\nfrom nisayon.engine.bounded_agent import decide\nfrom nisayon.engine.identity import code_identity\nfrom nisayon.engine.io import write_json\nout=Path(\"artifacts/bounded-schema-qualification-001\").resolve()\npublic=out/\"public\"\npublic.mkdir(parents=True,exist_ok=False)\nwrite_json(public/\"packet.json\",{\"scope\":\"synthetic response-schema qualification only; no incident data\"})\nexpected={\"action\":\"abstain\",\"repair\":None,\"run_id\":None,\"freeze_if_valid\":False,\"reason\":\"schema qualification\"}\nwrite_json(out/\"protocol.json\",{\"scope\":\"one schema qualification call before scored execution\",\"code\":code_identity(),\"calls\":1,\"simulator_runs\":0,\"timeout_s\":60,\"expected\":expected,\"expected_output_bytes_upper_bound\":300000})\nresult=decide(public,out/\"call\",response_schema(\"B\"),\"Return exactly this structured object without using tools: \"+json.dumps(expected),timeout=60)\nsummary={\"matches\":result[\"response\"]==expected,\"usage_complete\":result[\"usage_complete\"],\"result\":result}\nwrite_json(out/\"summary.json\",summary)\nprint(json.dumps({k:v for k,v in summary.items() if k!=\"result\"}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-18T08:12:12.276367+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f97aa1722966667e1de5ddcf5f261d2c605dae88",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 90.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 68628,
+  "returncode": 0,
+  "ended_at": "2026-09-18T08:12:25.896703+00:00",
+  "wall_seconds": 13.571445,
+  "logs": {
+    "stdout.log": {
+      "bytes": 42,
+      "sha256": "ed7c29c0c6f835d39353bee270daa3d898a9c2237ccd49781fccb303acbcafe9"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

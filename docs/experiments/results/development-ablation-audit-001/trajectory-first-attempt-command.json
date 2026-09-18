@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "e04e18a19a86496e8e4b79061fe2bf3f",
+  "label": "matched-physical-trajectory-comparison",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json,sys\nfrom pathlib import Path\nsys.path.insert(0,str(Path(\"scripts/experiments\").resolve()))\nfrom reproduce_clean_install import trajectory\nfrom nisayon.engine.io import digest,file_digest,write_json\nroot=Path(\"artifacts/development-ablation-001\").resolve()\nsuite=json.loads((root/\"frozen-suite.json\").read_text())\ncomparisons=[]\nbundles={}\nfor case in suite[\"cases\"]:\n for phase in (\"diagnostic\",\"confirmation\"):\n  paths={arm:root/case[\"id\"]/arm/phase/\"execution/bundle.json\" for arm in (\"A\",\"B\")}\n  if not paths[\"A\"].exists() and not paths[\"B\"].exists(): continue\n  assert paths[\"A\"].exists() and paths[\"B\"].exists(),\"Unpaired phase\"\n  paired={arm:json.loads(path.read_text()) for arm,path in paths.items()}\n  runs={arm:{r[\"id\"]:r for r in bundle[\"runs\"]} for arm,bundle in paired.items()}\n  assert set(runs[\"A\"])==set(runs[\"B\"]),\"Unpaired physical run\"\n  bundles[case[\"id\"]+\"/\"+phase]={arm:file_digest(path) for arm,path in paths.items()}\n  for key,a in runs[\"A\"].items():\n   b=runs[\"B\"][key]\n   assert a[\"condition_id\"]==b[\"condition_id\"]\n   assert a[\"deployment\"]==b[\"deployment\"]\n   da,db=digest(trajectory(a)),digest(trajectory(b))\n   comparisons.append({\"case_id\":case[\"id\"],\"phase\":phase,\"run_id\":key,\"condition_id\":a[\"condition_id\"],\"is_prefix\":bool(a.get(\"cost_parent_run_id\")),\"A_steps\":len(a[\"trace\"]),\"B_steps\":len(b[\"trace\"]),\"A_task\":a[\"task_outcome\"],\"B_task\":b[\"task_outcome\"],\"A_trajectory_sha256\":da,\"B_trajectory_sha256\":db,\"identical_measured_trajectory\":da==db})\nresult={\"schema\":\"nisayon.matched-trajectory-audit.v1\",\"scope\":\"Compare the already executed paired scripts; measured simulator state, observation, recurrent state, intended and executed actions. Host clocks and invocation identifiers excluded. No new physical execution or universal determinism claim.\",\"suite_sha256\":digest(suite),\"source_bundles\":bundles,\"physical_run_pairs\":len(comparisons),\"identical_pairs\":sum(x[\"identical_measured_trajectory\"] for x in comparisons),\"different_pairs\":sum(not x[\"identical_measured_trajectory\"] for x in comparisons),\"pairs\":comparisons}\nwrite_json(Path(\"artifacts/development-ablation-audit-002/matched-trajectories.json\"),result)\nprint(json.dumps({k:result[k] for k in [\"physical_run_pairs\",\"identical_pairs\",\"different_pairs\"]}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-18T05:53:59.994070+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f3532deddfda831a9e1ee3ff199a005646b70ef6",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 300.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 29595,
+  "returncode": 1,
+  "ended_at": "2026-09-18T05:54:00.188652+00:00",
+  "wall_seconds": 0.140773,
+  "logs": {
+    "stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.log": {
+      "bytes": 98,
+      "sha256": "b3611aaed4bc70366ec8f559bfe12eab79495274f6e8118a5152e4521f2771e8"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

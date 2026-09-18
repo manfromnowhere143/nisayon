@@ -1,0 +1,22 @@
+Decision: UNRESOLVED
+Scope: calibration probes for case 'lift-family-calibration-v1' under first-case-obligation-v0.2; no scored incident
+Case: lift-family-calibration-v1 · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=None · regression reproduced=None
+Reasons:
+  - unresolved: calibration_only: calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference                           probe      probe    seed-0    completed unresolved completed preserved satisfied satisfied
+  sign-delay-timing-only              probe      probe    seed-0    completed unresolved failed    lost      satisfied satisfied
+  sign-delay-both                     probe      probe    seed-0    completed unresolved completed preserved satisfied satisfied
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 13 files verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/policy-telemetry-unavailable-001
+Producer: nisayon.first_case.v1 · execution code 474dbdfd4ec3ed6a1114ae3b1d933e3145d6cf86
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 5.063111917 s over 3 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.

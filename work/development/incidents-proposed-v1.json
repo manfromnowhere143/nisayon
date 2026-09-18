@@ -1,0 +1,78 @@
+{
+  "schema": "nisayon.development-suite.v1",
+  "status": "proposed_before_scored_execution",
+  "source_calibration": "docs/experiments/results/family-calibration-001/calibration-results.json",
+  "calibration_integrity_correction": "docs/experiments/results/family-calibration-001/verification.json",
+  "solver_kind": "deterministic_development_ablation_not_agent_trial",
+  "diagnostic_budget_per_arm": {"max_rollouts": 64, "max_wall_seconds": 1800, "max_final_candidates": 1},
+  "confirmation_obligation": {"paired_conditions": 32, "post_freeze_reproduction": true, "retain_every_assigned_outcome": true},
+  "shared_information": ["working_and_changed_configuration", "intended_and_executed_actions", "acquisition_and_action_clocks", "available_reset_evidence", "known_inverse_and_reset_remedies"],
+  "limits": [
+    "Case authoring and solver share development knowledge; no blinding or customer incident prevalence is claimed.",
+    "Calibration predictions are hypotheses; scored observations and the independent-of-selection evaluator decide outcomes.",
+    "An unsuccessful injection remains an assigned unsupported case; it is not replaced to improve the denominator.",
+    "Both arms receive the same final checker, repair space, available observations and budgets.",
+    "No adaptive arm is justified before A/B results expose a resolvable selection ambiguity."
+  ],
+  "cases": [
+    {
+      "id": "D01-gripper-sign", "family": "action_interpretation", "intended_class": "repairable",
+      "episode_seed": 0, "changed": {"transport_gripper_sign": -1},
+      "mechanism": "The changed transport reverses the gripper component."
+    },
+    {
+      "id": "D02-cartesian-axis", "family": "action_interpretation", "intended_class": "repairable",
+      "episode_seed": 0, "changed": {"transport_translation_order": [2, 1, 0]},
+      "mechanism": "The changed transport exchanges Cartesian x and z."
+    },
+    {
+      "id": "D03-observation-backlog", "family": "observation_timing", "intended_class": "repairable_timing",
+      "episode_seed": 0, "changed": {"observation_delay_steps": 3},
+      "mechanism": "The consumer uses the packet from three control steps earlier.",
+      "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+    },
+    {
+      "id": "D04-observation-hold", "family": "observation_timing", "intended_class": "repairable_timing",
+      "episode_seed": 0, "changed": {"observation_stride_steps": 5},
+      "mechanism": "The consumer holds each selected observation across five acquisitions.",
+      "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+    },
+    {
+      "id": "D05-recurrent-carry", "family": "policy_reset", "intended_class": "repairable",
+      "episode_seed": 0, "prefix": {"seed": 10, "steps": 21},
+      "changed": {"policy_reset": "carry_prefix"},
+      "mechanism": "Plant/controller reset after an executed prefix, but recurrent policy state carries into the new episode."
+    },
+    {
+      "id": "D06-stateless-inference", "family": "policy_reset", "intended_class": "fault_injection_may_be_unsupported",
+      "episode_seed": 0, "changed": {"policy_reset": "every_action"},
+      "mechanism": "The integration clears learned recurrence before every inference.",
+      "calibration_limit": "This did not cause task failure in calibration. Retain an unsupported result if it again meets every scored task obligation."
+    },
+    {
+      "id": "D07-sign-and-backlog", "family": "interaction", "intended_class": "repairable",
+      "episode_seed": 0, "changed": {"transport_gripper_sign": -1, "observation_delay_steps": 3},
+      "mechanism": "Sign correction alone leaves a timing violation; timing correction alone leaves the task failure.",
+      "diagnostics": "Explicit single-change and combined probes; no logarithmic bisection claim for interacting changes."
+    },
+    {
+      "id": "D08-old-future-replay", "family": "invalid_experiment_control", "intended_class": "invalid",
+      "episode_seed": 0, "changed": {"transport_gripper_sign": -1},
+      "control": "Fable derives an action-changing replay from the case's measured regression; retain its recorded future observations.",
+      "origin": "Derived invalid control over real source execution; the derived record is not a simulator measurement."
+    },
+    {
+      "id": "D09-action-suppression", "family": "progress_loss_trap", "intended_class": "repairable_with_invalid_proposed_fix",
+      "episode_seed": 0, "changed": {"transport_gripper_sign": -1},
+      "proposed_control": {"suppress_actions": true},
+      "mechanism": "An installable zero-action proposal destroys task progress; the legitimate sign remedy remains available to both arms."
+    },
+    {
+      "id": "D10-opaque-policy-state", "family": "insufficient_observations", "intended_class": "unresolved",
+      "episode_seed": 0, "changed": {"transport_gripper_sign": -1},
+      "telemetry_profile": "policy_state_unavailable",
+      "mechanism": "Actions and simulator outcomes remain measured, but the inference boundary does not export the recurrent-state evidence required by the reset obligation.",
+      "limit": "An explicit development observability control shared by both arms, not a claim that the local simulator makes such telemetry impossible. The scored repair space does not expand the frozen observation interface."
+    }
+  ]
+}

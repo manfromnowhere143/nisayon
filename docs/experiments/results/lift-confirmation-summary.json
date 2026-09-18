@@ -1,0 +1,1442 @@
+{
+  "schema": "nisayon.first_case.summary.v1",
+  "evidence_origin": "simulator",
+  "execution_commit": "4dcd60aa34b3b911ef904dda2d452c98c52c0ea1",
+  "case_id": "lift-gripper-sign-v1",
+  "confirmation": {
+    "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+    "frozen_at": "2026-09-17T20:20:37.985471+00:00",
+    "protocol_sha256": "01eb7fda5871ec51a3e78bcd98b3594202e9d2d283e6e337356606dbbd59a890",
+    "condition_ids": [
+      "seed-1000",
+      "seed-1001",
+      "seed-1002",
+      "seed-1003",
+      "seed-1004",
+      "seed-1005",
+      "seed-1006",
+      "seed-1007",
+      "seed-1008",
+      "seed-1009",
+      "seed-1010",
+      "seed-1011",
+      "seed-1012",
+      "seed-1013",
+      "seed-1014",
+      "seed-1015",
+      "seed-1016",
+      "seed-1017",
+      "seed-1018",
+      "seed-1019",
+      "seed-1020",
+      "seed-1021",
+      "seed-1022",
+      "seed-1023",
+      "seed-1024",
+      "seed-1025",
+      "seed-1026",
+      "seed-1027",
+      "seed-1028",
+      "seed-1029",
+      "seed-1030",
+      "seed-1031"
+    ],
+    "reference_run_ids": [
+      "confirmation-reference-1000",
+      "confirmation-reference-1001",
+      "confirmation-reference-1002",
+      "confirmation-reference-1003",
+      "confirmation-reference-1004",
+      "confirmation-reference-1005",
+      "confirmation-reference-1006",
+      "confirmation-reference-1007",
+      "confirmation-reference-1008",
+      "confirmation-reference-1009",
+      "confirmation-reference-1010",
+      "confirmation-reference-1011",
+      "confirmation-reference-1012",
+      "confirmation-reference-1013",
+      "confirmation-reference-1014",
+      "confirmation-reference-1015",
+      "confirmation-reference-1016",
+      "confirmation-reference-1017",
+      "confirmation-reference-1018",
+      "confirmation-reference-1019",
+      "confirmation-reference-1020",
+      "confirmation-reference-1021",
+      "confirmation-reference-1022",
+      "confirmation-reference-1023",
+      "confirmation-reference-1024",
+      "confirmation-reference-1025",
+      "confirmation-reference-1026",
+      "confirmation-reference-1027",
+      "confirmation-reference-1028",
+      "confirmation-reference-1029",
+      "confirmation-reference-1030",
+      "confirmation-reference-1031"
+    ],
+    "candidate_run_ids": [
+      "confirmation-correction-1000",
+      "confirmation-correction-1001",
+      "confirmation-correction-1002",
+      "confirmation-correction-1003",
+      "confirmation-correction-1004",
+      "confirmation-correction-1005",
+      "confirmation-correction-1006",
+      "confirmation-correction-1007",
+      "confirmation-correction-1008",
+      "confirmation-correction-1009",
+      "confirmation-correction-1010",
+      "confirmation-correction-1011",
+      "confirmation-correction-1012",
+      "confirmation-correction-1013",
+      "confirmation-correction-1014",
+      "confirmation-correction-1015",
+      "confirmation-correction-1016",
+      "confirmation-correction-1017",
+      "confirmation-correction-1018",
+      "confirmation-correction-1019",
+      "confirmation-correction-1020",
+      "confirmation-correction-1021",
+      "confirmation-correction-1022",
+      "confirmation-correction-1023",
+      "confirmation-correction-1024",
+      "confirmation-correction-1025",
+      "confirmation-correction-1026",
+      "confirmation-correction-1027",
+      "confirmation-correction-1028",
+      "confirmation-correction-1029",
+      "confirmation-correction-1030",
+      "confirmation-correction-1031"
+    ],
+    "contamination": []
+  },
+  "qualification": {
+    "reset": "new robosuite environment and controller; reset policy, Python/NumPy/Torch RNGs",
+    "captured_state": [
+      "qpos",
+      "qvel",
+      "act",
+      "ctrl",
+      "qacc_warmstart",
+      "mocap",
+      "userdata",
+      "controller goals and gains",
+      "gripper command",
+      "policy LSTM state and counter",
+      "reset RNGs",
+      "model XML"
+    ],
+    "omitted_state": [
+      "MuJoCo internal solver caches",
+      "all observable internal buffers",
+      "full controller object",
+      "OS scheduling",
+      "hardware floating point state"
+    ],
+    "continuation_supported": false,
+    "clocks": {
+      "simulation": "MuJoCo data.time, s",
+      "host": "perf_counter, s"
+    },
+    "action_boundary": "normalized seven-dimensional env.step input; final actuator ctrl retained",
+    "queue": "none; one action per observation, recurrent BC-RNN horizon 10",
+    "replay_comparison": {
+      "run_ids": [
+        "reference-0-a",
+        "reference-0-b"
+      ],
+      "condition_id": "seed-0",
+      "lengths": [
+        44,
+        44
+      ],
+      "initial_state_equal": true,
+      "different_steps_by_field": {
+        "state_before_sha256": 0,
+        "state_after_sha256": 0,
+        "observation_sha256": 0,
+        "next_observation_sha256": 0,
+        "policy_state_sha256": 0,
+        "executed_action": 0
+      },
+      "comparison": "exact serialized values",
+      "processes_completed": true
+    },
+    "scope": "measured repeated full resets on this pinned host; no universal determinism claim"
+  },
+  "runs": [
+    {
+      "id": "reference-0-a",
+      "condition_id": "seed-0",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 1.6044230409897864,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8442316362192643
+    },
+    {
+      "id": "reference-0-b",
+      "condition_id": "seed-0",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7041069578845054,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8442316362192643
+    },
+    {
+      "id": "regression-0",
+      "condition_id": "seed-0",
+      "plan_id": "regression",
+      "candidate_sha256": "7f2d7fb93ab5131118971b1fa793526c8e0bd1e9c81bfc6a7687a4fc94afd76f",
+      "process_status": "completed",
+      "task_outcome": "failed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 4.232266749953851,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 400,
+      "peak_cube_height_m": 0.8213408026614656
+    },
+    {
+      "id": "correction-0",
+      "condition_id": "seed-0",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6978575419634581,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8442316362192643
+    },
+    {
+      "id": "suppression-0",
+      "condition_id": "seed-0",
+      "plan_id": "suppression",
+      "candidate_sha256": "fefd14e896410ae29e315d42033b89957e1bbf7431f91ba7c413bc7c8e73418a",
+      "process_status": "completed",
+      "task_outcome": "failed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 4.22177404188551,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 400,
+      "peak_cube_height_m": 0.8213408026614656
+    },
+    {
+      "id": "confirmation-reference-1000",
+      "condition_id": "seed-1000",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7468921670224518,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.8411210340162223
+    },
+    {
+      "id": "confirmation-correction-1000",
+      "condition_id": "seed-1000",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7172705829143524,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.8411210340162223
+    },
+    {
+      "id": "confirmation-reference-1001",
+      "condition_id": "seed-1001",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.712987249949947,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.8403164738261092
+    },
+    {
+      "id": "confirmation-correction-1001",
+      "condition_id": "seed-1001",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6886250409297645,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.8403164738261092
+    },
+    {
+      "id": "confirmation-reference-1002",
+      "condition_id": "seed-1002",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 1.6439595841802657,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 136,
+      "peak_cube_height_m": 0.8415365145373548
+    },
+    {
+      "id": "confirmation-correction-1002",
+      "condition_id": "seed-1002",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 1.617105333134532,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 136,
+      "peak_cube_height_m": 0.8415365145373548
+    },
+    {
+      "id": "confirmation-reference-1003",
+      "condition_id": "seed-1003",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6639350829645991,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8502787148395823
+    },
+    {
+      "id": "confirmation-correction-1003",
+      "condition_id": "seed-1003",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6739719579927623,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8502787148395823
+    },
+    {
+      "id": "confirmation-reference-1004",
+      "condition_id": "seed-1004",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7369550419971347,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8428048521099202
+    },
+    {
+      "id": "confirmation-correction-1004",
+      "condition_id": "seed-1004",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7451786249876022,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8428048521099202
+    },
+    {
+      "id": "confirmation-reference-1005",
+      "condition_id": "seed-1005",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6764882910065353,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8428973446164642
+    },
+    {
+      "id": "confirmation-correction-1005",
+      "condition_id": "seed-1005",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6939984168857336,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8428973446164642
+    },
+    {
+      "id": "confirmation-reference-1006",
+      "condition_id": "seed-1006",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6523029999807477,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 42,
+      "peak_cube_height_m": 0.8439878660460928
+    },
+    {
+      "id": "confirmation-correction-1006",
+      "condition_id": "seed-1006",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6897682920098305,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 42,
+      "peak_cube_height_m": 0.8439878660460928
+    },
+    {
+      "id": "confirmation-reference-1007",
+      "condition_id": "seed-1007",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.8747000000439584,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 59,
+      "peak_cube_height_m": 0.8402541440913395
+    },
+    {
+      "id": "confirmation-correction-1007",
+      "condition_id": "seed-1007",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.8739032498560846,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 59,
+      "peak_cube_height_m": 0.8402541440913395
+    },
+    {
+      "id": "confirmation-reference-1008",
+      "condition_id": "seed-1008",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6436944580636919,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 37,
+      "peak_cube_height_m": 0.8401784035296982
+    },
+    {
+      "id": "confirmation-correction-1008",
+      "condition_id": "seed-1008",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6428014580160379,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 37,
+      "peak_cube_height_m": 0.8401784035296982
+    },
+    {
+      "id": "confirmation-reference-1009",
+      "condition_id": "seed-1009",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6857734590303153,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 41,
+      "peak_cube_height_m": 0.8432475081216918
+    },
+    {
+      "id": "confirmation-correction-1009",
+      "condition_id": "seed-1009",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6864017911721021,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 41,
+      "peak_cube_height_m": 0.8432475081216918
+    },
+    {
+      "id": "confirmation-reference-1010",
+      "condition_id": "seed-1010",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6776154998224229,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8467864464825657
+    },
+    {
+      "id": "confirmation-correction-1010",
+      "condition_id": "seed-1010",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6731607499532402,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8467864464825657
+    },
+    {
+      "id": "confirmation-reference-1011",
+      "condition_id": "seed-1011",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6895420830696821,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 41,
+      "peak_cube_height_m": 0.8505975579307383
+    },
+    {
+      "id": "confirmation-correction-1011",
+      "condition_id": "seed-1011",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6834069159813225,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 41,
+      "peak_cube_height_m": 0.8505975579307383
+    },
+    {
+      "id": "confirmation-reference-1012",
+      "condition_id": "seed-1012",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6751269169617444,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 38,
+      "peak_cube_height_m": 0.849578873513497
+    },
+    {
+      "id": "confirmation-correction-1012",
+      "condition_id": "seed-1012",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6343882908113301,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 38,
+      "peak_cube_height_m": 0.849578873513497
+    },
+    {
+      "id": "confirmation-reference-1013",
+      "condition_id": "seed-1013",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7216971670277417,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.842756412118485
+    },
+    {
+      "id": "confirmation-correction-1013",
+      "condition_id": "seed-1013",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7331548330839723,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.842756412118485
+    },
+    {
+      "id": "confirmation-reference-1014",
+      "condition_id": "seed-1014",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7816459168680012,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 49,
+      "peak_cube_height_m": 0.8439323607194621
+    },
+    {
+      "id": "confirmation-correction-1014",
+      "condition_id": "seed-1014",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7726588749792427,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 49,
+      "peak_cube_height_m": 0.8439323607194621
+    },
+    {
+      "id": "confirmation-reference-1015",
+      "condition_id": "seed-1015",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7534446660429239,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8451076210318612
+    },
+    {
+      "id": "confirmation-correction-1015",
+      "condition_id": "seed-1015",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7665109590161592,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8451076210318612
+    },
+    {
+      "id": "confirmation-reference-1016",
+      "condition_id": "seed-1016",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7268311660736799,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.846268277553161
+    },
+    {
+      "id": "confirmation-correction-1016",
+      "condition_id": "seed-1016",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7056226660497487,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.846268277553161
+    },
+    {
+      "id": "confirmation-reference-1017",
+      "condition_id": "seed-1017",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.682645499939099,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8417328055409746
+    },
+    {
+      "id": "confirmation-correction-1017",
+      "condition_id": "seed-1017",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6663997501600534,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8417328055409746
+    },
+    {
+      "id": "confirmation-reference-1018",
+      "condition_id": "seed-1018",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7689590000081807,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8405856827453354
+    },
+    {
+      "id": "confirmation-correction-1018",
+      "condition_id": "seed-1018",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7073088751640171,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 47,
+      "peak_cube_height_m": 0.8405856827453354
+    },
+    {
+      "id": "confirmation-reference-1019",
+      "condition_id": "seed-1019",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7072225830052048,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.8469665118323835
+    },
+    {
+      "id": "confirmation-correction-1019",
+      "condition_id": "seed-1019",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7073047088924795,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.8469665118323835
+    },
+    {
+      "id": "confirmation-reference-1020",
+      "condition_id": "seed-1020",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6427425830624998,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 37,
+      "peak_cube_height_m": 0.8420030666471052
+    },
+    {
+      "id": "confirmation-correction-1020",
+      "condition_id": "seed-1020",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6471505828667432,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 37,
+      "peak_cube_height_m": 0.8420030666471052
+    },
+    {
+      "id": "confirmation-reference-1021",
+      "condition_id": "seed-1021",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6706018750555813,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8466174957378937
+    },
+    {
+      "id": "confirmation-correction-1021",
+      "condition_id": "seed-1021",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6573939591180533,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8466174957378937
+    },
+    {
+      "id": "confirmation-reference-1022",
+      "condition_id": "seed-1022",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.787591541884467,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 49,
+      "peak_cube_height_m": 0.8448214922947964
+    },
+    {
+      "id": "confirmation-correction-1022",
+      "condition_id": "seed-1022",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7771939160302281,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 49,
+      "peak_cube_height_m": 0.8448214922947964
+    },
+    {
+      "id": "confirmation-reference-1023",
+      "condition_id": "seed-1023",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6775048340205103,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8500481366300061
+    },
+    {
+      "id": "confirmation-correction-1023",
+      "condition_id": "seed-1023",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6674880830105394,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.8500481366300061
+    },
+    {
+      "id": "confirmation-reference-1024",
+      "condition_id": "seed-1024",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7030573331285268,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8416696863502062
+    },
+    {
+      "id": "confirmation-correction-1024",
+      "condition_id": "seed-1024",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7273335419595242,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8416696863502062
+    },
+    {
+      "id": "confirmation-reference-1025",
+      "condition_id": "seed-1025",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7037512499373406,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 42,
+      "peak_cube_height_m": 0.8401997833589303
+    },
+    {
+      "id": "confirmation-correction-1025",
+      "condition_id": "seed-1025",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7049748748540878,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 42,
+      "peak_cube_height_m": 0.8401997833589303
+    },
+    {
+      "id": "confirmation-reference-1026",
+      "condition_id": "seed-1026",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6755479169078171,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8428180863805348
+    },
+    {
+      "id": "confirmation-correction-1026",
+      "condition_id": "seed-1026",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.661022000014782,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 39,
+      "peak_cube_height_m": 0.8428180863805348
+    },
+    {
+      "id": "confirmation-reference-1027",
+      "condition_id": "seed-1027",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7264083749614656,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8489973898300666
+    },
+    {
+      "id": "confirmation-correction-1027",
+      "condition_id": "seed-1027",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7220821250230074,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8489973898300666
+    },
+    {
+      "id": "confirmation-reference-1028",
+      "condition_id": "seed-1028",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7159050840418786,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.8491090240069435
+    },
+    {
+      "id": "confirmation-correction-1028",
+      "condition_id": "seed-1028",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7368480840232223,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 45,
+      "peak_cube_height_m": 0.8491090240069435
+    },
+    {
+      "id": "confirmation-reference-1029",
+      "condition_id": "seed-1029",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7141195409931242,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.847994910873531
+    },
+    {
+      "id": "confirmation-correction-1029",
+      "condition_id": "seed-1029",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.7237252502236515,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 43,
+      "peak_cube_height_m": 0.847994910873531
+    },
+    {
+      "id": "confirmation-reference-1030",
+      "condition_id": "seed-1030",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6730148340575397,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.844670705081633
+    },
+    {
+      "id": "confirmation-correction-1030",
+      "condition_id": "seed-1030",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.6957627921365201,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 40,
+      "peak_cube_height_m": 0.844670705081633
+    },
+    {
+      "id": "confirmation-reference-1031",
+      "condition_id": "seed-1031",
+      "plan_id": "reference",
+      "candidate_sha256": "909d07b7ae5979c5ef7781ca0d556408c23659e0c9433f163f72b3ff20175847",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.8569568330422044,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8454187753791442
+    },
+    {
+      "id": "confirmation-correction-1031",
+      "condition_id": "seed-1031",
+      "plan_id": "correction",
+      "candidate_sha256": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "costs": [
+        {
+          "category": "reset_rollout_trace_write",
+          "value": 0.858146624872461,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "steps": 44,
+      "peak_cube_height_m": 0.8454187753791442
+    }
+  ],
+  "artifact_root": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-confirmation-001",
+  "full_bundle_file": "lift-confirmation.bundle.json.gz",
+  "full_bundle_sha256": "62c46cbd64973b8e7ada677088491b0e7c372cac4f6af6a653e31ac77b57cb23",
+  "costs": [
+    {
+      "category": "this_invocation_wall",
+      "value": 61.563479041913524,
+      "unit": "s",
+      "missing_reason": null
+    },
+    {
+      "category": "human_preparation_and_review",
+      "value": null,
+      "unit": "s",
+      "missing_reason": "not instrumented; command ledger is separate"
+    },
+    {
+      "category": "agent_tokens",
+      "value": null,
+      "unit": "tokens",
+      "missing_reason": "provider accounting unavailable"
+    },
+    {
+      "category": "monetary_cost",
+      "value": null,
+      "unit": "USD",
+      "missing_reason": "provider charges and local compute cost not measured"
+    }
+  ],
+  "evaluation_status": "pending Fable evaluator; no joint acceptance"
+}

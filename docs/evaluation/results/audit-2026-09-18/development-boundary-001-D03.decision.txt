@@ -1,0 +1,27 @@
+Decision: UNRESOLVED
+Scope: case 'D03-observation-backlog-B' under first-case-obligation-v0.2; no frozen candidate confirmed
+Case: D03-observation-backlog-B · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=True · regression reproduced=True
+Reasons:
+  - unresolved: confirmation_missing: no confirmation record: the candidate has not been frozen and confirmed on fresh conditions
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference-0                         reference  working  seed-0    completed valid      completed preserved satisfied satisfied
+  regression-0                        regression changed  seed-0    completed valid      completed preserved satisfied violated
+  correction-exploration-0            candidate  changed  seed-0    completed valid      completed preserved satisfied satisfied
+Candidates:
+  correction    unconfirmed 62b0c6cda95a8cf6931  runs 1
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 21 files verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/development-boundary-001/D03-observation-backlog/execution
+  - qualification_repeat: runs 'reference-0' and 'correction-exploration-0' repeat deployment 62b0c6cda95a on seed-0 with identical recorded state, observation, recurrent-state and action sequences over 44 steps
+Producer: nisayon.first_case.v1 · execution code 226496e8238af9bd323cabcdfc44952dd93a80b2
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 3.31245875 s over 3 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.
+  - State declared as not captured: MuJoCo internal solver caches; all observable internal buffers; full controller object; OS scheduling; hardware floating point state.
+  - Intervention runs are valid under the recorded reset and provenance premises only.

@@ -1,0 +1,60 @@
+{
+  "schema": "nisayon.comparison.score.v1",
+  "fair": true,
+  "solver_kind": "scripted_development_ablation",
+  "suite": {
+    "id": "labelled_missing_decision_probe",
+    "obligation": null,
+    "evaluator_commit": null,
+    "solver_kind": "scripted_development_ablation"
+  },
+  "arms": {
+    "A": {
+      "kind": "scripted",
+      "validity_layer": false,
+      "selection": "fixed",
+      "agent": null,
+      "assigned_cases": 1,
+      "outcomes": {
+        "confirmed": 1,
+        "invalid": 0,
+        "not_attempted": 0,
+        "rejected": 0,
+        "timeout": 0,
+        "unresolved": 0,
+        "unsupported": 0
+      },
+      "confirmed_by_family": {
+        "boundary_probe": 1
+      },
+      "false_acceptances": 0,
+      "invalid_proposals_rejected_before_execution": 0,
+      "executed_proposals": 0,
+      "diagnostic_rollouts": 0,
+      "confirmation_rollouts": 0,
+      "rollouts": 0,
+      "retries": 0,
+      "costs": {},
+      "known_cost_per_confirmed_correction": {},
+      "cumulative_simulator_wall_s": null,
+      "elapsed_wall_s": null,
+      "trials_with_timeline": 0
+    }
+  },
+  "cases": {
+    "synthetic-missing-decision": {
+      "family": "boundary_probe",
+      "intended_class": "repairable",
+      "outcomes": {
+        "A": "confirmed"
+      }
+    }
+  },
+  "findings": [],
+  "limits": [
+    "The scorer computes no ratio between arms; unknown cost components stay unknown.",
+    "Cost per confirmed correction is undefined when nothing is confirmed.",
+    "Cumulative simulator wall and elapsed wall are different quantities.",
+    "A scripted development ablation is not an agent comparison."
+  ]
+}

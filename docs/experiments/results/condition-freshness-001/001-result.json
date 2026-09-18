@@ -1,0 +1,59 @@
+{
+  "schema": "nisayon.condition-freshness-reproduction.v1",
+  "revision": "b4f7420e6de0c82d0f21f8917cc3160907379157",
+  "check_script_sha256": "0e58592f75738303ee53f65875e87fd02c471c265b5c59538b6c3da64517200c",
+  "known_consumed_seed_range": [
+    3000,
+    3031
+  ],
+  "simulator_runs": 0,
+  "records": [
+    {
+      "checkout_kind": "shared_git_worktree",
+      "revision": "b4f7420e6de0c82d0f21f8917cc3160907379157",
+      "loaded_root_verified": false,
+      "committed_history_sha256": "9eb82948c326b4fa41050418ffb18b257153c7ebcb98f6097cd2123695ce6b19",
+      "local_reservations_present_before": false,
+      "returncode": 2,
+      "stdout": "ROOT=/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-condition-check-mlxn4_at/worktree\n",
+      "stderr": "usage: -c [-h] --output OUTPUT [--assets ASSETS] [--explore-only]\n          [--confirmation-start CONFIRMATION_START]\n-c: error: Requested confirmation includes previously observed development conditions\n",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-c",
+        "from nisayon.engine.identity import project_root; print('ROOT=' + str(project_root()), flush=True); from nisayon.engine.first_case import main; main()",
+        "--output",
+        "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-condition-check-mlxn4_at/shared_git_worktree-must-not-exist",
+        "--confirmation-start",
+        "3000"
+      ],
+      "wall_s": 0.07753887493163347,
+      "output_directory_created": false,
+      "rejected_before_execution": true
+    },
+    {
+      "checkout_kind": "independent_clone",
+      "revision": "b4f7420e6de0c82d0f21f8917cc3160907379157",
+      "loaded_root_verified": false,
+      "committed_history_sha256": "9eb82948c326b4fa41050418ffb18b257153c7ebcb98f6097cd2123695ce6b19",
+      "local_reservations_present_before": false,
+      "returncode": 2,
+      "stdout": "ROOT=/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-condition-check-mlxn4_at/clone\n",
+      "stderr": "usage: -c [-h] --output OUTPUT [--assets ASSETS] [--explore-only]\n          [--confirmation-start CONFIRMATION_START]\n-c: error: Requested confirmation includes previously observed development conditions\n",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-c",
+        "from nisayon.engine.identity import project_root; print('ROOT=' + str(project_root()), flush=True); from nisayon.engine.first_case import main; main()",
+        "--output",
+        "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-condition-check-mlxn4_at/independent_clone-must-not-exist",
+        "--confirmation-start",
+        "3000"
+      ],
+      "wall_s": 0.07941812509670854,
+      "output_directory_created": false,
+      "rejected_before_execution": true
+    }
+  ],
+  "all_rejected": false,
+  "wall_s": 1.326810291968286,
+  "scope": "Actual first-case entry point, no local reservation records, known public development conditions. No new confirmation or custody claim."
+}

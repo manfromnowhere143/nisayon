@@ -1,0 +1,50 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+157 files already formatted
+uv run --frozen pytest
+........................................................................ [ 20%]
+........................................................................ [ 40%]
+....................F................................................... [ 61%]
+........................................................................ [ 81%]
+................................................................         [100%]
+=================================== FAILURES ===================================
+___________ test_consumed_seeds_agree_with_the_execution_lane_ledger ___________
+
+    @pytest.mark.skipif(not LEDGER.is_file(), reason="consumed-conditions ledger absent")
+    def test_consumed_seeds_agree_with_the_execution_lane_ledger():
+        mine: set[int] = set()
+        for path in AUDIT.glob("*.decision.json"):
+            decision = json.loads(path.read_text())
+            policy = (decision.get("task") or {}).get("policy_sha256")
+            if policy not in (None, POLICY):
+                continue
+            conditions = {r.get("condition_id") for r in (decision.get("runs") or {}).values()}
+            confirmation = decision.get("confirmation") or {}
+            conditions |= set(confirmation.get("fresh_condition_ids") or [])
+            conditions |= set(confirmation.get("reproduction_condition_ids") or [])
+            for condition in conditions:
+                for seed in re.findall(r"seed-(\d+)", str(condition)):
+                    mine.add(int(seed))
+        theirs: set[int] = set()
+        for entry in json.loads(LEDGER.read_text())["entries"]:
+            if str(entry.get("namespace", "")).endswith(POLICY):
+                theirs.update(int(seed) for seed in entry.get("seeds", []))
+        assert mine and theirs
+>       assert mine == theirs, (sorted(mine - theirs)[:10], sorted(theirs - mine)[:10])
+E       AssertionError: ([], [10000, 10001, 10002, 10003, 10004, 10005, ...])
+E       assert {0, 10, 11, 1...01, 1002, ...} == {0, 10, 11, 1...01, 1002, ...}
+E         
+E         Extra items in the right set:
+E         10300
+E         10301
+E         10302
+E         10303
+E         10304...
+E         
+E         ...Full output truncated (316 lines hidden), use '-vv' to show
+
+tests/evaluation/test_evaluation_cross_lane.py:96: AssertionError
+=========================== short test summary info ============================
+FAILED tests/evaluation/test_evaluation_cross_lane.py::test_consumed_seeds_agree_with_the_execution_lane_ledger
+1 failed, 351 passed in 162.89s (0:02:42)

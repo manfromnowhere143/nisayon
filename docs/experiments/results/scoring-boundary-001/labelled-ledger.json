@@ -1,0 +1,55 @@
+{
+  "schema": "nisayon.comparison.v1",
+  "suite": {
+    "id": "labelled_missing_decision_probe",
+    "solver_kind": "scripted_development_ablation"
+  },
+  "cases": [
+    {
+      "id": "synthetic-missing-decision",
+      "family": "boundary_probe",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800
+      },
+      "frozen": {
+        "label": "labelled missing decision boundary probe"
+      }
+    }
+  ],
+  "arms": [
+    {
+      "id": "A",
+      "kind": "scripted",
+      "validity_layer": false,
+      "selection": "fixed",
+      "agent": null
+    }
+  ],
+  "trials": [
+    {
+      "arm": "A",
+      "case_id": "synthetic-missing-decision",
+      "status": "confirmed",
+      "received_frozen_sha256": "sha256:3ca11089fc414b4f8be9f1323443b53e3c0379817a023e02aa5e81f8a5470b22",
+      "decision": {
+        "path": "deliberately-absent-decision.json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "decision": "accepted",
+        "candidate_digest": "synthetic-candidate"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "synthetic-candidate",
+          "executed": false,
+          "rejected_before_execution": false
+        }
+      ],
+      "diagnostic_rollouts": 0,
+      "confirmation_rollouts": 0,
+      "costs": {}
+    }
+  ]
+}

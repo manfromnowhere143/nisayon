@@ -1,0 +1,48 @@
+{
+  "schema": "nisayon.screen.package_check.v1",
+  "package_schema": "nisayon.screen.execution-package.v1",
+  "package_frozen_at": "2026-09-18T05:44:20.429723+00:00",
+  "package_git_head": "f0f1f57e9471d7b1e202a8f9c908f01bc57977d5",
+  "obligation": "first-case-obligation-v0.2",
+  "evaluator_files_bound": 20,
+  "evaluator_files_changed": [
+    "src/nisayon/evaluation/decision.py",
+    "src/nisayon/evaluation/first_case.py",
+    "src/nisayon/evaluation/scoring.py"
+  ],
+  "evaluator_files_missing": [],
+  "evaluator_files_unlisted": [],
+  "ready_for_reserved_screen": false,
+  "findings": [
+    {
+      "code": "evaluator_sources_stale",
+      "detail": "the evaluator in this checkout is not the one the package froze at 2026-09-18T05:44:20.429723+00:00 (git head f0f1f57e9471d7b1e202a8f9c908f01bc57977d5): 3 changed, 0 missing, 0 unlisted; re-freeze the package before any reserved screen",
+      "blocking": true
+    },
+    {
+      "code": "ceiling_unset",
+      "detail": "agent_token_ceiling is unset; equal measured budgets are required",
+      "blocking": true
+    },
+    {
+      "code": "ceiling_unset",
+      "detail": "monetary_ceiling is unset; equal measured budgets are required",
+      "blocking": true
+    },
+    {
+      "code": "capability_missing",
+      "detail": "capabilities.matched_isolated_agent_provider is absent; the screen is unrun",
+      "blocking": true
+    },
+    {
+      "code": "capability_missing",
+      "detail": "capabilities.reserved_custody_boundary is absent; the screen is unrun",
+      "blocking": true
+    }
+  ],
+  "limits": [
+    "A package that passes binds the evaluator in this checkout; it says nothing about custody of reserved cases, which no record can establish.",
+    "Unset ceilings and missing capabilities are what the package itself declares; the check cannot see an isolated provider that the package does not name.",
+    "Source digests cover the files the package lists plus the evaluator directory in this checkout; installed dependencies are compared only when the package lists them by digest and this checkout can read the same records."
+  ]
+}

@@ -1,0 +1,1392 @@
+{
+  "schema": "nisayon.execution.costs.v2",
+  "recorded_at": "2026-09-17T22:37:58.671413+00:00",
+  "scope": "All retained execution-lane command records, including preparation and failures",
+  "command_records": [
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7dade053b93342eb84eefebc5f113292",
+      "label": "simulation-dependencies",
+      "command": [
+        "uv",
+        "add",
+        "--optional",
+        "simulation",
+        "robosuite==1.4.1",
+        "robomimic==0.3.0",
+        "mujoco==3.2.7",
+        "torch==2.5.1",
+        "torchvision==0.20.1",
+        "numpy==1.26.4",
+        "numba==0.61.2",
+        "scipy==1.13.1",
+        "opencv-python==4.10.0.84"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:04:23.189653+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "b94aef272b6145d221e8545eedf474c32a4012e4",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "pid": 13543,
+      "returncode": 1,
+      "ended_at": "2026-09-17T20:04:30.885019+00:00",
+      "wall_seconds": 7.658049,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 26123,
+          "sha256": "bc6293341a4cae0ad75cd3de957b80cadf5c75ac7837eb9464c717540c85ecb9"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "e18f8191243b44c08dfdcc7ed8a0ac29",
+      "label": "download-lift-policy",
+      "command": [
+        "curl",
+        "--fail",
+        "--location",
+        "--retry",
+        "2",
+        "--output",
+        "artifacts/assets/lift_ph_low_dim_epoch_1000_succ_100.pth",
+        "https://downloads.cs.stanford.edu/downloads/rt_benchmark/model_zoo/lift/bc_rnn/lift_ph_low_dim_epoch_1000_succ_100.pth"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:05:30.324918+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f53cbaa9dce7ffa556ddec676a83ad5b8415eeab",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 16949,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:05:40.012645+00:00",
+      "wall_seconds": 9.6556,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 1107,
+          "sha256": "6a88f918e65389ae76df3f7a2ffb1e554117d8d4650f634ffdd50a5264d33aa9"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "467a34274aa04cf69c46de29be6d3aac",
+      "label": "simulation-dependencies-retry",
+      "command": [
+        "uv",
+        "add",
+        "--optional",
+        "simulation",
+        "robosuite==1.4.1",
+        "robomimic==0.3.0",
+        "mujoco==3.2.7",
+        "torch==2.5.1",
+        "torchvision==0.20.1",
+        "numpy==1.26.4",
+        "numba==0.61.2",
+        "scipy==1.13.1",
+        "opencv-python==4.10.0.84"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:06:13.770558+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f53cbaa9dce7ffa556ddec676a83ad5b8415eeab",
+        "changes": [
+          "M pyproject.toml"
+        ],
+        "diff_stat": "pyproject.toml | 5 +++++\n 1 file changed, 5 insertions(+)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "pid": 19312,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:14:44.418204+00:00",
+      "wall_seconds": 510.615301,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 2545,
+          "sha256": "770f937516d7d83b47b4a2531a8d817a99e933687f2a5f15dba784b62c28815f"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "ad2d8a8208f84cb7b4ece4453a79dd17",
+      "label": "lift-reference-compatibility",
+      "command": [
+        ".venv/bin/python",
+        "scripts/experiments/probe_lift.py",
+        "--seed",
+        "0"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:15:35.044093+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "889659e0b7c00a54d7b3dda935fd951694d509f7",
+        "changes": [
+          "?? scripts/experiments/",
+          "?? src/nisayon/engine/first_case.py",
+          "?? src/nisayon/engine/lift.py",
+          "?? tests/engine/test_lift_boundary.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 33674,
+      "returncode": 1,
+      "ended_at": "2026-09-17T20:16:24.040903+00:00",
+      "wall_seconds": 48.955294,
+      "logs": {
+        "stdout.log": {
+          "bytes": 466,
+          "sha256": "75de2c565eb75f92930ce9ec1787d086dc11e63e56f52a14f966376fc3bff867"
+        },
+        "stderr.log": {
+          "bytes": 2156,
+          "sha256": "0df1f3c141988a94886c264aea28bcc0822ac6f07b2c92a3db307ec0e3842c27"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "792ff53d59ce4f45b04139c6664dd2ee",
+      "label": "lift-reference-compatible-config",
+      "command": [
+        ".venv/bin/python",
+        "scripts/experiments/probe_lift.py",
+        "--seed",
+        "0"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:17:21.018804+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "8b7404e65a8ec3c98a1df9600b8f0a3995d75146",
+        "changes": [
+          "M scripts/experiments/probe_lift.py",
+          " M src/nisayon/engine/assets.py",
+          " M src/nisayon/engine/lift.py"
+        ],
+        "diff_stat": "scripts/experiments/probe_lift.py |  4 +++-\n src/nisayon/engine/assets.py      | 21 +++++++++++++++++++--\n src/nisayon/engine/lift.py        |  6 ++++--\n 3 files changed, 26 insertions(+), 5 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 38566,
+      "returncode": 1,
+      "ended_at": "2026-09-17T20:17:30.274768+00:00",
+      "wall_seconds": 9.22182,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1454,
+          "sha256": "5fb7d1c2c24b2b48b39c9a3d09a146a4729f3ee6dd03e95979264278641da58c"
+        },
+        "stderr.log": {
+          "bytes": 703,
+          "sha256": "791d66e12ee2d5249a86048d40a4b1b37c8394cd992056faa646beab0afb6616"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "b458aa7d25214c919c704c93d36f6897",
+      "label": "lift-reference-probe",
+      "command": [
+        ".venv/bin/python",
+        "scripts/experiments/probe_lift.py",
+        "--seed",
+        "0"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:17:50.489724+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "8b7404e65a8ec3c98a1df9600b8f0a3995d75146",
+        "changes": [
+          "M scripts/experiments/probe_lift.py",
+          " M src/nisayon/engine/assets.py",
+          " M src/nisayon/engine/lift.py"
+        ],
+        "diff_stat": "scripts/experiments/probe_lift.py |  6 ++++--\n src/nisayon/engine/assets.py      | 21 +++++++++++++++++++--\n src/nisayon/engine/lift.py        |  8 +++++---\n 3 files changed, 28 insertions(+), 7 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 40270,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:17:56.960859+00:00",
+      "wall_seconds": 6.438594,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1591,
+          "sha256": "bbf84aaed08cb1163875607d5415f66c6722a3cd6196e5df1e302c06658645b3"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "808b8253e42e490da81bd7b5c5229284",
+      "label": "lift-exploratory-records",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "artifacts/lift-explore-001",
+        "--explore-only"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:18:20.999874+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "8b7404e65a8ec3c98a1df9600b8f0a3995d75146",
+        "changes": [
+          "M scripts/experiments/probe_lift.py",
+          " M src/nisayon/engine/assets.py",
+          " M src/nisayon/engine/lift.py"
+        ],
+        "diff_stat": "scripts/experiments/probe_lift.py |  6 ++++--\n src/nisayon/engine/assets.py      | 21 +++++++++++++++++++--\n src/nisayon/engine/lift.py        |  8 +++++---\n 3 files changed, 28 insertions(+), 7 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 41339,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:18:36.245690+00:00",
+      "wall_seconds": 15.205248,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1623,
+          "sha256": "543ca68ec66393c6f2d16ff1de415d6a90864ea7ed6ce6ba1717acc5c4bc63da"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "63437a9167604664b40a2aea4146836a",
+      "label": "lift-frozen-confirmation",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "artifacts/lift-confirmation-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:20:23.896171+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "4dcd60aa34b3b911ef904dda2d452c98c52c0ea1",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "pid": 44205,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:21:26.248467+00:00",
+      "wall_seconds": 62.320241,
+      "logs": {
+        "stdout.log": {
+          "bytes": 16632,
+          "sha256": "d6db325ad057c942b02f05e1342bb32786d3a143650de39904252ac68073f52a"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "4ebc222d68f746f59d66ddfcbe685ce2",
+      "label": "combined-checks-execution",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:22:38.963459+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "4dcd60aa34b3b911ef904dda2d452c98c52c0ea1",
+        "changes": [
+          "?? docs/experiments/results/frozen-protocol.json",
+          "?? docs/experiments/results/lift-confirmation-summary.json",
+          "?? docs/experiments/results/lift-confirmation.bundle.json.gz"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 48409,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:22:48.316436+00:00",
+      "wall_seconds": 9.315271,
+      "logs": {
+        "stdout.log": {
+          "bytes": 419,
+          "sha256": "10832aa318719a4b3a17c0633c59d9d6a1efbaf49ef6522f89307195f7fd43f7"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "2c06ba8900cf48efaadb12839b3e165c",
+      "label": "clean-simulation-install",
+      "command": [
+        "env",
+        "UV_PROJECT_ENVIRONMENT=.nisayon/clean-env",
+        "uv",
+        "sync",
+        "--frozen",
+        "--extra",
+        "simulation",
+        "--no-dev"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:23:08.163726+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "4dcd60aa34b3b911ef904dda2d452c98c52c0ea1",
+        "changes": [
+          "?? docs/experiments/results/frozen-protocol.json",
+          "?? docs/experiments/results/lift-confirmation-summary.json",
+          "?? docs/experiments/results/lift-confirmation.bundle.json.gz"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 600.0,
+      "pid": 49331,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:23:09.232814+00:00",
+      "wall_seconds": 1.039441,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 1897,
+          "sha256": "0641bf64a25f6e103a5e94048d3f287e37ff70ca639233287e66e4219d2be3ab"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7b1ceebfd0364de591c05a8e8d9cb156",
+      "label": "clean-install-execution-check",
+      "command": [
+        ".nisayon/clean-env/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "artifacts/lift-clean-install-001",
+        "--explore-only"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T20:24:41.865434+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "4dcd60aa34b3b911ef904dda2d452c98c52c0ea1",
+        "changes": [
+          "?? docs/experiments/LIFT_FIRST_CASE.md",
+          "?? docs/experiments/results/frozen-protocol.json",
+          "?? docs/experiments/results/lift-confirmation-summary.json",
+          "?? docs/experiments/results/lift-confirmation.bundle.json.gz"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 51503,
+      "returncode": 0,
+      "ended_at": "2026-09-17T20:25:38.465992+00:00",
+      "wall_seconds": 56.567155,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1641,
+          "sha256": "0840ac92dfb9649947845be8268c260760283457a87777395db92972fe347dd7"
+        },
+        "stderr.log": {
+          "bytes": 517,
+          "sha256": "8312e14e1b0b2279c4475db3bc5c2620e42dda24ab6c596fc46e433754a479a3"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "a6c9d4a65c41400aa4c5aeb577e51933",
+      "label": "continuation-integrated-checks",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T21:32:20.196929+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "45eec5defa7961b4aa0271af5ac57a6efaaf2385",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 18513,
+      "returncode": 0,
+      "ended_at": "2026-09-17T21:32:34.572450+00:00",
+      "wall_seconds": 14.319614,
+      "logs": {
+        "stdout.log": {
+          "bytes": 501,
+          "sha256": "cac82f65b0bf72d99f660c57dc752f2ce424648daa1e88005ae61c226e5005ce"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "f16e593a82a041c2a8be7684cda2c79c",
+      "label": "native-observation-capture-calibration",
+      "command": [
+        ".venv/bin/python",
+        "scripts/experiments/qualify_capture_times.py",
+        "--output",
+        "artifacts/capture-calibration/native-001.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T21:39:40.489634+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "bc4df547d57e8ab1eda88e1cfdf347bb0ade0574",
+        "changes": [
+          "?? scripts/experiments/qualify_capture_times.py",
+          "?? src/nisayon/engine/observations.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "pid": 27937,
+      "returncode": 0,
+      "ended_at": "2026-09-17T21:39:47.189904+00:00",
+      "wall_seconds": 6.652328,
+      "logs": {
+        "stdout.log": {
+          "bytes": 804,
+          "sha256": "aed1028b2777817930428bb57786f0d0a866e311bda2d4e19ce2b9add40a61ad"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "907a1cdc069842e68a98aec53dd92dba",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/joint-v2-calibration-001/execution",
+        "--explore-only"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T21:56:37.567575+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "3d3cd232698b0c354af68e48325d8b49fb0e1226",
+        "changes": [
+          "M docs/experiments/ACQUISITION_QUALIFICATION.md",
+          " M src/nisayon/engine/first_case.py",
+          " M src/nisayon/engine/lift.py",
+          " M src/nisayon/engine/records.py",
+          " M src/nisayon/runs.py",
+          "?? src/nisayon/engine/costs.py",
+          "?? src/nisayon/engine/identity.py",
+          "?? src/nisayon/engine/integrate.py",
+          "?? src/nisayon/engine/joint_case.py",
+          "?? src/nisayon/engine/store.py",
+          "?? tests/engine/test_cost_hierarchy.py",
+          "?? tests/engine/test_portable_store.py"
+        ],
+        "diff_stat": "docs/experiments/ACQUISITION_QUALIFICATION.md |   3 +-\n src/nisayon/engine/first_case.py              | 163 +++++++++++++++-----------\n src/nisayon/engine/lift.py                    |  58 +++++++--\n src/nisayon/engine/records.py                 |  11 ++\n src/nisayon/runs.py                           |   7 ++\n 5 files changed, 162 insertions(+), 80 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 54396,
+      "returncode": 0,
+      "ended_at": "2026-09-17T21:56:53.006948+00:00",
+      "wall_seconds": 15.403964,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1685,
+          "sha256": "b5dc8381929dd535ffc7df3a9397aba2119e47733805b9814ad330539724cb8c"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "5a84605329bb45e28b2737df4845d957",
+      "label": "joint-case-evaluation-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/joint-v2-calibration-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/joint-v2-calibration-001/execution",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/joint-v2-calibration-001/evaluation"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T21:56:53.008436+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "3d3cd232698b0c354af68e48325d8b49fb0e1226",
+        "changes": [
+          "M docs/experiments/ACQUISITION_QUALIFICATION.md",
+          " M src/nisayon/engine/first_case.py",
+          " M src/nisayon/engine/lift.py",
+          " M src/nisayon/engine/records.py",
+          " M src/nisayon/runs.py",
+          "?? src/nisayon/engine/costs.py",
+          "?? src/nisayon/engine/identity.py",
+          "?? src/nisayon/engine/integrate.py",
+          "?? src/nisayon/engine/joint_case.py",
+          "?? src/nisayon/engine/store.py",
+          "?? tests/engine/test_cost_hierarchy.py",
+          "?? tests/engine/test_portable_store.py"
+        ],
+        "diff_stat": "docs/experiments/ACQUISITION_QUALIFICATION.md |   3 +-\n src/nisayon/engine/first_case.py              | 163 +++++++++++++++-----------\n src/nisayon/engine/lift.py                    |  58 +++++++--\n src/nisayon/engine/records.py                 |  11 ++\n src/nisayon/runs.py                           |   7 ++\n 5 files changed, 162 insertions(+), 80 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 55781,
+      "returncode": 0,
+      "ended_at": "2026-09-17T21:56:54.569950+00:00",
+      "wall_seconds": 1.537027,
+      "logs": {
+        "stdout.log": {
+          "bytes": 561,
+          "sha256": "947700d973ab2157f3f4a1fb1bb459afdcb228d34111b8481450c0bb59ec6216"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "2e6157fe1fc542d18ee6c1e81e24604a",
+      "label": "v2-identity-protocol-checks",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:01:11.107542+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "3d3cd232698b0c354af68e48325d8b49fb0e1226",
+        "changes": [
+          "M docs/experiments/ACQUISITION_QUALIFICATION.md",
+          " M docs/experiments/RECORD_INTERFACE.md",
+          " M src/nisayon/engine/first_case.py",
+          " M src/nisayon/engine/lift.py",
+          " M src/nisayon/engine/records.py",
+          " M src/nisayon/runs.py",
+          " M work/lanes/codex.md",
+          "?? docs/experiments/LIFT_PROTOCOL_V2.md",
+          "?? src/nisayon/engine/conditions.py",
+          "?? src/nisayon/engine/costs.py",
+          "?? src/nisayon/engine/identity.py",
+          "?? src/nisayon/engine/integrate.py",
+          "?? src/nisayon/engine/joint_case.py",
+          "?? src/nisayon/engine/store.py",
+          "?? tests/engine/test_condition_reservations.py",
+          "?? tests/engine/test_cost_hierarchy.py",
+          "?? tests/engine/test_portable_store.py"
+        ],
+        "diff_stat": "docs/experiments/ACQUISITION_QUALIFICATION.md |   3 +-\n docs/experiments/RECORD_INTERFACE.md          |   5 +\n src/nisayon/engine/first_case.py              | 183 ++++++++++++++++----------\n src/nisayon/engine/lift.py                    |  63 +++++++--\n src/nisayon/engine/records.py                 |  11 ++\n src/nisayon/runs.py                           |   7 +\n work/lanes/codex.md                           | 141 +++++++++-----------\n 7 files changed, 256 insertions(+), 157 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 62019,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:01:24.713465+00:00",
+      "wall_seconds": 13.558827,
+      "logs": {
+        "stdout.log": {
+          "bytes": 501,
+          "sha256": "07ef5e7742a5b83fab1b6ecddeeea42990fc91c1c1861c07aed4c1f0bbe838e7"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "840ffc072cb34214bd40a39f25e5a31c",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution",
+        "--confirmation-start",
+        "2000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:02:44.584860+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "312d79781fba801305f2b9ac1a9ea97006ef7e78",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 64336,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:03:55.301159+00:00",
+      "wall_seconds": 70.677681,
+      "logs": {
+        "stdout.log": {
+          "bytes": 16681,
+          "sha256": "7258558398360b196965d5f2a3b4ee0685f293dcc2b3ec71aea3ff69838e9f1e"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "008466f089334419a26eca48e8704b30",
+      "label": "joint-case-evaluation-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/evaluation"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:03:55.302885+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "312d79781fba801305f2b9ac1a9ea97006ef7e78",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 65673,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:04:00.837925+00:00",
+      "wall_seconds": 5.510611,
+      "logs": {
+        "stdout.log": {
+          "bytes": 560,
+          "sha256": "9cd14c35134ec7a6ffe766e9ed2c0449c652f14e7b5a7eb0f6894a3a51e4aa85"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "f1a35a99cd5a4e76912c46600ba06360",
+      "label": "v2-portable-store-verification",
+      "command": [
+        ".venv/bin/python",
+        "scripts/experiments/verify_portable_execution.py",
+        "--root",
+        "artifacts/lift-v2-confirmation-001/execution",
+        "--output",
+        "artifacts/lift-v2-portability-001.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:07:50.289210+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "9762c0fa6a7110e93dcf07edf7f85bac4190e984",
+        "changes": [
+          "?? scripts/experiments/verify_portable_execution.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 67237,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:08:00.153410+00:00",
+      "wall_seconds": 9.800655,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1528,
+          "sha256": "5f7b601789f37e9759aaf84fb2e5507995de972e70aa861bf778bef11e1df030"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "d9ff3ec24fbc478abfcc3f7a8d0b06c6",
+      "label": "observation-reset-calibration",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "nisayon.engine.family_calibration",
+        "--output",
+        "artifacts/family-calibration-001",
+        "--seed",
+        "0"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:15:11.267521+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "44fd3da045668dcc63184ec89b92bf366866c24d",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 600.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 70346,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:15:58.314432+00:00",
+      "wall_seconds": 47.014862,
+      "logs": {
+        "stdout.log": {
+          "bytes": 11331,
+          "sha256": "f513b0bc5e2744982c575ee513996b6addd2499ba6c5b90785f5b416c9793b5b"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "1dff542852844578aafc70796772362e",
+      "label": "revised-evaluator-on-v2-records",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution",
+        "--output",
+        "artifacts/lift-v2-revised-evaluation-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:20:41.756477+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "aee31b891ffbc8c38711041112d8f68df09d3824",
+        "changes": [
+          "M src/nisayon/engine/configuration.py",
+          " M src/nisayon/engine/integrate.py",
+          " M tests/engine/test_consumed_observations.py"
+        ],
+        "diff_stat": "src/nisayon/engine/configuration.py        | 8 ++++++--\n src/nisayon/engine/integrate.py            | 6 ++++--\n tests/engine/test_consumed_observations.py | 7 +++++++\n 3 files changed, 17 insertions(+), 4 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 74395,
+      "returncode": 1,
+      "ended_at": "2026-09-17T22:20:46.386291+00:00",
+      "wall_seconds": 4.578163,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 1001,
+          "sha256": "a2ce08afbb6e16efbe4fb66064a60a3536477357926c6a0351328be6045db97f"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "68ed86b4501342b5bd8ecd1d69411a14",
+      "label": "revised-evaluator-on-v2-records-retry",
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v2-confirmation-001/execution",
+        "--output",
+        "artifacts/lift-v2-revised-evaluation-002"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:22:20.087054+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "aee31b891ffbc8c38711041112d8f68df09d3824",
+        "changes": [
+          "M src/nisayon/engine/configuration.py",
+          " M src/nisayon/engine/integrate.py",
+          " M tests/engine/test_consumed_observations.py",
+          "?? tests/engine/test_evaluator_integration.py"
+        ],
+        "diff_stat": "src/nisayon/engine/configuration.py        |  8 ++++++--\n src/nisayon/engine/integrate.py            | 16 ++++++++++++----\n tests/engine/test_consumed_observations.py |  7 +++++++\n 3 files changed, 25 insertions(+), 6 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 75822,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:22:26.033142+00:00",
+      "wall_seconds": 5.88965,
+      "logs": {
+        "stdout.log": {
+          "bytes": 594,
+          "sha256": "6fd0dcce626c6164c404dbac9c8fc59c95c428179e4696949ca52348b4714e0b"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "d11f6578e3ed4fbbbc71cdf5feb7ac46",
+      "label": "merged-evaluator-family-checks",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:25:29.736688+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "aee31b891ffbc8c38711041112d8f68df09d3824",
+        "changes": [
+          "M src/nisayon/engine/configuration.py",
+          " M src/nisayon/engine/integrate.py",
+          " M tests/engine/test_consumed_observations.py",
+          " M work/lanes/codex.md",
+          "?? docs/experiments/FAMILY_CALIBRATION.md",
+          "?? docs/experiments/INTEGRATION_FINDINGS_V02.md",
+          "?? docs/experiments/results/family-calibration-001/",
+          "?? tests/engine/test_evaluator_integration.py"
+        ],
+        "diff_stat": "src/nisayon/engine/configuration.py        |  8 ++++++--\n src/nisayon/engine/integrate.py            | 16 ++++++++++++----\n tests/engine/test_consumed_observations.py |  7 +++++++\n work/lanes/codex.md                        | 22 ++++++++++++++++++++++\n 4 files changed, 47 insertions(+), 6 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 77621,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:25:49.459216+00:00",
+      "wall_seconds": 19.674399,
+      "logs": {
+        "stdout.log": {
+          "bytes": 581,
+          "sha256": "517ebd4d6602bfffd6bab3d4ae8669e409344afba623ce59711fa9a5dcb60790"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "b5784fdfa24246a0b5d8d481c78a8535",
+      "label": "strict-producer-integrated-checks",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:34:01.930007+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "a4a05a74d2312849cc8371b30a32b27a42007f9b",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 94374,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:34:23.122876+00:00",
+      "wall_seconds": 21.147766,
+      "logs": {
+        "stdout.log": {
+          "bytes": 581,
+          "sha256": "e30dba2ad511f651759fc13c959512349def2b6d716694c5eff9ba9fe47b170a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "691aa875a27340bf868c0afddc1a2241",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v3-confirmation-001/execution",
+        "--confirmation-start",
+        "3000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:36:16.721328+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "a4a05a74d2312849cc8371b30a32b27a42007f9b",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 98273,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:37:47.534321+00:00",
+      "wall_seconds": 90.760228,
+      "logs": {
+        "stdout.log": {
+          "bytes": 16678,
+          "sha256": "9f20294dc5dc97c9feeee2a6ccb6dfe7ba2ba6e53bd524f22c9694e16404d49e"
+        },
+        "stderr.log": {
+          "bytes": 316,
+          "sha256": "4ee37f89644f6908c0db818c18d40fb8b8f1df353cca173f2c60ef18ec52d449"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "839c165b716047c3b34b06257aa67612",
+      "label": "joint-case-evaluation-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v3-confirmation-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v3-confirmation-001/execution",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/lift-v3-confirmation-001/evaluation"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-17T22:37:47.536953+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "a4a05a74d2312849cc8371b30a32b27a42007f9b",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 746,
+      "returncode": 0,
+      "ended_at": "2026-09-17T22:37:58.660767+00:00",
+      "wall_seconds": 11.096335,
+      "logs": {
+        "stdout.log": {
+          "bytes": 597,
+          "sha256": "46013d224efde2900d1adb59441843276ef8242d5b54cec29e7131efeef22c63"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    }
+  ],
+  "command_record_identities": [
+    {
+      "id": "008466f089334419a26eca48e8704b30",
+      "record_sha256": "e5dc3ebc7824f4b54a65c780a343db0506841ea4ffa3e987d41ec90ae0a3c9a2"
+    },
+    {
+      "id": "1dff542852844578aafc70796772362e",
+      "record_sha256": "53cd334ffa1660b4f2623c583802c3c0ccb05cf266074346d9c4badf63fe35d2"
+    },
+    {
+      "id": "2c06ba8900cf48efaadb12839b3e165c",
+      "record_sha256": "0f38f79b2cd8f1fce3b3e3655e09849adcc75db7ced19fd4077b6ffd5c13d1f1"
+    },
+    {
+      "id": "2e6157fe1fc542d18ee6c1e81e24604a",
+      "record_sha256": "cc654af1be8ffc1ca3dc175f86b083ce5d852900ef24db19e9b0cae910426fc5"
+    },
+    {
+      "id": "467a34274aa04cf69c46de29be6d3aac",
+      "record_sha256": "06329481cd7545f1a8de7ad343d93c6ee7e5912ca69728cbc5c3f01ca2f077fe"
+    },
+    {
+      "id": "4ebc222d68f746f59d66ddfcbe685ce2",
+      "record_sha256": "029728f459aac5e2c52a7cb1bea24ff6db56fbea006b78a48170935a25850afe"
+    },
+    {
+      "id": "5a84605329bb45e28b2737df4845d957",
+      "record_sha256": "ad2f840c5d2f611cf872882acf3373e48bbaa7ee75dba78bdd27b06583c9402b"
+    },
+    {
+      "id": "63437a9167604664b40a2aea4146836a",
+      "record_sha256": "0687c03c59d323ad4e8aef114a2fb7e4177559444b1ab735fc1fbe215c420ab7"
+    },
+    {
+      "id": "68ed86b4501342b5bd8ecd1d69411a14",
+      "record_sha256": "865f67192959a70c0b842f4f32c02f6fd47eea0d4d38f50c0542616669b420dc"
+    },
+    {
+      "id": "691aa875a27340bf868c0afddc1a2241",
+      "record_sha256": "e1b144a776d81902512b334d7106efc6c098ffc2452a840690d0dc6b597ce345"
+    },
+    {
+      "id": "792ff53d59ce4f45b04139c6664dd2ee",
+      "record_sha256": "2dfcc050478731fd8b1e10c658ace2b3baf14296cfd951c9e6db60bf599f921b"
+    },
+    {
+      "id": "7b1ceebfd0364de591c05a8e8d9cb156",
+      "record_sha256": "cc20bd740e2edd171ef3b32dfdecd602dc26855468d93c75efcbb462cf3b5975"
+    },
+    {
+      "id": "7dade053b93342eb84eefebc5f113292",
+      "record_sha256": "390e109251cc80c5725b92bd76156c0595df2fe4a38a49a62e37ad4bbff1f1d0"
+    },
+    {
+      "id": "808b8253e42e490da81bd7b5c5229284",
+      "record_sha256": "a1c28c5115efab27c4d18338843795e950e53becfa826fb4c7229cf924d0317c"
+    },
+    {
+      "id": "839c165b716047c3b34b06257aa67612",
+      "record_sha256": "4cb30e18895f6bcb9b5cdf16dc3f46955a2b0a499c888526abc28c01709221ec"
+    },
+    {
+      "id": "840ffc072cb34214bd40a39f25e5a31c",
+      "record_sha256": "00e37e274c1b1581a400268824d49c8a9e89c099165b7bba3fd7bec3a0b88ec9"
+    },
+    {
+      "id": "907a1cdc069842e68a98aec53dd92dba",
+      "record_sha256": "554c1165e471aeceef55b4151688af3708156d7256587cab534a6051bd2693a0"
+    },
+    {
+      "id": "a6c9d4a65c41400aa4c5aeb577e51933",
+      "record_sha256": "34043dcf4e6c4eee949c1095084eaa1ab199cbe2ff500a8dc12bb2bddadcc174"
+    },
+    {
+      "id": "ad2d8a8208f84cb7b4ece4453a79dd17",
+      "record_sha256": "7a9c5f97635efc736a1a09b646a5bac79746d1d71632043d71451dff19bd3f90"
+    },
+    {
+      "id": "b458aa7d25214c919c704c93d36f6897",
+      "record_sha256": "fffbd15b4612afa5027350d4eaf54087627abfb532ce883068bd8ee740d22f2d"
+    },
+    {
+      "id": "b5784fdfa24246a0b5d8d481c78a8535",
+      "record_sha256": "f60dbabbe9a3813fe52db8b7c2858906f0603e35ab729ff0e1f7b8be26486ac9"
+    },
+    {
+      "id": "d11f6578e3ed4fbbbc71cdf5feb7ac46",
+      "record_sha256": "2cbe88aebe9030e18d2ebf44b068734fbd63c4baa895873361297ee007b90084"
+    },
+    {
+      "id": "d9ff3ec24fbc478abfcc3f7a8d0b06c6",
+      "record_sha256": "0552412f87f4c6a62996d44f6e97eedf2c0c962d47f127ba4259639f5ec31c17"
+    },
+    {
+      "id": "e18f8191243b44c08dfdcc7ed8a0ac29",
+      "record_sha256": "67111f715687278ca05f45cbc07682915a600dd3e88e825bea6748dbfdbc5e4a"
+    },
+    {
+      "id": "f16e593a82a041c2a8be7684cda2c79c",
+      "record_sha256": "f5d15e0a519d9df56a68a61a685dac7a3f1bab46f379719b074b5d0e377acebf"
+    },
+    {
+      "id": "f1a35a99cd5a4e76912c46600ba06360",
+      "record_sha256": "6cfb0b7a55e07322746da02ce059de4c7e894f564c1b2e511cca2b9bad292699"
+    }
+  ],
+  "known_command_wall_sum_s": 1074.614124,
+  "summed_command_ids": [
+    "7dade053b93342eb84eefebc5f113292",
+    "e18f8191243b44c08dfdcc7ed8a0ac29",
+    "467a34274aa04cf69c46de29be6d3aac",
+    "ad2d8a8208f84cb7b4ece4453a79dd17",
+    "792ff53d59ce4f45b04139c6664dd2ee",
+    "b458aa7d25214c919c704c93d36f6897",
+    "808b8253e42e490da81bd7b5c5229284",
+    "63437a9167604664b40a2aea4146836a",
+    "4ebc222d68f746f59d66ddfcbe685ce2",
+    "2c06ba8900cf48efaadb12839b3e165c",
+    "7b1ceebfd0364de591c05a8e8d9cb156",
+    "a6c9d4a65c41400aa4c5aeb577e51933",
+    "f16e593a82a041c2a8be7684cda2c79c",
+    "907a1cdc069842e68a98aec53dd92dba",
+    "5a84605329bb45e28b2737df4845d957",
+    "2e6157fe1fc542d18ee6c1e81e24604a",
+    "840ffc072cb34214bd40a39f25e5a31c",
+    "008466f089334419a26eca48e8704b30",
+    "f1a35a99cd5a4e76912c46600ba06360",
+    "d9ff3ec24fbc478abfcc3f7a8d0b06c6",
+    "1dff542852844578aafc70796772362e",
+    "68ed86b4501342b5bd8ecd1d69411a14",
+    "d11f6578e3ed4fbbbc71cdf5feb7ac46",
+    "b5784fdfa24246a0b5d8d481c78a8535",
+    "691aa875a27340bf868c0afddc1a2241",
+    "839c165b716047c3b34b06257aa67612"
+  ],
+  "nested_not_added": [],
+  "unmeasured_command_ids": [],
+  "interpretation": "Sum of recorded command walls excluding measured descendants of measured commands; overlapping independent commands are resource costs, not elapsed session time. Invocation, rollout and inference walls are nested components and are not added.",
+  "unmeasured": [
+    {
+      "category": "evaluation_lane_preparation_and_validation",
+      "unit": "s",
+      "reason": "Separate lane cost ledger has not yet been exchanged as a committed artifact",
+      "value": null
+    },
+    {
+      "category": "human_preparation_and_review",
+      "unit": "s",
+      "reason": "No time tracker",
+      "value": null
+    },
+    {
+      "category": "agent_tokens",
+      "unit": "tokens",
+      "reason": "Provider accounting unavailable",
+      "value": null
+    },
+    {
+      "category": "provider_and_compute_charges",
+      "unit": "USD",
+      "reason": "No invoices or power meter",
+      "value": null
+    },
+    {
+      "category": "unrecorded_engineering_commands_and_edits",
+      "unit": "s",
+      "reason": "Only commands run through the command recorder are timed in this ledger",
+      "value": null
+    },
+    {
+      "category": "overlapping_auxiliary_dependency_inspection",
+      "unit": "s",
+      "reason": "A historical duplicate dependency inspection was stopped; duration not recorded",
+      "value": null
+    }
+  ],
+  "amortization": "None; historical preparation and product development remain visible",
+  "economic_comparison": "No complete-cost speedup established",
+  "this_joint_invocation_command_ids": [
+    "691aa875a27340bf868c0afddc1a2241",
+    "839c165b716047c3b34b06257aa67612"
+  ],
+  "orchestration_overhead": {
+    "value": null,
+    "unit": "s",
+    "reason": "Final aggregation, copying and sealing are outside the timed child commands"
+  }
+}

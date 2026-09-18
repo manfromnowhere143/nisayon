@@ -1,0 +1,61 @@
+{
+  "schema": "nisayon.screen.package_check.v1",
+  "package_schema": "nisayon.screen.execution-package.v1",
+  "package_frozen_at": "2026-09-18T00:06:24.248673+00:00",
+  "package_git_head": "2c5c3d77e82427a9ae38a7a97f3d85317d858333",
+  "obligation": "first-case-obligation-v0.2",
+  "evaluator_files_bound": 18,
+  "evaluator_files_changed": [
+    "src/nisayon/evaluation/__main__.py",
+    "src/nisayon/evaluation/checks.py",
+    "src/nisayon/evaluation/codes.py",
+    "src/nisayon/evaluation/decision.py",
+    "src/nisayon/evaluation/first_case.py",
+    "src/nisayon/evaluation/schema.py",
+    "src/nisayon/evaluation/scoring.py",
+    "src/nisayon/evaluation/scoring_fixtures.py"
+  ],
+  "evaluator_files_missing": [],
+  "evaluator_files_unlisted": [
+    "src/nisayon/evaluation/package.py",
+    "src/nisayon/evaluation/retained.py"
+  ],
+  "ready_for_reserved_screen": false,
+  "findings": [
+    {
+      "code": "evaluator_sources_stale",
+      "detail": "the evaluator in this checkout is not the one the package froze at 2026-09-18T00:06:24.248673+00:00 (git head 2c5c3d77e82427a9ae38a7a97f3d85317d858333): 8 changed, 0 missing, 2 unlisted; re-freeze the package before any reserved screen",
+      "blocking": true
+    },
+    {
+      "code": "ceiling_unset",
+      "detail": "agent_token_ceiling is unset; equal measured budgets are required",
+      "blocking": true
+    },
+    {
+      "code": "ceiling_unset",
+      "detail": "monetary_ceiling is unset; equal measured budgets are required",
+      "blocking": true
+    },
+    {
+      "code": "capability_missing",
+      "detail": "capabilities.matched_isolated_agent_provider is absent; the screen is unrun",
+      "blocking": true
+    },
+    {
+      "code": "capability_missing",
+      "detail": "capabilities.reserved_custody_boundary is absent; the screen is unrun",
+      "blocking": true
+    },
+    {
+      "code": "development_evidence_absent",
+      "detail": "the package names no completed development ledger; it describes an interface, not a qualified procedure",
+      "blocking": false
+    }
+  ],
+  "limits": [
+    "A package that passes binds the evaluator in this checkout; it says nothing about custody of reserved cases, which no record can establish.",
+    "Unset ceilings and missing capabilities are what the package itself declares; the check cannot see an isolated provider that the package does not name.",
+    "Source digests cover the files the package lists plus the evaluator directory in this checkout; installed dependencies are compared only when the package lists them by digest and this checkout can read the same records."
+  ]
+}

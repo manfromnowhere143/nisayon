@@ -1,0 +1,348 @@
+{
+  "schema": "nisayon.development-diagnosis.v1",
+  "case_id": "D07-sign-and-backlog",
+  "arm": "B",
+  "scope": "scored_deterministic_development_ablation",
+  "solver_kind": "scripted_development_ablation",
+  "started_at": "2026-09-18T05:11:06.298241+00:00",
+  "ended_at": "2026-09-18T05:11:40.565896+00:00",
+  "phase_wall_s": 34.267651207977906,
+  "diagnostic_final_check_wall_s": 2.2171382079832256,
+  "status": "candidate_ready_for_freeze",
+  "candidate": {
+    "schema": "nisayon.deployment.v1",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "transport_gripper_sign": -1,
+    "repair_gripper_sign": -1,
+    "transport_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "repair_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "observation_delay_steps": 0,
+    "observation_stride_steps": 1,
+    "policy_reset": "episode",
+    "suppress_actions": false
+  },
+  "reason": null,
+  "selection": {
+    "solver_kind": "deterministic_development_procedure",
+    "configuration_differences": {
+      "transport_gripper_sign": {
+        "working": 1,
+        "changed": -1
+      },
+      "observation_delay_steps": {
+        "working": 0,
+        "changed": 3
+      }
+    },
+    "reference": {
+      "process_status": "completed",
+      "task": "completed",
+      "progress": "preserved",
+      "progress_gain_m": 0.024218432019765812,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": true,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "regression": {
+      "process_status": "completed",
+      "task": "failed",
+      "progress": "lost",
+      "progress_gain_m": 0.001327598461967061,
+      "timing": "violated",
+      "maximum_observation_age_s": 0.1500000000000501,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        400
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": false,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "status": "candidate_ready_for_freeze",
+    "candidate": {
+      "schema": "nisayon.deployment.v1",
+      "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+      "transport_gripper_sign": -1,
+      "repair_gripper_sign": -1,
+      "transport_translation_order": [
+        0,
+        1,
+        2
+      ],
+      "repair_translation_order": [
+        0,
+        1,
+        2
+      ],
+      "observation_delay_steps": 0,
+      "observation_stride_steps": 1,
+      "policy_reset": "episode",
+      "suppress_actions": false
+    },
+    "separating_probes": [
+      {
+        "id": "only-repair-gripper-sign",
+        "deployment": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": -1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 3,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        }
+      },
+      {
+        "id": "only-observation-delay-steps",
+        "deployment": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        }
+      }
+    ],
+    "selection_basis": "Known configuration remedies, followed by full observed reruns"
+  },
+  "proposals": [
+    {
+      "candidate_digest": "1b862dcecdb71314e9caed75ad7f1bb18f2dc28e4bb9d37dbe651830f7168dcb",
+      "executed": true,
+      "rejected_before_execution": false,
+      "reason": "separating interaction probe",
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "completed",
+        "progress": "preserved",
+        "progress_gain_m": 0.020330216209321184,
+        "timing": "violated",
+        "maximum_observation_age_s": 0.15000000000000013,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": false,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      }
+    },
+    {
+      "candidate_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+      "executed": true,
+      "rejected_before_execution": false,
+      "reason": "separating interaction probe",
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "failed",
+        "progress": "lost",
+        "progress_gain_m": 0.001327598461967061,
+        "timing": "met",
+        "maximum_observation_age_s": 0.0,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          400
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": false,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      }
+    },
+    {
+      "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+      "executed": true,
+      "rejected_before_execution": false,
+      "reason": "known remedy full rerun",
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "completed",
+        "progress": "preserved",
+        "progress_gain_m": 0.024218432019765812,
+        "timing": "met",
+        "maximum_observation_age_s": 0.0,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": true,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      }
+    }
+  ],
+  "budget": {
+    "limits": {
+      "max_rollouts": 64,
+      "max_wall_seconds": 1800,
+      "max_final_candidates": 1
+    },
+    "rollout_slots_reserved": 5,
+    "wall_seconds": 34.26765800011344,
+    "final_candidates_selected": 1,
+    "boundary": "Diagnostic phase only; executed prefixes reserve additional slots. Slots include attempts interrupted before completion. Confirmation is a separately equal obligation."
+  },
+  "preflight_checks": [
+    {
+      "bundle": "execution/snapshots/001.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 12,
+        "simulator_runs": 2,
+        "trace_rows": 444,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-000.json",
+      "decision_sha256": "94a81afec7e5fdf335c79ce33930e230cf202c7bff19b469fc2fb88521da9167",
+      "wall_s": 2.2097388750407845,
+      "measurement_gaps_or_invalid": {}
+    },
+    {
+      "bundle": "execution/snapshots/002.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 18,
+        "simulator_runs": 3,
+        "trace_rows": 495,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-001.json",
+      "decision_sha256": "08c61ba39902e0c065b2cce99434e3f9f7de66c07212acb81af6b68d04ad6dfc",
+      "wall_s": 2.417197332950309,
+      "measurement_gaps_or_invalid": {}
+    },
+    {
+      "bundle": "execution/snapshots/003.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 24,
+        "simulator_runs": 4,
+        "trace_rows": 895,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-002.json",
+      "decision_sha256": "dc60a58acfcbf442847fe045d7bcadd07bdadfcba759b999b17e1db5223c4b17",
+      "wall_s": 4.229265250032768,
+      "measurement_gaps_or_invalid": {}
+    },
+    {
+      "bundle": "execution/snapshots/004.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 30,
+        "simulator_runs": 5,
+        "trace_rows": 939,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-003.json",
+      "decision_sha256": "08f12e9eb86dcc109169fc02d5be129c4ee431c5bd65c69c52f942f48cbb9936",
+      "wall_s": 4.429502834100276,
+      "measurement_gaps_or_invalid": {}
+    }
+  ],
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 33,
+    "simulator_runs": 5,
+    "trace_rows": 939,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "costs": {
+    "physical_rollouts": 5,
+    "known_run_wall_s": 16.330333,
+    "nested_prefix_runs_not_added": [],
+    "missing_run_wall_ids": [],
+    "scope": "Rollout, reset and trace-write components; nested within phase/command walls, never added to them"
+  },
+  "bundle_path": "execution/bundle.json",
+  "bundle_sha256": "efb13d8a7389f4bc1089efae36b2fe790184b7638e04fa3878d994fe9b97a075",
+  "decision": {
+    "path": "diagnostic-decision.json",
+    "sha256": "942e338321068805e6332110d0a3445a0525c4c09d8a7ef1c47c1559bcbdcad4",
+    "decision": "unresolved"
+  },
+  "arm_claimed_acceptance": false,
+  "interpretation": "A diagnostic proposal is not a confirmed correction; no acceptance is claimed before fresh final confirmation"
+}

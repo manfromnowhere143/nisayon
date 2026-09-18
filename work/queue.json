@@ -1,0 +1,65 @@
+[
+  {
+    "id": "N001",
+    "status": "completed",
+    "title": "Qualify one CPU simulation backend and frozen policy",
+    "acceptance": "Pinned dependencies and assets; measured reset/replay behavior; actual setup cost; no universal determinism claim",
+    "reference": "docs/RESEARCH_PLAN.md",
+    "owner": "codex",
+    "evidence": "docs/experiments/LIFT_FIRST_CASE.md"
+  },
+  {
+    "id": "N002",
+    "status": "completed",
+    "title": "Reproduce one integration regression and a valid correction",
+    "acceptance": "Working and failing versions run in closed loop; declared progress predicate; full rerun confirmation",
+    "depends_on": [
+      "N001"
+    ],
+    "owner": "codex",
+    "evidence": "docs/experiments/results/lift-v3/summary.json"
+  },
+  {
+    "id": "N003",
+    "status": "completed",
+    "title": "Reject invalid replay and vacuous repair controls",
+    "acceptance": "A changed action cannot retain affected recorded observations; action suppression cannot satisfy a task-progress obligation",
+    "depends_on": [
+      "N002"
+    ],
+    "owner": "fable5",
+    "parallel_preparation": "Evaluator and labelled development fixtures can begin before N002; actual simulator controls still require N002.",
+    "execution_artifacts": "docs/experiments/results/lift-confirmation.bundle.json.gz",
+    "evidence": "docs/experiments/results/lift-v3/summary.json"
+  },
+  {
+    "id": "N004",
+    "status": "development_complete_reserved_unrun",
+    "title": "Freeze and run the three-arm engineering screen",
+    "acceptance": "Competent baseline, reserved cases, fresh confirmation, complete costs, all assigned outcomes retained",
+    "depends_on": [
+      "N003"
+    ],
+    "owner": "codex",
+    "collaborator": "fable5",
+    "additional_gate": "Actual reserved-case isolation and frozen protocol; development worktrees do not provide blinding.",
+    "next": "Integrate Fable named update for new consumed-condition coverage, reproduce its failing test and pass the combined check before local main fast-forward. Reserved execution separately needs custody, an isolated solver interface and measured budgets.",
+    "execution_interface": "docs/experiments/DEVELOPMENT_ABLATION.md",
+    "diagnostic_evidence": "docs/experiments/results/development-baseline-qualification-001/summary.json",
+    "scored_comparison_status": "complete_scripted_development_ablation",
+    "historical_evaluation_findings": [
+      "docs/experiments/DIAGNOSTIC_BOUNDARY.md",
+      "docs/experiments/SCORING_BOUNDARY_FINDINGS.md"
+    ],
+    "evaluator_dependency_status": "Resolved by Fable bdbbab8, qualified before matched execution; ready handoff 0de1d31 integrated.",
+    "scored_comparison_evidence": "docs/experiments/results/development-ablation-001/comparison-ledger.json",
+    "result": "Both arms: 6 confirmed, 1 rejected, 1 unsupported, 1 invalid, 1 unresolved; 569 physical runs. No demonstrated quality or complete-cost advantage.",
+    "reserved_blockers": [
+      "actual independent evaluator custody and restricted case access",
+      "matched isolated solver interface",
+      "equal measured model/token/monetary budgets"
+    ],
+    "integration_check": "351 passed, one cross-lane coverage failure at f3532ded; main unchanged. Fable audit covers 131 seeds, current spent index 451 including 320 newly frozen assignments.",
+    "integration_dependency": "docs/experiments/results/matched-integration-check-001/finding.json"
+  }
+]

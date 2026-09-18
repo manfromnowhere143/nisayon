@@ -1,0 +1,3623 @@
+{
+  "schema": "nisayon.comparison.v1",
+  "suite": {
+    "id": "development-ablation-001",
+    "frozen_at": "2026-09-18T04:49:12.600346+00:00",
+    "case_ledger_sha256": "522c007baf4137887ccffd12530cbd34e90a91e34d68ffdedd6fc5b04901654f",
+    "evaluator_commit": "90767cd2443eb9f129631e310743d01ee8c77b4d",
+    "obligation": "first-case-obligation-v0.2",
+    "solver_kind": "scripted_development_ablation"
+  },
+  "cases": [
+    {
+      "id": "D01-gripper-sign",
+      "family": "action_interpretation",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D01-gripper-sign",
+        "family": "action_interpretation",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "mechanism": "The changed transport reverses the gripper component."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8cf675754cf1d077b834faa4b22bbfecea92d76b974cf5152085c43edf6deb86",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10000",
+          "seed-10001",
+          "seed-10002",
+          "seed-10003",
+          "seed-10004",
+          "seed-10005",
+          "seed-10006",
+          "seed-10007",
+          "seed-10008",
+          "seed-10009",
+          "seed-10010",
+          "seed-10011",
+          "seed-10012",
+          "seed-10013",
+          "seed-10014",
+          "seed-10015",
+          "seed-10016",
+          "seed-10017",
+          "seed-10018",
+          "seed-10019",
+          "seed-10020",
+          "seed-10021",
+          "seed-10022",
+          "seed-10023",
+          "seed-10024",
+          "seed-10025",
+          "seed-10026",
+          "seed-10027",
+          "seed-10028",
+          "seed-10029",
+          "seed-10030",
+          "seed-10031"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D02-cartesian-axis",
+      "family": "action_interpretation",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D02-cartesian-axis",
+        "family": "action_interpretation",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_translation_order": [
+            2,
+            1,
+            0
+          ]
+        },
+        "mechanism": "The changed transport exchanges Cartesian x and z."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "0a19151f2465b4b0f7c5f8d081b937651afbda58629c65ca94ca1e6b5c033b63",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "963148dff1b7f6c2094a392dbc03e1f5704282dbcee58bb0c86de20a5b4a996e",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            2,
+            1,
+            0
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10100",
+          "seed-10101",
+          "seed-10102",
+          "seed-10103",
+          "seed-10104",
+          "seed-10105",
+          "seed-10106",
+          "seed-10107",
+          "seed-10108",
+          "seed-10109",
+          "seed-10110",
+          "seed-10111",
+          "seed-10112",
+          "seed-10113",
+          "seed-10114",
+          "seed-10115",
+          "seed-10116",
+          "seed-10117",
+          "seed-10118",
+          "seed-10119",
+          "seed-10120",
+          "seed-10121",
+          "seed-10122",
+          "seed-10123",
+          "seed-10124",
+          "seed-10125",
+          "seed-10126",
+          "seed-10127",
+          "seed-10128",
+          "seed-10129",
+          "seed-10130",
+          "seed-10131"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D03-observation-backlog",
+      "family": "observation_timing",
+      "intended_class": "repairable_timing",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D03-observation-backlog",
+        "family": "observation_timing",
+        "intended_class": "repairable_timing",
+        "episode_seed": 0,
+        "changed": {
+          "observation_delay_steps": 3
+        },
+        "mechanism": "The consumer uses the packet from three control steps earlier.",
+        "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "63026f4fb73bc96844382ea2f4fa8dcbec73138e728c5a34ca295134910b733e",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "0072d44d1fd61af44e5de522f5f04d34de89c08daa665b235850af52f90a2dcb",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 3,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10200",
+          "seed-10201",
+          "seed-10202",
+          "seed-10203",
+          "seed-10204",
+          "seed-10205",
+          "seed-10206",
+          "seed-10207",
+          "seed-10208",
+          "seed-10209",
+          "seed-10210",
+          "seed-10211",
+          "seed-10212",
+          "seed-10213",
+          "seed-10214",
+          "seed-10215",
+          "seed-10216",
+          "seed-10217",
+          "seed-10218",
+          "seed-10219",
+          "seed-10220",
+          "seed-10221",
+          "seed-10222",
+          "seed-10223",
+          "seed-10224",
+          "seed-10225",
+          "seed-10226",
+          "seed-10227",
+          "seed-10228",
+          "seed-10229",
+          "seed-10230",
+          "seed-10231"
+        ],
+        "failure_obligation": "timing",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D04-observation-hold",
+      "family": "observation_timing",
+      "intended_class": "repairable_timing",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D04-observation-hold",
+        "family": "observation_timing",
+        "intended_class": "repairable_timing",
+        "episode_seed": 0,
+        "changed": {
+          "observation_stride_steps": 5
+        },
+        "mechanism": "The consumer holds each selected observation across five acquisitions.",
+        "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "2cf23d27645ae0331854cb63c5ac4a40e413ac0aa1145c78d5f330c40566066b",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "99607db46f882c541240bf64414ff7235ffc21f5bf343b7b52e76b7bcecc8a89",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 5,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10300",
+          "seed-10301",
+          "seed-10302",
+          "seed-10303",
+          "seed-10304",
+          "seed-10305",
+          "seed-10306",
+          "seed-10307",
+          "seed-10308",
+          "seed-10309",
+          "seed-10310",
+          "seed-10311",
+          "seed-10312",
+          "seed-10313",
+          "seed-10314",
+          "seed-10315",
+          "seed-10316",
+          "seed-10317",
+          "seed-10318",
+          "seed-10319",
+          "seed-10320",
+          "seed-10321",
+          "seed-10322",
+          "seed-10323",
+          "seed-10324",
+          "seed-10325",
+          "seed-10326",
+          "seed-10327",
+          "seed-10328",
+          "seed-10329",
+          "seed-10330",
+          "seed-10331"
+        ],
+        "failure_obligation": "timing",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D05-recurrent-carry",
+      "family": "policy_reset",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D05-recurrent-carry",
+        "family": "policy_reset",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "prefix": {
+          "seed": 10,
+          "steps": 21
+        },
+        "changed": {
+          "policy_reset": "carry_prefix"
+        },
+        "mechanism": "Plant/controller reset after an executed prefix, but recurrent policy state carries into the new episode."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "c219c692452e71da576f01e1b6777eeb6d6ec1ac1ee51e5bace9c7f955137674",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "33596fcdb3b1275e8fce85b4fcd75f00b0db03f65d65a878b250ee2be302e127",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8ea9e78a5dd800188f8d180a8ed467ef9d676a910ff0136ce84970590783b67f",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "carry_prefix",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": {
+            "seed": 10,
+            "steps": 21
+          },
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10400-prefix-10-21",
+          "seed-10401-prefix-10-21",
+          "seed-10402-prefix-10-21",
+          "seed-10403-prefix-10-21",
+          "seed-10404-prefix-10-21",
+          "seed-10405-prefix-10-21",
+          "seed-10406-prefix-10-21",
+          "seed-10407-prefix-10-21",
+          "seed-10408-prefix-10-21",
+          "seed-10409-prefix-10-21",
+          "seed-10410-prefix-10-21",
+          "seed-10411-prefix-10-21",
+          "seed-10412-prefix-10-21",
+          "seed-10413-prefix-10-21",
+          "seed-10414-prefix-10-21",
+          "seed-10415-prefix-10-21",
+          "seed-10416-prefix-10-21",
+          "seed-10417-prefix-10-21",
+          "seed-10418-prefix-10-21",
+          "seed-10419-prefix-10-21",
+          "seed-10420-prefix-10-21",
+          "seed-10421-prefix-10-21",
+          "seed-10422-prefix-10-21",
+          "seed-10423-prefix-10-21",
+          "seed-10424-prefix-10-21",
+          "seed-10425-prefix-10-21",
+          "seed-10426-prefix-10-21",
+          "seed-10427-prefix-10-21",
+          "seed-10428-prefix-10-21",
+          "seed-10429-prefix-10-21",
+          "seed-10430-prefix-10-21",
+          "seed-10431-prefix-10-21"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0-prefix-10-21"
+      }
+    },
+    {
+      "id": "D06-stateless-inference",
+      "family": "policy_reset",
+      "intended_class": "fault_injection_may_be_unsupported",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D06-stateless-inference",
+        "family": "policy_reset",
+        "intended_class": "fault_injection_may_be_unsupported",
+        "episode_seed": 0,
+        "changed": {
+          "policy_reset": "every_action"
+        },
+        "mechanism": "The integration clears learned recurrence before every inference.",
+        "calibration_limit": "This did not cause task failure in calibration. Retain an unsupported result if it again meets every scored task obligation."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "c144d16f6a4764af44d30588d0266ba1a0c6776e647fe14b3cbea001a30a14bd",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8942c8e08c229e302ae15bde1a57d55249e8e2a36888918ed59eae9fa8f4260e",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "every_action",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10500",
+          "seed-10501",
+          "seed-10502",
+          "seed-10503",
+          "seed-10504",
+          "seed-10505",
+          "seed-10506",
+          "seed-10507",
+          "seed-10508",
+          "seed-10509",
+          "seed-10510",
+          "seed-10511",
+          "seed-10512",
+          "seed-10513",
+          "seed-10514",
+          "seed-10515",
+          "seed-10516",
+          "seed-10517",
+          "seed-10518",
+          "seed-10519",
+          "seed-10520",
+          "seed-10521",
+          "seed-10522",
+          "seed-10523",
+          "seed-10524",
+          "seed-10525",
+          "seed-10526",
+          "seed-10527",
+          "seed-10528",
+          "seed-10529",
+          "seed-10530",
+          "seed-10531"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D07-sign-and-backlog",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D07-sign-and-backlog",
+        "family": "interaction",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1,
+          "observation_delay_steps": 3
+        },
+        "mechanism": "Sign correction alone leaves a timing violation; timing correction alone leaves the task failure.",
+        "diagnostics": "Explicit single-change and combined probes; no logarithmic bisection claim for interacting changes."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "264bfcf6ae793bb367efa3c0be9c8254a1f426bebda71b260167c352b4bdb1f4",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "dac4febeaccc20496e1c53db8e76f9cd0d19053f79e1602c7c8d80be9f745aa5",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 3,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10600",
+          "seed-10601",
+          "seed-10602",
+          "seed-10603",
+          "seed-10604",
+          "seed-10605",
+          "seed-10606",
+          "seed-10607",
+          "seed-10608",
+          "seed-10609",
+          "seed-10610",
+          "seed-10611",
+          "seed-10612",
+          "seed-10613",
+          "seed-10614",
+          "seed-10615",
+          "seed-10616",
+          "seed-10617",
+          "seed-10618",
+          "seed-10619",
+          "seed-10620",
+          "seed-10621",
+          "seed-10622",
+          "seed-10623",
+          "seed-10624",
+          "seed-10625",
+          "seed-10626",
+          "seed-10627",
+          "seed-10628",
+          "seed-10629",
+          "seed-10630",
+          "seed-10631"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D08-old-future-replay",
+      "family": "invalid_experiment_control",
+      "intended_class": "invalid",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D08-old-future-replay",
+        "family": "invalid_experiment_control",
+        "intended_class": "invalid",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "control": "Fable derives an action-changing replay from the case's measured regression; retain its recorded future observations.",
+        "origin": "Derived invalid control over real source execution; the derived record is not a simulator measurement."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "b1c9c626a0c3f8d61a4a92d7810ce56374af6b5498305c192303c609f8279aad",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10700",
+          "seed-10701",
+          "seed-10702",
+          "seed-10703",
+          "seed-10704",
+          "seed-10705",
+          "seed-10706",
+          "seed-10707",
+          "seed-10708",
+          "seed-10709",
+          "seed-10710",
+          "seed-10711",
+          "seed-10712",
+          "seed-10713",
+          "seed-10714",
+          "seed-10715",
+          "seed-10716",
+          "seed-10717",
+          "seed-10718",
+          "seed-10719",
+          "seed-10720",
+          "seed-10721",
+          "seed-10722",
+          "seed-10723",
+          "seed-10724",
+          "seed-10725",
+          "seed-10726",
+          "seed-10727",
+          "seed-10728",
+          "seed-10729",
+          "seed-10730",
+          "seed-10731"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D09-action-suppression",
+      "family": "progress_loss_trap",
+      "intended_class": "repairable_with_invalid_proposed_fix",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D09-action-suppression",
+        "family": "progress_loss_trap",
+        "intended_class": "repairable_with_invalid_proposed_fix",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "proposed_control": {
+          "suppress_actions": true
+        },
+        "mechanism": "An installable zero-action proposal destroys task progress; the legitimate sign remedy remains available to both arms."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "cf6b41ed978efb60eddca1186ade6c499a6ec3b17f79e03cf34d6ab6ba2602c2",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "4375ea4cf7d2289442d9971190c855d3c633b8e3e460f84166584c0796d8f643",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset",
+          "suppress_actions"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10800",
+          "seed-10801",
+          "seed-10802",
+          "seed-10803",
+          "seed-10804",
+          "seed-10805",
+          "seed-10806",
+          "seed-10807",
+          "seed-10808",
+          "seed-10809",
+          "seed-10810",
+          "seed-10811",
+          "seed-10812",
+          "seed-10813",
+          "seed-10814",
+          "seed-10815",
+          "seed-10816",
+          "seed-10817",
+          "seed-10818",
+          "seed-10819",
+          "seed-10820",
+          "seed-10821",
+          "seed-10822",
+          "seed-10823",
+          "seed-10824",
+          "seed-10825",
+          "seed-10826",
+          "seed-10827",
+          "seed-10828",
+          "seed-10829",
+          "seed-10830",
+          "seed-10831"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D10-opaque-policy-state",
+      "family": "insufficient_observations",
+      "intended_class": "unresolved",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D10-opaque-policy-state",
+        "family": "insufficient_observations",
+        "intended_class": "unresolved",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "telemetry_profile": "policy_state_unavailable",
+        "mechanism": "Actions and simulator outcomes remain measured, but the inference boundary does not export the recurrent-state evidence required by the reset obligation.",
+        "limit": "An explicit development observability control shared by both arms, not a claim that the local simulator makes such telemetry impossible. The scored repair space does not expand the frozen observation interface."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "6aa000d9a9830afafc35b326e03b4dc4ccecad986addb9623b9697e4d93db438",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "f3cc191ca13231e05a4a0ea7dae6f8c146ea8bbca8e76e760956fc555a74c5e0",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "policy_state_unavailable",
+            "policy_state": "unavailable",
+            "missing_reason": "Frozen policy interface does not export recurrent-state telemetry"
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10900",
+          "seed-10901",
+          "seed-10902",
+          "seed-10903",
+          "seed-10904",
+          "seed-10905",
+          "seed-10906",
+          "seed-10907",
+          "seed-10908",
+          "seed-10909",
+          "seed-10910",
+          "seed-10911",
+          "seed-10912",
+          "seed-10913",
+          "seed-10914",
+          "seed-10915",
+          "seed-10916",
+          "seed-10917",
+          "seed-10918",
+          "seed-10919",
+          "seed-10920",
+          "seed-10921",
+          "seed-10922",
+          "seed-10923",
+          "seed-10924",
+          "seed-10925",
+          "seed-10926",
+          "seed-10927",
+          "seed-10928",
+          "seed-10929",
+          "seed-10930",
+          "seed-10931"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    }
+  ],
+  "arms": [
+    {
+      "id": "A",
+      "kind": "scripted",
+      "validity_layer": false,
+      "selection": "fixed",
+      "agent": null
+    },
+    {
+      "id": "B",
+      "kind": "scripted",
+      "validity_layer": true,
+      "selection": "fixed",
+      "agent": null
+    }
+  ],
+  "trials": [
+    {
+      "arm": "A",
+      "case_id": "D01-gripper-sign",
+      "status": "confirmed",
+      "received_frozen_sha256": "d6b3686be4ee5fd81cdc82b06d08b5884b21ccf3d50bc1b30677e0159700ff60",
+      "decision": {
+        "path": "D01-gripper-sign/A/confirmation/decision.json",
+        "sha256": "e709466d1edc8b859ca0890de57e04483c974bd676a5bd55c73274871272b21c",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:49:13.730161+00:00",
+        "ended_at": "2026-09-18T04:49:25.128094+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:49:13.730161+00:00",
+        "ended_at": "2026-09-18T04:51:30.650034+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:49:41.829757+00:00",
+        "ended_at": "2026-09-18T04:51:30.650034+00:00"
+      },
+      "time_to_confirmed_correction_s": 136.919873,
+      "time_to_decision_including_other_arm_work_s": 136.919873,
+      "costs": {
+        "simulator_wall": {
+          "value": 92.439394,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 11.397929541999474,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 109.74186258297414,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 121.13979212497361,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D01-gripper-sign/A/diagnostic/diagnosis.json",
+        "sha256": "70421c1da87f0631488ea4dc0c159276fe738b136badf3649118ff337cdcc68d"
+      },
+      "confirmation": {
+        "path": "D01-gripper-sign/A/confirmation/confirmation-result.json",
+        "sha256": "b6d36e0c24c01f6a8c65a4ad185b9f26363c65b39b66a38c132f03508844eb4e"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D01-gripper-sign",
+      "status": "confirmed",
+      "received_frozen_sha256": "d6b3686be4ee5fd81cdc82b06d08b5884b21ccf3d50bc1b30677e0159700ff60",
+      "decision": {
+        "path": "D01-gripper-sign/B/confirmation/decision.json",
+        "sha256": "adc6714a87f39c6ef94cdfa2cfc3f052245122e3ca4fac05a5cf62e833459694",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:49:25.133167+00:00",
+        "ended_at": "2026-09-18T04:49:39.931775+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:49:25.133167+00:00",
+        "ended_at": "2026-09-18T04:53:15.373725+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:51:30.673624+00:00",
+        "ended_at": "2026-09-18T04:53:15.373725+00:00"
+      },
+      "time_to_confirmed_correction_s": 230.240558,
+      "time_to_decision_including_other_arm_work_s": 230.240558,
+      "costs": {
+        "simulator_wall": {
+          "value": 92.853336,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 14.798608041135594,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 105.67226150003262,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 120.47086954116821,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D01-gripper-sign/B/diagnostic/diagnosis.json",
+        "sha256": "dafc6d39c8a154977d2609da84f2a60b2f4ba7d53a03dd35339b89d6d76a6452"
+      },
+      "confirmation": {
+        "path": "D01-gripper-sign/B/confirmation/confirmation-result.json",
+        "sha256": "234c6b1295d6066a0ad06f538091e73dd0752efa1587882a163f7bd3db8a5d54"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D02-cartesian-axis",
+      "status": "confirmed",
+      "received_frozen_sha256": "39a6f771741092519d02a3ec64f155c0c384219653b66581465f6fd2343bd30f",
+      "decision": {
+        "path": "D02-cartesian-axis/A/confirmation/decision.json",
+        "sha256": "cda327926b0bcc7f9d8d47d10b6c919e58c15dab9df2f635e3c02e599239e865",
+        "decision": "accepted",
+        "candidate_digest": "d3a85dc85d84a9140d38bd217c50235d00f9f79a7401ba500f0b7f15bdc5bff3"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "d3a85dc85d84a9140d38bd217c50235d00f9f79a7401ba500f0b7f15bdc5bff3",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:53:31.116037+00:00",
+        "ended_at": "2026-09-18T04:53:42.551571+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:53:31.116037+00:00",
+        "ended_at": "2026-09-18T04:57:13.325233+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:55:30.497049+00:00",
+        "ended_at": "2026-09-18T04:57:13.325233+00:00"
+      },
+      "time_to_confirmed_correction_s": 222.209196,
+      "time_to_decision_including_other_arm_work_s": 222.209196,
+      "costs": {
+        "simulator_wall": {
+          "value": 90.231197,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 11.435535042081028,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 103.73763779294677,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 115.1731728350278,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D02-cartesian-axis/A/diagnostic/diagnosis.json",
+        "sha256": "1ad526df598a0545f022a1e6b064f255f05e5b7c702345bbe399ca63b0ab7a5a"
+      },
+      "confirmation": {
+        "path": "D02-cartesian-axis/A/confirmation/confirmation-result.json",
+        "sha256": "46295270ebb897e99f9e603013b1f01f2085c5ae6d164b1d6fb28e435403a9ee"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D02-cartesian-axis",
+      "status": "confirmed",
+      "received_frozen_sha256": "39a6f771741092519d02a3ec64f155c0c384219653b66581465f6fd2343bd30f",
+      "decision": {
+        "path": "D02-cartesian-axis/B/confirmation/decision.json",
+        "sha256": "ad70fdf467ff9e3c16680a21edbc0950d63c874a30cedd2fe34fec8f9b755598",
+        "decision": "accepted",
+        "candidate_digest": "d3a85dc85d84a9140d38bd217c50235d00f9f79a7401ba500f0b7f15bdc5bff3"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "d3a85dc85d84a9140d38bd217c50235d00f9f79a7401ba500f0b7f15bdc5bff3",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:53:15.439470+00:00",
+        "ended_at": "2026-09-18T04:53:31.112001+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:53:15.439470+00:00",
+        "ended_at": "2026-09-18T04:55:30.481193+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:53:44.520820+00:00",
+        "ended_at": "2026-09-18T04:55:30.481193+00:00"
+      },
+      "time_to_confirmed_correction_s": 135.041723,
+      "time_to_decision_including_other_arm_work_s": 135.041723,
+      "costs": {
+        "simulator_wall": {
+          "value": 94.176382,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 15.67252012505196,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 107.0151001252234,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 122.68762025027536,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D02-cartesian-axis/B/diagnostic/diagnosis.json",
+        "sha256": "8989bcdb399a7678185514e7d9bd1b026c0c09ec4e48e0b4a4dda7bbb96efd2f"
+      },
+      "confirmation": {
+        "path": "D02-cartesian-axis/B/confirmation/confirmation-result.json",
+        "sha256": "71482893aaab480aa7f8e179acc42233f5b5451dce674e49f643c4b939bfb6d3"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D03-observation-backlog",
+      "status": "confirmed",
+      "received_frozen_sha256": "8ef21340289dcff1a73300134e8649f17d990c91c181e768d7057dd1c30b729d",
+      "decision": {
+        "path": "D03-observation-backlog/A/confirmation/decision.json",
+        "sha256": "0e079637892dd136eb1c5557782a4b0b875c04dd58875e2448634c631f0a6a37",
+        "decision": "accepted",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:57:13.395736+00:00",
+        "ended_at": "2026-09-18T04:57:17.616024+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:57:13.395736+00:00",
+        "ended_at": "2026-09-18T04:58:55.955918+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:57:24.923739+00:00",
+        "ended_at": "2026-09-18T04:58:55.955918+00:00"
+      },
+      "time_to_confirmed_correction_s": 102.560182,
+      "time_to_decision_including_other_arm_work_s": 102.560182,
+      "costs": {
+        "simulator_wall": {
+          "value": 76.47126399999999,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 4.2202489578630775,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 91.98365787486546,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 96.20390683272853,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D03-observation-backlog/A/diagnostic/diagnosis.json",
+        "sha256": "498d64d9b4278bfa33224050ba8fc4b8fa9f571a096b66d700a9a4d3bb09b9f1"
+      },
+      "confirmation": {
+        "path": "D03-observation-backlog/A/confirmation/confirmation-result.json",
+        "sha256": "31cb491e02f4947a7b5f251d3785d87a4c4d6314c394424d29d68a0091821799"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D03-observation-backlog",
+      "status": "confirmed",
+      "received_frozen_sha256": "8ef21340289dcff1a73300134e8649f17d990c91c181e768d7057dd1c30b729d",
+      "decision": {
+        "path": "D03-observation-backlog/B/confirmation/decision.json",
+        "sha256": "2f395e55d380836ba104d067976fef65333140d524aa74a4ef86b3eb7dd2c328",
+        "decision": "accepted",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T04:57:17.617994+00:00",
+        "ended_at": "2026-09-18T04:57:23.061125+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T04:57:17.617994+00:00",
+        "ended_at": "2026-09-18T05:00:27.575183+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T04:58:55.969352+00:00",
+        "ended_at": "2026-09-18T05:00:27.575183+00:00"
+      },
+      "time_to_confirmed_correction_s": 189.957189,
+      "time_to_decision_including_other_arm_work_s": 189.957189,
+      "costs": {
+        "simulator_wall": {
+          "value": 77.356438,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 5.443129874998704,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 92.5140829582233,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 97.957212833222,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D03-observation-backlog/B/diagnostic/diagnosis.json",
+        "sha256": "bc7ed276f0a300b88ec9b1ff6ecd131ed15b7499b2e032326e43323a201cf49a"
+      },
+      "confirmation": {
+        "path": "D03-observation-backlog/B/confirmation/confirmation-result.json",
+        "sha256": "9cf42c9887bab9d43d5bddcea098d292702c0b34f906f74239fd2ce157b1ff65"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D04-observation-hold",
+      "status": "confirmed",
+      "received_frozen_sha256": "ed6e8cb31ff4e4ab6cc6a09ba6d557d1de34904a8d9d10c23f79ed672a7b380a",
+      "decision": {
+        "path": "D04-observation-hold/A/confirmation/decision.json",
+        "sha256": "95a28a33449e6ef0f8184b09e52e0aff08a06be556afc0d94646e9b7c6398a02",
+        "decision": "accepted",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:00:32.749094+00:00",
+        "ended_at": "2026-09-18T05:00:36.698681+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:00:32.749094+00:00",
+        "ended_at": "2026-09-18T05:03:59.088727+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:02:17.803794+00:00",
+        "ended_at": "2026-09-18T05:03:59.088727+00:00"
+      },
+      "time_to_confirmed_correction_s": 206.339633,
+      "time_to_decision_including_other_arm_work_s": 206.339633,
+      "costs": {
+        "simulator_wall": {
+          "value": 84.321005,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 3.9495853749103844,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 102.23239495814778,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 106.18198033305816,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D04-observation-hold/A/diagnostic/diagnosis.json",
+        "sha256": "0f76dbe3a7d8d433c43da232eaa2311878050a5e0431b9d33ac6bd02d99835e1"
+      },
+      "confirmation": {
+        "path": "D04-observation-hold/A/confirmation/confirmation-result.json",
+        "sha256": "39372357b8a989dc7b06286d6ede245c936817d5b2b7e369bcb8a0c4a2b48f62"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D04-observation-hold",
+      "status": "confirmed",
+      "received_frozen_sha256": "ed6e8cb31ff4e4ab6cc6a09ba6d557d1de34904a8d9d10c23f79ed672a7b380a",
+      "decision": {
+        "path": "D04-observation-hold/B/confirmation/decision.json",
+        "sha256": "d13cf3024b05c4ddc684b001ed00900b93fe8ee9fc65081d203285a99fee3d0a",
+        "decision": "accepted",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 3,
+      "diagnostic_records_retained": 3,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:00:27.640728+00:00",
+        "ended_at": "2026-09-18T05:00:32.747374+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:00:27.640728+00:00",
+        "ended_at": "2026-09-18T05:02:17.785647+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:00:38.560789+00:00",
+        "ended_at": "2026-09-18T05:02:17.785647+00:00"
+      },
+      "time_to_confirmed_correction_s": 110.144919,
+      "time_to_decision_including_other_arm_work_s": 110.144919,
+      "costs": {
+        "simulator_wall": {
+          "value": 82.4501,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 5.106641374994069,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 100.13713879184797,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 105.24378016684204,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D04-observation-hold/B/diagnostic/diagnosis.json",
+        "sha256": "9ff5e3420290a986899782d13f928381b1b796e86c404a985ee3fb658365f73c"
+      },
+      "confirmation": {
+        "path": "D04-observation-hold/B/confirmation/confirmation-result.json",
+        "sha256": "90edc6c7f5c570430ad690fb203da5c9347f438f84a3f4ea43051d90ef15fe82"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D05-recurrent-carry",
+      "status": "rejected",
+      "received_frozen_sha256": "fd33fa1773721da052862d04bab073ca3c0f8ce12314805237aafe1a1516e224",
+      "decision": {
+        "path": "D05-recurrent-carry/A/confirmation/decision.json",
+        "sha256": "9217357e068f6c6ed30922777f7bc4a29cafb7bac6cf0f543c5786e4d966d493",
+        "decision": "rejected",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 6,
+      "diagnostic_records_retained": 6,
+      "confirmation_rollouts": 134,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:03:59.160744+00:00",
+        "ended_at": "2026-09-18T05:04:12.149533+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:03:59.160744+00:00",
+        "ended_at": "2026-09-18T05:07:31.704241+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:04:31.878847+00:00",
+        "ended_at": "2026-09-18T05:07:31.704241+00:00"
+      },
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 212.543497,
+      "costs": {
+        "simulator_wall": {
+          "value": 152.844926,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 12.988776709185913,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 180.7802970011253,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 193.7690737103112,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D05-recurrent-carry/A/diagnostic/diagnosis.json",
+        "sha256": "f41b567c02e6c67336531375875b088f05c7706898a29df6f3c4a2a8dd8f4384"
+      },
+      "confirmation": {
+        "path": "D05-recurrent-carry/A/confirmation/confirmation-result.json",
+        "sha256": "67b745583b8c939ad85d0e163bd762ad89b391593fac5a8cc50f52e9e59f83d2"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D05-recurrent-carry",
+      "status": "rejected",
+      "received_frozen_sha256": "fd33fa1773721da052862d04bab073ca3c0f8ce12314805237aafe1a1516e224",
+      "decision": {
+        "path": "D05-recurrent-carry/B/confirmation/decision.json",
+        "sha256": "e0db87c98ac2b0e79ccef68ed09009bea62619a1be8f17c9abf8379c4a2f8494",
+        "decision": "rejected",
+        "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [
+        {
+          "candidate_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 6,
+      "diagnostic_records_retained": 6,
+      "confirmation_rollouts": 134,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:04:12.154133+00:00",
+        "ended_at": "2026-09-18T05:04:30.004768+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:04:12.154133+00:00",
+        "ended_at": "2026-09-18T05:10:39.234009+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:07:31.741143+00:00",
+        "ended_at": "2026-09-18T05:10:39.234009+00:00"
+      },
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 387.079876,
+      "costs": {
+        "simulator_wall": {
+          "value": 167.52428,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 17.85063458303921,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 188.40668070712127,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 206.25731529016048,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D05-recurrent-carry/B/diagnostic/diagnosis.json",
+        "sha256": "92420fdf64d8be8bd0c2e00cb69972f3a730c4e3e63b903422059d65e26b0616"
+      },
+      "confirmation": {
+        "path": "D05-recurrent-carry/B/confirmation/confirmation-result.json",
+        "sha256": "72c5ba116f3f081924c3b7736a3c41f12885707040c78715a976beafee8efe3b"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D06-stateless-inference",
+      "status": "unsupported",
+      "received_frozen_sha256": "6c7a8492a4c272518355ba705b28ac2a5ec0b6a8df926fc1427785f08c678741",
+      "decision": {
+        "path": "D06-stateless-inference/A/diagnostic/diagnostic-decision.json",
+        "sha256": "96bc61e67f0e69164d1afc781f8dc542f1f5bae0ec95b4c4df09bb6b5b898c65",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:10:41.839185+00:00",
+        "ended_at": "2026-09-18T05:10:44.572647+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:10:41.839185+00:00",
+        "ended_at": "2026-09-18T05:10:44.572647+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 2.733462,
+      "costs": {
+        "simulator_wall": {
+          "value": 2.320199,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 2.7334674168378115,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 2.7334674168378115,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D06-stateless-inference/A/diagnostic/diagnosis.json",
+        "sha256": "c0425a40ea6a41c66087d5ddaef3fe357f577b6735b3783452d52d029155733a"
+      },
+      "confirmation": null
+    },
+    {
+      "arm": "B",
+      "case_id": "D06-stateless-inference",
+      "status": "unsupported",
+      "received_frozen_sha256": "6c7a8492a4c272518355ba705b28ac2a5ec0b6a8df926fc1427785f08c678741",
+      "decision": {
+        "path": "D06-stateless-inference/B/diagnostic/diagnostic-decision.json",
+        "sha256": "b8b5e895d163ce46a5f1d3d8dec4bc55ab3f9febd04fb60245f7c72420ff3e74",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:10:39.327440+00:00",
+        "ended_at": "2026-09-18T05:10:41.837905+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:10:39.327440+00:00",
+        "ended_at": "2026-09-18T05:10:41.837905+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 2.510465,
+      "costs": {
+        "simulator_wall": {
+          "value": 2.111989,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 2.5104675418697298,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 2.5104675418697298,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D06-stateless-inference/B/diagnostic/diagnosis.json",
+        "sha256": "411dffdc15388e7da367f032bfd0ee88c77913760b45c68ae77e96a42ba887f2"
+      },
+      "confirmation": null
+    },
+    {
+      "arm": "A",
+      "case_id": "D07-sign-and-backlog",
+      "status": "confirmed",
+      "received_frozen_sha256": "bcbacfdaec8ce4a66ae5c05e20aa2ca76e00df4f2c15b68b6a0f8f2feda4b447",
+      "decision": {
+        "path": "D07-sign-and-backlog/A/confirmation/decision.json",
+        "sha256": "dae226c098097037fc0b66c1c74199f507a4d957c56282ae2a97c9acd4cb5dea",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "1b862dcecdb71314e9caed75ad7f1bb18f2dc28e4bb9d37dbe651830f7168dcb",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "separating interaction probe",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.020330216209321184,
+            "timing": "violated",
+            "maximum_observation_age_s": 0.15000000000000013,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": false,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        },
+        {
+          "candidate_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "separating interaction probe",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "failed",
+            "progress": "lost",
+            "progress_gain_m": 0.001327598461967061,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              400
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": false,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        },
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 5,
+      "diagnostic_records_retained": 5,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:10:44.600494+00:00",
+        "ended_at": "2026-09-18T05:11:06.290163+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:10:44.600494+00:00",
+        "ended_at": "2026-09-18T05:13:17.510336+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:11:42.435225+00:00",
+        "ended_at": "2026-09-18T05:13:17.510336+00:00"
+      },
+      "time_to_confirmed_correction_s": 152.909842,
+      "time_to_decision_including_other_arm_work_s": 152.909842,
+      "costs": {
+        "simulator_wall": {
+          "value": 92.45401,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 21.689657374983653,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 96.01155158411711,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 117.70120895910077,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D07-sign-and-backlog/A/diagnostic/diagnosis.json",
+        "sha256": "d452ed1005cff1df11874bf9d7bd4d96b0c8a79e83106a098fbf8fe1b35a53a8"
+      },
+      "confirmation": {
+        "path": "D07-sign-and-backlog/A/confirmation/confirmation-result.json",
+        "sha256": "3850663557d2a01fcd6d7d5744a839bde86e8d70ece06744df0c51ea632f53e5"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D07-sign-and-backlog",
+      "status": "confirmed",
+      "received_frozen_sha256": "bcbacfdaec8ce4a66ae5c05e20aa2ca76e00df4f2c15b68b6a0f8f2feda4b447",
+      "decision": {
+        "path": "D07-sign-and-backlog/B/confirmation/decision.json",
+        "sha256": "e004c717be2f5998f0e0d275822ccc003ccf33c0903fce07a7e0a8508ffbd2eb",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "1b862dcecdb71314e9caed75ad7f1bb18f2dc28e4bb9d37dbe651830f7168dcb",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "separating interaction probe",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.020330216209321184,
+            "timing": "violated",
+            "maximum_observation_age_s": 0.15000000000000013,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": false,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        },
+        {
+          "candidate_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "separating interaction probe",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "failed",
+            "progress": "lost",
+            "progress_gain_m": 0.001327598461967061,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              400
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": false,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        },
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 5,
+      "diagnostic_records_retained": 5,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:11:06.298241+00:00",
+        "ended_at": "2026-09-18T05:11:40.565896+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:11:06.298241+00:00",
+        "ended_at": "2026-09-18T05:14:54.055723+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:13:17.528565+00:00",
+        "ended_at": "2026-09-18T05:14:54.055723+00:00"
+      },
+      "time_to_confirmed_correction_s": 227.757482,
+      "time_to_decision_including_other_arm_work_s": 227.757482,
+      "costs": {
+        "simulator_wall": {
+          "value": 93.119976,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 34.267651207977906,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 97.4525999170728,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 131.7202511250507,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D07-sign-and-backlog/B/diagnostic/diagnosis.json",
+        "sha256": "98b9beed5658c6ada9f917d085531db407b30be2ec5aceccc46615c90870985b"
+      },
+      "confirmation": {
+        "path": "D07-sign-and-backlog/B/confirmation/confirmation-result.json",
+        "sha256": "78654f4d625e60b68463cdcc184b52b63d36b07123ba7165ae01d2af093ace6a"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D08-old-future-replay",
+      "status": "invalid",
+      "received_frozen_sha256": "490069b284259e24acc2f7b0852aa698cc5531f419aa2d6c22c58b302388613c",
+      "decision": {
+        "path": "D08-old-future-replay/A/diagnostic/diagnostic-decision.json",
+        "sha256": "5bc60065855843044f477ad77b2c1fea393b20e378642bc70c1b6e21e98a7d8b",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [
+        {
+          "candidate_digest": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+          "executed": false,
+          "rejected_before_execution": true,
+          "reason": "recorded_future_replay",
+          "origin": "assigned derived control; no simulator measurement"
+        }
+      ],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:15:04.126217+00:00",
+        "ended_at": "2026-09-18T05:15:14.082144+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:15:04.126217+00:00",
+        "ended_at": "2026-09-18T05:15:14.082144+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 9.955927,
+      "costs": {
+        "simulator_wall": {
+          "value": 7.449542,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 9.955929249990731,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 9.955929249990731,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D08-old-future-replay/A/diagnostic/diagnosis.json",
+        "sha256": "8ce7f95b69ac7cd14a18edbddfdef19b1a0c14371fd6ccf12672c4380f5c9a81"
+      },
+      "confirmation": null
+    },
+    {
+      "arm": "B",
+      "case_id": "D08-old-future-replay",
+      "status": "invalid",
+      "received_frozen_sha256": "490069b284259e24acc2f7b0852aa698cc5531f419aa2d6c22c58b302388613c",
+      "decision": {
+        "path": "D08-old-future-replay/B/diagnostic/diagnostic-decision.json",
+        "sha256": "5f09dbabdde5d86d853940073e1153eafd1735636c64b99fb4b93d4eb5922090",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [
+        {
+          "candidate_digest": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+          "executed": false,
+          "rejected_before_execution": true,
+          "reason": "recorded_future_replay",
+          "origin": "assigned derived control; no simulator measurement"
+        }
+      ],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:14:54.123360+00:00",
+        "ended_at": "2026-09-18T05:15:04.119683+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:14:54.123360+00:00",
+        "ended_at": "2026-09-18T05:15:04.119683+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 9.996323,
+      "costs": {
+        "simulator_wall": {
+          "value": 7.55497,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 9.99631566600874,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 9.99631566600874,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D08-old-future-replay/B/diagnostic/diagnosis.json",
+        "sha256": "4849fb201f777d857aad205646c28987ce1fef3564909372ef671f1564018722"
+      },
+      "confirmation": null
+    },
+    {
+      "arm": "A",
+      "case_id": "D09-action-suppression",
+      "status": "confirmed",
+      "received_frozen_sha256": "f368cb7769e6c59d24a81f5e2561486afb237be0a55cf11f428ae8db32955c59",
+      "decision": {
+        "path": "D09-action-suppression/A/confirmation/decision.json",
+        "sha256": "86e8f013aff5aaa8be4796a821a96fb43eba59e230ac1bf91206fe3f96dcddb7",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "b80ee1e69c59d1254711e5e4e45530c0a69efbdfdcc0a6606446f8fbfc73ac11",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "lost",
+          "origin": "assigned simulator control; not selected as a repair"
+        },
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 4,
+      "diagnostic_records_retained": 4,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:15:14.115035+00:00",
+        "ended_at": "2026-09-18T05:15:34.157605+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:15:14.115035+00:00",
+        "ended_at": "2026-09-18T05:17:39.844716+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:16:05.729970+00:00",
+        "ended_at": "2026-09-18T05:17:39.844716+00:00"
+      },
+      "time_to_confirmed_correction_s": 145.729681,
+      "time_to_decision_including_other_arm_work_s": 145.729681,
+      "costs": {
+        "simulator_wall": {
+          "value": 90.580213,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 20.042563416063786,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 95.13512825011276,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 115.17769166617654,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D09-action-suppression/A/diagnostic/diagnosis.json",
+        "sha256": "fb05d4fa19df487b4a01dc13d3449426eea9109bfbce7e5924a14f46ee727015"
+      },
+      "confirmation": {
+        "path": "D09-action-suppression/A/confirmation/confirmation-result.json",
+        "sha256": "6fba6908f4d879746d412b22a8c01949646d3059e8a9b675d910242206ab0d09"
+      }
+    },
+    {
+      "arm": "B",
+      "case_id": "D09-action-suppression",
+      "status": "confirmed",
+      "received_frozen_sha256": "f368cb7769e6c59d24a81f5e2561486afb237be0a55cf11f428ae8db32955c59",
+      "decision": {
+        "path": "D09-action-suppression/B/confirmation/decision.json",
+        "sha256": "821b1aba1b45f852961cc49b99aeab9ca92f6f39c572066cbc20a69ba5548c30",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c"
+      },
+      "arm_claimed_acceptance": true,
+      "proposals": [
+        {
+          "candidate_digest": "b80ee1e69c59d1254711e5e4e45530c0a69efbdfdcc0a6606446f8fbfc73ac11",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "lost",
+          "origin": "assigned simulator control; not selected as a repair"
+        },
+        {
+          "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+          "executed": true,
+          "rejected_before_execution": false,
+          "reason": "known remedy full rerun",
+          "ordinary_checks": {
+            "process_status": "completed",
+            "task": "completed",
+            "progress": "preserved",
+            "progress_gain_m": 0.024218432019765812,
+            "timing": "met",
+            "maximum_observation_age_s": 0.0,
+            "executed_action_bounds": "met",
+            "intended_executed_mismatch_counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "policy_reset": "cleared",
+            "invalid_reasons": [],
+            "evidence_gaps": [],
+            "meets_measured_obligations": true,
+            "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+          }
+        }
+      ],
+      "diagnostic_rollouts": 4,
+      "diagnostic_records_retained": 4,
+      "confirmation_rollouts": 67,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:15:34.163964+00:00",
+        "ended_at": "2026-09-18T05:16:03.573643+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:15:34.163964+00:00",
+        "ended_at": "2026-09-18T05:19:14.769094+00:00"
+      },
+      "confirmation_timeline": {
+        "started_at": "2026-09-18T05:17:39.859574+00:00",
+        "ended_at": "2026-09-18T05:19:14.769094+00:00"
+      },
+      "time_to_confirmed_correction_s": 220.60513,
+      "time_to_decision_including_other_arm_work_s": 220.60513,
+      "costs": {
+        "simulator_wall": {
+          "value": 91.72196000000001,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 29.40968208387494,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 96.03810412506573,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 125.44778620894067,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D09-action-suppression/B/diagnostic/diagnosis.json",
+        "sha256": "2b204372cc67153b076ebb2cab64ddadb03bdfe41df24a9fcc56623561811e91"
+      },
+      "confirmation": {
+        "path": "D09-action-suppression/B/confirmation/confirmation-result.json",
+        "sha256": "e6837f53c45dde3fb76b1308febbc7ed3537d0d7630d79ba0ebd70fa236bf110"
+      }
+    },
+    {
+      "arm": "A",
+      "case_id": "D10-opaque-policy-state",
+      "status": "unresolved",
+      "received_frozen_sha256": "e8f38daf48ff1d270b8abdefbfa64fc5d3e7b02f6971e919e1523eba4fc9ccf7",
+      "decision": {
+        "path": "D10-opaque-policy-state/A/diagnostic/diagnostic-decision.json",
+        "sha256": "358d2f60ea3d55c6ccf2b0c933cdc5786f4a704506be0981628ee7362e80d024",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:19:18.750190+00:00",
+        "ended_at": "2026-09-18T05:19:22.667609+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:19:18.750190+00:00",
+        "ended_at": "2026-09-18T05:19:22.667609+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 3.917419,
+      "costs": {
+        "simulator_wall": {
+          "value": 3.457025,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 3.9174205421004444,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 3.9174205421004444,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D10-opaque-policy-state/A/diagnostic/diagnosis.json",
+        "sha256": "616cfa278202496d853f3c09d70df67ec608809aaf9140c7afdb9b37cbaf9481"
+      },
+      "confirmation": null
+    },
+    {
+      "arm": "B",
+      "case_id": "D10-opaque-policy-state",
+      "status": "unresolved",
+      "received_frozen_sha256": "e8f38daf48ff1d270b8abdefbfa64fc5d3e7b02f6971e919e1523eba4fc9ccf7",
+      "decision": {
+        "path": "D10-opaque-policy-state/B/diagnostic/diagnostic-decision.json",
+        "sha256": "2a937b75fbc455a5f4b2cfb3bfce5e48603989caac6fef9e123a4a7f500739e0",
+        "decision": "unresolved"
+      },
+      "arm_claimed_acceptance": false,
+      "proposals": [],
+      "diagnostic_rollouts": 2,
+      "diagnostic_records_retained": 2,
+      "confirmation_rollouts": 0,
+      "retries": 0,
+      "timeline": {
+        "started_at": "2026-09-18T05:19:14.840299+00:00",
+        "ended_at": "2026-09-18T05:19:18.746248+00:00"
+      },
+      "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+      "full_trial_timeline": {
+        "started_at": "2026-09-18T05:19:14.840299+00:00",
+        "ended_at": "2026-09-18T05:19:18.746248+00:00"
+      },
+      "confirmation_timeline": null,
+      "time_to_confirmed_correction_s": null,
+      "time_to_decision_including_other_arm_work_s": 3.905949,
+      "costs": {
+        "simulator_wall": {
+          "value": 3.475065,
+          "unit": "s"
+        },
+        "diagnostic_wall": {
+          "value": 3.9059422919526696,
+          "unit": "s"
+        },
+        "confirmation_wall": {
+          "value": 0,
+          "unit": "s"
+        },
+        "own_trial_wall": {
+          "value": 3.9059422919526696,
+          "unit": "s"
+        },
+        "agent_tokens": {
+          "value": null,
+          "unit": "tokens",
+          "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+        },
+        "engineer_time": {
+          "value": null,
+          "unit": "s",
+          "missing": "Not tracked; scripts do not measure engineer productivity"
+        },
+        "provider_and_compute_charges": {
+          "value": null,
+          "unit": "USD",
+          "missing": "No invoices or power meter"
+        }
+      },
+      "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+      "diagnosis": {
+        "path": "D10-opaque-policy-state/B/diagnostic/diagnosis.json",
+        "sha256": "a9ebc3a6412b80e0249c3d0bcfb3e0c406033a073c8a3f35f9d264b3890f4822"
+      },
+      "confirmation": null
+    }
+  ],
+  "execution_complete": true,
+  "started_at": "2026-09-18T04:49:08.626050+00:00",
+  "ended_at": "2026-09-18T05:19:22.678428+00:00",
+  "measured_invocation_wall_s": 1814.0523903749418,
+  "preparation_cost_ledger": {
+    "path": "preparation-costs.json",
+    "sha256": "cf5c64930e03d11c19097f539a40315a2dd8d31a62daba83d9fd54a6a0082471"
+  },
+  "incomplete_trial_policy": "Missing trials remain assigned and unknown; the scorer retains them as not_attempted. Partial stores must be inspected with the recovery command before any retry.",
+  "cost_and_claim_limits": [
+    "No full-cost savings claim; R&D and partial external-lane preparation are retained once and are not amortized.",
+    "Phase walls, command walls and simulator walls overlap and must not be added together.",
+    "The scorer v1 timeline is diagnostic; full_trial_timeline and time_to_confirmed_correction_s retain the complete interval, including interleaved arm work.",
+    "Ten known authored development assignments are not customer incidents, an agent trial or the reserved screen."
+  ]
+}

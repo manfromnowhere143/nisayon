@@ -1,0 +1,12 @@
+Screen package: NOT READY · frozen 2026-09-18T05:44:20.429723+00:00 at f0f1f57e9471d7b1e202a8f9c908f01bc57977d5
+Obligation: first-case-obligation-v0.2 · evaluator files bound: 20 · changed 3 · missing 0 · unlisted 0
+Findings:
+  - evaluator_sources_stale (blocking): the evaluator in this checkout is not the one the package froze at 2026-09-18T05:44:20.429723+00:00 (git head f0f1f57e9471d7b1e202a8f9c908f01bc57977d5): 3 changed, 0 missing, 0 unlisted; re-freeze the package before any reserved screen
+  - ceiling_unset (blocking): agent_token_ceiling is unset; equal measured budgets are required
+  - ceiling_unset (blocking): monetary_ceiling is unset; equal measured budgets are required
+  - capability_missing (blocking): capabilities.matched_isolated_agent_provider is absent; the screen is unrun
+  - capability_missing (blocking): capabilities.reserved_custody_boundary is absent; the screen is unrun
+Limits:
+  - A package that passes binds the evaluator in this checkout; it says nothing about custody of reserved cases, which no record can establish.
+  - Unset ceilings and missing capabilities are what the package itself declares; the check cannot see an isolated provider that the package does not name.
+  - Source digests cover the files the package lists plus the evaluator directory in this checkout; installed dependencies are compared only when the package lists them by digest and this checkout can read the same records.

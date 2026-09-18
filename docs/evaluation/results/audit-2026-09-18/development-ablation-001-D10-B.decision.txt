@@ -1,0 +1,24 @@
+Decision: UNRESOLVED
+Scope: case 'D10-opaque-policy-state-B' under first-case-obligation-v0.2; no frozen candidate confirmed
+Case: D10-opaque-policy-state-B · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=False · regression reproduced=False
+Reasons:
+  - unresolved: reference_not_established: no valid working-revision run completes the failing condition 'seed-0'
+  - unresolved: regression_not_reproduced: no valid changed-revision run fails the failing condition 'seed-0'
+  - unresolved: confirmation_missing: no confirmation record: the candidate has not been frozen and confirmed on fresh conditions
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference-0                         reference  working  seed-0    completed unresolved completed preserved satisfied satisfied
+  regression-0                        regression changed  seed-0    completed unresolved failed    lost      satisfied satisfied
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 13 files verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/development-ablation-001/D10-opaque-policy-state/B/diagnostic/execution
+Producer: nisayon.first_case.v1 · execution code a9984af39c89e6aacf8c65fd3a7db6cb05c5eca8
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 3.475065292 s over 2 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.
+  - State declared as not captured: MuJoCo internal solver caches; all observable internal buffers; full controller object; OS scheduling; hardware floating point state; policy LSTM state and counter: Frozen policy interface does not export recurrent-state telemetry.

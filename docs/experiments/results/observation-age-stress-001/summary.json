@@ -1,0 +1,104 @@
+{
+  "schema": "nisayon.observation-age-stress.summary.v1",
+  "tested_commit": "4af337f9b75c7913e360121a955d557fda2f0a61",
+  "source_root_locator": "artifacts/observation-age-stress-001",
+  "source_bundle_sha256": "bd8a556c70f7bcc14abeb5b1ab054ec762972543c5bf2febd3c85860426be224",
+  "protocol_sha256": "9abda877f53aac11699797c12a232b4b6a3e44c4d48c3fac7bde0c2e2448665e",
+  "scored_incidents": 0,
+  "fresh_confirmation_pairs": 0,
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 16,
+    "simulator_runs": 4,
+    "trace_rows": 1244,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "cells": [
+    {
+      "id": "reference",
+      "task_outcome": "completed",
+      "steps": 44,
+      "max_observation_age_s": 0.0,
+      "peak_cube_height_m": 0.8442316362192643
+    },
+    {
+      "id": "delay-12",
+      "task_outcome": "failed",
+      "steps": 400,
+      "max_observation_age_s": 0.6000000000002004,
+      "peak_cube_height_m": 0.8305939908168962
+    },
+    {
+      "id": "delay-24",
+      "task_outcome": "failed",
+      "steps": 400,
+      "max_observation_age_s": 1.2000000000004007,
+      "peak_cube_height_m": 0.8292875085645478
+    },
+    {
+      "id": "delay-48",
+      "task_outcome": "failed",
+      "steps": 400,
+      "max_observation_age_s": 2.4000000000008015,
+      "peak_cube_height_m": 0.8213408026614656
+    }
+  ],
+  "evaluation": {
+    "decision": "unresolved",
+    "reasons": [
+      {
+        "code": "calibration_only",
+        "severity": "unresolved",
+        "detail": "calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored"
+      }
+    ],
+    "runs": {
+      "reference": {
+        "measurement": "valid",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        },
+        "progress": "preserved",
+        "timing": "satisfied"
+      },
+      "delay-12": {
+        "measurement": "valid",
+        "outcome": {
+          "observed": "failed",
+          "claimed": "failed"
+        },
+        "progress": "lost",
+        "timing": "violated"
+      },
+      "delay-24": {
+        "measurement": "valid",
+        "outcome": {
+          "observed": "failed",
+          "claimed": "failed"
+        },
+        "progress": "lost",
+        "timing": "violated"
+      },
+      "delay-48": {
+        "measurement": "valid",
+        "outcome": {
+          "observed": "failed",
+          "claimed": "failed"
+        },
+        "progress": "lost",
+        "timing": "violated"
+      }
+    }
+  },
+  "interpretation": "All three longer delays caused task failure on known seed 0; reference completed. This does not estimate a threshold, monotonic dose response or general failure probability. The original ten development assignments are unchanged.",
+  "costs": {
+    "execution_command_wall_s": 27.335677,
+    "evaluation_command_wall_s": 3.004749,
+    "known_nonoverlapping_command_wall_s": 30.340426,
+    "human_time": null,
+    "provider_cost": null,
+    "scope": "These two command walls include setup, all four physical runs and separate evaluation. Nested per-run durations are not added."
+  }
+}

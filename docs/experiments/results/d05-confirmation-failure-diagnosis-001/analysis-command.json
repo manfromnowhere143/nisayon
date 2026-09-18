@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "fc205f126d0c424283eab7bffa813853",
+  "label": "d05-followup-analysis-and-archive",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import gzip,json,shutil,sys\nfrom pathlib import Path\nsys.path.insert(0,str(Path(\"scripts/experiments\").resolve()))\nfrom reproduce_clean_install import trajectory\nfrom nisayon.engine.diagnostics import ordinary_checks\nfrom nisayon.engine.first_case import PREDICATES\nfrom nisayon.engine.io import digest,file_digest,write_json\nfrom nisayon.engine.store import verify_execution\nr=Path(\"artifacts/d05-confirmation-failure-diagnosis-001\").resolve()\nout=Path(\"artifacts/d05-confirmation-failure-analysis-001\").resolve()\nout.mkdir(exist_ok=False)\nb=json.loads((r/\"bundle.json\").read_text())\nruns={x[\"id\"]:x for x in b[\"runs\"]}\noriginal=Path(\"artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution/bundle.json\").resolve()\nold=json.loads(original.read_text())\nobserved=[x for x in old[\"runs\"] if x[\"condition_id\"]==\"seed-10423-prefix-10-21\" and not x.get(\"cost_parent_run_id\")]\ncomparisons=[]\nfor oldrun in observed:\n for key in (\"reference\",\"prefix-21-clean\"):\n  actual,expected=trajectory(runs[key]),trajectory(oldrun)\n  comparisons.append({\"fresh_original_run_id\":oldrun[\"id\"],\"exploratory_run_id\":key,\"actual_trajectory_sha256\":digest(actual),\"original_trajectory_sha256\":digest(expected),\"identical_measured_trajectory\":actual==expected})\nmeasured=[]\nparent_cost=nested=0.0\nfor run in b[\"runs\"]:\n wall=run[\"costs\"][0][\"value\"]\n if run.get(\"cost_parent_run_id\"):\n  nested+=wall\n else:\n  parent_cost+=wall\n  measured.append({\"run_id\":run[\"id\"],\"physical_steps\":len(run[\"trace\"]),\"ordinary_checks\":ordinary_checks(run,PREDICATES),\"trajectory_sha256\":digest(trajectory(run)),\"wall_s_including_prefix_if_any\":wall})\nreport={\"schema\":\"nisayon.d05.confirmation-failure-diagnosis.v1\",\"scope\":\"Post-comparison exploration on spent condition 10423; no fresh confirmation, scored incident or accepted repair\",\"declaration_commit\":\"b8aa0787a3aca835bb1b1985778a18ce706ff5f2\",\"execution_commit\":b[\"code\"][\"git_head\"],\"bundle_sha256\":file_digest(r/\"bundle.json\"),\"original_confirmation_bundle_sha256\":file_digest(original),\"integrity\":verify_execution(b,r),\"runs\":measured,\"measured_trajectory_comparisons\":comparisons,\"known_parent_execution_wall_s\":parent_cost,\"nested_prefix_wall_s_not_added\":nested,\"scored_d05_result_unchanged\":\"rejected\"}\nwrite_json(out/\"analysis.json\",report)\narchive=Path(\"docs/experiments/results/d05-confirmation-failure-diagnosis-001\")\narchive.mkdir(exist_ok=False)\nfiles={}\nfor name in [\"calibration-protocol.json\",\"calibration-results.json\"]:\n shutil.copyfile(r/name,archive/name);files[name]=file_digest(archive/name)\nshutil.copyfile(out/\"analysis.json\",archive/\"analysis.json\");files[\"analysis.json\"]=file_digest(archive/\"analysis.json\")\nwith gzip.GzipFile(filename=str(archive/\"bundle.json.gz\"),mode=\"wb\",mtime=0) as stream:\n stream.write((r/\"bundle.json\").read_bytes())\nfiles[\"bundle.json.gz\"]=file_digest(archive/\"bundle.json.gz\")\ncommand=Path(\".nisayon/runs/74834a0afaf747359ced6dee20d51da5/run.json\")\nshutil.copyfile(command,archive/\"execution-command.json\")\nfiles[\"execution-command.json\"]=file_digest(archive/\"execution-command.json\")\nwrite_json(archive/\"manifest.json\",{\"schema\":\"nisayon.d05.diagnosis-archive.v1\",\"raw_root_locator\":str(r),\"analysis_root_locator\":str(out),\"files\":files,\"source_bundle_sha256\":file_digest(r/\"bundle.json\"),\"scope\":\"Compact calibration evidence; raw traces remain at the local locator. No acceptance or fresh confirmation.\"})\nprint(json.dumps({\"runs\":measured,\"trajectory_comparisons\":comparisons,\"parent_wall_s\":parent_cost,\"nested_prefix_wall_s_not_added\":nested,\"integrity\":report[\"integrity\"]},indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-18T05:44:01.373094+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f0f1f57e9471d7b1e202a8f9c908f01bc57977d5",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 7856,
+  "returncode": 0,
+  "ended_at": "2026-09-18T05:44:04.733680+00:00",
+  "wall_seconds": 3.318535,
+  "logs": {
+    "stdout.log": {
+      "bytes": 5406,
+      "sha256": "e5ca0f4153f39a17251644a6f3e0256c7fd647b7e294c45f7e1d49dcd8ac5a7f"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

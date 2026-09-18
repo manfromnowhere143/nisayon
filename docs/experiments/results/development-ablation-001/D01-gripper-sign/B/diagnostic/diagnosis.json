@@ -1,0 +1,209 @@
+{
+  "schema": "nisayon.development-diagnosis.v1",
+  "case_id": "D01-gripper-sign",
+  "arm": "B",
+  "scope": "scored_deterministic_development_ablation",
+  "solver_kind": "scripted_development_ablation",
+  "started_at": "2026-09-18T04:49:25.133167+00:00",
+  "ended_at": "2026-09-18T04:49:39.931775+00:00",
+  "phase_wall_s": 14.798608041135594,
+  "diagnostic_final_check_wall_s": 1.100661792093888,
+  "status": "candidate_ready_for_freeze",
+  "candidate": {
+    "schema": "nisayon.deployment.v1",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "transport_gripper_sign": -1,
+    "repair_gripper_sign": -1,
+    "transport_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "repair_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "observation_delay_steps": 0,
+    "observation_stride_steps": 1,
+    "policy_reset": "episode",
+    "suppress_actions": false
+  },
+  "reason": null,
+  "selection": {
+    "solver_kind": "deterministic_development_procedure",
+    "configuration_differences": {
+      "transport_gripper_sign": {
+        "working": 1,
+        "changed": -1
+      }
+    },
+    "reference": {
+      "process_status": "completed",
+      "task": "completed",
+      "progress": "preserved",
+      "progress_gain_m": 0.024218432019765812,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": true,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "regression": {
+      "process_status": "completed",
+      "task": "failed",
+      "progress": "lost",
+      "progress_gain_m": 0.001327598461967061,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        400
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": false,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "status": "candidate_ready_for_freeze",
+    "candidate": {
+      "schema": "nisayon.deployment.v1",
+      "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+      "transport_gripper_sign": -1,
+      "repair_gripper_sign": -1,
+      "transport_translation_order": [
+        0,
+        1,
+        2
+      ],
+      "repair_translation_order": [
+        0,
+        1,
+        2
+      ],
+      "observation_delay_steps": 0,
+      "observation_stride_steps": 1,
+      "policy_reset": "episode",
+      "suppress_actions": false
+    },
+    "separating_probes": [],
+    "selection_basis": "Known configuration remedies, followed by full observed reruns"
+  },
+  "proposals": [
+    {
+      "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+      "executed": true,
+      "rejected_before_execution": false,
+      "reason": "known remedy full rerun",
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "completed",
+        "progress": "preserved",
+        "progress_gain_m": 0.024218432019765812,
+        "timing": "met",
+        "maximum_observation_age_s": 0.0,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": true,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      }
+    }
+  ],
+  "budget": {
+    "limits": {
+      "max_rollouts": 64,
+      "max_wall_seconds": 1800,
+      "max_final_candidates": 1
+    },
+    "rollout_slots_reserved": 3,
+    "wall_seconds": 14.798613167135045,
+    "final_candidates_selected": 1,
+    "boundary": "Diagnostic phase only; executed prefixes reserve additional slots. Slots include attempts interrupted before completion. Confirmation is a separately equal obligation."
+  },
+  "preflight_checks": [
+    {
+      "bundle": "execution/snapshots/001.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 12,
+        "simulator_runs": 2,
+        "trace_rows": 444,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-000.json",
+      "decision_sha256": "7906f2f58376eda9a62e79b6c8cbf28bd41e54b7445e5e205afb0f4966b96e1f",
+      "wall_s": 2.0324416658841074,
+      "measurement_gaps_or_invalid": {}
+    },
+    {
+      "bundle": "execution/snapshots/002.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 18,
+        "simulator_runs": 3,
+        "trace_rows": 488,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-001.json",
+      "decision_sha256": "d589616498a673903b81a2e6d16567dd4946820c1708b22b3bf5360e5bdab9ab",
+      "wall_s": 2.228354500140995,
+      "measurement_gaps_or_invalid": {}
+    }
+  ],
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 21,
+    "simulator_runs": 3,
+    "trace_rows": 488,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "costs": {
+    "physical_rollouts": 3,
+    "known_run_wall_s": 8.128461,
+    "nested_prefix_runs_not_added": [],
+    "missing_run_wall_ids": [],
+    "scope": "Rollout, reset and trace-write components; nested within phase/command walls, never added to them"
+  },
+  "bundle_path": "execution/bundle.json",
+  "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+  "decision": {
+    "path": "diagnostic-decision.json",
+    "sha256": "3af0125371e2995cc82524757e0ef44c17b0027c5c0b76db8840d05880567af0",
+    "decision": "unresolved"
+  },
+  "arm_claimed_acceptance": false,
+  "interpretation": "A diagnostic proposal is not a confirmed correction; no acceptance is claimed before fresh final confirmation"
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "cc42f0b12d67445ca346c12e15e4a96e",
+  "label": "verify-unproposed-candidate-score-outcome",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import copy,json\nfrom pathlib import Path\nfrom nisayon.evaluation.scoring import score_comparison\nfrom nisayon.engine.io import file_digest,write_json\nr=Path(\"artifacts/development-ablation-001\").resolve()\nledger=json.loads((r/\"comparison-ledger.json\").read_text())\nchanged=copy.deepcopy(ledger)\ntrial=next(t for t in changed[\"trials\"] if t[\"status\"]==\"confirmed\")\nfor proposal in trial[\"proposals\"]: proposal[\"candidate_digest\"]=\"0\"*64\nscore=score_comparison(changed,r)\nassert score[\"cases\"][trial[\"case_id\"]][\"outcomes\"][trial[\"arm\"]]==\"unresolved\"\nassert score[\"arms\"][trial[\"arm\"]][\"false_acceptances\"]==1\nassert score[\"arms\"][trial[\"arm\"]][\"outcomes\"][\"confirmed\"]==5\nreport={\"schema\":\"nisayon.scoring-negative-outcome-check.v1\",\"scope\":\"Deliberately altered ledger copy; original bytes unchanged\",\"source_ledger_sha256\":file_digest(r/\"comparison-ledger.json\"),\"case_id\":trial[\"case_id\"],\"arm\":trial[\"arm\"],\"attack\":\"candidate_never_proposed\",\"score\":score,\"interpretation\":\"fair describes comparable arms, not success. The unsupported candidate is counted as unresolved with a false acceptance; it does not remain confirmed.\"}\nwrite_json(Path(\"artifacts/development-ablation-audit-002/unproposed-outcome-control.json\"),report)\nprint(json.dumps({\"fair\":score[\"fair\"],\"confirmed\":score[\"arms\"][trial[\"arm\"]][\"outcomes\"][\"confirmed\"],\"false_acceptances\":score[\"arms\"][trial[\"arm\"]][\"false_acceptances\"],\"attacked_trial_outcome\":score[\"cases\"][trial[\"case_id\"]][\"outcomes\"][trial[\"arm\"]]}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-18T05:53:04.040364+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f3532deddfda831a9e1ee3ff199a005646b70ef6",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 27853,
+  "returncode": 0,
+  "ended_at": "2026-09-18T05:53:04.235508+00:00",
+  "wall_seconds": 0.141413,
+  "logs": {
+    "stdout.log": {
+      "bytes": 95,
+      "sha256": "4e1e35548e85f642faacf55d0e09388920f0b2416d581fcfc7b4166b738cddb2"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

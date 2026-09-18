@@ -1,0 +1,49 @@
+{
+  "schema": "nisayon.condition-binding-reproducer.v1",
+  "evidence_origin": "labelled_software_fixture_not_simulator",
+  "source_document": {
+    "schema": "nisayon.first_case.v1",
+    "evidence_origin": "synthetic_condition_binding_test",
+    "case": {
+      "id": "labelled-only",
+      "policy": {
+        "sha256": "labelled-synthetic-policy"
+      }
+    },
+    "runs": [
+      {
+        "id": "known",
+        "seed": 777
+      }
+    ],
+    "assignments": [
+      {
+        "run_id": "known",
+        "seed": 777
+      }
+    ],
+    "confirmation": null
+  },
+  "declared_history": {
+    "schema": "nisayon.consumed-conditions.v1",
+    "entries": [
+      {
+        "namespace": "panda-lift:labelled-synthetic-policy",
+        "seeds": [
+          888
+        ],
+        "evidence": {
+          "path": "retained.bundle.json",
+          "sha256": "544024020aeea5d0a57730fa2f1187b917ead18e3ca335b548a00e1a07e917e3"
+        }
+      }
+    ]
+  },
+  "actual_consumed_seeds": [
+    888
+  ],
+  "incorrect_reservation_allowed": true,
+  "physical_runs": 0,
+  "scientific_conditions_observed": 0,
+  "interpretation": "A digest-bound artifact contains seed 777, but the registry lists 888. The current guard accepts 777 as fresh because it does not inspect the bound seed contents. This does not describe a measured physical failure or a reused condition in the latest valid result."
+}

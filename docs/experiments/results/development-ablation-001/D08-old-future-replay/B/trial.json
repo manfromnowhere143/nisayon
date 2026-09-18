@@ -1,0 +1,76 @@
+{
+  "arm": "B",
+  "case_id": "D08-old-future-replay",
+  "status": "invalid",
+  "received_frozen_sha256": "490069b284259e24acc2f7b0852aa698cc5531f419aa2d6c22c58b302388613c",
+  "decision": {
+    "path": "D08-old-future-replay/B/diagnostic/diagnostic-decision.json",
+    "sha256": "5f09dbabdde5d86d853940073e1153eafd1735636c64b99fb4b93d4eb5922090",
+    "decision": "unresolved"
+  },
+  "arm_claimed_acceptance": false,
+  "proposals": [
+    {
+      "candidate_digest": "e67810a358303016edb76d0c018f6269c0ecaef91f527bcbeca9d35cdf73e131",
+      "executed": false,
+      "rejected_before_execution": true,
+      "reason": "recorded_future_replay",
+      "origin": "assigned derived control; no simulator measurement"
+    }
+  ],
+  "diagnostic_rollouts": 2,
+  "diagnostic_records_retained": 2,
+  "confirmation_rollouts": 0,
+  "retries": 0,
+  "timeline": {
+    "started_at": "2026-09-18T05:14:54.123360+00:00",
+    "ended_at": "2026-09-18T05:15:04.119683+00:00"
+  },
+  "timeline_scope": "Diagnostic interval required by scoring contract v1; full trial and confirmation intervals are separate below",
+  "full_trial_timeline": {
+    "started_at": "2026-09-18T05:14:54.123360+00:00",
+    "ended_at": "2026-09-18T05:15:04.119683+00:00"
+  },
+  "confirmation_timeline": null,
+  "time_to_confirmed_correction_s": null,
+  "time_to_decision_including_other_arm_work_s": 9.996323,
+  "costs": {
+    "simulator_wall": {
+      "value": 7.55497,
+      "unit": "s"
+    },
+    "diagnostic_wall": {
+      "value": 9.99631566600874,
+      "unit": "s"
+    },
+    "confirmation_wall": {
+      "value": 0,
+      "unit": "s"
+    },
+    "own_trial_wall": {
+      "value": 9.99631566600874,
+      "unit": "s"
+    },
+    "agent_tokens": {
+      "value": null,
+      "unit": "tokens",
+      "missing": "Scripted solver used no model calls; engineering-session provider accounting is unavailable"
+    },
+    "engineer_time": {
+      "value": null,
+      "unit": "s",
+      "missing": "Not tracked; scripts do not measure engineer productivity"
+    },
+    "provider_and_compute_charges": {
+      "value": null,
+      "unit": "USD",
+      "missing": "No invoices or power meter"
+    }
+  },
+  "cost_scope": "Simulator wall is nested within phase walls. own_trial_wall is the sum of phases; never add these overlapping components. Historical R&D/preparation is bound once at suite level, without amortization.",
+  "diagnosis": {
+    "path": "D08-old-future-replay/B/diagnostic/diagnosis.json",
+    "sha256": "4849fb201f777d857aad205646c28987ce1fef3564909372ef671f1564018722"
+  },
+  "confirmation": null
+}

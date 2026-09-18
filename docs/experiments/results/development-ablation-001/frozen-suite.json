@@ -1,0 +1,2599 @@
+{
+  "schema": "nisayon.development.frozen-suite.v1",
+  "id": "development-ablation-001",
+  "frozen_at": "2026-09-18T04:49:12.600346+00:00",
+  "code": {
+    "git_head": "a9984af39c89e6aacf8c65fd3a7db6cb05c5eca8",
+    "sources": {
+      "scripts/experiments/probe_lift.py": "349b45349fe1f1434d723862befd86bd878cba52d1ed7438dea6744910b15fc8",
+      "scripts/experiments/qualify_capture_times.py": "0d30a44fe658173e8e3fee7d9085abd3122ce718a227f719ada66010078ea909",
+      "scripts/experiments/reproduce_clean_install.py": "f5e56eda9bc49235531e038308a244f480de0a5c71bff35ede02766c033cbe75",
+      "scripts/experiments/verify_condition_freshness.py": "a58c34cd88123de8e0776219248fd09c5840d829d3f109eabb9ea887e0f7c16b",
+      "scripts/experiments/verify_portable_execution.py": "0d3f00f64d0e42ab544f01938add42218eb099425ee02cfc5447399af4ba8145",
+      "src/nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "src/nisayon/cli.py": "492edafc83227f6cc37fd90236e1704d5dd899aa99a35556fd2e3526881815e2",
+      "src/nisayon/engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "src/nisayon/engine/assets.py": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9",
+      "src/nisayon/engine/budgets.py": "9905bb0fc79da3512d20bdc16cec5445827c0aae1ba2c2efa4ad175645f580e5",
+      "src/nisayon/engine/comparison_recovery.py": "6e3c94ce021b6b53163cda100ffb4cffeb5ddbd3fe20ba1e40758139ecd95e42",
+      "src/nisayon/engine/conditions.py": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf",
+      "src/nisayon/engine/configuration.py": "48d3bca1f8cc1a4702277aa313b87aa690273e4fe0c6963f683b42b98191bf1b",
+      "src/nisayon/engine/confirmation_service.py": "e33fb55838702fde52f971a1f541235d0a42c210902942a4bcd0d4f6f363c3d3",
+      "src/nisayon/engine/costs.py": "92979dfe563c44826b1728f8f3e869fb66d1154f053a580ab4cdd20056aca9e8",
+      "src/nisayon/engine/development.py": "b52b1828d9eed48b688b5ea9c1aa641180650d4f181f9be004dd894188e392a2",
+      "src/nisayon/engine/development_cases.py": "cbe87df824ee327bb93025f571380a663832dfff13236b70aa565788266f8f32",
+      "src/nisayon/engine/development_diagnostics.py": "03f25f9cb58cc12840e61d001ade677990be02c72ec2b065ee07d8d1a45981c4",
+      "src/nisayon/engine/diagnostics.py": "39f25cad544052911c7045a0d5a965f5064f24f6f4a0e1b3814c96db8a6e7763",
+      "src/nisayon/engine/execution_store.py": "774529c3ddfd2674416e246e08f86a07e832191213cb63fd8e65c5a931417115",
+      "src/nisayon/engine/family_calibration.py": "aa8a16883acddc261420c3be3763fdfe8f8902236b30b8014932b97e118454e0",
+      "src/nisayon/engine/first_case.py": "76828320abf16175cfac8a646ebb57291d2465b3cd56d0a09c9bafe977023a0c",
+      "src/nisayon/engine/history.py": "7daee40bd7abbe121295602a9db4d48e1dc53af3d9572cc953b78312aeb3d6a0",
+      "src/nisayon/engine/identity.py": "d5b96fc1cd04beeed40e2578244e95667405e8d568e9cd680cfdd800db152ac4",
+      "src/nisayon/engine/integrate.py": "69f674d06b2c670a499ce2d35f39caa4c72127f8adeceac4558f26931e7274ca",
+      "src/nisayon/engine/io.py": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "src/nisayon/engine/joint_case.py": "d3b6069d4efafc59f24cac399dd549be74bc01afda10cfef7488b9c26bc6b98d",
+      "src/nisayon/engine/lift.py": "a97e819fcd1dbd6492a6243081b60230a45776c46e37ef58b77ae4f8241aa3c0",
+      "src/nisayon/engine/observations.py": "2f79aa8f80307aaa5703d9813c8c444ce880afb1e1e86d81f4915af09991fc14",
+      "src/nisayon/engine/qualification.py": "2b4a7513bd41b4d4429317c3a55c1899a400bc49071a485de75a8e95381ab47a",
+      "src/nisayon/engine/qualify_development.py": "10455333d464c1aebe4e4aa17d560c69fc59ab4abb51653656164f7c00d1f5d3",
+      "src/nisayon/engine/records.py": "1dec267d4c5d7e8579b1bff493fcfe1ae4c1ce063290dc1224c50c9f607b6390",
+      "src/nisayon/engine/recovery.py": "0ae37c53e19cdb66cbe372913daf37bdba06c4716f04be69959bd4b7bcd2b52f",
+      "src/nisayon/engine/screen.py": "e876ba3d02c2bd24b57ed93d7e9394d2068085bf8fd04f6754c63f6dcc510f7a",
+      "src/nisayon/engine/store.py": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "src/nisayon/engine/telemetry.py": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "src/nisayon/evaluation/__init__.py": "25009d0b6caff69b3b3dd2b597cb5fca61d29cfa8aa97b5b40a073bdbd6b7200",
+      "src/nisayon/evaluation/__main__.py": "138a80e8a5fe2f4216f38ace906597d3c80b9c921e26ef6b970978f2cdaca389",
+      "src/nisayon/evaluation/bundle.py": "90771a4774104c22074b4ddfa74922c8cda22de8b76cd5b2b04f1b526c8826e1",
+      "src/nisayon/evaluation/case.py": "97f766a14084a942fceb8a1f6dfe875ea16418d8de71d6ed86ba8af884f534e0",
+      "src/nisayon/evaluation/checks.py": "817d4828ef6fff64f349b6857834efee399ce00923b958ebaee63d5f250e15b8",
+      "src/nisayon/evaluation/codes.py": "d6e0e7889e29ad546c942584452d27acca4c68b9da2736eb9fbbdcf1d15dd016",
+      "src/nisayon/evaluation/confirmation.py": "a8b3e17c550df6e82dea625088aab76c61218bf118a4f92a4aeec0929120aaac",
+      "src/nisayon/evaluation/controls.py": "b973bff6879c59f193c6ff93069a913d90a89c7f2cc2b7802982b28dbddcfcbe",
+      "src/nisayon/evaluation/decision.py": "d68a4486d599c3770a187f308ae30342f065bd222d9b8ad4f98baa497f029b77",
+      "src/nisayon/evaluation/first_case.py": "f8371fc392069c9341adc6a9a28b54f967295e849773b6244929d1ef0b46a0b5",
+      "src/nisayon/evaluation/fixtures.py": "5382abedb9c9e2b6348f3c7cc81304fa4d3351d1d4768be10d7bf1714e334aaf",
+      "src/nisayon/evaluation/ledger.py": "c9ce218ea26977097e91fc52478032a3f60cba7d7711cea81e12be288aa80e34",
+      "src/nisayon/evaluation/package.py": "a9d304ce4e2806cc7a9854ebb5c1274b3ee78c2fce73afa022dbced9e75ca557",
+      "src/nisayon/evaluation/report.py": "86a170d87f1e021b97ac81910a83c307327c11f5f884938be902308465a50477",
+      "src/nisayon/evaluation/reserved.py": "e933e81b0504e5c4ad6c148cc9985c1e701029c62bdef452c2f5cedcda7661e4",
+      "src/nisayon/evaluation/reserved_fixtures.py": "b0d5f0e126f245b0d27e58f663fd7b67e0d99b2b8a3281f3380c4122cd959453",
+      "src/nisayon/evaluation/retained.py": "b363807f31de11b5acf9753d236440f117d45020991faac9c0995afc89aeb86d",
+      "src/nisayon/evaluation/schema.py": "5d9728911ec9376f9b321932596097b1eb567e7bc0b59b8c532833e0ce4f01a7",
+      "src/nisayon/evaluation/scoring.py": "fed1d436e68729c7b997515f66adc8cf77d28d99b01a58b8e194f3e1dc2fd2e0",
+      "src/nisayon/evaluation/scoring_fixtures.py": "314d50560f6e347c2c95ef7f9797d07c8b0a1057b15ceb910d1ecce315e05935",
+      "src/nisayon/mcp_server.py": "d4e8f3400d6e30070634d6db23886106527d56859f312cdbc7c1e415f96eb47f",
+      "src/nisayon/records.py": "4c5ce945dc8b7eaa677da91ed2f59779888917fdd69eb5ce71b72f1dcf04a582",
+      "src/nisayon/runs.py": "76cafe6e0ced1f0d38b5d26172ef14199dda15a754014fdcd6b1b23e2d0e6dce",
+      "src/nisayon/workspace.py": "968cb35868444add2725ae2e163055c0f6e60281ce18c99943a0f95ba8fc4fd9"
+    },
+    "lock_sha256": "6cb4807b2f588aa7886843877dbb813ccc8d43bf63042f757d817f9b08318097",
+    "pyproject_sha256": "a6a47d94539c215d1cb6bf3c935cffff66b68730ba43c6ce8beb697c346eb7ca",
+    "source_changes": []
+  },
+  "evaluator_commit": "90767cd2443eb9f129631e310743d01ee8c77b4d",
+  "baseline_sha256": "39f25cad544052911c7045a0d5a965f5064f24f6f4a0e1b3814c96db8a6e7763",
+  "source_assignment_sha256": "037bf45a76022583d454a5a5935f93fd7720e0e9c2e7589fcac6ddd7612f0489",
+  "asset": {
+    "url": "https://downloads.cs.stanford.edu/downloads/rt_benchmark/model_zoo/lift/bc_rnn/lift_ph_low_dim_epoch_1000_succ_100.pth",
+    "sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "bytes": 7959022,
+    "downloaded": false,
+    "preparation_wall_s": 0.004879042040556669,
+    "training": "public frozen BC-RNN checkpoint; no local training",
+    "code_terms": "robomimic MIT; robosuite MIT; MuJoCo Apache-2.0",
+    "checkpoint_terms": "Public model-zoo download; separate weights license not specified",
+    "distribution": "download recipe only; weights excluded from Git"
+  },
+  "cases": [
+    {
+      "id": "D01-gripper-sign",
+      "family": "action_interpretation",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D01-gripper-sign",
+        "family": "action_interpretation",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "mechanism": "The changed transport reverses the gripper component."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8cf675754cf1d077b834faa4b22bbfecea92d76b974cf5152085c43edf6deb86",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10000",
+          "seed-10001",
+          "seed-10002",
+          "seed-10003",
+          "seed-10004",
+          "seed-10005",
+          "seed-10006",
+          "seed-10007",
+          "seed-10008",
+          "seed-10009",
+          "seed-10010",
+          "seed-10011",
+          "seed-10012",
+          "seed-10013",
+          "seed-10014",
+          "seed-10015",
+          "seed-10016",
+          "seed-10017",
+          "seed-10018",
+          "seed-10019",
+          "seed-10020",
+          "seed-10021",
+          "seed-10022",
+          "seed-10023",
+          "seed-10024",
+          "seed-10025",
+          "seed-10026",
+          "seed-10027",
+          "seed-10028",
+          "seed-10029",
+          "seed-10030",
+          "seed-10031"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D02-cartesian-axis",
+      "family": "action_interpretation",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D02-cartesian-axis",
+        "family": "action_interpretation",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_translation_order": [
+            2,
+            1,
+            0
+          ]
+        },
+        "mechanism": "The changed transport exchanges Cartesian x and z."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "0a19151f2465b4b0f7c5f8d081b937651afbda58629c65ca94ca1e6b5c033b63",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "963148dff1b7f6c2094a392dbc03e1f5704282dbcee58bb0c86de20a5b4a996e",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            2,
+            1,
+            0
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10100",
+          "seed-10101",
+          "seed-10102",
+          "seed-10103",
+          "seed-10104",
+          "seed-10105",
+          "seed-10106",
+          "seed-10107",
+          "seed-10108",
+          "seed-10109",
+          "seed-10110",
+          "seed-10111",
+          "seed-10112",
+          "seed-10113",
+          "seed-10114",
+          "seed-10115",
+          "seed-10116",
+          "seed-10117",
+          "seed-10118",
+          "seed-10119",
+          "seed-10120",
+          "seed-10121",
+          "seed-10122",
+          "seed-10123",
+          "seed-10124",
+          "seed-10125",
+          "seed-10126",
+          "seed-10127",
+          "seed-10128",
+          "seed-10129",
+          "seed-10130",
+          "seed-10131"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D03-observation-backlog",
+      "family": "observation_timing",
+      "intended_class": "repairable_timing",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D03-observation-backlog",
+        "family": "observation_timing",
+        "intended_class": "repairable_timing",
+        "episode_seed": 0,
+        "changed": {
+          "observation_delay_steps": 3
+        },
+        "mechanism": "The consumer uses the packet from three control steps earlier.",
+        "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "63026f4fb73bc96844382ea2f4fa8dcbec73138e728c5a34ca295134910b733e",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "0072d44d1fd61af44e5de522f5f04d34de89c08daa665b235850af52f90a2dcb",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 3,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10200",
+          "seed-10201",
+          "seed-10202",
+          "seed-10203",
+          "seed-10204",
+          "seed-10205",
+          "seed-10206",
+          "seed-10207",
+          "seed-10208",
+          "seed-10209",
+          "seed-10210",
+          "seed-10211",
+          "seed-10212",
+          "seed-10213",
+          "seed-10214",
+          "seed-10215",
+          "seed-10216",
+          "seed-10217",
+          "seed-10218",
+          "seed-10219",
+          "seed-10220",
+          "seed-10221",
+          "seed-10222",
+          "seed-10223",
+          "seed-10224",
+          "seed-10225",
+          "seed-10226",
+          "seed-10227",
+          "seed-10228",
+          "seed-10229",
+          "seed-10230",
+          "seed-10231"
+        ],
+        "failure_obligation": "timing",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D04-observation-hold",
+      "family": "observation_timing",
+      "intended_class": "repairable_timing",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D04-observation-hold",
+        "family": "observation_timing",
+        "intended_class": "repairable_timing",
+        "episode_seed": 0,
+        "changed": {
+          "observation_stride_steps": 5
+        },
+        "mechanism": "The consumer holds each selected observation across five acquisitions.",
+        "calibration_limit": "The task completed, while the frozen input-age obligation failed."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "2cf23d27645ae0331854cb63c5ac4a40e413ac0aa1145c78d5f330c40566066b",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "99607db46f882c541240bf64414ff7235ffc21f5bf343b7b52e76b7bcecc8a89",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 5,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10300",
+          "seed-10301",
+          "seed-10302",
+          "seed-10303",
+          "seed-10304",
+          "seed-10305",
+          "seed-10306",
+          "seed-10307",
+          "seed-10308",
+          "seed-10309",
+          "seed-10310",
+          "seed-10311",
+          "seed-10312",
+          "seed-10313",
+          "seed-10314",
+          "seed-10315",
+          "seed-10316",
+          "seed-10317",
+          "seed-10318",
+          "seed-10319",
+          "seed-10320",
+          "seed-10321",
+          "seed-10322",
+          "seed-10323",
+          "seed-10324",
+          "seed-10325",
+          "seed-10326",
+          "seed-10327",
+          "seed-10328",
+          "seed-10329",
+          "seed-10330",
+          "seed-10331"
+        ],
+        "failure_obligation": "timing",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D05-recurrent-carry",
+      "family": "policy_reset",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D05-recurrent-carry",
+        "family": "policy_reset",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "prefix": {
+          "seed": 10,
+          "steps": 21
+        },
+        "changed": {
+          "policy_reset": "carry_prefix"
+        },
+        "mechanism": "Plant/controller reset after an executed prefix, but recurrent policy state carries into the new episode."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "c219c692452e71da576f01e1b6777eeb6d6ec1ac1ee51e5bace9c7f955137674",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "33596fcdb3b1275e8fce85b4fcd75f00b0db03f65d65a878b250ee2be302e127",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8ea9e78a5dd800188f8d180a8ed467ef9d676a910ff0136ce84970590783b67f",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "carry_prefix",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": {
+            "seed": 10,
+            "steps": 21
+          },
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10400-prefix-10-21",
+          "seed-10401-prefix-10-21",
+          "seed-10402-prefix-10-21",
+          "seed-10403-prefix-10-21",
+          "seed-10404-prefix-10-21",
+          "seed-10405-prefix-10-21",
+          "seed-10406-prefix-10-21",
+          "seed-10407-prefix-10-21",
+          "seed-10408-prefix-10-21",
+          "seed-10409-prefix-10-21",
+          "seed-10410-prefix-10-21",
+          "seed-10411-prefix-10-21",
+          "seed-10412-prefix-10-21",
+          "seed-10413-prefix-10-21",
+          "seed-10414-prefix-10-21",
+          "seed-10415-prefix-10-21",
+          "seed-10416-prefix-10-21",
+          "seed-10417-prefix-10-21",
+          "seed-10418-prefix-10-21",
+          "seed-10419-prefix-10-21",
+          "seed-10420-prefix-10-21",
+          "seed-10421-prefix-10-21",
+          "seed-10422-prefix-10-21",
+          "seed-10423-prefix-10-21",
+          "seed-10424-prefix-10-21",
+          "seed-10425-prefix-10-21",
+          "seed-10426-prefix-10-21",
+          "seed-10427-prefix-10-21",
+          "seed-10428-prefix-10-21",
+          "seed-10429-prefix-10-21",
+          "seed-10430-prefix-10-21",
+          "seed-10431-prefix-10-21"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0-prefix-10-21"
+      }
+    },
+    {
+      "id": "D06-stateless-inference",
+      "family": "policy_reset",
+      "intended_class": "fault_injection_may_be_unsupported",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D06-stateless-inference",
+        "family": "policy_reset",
+        "intended_class": "fault_injection_may_be_unsupported",
+        "episode_seed": 0,
+        "changed": {
+          "policy_reset": "every_action"
+        },
+        "mechanism": "The integration clears learned recurrence before every inference.",
+        "calibration_limit": "This did not cause task failure in calibration. Retain an unsupported result if it again meets every scored task obligation."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "c144d16f6a4764af44d30588d0266ba1a0c6776e647fe14b3cbea001a30a14bd",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "8942c8e08c229e302ae15bde1a57d55249e8e2a36888918ed59eae9fa8f4260e",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "every_action",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10500",
+          "seed-10501",
+          "seed-10502",
+          "seed-10503",
+          "seed-10504",
+          "seed-10505",
+          "seed-10506",
+          "seed-10507",
+          "seed-10508",
+          "seed-10509",
+          "seed-10510",
+          "seed-10511",
+          "seed-10512",
+          "seed-10513",
+          "seed-10514",
+          "seed-10515",
+          "seed-10516",
+          "seed-10517",
+          "seed-10518",
+          "seed-10519",
+          "seed-10520",
+          "seed-10521",
+          "seed-10522",
+          "seed-10523",
+          "seed-10524",
+          "seed-10525",
+          "seed-10526",
+          "seed-10527",
+          "seed-10528",
+          "seed-10529",
+          "seed-10530",
+          "seed-10531"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D07-sign-and-backlog",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D07-sign-and-backlog",
+        "family": "interaction",
+        "intended_class": "repairable",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1,
+          "observation_delay_steps": 3
+        },
+        "mechanism": "Sign correction alone leaves a timing violation; timing correction alone leaves the task failure.",
+        "diagnostics": "Explicit single-change and combined probes; no logarithmic bisection claim for interacting changes."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "264bfcf6ae793bb367efa3c0be9c8254a1f426bebda71b260167c352b4bdb1f4",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "dac4febeaccc20496e1c53db8e76f9cd0d19053f79e1602c7c8d80be9f745aa5",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 3,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10600",
+          "seed-10601",
+          "seed-10602",
+          "seed-10603",
+          "seed-10604",
+          "seed-10605",
+          "seed-10606",
+          "seed-10607",
+          "seed-10608",
+          "seed-10609",
+          "seed-10610",
+          "seed-10611",
+          "seed-10612",
+          "seed-10613",
+          "seed-10614",
+          "seed-10615",
+          "seed-10616",
+          "seed-10617",
+          "seed-10618",
+          "seed-10619",
+          "seed-10620",
+          "seed-10621",
+          "seed-10622",
+          "seed-10623",
+          "seed-10624",
+          "seed-10625",
+          "seed-10626",
+          "seed-10627",
+          "seed-10628",
+          "seed-10629",
+          "seed-10630",
+          "seed-10631"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D08-old-future-replay",
+      "family": "invalid_experiment_control",
+      "intended_class": "invalid",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D08-old-future-replay",
+        "family": "invalid_experiment_control",
+        "intended_class": "invalid",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "control": "Fable derives an action-changing replay from the case's measured regression; retain its recorded future observations.",
+        "origin": "Derived invalid control over real source execution; the derived record is not a simulator measurement."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "b1c9c626a0c3f8d61a4a92d7810ce56374af6b5498305c192303c609f8279aad",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10700",
+          "seed-10701",
+          "seed-10702",
+          "seed-10703",
+          "seed-10704",
+          "seed-10705",
+          "seed-10706",
+          "seed-10707",
+          "seed-10708",
+          "seed-10709",
+          "seed-10710",
+          "seed-10711",
+          "seed-10712",
+          "seed-10713",
+          "seed-10714",
+          "seed-10715",
+          "seed-10716",
+          "seed-10717",
+          "seed-10718",
+          "seed-10719",
+          "seed-10720",
+          "seed-10721",
+          "seed-10722",
+          "seed-10723",
+          "seed-10724",
+          "seed-10725",
+          "seed-10726",
+          "seed-10727",
+          "seed-10728",
+          "seed-10729",
+          "seed-10730",
+          "seed-10731"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D09-action-suppression",
+      "family": "progress_loss_trap",
+      "intended_class": "repairable_with_invalid_proposed_fix",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D09-action-suppression",
+        "family": "progress_loss_trap",
+        "intended_class": "repairable_with_invalid_proposed_fix",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "proposed_control": {
+          "suppress_actions": true
+        },
+        "mechanism": "An installable zero-action proposal destroys task progress; the legitimate sign remedy remains available to both arms."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "cf6b41ed978efb60eddca1186ade6c499a6ec3b17f79e03cf34d6ab6ba2602c2",
+        "observations_sha256": "87b1f6bb8667f3335ce2a121b40b53c35783360398039eb4e5d827eb1caf68a2",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "4375ea4cf7d2289442d9971190c855d3c633b8e3e460f84166584c0796d8f643",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset",
+          "suppress_actions"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "full",
+            "policy_state": "available",
+            "missing_reason": null
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10800",
+          "seed-10801",
+          "seed-10802",
+          "seed-10803",
+          "seed-10804",
+          "seed-10805",
+          "seed-10806",
+          "seed-10807",
+          "seed-10808",
+          "seed-10809",
+          "seed-10810",
+          "seed-10811",
+          "seed-10812",
+          "seed-10813",
+          "seed-10814",
+          "seed-10815",
+          "seed-10816",
+          "seed-10817",
+          "seed-10818",
+          "seed-10819",
+          "seed-10820",
+          "seed-10821",
+          "seed-10822",
+          "seed-10823",
+          "seed-10824",
+          "seed-10825",
+          "seed-10826",
+          "seed-10827",
+          "seed-10828",
+          "seed-10829",
+          "seed-10830",
+          "seed-10831"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    },
+    {
+      "id": "D10-opaque-policy-state",
+      "family": "insufficient_observations",
+      "intended_class": "unresolved",
+      "budget": {
+        "max_rollouts": 64,
+        "max_wall_seconds": 1800,
+        "max_final_candidates": 1
+      },
+      "author_record": {
+        "id": "D10-opaque-policy-state",
+        "family": "insufficient_observations",
+        "intended_class": "unresolved",
+        "episode_seed": 0,
+        "changed": {
+          "transport_gripper_sign": -1
+        },
+        "telemetry_profile": "policy_state_unavailable",
+        "mechanism": "Actions and simulator outcomes remain measured, but the inference boundary does not export the recurrent-state evidence required by the reset obligation.",
+        "limit": "An explicit development observability control shared by both arms, not a claim that the local simulator makes such telemetry impossible. The scored repair space does not expand the frozen observation interface."
+      },
+      "frozen": {
+        "working_digest": "62b0c6cda95a8cf69313c3eb65cb12c2e680425bf390f03d41652b0eec1362d4",
+        "changed_digest": "1f319c710d3f0fe6244286cf80dd439672b74faadca04eea7bb26404d7169b68",
+        "repair_space_sha256": "e1e5dac8beef527d537ef8066224a3b0241026fe43b11fde90cfd158c38a1440",
+        "observations_sha256": "6aa000d9a9830afafc35b326e03b4dc4ccecad986addb9623b9697e4d93db438",
+        "predicates_digest": "cc237b3332cf00cc1ebfb2afd5f0c4016c44b05bc3733ebf492c1b40fbb01496",
+        "confirmation_conditions_sha256": "f3cc191ca13231e05a4a0ea7dae6f8c146ea8bbca8e76e760956fc555a74c5e0",
+        "working": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": 1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "changed": {
+          "schema": "nisayon.deployment.v1",
+          "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+          "transport_gripper_sign": -1,
+          "repair_gripper_sign": 1,
+          "transport_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "repair_translation_order": [
+            0,
+            1,
+            2
+          ],
+          "observation_delay_steps": 0,
+          "observation_stride_steps": 1,
+          "policy_reset": "episode",
+          "suppress_actions": false
+        },
+        "repair_space": [
+          "repair_gripper_sign",
+          "repair_translation_order",
+          "observation_delay_steps",
+          "observation_stride_steps",
+          "policy_reset"
+        ],
+        "observations": {
+          "shared_information": [
+            "working_and_changed_configuration",
+            "intended_and_executed_actions",
+            "acquisition_and_action_clocks",
+            "available_reset_evidence",
+            "known_inverse_and_reset_remedies"
+          ],
+          "telemetry": {
+            "profile": "policy_state_unavailable",
+            "policy_state": "unavailable",
+            "missing_reason": "Frozen policy interface does not export recurrent-state telemetry"
+          },
+          "prefix": null,
+          "observations": [
+            "object",
+            "robot0_eef_pos",
+            "robot0_eef_quat",
+            "robot0_gripper_qpos"
+          ],
+          "clocks": {
+            "obligation": "simulation_seconds",
+            "host": "perf_counter_seconds"
+          }
+        },
+        "predicates": {
+          "protocol_id": "first-case-obligation-v0.2",
+          "task": "cube centre z > table z + 0.04 m",
+          "table_height_m": 0.8,
+          "min_cube_height_m": 0.84,
+          "max_steps": 400,
+          "control_period_s": 0.05,
+          "control_period_tolerance_s": 1e-09,
+          "max_observation_age_s": 1e-09,
+          "max_abs_executed_action": 1.0,
+          "action_dimension": 7,
+          "progress_minimum_gain_m": 0.01,
+          "progress_activation_tolerance_m": 0.005,
+          "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+          "confirmation_rule": "candidate completes every condition completed by its reference",
+          "host_realtime_requirement": null
+        },
+        "confirmation_condition_ids": [
+          "seed-10900",
+          "seed-10901",
+          "seed-10902",
+          "seed-10903",
+          "seed-10904",
+          "seed-10905",
+          "seed-10906",
+          "seed-10907",
+          "seed-10908",
+          "seed-10909",
+          "seed-10910",
+          "seed-10911",
+          "seed-10912",
+          "seed-10913",
+          "seed-10914",
+          "seed-10915",
+          "seed-10916",
+          "seed-10917",
+          "seed-10918",
+          "seed-10919",
+          "seed-10920",
+          "seed-10921",
+          "seed-10922",
+          "seed-10923",
+          "seed-10924",
+          "seed-10925",
+          "seed-10926",
+          "seed-10927",
+          "seed-10928",
+          "seed-10929",
+          "seed-10930",
+          "seed-10931"
+        ],
+        "failure_obligation": "task",
+        "reproduction_condition_id": "seed-0"
+      }
+    }
+  ],
+  "arms": [
+    {
+      "id": "A",
+      "kind": "scripted",
+      "validity_layer": false,
+      "selection": "fixed",
+      "agent": null
+    },
+    {
+      "id": "B",
+      "kind": "scripted",
+      "validity_layer": true,
+      "selection": "fixed",
+      "agent": null
+    }
+  ],
+  "condition_seeds": {
+    "D01-gripper-sign": [
+      10000,
+      10001,
+      10002,
+      10003,
+      10004,
+      10005,
+      10006,
+      10007,
+      10008,
+      10009,
+      10010,
+      10011,
+      10012,
+      10013,
+      10014,
+      10015,
+      10016,
+      10017,
+      10018,
+      10019,
+      10020,
+      10021,
+      10022,
+      10023,
+      10024,
+      10025,
+      10026,
+      10027,
+      10028,
+      10029,
+      10030,
+      10031
+    ],
+    "D02-cartesian-axis": [
+      10100,
+      10101,
+      10102,
+      10103,
+      10104,
+      10105,
+      10106,
+      10107,
+      10108,
+      10109,
+      10110,
+      10111,
+      10112,
+      10113,
+      10114,
+      10115,
+      10116,
+      10117,
+      10118,
+      10119,
+      10120,
+      10121,
+      10122,
+      10123,
+      10124,
+      10125,
+      10126,
+      10127,
+      10128,
+      10129,
+      10130,
+      10131
+    ],
+    "D03-observation-backlog": [
+      10200,
+      10201,
+      10202,
+      10203,
+      10204,
+      10205,
+      10206,
+      10207,
+      10208,
+      10209,
+      10210,
+      10211,
+      10212,
+      10213,
+      10214,
+      10215,
+      10216,
+      10217,
+      10218,
+      10219,
+      10220,
+      10221,
+      10222,
+      10223,
+      10224,
+      10225,
+      10226,
+      10227,
+      10228,
+      10229,
+      10230,
+      10231
+    ],
+    "D04-observation-hold": [
+      10300,
+      10301,
+      10302,
+      10303,
+      10304,
+      10305,
+      10306,
+      10307,
+      10308,
+      10309,
+      10310,
+      10311,
+      10312,
+      10313,
+      10314,
+      10315,
+      10316,
+      10317,
+      10318,
+      10319,
+      10320,
+      10321,
+      10322,
+      10323,
+      10324,
+      10325,
+      10326,
+      10327,
+      10328,
+      10329,
+      10330,
+      10331
+    ],
+    "D05-recurrent-carry": [
+      10400,
+      10401,
+      10402,
+      10403,
+      10404,
+      10405,
+      10406,
+      10407,
+      10408,
+      10409,
+      10410,
+      10411,
+      10412,
+      10413,
+      10414,
+      10415,
+      10416,
+      10417,
+      10418,
+      10419,
+      10420,
+      10421,
+      10422,
+      10423,
+      10424,
+      10425,
+      10426,
+      10427,
+      10428,
+      10429,
+      10430,
+      10431
+    ],
+    "D06-stateless-inference": [
+      10500,
+      10501,
+      10502,
+      10503,
+      10504,
+      10505,
+      10506,
+      10507,
+      10508,
+      10509,
+      10510,
+      10511,
+      10512,
+      10513,
+      10514,
+      10515,
+      10516,
+      10517,
+      10518,
+      10519,
+      10520,
+      10521,
+      10522,
+      10523,
+      10524,
+      10525,
+      10526,
+      10527,
+      10528,
+      10529,
+      10530,
+      10531
+    ],
+    "D07-sign-and-backlog": [
+      10600,
+      10601,
+      10602,
+      10603,
+      10604,
+      10605,
+      10606,
+      10607,
+      10608,
+      10609,
+      10610,
+      10611,
+      10612,
+      10613,
+      10614,
+      10615,
+      10616,
+      10617,
+      10618,
+      10619,
+      10620,
+      10621,
+      10622,
+      10623,
+      10624,
+      10625,
+      10626,
+      10627,
+      10628,
+      10629,
+      10630,
+      10631
+    ],
+    "D08-old-future-replay": [
+      10700,
+      10701,
+      10702,
+      10703,
+      10704,
+      10705,
+      10706,
+      10707,
+      10708,
+      10709,
+      10710,
+      10711,
+      10712,
+      10713,
+      10714,
+      10715,
+      10716,
+      10717,
+      10718,
+      10719,
+      10720,
+      10721,
+      10722,
+      10723,
+      10724,
+      10725,
+      10726,
+      10727,
+      10728,
+      10729,
+      10730,
+      10731
+    ],
+    "D09-action-suppression": [
+      10800,
+      10801,
+      10802,
+      10803,
+      10804,
+      10805,
+      10806,
+      10807,
+      10808,
+      10809,
+      10810,
+      10811,
+      10812,
+      10813,
+      10814,
+      10815,
+      10816,
+      10817,
+      10818,
+      10819,
+      10820,
+      10821,
+      10822,
+      10823,
+      10824,
+      10825,
+      10826,
+      10827,
+      10828,
+      10829,
+      10830,
+      10831
+    ],
+    "D10-opaque-policy-state": [
+      10900,
+      10901,
+      10902,
+      10903,
+      10904,
+      10905,
+      10906,
+      10907,
+      10908,
+      10909,
+      10910,
+      10911,
+      10912,
+      10913,
+      10914,
+      10915,
+      10916,
+      10917,
+      10918,
+      10919,
+      10920,
+      10921,
+      10922,
+      10923,
+      10924,
+      10925,
+      10926,
+      10927,
+      10928,
+      10929,
+      10930,
+      10931
+    ]
+  },
+  "known_observed_seeds": [
+    0,
+    10,
+    11,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019,
+    1020,
+    1021,
+    1022,
+    1023,
+    1024,
+    1025,
+    1026,
+    1027,
+    1028,
+    1029,
+    1030,
+    1031,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030,
+    2031,
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012,
+    3013,
+    3014,
+    3015,
+    3016,
+    3017,
+    3018,
+    3019,
+    3020,
+    3021,
+    3022,
+    3023,
+    3024,
+    3025,
+    3026,
+    3027,
+    3028,
+    3029,
+    3030,
+    3031,
+    4000,
+    4001,
+    4002,
+    4003,
+    4004,
+    4005,
+    4006,
+    4007,
+    4008,
+    4009,
+    4010,
+    4011,
+    4012,
+    4013,
+    4014,
+    4015,
+    4016,
+    4017,
+    4018,
+    4019,
+    4020,
+    4021,
+    4022,
+    4023,
+    4024,
+    4025,
+    4026,
+    4027,
+    4028,
+    4029,
+    4030,
+    4031
+  ],
+  "committed_consumed_conditions": {
+    "path": "work/development/consumed-conditions.json",
+    "sha256": "028bfc6bed935630f6e69731b1c07a81456cd1e20125389bfc0cda8903fc3564",
+    "seeds": [
+      0,
+      10,
+      11,
+      1000,
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026,
+      2027,
+      2028,
+      2029,
+      2030,
+      2031,
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3005,
+      3006,
+      3007,
+      3008,
+      3009,
+      3010,
+      3011,
+      3012,
+      3013,
+      3014,
+      3015,
+      3016,
+      3017,
+      3018,
+      3019,
+      3020,
+      3021,
+      3022,
+      3023,
+      3024,
+      3025,
+      3026,
+      3027,
+      3028,
+      3029,
+      3030,
+      3031,
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007,
+      4008,
+      4009,
+      4010,
+      4011,
+      4012,
+      4013,
+      4014,
+      4015,
+      4016,
+      4017,
+      4018,
+      4019,
+      4020,
+      4021,
+      4022,
+      4023,
+      4024,
+      4025,
+      4026,
+      4027,
+      4028,
+      4029,
+      4030,
+      4031
+    ],
+    "evidence": [
+      {
+        "path": "docs/experiments/results/family-calibration-001/bundle.json.gz",
+        "sha256": "bcb897068e3e2a9713dd372b3606dc5101a42afdfdde8fb9a0933932e1e8a82d"
+      },
+      {
+        "path": "docs/experiments/results/reset-sequences/11/bundle.json.gz",
+        "sha256": "7e0dcaf345971b66b9978a458a1cd90b73cd44da7f10ce7699c9f3e8d091f878"
+      },
+      {
+        "path": "docs/experiments/results/lift-confirmation.bundle.json.gz",
+        "sha256": "62c46cbd64973b8e7ada677088491b0e7c372cac4f6af6a653e31ac77b57cb23"
+      },
+      {
+        "path": "docs/experiments/results/lift-v2/bundle.json.gz",
+        "sha256": "901c09db39554ecc2d88451c6bdf80b2cbcf8163bec31d854b99d25335f8c2e9"
+      },
+      {
+        "path": "docs/experiments/results/lift-v3/bundle.json.gz",
+        "sha256": "bf79241b66d352c9f89b62ce44ce1edced77991affa8b9b0f225657d741d196b"
+      },
+      {
+        "path": "docs/experiments/results/lift-freshness-001/bundle.json.gz",
+        "sha256": "3154b50059203750b4f53c4fbaab88306ea9fb45940241148ec88502a055656a"
+      },
+      {
+        "path": "docs/experiments/results/clean-integration-reproduction-001/bundle.json.gz",
+        "sha256": "eb02dfda7fc0e4e038bbfc6b6e78b2a8603a5c43eaf7b91167a37ee27a7717c1",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D01-gripper-sign/execution/bundle.json.gz",
+        "sha256": "8927603d23b1f80144e9f667dbc4e5a83d29d69557df78a0b8d37819e87fc05a",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D02-cartesian-axis/execution/bundle.json.gz",
+        "sha256": "69fec142eefd18ee866a89e40ac96520dd80b059e9fd55d7d7b36b9e7e622873",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D03-observation-backlog/execution/bundle.json.gz",
+        "sha256": "056cfd3cd8134e9c9a4660df54a5afd87320036473e8549ff5cf22c905456e9b",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D04-observation-hold/execution/bundle.json.gz",
+        "sha256": "fde7549b5961ab9d9d58dbf46fcc3d2d247eae59aec1ac236e3e91c90586d5ed",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "bc0568d83a3cf7c56ccc3f12acf505fc14dd7fd07c0eda382ce8be1360e0282d",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D06-stateless-inference/execution/bundle.json.gz",
+        "sha256": "d86de624117e23bafec222dab6829438832adf8b8e8330abf39fdf255a60acc6",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D07-sign-and-backlog/execution/bundle.json.gz",
+        "sha256": "89ec8dffb06a883c939fec5ab6dd36ff3c32d9bb1dab839b2eb6f0fe44265c81",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D08-old-future-replay/execution/bundle.json.gz",
+        "sha256": "65cc0fdbed656a1af000ba832bf755301afdea31827a57879d10b373f14f1265",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D09-action-suppression/execution/bundle.json.gz",
+        "sha256": "29fb9749bcffbc4a016ef83689784382b4f46049dc12010fe9b05af469966c4c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D10-opaque-policy-state/execution/bundle.json.gz",
+        "sha256": "55be8fcd9ebee24700d2f889c3284a1222e51774a52b369f9b6b1c4116dbf85c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D01-gripper-sign/execution/bundle.json.gz",
+        "sha256": "6e97a775b143fdd72584fd90c2354c8395ce8fb99e6e3800413a0377920b68b5",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D03-observation-backlog/execution/bundle.json.gz",
+        "sha256": "61de56234c7e5436154272bb8a7430b5aad9781037c3c0ceaa953847ecab1885",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "2a538acf0a664ceae88e2bd27ae7495c421293fe181d0e16755dc4a7c3d920b9",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D06-stateless-inference/execution/bundle.json.gz",
+        "sha256": "f3b36e2084810ea55e3cbb64199a969337a20e7deed038560c7e94a9dca2ba4c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D07-sign-and-backlog/execution/bundle.json.gz",
+        "sha256": "f111f10de0aaecd4fbe37b6d988c380793043afc7ec16a5b3ac2e0fb5991b5bd",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D08-old-future-replay/execution/bundle.json.gz",
+        "sha256": "d067e2eea080da5fe603e3dfe5acb64c90c2e611fdde88006203a15247648aee",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D09-action-suppression/execution/bundle.json.gz",
+        "sha256": "bcb565df5b60f97c39fbd07face035b52316125ea3b627ae09a77d70900a4902",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D10-opaque-policy-state/execution/bundle.json.gz",
+        "sha256": "314d18b1cc0306d262e9118802db0cc9eb035977af33c9dd7686cd6a2d1c3a7b",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/evaluator-integration-001/fresh-d05/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "068f05184ad3075b87e40f6a04feff9f242b485f96450339e40f95ca3b11d747",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/observation-age-stress-001/bundle.json.gz",
+        "sha256": "2d829444d2188fac1349cf4a49c2c262fda192fb492034ed9a30a7af8513e879",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/policy-telemetry-unavailable-001/bundle.json.gz",
+        "sha256": "fe7acf064115963838285746035708b51ef82afa33b25d183a77bb989b5a56a6",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/reset-sequences/10/bundle.json.gz",
+        "sha256": "f48d367ab2d029924fd3480429e80dbaf50362c5d1732cfdbd637fa929a321dc",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/timing-reset-interaction-001/bundle.json.gz",
+        "sha256": "028bfc6bed935630f6e69731b1c07a81456cd1e20125389bfc0cda8903fc3564",
+        "schema": "nisayon.family_calibration.v1"
+      }
+    ],
+    "discovered_unindexed_evidence": [
+      {
+        "path": "docs/experiments/results/clean-integration-reproduction-001/bundle.json.gz",
+        "sha256": "eb02dfda7fc0e4e038bbfc6b6e78b2a8603a5c43eaf7b91167a37ee27a7717c1",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D01-gripper-sign/execution/bundle.json.gz",
+        "sha256": "8927603d23b1f80144e9f667dbc4e5a83d29d69557df78a0b8d37819e87fc05a",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D02-cartesian-axis/execution/bundle.json.gz",
+        "sha256": "69fec142eefd18ee866a89e40ac96520dd80b059e9fd55d7d7b36b9e7e622873",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D03-observation-backlog/execution/bundle.json.gz",
+        "sha256": "056cfd3cd8134e9c9a4660df54a5afd87320036473e8549ff5cf22c905456e9b",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D04-observation-hold/execution/bundle.json.gz",
+        "sha256": "fde7549b5961ab9d9d58dbf46fcc3d2d247eae59aec1ac236e3e91c90586d5ed",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "bc0568d83a3cf7c56ccc3f12acf505fc14dd7fd07c0eda382ce8be1360e0282d",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D06-stateless-inference/execution/bundle.json.gz",
+        "sha256": "d86de624117e23bafec222dab6829438832adf8b8e8330abf39fdf255a60acc6",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D07-sign-and-backlog/execution/bundle.json.gz",
+        "sha256": "89ec8dffb06a883c939fec5ab6dd36ff3c32d9bb1dab839b2eb6f0fe44265c81",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D08-old-future-replay/execution/bundle.json.gz",
+        "sha256": "65cc0fdbed656a1af000ba832bf755301afdea31827a57879d10b373f14f1265",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D09-action-suppression/execution/bundle.json.gz",
+        "sha256": "29fb9749bcffbc4a016ef83689784382b4f46049dc12010fe9b05af469966c4c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-baseline-qualification-001/D10-opaque-policy-state/execution/bundle.json.gz",
+        "sha256": "55be8fcd9ebee24700d2f889c3284a1222e51774a52b369f9b6b1c4116dbf85c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D01-gripper-sign/execution/bundle.json.gz",
+        "sha256": "6e97a775b143fdd72584fd90c2354c8395ce8fb99e6e3800413a0377920b68b5",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D03-observation-backlog/execution/bundle.json.gz",
+        "sha256": "61de56234c7e5436154272bb8a7430b5aad9781037c3c0ceaa953847ecab1885",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-001/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "2a538acf0a664ceae88e2bd27ae7495c421293fe181d0e16755dc4a7c3d920b9",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D06-stateless-inference/execution/bundle.json.gz",
+        "sha256": "f3b36e2084810ea55e3cbb64199a969337a20e7deed038560c7e94a9dca2ba4c",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D07-sign-and-backlog/execution/bundle.json.gz",
+        "sha256": "f111f10de0aaecd4fbe37b6d988c380793043afc7ec16a5b3ac2e0fb5991b5bd",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D08-old-future-replay/execution/bundle.json.gz",
+        "sha256": "d067e2eea080da5fe603e3dfe5acb64c90c2e611fdde88006203a15247648aee",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D09-action-suppression/execution/bundle.json.gz",
+        "sha256": "bcb565df5b60f97c39fbd07face035b52316125ea3b627ae09a77d70900a4902",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/development-boundary-002/D10-opaque-policy-state/execution/bundle.json.gz",
+        "sha256": "314d18b1cc0306d262e9118802db0cc9eb035977af33c9dd7686cd6a2d1c3a7b",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/evaluator-integration-001/fresh-d05/D05-recurrent-carry/execution/bundle.json.gz",
+        "sha256": "068f05184ad3075b87e40f6a04feff9f242b485f96450339e40f95ca3b11d747",
+        "schema": "nisayon.first_case.v1"
+      },
+      {
+        "path": "docs/experiments/results/observation-age-stress-001/bundle.json.gz",
+        "sha256": "2d829444d2188fac1349cf4a49c2c262fda192fb492034ed9a30a7af8513e879",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/policy-telemetry-unavailable-001/bundle.json.gz",
+        "sha256": "fe7acf064115963838285746035708b51ef82afa33b25d183a77bb989b5a56a6",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/reset-sequences/10/bundle.json.gz",
+        "sha256": "f48d367ab2d029924fd3480429e80dbaf50362c5d1732cfdbd637fa929a321dc",
+        "schema": "nisayon.family_calibration.v1"
+      },
+      {
+        "path": "docs/experiments/results/timing-reset-interaction-001/bundle.json.gz",
+        "sha256": "028bfc6bed935630f6e69731b1c07a81456cd1e20125389bfc0cda8903fc3564",
+        "schema": "nisayon.family_calibration.v1"
+      }
+    ],
+    "scope": "Seeds derived from bound and discovered retained execution/assignment artifacts, independent of case labels. Invalid and unused assignments stay consumed. The registry is a checked index, not the sole source of condition identities."
+  },
+  "confirmation_obligation": {
+    "paired_conditions": 32,
+    "post_freeze_reproduction": true,
+    "retain_every_assigned_outcome": true
+  },
+  "schedule": {
+    "D01-gripper-sign": [
+      "A",
+      "B"
+    ],
+    "D02-cartesian-axis": [
+      "B",
+      "A"
+    ],
+    "D03-observation-backlog": [
+      "A",
+      "B"
+    ],
+    "D04-observation-hold": [
+      "B",
+      "A"
+    ],
+    "D05-recurrent-carry": [
+      "A",
+      "B"
+    ],
+    "D06-stateless-inference": [
+      "B",
+      "A"
+    ],
+    "D07-sign-and-backlog": [
+      "A",
+      "B"
+    ],
+    "D08-old-future-replay": [
+      "B",
+      "A"
+    ],
+    "D09-action-suppression": [
+      "A",
+      "B"
+    ],
+    "D10-opaque-policy-state": [
+      "B",
+      "A"
+    ]
+  },
+  "joint_candidate_freeze": "Both arms finish diagnosis and freeze candidates before either sees confirmation",
+  "solver_kind": "scripted_development_ablation",
+  "preparation_cost_ledger": {
+    "path": "preparation-costs.json",
+    "sha256": "cf5c64930e03d11c19097f539a40315a2dd8d31a62daba83d9fd54a6a0082471"
+  },
+  "limits": [
+    "Case authoring and solver share development knowledge; no blinding or customer incident prevalence is claimed.",
+    "Calibration predictions are hypotheses; scored observations and the independent-of-selection evaluator decide outcomes.",
+    "An unsuccessful injection remains an assigned unsupported case; it is not replaced to improve the denominator.",
+    "Both arms receive the same final checker, repair space, available observations and budgets.",
+    "No adaptive arm is justified before A/B results expose a resolvable selection ambiguity."
+  ]
+}

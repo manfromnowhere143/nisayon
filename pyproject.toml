@@ -1,0 +1,50 @@
+[project]
+name = "nisayon-workspace"
+version = "0.1.0"
+description = "Engineering workspace and experiment records for Nisayon"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = ["mcp==2.2.0"]
+
+[project.scripts]
+nisayon = "nisayon.cli:main"
+nisayon-mcp = "nisayon.mcp_server:main"
+
+[project.optional-dependencies]
+simulation = [
+    "mujoco==3.2.7",
+    "numba==0.61.2",
+    "numpy==1.26.4",
+    "opencv-python==4.10.0.84",
+    "robomimic==0.3.0",
+    "robosuite==1.4.1",
+    "scipy==1.13.1",
+    "torch==2.5.1",
+    "torchvision==0.20.1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.4,<10", "ruff>=0.12,<1"]
+
+[build-system]
+requires = ["uv_build>=0.11.28,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "nisayon"
+
+[tool.uv]
+# EGL GPU probing is never used by the headless CPU adapter; upstream declares
+# it unconditionally although it does not build on this macOS host.
+override-dependencies = ["egl-probe==1.0.2; sys_platform == 'linux'"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]

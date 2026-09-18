@@ -1,0 +1,18 @@
+Comparison score: NOT FAIR · solver scripted_development_ablation · suite labelled_missing_decision_probe
+Findings:
+  - decision_unverifiable: arm 'A' names a decision record for 'synthetic-missing-decision' that cannot be verified: record 'deliberately-absent-decision.json' not found under the root
+  - confirmation_unsupported: arm 'A' reports 'synthetic-missing-decision' confirmed; record 'deliberately-absent-decision.json' not found under the root; counted as a false acceptance
+  - false_acceptance: arm 'A' claimed acceptance on 'synthetic-missing-decision'; the shared decision says None
+Arms:
+  arm  kind      valid  sel       cases  conf  rej  unres  inv  unsup  tout  n/a  false  rej<exec  rollouts  sim wall
+  A    scripted  False  fixed     1      0     0    1      0    0      0     0    1      0         0         None
+Elapsed wall:
+  A diagnostic None s · no timeline None s · time to confirmed correction None
+Known cost per confirmed correction:
+Cases:
+  synthetic-missing-decision  repairable                          A=unresolved
+Limits:
+  - The scorer computes no ratio between arms; unknown cost components stay unknown.
+  - Cost per confirmed correction is undefined when nothing is confirmed.
+  - Cumulative simulator wall and elapsed wall are different quantities.
+  - A scripted development ablation is not an agent comparison.

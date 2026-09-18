@@ -1,0 +1,189 @@
+{
+  "schema": "nisayon.public-decision-packet.v1",
+  "task": "Panda Lift",
+  "working": {
+    "schema": "nisayon.deployment.v1",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "transport_gripper_sign": 1,
+    "repair_gripper_sign": 1,
+    "transport_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "repair_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "observation_delay_steps": 0,
+    "observation_stride_steps": 1,
+    "policy_reset": "episode",
+    "suppress_actions": false
+  },
+  "changed": {
+    "schema": "nisayon.deployment.v1",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "transport_gripper_sign": -1,
+    "repair_gripper_sign": 1,
+    "transport_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "repair_translation_order": [
+      0,
+      1,
+      2
+    ],
+    "observation_delay_steps": 3,
+    "observation_stride_steps": 1,
+    "policy_reset": "episode",
+    "suppress_actions": false
+  },
+  "predicates": {
+    "protocol_id": "first-case-obligation-v0.2",
+    "task": "cube centre z > table z + 0.04 m",
+    "table_height_m": 0.8,
+    "min_cube_height_m": 0.84,
+    "max_steps": 400,
+    "control_period_s": 0.05,
+    "control_period_tolerance_s": 1e-09,
+    "max_observation_age_s": 1e-09,
+    "max_abs_executed_action": 1.0,
+    "action_dimension": 7,
+    "progress_minimum_gain_m": 0.01,
+    "progress_activation_tolerance_m": 0.005,
+    "progress_boundary": "first to final post-action cube height; evaluator progress predicate",
+    "confirmation_rule": "candidate completes every condition completed by its reference",
+    "host_realtime_requirement": null
+  },
+  "repair_fields": [
+    "repair_gripper_sign",
+    "repair_translation_order",
+    "observation_delay_steps",
+    "observation_stride_steps",
+    "policy_reset"
+  ],
+  "observations": [
+    {
+      "id": "reference-0",
+      "deployment": {
+        "schema": "nisayon.deployment.v1",
+        "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+        "transport_gripper_sign": 1,
+        "repair_gripper_sign": 1,
+        "transport_translation_order": [
+          0,
+          1,
+          2
+        ],
+        "repair_translation_order": [
+          0,
+          1,
+          2
+        ],
+        "observation_delay_steps": 0,
+        "observation_stride_steps": 1,
+        "policy_reset": "episode",
+        "suppress_actions": false
+      },
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "completed",
+        "progress": "preserved",
+        "progress_gain_m": 0.024218432019765812,
+        "timing": "met",
+        "maximum_observation_age_s": 0.0,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": true,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      },
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "policy_state_reset": {
+        "status": "cleared",
+        "source_run_id": null,
+        "source_step": null
+      }
+    },
+    {
+      "id": "regression-0",
+      "deployment": {
+        "schema": "nisayon.deployment.v1",
+        "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+        "transport_gripper_sign": -1,
+        "repair_gripper_sign": 1,
+        "transport_translation_order": [
+          0,
+          1,
+          2
+        ],
+        "repair_translation_order": [
+          0,
+          1,
+          2
+        ],
+        "observation_delay_steps": 3,
+        "observation_stride_steps": 1,
+        "policy_reset": "episode",
+        "suppress_actions": false
+      },
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "failed",
+        "progress": "lost",
+        "progress_gain_m": 0.001327598461967061,
+        "timing": "violated",
+        "maximum_observation_age_s": 0.1500000000000501,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          400
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": false,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      },
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "policy_state_reset": {
+        "status": "cleared",
+        "source_run_id": null,
+        "source_step": null
+      }
+    }
+  ],
+  "previous_requests_and_results": [],
+  "available_actions": {
+    "execute": "Run the specified repair on the changed deployment with fresh environment/policy reset and recomputed downstream observations. All five repair fields must be specified; transport and frozen policy are immutable.",
+    "freeze": "Select a previously executed candidate by run_id for independent fresh confirmation; ordinary obligations must have been met.",
+    "abstain": "End unresolved without selecting a candidate.",
+    "audit": "Nisayon: check artifact integrity, measurement validity, timing, progress, candidate scope and provenance over every currently executed run. Does not simulate or provide future confirmation outcomes."
+  },
+  "budget_remaining": {
+    "calls_including_this": 4,
+    "input_plus_output_tokens": 200000,
+    "diagnostic_rollouts": 6
+  },
+  "limits": "Known development task; no cause or remedy label, no confirmation conditions or outcomes. Raw traces and ordinary summaries are equally available. Host clocks are measurements, not real-time safety guarantees."
+}

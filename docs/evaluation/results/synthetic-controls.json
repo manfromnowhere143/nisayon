@@ -1,0 +1,782 @@
+{
+  "schema": "nisayon.evaluation.controls.v1",
+  "evidence_origin": "synthetic_development",
+  "note": "Synthetic development controls test evaluator behaviour. They are not experiment results.",
+  "scenarios": 46,
+  "expected_by_decision": {
+    "accepted": 8,
+    "unresolved": 13,
+    "invalid": 18,
+    "rejected": 7
+  },
+  "all_ok": true,
+  "results": [
+    {
+      "scenario": "strict_positive_control",
+      "description": "Obligation v0.2 with per-run identity, post-freeze reproduction, declared deployability and acquisition stamps.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "identity_verified"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "timing_unmeasured",
+      "description": "Consumed observations carry no acquisition stamps; observation age cannot be measured.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "timing_unmeasured"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "timing_unmeasured: 30 of 30 consumed observations carry no acquisition stamps; observation age cannot be measured from assigned step times (1 assigned candidate runs: ['run-conf-000'])"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "capture_stamps_inconsistent",
+      "description": "An observation's stamp disagrees with its components' acquisition times.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "capture_stamps_inconsistent"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-101' is an invalid experiment",
+        "capture_stamps_inconsistent: observation 'obs-008' is stamped 0.4 s but its oldest component was acquired at 0.41000000000000003 s",
+        "observation_after_action: component 'sensor' was acquired at 0.41000000000000003 s, after the action executed at 0.405 s",
+        "capture_stamps_inconsistent: observation 'obs-009' is stamped 0.45 s but its oldest component was acquired at 0.46 s",
+        "observation_after_action: component 'sensor' was acquired at 0.46 s, after the action executed at 0.455 s",
+        "capture_stamps_inconsistent: observation 'obs-010' is stamped 0.5 s but its oldest component was acquired at 0.51 s",
+        "observation_after_action: component 'sensor' was acquired at 0.51 s, after the action executed at 0.505 s"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "capture_after_action",
+      "description": "A consumed component was acquired after the action executed.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "observation_after_action"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-102' is an invalid experiment",
+        "observation_after_action: action executed at 0.505 s used observation 'obs-010' stamped 0.53 s",
+        "observation_after_action: action executed at 0.555 s used observation 'obs-011' stamped 0.58 s",
+        "observation_after_action: action executed at 0.605 s used observation 'obs-012' stamped 0.63 s",
+        "observation_after_action: component 'sensor' was acquired at 0.53 s, after the action executed at 0.505 s",
+        "observation_after_action: component 'sensor' was acquired at 0.58 s, after the action executed at 0.555 s",
+        "observation_after_action: component 'sensor' was acquired at 0.63 s, after the action executed at 0.605 s"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "policy_state_carried_in_candidate",
+      "description": "The candidate's reset carries recurrent state from an earlier episode.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "reset_obligation_violated"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "reset_obligation_violated: 'policy_state' carried from run 'run-explore-000' step 29; not cleared at reset"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "strict_identity_unbound",
+      "description": "Under v0.2 an assigned run has no per-run identity.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "identity_unbound"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "identity_unbound: 1 of 8 assigned runs carry no per-run identity (invocation, execution, configuration, code, dependency and policy digests): ['run-conf-101']"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "strict_identity_mismatch",
+      "description": "Under v0.2 an assigned run names a different code identity.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "identity_mismatch"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "identity_mismatch: assigned runs disagree on code_git_head: ['fixture-code-0001', 'fixture-code-0002']",
+        "identity_mismatch: code_git_head of the assigned runs (['fixture-code-0001', 'fixture-code-0002']) differs from the frozen protocol's fixture-code-0001"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "strict_reproduction_not_post_freeze",
+      "description": "Under v0.2 the reproduction evidence is a pre-freeze run.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "reproduction_not_post_freeze"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "reproduction_not_post_freeze: the reproduction run 'run-explore-000' started before the freeze; the strict obligation requires a post-freeze rerun of the failing condition"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "strict_deployability_undeclared",
+      "description": "Under v0.2 the producer did not declare deployability.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "candidate_deployability_undeclared"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "candidate_deployability_undeclared: the producer did not declare whether this candidate is deployable (4 assigned candidate runs: ['run-conf-000', 'run-conf-101', 'run-conf-102']...)"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "legacy_deployability_assumed",
+      "description": "Under v0.1 undeclared deployability is assumed and reported.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "candidate_deployability_assumed"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "legacy_evaluator_added_predicate",
+      "description": "Under v0.1 an evaluator-added predicate is reported as not preregistered.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "predicate_not_preregistered"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "strict_evaluator_added_predicate",
+      "description": "Under v0.2 an evaluator-added predicate blocks acceptance.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "preregistration_missing"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "preregistration_missing: predicates ['lift.progress'] were declared by the evaluation lane, not frozen by the producer; they are checked retrospectively and cannot count as preregistered"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "positive_control",
+      "description": "Valid reference, reproduced regression, frozen deployable candidate confirmed on fresh paired conditions.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "chunked_positive_control",
+      "description": "The positive control with three-action chunks and a matching timing obligation.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "reference_fails_one_fresh_condition",
+      "description": "Reference and candidate both fail one fresh condition; non-inferiority still holds.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "reference_failed_on_condition"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "valid_prefix_reuse",
+      "description": "An exploration run reuses the recorded prefix up to activation and executes closed loop afterwards.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "intervention_declared"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "invalid_replay_old_future_observations",
+      "description": "The changed action is paired with the old recorded future observations; the producer claims validity.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "affected_future_observation_reused",
+        "assigned_run_invalid",
+        "producer_validity_claim_ignored"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "affected_future_observation_reused: 23 observations after the intervention at step 6 were reused from run 'run-reg-000'; the changed action must produce new future observations"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "stale_timing_unrepaired",
+      "description": "The candidate completes the task but still acts on observations older than the timing obligation.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "timing_obligation_violated"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "timing_obligation_violated: control.fresh_observations: observation age 0.105 s exceeds 0.06 s",
+        "timing_obligation_violated: control.fresh_observations: observation age 0.105 s exceeds 0.06 s",
+        "timing_obligation_violated: control.fresh_observations: observation age 0.105 s exceeds 0.06 s",
+        "timing_obligation_violated: control.fresh_observations: observation age 0.105 s exceeds 0.06 s"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "clock_observation_after_action",
+      "description": "Actions are stamped before the observation they were computed from.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "observation_after_action",
+        "assigned_run_invalid"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "observation_after_action: action executed at 0.48 s used observation 'obs-010' stamped 0.5 s",
+        "observation_after_action: action executed at 0.53 s used observation 'obs-011' stamped 0.55 s",
+        "observation_after_action: action executed at 0.58 s used observation 'obs-012' stamped 0.6 s",
+        "observation_after_action: component 'sensor' was acquired at 0.5 s, after the action executed at 0.48 s",
+        "observation_after_action: component 'sensor' was acquired at 0.55 s, after the action executed at 0.53 s",
+        "observation_after_action: component 'sensor' was acquired at 0.6 s, after the action executed at 0.58 s"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "chunk_schedule_inconsistent",
+      "description": "A chunk's action indices are out of order.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "chunk_schedule_inconsistent"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "chunk_schedule_inconsistent: chunk 'chunk-003' declares length [3] with indices [1, 0, 2]"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "reset_evidence_incomplete",
+      "description": "A declared state component has no reset evidence.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "reset_evidence_incomplete",
+        "assigned_run_unresolved"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_unresolved: candidate run 'run-conf-000' cannot be assessed",
+        "reset_evidence_incomplete: no reset evidence for 'action_queue'"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "reset_condition_mismatch",
+      "description": "The reset restored a different condition than the run is assigned to.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "reset_condition_mismatch"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-101' is an invalid experiment",
+        "reset_condition_mismatch: reset restored condition 'cond-000' but the run is assigned to 'cond-101'"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "action_suppression_loses_progress",
+      "description": "A hold-still patch suppresses action; the producer claims completion.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "progress_lost",
+        "reproduction_not_fixed",
+        "regression_on_fresh_condition",
+        "producer_claim_disagrees"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "reproduction_not_fixed: the frozen candidate still violates the task obligation on the failing condition 'cond-000'",
+        "regression_on_fresh_condition: condition 'cond-101': the reference completes and the candidate fails",
+        "regression_on_fresh_condition: condition 'cond-102': the reference completes and the candidate fails",
+        "regression_on_fresh_condition: condition 'cond-103': the reference completes and the candidate fails",
+        "progress_lost: lift.progress: gain 0 m is below the minimum 0.02",
+        "progress_lost: lift.progress: gain 0 m is below the minimum 0.02",
+        "progress_lost: lift.progress: gain 0 m is below the minimum 0.02",
+        "progress_lost: lift.progress: gain 0 m is below the minimum 0.02"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "malformed_nan_measurement",
+      "description": "A trace contains NaN.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "malformed_record"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "malformed_record: non-finite JSON constant NaN"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "malformed_unit_mismatch",
+      "description": "A trace records the outcome measure in a unit the predicate does not declare.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "malformed_record"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "malformed_record: measurement 'cube_height_m' is recorded in 'cm'; the predicate needs 'm'",
+        "malformed_record: measurement 'cube_height_m' is recorded in 'cm'; the predicate needs 'm'"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "malformed_missing_clock",
+      "description": "A timestamp has no clock domain.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "malformed_record"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "malformed_record: missing"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "missing_measurement_named_gap",
+      "description": "The outcome measure is absent from a confirmation trace.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "predicate_unmeasurable"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_unresolved: candidate run 'run-conf-000' cannot be assessed",
+        "predicate_unmeasurable: 'cube_height_m' is not measured",
+        "predicate_unmeasurable: 'cube_height_m' is not measured"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "confirmation_condition_reused",
+      "description": "A fresh condition was already exercised by a candidate run before the freeze.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "confirmation_condition_reused"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "confirmation_condition_reused: fresh condition 'cond-101' was already used in a candidate run before the freeze"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "confirmation_dropped_failure",
+      "description": "An assigned candidate run is missing from the bundle.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "assigned_outcome_missing"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_outcome_missing: condition 'cond-102': assigned run(s) ['run-conf-102'] are not in the bundle"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "confirmation_unassigned_condition",
+      "description": "A declared fresh condition has no assignment.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "condition_unassigned"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "condition_unassigned: condition 'cond-103' (fresh) has no assigned runs"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "candidate_not_frozen",
+      "description": "One confirmation run executed a revised candidate.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "candidate_not_frozen"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "candidate_not_frozen: run 'run-conf-103' executed candidate sha256:0292511e757554507af5e59dc4685aea349bf1d0b85855b47ba9ac744c73743e, not the frozen sha256:997030f9ea3424a8a8e0d2dc164a1330093851d95c7e3aea63d393e0c81edfcb"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "run_precedes_freeze",
+      "description": "A confirmation run started before the candidate was frozen.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "run_precedes_freeze"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "run_precedes_freeze: run 'run-conf-101' started at 2026-09-17T18:20:00+00:00 before the freeze at 2026-09-17T18:30:00+00:00"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "oracle_in_deployable_repair",
+      "description": "The candidate keeps a diagnostic oracle observation.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "diagnostic_oracle_in_candidate"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "diagnostic_oracle_in_candidate: component 'oracle_observation deploy/observation.yaml' is a diagnostic oracle",
+        "candidate_outside_repair_scope: component kind 'oracle_observation' is not allowed",
+        "diagnostic_oracle_in_candidate: 30 observations came from an oracle source",
+        "diagnostic_oracle_in_candidate: component 'oracle_observation deploy/observation.yaml' is a diagnostic oracle",
+        "candidate_outside_repair_scope: component kind 'oracle_observation' is not allowed",
+        "diagnostic_oracle_in_candidate: 30 observations came from an oracle source",
+        "diagnostic_oracle_in_candidate: component 'oracle_observation deploy/observation.yaml' is a diagnostic oracle",
+        "candidate_outside_repair_scope: component kind 'oracle_observation' is not allowed",
+        "diagnostic_oracle_in_candidate: 30 observations came from an oracle source",
+        "diagnostic_oracle_in_candidate: component 'oracle_observation deploy/observation.yaml' is a diagnostic oracle",
+        "candidate_outside_repair_scope: component kind 'oracle_observation' is not allowed",
+        "diagnostic_oracle_in_candidate: 30 observations came from an oracle source"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "candidate_outside_repair_scope",
+      "description": "The candidate swaps the policy, outside the allowed repair scope.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "candidate_outside_repair_scope"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "candidate_outside_repair_scope: component kind 'model_swap' is not allowed",
+        "candidate_outside_repair_scope: path 'policy/weights.pt' is outside the scope",
+        "candidate_outside_repair_scope: component kind 'model_swap' is not allowed",
+        "candidate_outside_repair_scope: path 'policy/weights.pt' is outside the scope",
+        "candidate_outside_repair_scope: component kind 'model_swap' is not allowed",
+        "candidate_outside_repair_scope: path 'policy/weights.pt' is outside the scope",
+        "candidate_outside_repair_scope: component kind 'model_swap' is not allowed",
+        "candidate_outside_repair_scope: path 'policy/weights.pt' is outside the scope"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "candidate_regresses_fresh_condition",
+      "description": "The candidate fails a fresh condition the reference completes.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "regression_on_fresh_condition"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "regression_on_fresh_condition: condition 'cond-102': the reference completes and the candidate fails"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "constraint_violation",
+      "description": "The candidate completes the task while touching the table.",
+      "expected_decision": "rejected",
+      "observed_decision": "rejected",
+      "expected_codes": [
+        "constraint_violated"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "constraint_violated: table.no_contact: table_contact == 0.0 bool violated (1.0)"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "artifact_digest_mismatch",
+      "description": "Trace bytes differ from the declared digest.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "artifact_digest_mismatch"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "artifact_digest_mismatch: artifacts/run-conf-000.trace.json: declared sha256:75d12825aa2d16be75bb06678bcdd8b276aec206806e124b7594721fc4aae012, actual sha256:c2c4beb5fbca9b4f0882943d41b2221c602e94a376df169c227b9df17680e76d"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "artifact_missing",
+      "description": "A referenced trace file is absent.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "artifact_missing"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_unresolved: candidate run 'run-conf-000' cannot be assessed",
+        "artifact_missing: trace artifact artifacts/run-conf-000.trace.json is absent from the artifact root"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "synthetic_fixture_presented_as_measurement",
+      "description": "Fixture bytes relabelled as simulator evidence.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "synthetic_fixture_presented_as_measurement"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "assigned_run_invalid: reference run 'run-ref-000' is an invalid experiment",
+        "assigned_run_invalid: candidate run 'run-conf-000' is an invalid experiment",
+        "assigned_run_invalid: reference run 'run-ref-101' is an invalid experiment",
+        "assigned_run_invalid: candidate run 'run-conf-101' is an invalid experiment",
+        "assigned_run_invalid: reference run 'run-ref-102' is an invalid experiment",
+        "assigned_run_invalid: candidate run 'run-conf-102' is an invalid experiment",
+        "assigned_run_invalid: reference run 'run-ref-103' is an invalid experiment",
+        "assigned_run_invalid: candidate run 'run-conf-103' is an invalid experiment",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "synthetic_fixture_presented_as_measurement: trace bytes match a synthetic development fixture but the run claims 'simulator'",
+        "reference_not_established: no valid working-revision run completes the failing condition 'cond-000'",
+        "regression_not_reproduced: no valid changed-revision run fails the failing condition 'cond-000'",
+        "confirmation_conditions_uninformative: the reference completes none of the fresh conditions; they do not exercise the task"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "process_timeout_partial_trace",
+      "description": "A confirmation run timed out with a partial trace.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "process_incomplete",
+        "assigned_run_unresolved"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_unresolved: candidate run 'run-conf-000' cannot be assessed",
+        "process_incomplete: process status 'timeout'; the trace may be partial"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "no_confirmation_yet",
+      "description": "Reference, regression and one exploration run only; nothing frozen.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "confirmation_missing"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "confirmation_missing: no confirmation record: the candidate has not been frozen and confirmed on fresh conditions"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "regression_not_reproduced",
+      "description": "The changed revision completes the failing condition.",
+      "expected_decision": "unresolved",
+      "observed_decision": "unresolved",
+      "expected_codes": [
+        "regression_not_reproduced"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "regression_not_reproduced: no valid changed-revision run fails the failing condition 'cond-000'"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "identity_mismatch",
+      "description": "A confirmation run used a different policy digest.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "identity_mismatch"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "assigned_run_invalid: candidate run 'run-conf-102' is an invalid experiment",
+        "identity_mismatch: policy identity {'digest': 'sha256:2a23bdc51d13816dec755624be17c7071f9bd1a6ec74b49e2324fada8f43c47e', 'id': 'dev-policy-synthetic'} differs from case {'id': 'dev-policy-synthetic', 'digest': 'sha256:45854a7d0c3f14c34e4ed6cf2f1f8d2c0e75ff9f6031fde074da2b3532aae4ad'}"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "multiple_runs_per_condition",
+      "description": "An unassigned second run of the frozen candidate exists on a fresh condition.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "multiple_runs_per_condition_role"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "multiple_runs_per_condition_role: unassigned run 'run-conf-101-retry' also executes the frozen candidate on 'cond-101'"
+      ],
+      "ok": true
+    },
+    {
+      "scenario": "derived_control_does_not_contaminate",
+      "description": "A labelled derived replay control on a fresh condition after the freeze is excluded from the spare-attempt rule.",
+      "expected_decision": "accepted",
+      "observed_decision": "accepted",
+      "expected_codes": [
+        "affected_future_observation_reused"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [],
+      "ok": true
+    },
+    {
+      "scenario": "prior_confirmation_consumed_condition",
+      "description": "A prior confirmation of this case already used a fresh condition.",
+      "expected_decision": "invalid",
+      "observed_decision": "invalid",
+      "expected_codes": [
+        "confirmation_condition_reused"
+      ],
+      "missing_codes": [],
+      "measurement_mismatches": [],
+      "reasons": [
+        "confirmation_condition_reused: fresh condition 'cond-101' was already used in a prior confirmation of this case"
+      ],
+      "ok": true
+    }
+  ]
+}

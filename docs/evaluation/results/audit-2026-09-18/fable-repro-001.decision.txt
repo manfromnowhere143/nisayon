@@ -1,0 +1,30 @@
+Decision: UNRESOLVED
+Scope: case 'lift-gripper-sign-v1' under first-case-obligation-v0.2; no frozen candidate confirmed
+Case: lift-gripper-sign-v1 · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=True · regression reproduced=True
+Reasons:
+  - unresolved: confirmation_missing: no confirmation record: the candidate has not been frozen and confirmed on fresh conditions
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference-0-a                       reference  working  seed-0    completed valid      completed preserved satisfied satisfied
+  reference-0-b                       reference  working  seed-0    completed valid      completed preserved satisfied satisfied
+  regression-0                        regression changed  seed-0    completed valid      failed    lost      satisfied satisfied
+  correction-0                        candidate  changed  seed-0    completed valid      completed preserved satisfied satisfied
+  suppression-0                       candidate  changed  seed-0    completed valid      failed    lost      satisfied satisfied
+Candidates:
+  correction    unconfirmed e67810a358303016edb  runs 1
+  suppression   rejected    fefd14e896410ae29e3  runs 1  failures ['candidate_outside_repair_scope', 'outcome_failed_observed', 'progress_lost']
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 21 files verified under /Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-repro-001/execution
+  - qualification_repeat: runs 'reference-0-a' and 'reference-0-b' repeat deployment 909d07b7ae59 on seed-0 with identical recorded state, observation, recurrent-state and action sequences over 44 steps
+Producer: nisayon.first_case.v1 · execution code b777fc1478f871b8cf79e4e01aef99c52f6e5e12
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 24.547053999 s over 5 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.
+  - State declared as not captured: MuJoCo internal solver caches; all observable internal buffers; full controller object; OS scheduling; hardware floating point state.
+  - Intervention runs are valid under the recorded reset and provenance premises only.

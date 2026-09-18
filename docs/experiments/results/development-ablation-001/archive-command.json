@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "537b5c7a06a0434bbdef44faf4affff0",
+  "label": "archive-matched-comparison",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import gzip,json,shutil\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nfrom nisayon.evaluation.scoring import score_file\nroot=Path('/Users/danielwahnich/workspace/nisayon-codex')\nsrc=root/'artifacts/development-ablation-001'\nout=root/'docs/experiments/results/development-ablation-001'\nout.mkdir(parents=True,exist_ok=False)\nbindings=[]\ndef keep(p,packed=False):\n rel=p.relative_to(src); dst=out/(str(rel)+'.gz' if packed else rel)\n dst.parent.mkdir(parents=True,exist_ok=True)\n raw=p.read_bytes(); dst.write_bytes(gzip.compress(raw,mtime=0) if packed else raw)\n bindings.append({'source':str(rel),'source_sha256':file_digest(p),'path':str(dst.relative_to(out)),'sha256':file_digest(dst),'bytes':dst.stat().st_size,'encoding':'gzip' if packed else 'identity'})\nfor name in ['frozen-suite.json','comparison-ledger.json','comparison-score.json','condition-reservation.json','preparation-costs.json']:\n keep(src/name)\nledger=json.loads((src/'comparison-ledger.json').read_text())\nfor case in ledger['cases']:\n keep(src/case['id']/'joint-freeze.json')\n for arm in ['A','B']:\n  keep(src/case['id']/arm/'trial.json')\n  for phase in ['diagnostic','confirmation']:\n   folder=src/case['id']/arm/phase\n   if not folder.is_dir():continue\n   for p in sorted(folder.glob('*.json')):keep(p,packed=p.name=='derived-replay.json')\n   execution=folder/'execution'\n   for name in ['artifact-manifest.json','integrity.json','frozen-protocol.json','joint-freeze.json','invocation.json','bundle-header.json']:\n    p=execution/name\n    if p.is_file():keep(p)\n   keep(execution/'bundle.json',packed=True)\nrecord=root/'.nisayon/runs/aa77eb4a5ac040ff9528e2cabf89aec5/run.json'\nshutil.copyfile(record,out/'experiment-command.json')\ncopied=score_file(out/'comparison-ledger.json')\noriginal=json.loads((src/'comparison-score.json').read_text())\nassert copied==original, 'Portable score differs from retained score'\nwrite_json(out/'archive-manifest.json',{'schema':'nisayon.comparison-archive.v1','raw_root_locator':str(src),'frozen_execution_commit':'a9984af39c89e6aacf8c65fd3a7db6cb05c5eca8','experiment_command_sha256':file_digest(out/'experiment-command.json'),'portable_score_matches':True,'files':bindings,'limits':['Raw simulator traces and licensed policy weights are not copied into Git. Re-evaluation needs the explicitly bound raw store. Scoring verifies the original decision, diagnosis and confirmation bytes portably.']})\nprint(json.dumps({'archive':str(out.relative_to(root)),'retained_files':len(bindings),'bytes':sum(b['bytes'] for b in bindings),'portable_score_matches':True,'fair':copied['fair'],'outcomes':{a:v['outcomes'] for a,v in copied['arms'].items()}},indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-18T05:21:59.756488+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "fed09f64121f6f81255f8af979e6c37735dbcd61",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 300.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 71261,
+  "returncode": 0,
+  "ended_at": "2026-09-18T05:22:12.200423+00:00",
+  "wall_seconds": 12.34918,
+  "logs": {
+    "stdout.log": {
+      "bytes": 531,
+      "sha256": "f0e7340ff981d27d6ea89b29d928669fece7ff6990edd6e43b953409eec70349"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

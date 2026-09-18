@@ -1,0 +1,25 @@
+Decision: UNRESOLVED
+Scope: calibration probes for case 'lift-family-calibration-v1' under first-case-obligation-v0.2; no scored incident
+Case: lift-family-calibration-v1 · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=None · regression reproduced=None
+Reasons:
+  - unresolved: calibration_only: calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference                           probe      probe    seed-0    completed valid      completed preserved satisfied satisfied
+  delay-12                            probe      probe    seed-0    completed valid      failed    lost      satisfied violated
+  delay-24                            probe      probe    seed-0    completed valid      failed    lost      satisfied violated
+  delay-48                            probe      probe    seed-0    completed valid      failed    lost      satisfied violated
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 16 files verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/observation-age-stress-001
+Producer: nisayon.first_case.v1 · execution code 4af337f9b75c7913e360121a955d557fda2f0a61
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 20.675617333 s over 4 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.
+  - State declared as not captured: MuJoCo internal solver caches; all observable internal buffers; full controller object; OS scheduling; hardware floating point state.
+  - Intervention runs are valid under the recorded reset and provenance premises only.

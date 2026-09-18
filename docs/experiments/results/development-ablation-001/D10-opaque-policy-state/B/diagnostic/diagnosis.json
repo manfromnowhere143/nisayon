@@ -1,0 +1,123 @@
+{
+  "schema": "nisayon.development-diagnosis.v1",
+  "case_id": "D10-opaque-policy-state",
+  "arm": "B",
+  "scope": "scored_deterministic_development_ablation",
+  "solver_kind": "scripted_development_ablation",
+  "started_at": "2026-09-18T05:19:14.840299+00:00",
+  "ended_at": "2026-09-18T05:19:18.746248+00:00",
+  "phase_wall_s": 3.9059422919526696,
+  "diagnostic_final_check_wall_s": 0.16562066692858934,
+  "status": "unresolved",
+  "candidate": null,
+  "reason": null,
+  "selection": {
+    "solver_kind": "deterministic_development_procedure",
+    "configuration_differences": {
+      "transport_gripper_sign": {
+        "working": 1,
+        "changed": -1
+      }
+    },
+    "reference": {
+      "process_status": "completed",
+      "task": "completed",
+      "progress": "preserved",
+      "progress_gain_m": 0.024218432019765812,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "policy_reset": "unknown",
+      "invalid_reasons": [],
+      "evidence_gaps": [
+        "policy_reset_unmeasured"
+      ],
+      "meets_measured_obligations": false,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "regression": {
+      "process_status": "completed",
+      "task": "failed",
+      "progress": "lost",
+      "progress_gain_m": 0.001327598461967061,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        400
+      ],
+      "policy_reset": "unknown",
+      "invalid_reasons": [],
+      "evidence_gaps": [
+        "policy_reset_unmeasured"
+      ],
+      "meets_measured_obligations": false,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "status": "unresolved",
+    "candidate": null
+  },
+  "proposals": [],
+  "budget": {
+    "limits": {
+      "max_rollouts": 64,
+      "max_wall_seconds": 1800,
+      "max_final_candidates": 1
+    },
+    "rollout_slots_reserved": 2,
+    "wall_seconds": 3.905910416971892,
+    "final_candidates_selected": 0,
+    "boundary": "Diagnostic phase only; executed prefixes reserve additional slots. Slots include attempts interrupted before completion. Confirmation is a separately equal obligation."
+  },
+  "preflight_checks": [],
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 13,
+    "simulator_runs": 2,
+    "trace_rows": 444,
+    "declared_measurement_gaps": [
+      {
+        "run_id": "reference-0",
+        "field": "policy_state",
+        "reason": "Frozen policy interface does not export recurrent-state telemetry"
+      },
+      {
+        "run_id": "regression-0",
+        "field": "policy_state",
+        "reason": "Frozen policy interface does not export recurrent-state telemetry"
+      }
+    ],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "costs": {
+    "physical_rollouts": 2,
+    "known_run_wall_s": 3.475065,
+    "nested_prefix_runs_not_added": [],
+    "missing_run_wall_ids": [],
+    "scope": "Rollout, reset and trace-write components; nested within phase/command walls, never added to them"
+  },
+  "bundle_path": "execution/bundle.json",
+  "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+  "decision": {
+    "path": "diagnostic-decision.json",
+    "sha256": "2a937b75fbc455a5f4b2cfb3bfce5e48603989caac6fef9e123a4a7f500739e0",
+    "decision": "unresolved"
+  },
+  "arm_claimed_acceptance": false,
+  "interpretation": "A diagnostic proposal is not a confirmed correction; no acceptance is claimed before fresh final confirmation"
+}

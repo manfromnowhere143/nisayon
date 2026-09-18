@@ -1,0 +1,62 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+177 files already formatted
+uv run --frozen pytest
+........................................................................ [ 19%]
+........................................................................ [ 38%]
+.....................................F.................................. [ 58%]
+........................................................................ [ 77%]
+........................................................................ [ 96%]
+............                                                             [100%]
+=================================== FAILURES ===================================
+___________ test_consumed_seeds_agree_with_the_execution_lane_ledger ___________
+
+    @pytest.mark.skipif(not LEDGER.is_file(), reason="consumed-conditions ledger absent")
+    def test_consumed_seeds_agree_with_the_execution_lane_ledger():
+        """Observed seeds agree both ways; assigned-but-unexecuted seeds and seeds this lane
+        observed in its own qualification run are the only named differences."""
+        mine: set[int] = set()
+        confirmed_cases: set[str] = set()
+        for path in AUDIT.glob("*.decision.json"):
+            decision = json.loads(path.read_text())
+            policy = (decision.get("task") or {}).get("policy_sha256")
+            if policy not in (None, POLICY):
+                continue
+            conditions = {r.get("condition_id") for r in (decision.get("runs") or {}).values()}
+            confirmation = decision.get("confirmation") or {}
+            conditions |= set(confirmation.get("fresh_condition_ids") or [])
+            conditions |= set(confirmation.get("reproduction_condition_ids") or [])
+            mine |= _seeds(conditions)
+            if confirmation.get("fresh_condition_ids") and path.name.startswith(
+                "development-ablation-001-"
+            ):
+                confirmed_cases.add(path.name.split("-")[3])
+        theirs: dict[str, set[int]] = {}
+        for entry in json.loads(LEDGER.read_text())["entries"]:
+            if str(entry.get("namespace", "")).endswith(POLICY):
+                theirs.setdefault(str(entry.get("status")), set()).update(
+                    int(seed) for seed in entry.get("seeds", [])
+                )
+        observed = theirs.get("observed_development", set())
+        assigned = theirs.get("assigned_development_all_spent_including_unused", set())
+        everything = set().union(*theirs.values())
+        assert mine and observed
+        # Every seed the execution lane observed is in a retained decision.
+>       assert observed <= mine, sorted(observed - mine)[:10]
+E       AssertionError: [60000, 60001, 60002, 60003, 60004, 60005, ...]
+E       assert {0, 10, 11, 1...01, 1002, ...} <= {0, 10, 11, 1...01, 1002, ...}
+E         
+E         Extra items in the left set:
+E         60000
+E         60001
+E         60002
+E         60003
+E         60004...
+E         
+E         ...Full output truncated (91 lines hidden), use '-vv' to show
+
+tests/evaluation/test_evaluation_cross_lane.py:119: AssertionError
+=========================== short test summary info ============================
+FAILED tests/evaluation/test_evaluation_cross_lane.py::test_consumed_seeds_agree_with_the_execution_lane_ledger
+1 failed, 371 passed in 169.25s (0:02:49)

@@ -1,0 +1,138 @@
+{
+  "schema": "nisayon.timing-reset-interaction.summary.v1",
+  "evidence_origin": "simulator",
+  "tested_commit": "4c7a7e4914e2cddfd347883649ea387e18bec8ec",
+  "source_root_locator": "artifacts/timing-reset-interaction-001",
+  "source_bundle_sha256": "fd3acd2c7d6f0508d2e884d0682cff50efa39896ce0a6c6d18479496f429205e",
+  "protocol_sha256": "3ff4d68e3439bab2a5703f81fe1f0b8149d631c14d223015b0bd35fde666bce5",
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 22,
+    "simulator_runs": 6,
+    "trace_rows": 422,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "scored_incidents": 0,
+  "new_confirmation_pairs": 0,
+  "task_interaction_failure_observed": false,
+  "interpretation": "All six assigned deployments completed the seed-0 lift. Both new delay-by-every-action-reset combinations completed; the proposed joint task-failure pattern was not observed. All delayed inputs still violate the declared zero-age timing obligation. This known development condition does not establish a general interaction rate.",
+  "cells": [
+    {
+      "id": "reference",
+      "task_outcome": "completed",
+      "steps": 44,
+      "max_observation_age_s": 0.0,
+      "peak_cube_height_m": 0.8442316362192643
+    },
+    {
+      "id": "delay-3",
+      "task_outcome": "completed",
+      "steps": 51,
+      "max_observation_age_s": 0.15000000000000013,
+      "peak_cube_height_m": 0.8403434204088197
+    },
+    {
+      "id": "delay-6",
+      "task_outcome": "completed",
+      "steps": 128,
+      "max_observation_age_s": 0.30000000000000027,
+      "peak_cube_height_m": 0.8479947097806065
+    },
+    {
+      "id": "reset-every-action",
+      "task_outcome": "completed",
+      "steps": 46,
+      "max_observation_age_s": 0.0,
+      "peak_cube_height_m": 0.8410431733890713
+    },
+    {
+      "id": "delay-3-reset-every-action",
+      "task_outcome": "completed",
+      "steps": 47,
+      "max_observation_age_s": 0.15000000000000013,
+      "peak_cube_height_m": 0.8484546755893911
+    },
+    {
+      "id": "delay-6-reset-every-action",
+      "task_outcome": "completed",
+      "steps": 106,
+      "max_observation_age_s": 0.30000000000000027,
+      "peak_cube_height_m": 0.8445631866908567
+    }
+  ],
+  "evaluation": {
+    "decision": "unresolved",
+    "reasons": [
+      {
+        "code": "calibration_only",
+        "severity": "unresolved",
+        "detail": "calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored"
+      }
+    ],
+    "runs": {
+      "reference": {
+        "measurement": "valid",
+        "timing": "satisfied",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      },
+      "delay-3": {
+        "measurement": "valid",
+        "timing": "violated",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      },
+      "delay-6": {
+        "measurement": "valid",
+        "timing": "violated",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      },
+      "reset-every-action": {
+        "measurement": "valid",
+        "timing": "satisfied",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      },
+      "delay-3-reset-every-action": {
+        "measurement": "valid",
+        "timing": "violated",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      },
+      "delay-6-reset-every-action": {
+        "measurement": "valid",
+        "timing": "violated",
+        "progress": "preserved",
+        "outcome": {
+          "observed": "completed",
+          "claimed": "completed"
+        }
+      }
+    }
+  },
+  "costs": {
+    "execution_command_wall_s": 13.917903,
+    "evaluation_command_wall_s": 1.09108,
+    "known_nonoverlapping_command_wall_s": 15.008983,
+    "human_time": null,
+    "provider_cost": null,
+    "scope": "Calibration setup, all six simulator runs, integrity checking and separate Fable evaluation. Per-run costs are nested; do not add them to command walls."
+  }
+}

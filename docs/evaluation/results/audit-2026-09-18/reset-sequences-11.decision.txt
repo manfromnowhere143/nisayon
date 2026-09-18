@@ -1,0 +1,29 @@
+Decision: UNRESOLVED
+Scope: calibration probes for case 'lift-family-calibration-v1' under first-case-obligation-v0.2; no scored incident
+Case: lift-family-calibration-v1 · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=None · regression reproduced=None
+Reasons:
+  - unresolved: calibration_only: calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  prefix-21-clean-prefix              probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  prefix-21-carried-prefix            probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  prefix-39-clean-prefix              probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  prefix-39-carried-prefix            probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  prefix-21-clean                     probe      probe    seed-11-prefix-10-21completed unresolved completed preserved satisfied satisfied
+  prefix-21-carried                   probe      probe    seed-11-prefix-10-21completed unresolved completed preserved satisfied satisfied
+  prefix-39-clean                     probe      probe    seed-11-prefix-10-39completed unresolved completed preserved satisfied satisfied
+  prefix-39-carried                   probe      probe    seed-11-prefix-10-39completed unresolved completed preserved satisfied satisfied
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 28 files verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/reset-sequence-11-001
+  - qualification_repeat: runs 'prefix-21-clean-prefix' and 'prefix-21-carried-prefix' repeat deployment 909d07b7ae59 on seed-10 with identical recorded state, observation, recurrent-state and action sequences over 21 steps
+  - qualification_repeat: runs 'prefix-39-clean-prefix' and 'prefix-39-carried-prefix' repeat deployment 909d07b7ae59 on seed-10 with identical recorded state, observation, recurrent-state and action sequences over 39 steps
+Producer: nisayon.first_case.v1 · execution code 109eb2cb872367383e5dca462e7d86b4a934d450
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 12.601815334 s over 8 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.

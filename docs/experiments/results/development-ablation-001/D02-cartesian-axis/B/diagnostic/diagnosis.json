@@ -1,0 +1,217 @@
+{
+  "schema": "nisayon.development-diagnosis.v1",
+  "case_id": "D02-cartesian-axis",
+  "arm": "B",
+  "scope": "scored_deterministic_development_ablation",
+  "solver_kind": "scripted_development_ablation",
+  "started_at": "2026-09-18T04:53:15.439470+00:00",
+  "ended_at": "2026-09-18T04:53:31.112001+00:00",
+  "phase_wall_s": 15.67252012505196,
+  "diagnostic_final_check_wall_s": 1.1422190421726555,
+  "status": "candidate_ready_for_freeze",
+  "candidate": {
+    "schema": "nisayon.deployment.v1",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "transport_gripper_sign": 1,
+    "repair_gripper_sign": 1,
+    "transport_translation_order": [
+      2,
+      1,
+      0
+    ],
+    "repair_translation_order": [
+      2,
+      1,
+      0
+    ],
+    "observation_delay_steps": 0,
+    "observation_stride_steps": 1,
+    "policy_reset": "episode",
+    "suppress_actions": false
+  },
+  "reason": null,
+  "selection": {
+    "solver_kind": "deterministic_development_procedure",
+    "configuration_differences": {
+      "transport_translation_order": {
+        "working": [
+          0,
+          1,
+          2
+        ],
+        "changed": [
+          2,
+          1,
+          0
+        ]
+      }
+    },
+    "reference": {
+      "process_status": "completed",
+      "task": "completed",
+      "progress": "preserved",
+      "progress_gain_m": 0.024218432019765812,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": true,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "regression": {
+      "process_status": "completed",
+      "task": "failed",
+      "progress": "lost",
+      "progress_gain_m": 0.001327598461967061,
+      "timing": "met",
+      "maximum_observation_age_s": 0.0,
+      "executed_action_bounds": "met",
+      "intended_executed_mismatch_counts": [
+        400,
+        0,
+        400,
+        0,
+        0,
+        0,
+        0
+      ],
+      "policy_reset": "cleared",
+      "invalid_reasons": [],
+      "evidence_gaps": [],
+      "meets_measured_obligations": false,
+      "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+    },
+    "status": "candidate_ready_for_freeze",
+    "candidate": {
+      "schema": "nisayon.deployment.v1",
+      "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+      "transport_gripper_sign": 1,
+      "repair_gripper_sign": 1,
+      "transport_translation_order": [
+        2,
+        1,
+        0
+      ],
+      "repair_translation_order": [
+        2,
+        1,
+        0
+      ],
+      "observation_delay_steps": 0,
+      "observation_stride_steps": 1,
+      "policy_reset": "episode",
+      "suppress_actions": false
+    },
+    "separating_probes": [],
+    "selection_basis": "Known configuration remedies, followed by full observed reruns"
+  },
+  "proposals": [
+    {
+      "candidate_digest": "d3a85dc85d84a9140d38bd217c50235d00f9f79a7401ba500f0b7f15bdc5bff3",
+      "executed": true,
+      "rejected_before_execution": false,
+      "reason": "known remedy full rerun",
+      "ordinary_checks": {
+        "process_status": "completed",
+        "task": "completed",
+        "progress": "preserved",
+        "progress_gain_m": 0.024218432019765812,
+        "timing": "met",
+        "maximum_observation_age_s": 0.0,
+        "executed_action_bounds": "met",
+        "intended_executed_mismatch_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "policy_reset": "cleared",
+        "invalid_reasons": [],
+        "evidence_gaps": [],
+        "meets_measured_obligations": true,
+        "scope": "ordinary descriptive checks; final acceptance belongs to Fable"
+      }
+    }
+  ],
+  "budget": {
+    "limits": {
+      "max_rollouts": 64,
+      "max_wall_seconds": 1800,
+      "max_final_candidates": 1
+    },
+    "rollout_slots_reserved": 3,
+    "wall_seconds": 15.672517250059173,
+    "final_candidates_selected": 1,
+    "boundary": "Diagnostic phase only; executed prefixes reserve additional slots. Slots include attempts interrupted before completion. Confirmation is a separately equal obligation."
+  },
+  "preflight_checks": [
+    {
+      "bundle": "execution/snapshots/001.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 12,
+        "simulator_runs": 2,
+        "trace_rows": 444,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-000.json",
+      "decision_sha256": "4a96a4b24388fa70c42ab5ee227f2b1acb2fe86ea2c370d4a3fb68e2366c8efb",
+      "wall_s": 2.1533455830067396,
+      "measurement_gaps_or_invalid": {}
+    },
+    {
+      "bundle": "execution/snapshots/002.bundle.json",
+      "integrity": {
+        "status": "verified",
+        "artifact_files": 18,
+        "simulator_runs": 3,
+        "trace_rows": 488,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "decision_path": "preflight-001.json",
+      "decision_sha256": "c30466ccedcabef9169c42f9a363fdffc5a6afa7ada44bc7bfd52a03ca67944d",
+      "wall_s": 2.349550916813314,
+      "measurement_gaps_or_invalid": {}
+    }
+  ],
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 21,
+    "simulator_runs": 3,
+    "trace_rows": 488,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "costs": {
+    "physical_rollouts": 3,
+    "known_run_wall_s": 8.662824,
+    "nested_prefix_runs_not_added": [],
+    "missing_run_wall_ids": [],
+    "scope": "Rollout, reset and trace-write components; nested within phase/command walls, never added to them"
+  },
+  "bundle_path": "execution/bundle.json",
+  "bundle_sha256": "c5cf7ca4385dd617986c0b121338925becee3f51c4ebc22579e7fd2cbc3452ed",
+  "decision": {
+    "path": "diagnostic-decision.json",
+    "sha256": "985027524a41ea69db0ad931f34fde92138c0df2cdf537de409e7eb5e85d3a5f",
+    "decision": "unresolved"
+  },
+  "arm_claimed_acceptance": false,
+  "interpretation": "A diagnostic proposal is not a confirmed correction; no acceptance is claimed before fresh final confirmation"
+}

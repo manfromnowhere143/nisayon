@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "execute",
+        "freeze",
+        "abstain"
+      ]
+    },
+    "repair": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "repair_gripper_sign": {
+              "type": "integer",
+              "enum": [
+                -1,
+                1
+              ]
+            },
+            "repair_translation_order": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  1,
+                  2
+                ]
+              },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "observation_delay_steps": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "observation_stride_steps": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "policy_reset": {
+              "type": "string",
+              "enum": [
+                "episode",
+                "every_action"
+              ]
+            }
+          },
+          "required": [
+            "repair_gripper_sign",
+            "repair_translation_order",
+            "observation_delay_steps",
+            "observation_stride_steps",
+            "policy_reset"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "freeze_if_valid": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "action",
+    "repair",
+    "run_id",
+    "freeze_if_valid",
+    "reason"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "integrity": {
+    "status": "verified",
+    "artifact_files": 21,
+    "simulator_runs": 3,
+    "trace_rows": 488,
+    "declared_measurement_gaps": [],
+    "scientific_acceptance": "not_decided_by_integrity_checks"
+  },
+  "decision": "unresolved",
+  "runs": {
+    "reference-0": {
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "timing": "satisfied",
+      "constraints": "satisfied",
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 22 of 44 steps (peak |a| = 1.00019); the adapter clips before execution",
+          "run_id": "reference-0",
+          "step": 0
+        },
+        {
+          "code": "raw_artifact_verified",
+          "severity": "info",
+          "detail": "2 of 2 raw artifacts verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/retained-audit-probe-001/store",
+          "run_id": "reference-0"
+        },
+        {
+          "code": "raw_trace_consistent",
+          "severity": "info",
+          "detail": "44 compact rows agree with the raw record reference-0.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+          "run_id": "reference-0"
+        }
+      ]
+    },
+    "regression-0": {
+      "measurement": "valid",
+      "outcome": {
+        "observed": "failed",
+        "claimed": "failed"
+      },
+      "progress": "lost",
+      "timing": "violated",
+      "constraints": "satisfied",
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 226 of 400 steps (peak |a| = 1.00034); the adapter clips before execution",
+          "run_id": "regression-0",
+          "step": 0
+        },
+        {
+          "code": "raw_artifact_verified",
+          "severity": "info",
+          "detail": "2 of 2 raw artifacts verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/retained-audit-probe-001/store",
+          "run_id": "regression-0"
+        },
+        {
+          "code": "raw_trace_consistent",
+          "severity": "info",
+          "detail": "400 compact rows agree with the raw record regression-0.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+          "run_id": "regression-0"
+        },
+        {
+          "code": "outcome_failed_observed",
+          "severity": "rejected",
+          "detail": "lift.cube_above_table: cube_height_m > 0.84 m does not hold (0.8213408026614656 at end)",
+          "run_id": "regression-0",
+          "step": 399
+        },
+        {
+          "code": "progress_lost",
+          "severity": "rejected",
+          "detail": "lift.cube_raised: gain 0.001328 m is below the minimum 0.01",
+          "run_id": "regression-0"
+        },
+        {
+          "code": "timing_obligation_violated",
+          "severity": "rejected",
+          "detail": "control.fresh_observation: observation age 0.15 s exceeds 1e-09 s",
+          "run_id": "regression-0",
+          "step": 319
+        }
+      ]
+    },
+    "candidate-00": {
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "timing": "satisfied",
+      "constraints": "satisfied",
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "candidate-00 from step 0, full_rerun",
+          "run_id": "candidate-00"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 22 of 44 steps (peak |a| = 1.00019); the adapter clips before execution",
+          "run_id": "candidate-00",
+          "step": 0
+        },
+        {
+          "code": "raw_artifact_verified",
+          "severity": "info",
+          "detail": "2 of 2 raw artifacts verified under /Users/danielwahnich/workspace/nisayon-codex/artifacts/retained-audit-probe-001/store",
+          "run_id": "candidate-00"
+        },
+        {
+          "code": "raw_trace_consistent",
+          "severity": "info",
+          "detail": "44 compact rows agree with the raw record candidate-00.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+          "run_id": "candidate-00"
+        }
+      ]
+    }
+  }
+}

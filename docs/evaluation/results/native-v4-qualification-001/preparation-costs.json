@@ -1,0 +1,911 @@
+{
+  "schema": "nisayon.execution.costs.v2",
+  "recorded_at": "2026-09-18T04:51:17.897249+00:00",
+  "scope": "All retained execution-lane command records, including preparation and failures",
+  "command_records": [
+    {
+      "schema": "nisayon.run.v1",
+      "id": "ebfeef21d40d45be8606464430bd4845",
+      "label": "fable-repro-explore",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--extra",
+        "simulation",
+        "python",
+        "-m",
+        "nisayon.engine.joint_case",
+        "--output",
+        "artifacts/fable-repro-001",
+        "--explore-only"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:20:58.696973+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "b777fc1478f871b8cf79e4e01aef99c52f6e5e12",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 12779,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:22:09.200165+00:00",
+      "wall_seconds": 70.461057,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1566,
+          "sha256": "170f35a382ec7bdcbc412f2507b5303439d1726e635900435c44df24dc4ca744"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "8e543b482dcc4bda979462524cfcd616",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/.venv/bin/python3",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-repro-001/execution",
+        "--explore-only"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:20:58.804900+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "b777fc1478f871b8cf79e4e01aef99c52f6e5e12",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": "ebfeef21d40d45be8606464430bd4845",
+      "parent_command_record_root_locator": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "pid": 12787,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:22:01.747621+00:00",
+      "wall_seconds": 62.896963,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1675,
+          "sha256": "fefbe9cc3f07e447ffeb870660019a0990b5c0b1674e3610a9d6bb5b9631bc48"
+        },
+        "stderr.log": {
+          "bytes": 493,
+          "sha256": "2398f4614e456467b848895e8337620c2e27e77e6175634fe4c621ac32c8d5aa"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "591579469085429b9051b7b9c28b1ffb",
+      "label": "joint-case-evaluation-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/.venv/bin/python3",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-repro-001/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-repro-001/execution",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-repro-001/evaluation"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:22:01.750985+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "b777fc1478f871b8cf79e4e01aef99c52f6e5e12",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300,
+      "parent_command_record_id": "ebfeef21d40d45be8606464430bd4845",
+      "parent_command_record_root_locator": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "pid": 13216,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:22:09.106213+00:00",
+      "wall_seconds": 7.324877,
+      "logs": {
+        "stdout.log": {
+          "bytes": 595,
+          "sha256": "a7945086c05a1cc7d74d581a0996f5da1548efae56b5d49e33b1821d04267fa9"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "a78593382bfb42b9b455a9a9392b5221",
+      "label": "fable-consumed-seeds-control",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--extra",
+        "simulation",
+        "python",
+        "-m",
+        "nisayon.engine.joint_case",
+        "--output",
+        "artifacts/fable-consumed-3000-001",
+        "--confirmation-start",
+        "3000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:25:27.705534+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "b777fc1478f871b8cf79e4e01aef99c52f6e5e12",
+        "changes": [
+          "M docs/evaluation/FIRST_CASE_REVIEW.md",
+          " M docs/evaluation/README.md",
+          " M docs/evaluation/results/evaluation-cost-ledger.json",
+          " M src/nisayon/evaluation/first_case.py",
+          " M tests/evaluation/test_evaluation_calibration.py",
+          " M tests/evaluation/test_evaluation_first_case.py",
+          " M work/lanes/fable5.md",
+          "?? docs/evaluation/results/audit-2026-09-18/fable-repro-001.decision.json",
+          "?? docs/evaluation/results/audit-2026-09-18/fable-repro-001.decision.txt",
+          "?? memory/notes/a04f953975d54b569564a9c1aab2a8ed.json"
+        ],
+        "diff_stat": "docs/evaluation/FIRST_CASE_REVIEW.md               | 19 ++++++++++\n docs/evaluation/README.md                          |  1 +\n .../evaluation/results/evaluation-cost-ledger.json | 43 +++++++++++++++++++---\n src/nisayon/evaluation/first_case.py               | 31 +++++++++++++---\n tests/evaluation/test_evaluation_calibration.py    | 36 ++++++++++++++++++\n tests/evaluation/test_evaluation_first_case.py     | 13 +++++++\n work/lanes/fable5.md                               | 21 +++++++++--\n 7 files changed, 151 insertions(+), 13 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 14196,
+      "returncode": 1,
+      "ended_at": "2026-09-17T23:25:31.303356+00:00",
+      "wall_seconds": 3.545894,
+      "logs": {
+        "stdout.log": {
+          "bytes": 742,
+          "sha256": "631bdad12c445d84b46c022b9af5562b84ef69d39b27639453d81e8c329278c5"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "fc8260627de642b087361bd86ca44689",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/.venv/bin/python3",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-consumed-3000-001/execution",
+        "--confirmation-start",
+        "3000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:25:27.817097+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "b777fc1478f871b8cf79e4e01aef99c52f6e5e12",
+        "changes": [
+          "M docs/evaluation/FIRST_CASE_REVIEW.md",
+          " M docs/evaluation/README.md",
+          " M docs/evaluation/results/evaluation-cost-ledger.json",
+          " M src/nisayon/evaluation/first_case.py",
+          " M tests/evaluation/test_evaluation_calibration.py",
+          " M tests/evaluation/test_evaluation_first_case.py",
+          " M work/lanes/fable5.md",
+          "?? docs/evaluation/results/audit-2026-09-18/fable-repro-001.decision.json",
+          "?? docs/evaluation/results/audit-2026-09-18/fable-repro-001.decision.txt",
+          "?? memory/notes/a04f953975d54b569564a9c1aab2a8ed.json"
+        ],
+        "diff_stat": "docs/evaluation/FIRST_CASE_REVIEW.md               | 19 ++++++++++\n docs/evaluation/README.md                          |  1 +\n .../evaluation/results/evaluation-cost-ledger.json | 43 +++++++++++++++++++---\n src/nisayon/evaluation/first_case.py               | 31 +++++++++++++---\n tests/evaluation/test_evaluation_calibration.py    | 36 ++++++++++++++++++\n tests/evaluation/test_evaluation_first_case.py     | 13 +++++++\n work/lanes/fable5.md                               | 21 +++++++++--\n 7 files changed, 151 insertions(+), 13 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": "a78593382bfb42b9b455a9a9392b5221",
+      "parent_command_record_root_locator": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "pid": 14204,
+      "returncode": 1,
+      "ended_at": "2026-09-17T23:25:31.244172+00:00",
+      "wall_seconds": 3.38594,
+      "logs": {
+        "stdout.log": {
+          "bytes": 467,
+          "sha256": "92c89ed2db651932cc9d99fd9fa9f55ac9b305c9146e5473dac09947cefcfb8e"
+        },
+        "stderr.log": {
+          "bytes": 844,
+          "sha256": "8579ba8e25478d04dbf248c5cc9360997a480651f3c44d473a29a4972b32d032"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "2ffe33acd2d9492788ecc9bbb27850d5",
+      "label": "fable-consumed-seeds-control-2",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--extra",
+        "simulation",
+        "python",
+        "-m",
+        "nisayon.engine.joint_case",
+        "--output",
+        "artifacts/fable-consumed-3000-002",
+        "--confirmation-start",
+        "3000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:27:53.575428+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "95e11ba747004c748ebad206b8ca6ab338fab358",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 16572,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:29:53.770511+00:00",
+      "wall_seconds": 120.160025,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1569,
+          "sha256": "a82d3334cf87c7ec5bb5813d2c14666634a7f688698546813e8a5d3bb9beadfa"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "773fd9c90adc4741b8c69bf90e180b7f",
+      "label": "joint-case-execution-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/.venv/bin/python3",
+        "-m",
+        "nisayon.engine.first_case",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-consumed-3000-002/execution",
+        "--confirmation-start",
+        "3000"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:27:53.677231+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "95e11ba747004c748ebad206b8ca6ab338fab358",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 900,
+      "parent_command_record_id": "2ffe33acd2d9492788ecc9bbb27850d5",
+      "parent_command_record_root_locator": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "pid": 16581,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:29:25.731316+00:00",
+      "wall_seconds": 92.010707,
+      "logs": {
+        "stdout.log": {
+          "bytes": 16682,
+          "sha256": "cfce6911565666513bd8a9ecbd63de320076de4799a3524632e09c0e6a638e12"
+        },
+        "stderr.log": {
+          "bytes": 317,
+          "sha256": "58870fe8954241a5517d4fff9286441d66378f53d81499022f38159fafbdeb1f"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "6a8c1ecaeed74199bca39ec5e2b97e46",
+      "label": "joint-case-evaluation-v2",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/.venv/bin/python3",
+        "-m",
+        "nisayon.engine.integrate",
+        "--bundle",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-consumed-3000-002/execution/bundle.json",
+        "--artifact-root",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-consumed-3000-002/execution",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/fable-consumed-3000-002/evaluation"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-17T23:29:25.734113+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "95e11ba747004c748ebad206b8ca6ab338fab358",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 300,
+      "parent_command_record_id": "2ffe33acd2d9492788ecc9bbb27850d5",
+      "parent_command_record_root_locator": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "pid": 17675,
+      "returncode": 0,
+      "ended_at": "2026-09-17T23:29:53.577918+00:00",
+      "wall_seconds": 27.8133,
+      "logs": {
+        "stdout.log": {
+          "bytes": 597,
+          "sha256": "46013d224efde2900d1adb59441843276ef8242d5b54cec29e7131efeef22c63"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "56de0147cef142db9f8629a5a43b8225",
+      "label": "native-v4-qualification",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--extra",
+        "simulation",
+        "python",
+        "/private/tmp/claude-501/-Users-danielwahnich-workspace-nisayon/d812ddf5-544a-4a21-9578-c2cf649dad47/scratchpad/native_v4.py",
+        "artifacts/native-v4-qualification-001",
+        "50000",
+        "D01-gripper-sign",
+        "fable5"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-fable5",
+      "started_at": "2026-09-18T04:51:12.986322+00:00",
+      "process_status": "running",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-fable5",
+        "branch": "build/evaluation",
+        "head": "0de1d31f2fb3ec70705a5fc98901f91b45643128",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 580.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 29614
+    }
+  ],
+  "command_record_identities": [
+    {
+      "id": "2ffe33acd2d9492788ecc9bbb27850d5",
+      "record_sha256": "179aeca78c96f19fc4b0e982893b49ad845cfcd69e30fe818020f2378137bbba"
+    },
+    {
+      "id": "56de0147cef142db9f8629a5a43b8225",
+      "record_sha256": "d495aad19f405e35ef5bb495459f808403fd8dfab839d19b5b0c91dd0b89f1b8"
+    },
+    {
+      "id": "591579469085429b9051b7b9c28b1ffb",
+      "record_sha256": "a7ff0a77ae4c243925ad7bf137629b8b46fb064c0e945b735082a83ba084d9b5"
+    },
+    {
+      "id": "6a8c1ecaeed74199bca39ec5e2b97e46",
+      "record_sha256": "92333d554d4d47b06a0e5ff396fd4c37171520aad7ff9689ceee9d9e6bd49c41"
+    },
+    {
+      "id": "773fd9c90adc4741b8c69bf90e180b7f",
+      "record_sha256": "22851cf05c08b5a2b9c070cd4b4ce0fd7a7a1915b7d47455160b7fbf577a989a"
+    },
+    {
+      "id": "8e543b482dcc4bda979462524cfcd616",
+      "record_sha256": "360a1cbb756b5b587e29bf9f47a8e73ddc0bc35f926c08e62cf5a3837131c5f9"
+    },
+    {
+      "id": "a78593382bfb42b9b455a9a9392b5221",
+      "record_sha256": "d78e8ca30892812a1f2a36e90f96844a653522a7f61303c75159395975a01388"
+    },
+    {
+      "id": "ebfeef21d40d45be8606464430bd4845",
+      "record_sha256": "5e94ac8a5671df27bab0bb1de84208dd39e6c24bb68d1721c5257256627f71e5"
+    },
+    {
+      "id": "fc8260627de642b087361bd86ca44689",
+      "record_sha256": "35c8b27eaf654286756106340d17fdc7ebc432a6910c516d4eea2c7c965cbbb5"
+    }
+  ],
+  "known_command_wall_sum_s": 194.166976,
+  "summed_command_ids": [
+    "ebfeef21d40d45be8606464430bd4845",
+    "a78593382bfb42b9b455a9a9392b5221",
+    "2ffe33acd2d9492788ecc9bbb27850d5"
+  ],
+  "nested_not_added": [
+    {
+      "id": "8e543b482dcc4bda979462524cfcd616",
+      "included_by": "ebfeef21d40d45be8606464430bd4845"
+    },
+    {
+      "id": "591579469085429b9051b7b9c28b1ffb",
+      "included_by": "ebfeef21d40d45be8606464430bd4845"
+    },
+    {
+      "id": "fc8260627de642b087361bd86ca44689",
+      "included_by": "a78593382bfb42b9b455a9a9392b5221"
+    },
+    {
+      "id": "773fd9c90adc4741b8c69bf90e180b7f",
+      "included_by": "2ffe33acd2d9492788ecc9bbb27850d5"
+    },
+    {
+      "id": "6a8c1ecaeed74199bca39ec5e2b97e46",
+      "included_by": "2ffe33acd2d9492788ecc9bbb27850d5"
+    }
+  ],
+  "unmeasured_command_ids": [
+    "56de0147cef142db9f8629a5a43b8225"
+  ],
+  "interpretation": "Sum of recorded command walls excluding measured descendants of measured commands; overlapping independent commands are resource costs, not elapsed session time. Invocation, rollout and inference walls are nested components and are not added.",
+  "evaluation_lane": {
+    "path": "docs/evaluation/results/evaluation-cost-ledger.json",
+    "sha256": "c1a3f410858a7222052878676761d7a6cb8ca13a34c6b081894b5b388664bd44",
+    "retained_document": {
+      "schema": "nisayon.evaluation.costs.v1",
+      "recorded_at": "2026-09-18T03:31:50.603722+00:00",
+      "scope": "evaluation-lane walls: retained decision evaluations, recorded commands and explicitly listed checks; session time and tokens are unknown",
+      "decision_evaluations": [
+        {
+          "path": "audit-2026-09-18/clean-integration-reproduction-001.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.122629
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D01.decision.json",
+          "case_id": "D01-gripper-sign-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.108823
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D02.decision.json",
+          "case_id": "D02-cartesian-axis-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.118166
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D03.decision.json",
+          "case_id": "D03-observation-backlog-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.332675
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D04.decision.json",
+          "case_id": "D04-observation-hold-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.329603
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D05.decision.json",
+          "case_id": "D05-recurrent-carry-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.251796
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D06.decision.json",
+          "case_id": "D06-stateless-inference-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.198472
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D07.decision.json",
+          "case_id": "D07-sign-and-backlog-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.125538
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D08.decision.json",
+          "case_id": "D08-old-future-replay-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.014463
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D09.decision.json",
+          "case_id": "D09-action-suppression-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.019845
+        },
+        {
+          "path": "audit-2026-09-18/development-baseline-D10.decision.json",
+          "case_id": "D10-opaque-policy-state-A",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.174049
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-001-D01.decision.json",
+          "case_id": "D01-gripper-sign-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.118467
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-001-D03.decision.json",
+          "case_id": "D03-observation-backlog-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.335863
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-001-D05.decision.json",
+          "case_id": "D05-recurrent-carry-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.11299
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-002-D06.decision.json",
+          "case_id": "D06-stateless-inference-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.20256
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-002-D07.decision.json",
+          "case_id": "D07-sign-and-backlog-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.160508
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-002-D08.decision.json",
+          "case_id": "D08-old-future-replay-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.012581
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-002-D09.decision.json",
+          "case_id": "D09-action-suppression-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.027852
+        },
+        {
+          "path": "audit-2026-09-18/development-boundary-002-D10.decision.json",
+          "case_id": "D10-opaque-policy-state-B",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.175989
+        },
+        {
+          "path": "audit-2026-09-18/fable-consumed-3000-002.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "invalid",
+          "evaluation_wall_s": 8.640229
+        },
+        {
+          "path": "audit-2026-09-18/fable-repro-001.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.084046
+        },
+        {
+          "path": "audit-2026-09-18/family-calibration-001.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.127227
+        },
+        {
+          "path": "audit-2026-09-18/lift-confirmation-with-replay.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 4.548412
+        },
+        {
+          "path": "audit-2026-09-18/lift-exploration.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 1.106774
+        },
+        {
+          "path": "audit-2026-09-18/lift-freshness-001.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "accepted",
+          "evaluation_wall_s": 8.327435
+        },
+        {
+          "path": "audit-2026-09-18/lift-v2.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 4.588244
+        },
+        {
+          "path": "audit-2026-09-18/lift-v3.decision.json",
+          "case_id": "lift-gripper-sign-v1",
+          "decision": "accepted",
+          "evaluation_wall_s": 9.271753
+        },
+        {
+          "path": "audit-2026-09-18/observation-age-stress-001.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 2.801106
+        },
+        {
+          "path": "audit-2026-09-18/policy-telemetry-unavailable-001.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.169233
+        },
+        {
+          "path": "audit-2026-09-18/reset-sequences-10.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.023278
+        },
+        {
+          "path": "audit-2026-09-18/reset-sequences-11.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.015713
+        },
+        {
+          "path": "audit-2026-09-18/timing-reset-interaction-001.decision.json",
+          "case_id": "lift-family-calibration-v1",
+          "decision": "unresolved",
+          "evaluation_wall_s": 0.868205
+        }
+      ],
+      "decision_evaluation_wall_sum_s": 62.514524,
+      "command_records": [
+        {
+          "id": "2ffe33acd2d9492788ecc9bbb27850d5",
+          "label": "fable-consumed-seeds-control-2",
+          "wall_seconds": 120.160025,
+          "process_status": "completed"
+        },
+        {
+          "id": "a78593382bfb42b9b455a9a9392b5221",
+          "label": "fable-consumed-seeds-control",
+          "wall_seconds": 3.545894,
+          "process_status": "nonzero"
+        },
+        {
+          "id": "ebfeef21d40d45be8606464430bd4845",
+          "label": "fable-repro-explore",
+          "wall_seconds": 70.461057,
+          "process_status": "completed"
+        }
+      ],
+      "nested_not_added": [
+        {
+          "id": "591579469085429b9051b7b9c28b1ffb",
+          "label": "joint-case-evaluation-v2",
+          "wall_seconds": 7.324877,
+          "process_status": "completed",
+          "included_by": "ebfeef21d40d45be8606464430bd4845"
+        },
+        {
+          "id": "6a8c1ecaeed74199bca39ec5e2b97e46",
+          "label": "joint-case-evaluation-v2",
+          "wall_seconds": 27.8133,
+          "process_status": "completed",
+          "included_by": "2ffe33acd2d9492788ecc9bbb27850d5"
+        },
+        {
+          "id": "773fd9c90adc4741b8c69bf90e180b7f",
+          "label": "joint-case-execution-v2",
+          "wall_seconds": 92.010707,
+          "process_status": "completed",
+          "included_by": "2ffe33acd2d9492788ecc9bbb27850d5"
+        },
+        {
+          "id": "8e543b482dcc4bda979462524cfcd616",
+          "label": "joint-case-execution-v2",
+          "wall_seconds": 62.896963,
+          "process_status": "completed",
+          "included_by": "ebfeef21d40d45be8606464430bd4845"
+        },
+        {
+          "id": "fc8260627de642b087361bd86ca44689",
+          "label": "joint-case-execution-v2",
+          "wall_seconds": 3.38594,
+          "process_status": "nonzero",
+          "included_by": "a78593382bfb42b9b455a9a9392b5221"
+        }
+      ],
+      "command_wall_sum_s": 194.166976,
+      "explicit_walls": [
+        {
+          "label": "make check 2026-09-18T22:48Z (observed in tool output)",
+          "wall_seconds": 74.92
+        },
+        {
+          "label": "make check 2026-09-18T22:59Z (observed in tool output)",
+          "wall_seconds": 92.34
+        },
+        {
+          "label": "make check 2026-09-18T23:14Z (observed in tool output)",
+          "wall_seconds": 87.02
+        },
+        {
+          "label": "make check 2026-09-18T23:20Z (observed in tool output)",
+          "wall_seconds": 86.89
+        },
+        {
+          "label": "make check 2026-09-18T23:27Z (observed in tool output)",
+          "wall_seconds": 89.2
+        },
+        {
+          "label": "uv sync --extra simulation 2026-09-18T23:21Z (observed, about)",
+          "wall_seconds": 25.0
+        },
+        {
+          "label": "make check 2026-09-18T02:10Z (observed in tool output; pytest 96.41 s of it)",
+          "wall_seconds": 96.41
+        },
+        {
+          "label": "make check 2026-09-18T02:28Z (observed in tool output; pytest 98.28 s of it)",
+          "wall_seconds": 98.28
+        },
+        {
+          "label": "make check 2026-09-18T02:33Z (pytest 117.32 s)",
+          "wall_seconds": 117.32
+        },
+        {
+          "label": "make check 2026-09-18T02:36Z (pytest 116.82 s)",
+          "wall_seconds": 116.82
+        },
+        {
+          "label": "make check 2026-09-18T02:41Z (pytest 122.10 s)",
+          "wall_seconds": 122.1
+        },
+        {
+          "label": "make check 2026-09-18T02:48Z (pytest 127.00 s)",
+          "wall_seconds": 127.0
+        },
+        {
+          "label": "make check 2026-09-18T02:53Z (pytest 126.70 s)",
+          "wall_seconds": 126.7
+        },
+        {
+          "label": "make check 2026-09-18T03:01Z (pytest 149.45 s)",
+          "wall_seconds": 149.45
+        },
+        {
+          "label": "make check 2026-09-18T03:07Z (pytest 152.19 s)",
+          "wall_seconds": 152.19
+        },
+        {
+          "label": "make check 2026-09-18T03:11Z (pytest 151.61 s)",
+          "wall_seconds": 151.61
+        },
+        {
+          "label": "make check 2026-09-18T03:17Z (pytest 155.63 s)",
+          "wall_seconds": 155.63
+        },
+        {
+          "label": "make check 2026-09-18T03:25Z (pytest 157.12 s)",
+          "wall_seconds": 157.12
+        },
+        {
+          "label": "make check 2026-09-18T03:29Z (pytest 158.16 s)",
+          "wall_seconds": 158.16
+        }
+      ],
+      "explicit_wall_sum_s": 2184.16,
+      "unmeasured": [
+        {
+          "category": "evaluation_session_time",
+          "unit": "s",
+          "reason": "no time tracker for the session",
+          "value": null
+        },
+        {
+          "category": "agent_tokens",
+          "unit": "tokens",
+          "reason": "provider accounting unavailable",
+          "value": null
+        },
+        {
+          "category": "provider_and_compute_charges",
+          "unit": "USD",
+          "reason": "no invoices or power meter",
+          "value": null
+        },
+        {
+          "category": "unrecorded_test_and_check_runs",
+          "unit": "s",
+          "reason": "only checks run through the command recorder or listed explicitly are timed",
+          "value": null
+        }
+      ],
+      "interpretation": "Sums cover different scopes and are not added together; none is a complete cost of the evaluation lane."
+    },
+    "accounting": "Exchanged partial evaluation-lane scopes, not added to execution command walls or to one another; overlaps are not fully identified"
+  },
+  "unmeasured": [
+    {
+      "category": "evaluation_lane_preparation_and_validation",
+      "unit": "s",
+      "reason": "The exchanged evaluation ledger reports partial scopes; total lane preparation and validation time remains unmeasured",
+      "value": null
+    },
+    {
+      "category": "human_preparation_and_review",
+      "unit": "s",
+      "reason": "No time tracker",
+      "value": null
+    },
+    {
+      "category": "agent_tokens",
+      "unit": "tokens",
+      "reason": "Provider accounting unavailable",
+      "value": null
+    },
+    {
+      "category": "provider_and_compute_charges",
+      "unit": "USD",
+      "reason": "No invoices or power meter",
+      "value": null
+    },
+    {
+      "category": "unrecorded_engineering_commands_and_edits",
+      "unit": "s",
+      "reason": "Only commands run through the command recorder are timed in this ledger",
+      "value": null
+    },
+    {
+      "category": "overlapping_auxiliary_dependency_inspection",
+      "unit": "s",
+      "reason": "A historical duplicate dependency inspection was stopped; duration not recorded",
+      "value": null
+    }
+  ],
+  "amortization": "None; historical preparation and product development remain visible",
+  "economic_comparison": "No complete-cost speedup established"
+}
