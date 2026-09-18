@@ -174,8 +174,10 @@ Keep the current task in `work/queue.json`. Change the architecture when a real
 implementation decision requires it. Record the reason and evidence once; avoid
 duplicating it across a new family of handoffs.
 
-No remote, public release or software license is selected by the local setup.
-Before distribution, decide the license, asset terms and publication scope.
-The checked-in workflow and issue templates are preparation for that step.
+The initial local setup selected no remote or license. The research release now
+uses [Apache-2.0](../LICENSE), with the [licensing boundary](LICENSING.md) and
+[source-snapshot publication procedure](RELEASE.md). Private development history
+must remain local. Publish only the checked release branch and preserve its
+third-party notices and external-asset boundary.
 
 [Architecture](ARCHITECTURE.md) · [Current handoff](SESSION_HANDOFF.md)

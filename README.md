@@ -100,6 +100,10 @@ as new confirmation.
 [Evaluation contract](docs/evaluation/CONFIRMATION_OBLIGATION.md) ·
 [Validity controls](docs/evaluation/CONTROLS.md) · [Sources](docs/SOURCES.md)
 
+Licensed under [Apache-2.0](LICENSE). Copyright 2026 Daniel Wahnich.
+[Licensing scope and third-party assets](docs/LICENSING.md) distinguish the
+released source from separately obtained dependencies and policy weights.
+
 `nisayon start` reads the handoff and shared memory. `nisayon run --label NAME --
 COMMAND` records command arguments, process status, logs, hashes and wall time.
 Failed attempts remain discoverable. A completed process is not a scientific

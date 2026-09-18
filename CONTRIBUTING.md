@@ -19,5 +19,7 @@ retained evidence. A green software test is a software result. See the
 [research plan](docs/RESEARCH_PLAN.md) for the product's first experiment.
 
 Use the configured human Git identity. Keep credentials, datasets, videos and
-model weights outside Git. This local repository does not yet declare a public
-contribution or licensing policy.
+model weights outside Git. Nisayon uses [Apache-2.0](LICENSE). Submit only work
+you have the right to contribute; intentionally submitted contributions follow
+section 5 of that license unless explicitly stated otherwise or covered by a
+separate agreement. Preserve third-party notices. See [licensing scope](docs/LICENSING.md).

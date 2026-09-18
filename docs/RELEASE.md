@@ -1,11 +1,13 @@
-# Research release candidate 0.1.0
+# Research release 0.1.0
 
 Both development comparisons are negative for Nisayon's efficiency thesis.
 The [README](../README.md) reports their denominators, execution counts and
 measured costs. The [trace analysis](experiments/UNUSED_AUDIT.md) explains the
 unused optional audit and the small remaining diagnostic-cost opportunity.
-Publication is authorized; the software license remains an operator decision.
-There is no published repository or release at this candidate checkpoint.
+The source uses [Apache-2.0](LICENSING.md), with explicit project attribution and
+an external-asset boundary. The [GitHub release](https://github.com/manfromnowhere143/nisayon/releases/tag/v0.1.0)
+identifies the published commit and validation. A local candidate or manifest
+alone does not establish publication.
 
 ## Source and evidence boundary
 
@@ -17,12 +19,12 @@ in the exported candidate binds the exact source revision and copied files.
 Only its session handoff is replaced with a public reproduction entry point;
 retained research artifacts are copied byte for byte.
 
-The proposed destination is `manfromnowhere143/nisayon`, using public `main`
-and tag `v0.1.0`. The authenticated account is Daniel Wahnich's existing account;
-no remote or pre-existing repository was found during preparation. The private
+The destination is `manfromnowhere143/nisayon`, using public `main` and tag
+`v0.1.0`. The authenticated account is Daniel Wahnich's existing account; no
+remote or pre-existing repository was found during preparation. The private
 canonical `main` must not be pushed. Publish only the reviewed source-snapshot
-branch after license selection, final checks and outgoing history review, then
-read back the remote branch and tag commit IDs. A local branch is not publication.
+branch after final checks and outgoing history review, then read back the remote
+branch and tag commit IDs. A local branch is not publication.
 
 No weights, training dataset, video, credentials, private session transcript or
 full simulator store is included. The compact research archive supports scoring,
@@ -75,10 +77,14 @@ would not replace either retained negative comparison.
 
 ## Checks and next decision
 
-The integrated policy/evaluation commit `b1cc0c3` passed all 377 tests, lint,
-formatting and documentation checks. Final source-snapshot checks and the small
-example are required on the exact candidate before publication; their records
-will distinguish code validation from scientific acceptance.
+The integrated policy/evaluation commit `b1cc0c3` and initial source snapshot
+`081ce4b` passed all 377 tests, lint, formatting and documentation checks. The
+small example on `081ce4b` reproduced reference/correction completion in 44 steps
+and regression/suppression failure at 400 steps. Its evaluator rejected suppression
+and replay and left the correction unresolved without fresh confirmation.
+Execution cost 35.670617 s; evaluation cost 48.493561 s. The licensed candidate
+keeps the same executable source and frozen research artifacts; final checks,
+package license contents and outgoing scope are verified before publication.
 
 No additional efficiency screen is justified by the present case. Require a
 specific ambiguous decision and enough avoidable work to make the target feasible
