@@ -1,0 +1,700 @@
+check (ubuntu-latest)	Run make check	﻿2026-10-09T15:37:26.2727672Z ##[group]Run make check
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2727949Z [36;1mmake check[0m
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2791062Z shell: /usr/bin/bash -e {0}
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2791321Z env:
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2791603Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2792021Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.2792338Z ##[endgroup]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.3227285Z uv run --frozen ruff check .
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.5701654Z All checks passed!
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.5727834Z uv run --frozen ruff format --check .
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.6937672Z 471 files already formatted
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:26.6962715Z uv run --frozen pytest
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:31.3363098Z ......ssssss............................................................ [  6%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:39.6706393Z ........................................................................ [ 12%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:42.1048787Z .....FsF.F.....................s........................................ [ 18%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:42.4816085Z ........................................................................ [ 24%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:49.9199911Z .............................................ss......................... [ 31%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:50.1696366Z ......................s................................................. [ 37%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:51.1575894Z ........................................................................ [ 43%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:37:56.2489903Z ........................................................................ [ 49%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:38:12.8461584Z .....sssssssssssss...ssss............s.................................. [ 55%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:38:36.9446096Z ........................................................................ [ 62%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:39:09.3366569Z ..........................................s............................. [ 68%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:39:43.1140119Z ....................F.ss........s........s...s.......................... [ 74%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:40:30.0362077Z ...................s...........s........................................ [ 80%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:07.6406294Z ..................................................ss.................... [ 87%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:21.7825688Z .s.s.......................sss.......................................... [ 93%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.5453728Z ........................................................................ [ 99%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6345228Z ......                                                                   [100%]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6346220Z =================================== FAILURES ===================================
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6346981Z _________________ test_changed_metadata_is_pinned_and_explicit _________________
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6347528Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6347914Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_changed_metadata_is_pinne0')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6348785Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f5ca8937e30>
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6349276Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6349599Z     def test_changed_metadata_is_pinned_and_explicit(tmp_path, monkeypatch):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6350402Z         # Point only the checked local-file lookup at a labelled copy. Git bytes
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6351174Z         # still come from the actual pinned source, and cannot be silently replaced.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6351931Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6352618Z >       reader = PinnedInputs(ROOT, spec["source_commit"])
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6353245Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6353619Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6353822Z tests/engine/test_confirmation_view.py:217: 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6354494Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6355482Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6356118Z     self.commit = subprocess.check_output(
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6357049Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:466: in check_output
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6358509Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6359170Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6359566Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6359834Z input = None, capture_output = False, timeout = None, check = True
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6360628Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6361517Z kwargs = {'stdout': -1, 'cwd': PosixPath('/home/runner/work/nisayon/nisayon'), 'text': True}
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6362098Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6362266Z     def run(*popenargs,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6362850Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6363929Z         """Run command with arguments and return a CompletedProcess instance.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6364526Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6365247Z         The returned instance will have attributes args, returncode, stdout and
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6366142Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6366995Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6367701Z         or pass capture_output=True to capture both.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6368152Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6368580Z         If check is True and the exit code was non-zero, it raises a
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6369410Z         CalledProcessError. The CalledProcessError object will have the return code
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6370410Z         in the returncode attribute, and output & stderr attributes if those streams
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6371132Z         were captured.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6371492Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6371928Z         If timeout (seconds) is given and the process takes too long,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6372558Z          a TimeoutExpired exception will be raised.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6373025Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6373413Z         There is an optional argument "input", allowing you to
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6374228Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6375331Z         you may not also use the Popen constructor's "stdin" argument, as
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6375936Z         it will be used internally.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6376317Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6376781Z         By default, all communication is in bytes, and therefore any "input" should
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6377524Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6378271Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6379021Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6379755Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6380322Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6380722Z         The other arguments are the same as for the Popen constructor.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6381248Z         """
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6381530Z         if input is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6381908Z             if kwargs.get('stdin') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6382548Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6383131Z             kwargs['stdin'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6383471Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6383738Z         if capture_output:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6384236Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6385130Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6385754Z                                  'with capture_output.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6386185Z             kwargs['stdout'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6386562Z             kwargs['stderr'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6386902Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6387221Z         with Popen(*popenargs, **kwargs) as process:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6387927Z             try:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6388500Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6389058Z             except TimeoutExpired as exc:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6389465Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6389819Z                 if _mswindows:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6390255Z                     # Windows accumulates the output in a single blocking
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6390836Z                     # read() call run on child threads, with the timeout
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6391428Z                     # being done in a join() on those threads.  communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6392048Z                     # _after_ kill() is required to collect that and add it
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6392747Z                     # to the exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6393206Z                     exc.stdout, exc.stderr = process.communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6393667Z                 else:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6394064Z                     # POSIX _communicate already populated the output so
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6394624Z                     # far into the TimeoutExpired exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6395276Z                     process.wait()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6395698Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6396150Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6396695Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6397168Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6397685Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6398021Z             retcode = process.poll()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6398425Z             if check and retcode:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6398878Z >               raise CalledProcessError(retcode, process.args,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6399406Z                                          output=stdout, stderr=stderr)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6400509Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6401433Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6401923Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:571: CalledProcessError
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6402859Z ----------------------------- Captured stderr call -----------------------------
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6403882Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6404817Z Use '--' to separate paths from revisions, like this:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6405686Z 'git <command> [<revision>...] -- [<file>...]'
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6406293Z _________ test_missing_raw_keeps_all_pairs_and_explicit_unavailability _________
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6406761Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6407125Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_missing_raw_keeps_all_pai0')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6407648Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6407988Z     def test_missing_raw_keeps_all_pairs_and_explicit_unavailability(tmp_path):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6408643Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6409089Z >       view, _ = build_view(
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6409715Z             ROOT, spec, raw_base=tmp_path, selection=[[COMPARISON, "D01-gripper-sign", "A"]]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6410314Z         )
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6410460Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6410632Z tests/engine/test_confirmation_view.py:244: 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6411121Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6411691Z src/nisayon/engine/confirmation_view.py:324: in build_view
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6412241Z     reader = PinnedInputs(repo, spec["source_commit"])
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6412713Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6413214Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6413709Z     self.commit = subprocess.check_output(
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6414473Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:466: in check_output
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6415722Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6416326Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6416685Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6416934Z input = None, capture_output = False, timeout = None, check = True
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6417665Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6418485Z kwargs = {'stdout': -1, 'cwd': PosixPath('/home/runner/work/nisayon/nisayon'), 'text': True}
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6418988Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6419310Z     def run(*popenargs,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6419807Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6420521Z         """Run command with arguments and return a CompletedProcess instance.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6421056Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6421502Z         The returned instance will have attributes args, returncode, stdout and
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6422245Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6422994Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6423622Z         or pass capture_output=True to capture both.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6424050Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6424417Z         If check is True and the exit code was non-zero, it raises a
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6425310Z         CalledProcessError. The CalledProcessError object will have the return code
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6426121Z         in the returncode attribute, and output & stderr attributes if those streams
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6426709Z         were captured.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6427004Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6427372Z         If timeout (seconds) is given and the process takes too long,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6427932Z          a TimeoutExpired exception will be raised.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6428347Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6428699Z         There is an optional argument "input", allowing you to
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6429347Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6430039Z         you may not also use the Popen constructor's "stdin" argument, as
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6430577Z         it will be used internally.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6430929Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6431360Z         By default, all communication is in bytes, and therefore any "input" should
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6432093Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6432802Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6433516Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6434237Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6434785Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6435333Z         The other arguments are the same as for the Popen constructor.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6435829Z         """
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6436119Z         if input is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6436488Z             if kwargs.get('stdin') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6437063Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6437643Z             kwargs['stdin'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6437984Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6438261Z         if capture_output:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6438755Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6439468Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6440055Z                                  'with capture_output.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6440482Z             kwargs['stdout'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6440851Z             kwargs['stderr'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6441197Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6441821Z         with Popen(*popenargs, **kwargs) as process:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6442246Z             try:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6442670Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6443226Z             except TimeoutExpired as exc:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6443632Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6443971Z                 if _mswindows:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6444399Z                     # Windows accumulates the output in a single blocking
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6445176Z                     # read() call run on child threads, with the timeout
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6445781Z                     # being done in a join() on those threads.  communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6446561Z                     # _after_ kill() is required to collect that and add it
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6447058Z                     # to the exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6447508Z                     exc.stdout, exc.stderr = process.communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6447983Z                 else:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6448380Z                     # POSIX _communicate already populated the output so
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6448919Z                     # far into the TimeoutExpired exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6449368Z                     process.wait()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6449712Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6450162Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6450703Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6451161Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6451658Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6451982Z             retcode = process.poll()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6452379Z             if check and retcode:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6452821Z >               raise CalledProcessError(retcode, process.args,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6453353Z                                          output=stdout, stderr=stderr)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6454478Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6455598Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6456093Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:571: CalledProcessError
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6456992Z ----------------------------- Captured stderr call -----------------------------
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6458001Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6458934Z Use '--' to separate paths from revisions, like this:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6459423Z 'git <command> [<revision>...] -- [<file>...]'
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6460036Z _________ test_selected_analysis_order_controls_reads_not_only_output __________
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6460497Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6460801Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f5c98171b80>
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6461244Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6461568Z     def test_selected_analysis_order_controls_reads_not_only_output(monkeypatch):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6462212Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6462641Z         visited = []
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6462971Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6463348Z         def inspect(reader, comparison, case, arm, raw_base, ledger):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6463923Z             visited.append([comparison, case["id"], arm])
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6464538Z             return {"comparison": comparison, "case_id": case["id"], "arm": arm}, {}
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6465241Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6465691Z         monkeypatch.setattr("nisayon.engine.confirmation_view._trial", inspect)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6466332Z         order = spec["profiling"]["trials_in_order"]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6466822Z >       _, timings = build_view(ROOT, spec, selection=order)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6467293Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6467585Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6467942Z tests/engine/test_confirmation_view.py:306: 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6468435Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6469001Z src/nisayon/engine/confirmation_view.py:324: in build_view
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6469550Z     reader = PinnedInputs(repo, spec["source_commit"])
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6470003Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6470477Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6470984Z     self.commit = subprocess.check_output(
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6471726Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:466: in check_output
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6472764Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6473357Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6473710Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6473952Z input = None, capture_output = False, timeout = None, check = True
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6474675Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6475677Z kwargs = {'stdout': -1, 'cwd': PosixPath('/home/runner/work/nisayon/nisayon'), 'text': True}
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6476172Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6476301Z     def run(*popenargs,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6476782Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6477501Z         """Run command with arguments and return a CompletedProcess instance.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6478020Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6478446Z         The returned instance will have attributes args, returncode, stdout and
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6479205Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6479956Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6480569Z         or pass capture_output=True to capture both.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6481005Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6481361Z         If check is True and the exit code was non-zero, it raises a
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6482048Z         CalledProcessError. The CalledProcessError object will have the return code
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6482850Z         in the returncode attribute, and output & stderr attributes if those streams
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6483428Z         were captured.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6483718Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6484091Z         If timeout (seconds) is given and the process takes too long,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6484641Z          a TimeoutExpired exception will be raised.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6485598Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6486019Z         There is an optional argument "input", allowing you to
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6486637Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6487272Z         you may not also use the Popen constructor's "stdin" argument, as
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6487745Z         it will be used internally.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6488063Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6488457Z         By default, all communication is in bytes, and therefore any "input" should
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6489101Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6489732Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6490359Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6491011Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6491454Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6491769Z         The other arguments are the same as for the Popen constructor.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6492184Z         """
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6492412Z         if input is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6492716Z             if kwargs.get('stdin') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6493177Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6493871Z             kwargs['stdin'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6494153Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6494370Z         if capture_output:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6494770Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6495538Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6496010Z                                  'with capture_output.')
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6496359Z             kwargs['stdout'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6496659Z             kwargs['stderr'] = PIPE
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6496936Z     
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6497191Z         with Popen(*popenargs, **kwargs) as process:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6497697Z             try:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6498036Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6498480Z             except TimeoutExpired as exc:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6498807Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6499087Z                 if _mswindows:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6499439Z                     # Windows accumulates the output in a single blocking
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6499900Z                     # read() call run on child threads, with the timeout
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6500374Z                     # being done in a join() on those threads.  communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6500864Z                     # _after_ kill() is required to collect that and add it
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6501272Z                     # to the exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6501591Z                     exc.stdout, exc.stderr = process.communicate()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6501901Z                 else:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6502170Z                     # POSIX _communicate already populated the output so
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6502538Z                     # far into the TimeoutExpired exception.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6502838Z                     process.wait()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6503069Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6503366Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6503731Z                 process.kill()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6504036Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6504358Z                 raise
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6504570Z             retcode = process.poll()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6504828Z             if check and retcode:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6505249Z >               raise CalledProcessError(retcode, process.args,
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6505598Z                                          output=stdout, stderr=stderr)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6506291Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6506870Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6507195Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:571: CalledProcessError
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6507796Z ----------------------------- Captured stderr call -----------------------------
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6508464Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.6509072Z Use '--' to separate paths from revisions, like this:
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7463258Z 'git <command> [<revision>...] -- [<file>...]'
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7463917Z _ test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary _
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7464337Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7464643Z     def test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary():
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7465386Z         summary = run_normalizer_controls()
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7465800Z         assert summary["passed"] == summary["cases_evaluated"]
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7466251Z >       assert summary["runs"] == 23 and len(summary["families"]) == 8
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7466638Z E       assert (21 == 23)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7466792Z 
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7467001Z tests/evaluation/test_evaluation_normalizer.py:169: AssertionError
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7467844Z =========================== short test summary info ============================
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7469082Z FAILED tests/engine/test_confirmation_view.py::test_changed_metadata_is_pinned_and_explicit - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7471214Z FAILED tests/engine/test_confirmation_view.py::test_missing_raw_keeps_all_pairs_and_explicit_unavailability - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7473346Z FAILED tests/engine/test_confirmation_view.py::test_selected_analysis_order_controls_reads_not_only_output - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7474782Z FAILED tests/evaluation/test_evaluation_normalizer.py::test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary - assert (21 == 23)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.7475663Z 4 failed, 1110 passed, 48 skipped in 237.02s (0:03:57)
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.9833726Z make: *** [Makefile:9: check] Error 1
+check (ubuntu-latest)	Run make check	2026-10-09T15:41:24.9850824Z ##[error]Process completed with exit code 2.
+check (macos-latest)	Run make check	﻿2026-10-09T15:37:23.2969200Z ##[group]Run make check
+check (macos-latest)	Run make check	2026-10-09T15:37:23.2969420Z [36;1mmake check[0m
+check (macos-latest)	Run make check	2026-10-09T15:37:23.3000270Z shell: /bin/bash -e {0}
+check (macos-latest)	Run make check	2026-10-09T15:37:23.3000530Z env:
+check (macos-latest)	Run make check	2026-10-09T15:37:23.3000780Z   UV_PYTHON_INSTALL_DIR: /Users/runner/work/_temp/uv-python-dir
+check (macos-latest)	Run make check	2026-10-09T15:37:23.3001130Z   UV_CACHE_DIR: /Users/runner/work/_temp/setup-uv-cache
+check (macos-latest)	Run make check	2026-10-09T15:37:23.3001370Z ##[endgroup]
+check (macos-latest)	Run make check	2026-10-09T15:37:23.9013110Z uv run --frozen ruff check .
+check (macos-latest)	Run make check	2026-10-09T15:37:24.1118660Z All checks passed!
+check (macos-latest)	Run make check	2026-10-09T15:37:24.1143690Z uv run --frozen ruff format --check .
+check (macos-latest)	Run make check	2026-10-09T15:37:24.2269580Z 471 files already formatted
+check (macos-latest)	Run make check	2026-10-09T15:37:24.2286200Z uv run --frozen pytest
+check (macos-latest)	Run make check	2026-10-09T15:37:27.8453030Z ......ssssss............................................................ [  6%]
+check (macos-latest)	Run make check	2026-10-09T15:37:34.1865010Z ........................................................................ [ 12%]
+check (macos-latest)	Run make check	2026-10-09T15:37:37.5614190Z .....FsF.F.....................s........................................ [ 18%]
+check (macos-latest)	Run make check	2026-10-09T15:37:38.0123500Z ........................................................................ [ 24%]
+check (macos-latest)	Run make check	2026-10-09T15:37:46.6925910Z .............................................ss......................... [ 31%]
+check (macos-latest)	Run make check	2026-10-09T15:37:46.8350710Z ......................s................................................. [ 37%]
+check (macos-latest)	Run make check	2026-10-09T15:37:47.6166800Z ........................................................................ [ 43%]
+check (macos-latest)	Run make check	2026-10-09T15:37:51.4840240Z ........................................................................ [ 49%]
+check (macos-latest)	Run make check	2026-10-09T15:38:04.0506880Z .....sssssssssssss...ssss............s.................................. [ 55%]
+check (macos-latest)	Run make check	2026-10-09T15:38:21.4063140Z ........................................................................ [ 62%]
+check (macos-latest)	Run make check	2026-10-09T15:38:46.7524610Z ..........................................s............................. [ 68%]
+check (macos-latest)	Run make check	2026-10-09T15:39:11.9842280Z ....................F.ss........s........s...s.......................... [ 74%]
+check (macos-latest)	Run make check	2026-10-09T15:39:46.3609610Z ...................s...........s........................................ [ 80%]
+check (macos-latest)	Run make check	2026-10-09T15:40:13.3364830Z ..................................................ss.................... [ 87%]
+check (macos-latest)	Run make check	2026-10-09T15:40:23.8056820Z .s.s.......................sss.......................................... [ 93%]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.5939950Z ........................................................................ [ 99%]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8174950Z ......                                                                   [100%]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8238200Z =================================== FAILURES ===================================
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8239120Z _________________ test_changed_metadata_is_pinned_and_explicit _________________
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8241290Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8271500Z tmp_path = PosixPath('/private/var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/pytest-of-runner/pytest-0/test_changed_metadata_is_pinne0')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8294190Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106d1fc20>
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8294660Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8295050Z     def test_changed_metadata_is_pinned_and_explicit(tmp_path, monkeypatch):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8295830Z         # Point only the checked local-file lookup at a labelled copy. Git bytes
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8296440Z         # still come from the actual pinned source, and cannot be silently replaced.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8297200Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8297820Z >       reader = PinnedInputs(ROOT, spec["source_commit"])
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8298260Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8298650Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8298920Z tests/engine/test_confirmation_view.py:217: 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8299500Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8300070Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8300620Z     self.commit = subprocess.check_output(
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8301400Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:466: in check_output
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8307990Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8308510Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8308810Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8309030Z input = None, capture_output = False, timeout = None, check = True
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8346740Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8347640Z kwargs = {'stdout': -1, 'cwd': PosixPath('/Users/runner/work/nisayon/nisayon'), 'text': True}
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8348090Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8348170Z     def run(*popenargs,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8348590Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8349110Z         """Run command with arguments and return a CompletedProcess instance.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8349480Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8349930Z         The returned instance will have attributes args, returncode, stdout and
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8350510Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8351040Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8351610Z         or pass capture_output=True to capture both.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8351890Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8352270Z         If check is True and the exit code was non-zero, it raises a
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8352910Z         CalledProcessError. The CalledProcessError object will have the return code
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8353390Z         in the returncode attribute, and output & stderr attributes if those streams
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8359900Z         were captured.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8360140Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8360510Z         If timeout (seconds) is given and the process takes too long,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8360930Z          a TimeoutExpired exception will be raised.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8361380Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8361660Z         There is an optional argument "input", allowing you to
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8362220Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8362890Z         you may not also use the Popen constructor's "stdin" argument, as
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8363320Z         it will be used internally.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8363680Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8364040Z         By default, all communication is in bytes, and therefore any "input" should
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8364590Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8365100Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8365730Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8366190Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8366680Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8367100Z         The other arguments are the same as for the Popen constructor.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8367450Z         """
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8367770Z         if input is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8368060Z             if kwargs.get('stdin') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8368610Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8369000Z             kwargs['stdin'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8369380Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8369620Z         if capture_output:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8370100Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8370630Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8371080Z                                  'with capture_output.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8371330Z             kwargs['stdout'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8371640Z             kwargs['stderr'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8371860Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8372030Z         with Popen(*popenargs, **kwargs) as process:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8373400Z             try:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8374020Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8374380Z             except TimeoutExpired as exc:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8374720Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8374970Z                 if _mswindows:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8375270Z                     # Windows accumulates the output in a single blocking
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8375710Z                     # read() call run on child threads, with the timeout
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8377700Z                     # being done in a join() on those threads.  communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8378200Z                     # _after_ kill() is required to collect that and add it
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8378490Z                     # to the exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8378870Z                     exc.stdout, exc.stderr = process.communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8379270Z                 else:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8379770Z                     # POSIX _communicate already populated the output so
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8380150Z                     # far into the TimeoutExpired exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8380530Z                     process.wait()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8380710Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8381200Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8381580Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8382010Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8382440Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8383040Z             retcode = process.poll()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8383400Z             if check and retcode:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8383660Z >               raise CalledProcessError(retcode, process.args,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8384080Z                                          output=stdout, stderr=stderr)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8384660Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8385270Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8385670Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:571: CalledProcessError
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8386170Z ----------------------------- Captured stderr call -----------------------------
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8386800Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8387450Z Use '--' to separate paths from revisions, like this:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8387810Z 'git <command> [<revision>...] -- [<file>...]'
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8388200Z _________ test_missing_raw_keeps_all_pairs_and_explicit_unavailability _________
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8388560Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8388920Z tmp_path = PosixPath('/private/var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/pytest-of-runner/pytest-0/test_missing_raw_keeps_all_pai0')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8389530Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8389760Z     def test_missing_raw_keeps_all_pairs_and_explicit_unavailability(tmp_path):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8390230Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8390550Z >       view, _ = build_view(
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8390970Z             ROOT, spec, raw_base=tmp_path, selection=[[COMPARISON, "D01-gripper-sign", "A"]]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8391410Z         )
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8391570Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8391750Z tests/engine/test_confirmation_view.py:244: 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8392100Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8392640Z src/nisayon/engine/confirmation_view.py:324: in build_view
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8392930Z     reader = PinnedInputs(repo, spec["source_commit"])
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8393360Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8393640Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8394530Z     self.commit = subprocess.check_output(
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8395040Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:466: in check_output
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8395720Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8396110Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8396420Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8396650Z input = None, capture_output = False, timeout = None, check = True
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8397160Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8397780Z kwargs = {'stdout': -1, 'cwd': PosixPath('/Users/runner/work/nisayon/nisayon'), 'text': True}
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8398210Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8398370Z     def run(*popenargs,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8398640Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8399140Z         """Run command with arguments and return a CompletedProcess instance.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8399450Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8399830Z         The returned instance will have attributes args, returncode, stdout and
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8400250Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8400670Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8401070Z         or pass capture_output=True to capture both.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8401500Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8401790Z         If check is True and the exit code was non-zero, it raises a
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8402730Z         CalledProcessError. The CalledProcessError object will have the return code
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8403450Z         in the returncode attribute, and output & stderr attributes if those streams
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8403950Z         were captured.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8404100Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8404290Z         If timeout (seconds) is given and the process takes too long,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8404610Z          a TimeoutExpired exception will be raised.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8404870Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8405140Z         There is an optional argument "input", allowing you to
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8405740Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8406120Z         you may not also use the Popen constructor's "stdin" argument, as
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8406460Z         it will be used internally.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8406680Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.8960100Z         By default, all communication is in bytes, and therefore any "input" should
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9061510Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9160800Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9174720Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9213170Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9214620Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9215620Z         The other arguments are the same as for the Popen constructor.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9236120Z         """
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9242760Z         if input is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9254570Z             if kwargs.get('stdin') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9263820Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9264270Z             kwargs['stdin'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9264590Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9264860Z         if capture_output:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9265290Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9265800Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9266250Z                                  'with capture_output.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9266650Z             kwargs['stdout'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9267680Z             kwargs['stderr'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9267970Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9268300Z         with Popen(*popenargs, **kwargs) as process:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9268630Z             try:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9269010Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9269410Z             except TimeoutExpired as exc:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9269740Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9270020Z                 if _mswindows:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9270770Z                     # Windows accumulates the output in a single blocking
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9271110Z                     # read() call run on child threads, with the timeout
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9271540Z                     # being done in a join() on those threads.  communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9271960Z                     # _after_ kill() is required to collect that and add it
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9272380Z                     # to the exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9272800Z                     exc.stdout, exc.stderr = process.communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9273160Z                 else:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9273470Z                     # POSIX _communicate already populated the output so
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9273820Z                     # far into the TimeoutExpired exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9274110Z                     process.wait()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9274400Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9274730Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9275140Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9275460Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9276250Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9276570Z             retcode = process.poll()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9276910Z             if check and retcode:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9277240Z >               raise CalledProcessError(retcode, process.args,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9277580Z                                          output=stdout, stderr=stderr)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9278340Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9278810Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9279140Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:571: CalledProcessError
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9279770Z ----------------------------- Captured stderr call -----------------------------
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9280370Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9280960Z Use '--' to separate paths from revisions, like this:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9281280Z 'git <command> [<revision>...] -- [<file>...]'
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9281770Z _________ test_selected_analysis_order_controls_reads_not_only_output __________
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9282020Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9282240Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1124efa70>
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9282470Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9282700Z     def test_selected_analysis_order_controls_reads_not_only_output(monkeypatch):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9283140Z         spec = json.loads((ROOT / INPUTS).read_text())
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9283430Z         visited = []
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9283770Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9284090Z         def inspect(reader, comparison, case, arm, raw_base, ledger):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9284480Z             visited.append([comparison, case["id"], arm])
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9284950Z             return {"comparison": comparison, "case_id": case["id"], "arm": arm}, {}
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9285300Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9285640Z         monkeypatch.setattr("nisayon.engine.confirmation_view._trial", inspect)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9286030Z         order = spec["profiling"]["trials_in_order"]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9286410Z >       _, timings = build_view(ROOT, spec, selection=order)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9287120Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9287270Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9287420Z tests/engine/test_confirmation_view.py:306: 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9287740Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9288140Z src/nisayon/engine/confirmation_view.py:324: in build_view
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9288520Z     reader = PinnedInputs(repo, spec["source_commit"])
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9288880Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9289240Z src/nisayon/engine/confirmation_view.py:62: in __init__
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9289520Z     self.commit = subprocess.check_output(
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9290060Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:466: in check_output
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9290770Z     return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9291150Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9291340Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9291480Z input = None, capture_output = False, timeout = None, check = True
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9291870Z popenargs = (['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}'],)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9292320Z kwargs = {'stdout': -1, 'cwd': PosixPath('/Users/runner/work/nisayon/nisayon'), 'text': True}
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9292600Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9292660Z     def run(*popenargs,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9292920Z             input=None, capture_output=False, timeout=None, check=False, **kwargs):
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9293320Z         """Run command with arguments and return a CompletedProcess instance.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9293860Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9294080Z         The returned instance will have attributes args, returncode, stdout and
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9294490Z         stderr. By default, stdout and stderr are not captured, and those attributes
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9294900Z         will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9295250Z         or pass capture_output=True to capture both.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9295480Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9295670Z         If check is True and the exit code was non-zero, it raises a
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9296050Z         CalledProcessError. The CalledProcessError object will have the return code
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9296480Z         in the returncode attribute, and output & stderr attributes if those streams
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9296790Z         were captured.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9296930Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9297130Z         If timeout (seconds) is given and the process takes too long,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9297440Z          a TimeoutExpired exception will be raised.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9297700Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9297930Z         There is an optional argument "input", allowing you to
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9298280Z         pass bytes or a string to the subprocess's stdin.  If you use this argument
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9298660Z         you may not also use the Popen constructor's "stdin" argument, as
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9298950Z         it will be used internally.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9299130Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9299360Z         By default, all communication is in bytes, and therefore any "input" should
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9299760Z         be bytes, and the stdout and stderr will be bytes. If in text mode, any
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9300140Z         "input" should be a string, and stdout and stderr will be strings decoded
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9300530Z         according to locale encoding, or by "encoding" if set. Text mode is
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9300920Z         triggered by setting any of text, encoding, errors or universal_newlines.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9301210Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9301410Z         The other arguments are the same as for the Popen constructor.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9301670Z         """
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9301810Z         if input is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9302000Z             if kwargs.get('stdin') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9302510Z                 raise ValueError('stdin and input arguments may not both be used.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9302810Z             kwargs['stdin'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9302980Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9303110Z         if capture_output:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9303380Z             if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9304260Z                 raise ValueError('stdout and stderr arguments may not be used '
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9304790Z                                  'with capture_output.')
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9305060Z             kwargs['stdout'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9305490Z             kwargs['stderr'] = PIPE
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9306450Z     
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9306750Z         with Popen(*popenargs, **kwargs) as process:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9307000Z             try:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9307240Z                 stdout, stderr = process.communicate(input, timeout=timeout)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9307550Z             except TimeoutExpired as exc:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9307780Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9314790Z                 if _mswindows:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9315090Z                     # Windows accumulates the output in a single blocking
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9315410Z                     # read() call run on child threads, with the timeout
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9315730Z                     # being done in a join() on those threads.  communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9316050Z                     # _after_ kill() is required to collect that and add it
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9316320Z                     # to the exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9316570Z                     exc.stdout, exc.stderr = process.communicate()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9317140Z                 else:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9317360Z                     # POSIX _communicate already populated the output so
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9317650Z                     # far into the TimeoutExpired exception.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9317910Z                     process.wait()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9318140Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9318410Z             except:  # Including KeyboardInterrupt, communicate handled that.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9318690Z                 process.kill()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9318940Z                 # We don't call process.wait() as .__exit__ does that for us.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9319200Z                 raise
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9319370Z             retcode = process.poll()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9319570Z             if check and retcode:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9319800Z >               raise CalledProcessError(retcode, process.args,
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9320080Z                                          output=stdout, stderr=stderr)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9320670Z E               subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9321140Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9321420Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:571: CalledProcessError
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9321920Z ----------------------------- Captured stderr call -----------------------------
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9322460Z fatal: ambiguous argument '14e7805643dfe32252f2b46926512807d56c0035^{commit}': unknown revision or path not in the working tree.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9322950Z Use '--' to separate paths from revisions, like this:
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9323210Z 'git <command> [<revision>...] -- [<file>...]'
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9323610Z _ test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary _
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9323900Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9324120Z     def test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary():
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9324500Z         summary = run_normalizer_controls()
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9324770Z         assert summary["passed"] == summary["cases_evaluated"]
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9325090Z >       assert summary["runs"] == 23 and len(summary["families"]) == 8
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9325600Z E       assert (21 == 23)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9325710Z 
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9325850Z tests/evaluation/test_evaluation_normalizer.py:169: AssertionError
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9326190Z =========================== short test summary info ============================
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9327330Z FAILED tests/engine/test_confirmation_view.py::test_changed_metadata_is_pinned_and_explicit - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9328740Z FAILED tests/engine/test_confirmation_view.py::test_missing_raw_keeps_all_pairs_and_explicit_unavailability - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9330160Z FAILED tests/engine/test_confirmation_view.py::test_selected_analysis_order_controls_reads_not_only_output - subprocess.CalledProcessError: Command '['git', 'rev-parse', '14e7805643dfe32252f2b46926512807d56c0035^{commit}']' returned non-zero exit status 128.
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9331500Z FAILED tests/evaluation/test_evaluation_normalizer.py::test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary - assert (21 == 23)
+check (macos-latest)	Run make check	2026-10-09T15:40:27.9332080Z 4 failed, 1110 passed, 48 skipped in 182.75s (0:03:02)
+check (macos-latest)	Run make check	2026-10-09T15:40:28.2043520Z make: *** [check] Error 1
+check (macos-latest)	Run make check	2026-10-09T15:40:28.2150680Z ##[error]Process completed with exit code 2.

@@ -21,13 +21,27 @@ The [development setup](DEVELOPMENT.md#local-setup) now supplies the required
 base test dependencies and declares optional simulation tests explicitly. The
 [history correction](experiments/results/condition-history-fix-001/README.md)
 binds each receipt to the actual history index while preserving recovered
-conditions. A fresh base installation passes **1,133 tests with 29 reported
-optional-dependency/private-store skips**, lint and formatting. The first
+conditions. The initial related-worktree check passed **1,133 tests with 29
+reported skips**, lint and formatting. The first
 documentation check found three links to excluded private records; explicit
 provenance notes resolve all three. The final check passes all 143 documents.
 The [validation and original command logs](experiments/results/public-source-update-2026-10-09/validation.json)
-retain both the initial failure and the passing check. This is software
-validation, not simulator-platform qualification.
+retain both the initial failure and the passing check.
+
+That local environment was fresh, but its related worktree shared private Git
+objects and its host could still read retained data through absolute paths.
+The first public CI run exposed four failures on each platform: three tests
+needed a private commit, and one counted two controls requiring private data.
+The [qualification correction](experiments/results/public-source-update-2026-10-09/ci-correction.json)
+supersedes the initial claim that the local check established public portability.
+Source `7d58856` gives the reader controls isolated committed public-data fixtures,
+tests rejection of a missing source pin, and separates 21 portable normalizer
+controls from the two retained-data controls. Production source pins and
+historical records are unchanged. All 39 focused checks pass on the research
+host; a genuine public clone without private Git objects passes 38 with one
+raw-store skip. That host still holds optional data; GitHub's clean runners
+provide the separate platform check. See the [current CI](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml).
+These checks establish software behavior, not simulator-platform qualification.
 
 The export excludes private settings, current and archived session handoffs,
 session memory, lane records, weights, datasets and raw simulator stores.

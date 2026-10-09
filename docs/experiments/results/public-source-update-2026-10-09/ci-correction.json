@@ -1,0 +1,105 @@
+{
+  "schema": "nisayon.public-source-validation-correction.v1",
+  "created_at": "2026-10-09T15:46:55.126140+00:00",
+  "source_revision": "7d588560693c2af96063441152f19a1ae87a8f62",
+  "initial_public_revision": "297681c9baab0b6d1d5fd6a88fd9bd3a23e3bc3b",
+  "supersedes_scope_statement_in": "validation.json",
+  "scope_correction": "The initial fresh Python environment was in a related Git worktree and the host still exposed private Git objects and absolute-path data. Its 1133 passed / 29 skipped counts are observed but did not qualify a public clone without those resources.",
+  "first_remote_ci": {
+    "id": 37953057566,
+    "url": "https://github.com/manfromnowhere143/nisayon/actions/runs/37953057566",
+    "conclusion": "failure",
+    "linux": {
+      "failed": 4,
+      "passed": 1110,
+      "skipped": 48
+    },
+    "macos": {
+      "failed": 4,
+      "passed": 1110,
+      "skipped": 48
+    },
+    "log_sha256": "5f49e93b6817de916110b2195887b9a6b36f4fc31de40cfa33c9ec2044eaa56e"
+  },
+  "causes": [
+    "Three confirmation-view tests read private Git commit 14e7805643dfe32252f2b46926512807d56c0035.",
+    "The normalizer summary expected 23 runs even when the two retained-data controls were unavailable."
+  ],
+  "corrections": [
+    "Bind copied public metadata to a fresh fixture Git commit; mutate the working copy to verify that pinned bytes remain authoritative.",
+    "Retain a control that a missing commit fails rather than substituting working files.",
+    "Always exercise the 21 portable controls with an absent packet, even on a research host. Keep the 23-run retained-data check separately marked, with an explicit skip when its real packet is absent.",
+    "Document that historical confirmation export requires its original source commit and raw stores; a public clone alone cannot regenerate it."
+  ],
+  "production_source_changed": false,
+  "historical_protocols_or_results_changed": false,
+  "checks": [
+    {
+      "id": "f4ad520dba094f08be704a6b3b9a09aa",
+      "label": "public-portability-controls",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "tests/evaluation/test_evaluation_normalizer.py"
+      ],
+      "process_status": "completed",
+      "returncode": 0,
+      "started_at": "2026-10-09T15:44:39.466058+00:00",
+      "ended_at": "2026-10-09T15:44:57.213383+00:00",
+      "wall_seconds": 17.576251,
+      "logs": {
+        "stdout.log": {
+          "bytes": 100,
+          "sha256": "781ce21f6f5dd1b7aa2aaf59d90ee2e979f3c10172083e0794b748d67cdfbf8a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "837ded7cc873411295c324f67e051e07",
+      "label": "public-clone-portability-controls",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "tests/evaluation/test_evaluation_normalizer.py"
+      ],
+      "process_status": "completed",
+      "returncode": 0,
+      "started_at": "2026-10-09T15:45:10.244067+00:00",
+      "ended_at": "2026-10-09T15:45:23.755253+00:00",
+      "wall_seconds": 11.782769,
+      "logs": {
+        "stdout.log": {
+          "bytes": 111,
+          "sha256": "c94ba0aea9e2500c64bfa0fe23aa00a90a5d1a9b63e86b4af265307c1ec200a7"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "public_clone": {
+    "acquisition": "git clone --no-local --single-branch --branch main https://github.com/manfromnowhere143/nisayon.git",
+    "private_commit_present": false,
+    "git_object_alternates_present": false,
+    "tests_passed": 38,
+    "tests_skipped": 1,
+    "limitation": "Host still holds optional absolute-path data; only the missing-packet parameter is forced absent. Clean GitHub runners provide the separate no-private-data check."
+  },
+  "research_host": {
+    "focused_tests_passed": 39,
+    "skipped": 0
+  },
+  "followup_ci": "Verified separately on the published descendant; do not infer success from this local correction record."
+}

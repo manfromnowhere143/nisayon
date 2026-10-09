@@ -208,7 +208,10 @@ uv run --frozen nisayon run --label confirmation-evidence-export -- \
 ```
 
 This command executes no simulator trajectories. It needs the original raw
-stores as well as the compact records; `--raw-base` specifies their location.
+stores and the pinned metadata commit `14e7805643dfe32252f2b46926512807d56c0035`
+in the original research checkout; that private commit is not part of public Git
+history. `--raw-base` specifies the raw-store location. A public clone alone
+cannot regenerate this historical export.
 The [adapter report](docs/experiments/results/confirmation-engine-001/README.md)
 describes its pinned inputs, output manifest, deterministic pair iterator and
 recovery checks. Statistical consumption is retrospective: the exposed records

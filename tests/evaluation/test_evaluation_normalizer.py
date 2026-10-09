@@ -9,6 +9,7 @@ import numpy as np
 import pytest
 
 from nisayon.evaluation import conventional_normalizer as conventional
+from nisayon.evaluation import normalizer_controls
 from nisayon.evaluation import normalizer_reference as ref
 from nisayon.evaluation.normalizer_controls import CONTRACT, build_controls, run_normalizer_controls
 
@@ -163,10 +164,22 @@ def test_conventional_diagnostic_decides_on_its_own_arithmetic():
     assert "output_sha256" in record["groups"]["state"]["a"]
 
 
-def test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary():
+@pytest.mark.parametrize("retained_packet", [False, True], ids=["portable", "retained-packet"])
+def test_frozen_controls_pass_and_the_conventional_workflow_misses_only_the_dtype_boundary(
+    tmp_path, monkeypatch, retained_packet
+):
+    if retained_packet:
+        if not (PACKET / "groot-demo-stats.json").exists():
+            pytest.skip("Two retained-data controls require the private source packet")
+    else:
+        # Exercise this boundary even on a research host that holds the packet.
+        monkeypatch.setattr(normalizer_controls, "PACKET", tmp_path / "absent-packet")
     summary = run_normalizer_controls()
     assert summary["passed"] == summary["cases_evaluated"]
-    assert summary["runs"] == 23 and len(summary["families"]) == 8
+    assert summary["runs"] == (23 if retained_packet else 21)
+    assert len(summary["families"]) == 8
+    ids = {row["id"] for row in summary["results"]}
+    assert {"NX2a", "NX7d"} & ids == ({"NX2a", "NX7d"} if retained_packet else set())
     assert summary["conventional_disagreements"] == ["NX5d"]
     assert summary["conventional_v2_disagreements"] == []
 

@@ -4,6 +4,8 @@ import copy
 import gzip
 import json
 import os
+import shutil
+import subprocess
 from pathlib import Path
 
 import pytest
@@ -22,6 +24,52 @@ from nisayon.engine.io import digest, file_digest
 
 ROOT = Path(__file__).resolve().parents[2]
 COMPARISON = "development-ablation-001"
+
+
+@pytest.fixture
+def pinned_comparison_repo(tmp_path):
+    """Pin copied public evidence in isolated Git storage, without private ancestors.
+
+    This commit is a labelled software fixture, never a replacement for the
+    historical source identity retained in INPUTS.
+    """
+    repo = tmp_path / "pinned-comparisons"
+    repo.mkdir()
+    spec = json.loads((ROOT / INPUTS).read_text())
+    for comparison in spec["comparisons"]:
+        base = Path("docs/experiments/results") / comparison
+        (repo / base).mkdir(parents=True)
+        for name in ("frozen-suite.json", "comparison-ledger.json", "comparison-score.json"):
+            shutil.copyfile(ROOT / base / name, repo / base / name)
+    trial = Path("docs/experiments/results") / COMPARISON / "D01-gripper-sign/A"
+    shutil.copytree(ROOT / trial, repo / trial)
+    for name in ("uv.lock", "pyproject.toml"):
+        shutil.copyfile(ROOT / name, repo / name)
+    subprocess.run(["git", "init", "-q", str(repo)], check=True)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(repo),
+            "-c",
+            "user.name=Local test fixture",
+            "-c",
+            "user.email=test@example.invalid",
+            "-c",
+            "commit.gpgsign=false",
+            "-c",
+            "core.hooksPath=/dev/null",
+            "commit",
+            "-qm",
+            "Pin public comparison bytes for software controls",
+        ],
+        check=True,
+    )
+    spec["source_commit"] = subprocess.check_output(
+        ["git", "-C", str(repo), "rev-parse", "HEAD"], text=True
+    ).strip()
+    return repo, spec
 
 
 def retained(case):
@@ -210,19 +258,22 @@ def test_costs_include_rejected_prefix_case_and_timer_discrepancy():
     assert a["score_costs_unchanged"]["engineer_time"]["missing_trials"] == 10
 
 
-def test_changed_metadata_is_pinned_and_explicit(tmp_path, monkeypatch):
-    # Point only the checked local-file lookup at a labelled copy. Git bytes
-    # still come from the actual pinned source, and cannot be silently replaced.
-    spec = json.loads((ROOT / INPUTS).read_text())
-    reader = PinnedInputs(ROOT, spec["source_commit"])
+def test_changed_metadata_is_pinned_and_explicit(pinned_comparison_repo):
+    repo, spec = pinned_comparison_repo
+    reader = PinnedInputs(repo, spec["source_commit"])
     name = f"docs/experiments/results/{COMPARISON}/comparison-score.json"
     original = reader.document(name)
-    local = tmp_path / "score.json"
+    local = repo / name
     local.write_text('{"label":"changed source control"}')
-    monkeypatch.setattr("nisayon.engine.confirmation_view.resolve_member", lambda root, path: local)
-    other = PinnedInputs(ROOT, spec["source_commit"])
+    other = PinnedInputs(repo, spec["source_commit"])
     assert other.document(name) == original
     assert other.issues(name)
+
+
+def test_missing_pinned_commit_cannot_fall_back_to_working_files(pinned_comparison_repo):
+    repo, _ = pinned_comparison_repo
+    with pytest.raises(subprocess.CalledProcessError):
+        PinnedInputs(repo, "0" * 40)
 
 
 def test_actual_complete_read_and_dependency_invalidation(monkeypatch):
@@ -239,17 +290,17 @@ def test_actual_complete_read_and_dependency_invalidation(monkeypatch):
     assert validate_view(view, ROOT, expected_content_sha256=expected)["status"] == "invalidated"
 
 
-def test_missing_raw_keeps_all_pairs_and_explicit_unavailability(tmp_path):
-    spec = json.loads((ROOT / INPUTS).read_text())
+def test_missing_raw_keeps_all_pairs_and_explicit_unavailability(tmp_path, pinned_comparison_repo):
+    repo, spec = pinned_comparison_repo
     view, _ = build_view(
-        ROOT, spec, raw_base=tmp_path, selection=[[COMPARISON, "D01-gripper-sign", "A"]]
+        repo, spec, raw_base=tmp_path, selection=[[COMPARISON, "D01-gripper-sign", "A"]]
     )
     rows = list(iter_pairs(view))
     assert len(rows) == 33
     assert all(p["state"] == "incomplete_or_invalid" for p in rows)
     assert any("raw_bundle_unavailable" in issue for issue in rows[0]["issues"])
     assert (
-        validate_view(view, ROOT, expected_content_sha256=digest(view))["status"] == "invalidated"
+        validate_view(view, repo, expected_content_sha256=digest(view))["status"] == "invalidated"
     )
 
 
@@ -293,8 +344,10 @@ def test_reused_view_checks_content_and_raw_bytes_even_when_timestamp_unchanged(
     assert validate_view(view, ROOT, expected_content_sha256=expected)["status"] == "invalidated"
 
 
-def test_selected_analysis_order_controls_reads_not_only_output(monkeypatch):
-    spec = json.loads((ROOT / INPUTS).read_text())
+def test_selected_analysis_order_controls_reads_not_only_output(
+    monkeypatch, pinned_comparison_repo
+):
+    repo, spec = pinned_comparison_repo
     visited = []
 
     def inspect(reader, comparison, case, arm, raw_base, ledger):
@@ -303,10 +356,10 @@ def test_selected_analysis_order_controls_reads_not_only_output(monkeypatch):
 
     monkeypatch.setattr("nisayon.engine.confirmation_view._trial", inspect)
     order = spec["profiling"]["trials_in_order"]
-    _, timings = build_view(ROOT, spec, selection=order)
+    _, timings = build_view(repo, spec, selection=order)
     assert visited == order == [row["trial"] for row in timings["trials"]]
     with pytest.raises(ValueError, match="unique assigned"):
-        build_view(ROOT, spec, selection=[order[0], order[0]])
+        build_view(repo, spec, selection=[order[0], order[0]])
 
 
 def test_changed_export_is_rejected_before_reuse(tmp_path):
