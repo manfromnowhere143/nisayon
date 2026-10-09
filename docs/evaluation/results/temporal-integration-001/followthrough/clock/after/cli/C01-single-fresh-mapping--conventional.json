@@ -1,0 +1,269 @@
+{
+  "schema": "nisayon.temporal-assessment.v3",
+  "assessment_version": {
+    "schema": "nisayon.temporal-assessment.v3",
+    "supersedes": [
+      "nisayon.temporal-assessment.v2",
+      "nisayon.temporal-assessment.v1"
+    ],
+    "changes": [
+      "v3: clock declarations are parsed into a model with an explicit supported domain (one direct unit-rate constant-offset relation per clock pair); a pair declared with different relations is conflicting evidence in any order and leaves freshness unresolved unless same-clock chain evidence proves expiry",
+      "v3: malformed clock containers and members are named trace problems (invalid, never an exception); unsupported declaration fields, unit mismatches and undeclared clocks leave the pair unmapped and freshness unresolved; legacy forms are named rules",
+      "v3: a queued action keeps the chunk identity it was admitted with; a different response under the same chunk id is a conflict resolved by the producer's admission decision and reported under retrospective chunk_identity",
+      "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+      "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+      "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+      "age and grid arithmetic are exact (no float conversion of stamps)",
+      "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+      "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+    ],
+    "retrospective": "versions 2 and 3 were implemented after every retained trace of temporal-integration-001 had been executed; earlier results are kept"
+  },
+  "case_id": "C01-single-fresh-mapping",
+  "software_execution": "completed",
+  "evidence": {
+    "problems": [],
+    "unknowns": [],
+    "unbound_responses": [],
+    "unacknowledged_dispatches": [],
+    "unacknowledged_attempts": [],
+    "attempts": [
+      {
+        "attempt": "C01-single-fresh-mapping-input-03:send",
+        "dispatch_id": "C01-single-fresh-mapping-input-03:send",
+        "action_id": "c0:0",
+        "input_id": "C01-single-fresh-mapping-input-03",
+        "seq": 5,
+        "outcome": "acknowledged",
+        "acknowledgements": 1,
+        "failures": 0,
+        "validity": {
+          "first_attempt_of_action": true,
+          "bound": true,
+          "generation": true,
+          "configuration": true,
+          "freshness": true
+        }
+      }
+    ],
+    "unmatched_outcomes": [],
+    "activation_transitions": [],
+    "activation_contradictions": [],
+    "non_integer_stamps": false,
+    "clocks": {
+      "status": "supported",
+      "controller": "controller",
+      "names": [
+        "controller",
+        "sensor"
+      ],
+      "legacy_rule": null,
+      "relations": [
+        {
+          "a": "controller",
+          "b": "sensor",
+          "offset": 0,
+          "uncertainty": 0,
+          "unit": "ns",
+          "declarations": [
+            0
+          ]
+        }
+      ],
+      "conflicting_pairs": [],
+      "unsupported_pairs": [],
+      "undeclared_clocks": [],
+      "diagnostics": [],
+      "problems": [],
+      "supported_domain": "one direct unit-rate constant-offset relation per clock pair with exact offset and nonnegative uncertainty in the stamps' unit; no priority, validity interval, rate, drift, selection or composition"
+    },
+    "clock_diagnostics": [],
+    "identity_conflicts": [],
+    "completeness": "complete"
+  },
+  "temporal_contract": "violated",
+  "predicates": {
+    "generation_fencing": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "request_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "configuration_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "queue_reset": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "duplicate_dispatch": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "dispatch_order": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "freshness": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "acknowledgement": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "useful_execution": {
+      "status": "violated",
+      "findings": [
+        {
+          "predicate": "useful_execution",
+          "status": "violated",
+          "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)"
+        }
+      ]
+    }
+  },
+  "useful_execution": {
+    "status": "violated",
+    "coverage_by_generation": {
+      "0": {
+        "basis": "grid",
+        "ticks": 2,
+        "dispatched": 1,
+        "coverage": 0.5,
+        "window": [
+          10000000,
+          20000000
+        ]
+      }
+    },
+    "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator"
+  },
+  "assigned_usefulness": {
+    "basis": "frozen_case_dispatch_target",
+    "scope": "whole_case",
+    "status": "satisfied",
+    "membership": "valid",
+    "membership_problems": [],
+    "minimum_dispatches": 1,
+    "opportunities": 1,
+    "opportunities_observed": 1,
+    "opportunities_unobserved": [],
+    "opportunities_dispatched": 1,
+    "opportunities_refused": 0,
+    "raw_dispatch_attempts": 1,
+    "opportunities_valid": 1,
+    "opportunities_validity_unresolved": 0,
+    "opportunities_acknowledged": 1,
+    "opportunities_valid_acknowledged": 1,
+    "valid_acknowledged_status": "satisfied",
+    "rows": [
+      {
+        "input_id": "C01-single-fresh-mapping-input-03",
+        "at": {
+          "value": 20000000,
+          "clock": "controller",
+          "unit": "ns"
+        },
+        "observed": [
+          "dispatch"
+        ],
+        "attempts": [
+          "C01-single-fresh-mapping-input-03:send"
+        ],
+        "refusal_reasons": [],
+        "counted": "dispatched",
+        "valid": true,
+        "acknowledged": true
+      }
+    ],
+    "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts"
+  },
+  "assigned_contract": "satisfied",
+  "retrospective": {
+    "chunk_target_alignment": {
+      "status": "satisfied",
+      "findings": [],
+      "premises": [
+        "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+        "the dispatch step is the executed local consumption counter",
+        "alignment means the action ran at the step it targeted; software indices only, no physical state"
+      ]
+    },
+    "observation_context": {
+      "status": "satisfied",
+      "findings": [],
+      "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored"
+    },
+    "admissions_stricter_than_frozen_rule": [],
+    "chunk_identity": {
+      "status": "satisfied",
+      "conflicts": [],
+      "premise": "a chunk id names one response; a different response under the same id is a conflict that the producer's admission decision resolves, and a queued action keeps the identity it was admitted with"
+    },
+    "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract"
+  },
+  "age_readings": [
+    {
+      "attempt": "C01-single-fresh-mapping-input-03:send",
+      "action_id": "c0:0",
+      "chronology": "mapped",
+      "mapped_interval": [
+        20000000,
+        20000000
+      ],
+      "chain_lower_bound": 20000000,
+      "interval_used": [
+        20000000,
+        20000000
+      ],
+      "max_age": 50000000,
+      "classification": "within",
+      "premise": null,
+      "non_integer_inputs": false
+    }
+  ],
+  "robot_task_outcome": "unmeasured",
+  "controller_clock": "controller",
+  "useful_coverage_min": 0.8,
+  "dispatch_refusals": 0,
+  "exploratory_stale_overwrites": [],
+  "repeated_deliveries": [],
+  "exploratory_after_freeze": {
+    "queue_reset_before_first_dispatch": {
+      "0": {
+        "survivors_at_reset": [],
+        "still_queued_at_first_dispatch": []
+      }
+    },
+    "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+  },
+  "final_state": {
+    "generation": 0,
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+    "activation": 0,
+    "queued_action_ids": [],
+    "dispatched_action_ids": [
+      "c0:0"
+    ],
+    "chunks": {
+      "c0": {
+        "req_id": "q0",
+        "generation": 0,
+        "generation_source": "request",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "activation": 0
+      }
+    },
+    "steps_dispatched": {
+      "0": [
+        0
+      ]
+    },
+    "unknowns": []
+  },
+  "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

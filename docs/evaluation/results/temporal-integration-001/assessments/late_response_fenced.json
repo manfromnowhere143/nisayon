@@ -1,0 +1,142 @@
+{
+ "schema": "nisayon.temporal-assessment.v1",
+ "case_id": "late_response_fenced",
+ "software_execution": "completed",
+ "evidence": {
+  "problems": [],
+  "unknowns": [],
+  "unbound_responses": [],
+  "unacknowledged_dispatches": [],
+  "completeness": "complete"
+ },
+ "temporal_contract": "unresolved",
+ "predicates": {
+  "generation_fencing": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "request_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "configuration_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "queue_reset": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "duplicate_dispatch": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "dispatch_order": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "freshness": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "acknowledgement": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "useful_execution": {
+   "status": "unresolved",
+   "findings": [
+    {
+     "predicate": "useful_execution",
+     "status": "unresolved",
+     "detail": "generation 0: no response arrived and no control opportunity was recorded, so dispatch coverage cannot be judged"
+    },
+    {
+     "predicate": "useful_execution",
+     "status": "satisfied",
+     "detail": "generation 1: 5 of 5 grid units carried a dispatch (coverage 1.000)"
+    }
+   ]
+  }
+ },
+ "useful_execution": {
+  "status": "unresolved",
+  "coverage_by_generation": {
+   "0": {
+    "basis": "grid",
+    "ticks": 0,
+    "dispatched": 0,
+    "coverage": null,
+    "window": null
+   },
+   "1": {
+    "basis": "grid",
+    "ticks": 5,
+    "dispatched": 5,
+    "coverage": 1.0,
+    "window": [
+     3.0,
+     7.0
+    ]
+   }
+  }
+ },
+ "robot_task_outcome": "unmeasured",
+ "controller_clock": "controller",
+ "useful_coverage_min": 0.8,
+ "dispatch_refusals": 0,
+ "exploratory_stale_overwrites": [],
+ "repeated_deliveries": [],
+ "exploratory_after_freeze": {
+  "queue_reset_before_first_dispatch": {
+   "1": {
+    "survivors_at_reset": [],
+    "still_queued_at_first_dispatch": []
+   }
+  },
+  "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+ },
+ "final_state": {
+  "generation": 1,
+  "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+  "queued_action_ids": [],
+  "dispatched_action_ids": [
+   "c1:0",
+   "c1:1",
+   "c1:2",
+   "c2:0",
+   "c2:1"
+  ],
+  "chunks": {
+   "c0": {
+    "req_id": "r0",
+    "generation": 0,
+    "generation_source": "request",
+    "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA"
+   },
+   "c1": {
+    "req_id": "r1",
+    "generation": 1,
+    "generation_source": "request",
+    "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA"
+   },
+   "c2": {
+    "req_id": "r2",
+    "generation": 1,
+    "generation_source": "request",
+    "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA"
+   }
+  },
+  "steps_dispatched": {
+   "1": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ]
+  },
+  "unknowns": []
+ },
+ "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

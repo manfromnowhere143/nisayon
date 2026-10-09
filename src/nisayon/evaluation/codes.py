@@ -63,6 +63,8 @@ CONDITION_UNASSIGNED = "condition_unassigned"
 ASSIGNED_OUTCOME_MISSING = "assigned_outcome_missing"
 MULTIPLE_RUNS_PER_CONDITION_ROLE = "multiple_runs_per_condition_role"
 ASSIGNMENT_ROLE_MISMATCH = "assignment_role_mismatch"
+ASSIGNMENT_CANCELLED = "assignment_cancelled"
+CANCELLATION_UNSUPPORTED = "cancellation_unsupported"
 ASSIGNED_RUN_INVALID = "assigned_run_invalid"
 ASSIGNED_RUN_UNRESOLVED = "assigned_run_unresolved"
 REPRODUCTION_NOT_CONFIRMED = "reproduction_not_confirmed"
@@ -76,6 +78,7 @@ RESET_OBLIGATION_VIOLATED = "reset_obligation_violated"
 IDENTITY_UNBOUND = "identity_unbound"
 CANDIDATE_DEPLOYABILITY_UNDECLARED = "candidate_deployability_undeclared"
 ARTIFACT_MANIFEST_MISSING = "artifact_manifest_missing"
+PROVENANCE_NOT_ESTABLISHED = "provenance_declared_not_established"
 ARTIFACT_STORE_UNVERIFIED = "artifact_store_unverified"
 REPRODUCTION_NOT_POST_FREEZE = "reproduction_not_post_freeze"
 PREREGISTRATION_MISSING = "preregistration_missing"
@@ -155,6 +158,8 @@ SEVERITY: dict[str, str] = {
     ASSIGNED_OUTCOME_MISSING: UNRESOLVED,
     MULTIPLE_RUNS_PER_CONDITION_ROLE: INVALID,
     ASSIGNMENT_ROLE_MISMATCH: INVALID,
+    ASSIGNMENT_CANCELLED: INFO,
+    CANCELLATION_UNSUPPORTED: INVALID,
     ASSIGNED_RUN_INVALID: INVALID,
     ASSIGNED_RUN_UNRESOLVED: UNRESOLVED,
     REPRODUCTION_NOT_CONFIRMED: UNRESOLVED,

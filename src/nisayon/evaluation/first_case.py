@@ -53,8 +53,11 @@ DEPLOYMENT_FIELDS = (
     "observation_stride_steps",
     "policy_reset",
     "suppress_actions",
+    "controller_target",
 )
 FAILURE_OBLIGATIONS = {"task", "timing", "progress", "reset", "constraints"}
+# An omitted controller_target keeps the original single-reset convention: the OSC
+# nullspace target is the restored start state. Legacy records never carry the field.
 DEPLOYMENT_DEFAULTS = {
     "transport_gripper_sign": 1,
     "repair_gripper_sign": 1,
@@ -64,6 +67,7 @@ DEPLOYMENT_DEFAULTS = {
     "observation_stride_steps": 1,
     "policy_reset": "episode",
     "suppress_actions": False,
+    "controller_target": "restored",
 }
 MANIFEST_SCHEMA = "nisayon.artifact_manifest.v1"
 PRODUCER_MANIFEST_SCHEMA = "nisayon.execution.artifacts.v1"
@@ -219,13 +223,20 @@ def deployment_components(dep: dict, changed: dict | None = None) -> list[dict]:
     components = []
     if changed is not None:
         for key in DEPLOYMENT_FIELDS:
-            if key in dep and dep.get(key) != changed.get(key):
+            if key not in dep and key not in changed:
+                continue
+            # A field one side omits takes its documented default, so an explicit value
+            # equal to the legacy convention is not an edit and an omitted field cannot
+            # hide one.
+            default = DEPLOYMENT_DEFAULTS.get(key)
+            left, right = dep.get(key, default), changed.get(key, default)
+            if left != right:
                 components.append(
                     {
                         "kind": "config_edit",
                         "path": key,
                         "role": "deployable_edit",
-                        "summary": f"{key}: {changed.get(key)} -> {dep.get(key)}",
+                        "summary": f"{key}: {right} -> {left}",
                     }
                 )
         return components
@@ -1383,19 +1394,73 @@ def translate_confirmation(
             f"{path}.candidate_run_ids", "reference and candidate run lists differ in length"
         )
     assignments = []
-    for reference_id, candidate_id in zip(references, candidates, strict=True):
-        condition = None
-        for run_id in (reference_id, candidate_id):
-            if run_id in runs:
-                condition = runs[run_id]["condition_id"]
-                break
-        assignments.append(
-            {
-                "condition_id": condition or f"unknown-condition-of-{reference_id}",
-                "reference_run_id": reference_id,
-                "candidate_run_id": candidate_id,
-            }
-        )
+    explicit = conf.get("assignments")
+    if explicit is not None and not isinstance(explicit, list):
+        raise Malformed(f"{path}.assignments", "expected a list of assignments")
+    if isinstance(explicit, list):
+        # The producer names each assignment's condition itself, so an assignment whose
+        # runs never executed keeps its condition instead of an unknown placeholder. A
+        # present empty list is the producer's membership, not an absence.
+        for index, item in enumerate(explicit):
+            apath = f"{path}.assignments[{index}]"
+            adata = mapping(item, apath)
+            assignments.append(
+                {
+                    "condition_id": string(adata, "condition_id", apath),
+                    "reference_run_id": string(adata, "reference_run_id", apath),
+                    "candidate_run_id": string(adata, "candidate_run_id", apath),
+                }
+            )
+    else:
+        for reference_id, candidate_id in zip(references, candidates, strict=True):
+            condition = None
+            for run_id in (reference_id, candidate_id):
+                if run_id in runs:
+                    condition = runs[run_id]["condition_id"]
+                    break
+            assignments.append(
+                {
+                    "condition_id": condition or f"unknown-condition-of-{reference_id}",
+                    "reference_run_id": reference_id,
+                    "candidate_run_id": candidate_id,
+                }
+            )
+    if isinstance(explicit, list):
+        # Explicit assignments must agree with the frozen membership and the legacy lists.
+        declared_conditions = [str(c) for c in conf.get("condition_ids") or []]
+        if sorted(a["condition_id"] for a in assignments) != sorted(declared_conditions):
+            raise Malformed(
+                f"{path}.assignments",
+                "explicit assignments do not name exactly the declared condition_ids",
+            )
+        if references and sorted(a["reference_run_id"] for a in assignments) != sorted(references):
+            raise Malformed(
+                f"{path}.assignments", "reference run ids disagree with reference_run_ids"
+            )
+        if candidates and sorted(a["candidate_run_id"] for a in assignments) != sorted(candidates):
+            raise Malformed(
+                f"{path}.assignments", "candidate run ids disagree with candidate_run_ids"
+            )
+    cancellation = None
+    if conf.get("cancellation") is not None and not isinstance(conf.get("cancellation"), dict):
+        raise Malformed(f"{path}.cancellation", "expected an object")
+    if isinstance(conf.get("cancellation"), dict):
+        cdata = conf["cancellation"]
+        violation = cdata.get("violation") if isinstance(cdata.get("violation"), dict) else {}
+        cancellation = {
+            "status": cdata.get("status"),
+            "violation": {
+                "condition_id": violation.get("condition_id"),
+                "run_id": violation.get("run_id"),
+                "code": violation.get("code"),
+            },
+            "cancelled_condition_ids": [
+                str(item) for item in (cdata.get("cancelled_condition_ids") or [])
+            ],
+            "recorded_at": wall(str(cdata["recorded_at"]))
+            if cdata.get("recorded_at") is not None
+            else None,
+        }
     failure = case["failure"]["condition_id"]
     conditions = []
     roles = roles or {}
@@ -1523,6 +1588,7 @@ def translate_confirmation(
         "exploration_condition_ids": exploration,
         "assignments": assignments,
         "contamination": {"declared": "none" if not contamination else "; ".join(contamination)},
+        "cancellation": cancellation,
     }
 
 

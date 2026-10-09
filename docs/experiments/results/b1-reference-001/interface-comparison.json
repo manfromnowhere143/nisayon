@@ -1,0 +1,63 @@
+{
+  "schema": "nisayon.b1-reference.interface-comparison.v1",
+  "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+  "parameter_sha256": "e97137fbcbe6541591e890fb5185ef47a3c6136280c368b976058767648269d4",
+  "same_environment_fields": [
+    "has_renderer",
+    "has_offscreen_renderer",
+    "ignore_done",
+    "use_object_obs",
+    "use_camera_obs",
+    "control_freq",
+    "robots",
+    "camera_depths",
+    "camera_heights",
+    "camera_widths",
+    "reward_shaping"
+  ],
+  "same_controller_fields": [
+    "type",
+    "input_max",
+    "input_min",
+    "output_max",
+    "output_min",
+    "kp",
+    "damping",
+    "impedance_mode",
+    "kp_limits",
+    "damping_limits",
+    "position_limits",
+    "orientation_limits",
+    "uncouple_pos_ori",
+    "control_delta",
+    "interpolation",
+    "ramp_ratio"
+  ],
+  "new_environment_fields": {
+    "lite_physics": false
+  },
+  "new_controller_fields": {
+    "input_ref_frame": "world",
+    "gripper": {
+      "type": "GRIP"
+    }
+  },
+  "controller_container": "BASIC composite wrapping right OSC_POSE plus GRIP",
+  "observation_shapes": {
+    "object": [
+      10
+    ],
+    "robot0_eef_pos": [
+      3
+    ],
+    "robot0_eef_quat": [
+      4
+    ],
+    "robot0_gripper_qpos": [
+      2
+    ]
+  },
+  "normalization": false,
+  "normalization_stats_present": false,
+  "interpretation": "Declared interface fields agree after explicit composite-controller packaging. Static comparison does not prove actual runtime equivalence or competence."
+}

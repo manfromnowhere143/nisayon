@@ -1,0 +1,129 @@
+{
+  "schema": "nisayon.a1-integration-readback.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T10:46:37Z",
+  "clock": {
+    "original_mission_start": "2026-09-17T21:30:41Z",
+    "pilot_phase_start": "2026-09-21T09:38:58Z",
+    "active_engineering_effort": "unknown; waiting, command wall time and active effort are not equated"
+  },
+  "revisions": {
+    "stopped_pilot_formal_packet_source": "5e7d534f0f91b3befe6494edab8f534d3b49d539",
+    "stopped_pilot_seal_sha256": "382e3228882449febe60de6b5f619f759f3488ec4d37c229c415cdae4f61e588",
+    "seal_aware_evaluation": "19d1e0a1f3fccd3b0f3eeaeb6673db7eb2a54e6c",
+    "corrected_scope_and_amendment_delivery": "c61cf77d3a17c1171911d487fb4acdd21b4d1ce9",
+    "wording_amendment_delivery": "106d83ea2f50d4903df146e0395ec3e26082a599",
+    "wording_amendment_integrated_by": "594b85f6cfd7beac21da86d317389f072fc589fa",
+    "tested_source": "9571ce2e8a1ba5447ec41fe88ae0444ffbaf80bd"
+  },
+  "historical_stopped_pilot": {
+    "status": "independently assessed under its original contract",
+    "decision": "unresolved because permission for the Stanford-hosted object was not bound",
+    "scope_correction": "unequal reported lengths establish that the official repository object and Stanford object are not byte-identical; no Stanford payload digest was acquired or compared, and the failed identity route does not rule out another applicable rights-holder declaration",
+    "dataset_payload_bytes_acquired": 0,
+    "optimizer_updates_executed": 0,
+    "checkpoint": "absent",
+    "rollouts": 0,
+    "seal_readback": "all 57 manifest entries, summary, invocation, retained inputs and embedded delivery verified; four producer failures retained; the scientific result did not change"
+  },
+  "prospective_amendment": {
+    "contract": "docs/evaluation/results/a1-pilot-001/a1-amendment.v1.2.json",
+    "sha256": "e79c857d5db7bbad895f7e1fc60710fc17cb208497e0a7723749aad2a0df1346",
+    "status": "ready to acquire and implement; not executed; not independently assessed",
+    "artifact": {
+      "repository": "robomimic/robomimic_datasets",
+      "revision": "74fa018461f479cd9fd15b924a16103012096203",
+      "path": "v1.5/lift/ph/low_dim_v15.hdf5",
+      "publisher_reported_bytes": 21084088,
+      "publisher_reported_sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+      "authorization": "one reserved GET after a committed resource reservation; acquired size and digest must match or execution stops"
+    },
+    "workload": "exactly 100 cumulative Adam updates including smoke tests and retries; zero consumed",
+    "required_training_boundaries": [
+      "a digest-bound training-only broadcasting override for the pinned normalization function",
+      "a Nisayon driver that passes no statistics to run_epoch, preventing the pinned loop's second normalization",
+      "a pre-update multi-shape conformance control and first-batch single-application witness",
+      "CPU only, two torch threads, no data-loader workers, no rollouts, rendering, video, remote telemetry or GPU selection"
+    ],
+    "constant_coordinate_finding": "resolved prospectively by v1.2 before acquisition or training: the contract now uses the measured float32-near-offset standard deviation and near-zero output rather than exact values"
+  },
+  "integrated_validation": {
+    "command_record_id": "83b2fc035b6d4eb7a5bdc8a5cdc70f22",
+    "outer_wall_seconds": 260.582673,
+    "tested_source": "9571ce2e8a1ba5447ec41fe88ae0444ffbaf80bd",
+    "returncode": 0,
+    "lint": "passed",
+    "formatted_files": 418,
+    "pytest": {
+      "passed": 941,
+      "nested_seconds": 254.25,
+      "cost_rule": "nested in the outer command and not added"
+    },
+    "documents": 137,
+    "document_errors": 0,
+    "resource": {
+      "phase_payload_bytes": 12852382,
+      "durable_phase_cap_bytes": 16777216,
+      "retained_payload_bytes": 651285537,
+      "sampled_peak_temporary_bytes": 155090028,
+      "retained_temporary_bytes": 0,
+      "retained_plus_sampled_peak_bytes": 806375565,
+      "project_cap_bytes": 1073741824,
+      "outside_monitor_bytes_before_and_after": 238292527,
+      "outside_plus_sampled_peak_bytes": 393382555,
+      "shared_temporary_cap_bytes": 536870912,
+      "free_disk_bytes_at_start": 18923745280,
+      "minimum_free_disk_bytes": 5368709120,
+      "violations": [],
+      "protected_failed_files_unchanged": 5,
+      "measurement_limit": "discrete logical-byte samples do not bound unobserved peaks"
+    }
+  },
+  "preserved_integration_failures": [
+    {
+      "command": "4ca6ab965d3b4eb99958d953d221894d",
+      "outer_seconds": 203.695638,
+      "result": "resource-monitor metadata race; orphan child output not accepted and its continuation cost is not bounded by the recorder"
+    },
+    {
+      "command": "61372973c7b7401795a2b4a85a05e351",
+      "outer_seconds": 0.006896,
+      "result": "record check used unavailable python command; corrected with python3"
+    },
+    {
+      "command": "67c41c674ba64d1387a422b19745b5b3",
+      "outer_seconds": 1.316852,
+      "result": "combined tree stopped before pytest on seven evaluator-control lint errors"
+    },
+    {
+      "command": "3e5b08c7f6994007ba7aa9933ea27cbe",
+      "outer_seconds": 0.130975,
+      "result": "control reproduction stopped at format check before execution"
+    },
+    {
+      "command": "cd1452d8e87c451a9906f07b6c59a18d",
+      "outer_seconds": 2.439995,
+      "result": "control output-parent precondition exposed after the first control computed"
+    }
+  ],
+  "costs": {
+    "execution_lane_recorded_outer_command_seconds": 752.597908,
+    "evaluation_lane_recorded_command_seconds": 10.77843,
+    "aggregation_rule": "reported separately; nested durations are not added and the two lanes may overlap in elapsed time",
+    "known_omissions": "orphan-child continuation, an ad hoc shell failure without a record, direct readbacks, active human or agent effort, energy and monetary charges remain unknown",
+    "cost_per_confirmed_repair": "undefined because no repair, task outcome or confirmation was executed"
+  },
+  "claim_ladder": {
+    "A_permission_and_custody": "historical Stanford object unresolved; substitute repository declaration and publisher metadata frozen but acquired custody not yet established",
+    "B_data_implementation_compatibility": "prospective corrected path specified and synthetic controls executed; real substitute file not yet loaded",
+    "C_effective_normalized_training": "not executed",
+    "D_checkpoint_reloadability": "not executed",
+    "E_measured_resource_feasibility": "not executed for training",
+    "F_simulator_compatibility": "untested",
+    "G_policy_competence": "untested",
+    "H_task_intervention_and_confirmed_repair": "untested",
+    "I_comparative_value": "unproven; competent-baseline parity remains the prior evidence"
+  },
+  "next_action": "advance private main through clean fast-forward and readback, commit the single acquisition reservation, acquire and verify the official object, then implement and freeze the corrected driver before any of the 100 updates",
+  "publication": "private; no push or publication authorized"
+}

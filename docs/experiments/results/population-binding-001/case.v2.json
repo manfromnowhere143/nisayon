@@ -1,0 +1,90 @@
+{
+  "schema": "nisayon.population-binding-case.v2",
+  "id": "population-binding-001",
+  "frozen_at": "2026-09-20T19:42:00Z",
+  "exposure": "This correction is frozen after evaluation finding 002 and the first producer run. It is a versioned regression run, not a prospective score.",
+  "inherits": {
+    "path": "docs/experiments/results/population-binding-001/case.v1.json",
+    "sha256": "fd267218fee9d62f88a4f058e7d666c8e711a39d9a6f4824366fd9276d15a087"
+  },
+  "correction": {
+    "finding_commit": "43b00c5ccc71ca697aa61732e7d9a6fe65a90ddc",
+    "finding_path": "docs/evaluation/results/population-binding-001/finding-002.json",
+    "affected_branch": "external_reference_normalizer",
+    "first_run": {
+      "source_commit": "bbda0e48c7cf78fd50af99a4c046c0826772906e",
+      "command_record_id": "ddca2feed7a843d29f23bf2f3005d33f",
+      "seal_sha256": "569345a239d5aaa084df260b7f5d3915d4780ff18a35c79c34b1bc4be20077bd",
+      "disposition": "The original parent-population decision is unaffected because it is derived from the 379-episode enumeration. The first control set did not exercise the vulnerable external-reference branch, so external reuse was not qualified."
+    },
+    "rule_change": "An external reference now requires retained numeric reference rows that reproduce the published statistics, a selection record whose exact retained text matches its digest and required markers, and an interpretation whose formula is present in equally verified text. Booleans, labels and digests alone remain declarations."
+  },
+  "added_constructed_controls": [
+    {
+      "id": "PBC07-bound-external-reference-with-retained-rows",
+      "label": "current",
+      "role_obligation": "external_reference_normalizer",
+      "published_statistics": {
+        "state": {
+          "mean": [15.0],
+          "std": [5.0],
+          "min": [10.0],
+          "max": [20.0],
+          "q01": [10.1],
+          "q99": [19.9]
+        }
+      },
+      "current_rows": {"state": [[0.0], [1.0]]},
+      "external_reference": {
+        "reference_rows": {"state": [[10.0], [20.0]]},
+        "scope": "constructed_control"
+      },
+      "bind_selection_to_published": true,
+      "normalization_interpretation": {
+        "status": "supported",
+        "formula": "(value - mean) / std",
+        "epsilon": 0.0,
+        "constant_coordinate_behavior": "reject zero standard deviation",
+        "evidence": {
+          "source_text": "def normalize(value, mean, std): return (value - mean) / std\n",
+          "source_sha256": "ba3f508b98192388e7f9264cf5508f3879436bf4b9f7731fd2c7f8d8f8dd2d6f",
+          "required_markers": ["def normalize", "(value - mean) / std"]
+        }
+      }
+    },
+    {
+      "id": "PBC08-label-digest-and-boolean-only",
+      "label": "verified_training_reference",
+      "role_obligation": "external_reference_normalizer",
+      "published_statistics": {
+        "state": {
+          "mean": [15.0],
+          "std": [5.0],
+          "min": [10.0],
+          "max": [20.0],
+          "q01": [10.1],
+          "q99": [19.9]
+        }
+      },
+      "external_reference": {
+        "reference_sha256": "bind_published",
+        "statistics_valid": true
+      },
+      "selection": {
+        "observed": true,
+        "selected_statistics_sha256": "bind_published",
+        "invocation_sha256": "abababababababababababababababababababababababababababababababab"
+      },
+      "normalization_interpretation": {
+        "status": "supported",
+        "evidence_sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+      },
+      "missing_evidence": [
+        "retained external reference rows",
+        "selection source bytes",
+        "normalization formula source bytes"
+      ]
+    }
+  ],
+  "stopping_rule": "Run this one versioned correction after focused tests. Retain producer-001 unchanged, exercise the original and inherited controls for regression plus PBC07/PBC08, then stop."
+}

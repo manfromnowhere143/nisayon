@@ -1,0 +1,89 @@
+{
+  "schema": "nisayon.a1-runtime-subset-suffix-conformance.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:15:15Z",
+  "tested_source_parent": "ed50bf66dfa7f82cc96d715756ab4f8dbbb8c078",
+  "status": "generic suffix handling corrected and synthetically checked; real wheel directory remains unobserved",
+  "change": {
+    "script": "scripts/experiments/a1_wheel_subset.py",
+    "sha256": "687fce4ca3e58b81069baaccd3d3fca09b2c868236a94b4c4fe289a12e63d77f",
+    "tests": "tests/engine/test_a1_wheel_subset.py",
+    "tests_sha256": "440cddb886831c0db16e1615b5834ef36e30be0924ed0b6e4edade6515508577",
+    "behavior": [
+      "an exact archive suffix may exceed the 65,557-byte classic EOCD search window",
+      "only its terminal classic search window is scanned for the terminal EOCD",
+      "central-directory extraction fails closed when the retained suffix does not actually contain the directory",
+      "a labelled 1,500-member synthetic wheel distinguishes a sufficient suffix from an EOCD-only suffix"
+    ]
+  },
+  "contract_finding": {
+    "id": "I8-central-directory-discovery",
+    "severity": "prospective execution blocker",
+    "observed": "amendment v1.1 allocates one central-directory Range response but freezes neither a suffix byte count known to contain the full real directory nor a separate EOCD-discovery response",
+    "mechanism": "a ZIP EOCD reveals the exact central-directory offset and size only after its terminal bytes are read; if the complete directory begins before that suffix, one additional exact Range response is required",
+    "minimum_correction": "before dispatch, either freeze one bounded suffix whose entire response is explicitly permitted and whose failure stops the route, or allocate an EOCD suffix response followed by one exact central-directory response; charge all overfetch and rebalance the forty-response maxima prospectively",
+    "rights_boundary": "clarify whether non-directory member bytes incidentally overfetched by a large suffix are allowed before the license-first gate; the execution lane will not infer that permission",
+    "real_wheel_status": "unknown: no robosuite 1.5.1 Range response or package byte has been acquired, so its directory offset, directory size and sufficient suffix size are not measured"
+  },
+  "validation": {
+    "first_tests": {
+      "command_record_id": "c643fc8d1a964d0a9e875fc5fa06d718",
+      "command_record_sha256": "572a45695f72cc015ec5326a606b852c73940bbdec578d4ee8c73173078e24db",
+      "outer_wall_seconds": 0.34725,
+      "passed": 14,
+      "failed": 0
+    },
+    "first_ruff": {
+      "command_record_id": "e3d33681a485485b846b5aafa42cb165",
+      "command_record_sha256": "a4493fcf79158334f644e2d1e6dce5bf344194c94d905da4e6fd6918ed3e8b75",
+      "outer_wall_seconds": 0.237236,
+      "result": "passed"
+    },
+    "preserved_format_failure": {
+      "command_record_id": "d3f0ff72ef8d4428bd02bc118cab8888",
+      "command_record_sha256": "5d62cc17ee15be86d57bee00fc9d3b42a2ebfb7ee377cacfd65b75b674d90079",
+      "outer_wall_seconds": 0.011421,
+      "result": "failed because two files required formatting"
+    },
+    "format_correction": {
+      "command_record_id": "254d244d47244401a6db2ad3532450f3",
+      "command_record_sha256": "7ffd577f1499da6d580e2f35f3828256ac1b46b1511d10ead0327ed41b0b7c51",
+      "outer_wall_seconds": 0.02107,
+      "result": "two files reformatted"
+    },
+    "clean_tests": {
+      "command_record_id": "6b19435d92d749e4b575dff803b8a214",
+      "command_record_sha256": "9f8420ae7605db781460bbf0a767ca0952269a34000f582ac64717b97eb81123",
+      "outer_wall_seconds": 0.399279,
+      "passed": 14,
+      "failed": 0
+    },
+    "clean_ruff": {
+      "command_record_id": "560c41f63e9a404b9d93271c8fff9ded",
+      "command_record_sha256": "17d068d17b0441987b8aa4f465cd647209565517e81009d13298e6f0d94fbe08",
+      "outer_wall_seconds": 0.074217,
+      "result": "passed"
+    },
+    "clean_format": {
+      "command_record_id": "01072d70719043669facf978d2c7ac0a",
+      "command_record_sha256": "638b1d2ed1aa688549cf435489452ce8f12dbe56b0ba4588c58bb1409f8b5cf6",
+      "outer_wall_seconds": 0.010965,
+      "result": "passed"
+    }
+  },
+  "operations": {
+    "network_responses": 0,
+    "response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0
+  },
+  "claim_boundary": "synthetic parser conformance and a prospective route defect only; no package identity, rights, runtime compatibility, policy competence or task outcome is established",
+  "unknown_costs": [
+    "active engineering effort",
+    "energy"
+  ],
+  "publication": "private; no push or publication"
+}

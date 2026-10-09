@@ -34,6 +34,9 @@ def deployment_from_record(value: dict) -> Deployment:
 
 def configuration_difference(working: Deployment, changed: Deployment) -> dict:
     left, right = working.record(), changed.record()
+    # An omitted legacy field means the original restored-state convention.
+    left.setdefault("controller_target", "restored")
+    right.setdefault("controller_target", "restored")
     return {
         key: {"working": value, "changed": right[key]}
         for key, value in left.items()

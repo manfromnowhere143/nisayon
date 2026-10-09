@@ -1,0 +1,130 @@
+{
+ "schema": "nisayon.temporal-assessment.v1",
+ "case_id": "X04-duplicate-with-lost-first-ack",
+ "software_execution": "completed",
+ "evidence": {
+  "problems": [],
+  "unknowns": [
+   "declared gap: dispatch_acknowledgement (scripted_sink_returned_without_acknowledgement)"
+  ],
+  "unbound_responses": [],
+  "unacknowledged_dispatches": [
+   "c0:0"
+  ],
+  "completeness": "incomplete"
+ },
+ "temporal_contract": "violated",
+ "predicates": {
+  "generation_fencing": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "request_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "configuration_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "queue_reset": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "duplicate_dispatch": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "dispatch_order": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "freshness": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "acknowledgement": {
+   "status": "unresolved",
+   "findings": [
+    {
+     "predicate": "acknowledgement",
+     "status": "unresolved",
+     "detail": "1 dispatched action(s) have no acknowledgement and no failure: unobserved, not failed",
+     "witness": {
+      "history_a": "the dispatch reached the actuator",
+      "history_b": "the dispatch was lost",
+      "smallest_observation": "an acknowledgement or failure record per dispatch"
+     }
+    }
+   ]
+  },
+  "useful_execution": {
+   "status": "violated",
+   "findings": [
+    {
+     "predicate": "useful_execution",
+     "status": "violated",
+     "detail": "generation 0: 1 of 2 opportunities units carried a dispatch (coverage 0.500 < 0.8)"
+    }
+   ]
+  }
+ },
+ "useful_execution": {
+  "status": "violated",
+  "coverage_by_generation": {
+   "0": {
+    "basis": "opportunities",
+    "ticks": 2,
+    "dispatched": 1,
+    "coverage": 0.5,
+    "window": null
+   }
+  }
+ },
+ "robot_task_outcome": "unmeasured",
+ "controller_clock": "controller",
+ "useful_coverage_min": 0.8,
+ "dispatch_refusals": 1,
+ "exploratory_stale_overwrites": [],
+ "repeated_deliveries": [
+  {
+   "seq": 7,
+   "chunk_id": "c0",
+   "delivery_id": "X04-duplicate-with-lost-first-ack-delivery-04"
+  }
+ ],
+ "exploratory_after_freeze": {
+  "queue_reset_before_first_dispatch": {
+   "0": {
+    "survivors_at_reset": [],
+    "still_queued_at_first_dispatch": []
+   }
+  },
+  "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+ },
+ "final_state": {
+  "generation": 0,
+  "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+  "queued_action_ids": [],
+  "dispatched_action_ids": [
+   "c0:0"
+  ],
+  "chunks": {
+   "c0": {
+    "req_id": "q0",
+    "generation": 0,
+    "generation_source": "request",
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c"
+   }
+  },
+  "steps_dispatched": {
+   "0": [
+    0
+   ]
+  },
+  "unknowns": [
+   "declared gap: dispatch_acknowledgement (scripted_sink_returned_without_acknowledgement)"
+  ]
+ },
+ "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

@@ -1,0 +1,197 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv0')
+corruption = 'observed_shape'
+
+    @pytest.mark.parametrize("corruption", ["observed_shape", "terminal_evidence", "reference_shape"])
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+        packet = workflow.run_demo(SOURCE, PLAN, output)
+        first = packet["rows"][0]
+        target = output / first[
+            "declaration" if corruption == "observed_shape" else "terminal_result"
+        ]["path"]
+        value = json.loads(target.read_text())
+        if corruption == "observed_shape":
+            value["observed"] = []
+        elif corruption == "terminal_evidence":
+            value["terminal_evidence"] = None
+        else:
+            value["terminal_evidence"] = [None]
+        target.write_text(json.dumps(value))
+        damaged = target.read_bytes()
+>       report = workflow.inspect_demo(output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:460: in inspect_demo
+    recovery = inspect_declaration(root / case_id / arm / "declaration", evidence_root=root)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/declarations.py:408: in inspect_declaration
+    validator(root, references[name], evidence_root)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv0/damaged-receipt/D01-gripper-sign/A/declaration')
+reference = {'path': 'D01-gripper-sign/A/declaration/declaration.json', 'sha256': '7b13108fb2bfac0a02d9283a9a5f65277504b8c159bb48e4c40b0612cda5438a'}
+evidence_root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv0/damaged-receipt')
+
+    def _checked_declaration(root: Path, reference: dict, evidence_root: Path) -> dict:
+        path, record = _read_reference(reference, evidence_root)
+        if path != root / "declaration.json" or record.get("schema") != SCHEMA:
+            raise ValueError("Terminal service must bind this store's declaration")
+        payload = {key: record[key] for key in FIELDS}
+        _validate_payload(payload, evidence_root)
+        if (
+            record.get("request_sha256") != digest(payload)
+            or record.get("source_sha256") != digest(payload["source"])
+            or record.get("settings_sha256") != digest(payload["settings"])
+>           or record.get("observed", {}).get("sequence") != 1
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ):
+E       AttributeError: 'list' object has no attribute 'get'
+
+src/nisayon/engine/declarations.py:250: AttributeError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv1')
+corruption = 'terminal_evidence'
+
+    @pytest.mark.parametrize("corruption", ["observed_shape", "terminal_evidence", "reference_shape"])
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+        packet = workflow.run_demo(SOURCE, PLAN, output)
+        first = packet["rows"][0]
+        target = output / first[
+            "declaration" if corruption == "observed_shape" else "terminal_result"
+        ]["path"]
+        value = json.loads(target.read_text())
+        if corruption == "observed_shape":
+            value["observed"] = []
+        elif corruption == "terminal_evidence":
+            value["terminal_evidence"] = None
+        else:
+            value["terminal_evidence"] = [None]
+        target.write_text(json.dumps(value))
+        damaged = target.read_bytes()
+>       report = workflow.inspect_demo(output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv1/damaged-receipt')
+
+    def inspect_demo(root: Path) -> dict:
+        """Recover every frozen assignment from local receipts, without executing it."""
+        root = root.resolve(strict=True)
+        freeze_path = resolve_member(root, "freeze.json")
+        freeze, freeze_sha = _read(freeze_path)
+        if (
+            freeze.get("schema") != "nisayon.retained-declaration-freeze.v1"
+            or freeze.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Expected a frozen retained development demonstration")
+        _, suite = _bound(root, freeze["source_suite"])
+        _, ledger = _bound(root, freeze["source_ledger"])
+        _, plan = _bound(root, freeze["plan"])
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = [(_name(item["case_id"]), _name(item["arm"])) for item in freeze["assigned"]]
+        trials = {(trial["case_id"], trial["arm"]): trial for trial in ledger["trials"]}
+        if (
+            digest(suite) != ledger["suite"]["case_ledger_sha256"]
+            or digest(suite) != plan["source_suite_sha256"]
+            or freeze["id"] != plan["id"]
+            or len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(assigned) != len(set(assigned))
+            or set(assigned) != {(case_id, arm) for case_id in cases for arm in arms}
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != set(assigned)
+        ):
+            raise ValueError("Retained freeze differs from the bound assignment sources")
+        rows = []
+        for case_id, arm in assigned:
+            recovery = inspect_declaration(root / case_id / arm / "declaration", evidence_root=root)
+            row = {
+                "case_id": case_id,
+                "arm": arm,
+                "declaration_disposition": None,
+                "declaration_missing": "declaration" not in recovery["references"],
+                "terminal_record_decision": None,
+                "recovery": recovery,
+                "historical_costs": trials[case_id, arm]["costs"],
+                "historical_cost_scope": trials[case_id, arm]["cost_scope"],
+            }
+            try:
+                if not row["declaration_missing"]:
+                    _, statement = _bound(root, recovery["references"]["declaration"])
+                    if statement["assignment"] != {
+                        "suite_id": plan["id"],
+                        "case_id": case_id,
+                        "arm": arm,
+                        "frozen_inputs_sha256": digest(cases[case_id]["frozen"]),
+                    }:
+                        raise ValueError("Declaration differs from this frozen assignment")
+                    row["declaration_disposition"] = statement["disposition"]
+                if "terminal-result" in recovery["references"]:
+                    _, terminal = _bound(root, recovery["references"]["terminal-result"])
+>                   reference = terminal["terminal_evidence"][0]
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E                   TypeError: 'NoneType' object is not subscriptable
+
+src/nisayon/engine/retained_declarations.py:484: TypeError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv2')
+corruption = 'reference_shape'
+
+    @pytest.mark.parametrize("corruption", ["observed_shape", "terminal_evidence", "reference_shape"])
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+        packet = workflow.run_demo(SOURCE, PLAN, output)
+        first = packet["rows"][0]
+        target = output / first[
+            "declaration" if corruption == "observed_shape" else "terminal_result"
+        ]["path"]
+        value = json.loads(target.read_text())
+        if corruption == "observed_shape":
+            value["observed"] = []
+        elif corruption == "terminal_evidence":
+            value["terminal_evidence"] = None
+        else:
+            value["terminal_evidence"] = [None]
+        target.write_text(json.dumps(value))
+        damaged = target.read_bytes()
+>       report = workflow.inspect_demo(output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:485: in inspect_demo
+    _, decision = _bound(root, reference)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-226/test_malformed_receipt_preserv2/damaged-receipt')
+reference = None
+
+    def _bound(root: Path, reference: dict) -> tuple[Path, dict]:
+>       source = resolve_member(root, reference["path"])
+                                      ^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+src/nisayon/engine/retained_declarations.py:55: TypeError
+=========================== short test summary info ============================
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape]

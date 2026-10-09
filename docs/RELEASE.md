@@ -1,4 +1,49 @@
-# Research release 0.1.0
+# Research source and releases
+
+## Source update · 9 October 2026
+
+This update brings the implemented experiment interfaces, portable Lift evidence
+reader, dependency setup and condition-history correction into the public source
+snapshot. Its source revision is `1351a4a2cffb1d0e20811e7f1804af27bc30dde0`.
+The public commit descends from the existing public history; it does not import
+private development ancestors. The `v0.1.0` tag remains at `886710e` and retains
+its original release and validation. The package version is unchanged; this is
+a source update, not a newly tagged release.
+
+The [A1 assessment](experiments/results/a1-runtime-001/README.md) rejects its
+checkpoint at 1/10 against an 8/10 competence requirement. The separate
+[B2 assessment](experiments/results/b2-semantic-transfer-001/README.md) supports
+one checkpoint-specific input correction at 9/10 versus 0/10 unchanged. Both
+were assessed in one execution lane. Neither demonstrates a diagnostic or
+complete-cost advantage, and neither changes the two negative comparisons below.
+
+The [development setup](DEVELOPMENT.md#local-setup) now supplies the required
+base test dependencies and declares optional simulation tests explicitly. The
+[history correction](experiments/results/condition-history-fix-001/README.md)
+binds each receipt to the actual history index while preserving recovered
+conditions. A fresh base installation passes **1,133 tests with 29 reported
+optional-dependency/private-store skips**, lint and formatting. The first
+documentation check found three links to excluded private records; explicit
+provenance notes resolve all three. The final check passes all 143 documents.
+The [validation and original command logs](experiments/results/public-source-update-2026-10-09/validation.json)
+retain both the initial failure and the passing check. This is software
+validation, not simulator-platform qualification.
+
+The export excludes private settings, current and archived session handoffs,
+session memory, lane records, weights, datasets and raw simulator stores.
+Machine-readable research records and source archives are retained byte for byte;
+three documentation links to excluded private records become provenance notes.
+All documentation overlays are declared in the export manifest. Historical absolute paths and
+private Git hashes remain provenance references, not portable download targets.
+The portable B2 reader still needs its separately held sealed numeric packet.
+Public source availability does not establish that every historical experiment
+can be re-executed from this checkout alone.
+
+`reproduction/release-manifest.json` binds copied source bytes and the explicit
+public documentation overlays. Publication must advance only the reviewed public
+branch; never push private canonical `main`, all branches or all tags.
+
+## Research release 0.1.0 · retained record
 
 Both development comparisons are negative for Nisayon's efficiency thesis.
 The [README](../README.md) reports their denominators, execution counts and

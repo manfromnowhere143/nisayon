@@ -1,0 +1,2492 @@
+{
+  "schema": "nisayon.first_case.v1",
+  "record_contract": "nisayon.execution.v2",
+  "assignments": [
+    {
+      "run_id": "reference-0-a",
+      "mode": "reference",
+      "seed": 0,
+      "role": "reproduction"
+    },
+    {
+      "run_id": "regression-0",
+      "mode": "regression",
+      "seed": 0,
+      "role": "reproduction"
+    },
+    {
+      "run_id": "correction-0",
+      "mode": "correction",
+      "seed": 0,
+      "role": "reproduction"
+    },
+    {
+      "run_id": "suppression-0",
+      "mode": "suppression",
+      "seed": 0,
+      "role": "reproduction"
+    },
+    {
+      "run_id": "reproduction-correction-0",
+      "mode": "correction",
+      "seed": 0,
+      "role": "reproduction"
+    },
+    {
+      "run_id": "confirmation-reference-1000",
+      "mode": "reference",
+      "seed": 1000,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-correction-1000",
+      "mode": "correction",
+      "seed": 1000,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-reference-1001",
+      "mode": "reference",
+      "seed": 1001,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-correction-1001",
+      "mode": "correction",
+      "seed": 1001,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-reference-1002",
+      "mode": "reference",
+      "seed": 1002,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-correction-1002",
+      "mode": "correction",
+      "seed": 1002,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-reference-1003",
+      "mode": "reference",
+      "seed": 1003,
+      "role": "fresh_development_confirmation"
+    },
+    {
+      "run_id": "confirmation-correction-1003",
+      "mode": "correction",
+      "seed": 1003,
+      "role": "fresh_development_confirmation"
+    }
+  ],
+  "artifact_manifest": {
+    "path": "manifest.json",
+    "sha256": null
+  },
+  "artifact_root": ".",
+  "case": {
+    "id": "mini-case",
+    "task": "Mini Lift",
+    "policy": {
+      "url": "https://example.invalid/mini-policy.pth",
+      "sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    "backend": {
+      "versions": {
+        "sim": "0"
+      },
+      "platform": "test"
+    },
+    "working_revision": "912cbcf8abf4cb4bd8d97516afc530d7e6e832d1832d769f53b63a08d1fee430",
+    "changed_revision": "72fe6c492437678d32cedc26716457c2f17f9e3a99716441d551e31bd61ff8e1",
+    "predicates": {
+      "min_cube_height_m": 0.84,
+      "max_steps": 400,
+      "control_period_s": 0.05,
+      "control_period_tolerance_s": 1e-09,
+      "max_observation_age_s": 1e-09,
+      "max_abs_executed_action": 1.0,
+      "action_dimension": 7,
+      "progress_minimum_gain_m": 0.01,
+      "progress_activation_tolerance_m": 0.005
+    },
+    "allowed_repair_scope": [
+      "invert gripper command before changed transport"
+    ]
+  },
+  "qualification": {
+    "omitted_state": [
+      "everything; synthetic"
+    ],
+    "queue": "none"
+  },
+  "plans": [
+    {
+      "id": "reference",
+      "case_id": "mini-case",
+      "intervention": "reference",
+      "deployable": false
+    },
+    {
+      "id": "regression",
+      "case_id": "mini-case",
+      "intervention": "regression",
+      "deployable": false
+    },
+    {
+      "id": "correction",
+      "case_id": "mini-case",
+      "intervention": "correction",
+      "deployable": true
+    },
+    {
+      "id": "suppression",
+      "case_id": "mini-case",
+      "intervention": "suppression",
+      "deployable": false
+    }
+  ],
+  "runs": [
+    {
+      "id": "reference-0-a",
+      "case_id": "mini-case",
+      "plan_id": "reference",
+      "condition_id": "seed-0",
+      "seed": 0,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "912cbcf8abf4cb4bd8d97516afc530d7e6e832d1832d769f53b63a08d1fee430",
+      "started_at": "2026-09-17T20:01:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "reference-0-a-reset",
+      "initial_state_sha256": "state-seed0-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed0-0",
+          "next_observation_sha256": "obs-reference-seed0-1",
+          "state_before_sha256": "state-seed0-0",
+          "state_after_sha256": "state-reference-seed0-1",
+          "observation_source_run_id": "reference-0-a",
+          "next_observation_source_run_id": "reference-0-a",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed0-1",
+          "next_observation_sha256": "obs-reference-seed0-2",
+          "state_before_sha256": "state-reference-seed0-1",
+          "state_after_sha256": "state-reference-seed0-2",
+          "observation_source_run_id": "reference-0-a",
+          "next_observation_source_run_id": "reference-0-a",
+          "policy_state_sha256": "policy-reference-seed0-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed0-2",
+          "next_observation_sha256": "obs-reference-seed0-3",
+          "state_before_sha256": "state-reference-seed0-2",
+          "state_after_sha256": "state-reference-seed0-3",
+          "observation_source_run_id": "reference-0-a",
+          "next_observation_source_run_id": "reference-0-a",
+          "policy_state_sha256": "policy-reference-seed0-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "regression-0",
+      "case_id": "mini-case",
+      "plan_id": "regression",
+      "condition_id": "seed-0",
+      "seed": 0,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "72fe6c492437678d32cedc26716457c2f17f9e3a99716441d551e31bd61ff8e1",
+      "started_at": "2026-09-17T20:02:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "regression-0-reset",
+      "initial_state_sha256": "state-seed0-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "observation_sha256": "obs-regression-seed0-0",
+          "next_observation_sha256": "obs-regression-seed0-1",
+          "state_before_sha256": "state-seed0-0",
+          "state_after_sha256": "state-regression-seed0-1",
+          "observation_source_run_id": "regression-0",
+          "next_observation_source_run_id": "regression-0",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "observation_sha256": "obs-regression-seed0-1",
+          "next_observation_sha256": "obs-regression-seed0-2",
+          "state_before_sha256": "state-regression-seed0-1",
+          "state_after_sha256": "state-regression-seed0-2",
+          "observation_source_run_id": "regression-0",
+          "next_observation_source_run_id": "regression-0",
+          "policy_state_sha256": "policy-regression-seed0-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "observation_sha256": "obs-regression-seed0-2",
+          "next_observation_sha256": "obs-regression-seed0-3",
+          "state_before_sha256": "state-regression-seed0-2",
+          "state_after_sha256": "state-regression-seed0-3",
+          "observation_source_run_id": "regression-0",
+          "next_observation_source_run_id": "regression-0",
+          "policy_state_sha256": "policy-regression-seed0-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        },
+        {
+          "step": 3,
+          "observation_step": 3,
+          "observation_sim_time_s": 0.15000000000000002,
+          "action_sim_time_s": 0.15000000000000002,
+          "next_sim_time_s": 0.2,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "observation_sha256": "obs-regression-seed0-3",
+          "next_observation_sha256": "obs-regression-seed0-4",
+          "state_before_sha256": "state-regression-seed0-3",
+          "state_after_sha256": "state-regression-seed0-4",
+          "observation_source_run_id": "regression-0",
+          "next_observation_source_run_id": "regression-0",
+          "policy_state_sha256": "policy-regression-seed0-3",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 4,
+            "oldest_capture_sim_time_s": 0.2,
+            "received_host_s": 0.18100000000000002,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 5,
+                "simulation_s": 0.2,
+                "host_started_s": 0.18000000000000002,
+                "host_finished_s": 0.18050000000000002
+              }
+            }
+          },
+          "inference_started_host_s": 0.15200000000000002,
+          "inference_finished_host_s": 0.15400000000000003,
+          "action_host_s": 0.15500000000000003
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "failed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "correction-0",
+      "case_id": "mini-case",
+      "plan_id": "correction",
+      "condition_id": "seed-0",
+      "seed": 0,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+      "started_at": "2026-09-17T20:03:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "correction-0-reset",
+      "initial_state_sha256": "state-seed0-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-0",
+          "next_observation_sha256": "obs-correction-seed0-1",
+          "state_before_sha256": "state-seed0-0",
+          "state_after_sha256": "state-correction-seed0-1",
+          "observation_source_run_id": "correction-0",
+          "next_observation_source_run_id": "correction-0",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-1",
+          "next_observation_sha256": "obs-correction-seed0-2",
+          "state_before_sha256": "state-correction-seed0-1",
+          "state_after_sha256": "state-correction-seed0-2",
+          "observation_source_run_id": "correction-0",
+          "next_observation_source_run_id": "correction-0",
+          "policy_state_sha256": "policy-correction-seed0-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-2",
+          "next_observation_sha256": "obs-correction-seed0-3",
+          "state_before_sha256": "state-correction-seed0-2",
+          "state_after_sha256": "state-correction-seed0-3",
+          "observation_source_run_id": "correction-0",
+          "next_observation_source_run_id": "correction-0",
+          "policy_state_sha256": "policy-correction-seed0-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "suppression-0",
+      "case_id": "mini-case",
+      "plan_id": "suppression",
+      "condition_id": "seed-0",
+      "seed": 0,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "5f8fcf2bf63613a827fadd9702d83ba119f7947bb15827f6a26119541ecb92fa",
+      "started_at": "2026-09-17T20:04:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "suppression-0-reset",
+      "initial_state_sha256": "state-seed0-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "observation_sha256": "obs-suppression-seed0-0",
+          "next_observation_sha256": "obs-suppression-seed0-1",
+          "state_before_sha256": "state-seed0-0",
+          "state_after_sha256": "state-suppression-seed0-1",
+          "observation_source_run_id": "suppression-0",
+          "next_observation_source_run_id": "suppression-0",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "observation_sha256": "obs-suppression-seed0-1",
+          "next_observation_sha256": "obs-suppression-seed0-2",
+          "state_before_sha256": "state-suppression-seed0-1",
+          "state_after_sha256": "state-suppression-seed0-2",
+          "observation_source_run_id": "suppression-0",
+          "next_observation_source_run_id": "suppression-0",
+          "policy_state_sha256": "policy-suppression-seed0-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "observation_sha256": "obs-suppression-seed0-2",
+          "next_observation_sha256": "obs-suppression-seed0-3",
+          "state_before_sha256": "state-suppression-seed0-2",
+          "state_after_sha256": "state-suppression-seed0-3",
+          "observation_source_run_id": "suppression-0",
+          "next_observation_source_run_id": "suppression-0",
+          "policy_state_sha256": "policy-suppression-seed0-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        },
+        {
+          "step": 3,
+          "observation_step": 3,
+          "observation_sim_time_s": 0.15000000000000002,
+          "action_sim_time_s": 0.15000000000000002,
+          "next_sim_time_s": 0.2,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "observation_sha256": "obs-suppression-seed0-3",
+          "next_observation_sha256": "obs-suppression-seed0-4",
+          "state_before_sha256": "state-suppression-seed0-3",
+          "state_after_sha256": "state-suppression-seed0-4",
+          "observation_source_run_id": "suppression-0",
+          "next_observation_source_run_id": "suppression-0",
+          "policy_state_sha256": "policy-suppression-seed0-3",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 4,
+            "oldest_capture_sim_time_s": 0.2,
+            "received_host_s": 0.18100000000000002,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 5,
+                "simulation_s": 0.2,
+                "host_started_s": 0.18000000000000002,
+                "host_finished_s": 0.18050000000000002
+              }
+            }
+          },
+          "inference_started_host_s": 0.15200000000000002,
+          "inference_finished_host_s": 0.15400000000000003,
+          "action_host_s": 0.15500000000000003
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "failed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "reproduction-correction-0",
+      "case_id": "mini-case",
+      "plan_id": "correction",
+      "condition_id": "seed-0",
+      "seed": 0,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+      "started_at": "2026-09-17T20:11:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "reproduction-correction-0-reset",
+      "initial_state_sha256": "state-seed0-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-0",
+          "next_observation_sha256": "obs-correction-seed0-1",
+          "state_before_sha256": "state-seed0-0",
+          "state_after_sha256": "state-correction-seed0-1",
+          "observation_source_run_id": "reproduction-correction-0",
+          "next_observation_source_run_id": "reproduction-correction-0",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-1",
+          "next_observation_sha256": "obs-correction-seed0-2",
+          "state_before_sha256": "state-correction-seed0-1",
+          "state_after_sha256": "state-correction-seed0-2",
+          "observation_source_run_id": "reproduction-correction-0",
+          "next_observation_source_run_id": "reproduction-correction-0",
+          "policy_state_sha256": "policy-correction-seed0-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed0-2",
+          "next_observation_sha256": "obs-correction-seed0-3",
+          "state_before_sha256": "state-correction-seed0-2",
+          "state_after_sha256": "state-correction-seed0-3",
+          "observation_source_run_id": "reproduction-correction-0",
+          "next_observation_source_run_id": "reproduction-correction-0",
+          "policy_state_sha256": "policy-correction-seed0-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "confirmation-reference-1000",
+      "case_id": "mini-case",
+      "plan_id": "reference",
+      "condition_id": "seed-1000",
+      "seed": 1000,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "912cbcf8abf4cb4bd8d97516afc530d7e6e832d1832d769f53b63a08d1fee430",
+      "started_at": "2026-09-17T20:12:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "confirmation-reference-1000-reset",
+      "initial_state_sha256": "state-seed1000-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1000-0",
+          "next_observation_sha256": "obs-reference-seed1000-1",
+          "state_before_sha256": "state-seed1000-0",
+          "state_after_sha256": "state-reference-seed1000-1",
+          "observation_source_run_id": "confirmation-reference-1000",
+          "next_observation_source_run_id": "confirmation-reference-1000",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1000-1",
+          "next_observation_sha256": "obs-reference-seed1000-2",
+          "state_before_sha256": "state-reference-seed1000-1",
+          "state_after_sha256": "state-reference-seed1000-2",
+          "observation_source_run_id": "confirmation-reference-1000",
+          "next_observation_source_run_id": "confirmation-reference-1000",
+          "policy_state_sha256": "policy-reference-seed1000-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1000-2",
+          "next_observation_sha256": "obs-reference-seed1000-3",
+          "state_before_sha256": "state-reference-seed1000-2",
+          "state_after_sha256": "state-reference-seed1000-3",
+          "observation_source_run_id": "confirmation-reference-1000",
+          "next_observation_source_run_id": "confirmation-reference-1000",
+          "policy_state_sha256": "policy-reference-seed1000-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "confirmation-correction-1000",
+      "case_id": "mini-case",
+      "plan_id": "correction",
+      "condition_id": "seed-1000",
+      "seed": 1000,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+      "started_at": "2026-09-17T20:13:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "confirmation-correction-1000-reset",
+      "initial_state_sha256": "state-seed1000-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1000-0",
+          "next_observation_sha256": "obs-correction-seed1000-1",
+          "state_before_sha256": "state-seed1000-0",
+          "state_after_sha256": "state-correction-seed1000-1",
+          "observation_source_run_id": "confirmation-correction-1000",
+          "next_observation_source_run_id": "confirmation-correction-1000",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1000-1",
+          "next_observation_sha256": "obs-correction-seed1000-2",
+          "state_before_sha256": "state-correction-seed1000-1",
+          "state_after_sha256": "state-correction-seed1000-2",
+          "observation_source_run_id": "confirmation-correction-1000",
+          "next_observation_source_run_id": "confirmation-correction-1000",
+          "policy_state_sha256": "policy-correction-seed1000-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1000-2",
+          "next_observation_sha256": "obs-correction-seed1000-3",
+          "state_before_sha256": "state-correction-seed1000-2",
+          "state_after_sha256": "state-correction-seed1000-3",
+          "observation_source_run_id": "confirmation-correction-1000",
+          "next_observation_source_run_id": "confirmation-correction-1000",
+          "policy_state_sha256": "policy-correction-seed1000-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "confirmation-reference-1001",
+      "case_id": "mini-case",
+      "plan_id": "reference",
+      "condition_id": "seed-1001",
+      "seed": 1001,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "912cbcf8abf4cb4bd8d97516afc530d7e6e832d1832d769f53b63a08d1fee430",
+      "started_at": "2026-09-17T20:14:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "confirmation-reference-1001-reset",
+      "initial_state_sha256": "state-seed1001-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1001-0",
+          "next_observation_sha256": "obs-reference-seed1001-1",
+          "state_before_sha256": "state-seed1001-0",
+          "state_after_sha256": "state-reference-seed1001-1",
+          "observation_source_run_id": "confirmation-reference-1001",
+          "next_observation_source_run_id": "confirmation-reference-1001",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1001-1",
+          "next_observation_sha256": "obs-reference-seed1001-2",
+          "state_before_sha256": "state-reference-seed1001-1",
+          "state_after_sha256": "state-reference-seed1001-2",
+          "observation_source_run_id": "confirmation-reference-1001",
+          "next_observation_source_run_id": "confirmation-reference-1001",
+          "policy_state_sha256": "policy-reference-seed1001-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.83,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-reference-seed1001-2",
+          "next_observation_sha256": "obs-reference-seed1001-3",
+          "state_before_sha256": "state-reference-seed1001-2",
+          "state_after_sha256": "state-reference-seed1001-3",
+          "observation_source_run_id": "confirmation-reference-1001",
+          "next_observation_source_run_id": "confirmation-reference-1001",
+          "policy_state_sha256": "policy-reference-seed1001-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.85,
+          "task_success": true,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "completed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "id": "confirmation-correction-1001",
+      "case_id": "mini-case",
+      "plan_id": "correction",
+      "condition_id": "seed-1001",
+      "seed": 1001,
+      "evidence_origin": "synthetic_development",
+      "candidate_sha256": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+      "started_at": "2026-09-17T20:15:00+00:00",
+      "process_status": "completed",
+      "execution_mode": "full_closed_loop",
+      "reset_id": "confirmation-correction-1001-reset",
+      "initial_state_sha256": "state-seed1001-0",
+      "trace": [
+        {
+          "step": 0,
+          "observation_step": 0,
+          "observation_sim_time_s": 0.0,
+          "action_sim_time_s": 0.0,
+          "next_sim_time_s": 0.05,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1001-0",
+          "next_observation_sha256": "obs-correction-seed1001-1",
+          "state_before_sha256": "state-seed1001-0",
+          "state_after_sha256": "state-correction-seed1001-1",
+          "observation_source_run_id": "confirmation-correction-1001",
+          "next_observation_source_run_id": "confirmation-correction-1001",
+          "policy_state_sha256": "policy-fresh",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 0,
+            "oldest_capture_sim_time_s": 0.0,
+            "received_host_s": 0.001,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 1,
+                "simulation_s": 0.0,
+                "host_started_s": 0.0,
+                "host_finished_s": 0.0005
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.002,
+          "inference_finished_host_s": 0.004,
+          "action_host_s": 0.005
+        },
+        {
+          "step": 1,
+          "observation_step": 1,
+          "observation_sim_time_s": 0.05,
+          "action_sim_time_s": 0.05,
+          "next_sim_time_s": 0.1,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1001-1",
+          "next_observation_sha256": "obs-correction-seed1001-2",
+          "state_before_sha256": "state-correction-seed1001-1",
+          "state_after_sha256": "state-correction-seed1001-2",
+          "observation_source_run_id": "confirmation-correction-1001",
+          "next_observation_source_run_id": "confirmation-correction-1001",
+          "policy_state_sha256": "policy-correction-seed1001-1",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 1,
+            "oldest_capture_sim_time_s": 0.05,
+            "received_host_s": 0.031000000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 2,
+                "simulation_s": 0.05,
+                "host_started_s": 0.030000000000000002,
+                "host_finished_s": 0.030500000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "inference_started_host_s": 0.052000000000000005,
+          "inference_finished_host_s": 0.054000000000000006,
+          "action_host_s": 0.055
+        },
+        {
+          "step": 2,
+          "observation_step": 2,
+          "observation_sim_time_s": 0.1,
+          "action_sim_time_s": 0.1,
+          "next_sim_time_s": 0.15000000000000002,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1001-2",
+          "next_observation_sha256": "obs-correction-seed1001-3",
+          "state_before_sha256": "state-correction-seed1001-2",
+          "state_after_sha256": "state-correction-seed1001-3",
+          "observation_source_run_id": "confirmation-correction-1001",
+          "next_observation_source_run_id": "confirmation-correction-1001",
+          "policy_state_sha256": "policy-correction-seed1001-2",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 2,
+            "oldest_capture_sim_time_s": 0.1,
+            "received_host_s": 0.081,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 3,
+                "simulation_s": 0.1,
+                "host_started_s": 0.08,
+                "host_finished_s": 0.0805
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "inference_started_host_s": 0.10200000000000001,
+          "inference_finished_host_s": 0.10400000000000001,
+          "action_host_s": 0.10500000000000001
+        },
+        {
+          "step": 3,
+          "observation_step": 3,
+          "observation_sim_time_s": 0.15000000000000002,
+          "action_sim_time_s": 0.15000000000000002,
+          "next_sim_time_s": 0.2,
+          "intended_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0001
+          ],
+          "executed_action": [
+            0.1,
+            0.0,
+            0.2,
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "observation_sha256": "obs-correction-seed1001-3",
+          "next_observation_sha256": "obs-correction-seed1001-4",
+          "state_before_sha256": "state-correction-seed1001-3",
+          "state_after_sha256": "state-correction-seed1001-4",
+          "observation_source_run_id": "confirmation-correction-1001",
+          "next_observation_source_run_id": "confirmation-correction-1001",
+          "policy_state_sha256": "policy-correction-seed1001-3",
+          "inference_wall_s": 0.001,
+          "cube_height_m": 0.82,
+          "task_success": false,
+          "observation_capture": {
+            "step": 3,
+            "oldest_capture_sim_time_s": 0.15000000000000002,
+            "received_host_s": 0.13100000000000003,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 4,
+                "simulation_s": 0.15000000000000002,
+                "host_started_s": 0.13000000000000003,
+                "host_finished_s": 0.13050000000000003
+              }
+            }
+          },
+          "next_observation_capture": {
+            "step": 4,
+            "oldest_capture_sim_time_s": 0.2,
+            "received_host_s": 0.18100000000000002,
+            "components": {
+              "robot0_eef_pos": {
+                "sequence": 5,
+                "simulation_s": 0.2,
+                "host_started_s": 0.18000000000000002,
+                "host_finished_s": 0.18050000000000002
+              }
+            }
+          },
+          "inference_started_host_s": 0.15200000000000002,
+          "inference_finished_host_s": 0.15400000000000003,
+          "action_host_s": 0.15500000000000003
+        }
+      ],
+      "artifacts": [],
+      "measurement_status": "observed",
+      "task_outcome": "failed",
+      "constraint_violations": [],
+      "costs": [
+        {
+          "category": "rollout",
+          "value": 1.0,
+          "unit": "s",
+          "missing_reason": null
+        }
+      ],
+      "invocation_id": "invocation-test",
+      "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "code": {
+        "git_head": "test-head",
+        "sources": {
+          "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "policy_sha256": "abababababababababababababababababababababababababababababababab"
+    }
+  ],
+  "confirmation": {
+    "candidate_sha256": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+    "frozen_at": "2026-09-17T20:10:00+00:00",
+    "protocol_sha256": "fc297a59ac9091dec61508f9f693d9b63709cfb09b0e36d8780c87ac2464d7db",
+    "condition_ids": [
+      "seed-1000",
+      "seed-1001",
+      "seed-1002",
+      "seed-1003"
+    ],
+    "reference_run_ids": [
+      "confirmation-reference-1000",
+      "confirmation-reference-1001",
+      "confirmation-reference-1002",
+      "confirmation-reference-1003"
+    ],
+    "candidate_run_ids": [
+      "confirmation-correction-1000",
+      "confirmation-correction-1001",
+      "confirmation-correction-1002",
+      "confirmation-correction-1003"
+    ],
+    "contamination": [],
+    "assignments": [
+      {
+        "condition_id": "seed-1000",
+        "reference_run_id": "confirmation-reference-1000",
+        "candidate_run_id": "confirmation-correction-1000"
+      },
+      {
+        "condition_id": "seed-1001",
+        "reference_run_id": "confirmation-reference-1001",
+        "candidate_run_id": "confirmation-correction-1001"
+      },
+      {
+        "condition_id": "seed-1002",
+        "reference_run_id": "confirmation-reference-1002",
+        "candidate_run_id": "confirmation-correction-1002"
+      },
+      {
+        "condition_id": "seed-1003",
+        "reference_run_id": "confirmation-reference-1003",
+        "candidate_run_id": "confirmation-correction-1003"
+      }
+    ],
+    "cancellation": "not-an-object"
+  },
+  "costs": [
+    {
+      "category": "invocation",
+      "value": 2.0,
+      "unit": "s",
+      "missing_reason": null
+    },
+    {
+      "category": "human",
+      "value": null,
+      "unit": "s",
+      "missing_reason": "not measured"
+    }
+  ],
+  "code": {
+    "git_head": "test-head",
+    "sources": {
+      "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+  }
+}

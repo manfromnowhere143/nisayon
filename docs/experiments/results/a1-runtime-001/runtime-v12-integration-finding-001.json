@@ -1,0 +1,141 @@
+{
+  "schema": "nisayon.a1-runtime-v12-integration-finding.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T14:20:04Z",
+  "status": "evaluation delivery integrated as before-evidence; full-wheel dispatch is not yet authorized in the execution lane and assessor false acceptances remain",
+  "source_commit": "75ce8deb1a2d5414a212583dc9eeab5a779b3194",
+  "tested_commit": "f4b0438bd2a2c19b471156793a6de0f518eba9f3",
+  "delivery": {
+    "evaluation_change_commit": "94c938b16fe2ca5c3c145f2f72c181339c4fbbcc",
+    "evaluation_checkpoint_commit": "1bcd0043eaa86d8b2de2f777c1d26d3de24b5e85",
+    "execution_merge_commit": "75ce8deb1a2d5414a212583dc9eeab5a779b3194",
+    "contract": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.2.json",
+    "contract_sha256": "03314fff7d1c16b3ec5d3a267bdfc966369e5f931b3217d362e54fca4eb4da77",
+    "assessor_sha256": "fc91c0298fc241133a94717d5733b96a7021fe2bf14c0f758653f27d5218c9b0",
+    "evaluation_tests_sha256": "21d96df6cd35766445676f74be980fc2984be9ff6b16b846af7f4caa28fad4de"
+  },
+  "supported_improvements": [
+    "a non-verifying packet seal now invalidates both verdicts",
+    "unmanifested packet files are ignored and ambiguous manifest matches are unresolved",
+    "both replay attempts must be complete before replay reproducibility can agree",
+    "dataset and checkpoint input files are compared with the effective contract digests",
+    "policy parameter drift and non-float32 or non-finite development actions are adjudicated",
+    "a bare stopped declaration no longer supplies enough fields for G0"
+  ],
+  "validation": {
+    "delivered_and_producer_focused_tests": {
+      "command_record_id": "6a707c3ea5434d6691e5a96b9bc5262f",
+      "command_record_sha256": "86bae22a1a190c4591791532fcb80e41d47531602849aae66f86ecc922d162c2",
+      "outer_wall_seconds": 4.039249,
+      "passed": 53,
+      "failed": 0
+    },
+    "ruff": {
+      "command_record_id": "b472fa86cdd2486382e1d7a4d09f2d80",
+      "command_record_sha256": "054ea205b777eb49a863d6f318e112b480d42950906af43c102d3c1a5facbd5a",
+      "outer_wall_seconds": 0.253235,
+      "result": "passed"
+    },
+    "format": {
+      "command_record_id": "a39272d5ffe444ff82fc83efdb612b6a",
+      "command_record_sha256": "581b6aa3ab623887553f417474f4276db12cf036e7a3d5b79f65b8a33a3705a7",
+      "outer_wall_seconds": 0.023652,
+      "result": "passed"
+    },
+    "documents": {
+      "command_record_id": "d032c93641f94d94b711c7ca130f197e",
+      "command_record_sha256": "b2fe57e5872f5d6f7d1a0d7d6a93a9273c72895bf63797870dbe10cf0a5e7617",
+      "outer_wall_seconds": 3.484269,
+      "documents": 141,
+      "errors": 0
+    },
+    "adversarial_probe_source": {
+      "commit": "f4b0438bd2a2c19b471156793a6de0f518eba9f3",
+      "path": "tests/engine/test_a1_runtime_assessor_integration.py",
+      "sha256": "3c23f988b9ce6bfd59210a987307a74eaa9693e763477b900e7908afb2cf56ff"
+    },
+    "adversarial_probes": {
+      "command_record_id": "4730524591f44374b7cffb440ae366f2",
+      "command_record_sha256": "86f73e38c78cc2259afaeb5c24ca1b3785918d5830cdfdbd2921b877234cfe07",
+      "outer_wall_seconds": 1.810981,
+      "reproduced_false_acceptances": 5,
+      "probe_failures": 0
+    },
+    "probe_ruff": {
+      "command_record_id": "b3e1237037c24821b03e5745faab3e2b",
+      "command_record_sha256": "a7677e75cbc2ef09ab56ca9932c74032d6b6896d00a59fc589abf84610c7bbfe",
+      "outer_wall_seconds": 0.04608,
+      "result": "passed"
+    },
+    "probe_format": {
+      "command_record_id": "53cdc8bcbb244d85b3bf5ee0a6ae79ac",
+      "command_record_sha256": "e569ab10320128a93510d9cf36f2817ef7e8a2d3cc066c65f3a028281f2a3e18",
+      "outer_wall_seconds": 0.011456,
+      "result": "passed"
+    },
+    "preserved_development_format_failure": {
+      "command_record_id": "6fd0bea7cb6f41fdb80719f66ea02921",
+      "command_record_sha256": "4c2f05bf084d906adcb222d15f8520152ad7ba177e4c06cf642967717da22111",
+      "outer_wall_seconds": 0.0238,
+      "correction_command_record_id": "e709fec2610d425d947d878d7f3b6216",
+      "correction_command_record_sha256": "3808394a171477628541c813a0df27898481df6cbcd2e15ba30421a119f10486"
+    }
+  },
+  "findings": [
+    {
+      "id": "V12-I1-execution-authority",
+      "severity": "blocking_for_full_wheel_response",
+      "observed": "The exact complete-wheel amendment appears only as evaluator-owned repository data. The execution session directly received the earlier cumulative-52 Range authority, not the later 160 MiB wheel-only allowance and cumulative-18 response ceiling. v1.2 itself requires execution to confirm receipt of the same operator text before a response.",
+      "required_resolution": "Daniel must directly provide or confirm the exact v1.2 complete-wheel amendment in the execution session. Repository evidence cannot expand user authority. Until then neither the withdrawn Range route nor the new full-wheel route is dispatched."
+    },
+    {
+      "id": "V12-I2-pilot-statistics-identity",
+      "severity": "blocking_for_assessment",
+      "witness": "A pilot-statistics file and inference-statistics member with object means changed from float32 to float64 still produce C9 pass, compatible, and D3 because the effective contract supplies no pilot-statistics digest and checkpoint comparison ignores dtype.",
+      "required_correction": "Bind the exact pilot statistics SHA-256 in the effective contract and require inference, pilot, and checkpoint statistics to agree in key set, shape, dtype, and bytes."
+    },
+    {
+      "id": "V12-I3-executed-policy-checkpoint-binding",
+      "severity": "blocking_for_assessment",
+      "witness": "policy-identity checkpoint_sha256 set to 64 zeroes still produces compatible and D3 while the separately supplied checkpoint file is bound.",
+      "required_correction": "Require the manifest-bound policy identity to name the effective checkpoint digest and bind its parameter digest to the parameters loaded for every replay and episode."
+    },
+    {
+      "id": "V12-I4-declarative-custody-and-ledger",
+      "severity": "blocking_for_assessment",
+      "witness": "Non-hex package, license and ledger placeholder digests pass P1, C1 and G0; the named ledger file is absent from the packet. RECORD and license decisions are trusted booleans rather than independently bound inputs.",
+      "required_correction": "Require lowercase SHA-256 syntax, a unique manifest-bound ledger whose digest verifies, exact package/archive bindings, and retained license and RECORD evidence that the evaluator recomputes or separately verifies."
+    },
+    {
+      "id": "V12-I5-stopped-gate-identity",
+      "severity": "blocking_for_assessment",
+      "witness": "A stopped gate with the wrong URL, expected digest, and expected byte count still returns G0_not_qualified_dependency_ceiling when any stop_reason is present.",
+      "required_correction": "A stopped gate must still verify the frozen pin, ledger, nonnegative counters, exact prior count and applicable ceiling; classify the actual stop mechanism rather than mapping every stop to dependency ceiling."
+    },
+    {
+      "id": "V12-I6-contract-chain-completeness",
+      "severity": "blocking_for_assessment",
+      "witness": "After mutating v1.1 and removing its entry from v1.2.amends, contract_chain_verified remains true and the packet receives D3.",
+      "required_correction": "Require the exact ordered schema chain and a digest edge for every consumed amendment; omission, duplication, reordering, unknown schemas, or an unbound intermediate invalidates the contract."
+    },
+    {
+      "id": "V12-I7-mink-selection-and-rights",
+      "severity": "blocking_before_any_mink_response_or_installation",
+      "observed": "The breadth-first response rule does not freeze a deterministic compatible version choice for mink or transitive releases and does not require an applicable rights declaration before each artifact GET.",
+      "required_correction": "Before a mink-chain response, freeze the exact version-selection rule, compatible artifact rule, transitive recursion and per-artifact rights gate inside the five-response remainder."
+    }
+  ],
+  "scientific_boundary": "The delivery improves the assessor and prospectively selects a full-wheel route, but it does not authorize this execution session, prove live acquisition, qualify rights or runtime behavior, establish checkpoint competence, confirm a repair, or establish comparative value.",
+  "operations": {
+    "new_external_network_attempts": 0,
+    "new_application_responses": 0,
+    "new_response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "replay_attempts_started": 0,
+    "development_attempts_started": 0
+  },
+  "publication": "private; no push or publication"
+}

@@ -1,0 +1,210 @@
+{
+  "schema": "nisayon.a1-runtime-contract-amendment.v1.4",
+  "case": "a1-runtime-001",
+  "frozen_at": "2026-10-09T07:31:09.420595+00:00",
+  "frozen_before": "the replacement probe, reset witnesses, R-1/R-2, and E-200 through E-209; the historical failed probe remains before-evidence",
+  "authorization_basis": {
+    "current_operator_instruction": "9 October 2026: Daniel directs continuation of the reviewed mission and its recommended bounded A1 closeout.",
+    "standing_handoff": "docs/SESSION_HANDOFF.md at 83ed5fe explicitly permits prospective supersession of ownership and independence for single-lane continuation.",
+    "prior_review": "/Users/danielwahnich/.codex/reports/nisayon-frontier-verdict-2026-10-09/00_VERDICT.md",
+    "interpretation": "Proceed within the reviewed bounded local mission. This changes no compute, download, training, hardware, publication, or reserved-evaluation authority."
+  },
+  "amends": [
+    {
+      "path": "runtime-contract.v1.json",
+      "sha256": "8c8b6b1b351f135094abd995e1719e7db48dc55ed06d46ec19205e4f24b1f2ef"
+    },
+    {
+      "path": "runtime-contract.v1.1.json",
+      "sha256": "5c79411e67ed4816f6f3d02de45aef7bf9042d8ff24aafb508b67d81e6d0eb16"
+    },
+    {
+      "path": "runtime-contract.v1.2.json",
+      "sha256": "03314fff7d1c16b3ec5d3a267bdfc966369e5f931b3217d362e54fca4eb4da77"
+    },
+    {
+      "path": "runtime-contract.v1.3.json",
+      "sha256": "cf91eb9232f4b3768fdbbbc521686da309a87728a5fed5a11f18e5dc2ad4e347"
+    }
+  ],
+  "ownership": {
+    "previous": "separate execution and evaluation lanes",
+    "current": "the execution session freezes this amendment, runs the unchanged producer and assessor, and explicitly reports a non-independent assessment",
+    "evaluation_branch_observed": "912e200cd487e0e1f31675d848206119d2cd4de8",
+    "other_client_activity": "not established by a Git ref; no claim is made that another client is inactive",
+    "branch_boundary": "Do not modify or rewrite the evaluation worktree; changes are in build/execution only."
+  },
+  "changes": [
+    "One replacement qualification-only construction and explicit reset; cumulative qualification resets 3 to 4 and phase resets 15 to 16.",
+    "Single-lane ownership and explicit non-independence.",
+    "Append this document to the ordered digest-bound contract chain."
+  ],
+  "unchanged": "All prior effective scientific terms, C1-C9, thresholds, seeds, horizons, attempts, no-retry rule, control and physics step ceilings, resource ceilings, and prohibitions. The original v1-v1.3 files and failure remain unchanged.",
+  "effective": {
+    "route": "A",
+    "route_B": "withdrawn for this phase by operator decision; no Range extraction",
+    "wheel": {
+      "filename": "robosuite-1.5.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/f4/15/82093cadf23811463d0b52ec6745949356b66badf6e25bee64ec82aa8689/robosuite-1.5.1-py3-none-any.whl",
+      "sha256": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153",
+      "bytes": 152011410,
+      "metadata_basis": "retained PyPI response of 12:24:29 UTC (source-delivery-001.json)"
+    },
+    "wheel_allowance_bytes": 167772160,
+    "wheel_allowance_scope": "exclusively the wheel above; failed or partial transfers consume it; no other package or research byte may use it",
+    "other_download_ceiling_bytes": 24430709,
+    "other_download_scope": "the existing cumulative remainder; the only bytes it may fund in this phase are mink and mink's uncached requirements, each pinned by index digest before its GET",
+    "application_responses": {
+      "cumulative_ceiling": 18,
+      "consumed_before": 12,
+      "available": 6,
+      "counting": "unchanged: every application response counts, including redirects, errors and failed attempts; no silent retry beyond either ceiling"
+    },
+    "response_plan": {
+      "1": "one GET of the pinned wheel URL (direct; a redirect counts as a response and stops the transfer unless the hop was bound beforehand)",
+      "2_to_6": "reserved for the mink chain only if the offline wheel inspection (below) shows mink is imported on the Lift/OSC path: per uncached package one index-metadata response then one artifact GET, discovered breadth-first from the retained requirement lines; stop before the first response that the remaining count cannot cover and record the exact shortfall (packages identified, responses needed, responses remaining)",
+      "no_other_use": "index resolution by an installer is a use of responses and is prohibited; installation runs with no index access"
+    },
+    "mink_rule": {
+      "inspection": "after the wheel digest is verified, inspect its Python members offline for module-level imports of mink reachable from `import robosuite`, `robosuite.make('Lift', robots=['Panda'], controller_configs=<dataset composite config>)` and OSC_POSE/GRIP control",
+      "if_reachable": "mink and its uncached requirements are required; follow the response plan; if the remaining responses cannot cover the chain, stop with the exact limiting quantity and the smallest necessary change",
+      "if_not_reachable": "install robosuite without the mink requirement as an explicit, recorded adaptation: retain the static import evidence, install with dependency resolution disabled, and witness at runtime that 'mink' is absent from sys.modules after environment construction and after the last development episode; the adaptation's effect on the task contract is none while that witness holds"
+    },
+    "rights_gate": {
+      "when": "offline, after the whole-wheel digest is verified and before installation",
+      "what": "the distribution's license member (robosuite-1.5.1.dist-info/LICENSE* or the License-File named by METADATA) retained with sha256",
+      "pass": "a recognised permissive declaration that plainly covers the distribution (MIT expected from the repository's declared license)",
+      "fail": "stop before installation; the wheel bytes are retained as acquired evidence"
+    },
+    "identity_rule": {
+      "whole_wheel": "actual byte count equals 152,011,410 and sha256 equals the pinned digest, compared against the retained publisher metadata (not only computed) before installation",
+      "members": "every member's hash in RECORD verified against the extracted bytes (count reported); METADATA and RECORD retained",
+      "installation": "into the isolated uv project from the local wheel and held wheels only, with index access disabled and dependency resolution pinned to the frozen list; the historical uv.lock, pyproject.toml and .venv byte-identical before and after (digests retained)",
+      "packages": "every package in the isolated runtime recorded with version and sha256 of its installed archive or wheel"
+    },
+    "storage": {
+      "pre_acquisition_check": "record free disk bytes; require free minus (wheel bytes + declared temporary bytes) to stay at or above the 5 GiB floor before the GET",
+      "expansion_check": "after download and before extraction, read the archive's total uncompressed member size from its central directory and require unpacked cache plus environment plus temporary bytes to fit the unchanged ceilings: isolated environment and wheel cache 1,610,612,736 logical bytes, temporary 201,326,592 per command, free-disk floor 5,368,709,120 throughout",
+      "retained_payload": "the retained wheel file counts under the 1 GiB retained-payload cap: projected 652,546,133 + 152,011,410 = 804,557,543 retained bytes and 959,647,571 with the 155,090,028-byte sampled peak, below 1,073,741,824; stop before the GET if the measured projection exceeds the cap",
+      "release": "only verified disposable files owned by this phase may be released; the wheel file, metadata, license, RECORD, receipts and every failure are retained"
+    },
+    "reset_determinism_seed": 900,
+    "replay": {
+      "demo": "demo_0",
+      "T": 59,
+      "attempts": [
+        "R-1",
+        "R-2"
+      ],
+      "completed_required": 2
+    },
+    "development": {
+      "seeds": [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209
+      ],
+      "minimum_successes": 8,
+      "horizon": 400
+    },
+    "dataset_sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "checkpoint_sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+    "pilot_statistics": "artifacts/a1-feasibility-001/pilot-v1.2-001/normalization-stats.npz (bitwise equal to the checkpoint's stats at reload, pilot assessment 002)",
+    "thresholds": {
+      "first_frame_atol": 1e-06,
+      "trajectory_atol": 0.001,
+      "time_atol": 1e-12,
+      "lift_margin_m": 0.04
+    },
+    "action_rule": {
+      "dtype": "float32",
+      "shape": [
+        7
+      ],
+      "finite": "required; a non-finite component makes the episode invalid evidence",
+      "bounds": "components outside [-1, 1] are counted and reported; the action passed to env.step must be the produced action unchanged"
+    },
+    "episode_outcomes": [
+      "success",
+      "task_failure (horizon reached without success)",
+      "initialization_failure (failed before the first step)",
+      "execution_failure (failed after at least one step)",
+      "invalid_evidence (retained arrays inconsistent with the contract)",
+      "missing_evidence"
+    ],
+    "competence_preconditions": [
+      "Q-C compatible",
+      "policy parameter digest equal before and after the ten episodes",
+      "statistics bound at inference bitwise equal to the checkpoint's and the pilot packet's"
+    ],
+    "unchanged": "C2-C6, C8, C9, R-1 and R-2 comparisons, the ten conditions and the 8-of-10 rule, every memory, wall-time, simulator-step and attempt ceiling, the dispositions, the value mechanism, and the prohibition on optimizer updates, paid compute, hardware, reserved outcomes, publication and pushes",
+    "contract_chain": [
+      "nisayon.a1-runtime-contract.v1",
+      "nisayon.a1-runtime-contract-amendment.v1.1",
+      "nisayon.a1-runtime-contract-amendment.v1.2",
+      "nisayon.a1-runtime-contract-amendment.v1.3",
+      "nisayon.a1-runtime-contract-amendment.v1.4"
+    ],
+    "pilot_statistics_sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e",
+    "pilot_statistics_layout": "<key>__mean float32 (1, D) and <key>__std float64 (1, D) as the sealed pilot packet holds them; inference statistics must match key set, shape, dtype and bytes, and the checkpoint's obs_normalization_stats must match them bitwise",
+    "policy_binding": {
+      "policy_identity_checkpoint_sha256": "must equal the effective checkpoint digest",
+      "parameter_digest": "policy-identity parameter_sha256_before and _after must be equal lowercase 64-hex digests, and every started episode's metadata must carry parameter_sha256 equal to them"
+    },
+    "custody_evidence": {
+      "digest_syntax": "every sha256 in the packet is lowercase 64-hex",
+      "ledger": "the dependency gate's ledger path names a unique manifest-bound member whose digest verifies",
+      "wheel_for_recomputation": "the retained wheel file is supplied to the assessor, which recomputes its byte count and sha256 against the pin, verifies every RECORD member hash by reading the archive, and recognises the license by the text of the dist-info license member",
+      "retained_members": "the packet retains the extracted METADATA, RECORD and license members with digests that must equal the archive's members"
+    },
+    "stop_mechanisms": [
+      "response_ceiling",
+      "byte_allowance",
+      "storage_floor",
+      "storage_cap",
+      "digest_mismatch",
+      "size_mismatch",
+      "rights",
+      "transport_failure",
+      "other"
+    ],
+    "stopped_gate_rule": "a stopped gate is classified only when its pin, ledger, counters and prior count verify and stop_mechanism names one of the mechanisms above; anything else is unresolved",
+    "mink_selection_rule": {
+      "when": "only if the offline wheel inspection shows mink reachable on the Lift path",
+      "version": "from the one index-metadata response, the highest non-pre-release version satisfying >=0.0.5 whose requires_python admits the runtime interpreter and which publishes a wheel installable on this platform (py3-none-any, or the interpreter and macosx arm64 tags); the wheel is preferred over the sdist",
+      "rights_before_artifact": "the release's license or license_expression field, or a license classifier, must name a recognised permissive license (MIT, BSD-3-Clause, BSD-2-Clause, Apache-2.0) before the artifact GET; a release without any declaration stops the chain (its artifact is not fetched)",
+      "transitive": "breadth-first over requires_dist with extras ignored and markers evaluated for this platform; held packages satisfy their requirement from the cache; each uncached package costs one metadata response then one artifact GET; stop before the first response the remaining count cannot cover and record the exact shortfall",
+      "digest": "each artifact is pinned by the index sha256 before its GET and verified after"
+    },
+    "qualification_continuation": {
+      "prior_failure": {
+        "path": "docs/experiments/results/a1-runtime-001/qualification-probe-failure-001.json",
+        "sha256": "936cb48f6bcf650b4bb3d5efff418998b24886fe700c8b961349b854a1c5304b"
+      },
+      "failed_probe_explicit_resets": 1,
+      "failed_probe_control_steps": 0,
+      "replacement_probe_invocations_maximum": 1,
+      "qualification_explicit_resets_maximum": 4,
+      "phase_explicit_resets_maximum": 16,
+      "qualification_control_steps_maximum": 20,
+      "phase_control_steps_maximum": 4138,
+      "phase_physics_substeps_maximum": 103450,
+      "policy_actions_maximum": 4000,
+      "replacement_failure_rule": "Stop on any material failure; no further replacement or retry is assigned.",
+      "accounting_rule": "Retain the original failed invocation, add the replacement and every later operation cumulatively, and give the original failure no compatibility credit."
+    },
+    "assessment_mode": {
+      "execution_and_assessment": "single_lane",
+      "independent": false,
+      "external_replication": false,
+      "scope": "Only this A1 runtime closeout; existing assessment calculations and scientific thresholds remain unchanged."
+    }
+  }
+}

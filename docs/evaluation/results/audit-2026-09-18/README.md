@@ -67,6 +67,7 @@ file says; the `.txt` beside each `.decision.json` is the readable rendering.
 | native-v4-qualification-001 | rejected | first-case-obligation-v0.2 | yes | yes | progress_lost | manifest_verified | 67 | 14.035987 |
 | observation-age-stress-001 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 4 | 2.801106 |
 | policy-telemetry-unavailable-001 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 3 | 0.169233 |
+| reset-equivalence-qualification-001 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 13 | 0.439425 |
 | reset-sequences-10 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 8 | 0.023278 |
 | reset-sequences-11 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 8 | 0.015713 |
 | timing-reset-interaction-001 | unresolved | first-case-obligation-v0.2 | n/a | n/a | calibration_only | manifest_verified | 6 | 0.868205 |

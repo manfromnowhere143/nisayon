@@ -1,0 +1,78 @@
+{
+  "schema": "nisayon.a1-integration-validation-failure.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T10:20:51Z",
+  "command_record_id": "4ca6ab965d3b4eb99958d953d221894d",
+  "tested_commit": "c8d8c215012b10bac0072a8f848d59859e10f5d7",
+  "outer": {
+    "returncode": 1,
+    "wall_seconds": 203.695638,
+    "failure": "the resource monitor raised OSError 22 while pytest removed a transient fixture between rglob enumeration and Path.is_file metadata inspection",
+    "result_artifact": "absent because the monitor failed before serialization"
+  },
+  "orphaned_child": {
+    "cause": "the monitor created make check in a new process session but did not terminate it in an exception-finally path; after the monitor exited, make and pytest were reparented to pid 1",
+    "observed_completion_output": {
+      "ruff": "passed",
+      "format": "413 files formatted",
+      "pytest": "933 passed in 281.07 seconds",
+      "documents": 136,
+      "document_errors": 0
+    },
+    "accepted_as_combined_validation": false,
+    "reason_not_accepted": "the parent did not capture the child exit status, the monitor assertions did not complete and the recorder finalized before the child stopped"
+  },
+  "command_record_integrity": {
+    "recorded_stdout_bytes": 897,
+    "recorded_stdout_sha256": "fdb83c1ed85cac3d1a31fa60a3f2a40a940a1a042cd2ad1fa4a64cfcfc7227ff",
+    "final_stdout_bytes": 1394,
+    "final_stdout_sha256": "7b311834151f6708b3f32f86749bec00a52c1c999a6b8f70880cdb42de8cb553",
+    "stdout_identity_matches_record": false,
+    "recorded_stderr_bytes": 1439,
+    "recorded_stderr_sha256": "f47eca8fd2a05dfaef46bd4055cca9b5496f0768c6040c2cb6a265696d12026c",
+    "final_stderr_sha256": "f47eca8fd2a05dfaef46bd4055cca9b5496f0768c6040c2cb6a265696d12026c",
+    "disposition": "Preserve the run record and final log bytes as a mismatched failed attempt; do not rewrite either into agreement."
+  },
+  "manual_guard_observations_after_monitor_failure": {
+    "maximum_observed_temporary_kib": 151812,
+    "maximum_observed_temporary_bytes": 155455488,
+    "temporary_limit_bytes": 201326592,
+    "minimum_observed_free_disk_kib": 15755516,
+    "minimum_observed_free_disk_bytes": 16133648384,
+    "minimum_free_disk_bytes": 5368709120,
+    "temporary_files_after_child_exit": 0,
+    "measurement_limit": "Manual samples after the monitor failure do not bound unseen peaks."
+  },
+  "correction": {
+    "source": "docs/experiments/results/engine-integration-001/monitor_check.py",
+    "source_sha256": "1031c9c0eb8a1b37f54cca15b528fcaceb6cb365c5eac46c5584f5d0630da2fc",
+    "change": "files_under and size now skip only the expected EINVAL, ENOENT and ENOTDIR metadata races while propagating permission and other errors; every monitor exception terminates and reaps the isolated child process group before it propagates; a command that finishes before the first sample has a defined zero-byte sampled peak",
+    "test": "tests/engine/test_normalizer_resource_check.py",
+    "test_sha256": "ae79d66ffdf1b6cfc7c779aae060ebf3368bcd3bf94ecf7f7dafc4b4417e7025",
+    "initial_focused_check_command": "e3f423c9823142258f4e0229a9fbd36c",
+    "final_focused_check_command": "8190839ee09048978b3e8ce08937da1d",
+    "focused_check": "ruff, formatting and six focused tests passed, including transient enumeration, transient stat, non-transient error propagation and forced SIGTERM/SIGKILL cleanup controls"
+  },
+  "correction_record_checks": [
+    {
+      "command_record_id": "61372973c7b7401795a2b4a85a05e351",
+      "returncode": 127,
+      "wall_seconds": 0.006896,
+      "outcome": "failed before validation because the noninteractive shell has python3 but no python command; no files changed"
+    },
+    {
+      "command_record_id": "c1b5fcef7e5545758459d46e20be0955",
+      "returncode": 0,
+      "wall_seconds": 0.531847,
+      "outcome": "JSON parse, diff check, lint, formatting and five focused tests passed with python3"
+    },
+    {
+      "command_record_id": "8190839ee09048978b3e8ce08937da1d",
+      "returncode": 0,
+      "wall_seconds": 0.312339,
+      "outcome": "final strict-error monitor source passed lint, formatting and six focused tests"
+    }
+  ],
+  "retry_basis": "A single corrected full validation is justified because the first parent failed in monitoring infrastructure, its child exit was not captured, and executable monitor code changed with discriminating regression tests.",
+  "scientific_effect": "none; no dataset acquisition, optimizer update, checkpoint, rollout or rights decision occurred in this validation attempt"
+}

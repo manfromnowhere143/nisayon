@@ -1,0 +1,74 @@
+{
+  "schema": "nisayon.task-qualification-inventory-failure.v1",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:21:24.575968Z",
+  "selection_rule": {
+    "commit": "d673b603a53bf6470c6aa5f88e6929846ab52c28",
+    "sha256": "b28898b3c9560f81ca5c2ee6b3901985691e0e1be5559db204c4e6680540d8ad",
+    "process_cpu_cap_seconds": 60,
+    "network_cap": 0
+  },
+  "attempt": {
+    "command_record_id": "482ee3d810884748becff9d8a04038c5",
+    "command": [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "scripts/experiments/inventory_policy_tasks.py",
+      "--out",
+      "artifacts/task-qualification-001/inventory-001.json"
+    ],
+    "source_head": "a38953531f596f3df5ccdb6fba0f464e80134ab6",
+    "started_at": "2026-09-21T06:21:16.998316Z",
+    "ended_at": "2026-09-21T06:21:24.575968Z",
+    "outer_wall_seconds": 7.380315,
+    "returncode": 152,
+    "process_status": "nonzero",
+    "stdout_bytes": 0,
+    "stderr_bytes": 0,
+    "intended_output_exists": false
+  },
+  "failure_reading": {
+    "mechanism": "The inventory process installed a 60-second RLIMIT_CPU soft limit and exited with shell status 128 + 24. On this host signal 24 is SIGXCPU. The process was terminated before serializing an inventory.",
+    "scientific_status": "invalid_incomplete_inventory",
+    "candidate_decisions_accepted": 0,
+    "qualification_verdict_available": false,
+    "task_execution_authorized_by_this_attempt": false
+  },
+  "source_preservation": {
+    "executed_source_exact_bytes_retained": false,
+    "limitation": "The attempt ran from an uncommitted new script and the command recorder retained only the dirty-path list, not that file's bytes or digest.",
+    "post_failure_correction": "The committed script limits hashing to the twelve prioritized candidates and hashes no candidate larger than 32 MiB; that correction has synthetic tests but was not rerun against the held-asset population under the exhausted budget.",
+    "scientific_effect": "No inventory or candidate decision was emitted, so no accepted result depends on reconstructing the failed script."
+  },
+  "boundary_accounting": {
+    "network_requests": 0,
+    "downloads": 0,
+    "new_dependency_bytes": 0,
+    "policy_or_simulator_executions": 0,
+    "partial_scientific_output": "none",
+    "cpu_budget": "exhausted by the failed capped attempt; earlier preliminary path reads have unknown process CPU, so aggregate screening compliance is not claimed",
+    "retry": "not performed under the same frozen budget"
+  },
+  "preparation_failures": [
+    {
+      "kind": "format_check",
+      "result": "the first focused Ruff format check reported one unformatted file; it was formatted and the retry passed"
+    },
+    {
+      "kind": "interpreter_invocation",
+      "result": "two unqualified python JSON parses did not launch because python is absent from PATH; the locked uv run python invocations passed"
+    }
+  ],
+  "already_retained_candidate_fact": {
+    "candidate": "public robomimic Lift proficient-human BC-RNN checkpoint",
+    "path": "artifacts/assets/lift_ph_low_dim_epoch_1000_succ_100.pth",
+    "sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "task_history": "the retained CPU Lift stack has prior closed-loop outcomes, but those are exposed development conditions and not this phase's execution",
+    "first_failed_frozen_criterion": "C1_checkpoint",
+    "reason": "docs/experiments/ASSETS.md records that the model-zoo page specifies no separate checkpoint license; the frozen rule requires a recorded license permitting local execution",
+    "not_a_phase_verdict": "The incomplete inventory cannot establish that this was the best candidate or that no other held candidate qualifies."
+  },
+  "required_disposition": "The evaluation owner must either accept this unresolved screen, identify a qualifying candidate from an independently completed frozen inventory, or prospectively commit a bounded retry amendment. Execution will not widen or rerun the inventory on its own."
+}

@@ -1,0 +1,66 @@
+{
+  "case_id": "DC01-controller-target-convention",
+  "recorded_at": "2026-09-19T16:33:29.379799+00:00",
+  "phase_start": "2026-09-19T16:23:24Z",
+  "original_mission_start": "2026-09-17T21:30:41Z",
+  "evaluation_request_commit": "e93cdc59e71e5de835aedbfbb0fd8c587bfe4571",
+  "plan": {
+    "path": "docs/evaluation/results/decision-case-001/plan.json",
+    "sha256": "4c86d5f96ee6bbe9d05ce34af5930d95ea009ee3df50ea816290fdad9cbcae3f"
+  },
+  "joint_development_cap": 24,
+  "prior_used_since_this_allowance": 0,
+  "execution_lane_allocated": 8,
+  "evaluation_lane_allocated": 0,
+  "remaining_unallocated": 16,
+  "planned": [
+    {
+      "id": "DC01-s0-restored",
+      "seed": 0,
+      "convention": "restored",
+      "note": "Nisayon single reset; the retained reproduction condition"
+    },
+    {
+      "id": "DC01-s0-nominal",
+      "seed": 0,
+      "convention": "nominal",
+      "note": "target = Panda init_qpos after the same start state"
+    },
+    {
+      "id": "DC01-s10-restored",
+      "seed": 10,
+      "convention": "restored",
+      "note": "development seed already observed in the calibration and reset probes"
+    },
+    {
+      "id": "DC01-s10-nominal",
+      "seed": 10,
+      "convention": "nominal"
+    },
+    {
+      "id": "DC01-s11-restored",
+      "seed": 11,
+      "convention": "restored",
+      "note": "development seed already observed"
+    },
+    {
+      "id": "DC01-s11-nominal",
+      "seed": 11,
+      "convention": "nominal"
+    }
+  ],
+  "retries": {
+    "maximum": 2,
+    "allowed_only": "infrastructure process failure, never an unsuccessful task or a search for a different outcome",
+    "automatic": false
+  },
+  "run_counting": "Every simulator attempt, including failed physics starts, consumes one slot; no prefixes, calibration or extra seeds outside these six assignments. Local source/function and test-fixture checks consume no scientific rollout.",
+  "confirmation": "None authorized; the unchanged 67-execution obligation cannot fit this allocation.",
+  "scope": "Exposed mechanism sensitivity probe, not an agent comparison, repair acceptance or PR 688 reproduction.",
+  "clock_correction": "The supplied plan says frozen_at 17:00 UTC, later than its 16:17 commit and our 16:28 read. That field is not relied on. This record binds its exact already-committed bytes before new physics; original bytes retained.",
+  "measurement_rule": "Use the committed pair scorer: identical outcome, <=2 step difference, <0.01 m progress difference means E1; otherwise E2. EEF deviation is reported, not a decision predicate. Validate complete finite data before scoring; missing never zero.",
+  "native_harness_limit": "Target-only intervention is not the full native reset_to path. A result cannot attribute every native-harness difference to this target or declare the training convention verified.",
+  "baseline": "Both prescribed procedures receive the same source, target difference, raw records and six possible probes. E2 would show sensitivity, not an advantage; neither procedure is withheld the ordinary comparison.",
+  "stop": "After six successful assignments or any invalid/unmatched pair, stop. Retain all outcomes. No new seeds or confirmation. If infrastructure fails, retain attempt and require an explicit pre-retry record within two remaining slots.",
+  "matched_method_refinement_before_physics": "Installed OperationalSpaceController.update_initial_joints calls sim.forward and reset_goal in addition to changing the target. Invoke that same method for BOTH explicit conventions, with restored qpos or nominal init_qpos respectively. Keep the legacy omitted setting unchanged. Require the paired initial state, observation, policy and XML audit before scoring. This avoids attributing a method side effect to a target difference. No physics has run. The original evaluator plan is unchanged and remains bound above."
+}

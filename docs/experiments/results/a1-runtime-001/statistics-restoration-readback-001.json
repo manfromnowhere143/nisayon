@@ -1,0 +1,35 @@
+{
+  "schema": "nisayon.a1-runtime.statistics-restoration-readback.v1",
+  "recorded_at": "2026-10-09T08:18:42.507280+00:00",
+  "command_record_id": "fee94af317634466af7f46b3c1605b83",
+  "diagnosis": "Upstream save_model converts arrays to Python lists; policy_from_checkpoint restores all as float64. All four means are exactly representable in their sealed float32 dtype, and every std retains float64.",
+  "checkpoint_sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+  "statistics_sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e",
+  "normalization_statistics_equal_with_dtype": true,
+  "weights_unchanged": {
+    "original": "29646c8a9bc7ea7f0309996020244c6aa7250ce501fe8dc7ab1ec9fe56e84db9",
+    "restored": "29646c8a9bc7ea7f0309996020244c6aa7250ce501fe8dc7ab1ec9fe56e84db9",
+    "equal": true
+  },
+  "preprocessing_comparison": {
+    "trace": "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3/replay-R-1-001.npz",
+    "trace_sha256": "2352ba313bd1e03b00ac5e4a7d103f6c8fcd17ebc215afeb7b9c7efacada8e18",
+    "frames": 60,
+    "keys": {
+      "object": true,
+      "robot0_eef_pos": true,
+      "robot0_eef_quat": true,
+      "robot0_gripper_qpos": true
+    },
+    "all_tensors_bitwise_equal": true,
+    "scope": "Both native and restored RolloutPolicy preprocessing on all retained fixed-action replay frames; no policy action or forward_step invoked."
+  },
+  "evaluator_restoration_equal": true,
+  "new_simulator_operations": 0,
+  "new_policy_actions": 0,
+  "new_optimizer_updates": 0,
+  "source": {
+    "executor_sha256": "6511f21b52b3edc1adc61e6f28a73db75de60beb82b0df254b26eeb04c280825",
+    "assessor_sha256": "8283153a0c27ba22cac6f3682f332e6be056c3546e35703f2288cb47a789cb46"
+  }
+}

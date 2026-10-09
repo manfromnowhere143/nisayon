@@ -1,0 +1,45 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "5a2af83e31124980a3b564dae21ca404",
+  "label": "temporal-integration-20260920-combined-deadline-analysis",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.io import write_json, file_digest, digest\nfrom nisayon.engine.temporal_workflow import load_assessment\nfrom scripts.experiments.audit_temporal_reconciliation import archive_packet\nroot = Path(\"artifacts/engine-integration-001/temporal-integration-001/combined-deadline-001\")\ntarget = Path(\"docs/experiments/results/temporal-integration-001\")\nassessment = load_assessment(root / \"assessment\", root / \"execution\")\nrows, events_by_pair = [], {}\nfor item in assessment[\"assignments\"]:\n    assignment = item[\"assignment\"]\n    trace = json.loads((root / \"execution/assignments\" / assignment[\"id\"] / \"trace.json\").read_bytes())\n    events = trace[\"events\"]\n    detail = json.loads((root / \"assessment\" / item[\"detail\"][\"path\"]).read_bytes())\n    row = {\"assignment\": assignment, \"complete_record\": item[\"complete_record\"], \"integrity\": item[\"integrity\"], \"events_sha256\": digest(events), \"dispatches\": [e for e in events if e[\"kind\"] == \"action_dispatched\"], \"admissions\": [e for e in events if e[\"kind\"] == \"queue_admitted\"], \"refusals\": [e for e in events if e[\"kind\"] == \"dispatch_refused\"], \"acknowledgements\": [e for e in events if e[\"kind\"] == \"dispatch_acknowledged\"], \"reference_assessment\": detail[\"reference_assessment\"], \"legacy_contract\": item[\"temporal_contract\"], \"assigned_contract\": item[\"assigned_contract\"], \"original_execution_costs\": item[\"original_execution_costs\"], \"read_assess_write_costs\": item[\"read_assess_write_costs\"]}\n    rows.append(row)\n    events_by_pair[(assignment[\"case_id\"], assignment[\"remedy_id\"])] = events\nties = []\nfor case in json.loads((root / \"execution/frozen-suite.json\").read_bytes())[\"cases\"]:\n    left = events_by_pair[(case[\"id\"], \"conventional_combined_deadline\")]\n    right = events_by_pair[(case[\"id\"], \"selected_combined_deadline\")]\n    ties.append({\"case_id\": case[\"id\"], \"exact_event_equality\": left == right, \"events_sha256\": digest(left)})\narchive = archive_packet(root, target / \"combined-deadline-001.tar.gz\")\nreport = {\"schema\": \"nisayon.temporal-combined-deadline-result.v1\", \"source_commit\": \"819016ce0292f421051d1aa13a3a0175a574041f\", \"evaluation_delivery\": \"8e5465051a583823ce8bf3914846e71046fbdeee\", \"capture\": json.loads((root / \"capture.json\").read_bytes()), \"capture_command\": \"f2c0a2cb064e4243ab433fa7b6ee4e95\", \"execution_export_command\": \"b731063504454f0199abf41722b78fc9\", \"not_executed_attempt\": {\"command\": \"71460e7af4e442f694baefab13b1499a\", \"process_status\": \"completed\", \"semantic_outcome\": \"no_execution_or_artifacts\", \"explanation\": \"The command wrapper does not forward stdin; python - received no program. Empty stdout and no output directory were checked before the actual capture. This is not a second execution or success.\", \"wall_seconds\": 0.030549}, \"rows\": rows, \"combined_arm_pairs\": ties, \"archive\": archive, \"saved_assessment_verified\": True, \"scope\": \"All 24 exposed software assignments, including C02 and Y02 readings still pending owner disposition. Full raw bytes, independent assessments and historical nested costs retained. No robot progress, product advantage or pooled repair rate.\"}\nwrite_json(target / \"combined-deadline-001.json\", report)\nprint(json.dumps({\"assignments\": len(rows), \"exact_combined_event_pairs\": sum(t[\"exact_event_equality\"] for t in ties), \"archive_bytes\": archive[\"bytes\"], \"readback_verified\": True, \"rows\": [{\"id\": r[\"assignment\"][\"id\"], \"sent\": [e[\"value\"] for e in r[\"dispatches\"]], \"refused\": [e[\"reason\"] for e in r[\"refusals\"]], \"assigned\": r[\"assigned_contract\"]} for r in rows]}, indent=2))\nassert len(rows) == 24 and all(t[\"exact_event_equality\"] for t in ties)\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T10:29:00.816181+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "819016ce0292f421051d1aa13a3a0175a574041f",
+    "changes": [
+      "?? docs/experiments/results/temporal-integration-001/combined-deadline-execution-001/"
+    ],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 81941,
+  "returncode": 0,
+  "ended_at": "2026-09-20T10:29:01.877720+00:00",
+  "wall_seconds": 0.944185,
+  "logs": {
+    "stdout.log": {
+      "bytes": 4359,
+      "sha256": "496db93e6b11094b2aba9128043ea5b15d4eee60f42e0922f766e9e964f2dc5e"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

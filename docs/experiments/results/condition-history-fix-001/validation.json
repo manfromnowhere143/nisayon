@@ -1,0 +1,218 @@
+{
+  "schema": "nisayon.condition-history-fix.validation.v1",
+  "candidate": {
+    "source_parent": "4929ea3a8eaebc2d4a22f16b4c2555e02889d104",
+    "files": {
+      "src/nisayon/engine/conditions.py": "fb55a64ef19fbe417887e950b3d27bdf980412ddcafda9d2466bd5f42a0a00b1",
+      "tests/engine/test_condition_reservations.py": "35eb857204502cb395e4b69e659656a0315929e0fee9b9c51bd276f18a59f3c5",
+      "tests/engine/test_monitor_a1_training_pilot.py": "ec687786bf619865fa0c1aefa85f5953e5b48b8cc37f1bf9a19b0ffcd8c893f4"
+    },
+    "production_monitor_unchanged": true,
+    "same_production_fix_as_parallel_delivery": "d92b10f470165f823ae768374d05199de2a9eb6d"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "tests": {
+    "initial_regression": {
+      "failed": 6,
+      "passed": 7
+    },
+    "first_focused": {
+      "passed": 17
+    },
+    "initial_full_check": {
+      "failed": 1,
+      "passed": 1170,
+      "failure": "PermissionError from os.killpg in the timing-dependent final temporary-limit test"
+    },
+    "monitor_and_history_controls": {
+      "passed": 20
+    },
+    "final_full_check": {
+      "passed": 1172,
+      "skipped": 0,
+      "failures": 0,
+      "pytest_seconds": 268.54,
+      "lint": "passed",
+      "format": "passed",
+      "documents": 148
+    }
+  },
+  "real_history": "real-history-readback.json",
+  "owned_signal_probe": "owned-signal-probe.json",
+  "monitor_test_change": "A real child finishes before the final-sample control; a separate real child remains live and is terminated for exceeding the temporary limit. Production monitor code unchanged. The kernel cause of the transient permission error is not established.",
+  "commands": [
+    {
+      "id": "eda3b913a2f84a698f2f4090811000ad",
+      "label": "condition-history-regression-before",
+      "returncode": 1,
+      "wall_seconds": 1.375102,
+      "logs": {
+        "stdout.log": {
+          "bytes": 13586,
+          "sha256": "4a9370eb0de7ec6229d0e59128c633d458751fd83957f2a0c9bb1c97dbc3def3"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "bd4e707c4a88491c81cdefbd8dd02e89",
+      "label": "condition-history-focused-controls",
+      "returncode": 0,
+      "wall_seconds": 0.450003,
+      "logs": {
+        "stdout.log": {
+          "bytes": 99,
+          "sha256": "f5fa52dfdeba6306e8dc32ebee8ac138ab3b64d37f935d4c899da18d07320746"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "e4c5d48215fc405994ca77b9a8dfcfae",
+      "label": "condition-history-real-readback",
+      "returncode": 0,
+      "wall_seconds": 5.874135,
+      "logs": {
+        "stdout.log": {
+          "bytes": 838,
+          "sha256": "9152ed3ecae2941f2de68eff7563856962c5ca1447d974c52d7af294d087b4ac"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "024baf07c2a34473bc423c4c8319edcc",
+      "label": "condition-history-full-check",
+      "returncode": 2,
+      "wall_seconds": 271.625659,
+      "logs": {
+        "stdout.log": {
+          "bytes": 9108,
+          "sha256": "818e7c9572c10d3ae37577de5e6f9e28b054c021e95dd8ba9e1d9dce49e5fbd7"
+        },
+        "stderr.log": {
+          "bytes": 26,
+          "sha256": "2a28a6bdbffc7d050702973de6826fdc6069dfea95558ae198b163e75b5f1fc1"
+        }
+      }
+    },
+    {
+      "id": "1ee9a6bfe5ed43f396ecce0669719499",
+      "label": "condition-history-monitor-failure-reproduction",
+      "returncode": 0,
+      "wall_seconds": 1.312701,
+      "logs": {
+        "stdout.log": {
+          "bytes": 98,
+          "sha256": "320418a142dbb681dcc95cf0e2eab02616c1e2706712b2586cfb6de4b81dfb5b"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "9d3e9897b77d435ca38e5e639fb36cf9",
+      "label": "condition-history-monitor-controls",
+      "returncode": 0,
+      "wall_seconds": 0.569691,
+      "logs": {
+        "stdout.log": {
+          "bytes": 99,
+          "sha256": "40bb1e628d90ebba027bc7f9515cbae1790cf48863c2cdcff35db0907a6234f5"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "82fc18c88b5b4a348dd42ebb9afcddb8",
+      "label": "condition-history-final-full-check",
+      "returncode": 0,
+      "wall_seconds": 274.266714,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1715,
+          "sha256": "5a6774ac4c479a907ce2464d216d568ab90e23f819b7dc472e5fdbd653759d7d"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "6a6bd01637cc4eabaa7b96e86b515fd0",
+      "label": "condition-history-runtime-preservation",
+      "returncode": 0,
+      "wall_seconds": 10.38113,
+      "logs": {
+        "stdout.log": {
+          "bytes": 488,
+          "sha256": "f1c7ecf217175a62ddbbcc2a133ef8dac2de24893906a5a1899f82ace237d636"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "6a1340ada53c43a9b48312abe2274dd0",
+      "label": "condition-history-closeout-docs",
+      "returncode": 0,
+      "wall_seconds": 2.341739,
+      "logs": {
+        "stdout.log": {
+          "bytes": 140,
+          "sha256": "5a714c890611feedb6b1f89af23aa0ff8f5b9e07c5662dbd174c5e30cffe6366"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "cost_boundary": "Command wall times may overlap and exclude engineering, review and provider costs. Exact commands and original logs remain under .nisayon/runs/<id>; these are software checks, not a comparative-cost experiment.",
+  "outreach": {
+    "readback": {
+      "status": "posted_and_read_back",
+      "checked_at": "2026-10-09T14:30:03.682520+00:00",
+      "id": 6082970232,
+      "url": "https://github.com/Physical-Intelligence/openpi/issues/1060#issuecomment-6082970232",
+      "account": "manfromnowhere143",
+      "exact_body_match": true,
+      "body_sha256": "47de719e1bf8d475d8da8cc9d22a590347e0b0b94f7e5692d06dfc8ba04e1f2b",
+      "scope": "One operator-authorized comment; no attachment, follow-up or other message."
+    },
+    "response_check": {
+      "checked_at": "2026-10-09T14:41:23.759756+00:00",
+      "comment_count": 4,
+      "our_comment_id": 6082970232,
+      "later_comments": [],
+      "raw_sha256": "42a1b7933aa621bf56ead713cad8e7889fa1cdfb2882f79ae42be2c6ef8ea8cc"
+    },
+    "artifact_root": "artifacts/incident-request-1060-001"
+  },
+  "scientific_scope": "Future receipt metadata correction and software controls only. Historical receipts and the primary-invalid/secondary-null delay-screen assessments remain unchanged; no new experiment condition.",
+  "preservation": "preservation.json",
+  "closeout_document_checks": {
+    "documents": 149,
+    "mermaid_blocks": 5,
+    "errors": [],
+    "scope": "local file links and code fences; Mermaid rendering is separate"
+  }
+}

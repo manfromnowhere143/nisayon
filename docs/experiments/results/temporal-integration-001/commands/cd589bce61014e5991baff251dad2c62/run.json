@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "cd589bce61014e5991baff251dad2c62",
+  "label": "temporal-integration-20260920-final-failure-collection",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import subprocess,json\np=subprocess.run([\"uv\",\"run\",\"--frozen\",\"pytest\",\"-o\",\"addopts=\",\"--collect-only\",\"-q\"],capture_output=True,text=True,check=True)\nnodes=[line for line in p.stdout.splitlines() if \"::\" in line]\nprint(json.dumps({\"collected\":len(nodes),\"around_first_failure\":[{\"index\":i,\"node\":nodes[i]} for i in range(199,214)]}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T12:11:39.122784+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "6fb6ad255f2869535a85772753bdb608e82158f4",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 74602,
+  "returncode": 0,
+  "ended_at": "2026-09-20T12:11:42.893857+00:00",
+  "wall_seconds": 3.640891,
+  "logs": {
+    "stdout.log": {
+      "bytes": 2095,
+      "sha256": "03619816c43cc873624c2a0d29751e6b98946d3775e20252c68be43180d98118"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

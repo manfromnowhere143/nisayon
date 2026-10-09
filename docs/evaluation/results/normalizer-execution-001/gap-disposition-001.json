@@ -1,0 +1,73 @@
+{
+  "schema": "nisayon.evaluation.gap-disposition.v1",
+  "case": "normalizer-execution-001",
+  "recorded_at": "2026-09-21T06:12:30Z",
+  "items": [
+    {
+      "id": "gap-1",
+      "subject": "the modality configuration that selects the mode is not recorded in any producer run record",
+      "affects": "reproducibility from the record alone",
+      "conclusion_affected": false,
+      "evidence": "for NX4b and NX5c the executed mean/std mode was inferred from the outputs and then matched the reference at 0 ulp; the configurations are fixed in the committed runner at 4d208a8 and in the frozen case for the real invocation (mean_std_embedding_keys null)",
+      "disposition": "documentation and interface: reproducible from the named commit; a future record interface should carry the selector keys per run; no sealed byte is changed",
+      "owner": "execution lane interface (recommendation only)"
+    },
+    {
+      "id": "gap-2",
+      "subject": "NX5d records no input arrays",
+      "affects": "reproducibility from the record alone",
+      "conclusion_affected": false,
+      "evidence": "mean 1, std 1e-40, x 0.75 are fixed in the committed control amendment (control-amendment-001.json) and runner; the executed state output -inf and the finite action are recorded with digests",
+      "disposition": "documentation: reproducible from the named commit and amendment; recommend recording inputs for observed-invalid runs; no change to sealed bytes"
+    },
+    {
+      "id": "gap-3",
+      "subject": "NX5d's reason string names the input as the violation",
+      "affects": "documentation only",
+      "conclusion_affected": false,
+      "evidence": "the record's non_finite_state_output true and the -Infinity array show the input was finite and the executed output overflowed; the decision invalid/invalid matches the contract",
+      "disposition": "documentation: the wording is a shared reason template for observed-invalid runs; the assessment readback states the actual fact; historical bytes are not relabelled"
+    },
+    {
+      "id": "difference-1",
+      "subject": "NX1b instantiated with obligation S0 by the producer and S1 by the evaluation controls",
+      "affects": "interpretation of the assessment's mismatch list",
+      "conclusion_affected": false,
+      "evidence": "each decision follows its declared obligation; useful acceptance of replacement is covered by NX1c and NX2b in both lanes and rejection by real-replace and NX3b",
+      "disposition": "material inconsistency in the evaluation adapter's fixed expectation table, corrected: contract amendment A2 (v1.2, wording only) and the adapter now grades NX1b by the declared obligation; re-assessment records zero producer mismatches"
+    },
+    {
+      "id": "difference-2",
+      "subject": "NX2a aliased to the real keep run by the producer and instantiated as the real replace run by the evaluation controls",
+      "affects": "interpretation of the assessment's mismatch list",
+      "conclusion_affected": false,
+      "evidence": "the contract's NX2a states both halves; the rejection half with a witness is real-replace in the same store",
+      "disposition": "corrected with A2: either half is accepted when carried by the corresponding real run; re-assessment records zero producer mismatches"
+    }
+  ],
+  "reassessment": {
+    "command": "f1a72fadcf66475bb795741274049b80",
+    "record": "assessments/codex-producer-004.store-v1_2.json",
+    "producer_contract_mismatches": [],
+    "reference_contract_mismatches": [],
+    "counts": {
+      "useful_acceptance": 12,
+      "false_acceptance": 0,
+      "false_refusal": 0,
+      "unjustified_replacement": 0,
+      "unjustified_reuse": 0,
+      "unresolved": 0,
+      "invalid": 0,
+      "agreements": 15,
+      "compared": 15,
+      "not_rebuilt": 0
+    }
+  },
+  "settled_work_untouched": [
+    "producer-004 sealed bytes",
+    "assessment-readback-001.json",
+    "contract.v1.json",
+    "contract.v1.1.json",
+    "integration-readback-001.json"
+  ]
+}

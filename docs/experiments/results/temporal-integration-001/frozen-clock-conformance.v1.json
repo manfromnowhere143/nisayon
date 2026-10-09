@@ -1,0 +1,463 @@
+{
+  "schema": "nisayon.temporal-suite.v1",
+  "role": "exploratory_reference_clock_conformance_after_integration",
+  "hypothesis": "Conflicting mapping declaration order can change the reference freshness/assigned-contract verdict while the producer consistently refuses the unsupported relation. Single-mapping positive and stale controls distinguish the boundary. This is a proposed defect until the actual frozen probe runs.",
+  "source_base_suite_sha256": "424119e7e27ccfc45235f91baca1acc108d3a2ffccc9856625c2c0fccfe3c649",
+  "source_base_case_sha256": "eaf4cb90f17b23332d7c58e50915ce63ccc36909572f3aeab828253e1c1b9458",
+  "evaluation_delivery_under_review": "8e5465051a583823ce8bf3914846e71046fbdeee",
+  "cpu_suballocation_s": 10,
+  "output_suballocation_bytes": 8388608,
+  "cases": [
+    {
+      "id": "C01-single-fresh-mapping",
+      "source_kind": "constructed_control",
+      "question": "Exploratory clock-declaration conformance: mapping order must not select a calibration without an explicit selection premise.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "C01-single-fresh-mapping-input-00",
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "C01-single-fresh-mapping-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "C01-single-fresh-mapping-input-02",
+          "delivery_id": "C01-single-fresh-mapping-delivery"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "C01-single-fresh-mapping-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": 0,
+            "uncertainty": 0,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "C02-conflicting-fresh-first",
+      "source_kind": "constructed_control",
+      "question": "Exploratory clock-declaration conformance: mapping order must not select a calibration without an explicit selection premise.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "C02-conflicting-fresh-first-input-00",
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "C02-conflicting-fresh-first-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "C02-conflicting-fresh-first-input-02",
+          "delivery_id": "C02-conflicting-fresh-first-delivery"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "C02-conflicting-fresh-first-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": 0,
+            "uncertainty": 0,
+            "unit": "ns"
+          },
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": -100000000,
+            "uncertainty": 0,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "C03-conflicting-stale-first",
+      "source_kind": "constructed_control",
+      "question": "Exploratory clock-declaration conformance: mapping order must not select a calibration without an explicit selection premise.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "C03-conflicting-stale-first-input-00",
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "C03-conflicting-stale-first-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "C03-conflicting-stale-first-input-02",
+          "delivery_id": "C03-conflicting-stale-first-delivery"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "C03-conflicting-stale-first-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": -100000000,
+            "uncertainty": 0,
+            "unit": "ns"
+          },
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": 0,
+            "uncertainty": 0,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "C04-single-stale-mapping",
+      "source_kind": "constructed_control",
+      "question": "Exploratory clock-declaration conformance: mapping order must not select a calibration without an explicit selection premise.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "C04-single-stale-mapping-input-00",
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "C04-single-stale-mapping-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "C04-single-stale-mapping-input-02",
+          "delivery_id": "C04-single-stale-mapping-delivery"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "C04-single-stale-mapping-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": -100000000,
+            "uncertainty": 0,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    }
+  ],
+  "remedies": [
+    {
+      "id": "unfenced_queue_control",
+      "role": "constructed_failure_control",
+      "reset_queue": false,
+      "bind_request": false,
+      "bind_configuration": false,
+      "fence_generation": false,
+      "deduplicate": false,
+      "ordered_overlap": false,
+      "deadline_check": "none",
+      "drop_all": false
+    },
+    {
+      "id": "conventional",
+      "role": "competent_ordinary_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": false
+    }
+  ],
+  "assignments": [
+    {
+      "id": "C01-single-fresh-mapping--unfenced_queue_control",
+      "case_id": "C01-single-fresh-mapping",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "C01-single-fresh-mapping--conventional",
+      "case_id": "C01-single-fresh-mapping",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--unfenced_queue_control",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--conventional",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "C03-conflicting-stale-first--unfenced_queue_control",
+      "case_id": "C03-conflicting-stale-first",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "C03-conflicting-stale-first--conventional",
+      "case_id": "C03-conflicting-stale-first",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "C04-single-stale-mapping--unfenced_queue_control",
+      "case_id": "C04-single-stale-mapping",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "C04-single-stale-mapping--conventional",
+      "case_id": "C04-single-stale-mapping",
+      "remedy_id": "conventional"
+    }
+  ],
+  "boundary": "Eight new exposed software assignments; no robot or learned execution, no hidden-case evidence, no changes to prior frozen inputs or original denominators."
+}

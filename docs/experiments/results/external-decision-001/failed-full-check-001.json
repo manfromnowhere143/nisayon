@@ -1,0 +1,35 @@
+{
+  "schema": "nisayon.external-decision-failed-full-check.v1",
+  "recorded_at": "2026-09-20T13:47:02.557002+00:00",
+  "tested_commit": "d61ec2f414c8c58fd1ee8ff0f35d81276e1eb9e9",
+  "command_id": "b2fc52cda6d64144a8fd3f2e94675d4e",
+  "command_wall_seconds": 257.714232,
+  "outer_returncode": 1,
+  "underlying_make_check": {
+    "returncode": 0,
+    "lint": "passed",
+    "format_files": 359,
+    "tests_passed": 864,
+    "pytest_wall_seconds": 242.71,
+    "documentation_checks": 114
+  },
+  "failure": {
+    "boundary": "post-check resource receipt annotation",
+    "type": "KeyError",
+    "missing_key": "external_phase_source_bytes",
+    "cause": "The full-check monitor nests phase fields under baseline, while the phase wrapper asserted them at the receipt top level.",
+    "application_or_test_failure": false
+  },
+  "retention": {
+    "stdout_sha256": "e136f1ff2e4432c7f3b19d0838d90ed89be13632d1726134c2fc5817ee1b6c9a",
+    "stderr_sha256": "1235faa2402aeae0f62e9018628a359832a2191d43f031518fe47b3f01a1398e",
+    "temporary_root": "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-integration-check-65mb92ec",
+    "retained_temporary_files": 0,
+    "retained_temporary_bytes": 0,
+    "sample_trace_serialized": false,
+    "sampled_peak_temporary_bytes": null,
+    "resource_stop_triggered": false,
+    "historical_failed_files_unchanged_assertion_completed": true
+  },
+  "disposition": "retained_failed_measurement; correct only the result-shape boundary and run one monitored retry on a new clean records-only commit"
+}

@@ -1,0 +1,452 @@
+check (macos-latest)	Run make check	﻿2026-09-18T19:53:42.4021120Z ##[group]Run make check
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4021500Z [36;1mmake check[0m
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4063510Z shell: /bin/bash -e {0}
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4063810Z env:
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4064230Z   UV_PYTHON_INSTALL_DIR: /Users/runner/work/_temp/uv-python-dir
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4064660Z   UV_CACHE_DIR: /Users/runner/work/_temp/setup-uv-cache
+check (macos-latest)	Run make check	2026-09-18T19:53:42.4065540Z ##[endgroup]
+check (macos-latest)	Run make check	2026-09-18T19:53:43.3462960Z uv run --frozen ruff check .
+check (macos-latest)	Run make check	2026-09-18T19:53:43.6909370Z All checks passed!
+check (macos-latest)	Run make check	2026-09-18T19:53:43.6943560Z uv run --frozen ruff format --check .
+check (macos-latest)	Run make check	2026-09-18T19:53:43.7788040Z 182 files already formatted
+check (macos-latest)	Run make check	2026-09-18T19:53:43.7826570Z uv run --frozen pytest
+check (macos-latest)	Run make check	2026-09-18T19:53:48.0831050Z ........................................................................ [ 19%]
+check (macos-latest)	Run make check	2026-09-18T19:54:05.1855940Z ..................ssss............s..................................... [ 38%]
+check (macos-latest)	Run make check	2026-09-18T19:54:35.5432030Z ........................................................................ [ 58%]
+check (macos-latest)	Run make check	2026-09-18T19:55:38.2576020Z ...............................................................s..ss.... [ 77%]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.0984950Z .................s.s...................sss.............................. [ 96%]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7104730Z ..........F.                                                             [100%]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7105810Z =================================== FAILURES ===================================
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7106510Z _____________________ test_bounded_read_and_literal_search _____________________
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7106840Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7107370Z workspace = PosixPath('/private/var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/pytest-of-runner/pytest-0/test_bounded_read_and_literal_0/workspace')
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7107940Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7108050Z     def test_bounded_read_and_literal_search(workspace):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7108480Z         (workspace / "sample.md").write_text("a.b\nAxB\na.b\n")
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7108880Z         (workspace / ".env").write_text("a.b secret fixture")
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7109610Z         result = ws.read_file(workspace, "sample.md", start_line=2, limit=1)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7110080Z         assert result["content"] == "2: AxB"
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7110360Z         assert result["truncated"] is True
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7110830Z >       matches = ws.search(workspace, "a.b")["matches"]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7111150Z                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7111350Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7111490Z tests/test_workspace.py:50: 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7111800Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7112200Z src/nisayon/workspace.py:128: in search
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7112620Z     result = subprocess.run(command, cwd=root, capture_output=True, text=True, timeout=15)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7113160Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7113740Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:548: in run
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7114230Z     with Popen(*popenargs, **kwargs) as process:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7114640Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7115190Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1026: in __init__
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7115740Z     self._execute_child(args, executable, preexec_fn, close_fds,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7116520Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7117090Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7118870Z self = <Popen: returncode: 255 args: ['rg', '--json', '--hidden', '--fixed-strings'...>
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7119390Z args = ['rg', '--json', '--hidden', '--fixed-strings', '--ignore-case', '--max-count', ...]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7119930Z executable = b'rg', preexec_fn = None, close_fds = True, pass_fds = ()
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7121030Z cwd = PosixPath('/private/var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/pytest-of-runner/pytest-0/test_bounded_read_and_literal_0/workspace')
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7293930Z env = None, startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7294560Z p2cwrite = -1, c2pread = 11, c2pwrite = 12, errread = 13, errwrite = 14
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7294970Z restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7304970Z start_new_session = False, process_group = -1
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7305240Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7305520Z     def _execute_child(self, args, executable, preexec_fn, close_fds,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7305980Z                        pass_fds, cwd, env,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7306340Z                        startupinfo, creationflags, shell,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7306830Z                        p2cread, p2cwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7307160Z                        c2pread, c2pwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7307600Z                        errread, errwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7307890Z                        restore_signals,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7308180Z                        gid, gids, uid, umask,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7308440Z                        start_new_session, process_group):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7308830Z         """Execute program (POSIX version)"""
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7309100Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7309270Z         if isinstance(args, (str, bytes)):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7309590Z             args = [args]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7313680Z         elif isinstance(args, os.PathLike):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7314070Z             if shell:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7314290Z                 raise TypeError('path-like args is not allowed when '
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7314740Z                                 'shell is true')
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7315050Z             args = [args]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7315370Z         else:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7315590Z             args = list(args)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7315900Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7316200Z         if shell:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7316490Z             # On Android the default shell is at '/system/bin/sh'.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7316900Z             unix_shell = ('/system/bin/sh' if
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7317260Z                       hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7317720Z             args = [unix_shell, "-c"] + args
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7318010Z             if executable:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7318330Z                 args[0] = executable
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7318590Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7318870Z         if executable is None:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7319190Z             executable = args[0]
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7319430Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7327070Z         sys.audit("subprocess.Popen", executable, args, cwd, env)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7327450Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7327820Z         if (_USE_POSIX_SPAWN
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7332360Z                 and os.path.dirname(executable)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7332730Z                 and preexec_fn is None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7333160Z                 and not close_fds
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7333470Z                 and not pass_fds
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7333810Z                 and cwd is None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7334180Z                 and (p2cread == -1 or p2cread > 2)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7334590Z                 and (c2pwrite == -1 or c2pwrite > 2)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7334960Z                 and (errwrite == -1 or errwrite > 2)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7335360Z                 and not start_new_session
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7335690Z                 and process_group == -1
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7336060Z                 and gid is None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7336310Z                 and gids is None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7336670Z                 and uid is None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7337020Z                 and umask < 0):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7337780Z             self._posix_spawn(args, executable, env, restore_signals,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7338210Z                               p2cread, p2cwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7338570Z                               c2pread, c2pwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7338790Z                               errread, errwrite)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7338990Z             return
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7339920Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7340070Z         orig_executable = executable
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7340250Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7340560Z         # For transferring possible exec failure from child to parent.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7341160Z         # Data format: "exception name:hex errno:description"
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7341910Z         # Pickle is not used; it is complex and involves memory allocation.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7342250Z         errpipe_read, errpipe_write = os.pipe()
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7342680Z         # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7344130Z         low_fds_to_close = []
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7429970Z         while errpipe_write < 3:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7430740Z             low_fds_to_close.append(errpipe_write)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7431340Z             errpipe_write = os.dup(errpipe_write)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7431870Z         for low_fd in low_fds_to_close:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7432340Z             os.close(low_fd)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7432780Z         try:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7433060Z             try:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7433480Z                 # We must avoid complex work that could involve
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7434040Z                 # malloc or free in the child process to avoid
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7434580Z                 # potential deadlocks, thus we do all this here.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7435140Z                 # and pass it to fork_exec()
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7435510Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7435930Z                 if env is not None:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7436300Z                     env_list = []
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7436590Z                     for k, v in env.items():
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7437010Z                         k = os.fsencode(k)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7437370Z                         if b'=' in k:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7437950Z                             raise ValueError("illegal environment variable name")
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7438370Z                         env_list.append(k + b'=' + os.fsencode(v))
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7438710Z                 else:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7439070Z                     env_list = None  # Use execv instead of execve.
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7439510Z                 executable = os.fsencode(executable)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7439850Z                 if os.path.dirname(executable):
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7440260Z                     executable_list = (executable,)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7440750Z                 else:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7441920Z                     # This matches the behavior of os._execvpe().
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7465240Z                     executable_list = tuple(
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7465900Z                         os.path.join(os.fsencode(dir), executable)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7466610Z                         for dir in os.get_exec_path(env))
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7468380Z                 fds_to_keep = set(pass_fds)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7468850Z                 fds_to_keep.add(errpipe_write)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7469220Z                 self.pid = _fork_exec(
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7469800Z                         args, executable_list,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7470300Z                         close_fds, tuple(sorted(map(int, fds_to_keep))),
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7470760Z                         cwd, env_list,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7471310Z                         p2cread, p2cwrite, c2pread, c2pwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7471800Z                         errread, errwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7472320Z                         errpipe_read, errpipe_write,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7472810Z                         restore_signals, start_new_session,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7473410Z                         process_group, gid, gids, uid, umask,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7473810Z                         preexec_fn, _USE_VFORK)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7474250Z                 self._child_created = True
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7474570Z             finally:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7475010Z                 # be sure the FD is closed no matter what
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7475350Z                 os.close(errpipe_write)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7476550Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7476980Z             self._close_pipe_fds(p2cread, p2cwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7481860Z                                  c2pread, c2pwrite,
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7482670Z                                  errread, errwrite)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7483160Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7483690Z             # Wait for exec to fail or succeed; possibly raising an
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7484510Z             # exception (limited in size)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7484850Z             errpipe_data = bytearray()
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7485380Z             while True:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7485750Z                 part = os.read(errpipe_read, 50000)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7486090Z                 errpipe_data += part
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7486410Z                 if not part or len(errpipe_data) > 50000:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7486750Z                     break
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7487170Z         finally:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7487500Z             # be sure the FD is closed no matter what
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7487850Z             os.close(errpipe_read)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7488420Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7497050Z         if errpipe_data:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7497320Z             try:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7598330Z                 pid, sts = os.waitpid(self.pid, 0)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7598710Z                 if pid == self.pid:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7599080Z                     self._handle_exitstatus(sts)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7599340Z                 else:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7599520Z                     self.returncode = sys.maxsize
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7599980Z             except ChildProcessError:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7600220Z                 pass
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7600360Z     
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7600480Z             try:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7600700Z                 exception_name, hex_errno, err_msg = (
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7601010Z                         errpipe_data.split(b':', 2))
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7606710Z                 # The encoding here should match the encoding
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7607060Z                 # written in by the subprocess implementations
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7607390Z                 # like _posixsubprocess
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7607700Z                 err_msg = err_msg.decode()
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7608010Z             except ValueError:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7608310Z                 exception_name = b'SubprocessError'
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7608610Z                 hex_errno = b'0'
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7608900Z                 err_msg = 'Bad exception data from child: {!r}'.format(
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7609240Z                               bytes(errpipe_data))
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7609510Z             child_exception_type = getattr(
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7609820Z                     builtins, exception_name.decode('ascii'),
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7610090Z                     SubprocessError)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7610390Z             if issubclass(child_exception_type, OSError) and hex_errno:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7610760Z                 errno_num = int(hex_errno, 16)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7611070Z                 if err_msg == "noexec:chdir":
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7611350Z                     err_msg = ""
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7611890Z                     # The error must be from chdir(cwd).
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7612170Z                     err_filename = cwd
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7612460Z                 elif err_msg == "noexec":
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7713390Z                     err_msg = ""
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7743540Z                     err_filename = None
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7760520Z                 else:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7760870Z                     err_filename = orig_executable
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7761340Z                 if errno_num != 0:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7761720Z                     err_msg = os.strerror(errno_num)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7762100Z                 if err_filename is not None:
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7762570Z >                   raise child_exception_type(errno_num, err_msg, err_filename)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7763110Z E                   FileNotFoundError: [Errno 2] No such file or directory: 'rg'
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7764190Z 
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7764620Z ../../_temp/uv-python-dir/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1955: FileNotFoundError
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7765250Z =========================== short test summary info ============================
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7766280Z FAILED tests/test_workspace.py::test_bounded_read_and_literal_search - FileNotFoundError: [Errno 2] No such file or directory: 'rg'
+check (macos-latest)	Run make check	2026-09-18T19:56:17.7767320Z 1 failed, 358 passed, 14 skipped in 152.42s (0:02:32)
+check (macos-latest)	Run make check	2026-09-18T19:56:17.9445280Z make: *** [check] Error 1
+check (macos-latest)	Run make check	2026-09-18T19:56:17.9526140Z ##[error]Process completed with exit code 2.
+check (ubuntu-latest)	Run make check	﻿2026-09-18T19:53:29.7396354Z ##[group]Run make check
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7396661Z [36;1mmake check[0m
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7435263Z shell: /usr/bin/bash -e {0}
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7435521Z env:
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7435805Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7436209Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7436514Z ##[endgroup]
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.7520868Z uv run --frozen ruff check .
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.9358023Z All checks passed!
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:29.9381556Z uv run --frozen ruff format --check .
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:30.0016587Z 182 files already formatted
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:30.0038907Z uv run --frozen pytest
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:33.1382276Z ........................................................................ [ 19%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:53:52.6626300Z ..................ssss............s..................................... [ 38%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:54:21.0915544Z ........................................................................ [ 58%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:55:22.9566840Z ...............................................................s..ss.... [ 77%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.0476315Z .................s.s...................sss.............................. [ 96%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4350362Z ..........F.                                                             [100%]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4351512Z =================================== FAILURES ===================================
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4352471Z _____________________ test_bounded_read_and_literal_search _____________________
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4353146Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4353784Z workspace = PosixPath('/tmp/pytest-of-runner/pytest-0/test_bounded_read_and_literal_0/workspace')
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4354601Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4354928Z     def test_bounded_read_and_literal_search(workspace):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4355731Z         (workspace / "sample.md").write_text("a.b\nAxB\na.b\n")
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4356577Z         (workspace / ".env").write_text("a.b secret fixture")
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4357176Z         result = ws.read_file(workspace, "sample.md", start_line=2, limit=1)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4357624Z         assert result["content"] == "2: AxB"
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4357942Z         assert result["truncated"] is True
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4358482Z >       matches = ws.search(workspace, "a.b")["matches"]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4359061Z                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4359396Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4359591Z tests/test_workspace.py:50: 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4360136Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4360803Z src/nisayon/workspace.py:128: in search
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4361905Z     result = subprocess.run(command, cwd=root, capture_output=True, text=True, timeout=15)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4362849Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4363892Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:548: in run
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4364675Z     with Popen(*popenargs, **kwargs) as process:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4365007Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4365523Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:1026: in __init__
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4366147Z     self._execute_child(args, executable, preexec_fn, close_fds,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4366584Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4366856Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4367343Z self = <Popen: returncode: 255 args: ['rg', '--json', '--hidden', '--fixed-strings'...>
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4368377Z args = ['rg', '--json', '--hidden', '--fixed-strings', '--ignore-case', '--max-count', ...]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4369323Z executable = b'rg', preexec_fn = None, close_fds = True, pass_fds = ()
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4370349Z cwd = PosixPath('/tmp/pytest-of-runner/pytest-0/test_bounded_read_and_literal_0/workspace')
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4371750Z env = None, startupinfo = None, creationflags = 0, shell = False, p2cread = -1
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4373077Z p2cwrite = -1, c2pread = 12, c2pwrite = 13, errread = 14, errwrite = 15
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4373615Z restore_signals = True, gid = None, gids = None, uid = None, umask = -1
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4374009Z start_new_session = False, process_group = -1
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4374221Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4374398Z     def _execute_child(self, args, executable, preexec_fn, close_fds,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4374766Z                        pass_fds, cwd, env,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4375067Z                        startupinfo, creationflags, shell,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4375367Z                        p2cread, p2cwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4375627Z                        c2pread, c2pwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4375883Z                        errread, errwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4376329Z                        restore_signals,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4376626Z                        gid, gids, uid, umask,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4376929Z                        start_new_session, process_group):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4377241Z         """Execute program (POSIX version)"""
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4377502Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4377700Z         if isinstance(args, (str, bytes)):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4377962Z             args = [args]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4378202Z         elif isinstance(args, os.PathLike):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4378464Z             if shell:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4378740Z                 raise TypeError('path-like args is not allowed when '
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4379081Z                                 'shell is true')
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4379343Z             args = [args]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4379548Z         else:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4379741Z             args = list(args)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4379959Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4380128Z         if shell:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4380385Z             # On Android the default shell is at '/system/bin/sh'.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4380715Z             unix_shell = ('/system/bin/sh' if
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4381306Z                       hasattr(sys, 'getandroidapilevel') else '/bin/sh')
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4381774Z             args = [unix_shell, "-c"] + args
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4382043Z             if executable:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4382271Z                 args[0] = executable
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4382506Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4382688Z         if executable is None:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4382928Z             executable = args[0]
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4383155Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4383406Z         sys.audit("subprocess.Popen", executable, args, cwd, env)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4383725Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4383925Z         if (_USE_POSIX_SPAWN
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4384250Z                 and os.path.dirname(executable)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4384542Z                 and preexec_fn is None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4384798Z                 and not close_fds
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4385050Z                 and not pass_fds
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4385286Z                 and cwd is None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4385541Z                 and (p2cread == -1 or p2cread > 2)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4385848Z                 and (c2pwrite == -1 or c2pwrite > 2)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4386152Z                 and (errwrite == -1 or errwrite > 2)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4386442Z                 and not start_new_session
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4386713Z                 and process_group == -1
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4386972Z                 and gid is None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4387204Z                 and gids is None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4387432Z                 and uid is None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4387660Z                 and umask < 0):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4388346Z             self._posix_spawn(args, executable, env, restore_signals,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4389030Z                               p2cread, p2cwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4389583Z                               c2pread, c2pwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4390064Z                               errread, errwrite)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4390323Z             return
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4390508Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4390695Z         orig_executable = executable
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4391443Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4391725Z         # For transferring possible exec failure from child to parent.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4392142Z         # Data format: "exception name:hex errno:description"
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4392555Z         # Pickle is not used; it is complex and involves memory allocation.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4392946Z         errpipe_read, errpipe_write = os.pipe()
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4393325Z         # errpipe_write must not be in the standard io 0, 1, or 2 fd range.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4393682Z         low_fds_to_close = []
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4393921Z         while errpipe_write < 3:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4394191Z             low_fds_to_close.append(errpipe_write)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4394501Z             errpipe_write = os.dup(errpipe_write)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4394931Z         for low_fd in low_fds_to_close:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4395196Z             os.close(low_fd)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4395415Z         try:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4395594Z             try:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4395841Z                 # We must avoid complex work that could involve
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4396195Z                 # malloc or free in the child process to avoid
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4396547Z                 # potential deadlocks, thus we do all this here.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4396878Z                 # and pass it to fork_exec()
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4397129Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4397311Z                 if env is not None:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4397554Z                     env_list = []
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4397805Z                     for k, v in env.items():
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4398074Z                         k = os.fsencode(k)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4398339Z                         if b'=' in k:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4398665Z                             raise ValueError("illegal environment variable name")
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4399060Z                         env_list.append(k + b'=' + os.fsencode(v))
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4399356Z                 else:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4399613Z                     env_list = None  # Use execv instead of execve.
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4399954Z                 executable = os.fsencode(executable)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4400266Z                 if os.path.dirname(executable):
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4400574Z                     executable_list = (executable,)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4400847Z                 else:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4401323Z                     # This matches the behavior of os._execvpe().
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4401655Z                     executable_list = tuple(
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4401968Z                         os.path.join(os.fsencode(dir), executable)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4402305Z                         for dir in os.get_exec_path(env))
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4402602Z                 fds_to_keep = set(pass_fds)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4402886Z                 fds_to_keep.add(errpipe_write)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4403173Z                 self.pid = _fork_exec(
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4403443Z                         args, executable_list,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4403763Z                         close_fds, tuple(sorted(map(int, fds_to_keep))),
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4404094Z                         cwd, env_list,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4404381Z                         p2cread, p2cwrite, c2pread, c2pwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4404683Z                         errread, errwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4404964Z                         errpipe_read, errpipe_write,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4405280Z                         restore_signals, start_new_session,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4405600Z                         process_group, gid, gids, uid, umask,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4405908Z                         preexec_fn, _USE_VFORK)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4406190Z                 self._child_created = True
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4406445Z             finally:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4406689Z                 # be sure the FD is closed no matter what
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4406988Z                 os.close(errpipe_write)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4407232Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4407442Z             self._close_pipe_fds(p2cread, p2cwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4407883Z                                  c2pread, c2pwrite,
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4408166Z                                  errread, errwrite)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4408416Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4408652Z             # Wait for exec to fail or succeed; possibly raising an
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4408984Z             # exception (limited in size)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4409253Z             errpipe_data = bytearray()
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4409501Z             while True:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4409734Z                 part = os.read(errpipe_read, 50000)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4410012Z                 errpipe_data += part
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4410296Z                 if not part or len(errpipe_data) > 50000:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4410587Z                     break
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4410790Z         finally:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4411391Z             # be sure the FD is closed no matter what
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4411693Z             os.close(errpipe_read)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4411930Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4412113Z         if errpipe_data:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4412321Z             try:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4412546Z                 pid, sts = os.waitpid(self.pid, 0)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4412838Z                 if pid == self.pid:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4413098Z                     self._handle_exitstatus(sts)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4413364Z                 else:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4413597Z                     self.returncode = sys.maxsize
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4413936Z             except ChildProcessError:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4414192Z                 pass
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4414384Z     
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4414552Z             try:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4414778Z                 exception_name, hex_errno, err_msg = (
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4415089Z                         errpipe_data.split(b':', 2))
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4415412Z                 # The encoding here should match the encoding
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4415767Z                 # written in by the subprocess implementations
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4416085Z                 # like _posixsubprocess
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4416356Z                 err_msg = err_msg.decode()
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4416625Z             except ValueError:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4416890Z                 exception_name = b'SubprocessError'
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4417175Z                 hex_errno = b'0'
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.4417472Z                 err_msg = 'Bad exception data from child: {!r}'.format(
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5016588Z                               bytes(errpipe_data))
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5017318Z             child_exception_type = getattr(
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5017982Z                     builtins, exception_name.decode('ascii'),
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5018689Z                     SubprocessError)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5019366Z             if issubclass(child_exception_type, OSError) and hex_errno:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5020166Z                 errno_num = int(hex_errno, 16)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5020789Z                 if err_msg == "noexec:chdir":
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5021693Z                     err_msg = ""
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5022258Z                     # The error must be from chdir(cwd).
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5022721Z                     err_filename = cwd
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5023082Z                 elif err_msg == "noexec":
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5023452Z                     err_msg = ""
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5023793Z                     err_filename = None
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5024138Z                 else:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5024452Z                     err_filename = orig_executable
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5024845Z                 if errno_num != 0:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5025250Z                     err_msg = os.strerror(errno_num)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5025663Z                 if err_filename is not None:
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5026159Z >                   raise child_exception_type(errno_num, err_msg, err_filename)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5026805Z E                   FileNotFoundError: [Errno 2] No such file or directory: 'rg'
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5027201Z 
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5027675Z ../../_temp/uv-python-dir/cpython-3.12.13-linux-x86_64-gnu/lib/python3.12/subprocess.py:1955: FileNotFoundError
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5028687Z =========================== short test summary info ============================
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5029379Z FAILED tests/test_workspace.py::test_bounded_read_and_literal_search - FileNotFoundError: [Errno 2] No such file or directory: 'rg'
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.5030003Z 1 failed, 358 passed, 14 skipped in 153.46s (0:02:33)
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.6605253Z make: *** [Makefile:9: check] Error 1
+check (ubuntu-latest)	Run make check	2026-09-18T19:56:04.6620719Z ##[error]Process completed with exit code 2.

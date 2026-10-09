@@ -1,0 +1,42 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "6475ad9e7c5e4b8e86c86b21bd74fc75",
+  "label": "continuation-evidence-digest-audit",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json, shutil, subprocess\nfrom collections import Counter\nfrom datetime import UTC, datetime\nfrom pathlib import Path\nfrom nisayon.engine.costs import aggregate_commands\nfrom nisayon.engine.io import file_digest\nroot=Path.cwd()\ncontinuation=json.loads((root/\"work/continuations/engine-2026-09-19.json\").read_text())\nidentities=continuation[\"command_records\"]\nassert len(identities)==len(set(identities))\nrecords=[]\nretention=[]\nbase=root/\"docs/experiments/results/engine-continuation-checks-001\"\nfor identity in identities:\n    source=root/\".nisayon/runs\"/identity\n    retained=base/identity\n    retained.mkdir(exist_ok=True)\n    record=json.loads((source/\"run.json\").read_text())\n    assert record[\"schema\"]==\"nisayon.run.v1\" and record[\"id\"]==identity\n    assert record[\"process_status\"] != \"running\"\n    for name in [\"run.json\",*record[\"logs\"]]:\n        before=source/name\n        after=retained/name\n        if not after.exists():\n            shutil.copyfile(before,after)\n        assert before.read_bytes()==after.read_bytes(), (identity,name)\n        if name in record[\"logs\"]:\n            assert file_digest(after)==record[\"logs\"][name][\"sha256\"]\n            assert after.stat().st_size==record[\"logs\"][name][\"bytes\"]\n    records.append(record)\n    retention.append({\"id\":identity,\"record\":{\"path\":str((retained/\"run.json\").relative_to(root)),\"sha256\":file_digest(retained/\"run.json\")},\"logs_verified\":list(record[\"logs\"])})\ninventory=json.loads((root/\"docs/experiments/results/retained-declarations-002/retained-location.json\").read_text())\npacket_root=Path(inventory[\"root\"])\nfor name,expected in inventory[\"files\"].items():\n    path=packet_root/name\n    assert file_digest(path)==expected[\"sha256\"] and path.stat().st_size==expected[\"bytes\"], name\nsample=json.loads((root/\"artifacts/robolab-reproduced-source-001/manifest.json\").read_text())\nfor record in sample[\"records\"]:\n    path=root/\"artifacts/robolab-reproduced-source-001\"/record[\"path\"]\n    assert file_digest(path)==record[\"sha256\"] and path.stat().st_size==record[\"bytes\"]\nimport_path=root/\"artifacts/robolab-import-006/external-record.json\"\nsummary=json.loads((root/\"docs/experiments/results/robolab-record-001/summary-distinct-frames.json\").read_text())\nassert file_digest(import_path)==summary[\"full_import\"][\"sha256\"]\ndocument=json.loads(import_path.read_text())\nassert document[\"reader\"][\"module_sha256\"]==file_digest(root/\"src/nisayon/engine/robolab_record.py\")\nwheel=json.loads((root/\"docs/experiments/results/engine-wheel-001/check.json\").read_text())\nassert wheel[\"full_import_sha256\"]==file_digest(import_path)\nassert file_digest(root/\"artifacts/engine-wheel-001/nisayon_workspace-0.1.0-py3-none-any.whl\")==wheel[\"wheel_sha256\"]\nunchanged=[\"src/nisayon/evaluation\",\"tests/evaluation\",\"docs/evaluation\",\"work/lanes/fable5.md\",\"reproduction/sources\",\"docs/experiments/results/development-ablation-001\",\"docs/experiments/results/bounded-agent-comparison-001\"]\nsubprocess.run([\"git\",\"diff\",\"--exit-code\",\"21ed4f6a8d8c1f1acbef1036d8f7d31f83e29755\",\"HEAD\",\"--\",*unchanged],check=True,capture_output=True)\ncosts={\"schema\":\"nisayon.engine-continuation-costs.v1\",\"recorded_at\":datetime.now(UTC).isoformat(),\"original_mission_start\":continuation[\"original_mission_start\"],\"continuation_start\":continuation[\"started_at\"],\"scope\":\"Explicitly retained continuation command walls; historical experiment costs are separate. This audit and subsequent closeout commands are added after they complete.\",\"command_records\":[{\"id\":r[\"id\"],\"label\":r[\"label\"],\"process_status\":r[\"process_status\"],\"wall_seconds\":r[\"wall_seconds\"],\"parent_command_record_id\":r.get(\"parent_command_record_id\"),\"record_sha256\":file_digest(root/\".nisayon/runs\"/r[\"id\"]/\"run.json\")} for r in records],**aggregate_commands(records),\"process_status_counts\":dict(Counter(r[\"process_status\"] for r in records)),\"new_simulator_executions\":0,\"new_model_calls\":0,\"source_download_bytes\":continuation[\"source_download_bytes\"],\"unknown_costs\":continuation[\"unknown_costs\"],\"active_work_seconds\":None,\"resource_cost_is_not_elapsed_or_active_time\":True}\n(base/\"cost-summary.json\").write_text(json.dumps(costs,indent=2)+\"\\n\")\nresult={\"schema\":\"nisayon.engine-retention-audit.v1\",\"recorded_at\":datetime.now(UTC).isoformat(),\"command_records\":retention,\"native_packet_inventory_files_verified\":len(inventory[\"files\"]),\"pinned_source_members_verified\":len(sample[\"records\"]),\"full_import_sha256\":file_digest(import_path),\"reader_source_sha256\":document[\"reader\"][\"module_sha256\"],\"wheel_sha256\":wheel[\"wheel_sha256\"],\"unchanged_from_startup_commit\":unchanged,\"integrity_scope\":\"Local bytes and source identities only; not physical truth, independent custody, experimental effectiveness or an effort measurement.\"}\n(base/\"retention-audit.json\").write_text(json.dumps(result,indent=2)+\"\\n\")\nprint(json.dumps({\"command_records_verified\":len(records),\"known_command_wall_sum_s\":costs[\"known_command_wall_sum_s\"],\"native_inventory_files_verified\":len(inventory[\"files\"]),\"source_members_verified\":len(sample[\"records\"]),\"status_counts\":costs[\"process_status_counts\"]},indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T08:50:20.651647+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "51ac4d451ac5679d7f53dd33588a9905526ead26",
+    "changes": [
+      "M work/continuations/engine-2026-09-19.json"
+    ],
+    "diff_stat": "work/continuations/engine-2026-09-19.json | 12 +++++++++++-\n 1 file changed, 11 insertions(+), 1 deletion(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 77381,
+  "returncode": 0,
+  "ended_at": "2026-09-19T08:50:20.952202+00:00",
+  "wall_seconds": 0.197787,
+  "logs": {
+    "stdout.log": {
+      "bytes": 217,
+      "sha256": "029eda77d6f36e13f2cffbba92daa30671f1440b8768da7aca32a6b7a59507e4"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

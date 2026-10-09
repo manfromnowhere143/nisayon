@@ -1,0 +1,20 @@
+{
+  "schema": "nisayon.population-source-request.v1",
+  "id": "population-binding-source-request-004",
+  "reservation_adjustment": "reservation-adjustment-001.json",
+  "question": "What does the pinned BaseProcessor.set_statistics implementation do when override_pretraining_statistics is false or true, and which direct normalizer source does it call?",
+  "competing_predictions": [
+    "False preserves pretraining/checkpoint statistics while true selects dataset statistics.",
+    "Both values select dataset statistics or only alter merging behavior.",
+    "The abstract interface does not implement precedence, leaving the concrete processor source as the next and only direct link."
+  ],
+  "cheapest_allowed_check": "Retrieve pinned gr00t/data/interfaces.py, directly imported by the already retained mixture caller.",
+  "requests": [
+    {
+      "id": "EX06-base-processor-interface",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/1a1837f20538b7d7e21f977a11a5aee14f99803c/gr00t/data/interfaces.py",
+      "relative_path": "groot-data-interfaces-1a1837.py",
+      "decision_changed": "Establish override precedence or identify the one direct concrete processor source required to do so."
+    }
+  ]
+}

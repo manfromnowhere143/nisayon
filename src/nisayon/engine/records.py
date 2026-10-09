@@ -87,6 +87,7 @@ class Run(TypedDict):
     prefix_run: NotRequired[dict]
     policy_reset: NotRequired[dict]
     policy_state_reset: NotRequired[dict]
+    controller_reset: NotRequired[dict]
     cost_parent_run_id: NotRequired[str]
     error: NotRequired[str]
 

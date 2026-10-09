@@ -1,0 +1,175 @@
+{
+  "schema": "nisayon.a1-dataset-inspection-delivery.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T11:08:46Z",
+  "tested_source": "78b3d13b68c00ab5b1356ed182663f78eacaf3db",
+  "input": {
+    "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+    "bytes": 21084088,
+    "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "custody_receipt_sha256": "858a4ad7102d608088a46d975fc635eef471a4586a3802835a0a76b30ce397a2"
+  },
+  "inventory": {
+    "command_record_id": "7bd88478ea4844fca8db67fbc4ed3bf9",
+    "command_record_sha256": "6197524650fd5432a30a6d3fa36e7bba3e87b3cf020d34fea784e87d590ce6e2",
+    "private_path": "artifacts/a1-feasibility-001/dataset-inventory-v1.2.json",
+    "sha256": "958cf48ee4a8f5e4b47b8bbd19c9dcb072b60e03bd17dfaaa952d2b86db1e8e6",
+    "opened_read_only": true,
+    "simulator_constructed": false,
+    "optimizer_updates": 0
+  },
+  "membership": {
+    "rule": "every demo under data; hdf5_filter_key is null and masks are recorded but not used",
+    "demo_count": 200,
+    "demo_ids": "demo_0 through demo_199, sorted numerically by the pinned loader",
+    "minimum_frames_per_demo": 36,
+    "median_frames_per_demo": 48,
+    "maximum_frames_per_demo": 64,
+    "total_frames": 9666,
+    "sequence_length": 10,
+    "pad_sequence_length": true,
+    "training_sequence_starts": 9666,
+    "sequence_starts_without_right_padding": 7866,
+    "masks": {
+      "20_percent": 40,
+      "20_percent_train": 36,
+      "20_percent_valid": 4,
+      "50_percent": 100,
+      "50_percent_train": 90,
+      "50_percent_valid": 10,
+      "train": 180,
+      "valid": 20
+    }
+  },
+  "selected_observations": {
+    "order_source": "prospectively frozen pilot configuration, not HDF5 group iteration order",
+    "raw_hdf5_dtype": "float64 for every selected key",
+    "learner_dtype": "must be proved as float32 by the executed first-batch witness",
+    "all_finite": true,
+    "keys_and_dimensions": [
+      {
+        "key": "object",
+        "dimension": 10
+      },
+      {
+        "key": "robot0_eef_pos",
+        "dimension": 3
+      },
+      {
+        "key": "robot0_eef_quat",
+        "dimension": 4
+      },
+      {
+        "key": "robot0_gripper_qpos",
+        "dimension": 2
+      }
+    ],
+    "rows_per_key": 9666,
+    "next_observations_complete": true
+  },
+  "actions": {
+    "raw_hdf5_dtype": "float64",
+    "pinned_cache_and_model_dtype": "float32",
+    "dimension": 7,
+    "rows": 9666,
+    "all_finite": true,
+    "minimum_per_coordinate": [
+      -1.0,
+      -0.5599999999999999,
+      -1.0,
+      -0.15065869688987732,
+      -1.0,
+      -0.5179753303527832,
+      -1.0
+    ],
+    "maximum_per_coordinate": [
+      1.0,
+      0.652,
+      1.0,
+      0.11863560229539871,
+      0.30509257316589355,
+      0.4782337248325348,
+      1.0
+    ],
+    "coordinate_interpretation": "the bound environment metadata configures six right-arm OSC_POSE delta coordinates followed by a GRIP coordinate; this interpretation is metadata, not an executed simulator finding",
+    "controller_input_bounds": [
+      -1.0,
+      1.0
+    ],
+    "controller_output_bounds_for_pose_coordinates": {
+      "minimum": [
+        -0.05,
+        -0.05,
+        -0.05,
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "maximum": [
+        0.05,
+        0.05,
+        0.05,
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "units": "not explicitly labelled in the HDF5 metadata",
+    "offline_clipping": "none in SequenceDataset or the BC training target path; controller-side behavior is not executed in this pilot"
+  },
+  "environment_metadata": {
+    "raw_sha256": "e9688927f5b09e576367cc69efd1545d29009ca3d8aa716943d596f421141cd0",
+    "env_name": "Lift",
+    "declared_env_version": "1.5.1",
+    "held_robosuite_version": "1.4.1",
+    "robot": "Panda",
+    "control_frequency_hz": 20,
+    "controller": "BASIC/right OSC_POSE, control_delta true, world input frame, GRIP gripper",
+    "rollouts_rendering_and_camera_observations": "disabled by the frozen pilot",
+    "simulator_compatibility": "not tested; the declared 1.5.1 generation does not match the held 1.4.1 package and successful offline loading must not be promoted to rollout compatibility"
+  },
+  "compatibility": {
+    "identity_and_custody": "supported by the preceding acquisition receipt",
+    "hdf5_structure_and_frozen_offline_contract": "supported: no deviations",
+    "normalization_statistics": "not yet executed in this inventory step",
+    "effective_normalized_training": "not yet executed",
+    "checkpoint_reloadability": "not yet executed",
+    "simulator_compatibility": "unresolved",
+    "policy_competence": "unresolved",
+    "task_repair": "unobserved",
+    "comparative_advantage": "unproven"
+  },
+  "costs": {
+    "inventory_outer_wall_seconds": 0.720754,
+    "inventory_nested_process_real_seconds": 0.69,
+    "inventory_process_user_cpu_seconds": 0.72,
+    "inventory_process_system_cpu_seconds": 1.1,
+    "inventory_maximum_resident_bytes": 85032960,
+    "inventory_peak_memory_footprint_bytes": 13927744,
+    "swaps": 0,
+    "nested_cost_rule": "the process real time is nested inside the outer command and is not added to it",
+    "unknown": [
+      "energy",
+      "unsampled memory peaks",
+      "active human effort"
+    ]
+  },
+  "controls_and_failures": {
+    "passing_control_command": "291cbb474430433ea3e6501be7f35896",
+    "passing_synthetic_tests": 2,
+    "failed_control_commands": [
+      {
+        "id": "1f57e72afca8499a91360ae15b273b55",
+        "reason": "formatting gate stopped before pytest; lint passed"
+      },
+      {
+        "id": "4899b57d951749b0a0af2705052c9ed2",
+        "reason": "test collection exposed a dataclass import precondition in the path-based control harness"
+      }
+    ],
+    "unrecorded_preinspection_failure": "a direct documentation check named the absent scripts/validate_docs.py and exited before validation; the corrected repository validator subsequently passed under command 82a75c26bb3d4fab8a6a68bb702f8937",
+    "dataset_opened_by_failed_controls": false,
+    "optimizer_updates_consumed": 0
+  },
+  "decision": "the accepted object is compatible with the prospectively frozen offline structure and membership contract; proceed to driver conformance and immutable configuration, while keeping simulator applicability unresolved"
+}

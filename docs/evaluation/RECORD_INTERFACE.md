@@ -118,9 +118,11 @@ From the execution lane's ablation questions, the adapter now reads:
 |---|---|
 | `plans[].role` in `reference`, `regression`, `candidate`, `probe`, `executed_prefix_context` | the run's role, taking precedence over digest equality, so a rollback candidate that shares the working deployment's digest is still a candidate under test; the plan's `candidate_sha256` must equal the run's |
 | `case.failure_obligation` (or `case.failure.obligation`) in `task`, `timing`, `progress`, `reset`, `constraints` | which declared obligation the registered failure violates; the regression premise and the reproduction fix are judged by it, so a timing regression that still completes the lift counts as reproduced and is fixed only when the timing obligation holds again |
-| `plans[].deployment` on the regression plan, or the regression run's `configuration.deployment` | the changed deployment; a candidate's components are every deployment field where it differs from the changed deployment, including delay, stride and reset fields |
+| `plans[].deployment` on the regression plan, or the regression run's `configuration.deployment` | the changed deployment; a candidate's components are every deployment field where it differs from the changed deployment, including delay, stride, reset and controller-target fields; a field one side omits takes its documented default (`controller_target` omitted means `restored`), so an explicit legacy value is not an edit and an omitted field cannot hide one |
 | `case.allowed_repair_scope` as deployment field names | the repair scope checked against those components; the legacy text scope maps to `repair_gripper_sign` |
 | `policy_state_sha256: null` per row, `policy_reset.before_sha256: null` | a declared measurement gap: `reset_evidence_incomplete`, never a cleared state and never a raw mismatch |
+| `confirmation.assignments[]` with `condition_id`, `reference_run_id`, `candidate_run_id` (optional) | each assignment's condition named by the producer, so an assignment whose runs never executed keeps its condition instead of an unknown placeholder |
+| `confirmation.cancellation` with `status: stopped_after_violation`, `violation.condition_id`, `cancelled_condition_ids` (optional) | a deliberate stop after an observed violation; unrun cancelled assignments are `assignment_cancelled` and the verdict stays `rejected`; unsupported cancellations are invalid ([study](results/confirmation-feasibility-001/README.md)) |
 
 ## Requests to the execution lane
 

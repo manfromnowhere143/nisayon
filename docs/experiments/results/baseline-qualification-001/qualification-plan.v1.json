@@ -1,0 +1,243 @@
+{
+  "schema": "nisayon.conventional-processor-qualification-plan.v1",
+  "id": "baseline-qualification-001",
+  "frozen_before_execution": true,
+  "status": "prospective_development_qualification",
+  "source_root": "artifacts/external-decision-001/source-capture",
+  "incident": {
+    "id": "lerobot-issue-4415",
+    "url": "https://github.com/huggingface/lerobot/issues/4415",
+    "model_repository": "lerobot/smolvla_base",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "code_repository": "huggingface/lerobot",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "working_changed_deployment_pair": null,
+    "robot_outcome": null
+  },
+  "sources": {
+    "preprocessor_config": {
+      "path": "model/new/policy_preprocessor.json",
+      "bytes": 1872,
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6"
+    },
+    "postprocessor_config": {
+      "path": "model/new/policy_postprocessor.json",
+      "bytes": 660,
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b"
+    },
+    "preprocessor_stats": {
+      "path": "model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8"
+    },
+    "postprocessor_stats": {
+      "path": "model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8"
+    },
+    "processor_source": {
+      "path": "coordinator/sources/normalize_processor.py",
+      "bytes": 25161,
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6"
+    }
+  },
+  "method": {
+    "description": "Parse and verify the retained pipeline JSON, safetensors container and pinned upstream source with standard-library code. Emulate the documented float32 MEAN_STD arithmetic directly. Compute each obligation from candidate contents and measured outputs. Do not import or call Nisayon's processor executor, witness generator, verdict functions or evaluation reference.",
+    "shared": [
+      "the retained upstream source, configuration and statistics bytes",
+      "the exposed non-vacuous numeric witnesses",
+      "the public exact-lookup, suffix-match and explicit-override remedies",
+      "generic Git, JSON and SHA-256 facilities"
+    ],
+    "independent": [
+      "safetensors parsing and statistics grouping",
+      "processor configuration inspection",
+      "float32 numeric transformation",
+      "candidate-to-obligation decision logic",
+      "qualification-control execution and result sealing"
+    ],
+    "separate_assessment": "After the diagnostic seals its own result, the existing processor reference may assess the incident observation. The diagnostic never calls it."
+  },
+  "witnesses": {
+    "state": [0.0, 40.0, 200.0, -20.0, 30.0, -10.0],
+    "action": [0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+    "visual": [0.0, 0.25, 0.5, 0.75, 1.0, -0.25]
+  },
+  "obligations": [
+    {
+      "id": "O1",
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "mode": "MEAN_STD",
+      "requirement": "Complete mean and standard-deviation statistics bound to one candidate-selected dataset produce a non-vacuous, numerically correct transform."
+    },
+    {
+      "id": "O2",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "mode": "MEAN_STD",
+      "requirement": "Complete mean and standard-deviation statistics bound to one candidate-selected dataset produce a non-vacuous, numerically correct transform."
+    },
+    {
+      "id": "O3",
+      "processor": "preprocessor",
+      "feature": "visual",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "requirement": "A configured visual IDENTITY feature remains unchanged and is treated as legitimate."
+    },
+    {
+      "id": "O4",
+      "processor": "both",
+      "feature": "dataset_binding",
+      "direction": "configuration",
+      "mode": "EXPLICIT",
+      "requirement": "The software candidate names one selector and its binding does not depend on statistics dictionary order. Deployment applicability separately requires provenance-bearing statistics and a recorded deployment selector."
+    }
+  ],
+  "incident_candidates": [
+    {
+      "id": "C0_as_is",
+      "evaluation_name": "as_is",
+      "method": "exact_artifact",
+      "selector": null,
+      "statistics": null,
+      "statistics_provenance": null,
+      "selector_evidence": null
+    },
+    {
+      "id": "C1_suffix_match",
+      "evaluation_name": "suffix_match",
+      "method": "suffix_artifact",
+      "selector": null,
+      "statistics": null,
+      "statistics_provenance": null,
+      "selector_evidence": null,
+      "statistics_orders": [
+        ["so100-blue.buffer.action", "so100-red.buffer.action", "so100.buffer.action"],
+        ["so100.buffer.action", "so100-red.buffer.action", "so100-blue.buffer.action"]
+      ]
+    },
+    {
+      "id": "C2_explicit_override",
+      "evaluation_name": "explicit_override",
+      "method": "explicit_override",
+      "selector": "so100",
+      "statistics": {
+        "action": {
+          "mean": [1.5959141254425049, 119.9442367553711, 109.769775390625, 56.70551300048828, -27.422693252563477, 12.002785682678223],
+          "std": [26.39177894592285, 52.41140365600586, 49.85380554199219, 36.9983024597168, 59.35995101928711, 19.039955139160156]
+        },
+        "observation.state": {
+          "mean": [1.56, 118.65, 110.85, 56.63, -27.28, 13.95],
+          "std": [26.15, 52.65, 49.38, 36.57, 58.9, 17.99]
+        }
+      },
+      "statistics_provenance": {
+        "action": "artifact",
+        "observation.state": "reporter_transcription"
+      },
+      "selector_evidence": {
+        "status": "missing_deployment_record",
+        "detail": "The candidate explicitly says so100, but no retained target-deployment configuration or invocation selects it."
+      }
+    }
+  ],
+  "constructed_controls": [
+    {
+      "id": "opaque-identifiers-and-order",
+      "purpose": "Changing opaque candidate identifiers and order while preserving contents must not change the content-derived decisions.",
+      "candidates": [
+        {
+          "id": "opaque-zeta",
+          "method": "explicit_override",
+          "selector": "control-dataset",
+          "statistics": {
+            "action": {"mean": [3.0, 3.0, 3.0, 3.0, 3.0, 3.0], "std": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]},
+            "observation.state": {"mean": [10.0, 10.0, 10.0, 10.0, 10.0, 10.0], "std": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0]}
+          },
+          "statistics_provenance": {"action": "synthetic_control", "observation.state": "synthetic_control"},
+          "selector_evidence": {"status": "constructed_control", "detail": "Labelled synthetic selector; no deployment claim."}
+        },
+        {
+          "id": "opaque-alpha",
+          "method": "suffix_artifact",
+          "selector": null,
+          "statistics": null,
+          "statistics_provenance": null,
+          "selector_evidence": null,
+          "statistics_orders": [
+            ["so100-blue.buffer.action", "so100-red.buffer.action", "so100.buffer.action"],
+            ["so100.buffer.action", "so100-red.buffer.action", "so100-blue.buffer.action"]
+          ]
+        },
+        {
+          "id": "opaque-mu",
+          "method": "exact_artifact",
+          "selector": null,
+          "statistics": null,
+          "statistics_provenance": null,
+          "selector_evidence": null
+        }
+      ],
+      "expected_outcomes": {
+        "opaque-zeta": "supported_software_correction",
+        "opaque-alpha": "rejected_candidate",
+        "opaque-mu": "rejected_candidate"
+      }
+    },
+    {
+      "id": "supported-statistic-made-incomplete",
+      "purpose": "Removing the state standard deviation from the candidate previously called C2 must prevent its fixed success label from surviving.",
+      "candidates": [
+        {
+          "id": "C2_explicit_override",
+          "method": "explicit_override",
+          "selector": "control-dataset",
+          "statistics": {
+            "action": {"mean": [3.0, 3.0, 3.0, 3.0, 3.0, 3.0], "std": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]},
+            "observation.state": {"mean": [10.0, 10.0, 10.0, 10.0, 10.0, 10.0]}
+          },
+          "statistics_provenance": {"action": "synthetic_control", "observation.state": "synthetic_control"},
+          "selector_evidence": {"status": "constructed_control", "detail": "Labelled synthetic selector; no deployment claim."}
+        }
+      ],
+      "expected_outcomes": {
+        "C2_explicit_override": "rejected_candidate"
+      }
+    },
+    {
+      "id": "complete-content-under-prior-failed-name",
+      "purpose": "A complete valid explicit configuration under the previously rejected C0 identifier must be supported, proving the rejection is not keyed to the name.",
+      "candidates": [
+        {
+          "id": "C0_as_is",
+          "method": "explicit_override",
+          "selector": "control-dataset",
+          "statistics": {
+            "action": {"mean": [3.0, 3.0, 3.0, 3.0, 3.0, 3.0], "std": [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]},
+            "observation.state": {"mean": [10.0, 10.0, 10.0, 10.0, 10.0, 10.0], "std": [2.0, 2.0, 2.0, 2.0, 2.0, 2.0]}
+          },
+          "statistics_provenance": {"action": "synthetic_control", "observation.state": "synthetic_control"},
+          "selector_evidence": {"status": "constructed_control", "detail": "Labelled synthetic selector; no deployment claim."}
+        }
+      ],
+      "expected_outcomes": {
+        "C0_as_is": "supported_software_correction"
+      }
+    }
+  ],
+  "qualification_rule": {
+    "pass": "Every constructed control returns its frozen expected outcome; decisions map to candidate contents after identifier/order changes; the useful explicit path and IDENTITY legitimacy pass; the incomplete and ambiguous paths do not receive support.",
+    "fail": "Any fixed success or rejection survives a content change that should overturn it, any candidate identifier determines the result, or the implementation imports/calls Nisayon processor execution or evaluation decision machinery.",
+    "meaning": "Passing qualifies this implementation for a future comparator role. It does not repair the old comparison or establish Nisayon value."
+  },
+  "cost_scope": {
+    "measured": ["outer command wall", "outer command process CPU", "per-candidate numeric CPU", "written bytes"],
+    "unknown": ["engineering effort", "provider charges", "energy", "network overhead", "unsampled peak memory"],
+    "parent_nested_rule": "Parent and nested meters are reported separately and never added."
+  },
+  "stopping_rule": "Execute the incident candidates and the three constructed controls once in declared order, seal every computed result, inspect the seal without execution, then stop. Do not reopen the prior comparison or substitute another incident."
+}

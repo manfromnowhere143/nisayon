@@ -1,0 +1,53 @@
+{
+  "schema": "nisayon.population-normalizer-selection.v1",
+  "case": "population-binding-001",
+  "recorded_at": "2026-09-20T19:31:00Z",
+  "revision": "1a1837f20538b7d7e21f977a11a5aee14f99803c",
+  "question": "What selects dataset statistics versus checkpoint statistics, and what concrete formula consumes them?",
+  "observed_training_path": {
+    "factory": "DatasetFactory.build calls generate_stats for each dataset path, constructs ShardedSingleStepDataset, and passes config.data.override_pretraining_statistics to ShardedMixtureDataset.",
+    "reader": "LeRobotEpisodeLoader.get_dataset_statistics slices the loaded meta/stats.json values into state/action joint groups without recomputing them.",
+    "mixture": "ShardedMixtureDataset.merge_statistics merges the dataset summaries and calls processor.set_statistics(global_stats, override=override_pretraining_statistics).",
+    "reduced_execution": "The retained AST-path observation executed those selected bodies with both override values and observed the same merged statistics at the processor boundary. It was not a full import or processor execution."
+  },
+  "source_evidence": [
+    {
+      "id": "EX02-dataset-factory",
+      "sha256": "ed5fb989d2ef66b9e21b0471d47959277e9aef6b6b16bffcbe5f7c7238dcc389"
+    },
+    {
+      "id": "EX03-episode-loader",
+      "sha256": "10eb986f35d298fc3e099f8891532a907978b34e0a2f88a9c62620c554d9726d"
+    },
+    {
+      "id": "EX05-mixture-selection-caller",
+      "sha256": "f452072c1191249adef45d98bf75239c792e019f4a088bc8dc09f10f7a7441a3"
+    },
+    {
+      "id": "EX06-base-processor-interface",
+      "sha256": "daa4c6c41e785abc549181153d870fd8d6cca70e3a5ebc43e51bc6b492fad864"
+    },
+    {
+      "id": "EX07-model-package-listing",
+      "sha256": "df7e7d443ef6bb8ab22f4a1c71ed17beb2b1744e9b206176cdaf65e03abde786"
+    }
+  ],
+  "findings": {
+    "dataset_statistics_reach_processor_boundary": "supported for the pinned training-dataset construction path",
+    "override_boolean_reaches_processor_boundary": "supported for both false and true in the reduced execution",
+    "override_precedence_inside_processor": "unresolved",
+    "inference_checkpoint_versus_dataset_precedence": "unresolved",
+    "normalization_formula": "unresolved",
+    "epsilon_or_constant_coordinate_rule": "unresolved",
+    "historical_author_intent": "unresolved"
+  },
+  "why_unresolved": "BaseProcessor.set_statistics is abstract. The bounded package listing names base, gr00t_n1d7 and modules directories but no concrete processor source. Evaluation concurrently guessed gr00t/model/gr00t_n1d7/processor.py and received a zero-byte 404. No concrete implementation was inspected.",
+  "decision_effect": "The scoped cache-generation invocation remains bound to the identified 379-episode parent summary and may reuse it. No normalization witness is computed, and no claim is made about training override semantics, inference selection, historical intent or deployment.",
+  "stopping_rule": "Execution stopped after the direct package listing failed to identify a concrete processor source. Once the concurrent duplicate acquisition and joint fourteen-of-twelve response overrun were discovered, both lanes stopped all further source/API requests.",
+  "limits": {
+    "full_upstream_import_executed": false,
+    "concrete_processor_executed": false,
+    "model_or_policy_executed": false,
+    "simulator_or_robot_executed": false
+  }
+}

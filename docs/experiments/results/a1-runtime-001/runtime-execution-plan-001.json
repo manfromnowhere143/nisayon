@@ -1,0 +1,283 @@
+{
+  "schema": "nisayon.a1-runtime.execution-plan.v1",
+  "case": "a1-runtime-001",
+  "frozen_at": "2026-09-21T17:30:09Z",
+  "frozen_before": "any simulator construction, physics step, replay attempt, policy action or development episode",
+  "status": "ready_for_bounded_compatibility_probe",
+  "source": {
+    "execution_commit": "3e24100d01574bd7806ddc046d0de3fe1e682996",
+    "executor": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "sha256": "fce01746402518aaea1e83c808d440771fe3924bc37c1c1dd1f4995a46d73288"
+    },
+    "monitor": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "sha256": "80e82bfa51d327ea7a8dbc48ec43914f3679dd710f2909b135b432a226f416d4"
+    },
+    "runtime_python": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+      "resolved_path": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12-macos-aarch64-none/bin/python3.12",
+      "version": "3.12.13"
+    }
+  },
+  "contracts": [
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.json",
+      "sha256": "8c8b6b1b351f135094abd995e1719e7db48dc55ed06d46ec19205e4f24b1f2ef"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.1.json",
+      "sha256": "5c79411e67ed4816f6f3d02de45aef7bf9042d8ff24aafb508b67d81e6d0eb16"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.2.json",
+      "sha256": "03314fff7d1c16b3ec5d3a267bdfc966369e5f931b3217d362e54fca4eb4da77"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.3.json",
+      "sha256": "cf91eb9232f4b3768fdbbbc521686da309a87728a5fed5a11f18e5dc2ad4e347"
+    }
+  ],
+  "inputs": {
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "checkpoint": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532"
+    },
+    "pilot_statistics": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/normalization-stats.npz",
+      "sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e"
+    },
+    "runtime_install_manifest": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-manifest-002.json",
+      "sha256": "761a633a67ea2041cce28b6af3e24e51cfe3da25291fad70e361ace49c4e3cd6"
+    },
+    "runtime_install_result": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-result-001.json",
+      "sha256": "7f9b11f022649fb0413d4110a7a2afbf131cc9a49c4ec73da0d358e1dd9dbd4d"
+    },
+    "runtime_install_receipt": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/install-receipt-001.json",
+      "sha256": "c27642d9e6f075a8b1bba06f5dd31685de858e31710a7db61172c690f34a8157"
+    }
+  },
+  "outputs": {
+    "durable_staging_root": "artifacts/a1-runtime-001/runtime-v1.3-execution-001",
+    "temporary_root": "artifacts/a1-runtime-001/runtime-v1.3-temporary-001",
+    "sealed_packet": "artifacts/a1-runtime-001/runtime-v1.3-packet-001",
+    "create_only": true,
+    "durable_cap_bytes": 16777216
+  },
+  "effective_environment": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "PYTHONHASHSEED": "0",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "WANDB_DISABLED": "true",
+    "WANDB_MODE": "disabled",
+    "rollouts": "only the named compatibility replay and development attempts; automatic rollouts disabled",
+    "rendering": false,
+    "video": false,
+    "remote_telemetry": false,
+    "gpu_selection": false
+  },
+  "limits": {
+    "process_tree_rss_bytes": 2147483648,
+    "process_cpu_seconds_per_command": 1800,
+    "temporary_bytes_per_command": 201326592,
+    "durable_packet_bytes": 16777216,
+    "free_disk_floor_bytes": 5368709120,
+    "sample_interval_seconds": 0.1,
+    "qualification_wall_seconds": 300,
+    "replay_wall_seconds_each": 600,
+    "development_wall_seconds": 1200,
+    "qualification_control_steps": 20,
+    "replay_control_steps_each": 59,
+    "development_control_steps_maximum": 4000,
+    "phase_control_steps_maximum": 4138,
+    "replay_attempts": 2,
+    "development_attempts": 10
+  },
+  "adapter": {
+    "make": "the dataset env_args plus only the six same-valued frozen flags; the BASIC/right OSC_POSE/gripper GRIP composite mapping is passed unchanged",
+    "observation": "object is copied from object-state; robot0_ keys other than *proprio-state are copied as arrays; the adapter performs no normalization",
+    "reset_to": "edit_model_xml; reset_from_xml_string; sim.reset; set_state_from_flattened; sim.forward",
+    "action": "the recorded replay float64 action or produced policy float32 action is passed to env.step unchanged; the adapter performs no clipping or scaling",
+    "termination": "is_done is always false; success is env._check_success; development stops on first success or step 400",
+    "controller_translation_evidence": [
+      "damping is derived from the constructed OSC as kd / (2 * sqrt(kp)); the dataset's legacy damping field is otherwise swallowed by the 1.5 signature",
+      "control_delta is witnessed by the constructed OSC input_type == delta",
+      "interpolation is witnessed by both constructed interpolators being null; ramp_ratio 0.2 is retained as configured but operationally inactive",
+      "GRIP is witnessed by the constructed right_gripper part-controller configuration and SimpleGripController class; its upstream name property misleadingly reports JOINT_VELOCITY and is retained separately"
+    ]
+  },
+  "operations": [
+    {
+      "order": 1,
+      "scope": "probe",
+      "simulator_construction": 1,
+      "control_steps": 20,
+      "policy_actions": 0,
+      "stopping_rule": "any construction, controller, observation, direction, timing, resource or Mink-absence failure stops before replay"
+    },
+    {
+      "order": 2,
+      "scope": "reset-sample-A",
+      "seed": 900,
+      "separate_process": true,
+      "control_steps": 0
+    },
+    {
+      "order": 3,
+      "scope": "reset-sample-B",
+      "seed": 900,
+      "separate_process": true,
+      "control_steps": 0
+    },
+    {
+      "order": 4,
+      "scope": "aggregate-reset",
+      "simulator": false,
+      "decision": "bitwise state and observation equality including shape and dtype"
+    },
+    {
+      "order": 5,
+      "scope": "replay-R-1",
+      "attempt": "R-1",
+      "control_steps": 59,
+      "policy_actions": 0
+    },
+    {
+      "order": 6,
+      "scope": "replay-R-2",
+      "attempt": "R-2",
+      "control_steps": 59,
+      "policy_actions": 0,
+      "rule": "runs regardless of R-1's outcome and is not a retry"
+    },
+    {
+      "order": 7,
+      "scope": "producer-gate",
+      "simulator": false,
+      "decision": "C2-C8 plus both completed bitwise-reproducible replays; C1 package/custody facts are bound separately",
+      "stopping_rule": "a false producer gate stops before development"
+    },
+    {
+      "order": 8,
+      "scope": "development",
+      "attempts": [
+        "E-200",
+        "E-201",
+        "E-202",
+        "E-203",
+        "E-204",
+        "E-205",
+        "E-206",
+        "E-207",
+        "E-208",
+        "E-209"
+      ],
+      "horizon": 400,
+      "policy_loaded_once": true,
+      "normalization": "checkpoint statistics equal the pilot archive by key, shape, dtype and bytes; network forward_step inputs are retained at steps 0, 1, 2 and the actual final step",
+      "stopping_rule": "one prescribed attempt per seed, no retry, no checkpoint selection or adjustment"
+    }
+  ],
+  "command_template": {
+    "outer": [
+      "uv",
+      "run",
+      "--frozen",
+      "nisayon",
+      "run",
+      "--label",
+      "<scope-label>",
+      "--timeout",
+      "<scope-wall-seconds>",
+      "--"
+    ],
+    "monitor": [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "scripts/experiments/monitor_a1_runtime.py",
+      "--scope",
+      "<scope>",
+      "--receipt",
+      "<durable-root>/commands/<scope>-monitor.json",
+      "--stdout",
+      "<durable-root>/commands/<scope>.stdout",
+      "--stderr",
+      "<durable-root>/commands/<scope>.stderr",
+      "--temporary-root",
+      "<temporary-root>/<scope>",
+      "--durable-root",
+      "<durable-root>",
+      "--",
+      "/usr/bin/time",
+      "-lp",
+      "<isolated-python>",
+      "scripts/experiments/run_a1_runtime.py",
+      "<mode-and-exact-inputs>"
+    ],
+    "expansion_rule": "replace placeholders only with the paths, scope, timeout, attempt, seed or input members frozen in this record; retain the expanded argv in the monitor and nisayon command receipts"
+  },
+  "preflight": {
+    "measured_at": "2026-09-21T17:29:51Z",
+    "free_disk_bytes": 12942962688,
+    "physical_memory_bytes": 17179869184,
+    "available_memory_bytes_point_sample": 2512125952,
+    "free_disk_floor_passed": true,
+    "historical_runtime_untouched": true,
+    "assigned_started_consumed": {
+      "replay": [
+        2,
+        0,
+        0
+      ],
+      "development": [
+        10,
+        0,
+        0
+      ]
+    }
+  },
+  "conformance": {
+    "tests": 35,
+    "command": "uv run --frozen pytest -q tests/engine/test_run_a1_runtime.py tests/engine/test_monitor_a1_runtime.py tests/evaluation/test_evaluation_a1_runtime_assessor.py tests/engine/test_a1_runtime_assessor_integration.py",
+    "result": "passed",
+    "ruff": "passed",
+    "format": "passed",
+    "simulator_constructed": false
+  },
+  "preserved_failure": {
+    "stage": "readiness identity command before this freeze",
+    "result": "shell exit 127 after the preceding help and sha256 operations succeeded",
+    "cause": "the final inline memory sampler invoked an unavailable unqualified `python` command instead of the project's frozen interpreter",
+    "effect": "no simulator, package, input or output was changed; the corrected frozen-interpreter measurement is the preflight above",
+    "tool_wall_seconds_for_combined_command": 0.5
+  },
+  "claims": {
+    "supported_now": [
+      "the producer interface and guards discriminate the named synthetic failure modes",
+      "the exact source, inputs, environment overrides, attempt assignments and limits are frozen"
+    ],
+    "not_yet_supported": [
+      "simulator construction",
+      "runtime compatibility",
+      "replay reproducibility or historical fidelity",
+      "inference normalization",
+      "policy competence",
+      "task repair",
+      "comparative value"
+    ]
+  },
+  "publication": "private; no push or publication authorized"
+}

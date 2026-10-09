@@ -1,0 +1,39 @@
+{
+  "schema": "nisayon.population-binding-record-interface.v2",
+  "status": "frozen_after_evaluation_contract_before_scored_execution",
+  "inherits": {
+    "path": "record-interface.v1.json",
+    "sha256": "4f053e4324b838b2dddcbcdfc3f167f8324a5ffcd1654e3095d81c561bcbec9b"
+  },
+  "change_reason": "The independently authored evaluation contract identified an enumerated parent population, a role omitted from the proposed v1 plan. No scored v1 producer output existed.",
+  "role_states": [
+    "current_population_summary",
+    "parent_population_summary",
+    "external_reference_normalizer",
+    "unresolved"
+  ],
+  "parent_population_fields": {
+    "enumeration": "Exact path, bytes, SHA-256, episode count and row count.",
+    "subset_membership": "Per-member identity and statistics agreement for every retained subset member.",
+    "extremes": "Exact per-coordinate parent min/max comparison.",
+    "moments": "Pooled mean/std comparison with named tolerance and arithmetic basis.",
+    "quantiles": "Not matched without raw parent rows; bracketed or not_comparable only.",
+    "intent": "Separate supported/rejected/unresolved status; population identity does not prove author intent."
+  },
+  "selection_scopes": [
+    "scoped_cache_generation_invocation",
+    "training_processor_precedence",
+    "inference_processor_precedence"
+  ],
+  "rule_change": "A bound parent population is reusable for the scoped invocation even when its moments differ from the retained subset. Recomputing the subset is rejected as a replacement unless a separate current-population obligation is established.",
+  "preserved": [
+    "All v1 source, arithmetic, process, cost and invalid/unresolved separation rules.",
+    "The v1 proposal and its timing.",
+    "Expected decisions stay outside producer inputs."
+  ],
+  "contract": {
+    "evaluation_delivery": "ece5d8e1687b35185db26f592a862df43f1ad78c",
+    "path": "docs/evaluation/results/population-binding-001/contract.v1.json",
+    "sha256": "c0fba03586e7b701301a328e5f0f74973bf5b015017e21325c1ea296e2c490e0"
+  }
+}

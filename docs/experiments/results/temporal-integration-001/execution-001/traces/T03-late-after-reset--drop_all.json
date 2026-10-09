@@ -1,0 +1,297 @@
+{
+  "schema": "nisayon.temporal-trace.v1",
+  "case_id": "T03-late-after-reset",
+  "schedule_sha256": "ab26b6a3566eaaa1e906d192aad831eb68853047f65cbc6f0e0b9f37104d52ba",
+  "source": {
+    "commit": "4f3468a0f27d9b4325c0d07f208c240eb65a0433",
+    "dependency_lock_sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+    "dependency_scope": "standard-library software executor; no learned or simulator runtime imported",
+    "files": {
+      "pyproject.toml": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822",
+      "src/nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "src/nisayon/engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "src/nisayon/engine/declarations.py": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+      "src/nisayon/engine/io.py": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "src/nisayon/engine/store.py": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "src/nisayon/engine/telemetry.py": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "src/nisayon/engine/temporal_clocks.py": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc",
+      "src/nisayon/engine/temporal_experiment.py": "0b74bb507723188d48961f7c5f642ade1483467a4c04debaf84e3d76248c9bd0",
+      "src/nisayon/engine/temporal_runtime.py": "3f39172971d2f8c9b9e5562a24f865fa7fcd43462f9b9abab8802124c3032c5e",
+      "src/nisayon/engine/temporal_store.py": "88154dedaeeec67cc8162b06029e53af3127e08a5191895c2cd59efc3ee58446",
+      "uv.lock": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    },
+    "interpreter": {
+      "implementation": "CPython",
+      "version": "3.12.13"
+    },
+    "kind": "constructed_control"
+  },
+  "clocks": {
+    "declared_mappings": [],
+    "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported.",
+    "names": [
+      "controller",
+      "sensor"
+    ]
+  },
+  "configuration": {
+    "aggregation": "latest_request_wins_same_step",
+    "chunk_length": 3,
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+    "control_period": 10000000,
+    "max_age": 50000000,
+    "policy_id": "scripted-policy-a",
+    "time_unit": "ns"
+  },
+  "assignment": {
+    "case_id": "T03-late-after-reset",
+    "id": "T03-late-after-reset--drop_all",
+    "remedy_id": "drop_all"
+  },
+  "remedy": {
+    "bind_configuration": true,
+    "bind_request": true,
+    "deadline_check": "dispatch",
+    "deduplicate": true,
+    "drop_all": true,
+    "fence_generation": true,
+    "id": "drop_all",
+    "ordered_overlap": true,
+    "reset_queue": true,
+    "role": "usefulness_failure_control"
+  },
+  "minimum_dispatches": 1,
+  "usefulness_contract": {
+    "basis": "frozen_case_dispatch_target",
+    "minimum_dispatches": 1,
+    "scope": "whole_case",
+    "dispatch_opportunities": [
+      {
+        "input_id": "T03-late-after-reset-input-07",
+        "at": {
+          "value": 7000000,
+          "clock": "controller",
+          "unit": "ns"
+        }
+      }
+    ],
+    "boundary": "Frozen suite v2 target. Do not silently substitute a per-generation periodic-grid threshold. Validity and acknowledgement remain separate."
+  },
+  "execution_status": "completed",
+  "events": [
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": null,
+      "kind": "episode_start",
+      "seq": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": "T03-late-after-reset-input-00",
+      "kind": "observation_acquired",
+      "obs_id": "o0",
+      "observed_by_driver_at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "seq": 1,
+      "step": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 1000000
+      },
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "generation": 0,
+      "input_id": "T03-late-after-reset-input-01",
+      "kind": "request_sent",
+      "obs_id": "o0",
+      "order": 0,
+      "req_id": "q0",
+      "seq": 2
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 2000000
+      },
+      "generation_from": 0,
+      "generation_to": 1,
+      "input_id": "T03-late-after-reset-input-02",
+      "kind": "reset_requested",
+      "seq": 3
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 2000000
+      },
+      "generation": 1,
+      "input_id": "T03-late-after-reset-input-02",
+      "kind": "reset_completed",
+      "queued_at_reset": [],
+      "queued_before_reset": [],
+      "seq": 4
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 3000000
+      },
+      "generation": 1,
+      "input_id": "T03-late-after-reset-input-03",
+      "kind": "observation_acquired",
+      "obs_id": "o1",
+      "observed_by_driver_at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 3000000
+      },
+      "seq": 5,
+      "step": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 4000000
+      },
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "generation": 1,
+      "input_id": "T03-late-after-reset-input-04",
+      "kind": "request_sent",
+      "obs_id": "o1",
+      "order": 1,
+      "req_id": "q1",
+      "seq": 6
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 5000000
+      },
+      "chunk_id": "c1",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "delivery_id": "T03-late-after-reset-delivery-05",
+      "first_step": 0,
+      "generation": 1,
+      "input_id": "T03-late-after-reset-input-05",
+      "kind": "response_arrived",
+      "ordinals": 1,
+      "req_id": "q1",
+      "resp_id": "r-c1",
+      "seq": 7,
+      "values_sha256": "41164c427f4cf681cc1b50eaf1a175e3574a1d015c6c90fbdaf77aea39d24086"
+    },
+    {
+      "admitted": [],
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 5000000
+      },
+      "chunk_id": "c1",
+      "decisions": [
+        {
+          "disposition": "skipped",
+          "ordinal": 0,
+          "reason": "drop_all_control"
+        }
+      ],
+      "delivery_id": "T03-late-after-reset-delivery-05",
+      "input_id": "T03-late-after-reset-input-05",
+      "kind": "queue_admitted",
+      "reason": "drop_all_control",
+      "replaced": [],
+      "seq": 8,
+      "skipped": [
+        0
+      ]
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 6000000
+      },
+      "chunk_id": "c0",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "delivery_id": "T03-late-after-reset-delivery-06",
+      "first_step": 0,
+      "generation": 0,
+      "input_id": "T03-late-after-reset-input-06",
+      "kind": "response_arrived",
+      "ordinals": 1,
+      "req_id": "q0",
+      "resp_id": "r-c0",
+      "seq": 9,
+      "values_sha256": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+    },
+    {
+      "admitted": [],
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 6000000
+      },
+      "chunk_id": "c0",
+      "decisions": [
+        {
+          "disposition": "skipped",
+          "ordinal": 0,
+          "reason": "drop_all_control"
+        }
+      ],
+      "delivery_id": "T03-late-after-reset-delivery-06",
+      "input_id": "T03-late-after-reset-input-06",
+      "kind": "queue_admitted",
+      "reason": "drop_all_control",
+      "replaced": [],
+      "seq": 10,
+      "skipped": [
+        0
+      ]
+    },
+    {
+      "action_id": null,
+      "age_guard": null,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 7000000
+      },
+      "chunk_id": null,
+      "generation": 1,
+      "input_id": "T03-late-after-reset-input-07",
+      "kind": "dispatch_refused",
+      "ordinal": null,
+      "reason": "empty_queue",
+      "seq": 11,
+      "step": 0
+    }
+  ],
+  "robot_task_outcome": "unmeasured",
+  "scope": "executed local software with constructed message inputs and scripted send returns"
+}

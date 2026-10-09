@@ -1,0 +1,253 @@
+{
+  "schema": "nisayon.a1-pilot.acquired-reference.v2",
+  "case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T11:07:23Z",
+  "computed_before": "any producer inspection, configuration freeze or optimizer update under the amendment (the execution lane's acquisition delivery names inspection as its next step)",
+  "acquired_object": {
+    "path": "nisayon-codex/artifacts/assets/lift/ph/low_dim_v15.hdf5 (read-only)",
+    "bytes": 21084088,
+    "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "equals_publisher_metadata": true,
+    "execution_delivery": "acquisition-delivery-v1.2.json: one GET, one redirect within the publisher, zero retries, 37.6 s, cumulative source bytes 42,669,373 of 67,108,864"
+  },
+  "data_contract": {
+    "demos": 200,
+    "frames_total": 9666,
+    "frames_per_demo_min_max": [
+      36,
+      64
+    ],
+    "masks": {
+      "20_percent": 40,
+      "20_percent_train": 36,
+      "20_percent_valid": 4,
+      "50_percent": 100,
+      "50_percent_train": 90,
+      "50_percent_valid": 10,
+      "train": 180,
+      "valid": 20
+    },
+    "observation_keys_expected": {
+      "object": 10,
+      "robot0_eef_pos": 3,
+      "robot0_eef_quat": 4,
+      "robot0_gripper_qpos": 2
+    },
+    "observation_dtype": "float64 in the file (robot0_eef_quat_site is float32 and unused)",
+    "extra_keys_present_unused": [
+      "robot0_eef_quat_site",
+      "robot0_gripper_qvel",
+      "robot0_joint_pos",
+      "robot0_joint_pos_cos",
+      "robot0_joint_pos_sin",
+      "robot0_joint_vel"
+    ],
+    "actions": {
+      "dim": 7,
+      "dtype": "float64",
+      "min": [
+        -1.0,
+        -0.5599999999999999,
+        -1.0,
+        -0.15065869688987732,
+        -1.0,
+        -0.5179753303527832,
+        -1.0
+      ],
+      "max": [
+        1.0,
+        0.652,
+        1.0,
+        0.11863560229539871,
+        0.30509257316589355,
+        0.4782337248325348,
+        1.0
+      ],
+      "measured_bounds": "every coordinate lies within the signed controller input bounds [-1, 1]; the per-coordinate minima and maxima above are the summary (coordinates 0, 2, 4 and 6 reach -1; coordinates 0, 2 and 6 reach +1)",
+      "all_within_signed_bounds_minus_one_to_one": true
+    },
+    "membership_under_the_contract": "hdf5_filter_key null selects all 200 demos and 9,666 frames as training and statistics population; the file's train mask (180) and valid mask (20) are recorded and unused",
+    "sequence_starts": "one padded length-10 sequence start per frame: 9,666"
+  },
+  "environment_metadata": {
+    "env_name": "Lift",
+    "env_version": "1.5.1",
+    "robots": [
+      "Panda"
+    ],
+    "control_freq": 20,
+    "controller_configs_format": "robosuite 1.5 composite: type BASIC with body_parts.right of type OSC_POSE (same gains and output limits as the held checkpoint's flat OSC_POSE config)",
+    "held_stack": "robosuite 1.4.1 has no body_parts concept and its controller_factory raises ValueError for an unknown type",
+    "pre_registered_claim_F": "simulator compatibility of this object with the locked robosuite 1.4.1 is negatively signalled statically: env_metadata carried into the checkpoint could not instantiate the environment without a controller-configuration translation or a simulator change, each needing its own prospective qualification; this does not affect the offline pilot, which creates no environment"
+  },
+  "statistics_reference": {
+    "population": "all 200 demos, 9,666 frames",
+    "exact_float64": {
+      "object": {
+        "mean": [
+          0.0018535434393939319,
+          -0.0008774198873527024,
+          0.8247395168758974,
+          -0.0014624780305109526,
+          -0.0012617949635907795,
+          0.6290934386027656,
+          0.020310923876941275,
+          0.024360157549962985,
+          0.0008735264463901859,
+          -0.06798832840563668
+        ],
+        "std": [
+          0.018080598262737144,
+          0.018170016613743113,
+          0.01314483853406936,
+          0.009854698178020316,
+          0.009230314251187345,
+          0.3183934227203651,
+          0.7101829470390897,
+          0.0411727857631232,
+          0.011947789787657356,
+          0.06904574782381266
+        ]
+      },
+      "robot0_eef_pos": {
+        "mean": [
+          -0.022506614110569055,
+          -0.0017509463337428881,
+          0.892727845281534
+        ],
+        "std": [
+          0.04177795730302501,
+          0.016686606629625095,
+          0.0660977811584223
+        ]
+      },
+      "robot0_eef_quat": {
+        "mean": [
+          0.9914203439931667,
+          0.013979081791170446,
+          0.04929474407014337,
+          3.060961896714746e-05
+        ],
+        "std": [
+          0.010631265423759112,
+          0.11646212835207524,
+          0.029004673189090734,
+          0.016867828495854713
+        ]
+      },
+      "robot0_gripper_qpos": {
+        "mean": [
+          0.03377682154420794,
+          -0.03406915272496244
+        ],
+        "std": [
+          0.008579149992686653,
+          0.008215933598377703
+        ]
+      }
+    },
+    "robomimic_float32_emulation": {
+      "object": {
+        "mean": [
+          0.0018535427516326308,
+          -0.0008774197194725275,
+          0.8247395753860474,
+          -0.0014624778414145112,
+          -0.001261795638129115,
+          0.629093587398529,
+          0.020310955122113228,
+          0.024360155686736107,
+          0.0008735263836570084,
+          -0.0679883286356926
+        ],
+        "std": [
+          0.018080598548208208,
+          0.018170016740984934,
+          0.01314483772474517,
+          0.009854698141170033,
+          0.009230314232154077,
+          0.3183934209252356,
+          0.7101829287724936,
+          0.041172785446951965,
+          0.011947789773371437,
+          0.06904574825878058
+        ]
+      },
+      "robot0_eef_pos": {
+        "mean": [
+          -0.022506626322865486,
+          -0.0017509463941678405,
+          0.8927278518676758
+        ],
+        "std": [
+          0.04177795691667257,
+          0.01668660679089749,
+          0.06609778019396122
+        ]
+      },
+      "robot0_eef_quat": {
+        "mean": [
+          0.9914202690124512,
+          0.013979081064462662,
+          0.049294739961624146,
+          3.0608764063799754e-05
+        ],
+        "std": [
+          0.01063127578131634,
+          0.11646212826486436,
+          0.0290046737077786,
+          0.016867828472250424
+        ]
+      },
+      "robot0_gripper_qpos": {
+        "mean": [
+          0.03377683460712433,
+          -0.034069161862134933
+        ],
+        "std": [
+          0.008579149726986205,
+          0.008215933776353514
+        ]
+      }
+    },
+    "emulation_versus_exact": {
+      "object": {
+        "status": "within",
+        "mean_max_rel": 1.5383432158242187e-06,
+        "std_max_rel": 6.1569732401067e-08
+      },
+      "robot0_eef_pos": {
+        "status": "within",
+        "mean_max_rel": 5.426092246066878e-07,
+        "std_max_rel": 1.459142899414706e-08
+      },
+      "robot0_eef_quat": {
+        "status": "within",
+        "mean_max_rel": 2.792923847313249e-05,
+        "std_max_rel": 9.742544105248326e-07
+      },
+      "robot0_gripper_qpos": {
+        "status": "within",
+        "mean_max_rel": 3.867420257520964e-07,
+        "std_max_rel": 3.097048635134535e-08
+      }
+    },
+    "use": "Q3: the checkpoint's obs_normalization_stats must equal the emulation within rtol 1e-5 (mean) and 1e-4 (std); a mismatch beyond that, or equality with statistics of a different population (for example the 180-demo train mask), is a finding",
+    "population_note": "the whole-file inventory (200 demos) equals the contract's training membership because hdf5_filter_key is null; the file's train mask (180 demos) and valid mask (20) do not enter these statistics; statistics are over episode frames (9,666), not over padded or overlapping length-10 sequence samples; the float32 emulation follows robomimic's per-trajectory reduction order and the exact float64 computation is kept separately; the frozen Q3 rule compares the checkpoint's statistics with the emulation at rtol 1e-5 (mean) and 1e-4 (std)"
+  },
+  "reference": {
+    "path": "src/nisayon/evaluation/robomimic_reference.py",
+    "sha256": "15d4ee5086ed9684df7d47f775c76006b24229b098d12e92a2c4aa534f44f1bd"
+  },
+  "cost": {
+    "process_cpu_seconds": 0.12450299999999981,
+    "outer_wall_seconds": 0.651836
+  },
+  "training_executed": false,
+  "simulator_created": false,
+  "supersedes": {
+    "path": "acquired-reference-001.json",
+    "sha256": "11a7e08ca86cca893cddab53554cc3aed6b54d8680b6d868829ffd5c907da3a1",
+    "change": "wording only: the action summary said 'all_within_unit_interval'; the measured bounds are signed, per coordinate, inside [-1, 1]; the field is renamed and the measured minimum and maximum are the summary; no statistic, membership, digest or expectation changes"
+  }
+}

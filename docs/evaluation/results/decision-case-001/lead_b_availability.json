@@ -1,0 +1,29 @@
+{
+  "schema": "nisayon.decision-case.lead.v1",
+  "lead": "B",
+  "upstream": "https://github.com/strands-labs/robots/issues/710",
+  "opened": "2026-06-26",
+  "status_seen": "closed",
+  "reported_failure": "Simulation.reset() did not flush the dataset recorder's episode buffer, so twenty requested episodes of sixty steps were recorded as one episode of 1,140 frames; the reporter's earlier diagnosis blamed the policy",
+  "source_check": {
+    "revision": "main b0eae8ec30b19fe1c4c1f7edc895b4c3432d37c7 (2026-09-19T14:04:15Z)",
+    "file": "strands_robots/simulation/mujoco/simulation.py",
+    "bytes": 466192,
+    "sha256": "1dd66518f230f155c1e335b1fb9c1b08bd4d10834e0b3d71059213fd1e57b4d7",
+    "observed": "reset() flushes the open recorder episode before mj_resetData; a failed flush returns an error instead of resetting into an undefined state (lines about 5656 to 5695)",
+    "license": "Apache-2.0 (LICENSE sha256 5df2a0d87d6c562f0ea11c688ac52532aa28d744cabc7994ff0537f64b3b3320)"
+  },
+  "decision_structure": {
+    "explanations": {"recorder failure": "episode boundaries lost at reset", "missing executions": "fewer rollouts ran than requested", "genuine policy failure": "the policy did not complete its episodes"},
+    "cheapest_conventional_check": "compare recorded episode count and frame count with the requested count (20 episodes, 60 steps): 1 episode and 1,140 frames identifies the recorder boundary failure without any policy analysis",
+    "published_remedy": "auto-flush on reset (in the baseline's own tooling at main)",
+    "nisayon_addition": "per-run execution receipts and reset events would show the same boundary failure; no additional decision follows"
+  },
+  "admission": "rejected",
+  "reasons": [
+    "the cheapest ordinary check (count recorded episodes against requested episodes) settles the diagnosis; both procedures reach the same decision for the same work",
+    "no executable reproduction within bounds: the pre-fix revision, the MolmoAct policy weights, the simulation world and the private run logs named in the issue are not available public artifacts, and the weight download is out of scope",
+    "the source-level fact retained here (flush before reset at main) is not a reproduction of the failure"
+  ],
+  "smallest_missing_artifact": "a public pre-fix run record (dataset meta/info.json with total_episodes and total_frames) or a runnable minimal world plus a scripted policy; neither is needed to see that the count check decides the case"
+}

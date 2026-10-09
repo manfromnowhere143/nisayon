@@ -129,6 +129,47 @@ def test_unexecuted_suite_assignments_are_consumed_from_their_frozen_evidence(tm
         )
 
 
+@pytest.mark.parametrize("index_mode", ["missing", "empty", "indexed"])
+@pytest.mark.parametrize("matches_namespace", [True, False])
+def test_discovery_keeps_index_identity_separate_from_evidence(
+    tmp_path, index_mode, matches_namespace
+):
+    namespace = "panda-lift:synthetic-policy"
+    policy = "synthetic-policy" if matches_namespace else "other-synthetic-policy"
+    source = tmp_path / "docs/experiments/results/synthetic/frozen-suite.json"
+    write_json(
+        source,
+        {
+            "schema": "nisayon.development.frozen-suite.v1",
+            "asset": {"sha256": policy},
+            "condition_seeds": {"synthetic-case": [900, 901]},
+        },
+    )
+    reference = {
+        "path": str(source.relative_to(tmp_path)),
+        "sha256": file_digest(source),
+        "schema": "nisayon.development.frozen-suite.v1",
+    }
+    index = tmp_path / HISTORY_PATH
+    if index_mode != "missing":
+        entries = (
+            [{"namespace": "panda-lift:" + policy, "seeds": [900], "evidence": reference}]
+            if index_mode == "indexed"
+            else []
+        )
+        write_json(index, {"schema": "nisayon.consumed-conditions.v1", "entries": entries})
+
+    result = consumed_history(tmp_path, namespace, required=index_mode != "missing")
+
+    assert result["path"] == (HISTORY_PATH if index_mode != "missing" else None)
+    assert result["sha256"] == (file_digest(index) if index_mode != "missing" else None)
+    assert result["seeds"] == ([900, 901] if matches_namespace else [])
+    assert result["evidence"] == ([reference] if matches_namespace else [])
+    assert result["discovered_unindexed_evidence"] == (
+        [reference] if matches_namespace and index_mode != "indexed" else []
+    )
+
+
 def test_missing_required_history_is_not_treated_as_no_prior_observations(tmp_path):
     with pytest.raises(ValueError, match="history is missing"):
         reserve_fresh(tmp_path, "synthetic", [1], "protocol", "invocation")

@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "efcc9db2cff74f69a2b5a20e170f4137",
+  "label": "temporal-integration-20260920-finite-readback-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json,time\nfrom pathlib import Path\nfrom nisayon.evaluation import evaluate_bundle\nfrom nisayon.engine.io import write_json\nout=Path(\"artifacts/engine-integration-001/temporal-integration-001\")\nrows=[]\nfor case,expected in ((\"D01-gripper-sign\",\"accepted\"),(\"D05-recurrent-carry\",\"rejected\")):\n root=Path(\"artifacts/development-ablation-001\")/case/\"A/confirmation/execution\"\n started=time.perf_counter()\n result=evaluate_bundle(root/\"bundle.json\",artifact_root=root)\n elapsed=time.perf_counter()-started\n write_json(out/(case+\"-evaluation.json\"),result)\n decision=result[\"decision\"]\n codes=result.get(\"reason_codes\",[])\n rows.append({\"case\":case,\"decision\":decision,\"reason_codes\":codes,\"evaluation_wall_s\":elapsed})\n assert decision==expected,(case,decision)\n if case.startswith(\"D05\"): assert \"progress_lost\" in codes,codes\nreport={\"records\":rows,\"new_simulator_executions\":0,\"scope\":\"Read-only integrated evaluator on original actual stores; original decisions unchanged\"}\nwrite_json(out/\"finite-readback.json\",report)\nprint(json.dumps(report,indent=2))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T09:44:52.297530+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "037561b7bf961a57da6f3323f970522b9a5e4cd3",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 22150,
+  "returncode": 1,
+  "ended_at": "2026-09-20T09:45:13.643523+00:00",
+  "wall_seconds": 21.263509,
+  "logs": {
+    "stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.log": {
+      "bytes": 94,
+      "sha256": "4bb2dcd6f5e1364764a8547f4b285da0078dd1ba5ec672244d5024519384faf8"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

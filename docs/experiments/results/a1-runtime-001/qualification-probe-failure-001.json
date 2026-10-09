@@ -1,0 +1,254 @@
+{
+  "schema": "nisayon.a1-runtime.qualification-probe-failure.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T17:42:24Z",
+  "status": "stopped_awaiting_prospective_evaluator_amendment",
+  "contract_chain": [
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.json",
+      "sha256": "8c8b6b1b351f135094abd995e1719e7db48dc55ed06d46ec19205e4f24b1f2ef"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.1.json",
+      "sha256": "5c79411e67ed4816f6f3d02de45aef7bf9042d8ff24aafb508b67d81e6d0eb16"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.2.json",
+      "sha256": "03314fff7d1c16b3ec5d3a267bdfc966369e5f931b3217d362e54fca4eb4da77"
+    },
+    {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.3.json",
+      "sha256": "cf91eb9232f4b3768fdbbbc521686da309a87728a5fed5a11f18e5dc2ad4e347"
+    }
+  ],
+  "producer_plan": [
+    {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-execution-plan-001.json",
+      "sha256": "b54d8529b47bf952e1d05dd109577b3b66256c215536210d4f45d1803775fd3e"
+    },
+    {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-execution-plan-amendment-001.json",
+      "sha256": "a7173b2afbc6e9b3df69c9aa69b9ad9d8ed56712bb3bd47eb68da63a0ae32d2b"
+    }
+  ],
+  "execution": {
+    "source_commit": "d1a82477955c7df72c3ad9b91cc17e00e55cea20",
+    "run_id": "a0028c7bf2f548ea97539cd9ba150e40",
+    "label": "a1-runtime-probe-001",
+    "run_record": {
+      "path": ".nisayon/runs/a0028c7bf2f548ea97539cd9ba150e40/run.json",
+      "sha256": "b185e6b2b09822e0d95ddfb21c8bcc0da17157a7fcf2e24c01ecd21c2be934e3"
+    },
+    "command": [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "scripts/experiments/monitor_a1_runtime.py",
+      "--scope",
+      "probe",
+      "--receipt",
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe-monitor.json",
+      "--stdout",
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe.stdout",
+      "--stderr",
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe.stderr",
+      "--temporary-root",
+      "artifacts/a1-runtime-001/runtime-v1.3-temporary-001/probe",
+      "--durable-root",
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001",
+      "--",
+      "/usr/bin/time",
+      "-lp",
+      "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+      "-B",
+      "scripts/experiments/run_a1_runtime.py",
+      "probe",
+      "--output",
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001/probe",
+      "--dataset",
+      "artifacts/assets/lift/ph/low_dim_v15.hdf5"
+    ],
+    "started_at": "2026-09-21T17:37:05.734866+00:00",
+    "ended_at": "2026-09-21T17:37:09.804874+00:00",
+    "returncode": 70,
+    "process_status": "nonzero",
+    "scientific_status": "not_assessed"
+  },
+  "retained_evidence": {
+    "monitor": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe-monitor.json",
+      "sha256": "cffcdbeb41126ad9cc432c2e709a977aa93b26c3f691666a7c9f811cd24c327e"
+    },
+    "child_stdout": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "child_stderr": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-execution-001/commands/probe.stderr",
+      "sha256": "bb3a2fb29a31af76f190e18377e15828ab2ded551a0bf9315b39f0e4d3277da3"
+    },
+    "failure": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-execution-001/probe/failure-command-probe-001.json",
+      "sha256": "47245108ae973f8071e3a31348ff9c73396cd591f16f484c7d256be4e3f8b9e1"
+    },
+    "outer_stdout": {
+      "path": ".nisayon/runs/a0028c7bf2f548ea97539cd9ba150e40/stdout.log",
+      "sha256": "9495be0c1d2417ddd4745a1dbc1c55d48d377453b601b7471f9748fa23aab63c"
+    },
+    "outer_stderr": {
+      "path": ".nisayon/runs/a0028c7bf2f548ea97539cd9ba150e40/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "failure": {
+    "observed_message": "runtime observation lacks object-state",
+    "stage": "after robosuite.make returned and the explicit probe reset returned; before the first env.step call",
+    "mechanism": "RuntimeAdapter.reset had already renamed the raw robosuite object-state key to the policy-facing object key. The probe then applied the raw-observation selector a second time and incorrectly required object-state.",
+    "classification": "producer_software_correctness_failure",
+    "runtime_compatibility_disposition": "unresolved",
+    "why_not_runtime_failure": "the traceback reaches policy_observation on the adapter's returned mapping; the missing key is the producer's own completed rename, not evidence that robosuite omitted the raw object-state value",
+    "why_not_compatibility_evidence": "the invocation did not execute the frozen 20-step controller and timing probe or either separate-process determinism witness"
+  },
+  "operations": {
+    "robosuite_make_invocations": 1,
+    "explicit_probe_reset_invocations": 1,
+    "control_steps": 0,
+    "physics_substeps": 0,
+    "policy_actions": 0,
+    "replay": {
+      "assigned": 2,
+      "started": 0,
+      "consumed": 0
+    },
+    "development": {
+      "assigned": 10,
+      "started": 0,
+      "consumed": 0
+    },
+    "network_responses": 0,
+    "optimizer_updates": 0
+  },
+  "measured_cost": {
+    "outer_wall_seconds": 3.987665,
+    "command_real_seconds": 3.86,
+    "command_user_seconds": 3.48,
+    "command_sys_seconds": 0.83,
+    "maximum_rss_bytes_by_time": 695156736,
+    "peak_sampled_process_tree_rss_bytes": 692535296,
+    "maximum_sampled_process_tree_cpu_seconds": 4.211711684,
+    "monitor_samples": 35,
+    "sample_interval_seconds": 0.1,
+    "temporary_bytes_retained": 0,
+    "durable_bytes_after_monitor_receipt": 15834,
+    "free_disk_bytes_before": 12941524992,
+    "minimum_free_disk_bytes_observed": 12940406784,
+    "resource_guard_violations": [],
+    "terminated_by_monitor": false,
+    "unknown": [
+      "active engineering effort",
+      "energy",
+      "instantaneous memory peaks between 0.1-second samples",
+      "external charges; no network, cloud or paid compute was used"
+    ],
+    "non_addition_rule": "the command real, sampled CPU and child timings are views inside the outer 3.987665-second wall and are not added to it"
+  },
+  "runtime_tree_side_effect": {
+    "before": {
+      "files": 24305,
+      "logical_bytes": 1392059860,
+      "sha256": "1ee0fe4641abebdc8b7618269b6481d9544f0ad636febbc6aa221007bc56d4d7"
+    },
+    "after": {
+      "files": 24307,
+      "logical_bytes": 1392171663,
+      "sha256": "6c316d0267919f5fb336197d499b37234ef2829092497abb8eca64434278f9e6"
+    },
+    "added": [
+      {
+        "path": "lib/python3.12/site-packages/robosuite/utils/__pycache__/transform_utils.mat2quat-316.py312.1.nbc",
+        "bytes": 111214,
+        "sha256": "9d333e0ce919040cecba1622504a28f8f8f3b01e505445deff7498672de6727d"
+      },
+      {
+        "path": "lib/python3.12/site-packages/robosuite/utils/__pycache__/transform_utils.mat2quat-316.py312.nbi",
+        "bytes": 589,
+        "sha256": "9e97f46351a5222f2cc1d3b73437e98001f923589f54d82801818e97870944f0"
+      }
+    ],
+    "cause": "Numba's cache=True transform compilation is outside Python's bytecode -B control",
+    "proof": "excluding exactly the two added Numba cache files reproduces the complete before identity",
+    "disposition": "retained as measured execution evidence; not deleted",
+    "current_environment_and_wheel_logical_bytes": 1544183073,
+    "cap_bytes": 1610612736,
+    "headroom_bytes": 66429663,
+    "historical_environment_after": {
+      "files": 28817,
+      "logical_bytes": 1682480783,
+      "sha256": "e74d6f8a32610d1772bab2e3e2879434e45f26fc0908113ebbd2b9a408417dc4",
+      "unchanged": true
+    }
+  },
+  "correction": {
+    "observation_boundary_commit": "d5273f5bd7cfd756814bffe057501549a69a866e",
+    "observation_boundary": "policy_observation now accepts either raw object-state or already-adapted object, preserves shape and float64 checks, and fails closed when both keys exist but differ",
+    "cache_containment_commit": "cef2a44635f018a0f321e91adfbbe0b04e3e9a93",
+    "cache_containment": "the monitor now binds NUMBA_CACHE_DIR to the measured per-command temporary root; PYTHONDONTWRITEBYTECODE and Python -B remain active",
+    "executor": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "sha256": "d759af84625ad59d81523767580038d7271fda54f51db161ff58bb6580b96eb3"
+    },
+    "monitor": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "sha256": "449d0cbddd2ec6f2a0b55aa1923eadde1dd2a34e8779382cd30f760057884213"
+    },
+    "validation": {
+      "tests": 37,
+      "command": "uv run --frozen pytest -q tests/engine/test_run_a1_runtime.py tests/engine/test_monitor_a1_runtime.py tests/evaluation/test_evaluation_a1_runtime_assessor.py tests/engine/test_a1_runtime_assessor_integration.py",
+      "result": "passed",
+      "ruff": "passed",
+      "format": "passed",
+      "simulator_constructed_during_validation": false
+    }
+  },
+  "requested_prospective_amendment": {
+    "owner": "independent evaluation lane",
+    "reason": "the original qualification reset ceiling was three; silently rerunning would make the failed reset disappear from cumulative accounting or exceed that frozen ceiling",
+    "authorization_requested": "one replacement qualification-probe invocation after the retained producer correction, with one additional qualification-only construction and explicit reset allowance",
+    "cumulative_qualification_reset_ceiling": 4,
+    "cumulative_phase_reset_ceiling": 16,
+    "qualification_control_step_ceiling": 20,
+    "phase_control_step_ceiling": 4138,
+    "phase_physics_substep_ceiling": 103450,
+    "unchanged": [
+      "all C1-C9 criteria, numerical thresholds and stop rules",
+      "seed 900 and the two separate-process C7 reset witnesses",
+      "R-1 and R-2 assignments, reset counts, action sequences and no-retry rule",
+      "E-200 through E-209 assignments, horizon, reset counts and 8-of-10 competence rule",
+      "zero probe policy actions",
+      "all wall, CPU, RSS, temporary, durable and disk limits",
+      "all prohibitions and publication boundaries"
+    ],
+    "retention_rule": "the failed invocation, reset, costs, runtime-tree side effect and every original file remain before-evidence and cannot count toward compatibility",
+    "output_rule": "the replacement uses new create-only command, temporary and probe paths; no original file is overwritten",
+    "stop_rule": "do not execute the replacement until a named committed evaluator amendment and digest are verified"
+  },
+  "claims": {
+    "supported": [
+      "the first invocation failed on a producer observation-boundary error after construction and an explicit reset but before any control step",
+      "the corrected selector and Numba-cache containment pass the 37 focused producer-and-assessor controls",
+      "no replay or development attempt slot was started or consumed"
+    ],
+    "unresolved": [
+      "runtime compatibility C1-C9",
+      "reset determinism",
+      "fixed-action replay reproducibility and historical fidelity",
+      "checkpoint inference and competence",
+      "task success",
+      "confirmed repair",
+      "comparative value"
+    ]
+  },
+  "next_action": "Obtain and integrate the independent evaluator's narrow prospective amendment. Then repeat only the corrected qualification probe on new create-only paths under the unchanged resource guards.",
+  "publication": "private; no push or publication authorized"
+}

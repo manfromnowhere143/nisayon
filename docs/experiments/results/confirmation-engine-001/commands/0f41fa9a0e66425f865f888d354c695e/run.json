@@ -1,0 +1,49 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "0f41fa9a0e66425f865f888d354c695e",
+  "label": "confirmation-engine-20260919-final-record-check",
+  "command": [
+    "python",
+    "-c",
+    "import gzip,json,subprocess\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest\nout=Path('docs/experiments/results/confirmation-engine-001')\nmanifest=json.loads((out/'retained-output-manifest.json').read_text())\nfor item in manifest['outputs']:\n assert file_digest(out/item['path'])==item['sha256'],item['path']\n if item.get('uncompressed_sha256'):\n  import hashlib\n  assert hashlib.sha256(gzip.decompress((out/item['path']).read_bytes())).hexdigest()==item['uncompressed_sha256']\nassert not subprocess.check_output(['git','diff','--name-only','db9eae2','--','src','tests','scripts','pyproject.toml','uv.lock','Makefile']).strip()\nfor row in subprocess.check_output(['git','log','14e7805..HEAD','--format=%an|%ae|%cn|%ce'],text=True).splitlines():\n assert row=='Daniel Wahnich|cogitoergosum143@gmail.com|Daniel Wahnich|cogitoergosum143@gmail.com',row\nmessages=subprocess.check_output(['git','log','14e7805..HEAD','--format=%B'],text=True).lower()\nassert 'co-authored-by:' not in messages and 'generated-by:' not in messages\nprint({'retained_outputs_verified':len(manifest['outputs']),'application_unchanged_from_full_check':True,'attribution_verified':True})\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:55:34.280535+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "db9eae282d0e62ca097df002ddb33f1c404565ee",
+    "changes": [
+      "M docs/SESSION_HANDOFF.md",
+      " M docs/experiments/results/confirmation-engine-001/README.md",
+      " M work/lanes/codex.md",
+      "?? docs/experiments/results/confirmation-engine-001/full-check-001.json",
+      "?? docs/experiments/results/confirmation-engine-001/validation.json",
+      "?? memory/checkpoints/5994623b7c1e47769d0d18c6e67d68d8.json",
+      "?? memory/notes/88524985ad1849939847eb8d9be78b40.json",
+      "?? work/continuations/confirmation-engine-2026-09-19.json"
+    ],
+    "diff_stat": "docs/SESSION_HANDOFF.md                            | 126 ++++++++++-----------\n .../results/confirmation-engine-001/README.md      |  25 +++-\n work/lanes/codex.md                                |  29 +++++\n 3 files changed, 112 insertions(+), 68 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 29466,
+  "returncode": 0,
+  "ended_at": "2026-09-19T19:55:34.413824+00:00",
+  "wall_seconds": 0.072445,
+  "logs": {
+    "stdout.log": {
+      "bytes": 111,
+      "sha256": "0a85e2a4b6f46d86ce6becc6b5e6ff7dc6d113f5840b8c2b4028d9c9d61283a7"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

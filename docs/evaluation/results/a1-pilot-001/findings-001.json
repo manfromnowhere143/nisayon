@@ -1,0 +1,31 @@
+{
+  "schema": "nisayon.a1-pilot.findings.v1",
+  "case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T10:25:34Z",
+  "findings": [
+    {
+      "id": "finding-001",
+      "code": "training_normalization_rejects_batched_inputs",
+      "witness": "normalization-batch-control-001.json (9037c020) and statistics-reference-control-001.json (3852e5e9)",
+      "observed": "ObsUtils.normalize_obs accepts only inputs whose shape equals the statistics shape (1, D) or drops its leading dimension; SequenceDataset.get_item therefore fails for sequence items (seq_length 10: 'shape mismatch in @normalize obs' at dataset construction in cache mode all) and postprocess_batch_for_training fails for every BC-RNN batch (sizes 100, 2, 1) and any non-sequence batch larger than one",
+      "consequence": "hdf5_normalize_obs true cannot train the BC-RNN family on the pinned implementation; failure precedes the first optimizer update"
+    },
+    {
+      "id": "finding-002",
+      "code": "training_normalization_applied_twice",
+      "witness": "statistics-reference-control-001.json: with seq_length 1 and batch size 1, where the shape checks pass, the dataset item equals a single normalization and the learner input after postprocess_batch_for_training equals a double normalization ((x-mean)/std normalized again) and not the single one",
+      "consequence": "even where finding-001 does not bite, the pinned training loop normalizes items in get_item and again in postprocess_batch_for_training because train.py passes the statistics to run_epoch; a corrected pilot must apply the transformation exactly once and prove it at batch level"
+    },
+    {
+      "id": "note-001",
+      "code": "constant_coordinate_std",
+      "witness": "statistics-reference-control-001.json",
+      "observed": "a coordinate constant at 0.04 in float64 yields a float32 std of 0.001000013, not exactly the 1e-3 offset, because the float32 trajectory mean of identical values is not exact under pairwise summation; the reference emulation reproduces robomimic's statistics bit for bit on all keys and agrees with the exact float64 computation within 6.3e-7 relative on means and 1.3e-5 on that constant coordinate's std"
+    }
+  ],
+  "reference": {
+    "module": "src/nisayon/evaluation/robomimic_reference.py",
+    "identity": "see module_identity at assessment time",
+    "controls_executed_without_dataset_or_updates": true
+  }
+}

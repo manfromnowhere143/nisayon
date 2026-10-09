@@ -1,0 +1,230 @@
+{
+  "schema": "nisayon.normalizer-execution-integration-readback.v1",
+  "case": "normalizer-execution-001",
+  "recorded_at": "2026-09-21T05:57:50Z",
+  "mission_status": "complete_bounded_numerical_software_investigation",
+  "tested_integrated_source": "8b22b0c0d784fdab7f8f3f193a065e682314dafa",
+  "application_commits": {
+    "execution_plan_and_interface": "5014b127cdb96adddde0b66c9d412ac4c5376ebe",
+    "reduced_execution_path": "502b481e17c1f9d9eb2e5cfac3a955a2fdd3aa9e",
+    "evaluation_contract": "f289540cc067e7250cfb4dc8859eba2753e9c6d0",
+    "evaluation_application": "34fbb0f1ad538735fbff01e87002cc5a223c9e39",
+    "evaluation_named_delivery": "a4b153d3cd4942358f9c70cb1f0d61b55ece5cf0",
+    "evaluation_delivery_merge": "b3d98673111c46b2672fcf8cc5db29592659d3cb",
+    "final_producer_source": "4d208a8d4519c12325ebcefcf06223b39347388d",
+    "producer_readback": "c1ededc409e31ec76a9f6b6444aeda80c6bb7bcc",
+    "independent_assessment": "0513df080a35e71e4b4e05aa4d80fa77535b0e0c",
+    "assessment_merge": "d65c1f5546145048657910aec0cc4e851ef4331a",
+    "validation_accounting_correction": "8b22b0c0d784fdab7f8f3f193a065e682314dafa"
+  },
+  "case_chain": {
+    "case_v1_sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2",
+    "control_amendment_sha256": "e4138992a56a81fb4fde4c7b6cac651a3cb0279e5dd4197f0604643c44cf4080",
+    "evaluation_contract_v1_1_sha256": "49e842e373b9540fa7268cf432b0802ce8fa5987fb344a151595ffdafb7a7b04",
+    "producer_id": "producer-004",
+    "producer_seal_sha256": "c5c45397301a0f5c75aa4b0dfa0989a9f251b28199137564b81d1a3407b9af20",
+    "producer_summary_sha256": "96469d6d66952f9e993f72cee33da0f6b49d7cf4f1c53f48d0ef3e9e377d7b75"
+  },
+  "effective_selection": {
+    "upstream_revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c",
+    "embodiment": "libero_sim",
+    "groups": [
+      "x",
+      "y",
+      "z",
+      "roll",
+      "pitch",
+      "yaw",
+      "gripper"
+    ],
+    "state_mode": "minmax for every group",
+    "action_mode": "minmax for every group",
+    "meanstd_groups": [],
+    "sincos_groups": [],
+    "relative_action": false,
+    "selector": "the modality configuration keys select the mode; the outer use_mean_std field is not read by the retained numerical path",
+    "statistics_authority": "the nested StateActionProcessor statistics are active and are serialized; the outer mirror is not numerical authority",
+    "override_false": "the nested state keeps constructor statistics while the outer mirror takes the later candidate",
+    "override_true": "the nested state and outer mirror take the candidate"
+  },
+  "execution_boundary": {
+    "kind": "model_free_reduced_import",
+    "executed": "unchanged numerical utility bodies, the complete StateActionProcessor and exact Gr00tN1d7Processor set_statistics/save_pretrained/from_pretrained methods",
+    "substituted": "the model-free constructor shell, unused relative-action types and a remote-cache function that always refuses",
+    "omitted": "VLM/tokenizer construction, image transforms, data collator, learned model/policy and relative-pose conversion",
+    "network": "denied before transport",
+    "full_upstream_import_claimed": false
+  },
+  "numerical_behavior": {
+    "dtype": "float32 on the retained invocation",
+    "minmax_constant_rule": "coordinates satisfying numpy.isclose(max, min) map to zero; the separately computed 1e-8 range floor is not used",
+    "meanstd_zero_rule": "zero-standard-deviation coordinates pass through raw; every nonzero standard deviation is divided, including values that overflow float32",
+    "clipping": "actions clip in min/max and mean/std modes; states clip in min/max only",
+    "selected_rows": 43,
+    "all_rows_coverage": 1406,
+    "real_output_groups_compared": 14,
+    "real_outputs_match_independent_reference_at_0_ulp": true,
+    "outside_parent_minmax_values": 0,
+    "outside_parent_q01_q99_values": 539
+  },
+  "software_decision": {
+    "keep_parent": {
+      "operation": "keep_existing",
+      "status": "supported",
+      "selection_procedure": "supported",
+      "effective_map_binding": "supported",
+      "persistence": "supported",
+      "nested_and_reloaded_outputs_exact": true
+    },
+    "replace_with_five_episode_moments": {
+      "operation": "replace_with_candidate",
+      "status": "rejected",
+      "selection_procedure": "supported",
+      "effective_map_binding": "rejected",
+      "persistence": "supported",
+      "assessed_witness": {
+        "group": "state.x",
+        "row": 0,
+        "candidate_output": 0.218774676322937,
+        "parent_obligation_output": 0.23911917209625244
+      }
+    },
+    "normalizer_correction": "none proposed; no upstream defect is shown"
+  },
+  "controls": {
+    "producer_runs": 23,
+    "producer_status_counts": {
+      "supported": 14,
+      "rejected": 2,
+      "invalid": 4,
+      "unresolved": 2,
+      "observed": 1
+    },
+    "assessment": "13 executed controls were rebuilt at 0 ULP; the others are three real-run aliases, executed invalid cases including NX5d, two binding abstentions and one domain property",
+    "useful_acceptance": 12,
+    "false_acceptance": 0,
+    "false_refusal": 0,
+    "unjustified_replacement": 0,
+    "unjustified_reuse": 0,
+    "instantiation_differences": 2,
+    "record_gaps": 3,
+    "effect_of_differences_and_gaps": "named by the assessment; none changes a real decision or produces a false acceptance/refusal"
+  },
+  "independent_assessment": {
+    "delivery": "0513df080a35e71e4b4e05aa4d80fa77535b0e0c",
+    "readback": "docs/evaluation/results/normalizer-execution-001/assessment-readback-001.json",
+    "store_assessment_command": "434a2f82e57c4e6bb78b621b77fe256d",
+    "real_decisions_agree": true,
+    "real_arrays_match_0_ulp": true,
+    "nested_outer_rule_agrees": true,
+    "save_reload_agrees": true,
+    "finding": "none substantive"
+  },
+  "conventional_comparator": {
+    "implementation": "separately authored float64 transcription that computes its own decisions and imports no execution verdict function",
+    "shared_dependencies": [
+      "nisayon.evaluation.parquet_reader for rows",
+      "nisayon.evaluation.schema.load_json",
+      "numpy 1.26.4 elementwise arithmetic"
+    ],
+    "real_keep": "supported; agrees",
+    "real_replace": "rejected; agrees",
+    "control_agreement": "25 of 26 independently evaluated control cases",
+    "divergence": "NX5d is falsely accepted because float64 remains finite where the executed float32 state output is -Infinity",
+    "real_case_outcome": "parity",
+    "comparative_advantage": "not established for valid confirmed repairs; only a constructed dtype-boundary diagnostic advantage is observed"
+  },
+  "scope_classification": {
+    "software_correctness": "supported for the retained reduced-execution boundary and independently reproduced",
+    "deployment_applicability": "unresolved",
+    "comparative_value": "real-case parity; no demonstrated advantage in obtaining a valid confirmed repair",
+    "confirmed_software_correction": false,
+    "robot_task_outcome": "unmeasured"
+  },
+  "engineer_enablement": "An engineer can now bind a proposed normalizer change to pinned source/configuration, active nested statistics, actual float32 arrays and exact saved/reloaded state, then accept keep or reject replacement without loading the learned model. The regression also exposes non-finite float32 behavior hidden by a float64-only transcription.",
+  "failures_preserved": [
+    {
+      "kind": "preparation_read_failures",
+      "record": "/Users/danielwahnich/.codex/reports/nisayon-normalizer-execution-mission-2026-09-21-ur7b2y3d/READBACK.json",
+      "result": "one dependent read exited 2 and one guessed-module read exited 1; both were read-only and later resolved"
+    },
+    {
+      "kind": "startup_scope_failure",
+      "record": "phase-start.json",
+      "result": "the first start ran from the packet directory; it was repeated in the execution worktree before repository work"
+    },
+    {
+      "kind": "resource_precheck_failure",
+      "record": "resource-precheck-failure-001.json",
+      "command": "9921b1d926e449a8a24734a7b04c6ae9",
+      "result": "a nonexistent inherited helper raised before source or experiment activity"
+    },
+    {
+      "kind": "pre_scored_implementation_failures",
+      "record": "implementation-failures-001.json",
+      "result": "one stale decision-key expectation, one control-order defect and one seven-file format failure were corrected before scored output"
+    },
+    {
+      "kind": "producer_failure",
+      "record": "producer-failure-001.json",
+      "command": "762a462564cd478d916da50a51768d8b",
+      "result": "producer-001 failed unsealed on tuple unpacking after the real runs; zero decisions accepted"
+    },
+    {
+      "kind": "producer_failure",
+      "record": "producer-failure-002.json",
+      "command": "225801813b32488db18ee0e7cea9c18e",
+      "result": "producer-002 failed unsealed when strict JSON could not retain an Infinity; zero decisions accepted"
+    },
+    {
+      "kind": "superseded_sealed_result",
+      "record": "producer-readback-003.json",
+      "result": "producer-003 remains sealed against contract v1 but is not the v1.1 assessment target"
+    },
+    {
+      "kind": "integrated_validation_failure",
+      "record": "validation-failure-001.json",
+      "command": "2a2a20f378d746ffac25c8d3fe18444d",
+      "result": "921 tests, lint, format and documents passed, then the wrapper failed because an unattributed outside-root UI receipt grew by 254 bytes"
+    },
+    {
+      "kind": "validation_correction_prechecks",
+      "record": "validation-failure-001.json",
+      "result": "one import-order check and one two-file format check failed, were retained and were corrected mechanically"
+    },
+    {
+      "kind": "inherited_boundary_violation",
+      "record": "docs/evaluation/results/population-binding-001/source-overrun-001.json",
+      "result": "the closed prior phase used 14 responses against 12; it is not rewritten as compliant or charged to this phase"
+    }
+  ],
+  "source_and_resource_summary": {
+    "phase_source_responses": 6,
+    "phase_source_response_cap": 12,
+    "phase_source_body_bytes": 102904,
+    "phase_source_body_cap_bytes": 2097152,
+    "known_cumulative_source_body_bytes": 21495048,
+    "new_dependency_body_bytes": 0,
+    "full_validation": "validation-001.json"
+  },
+  "unresolved": [
+    "the historical checkpoint's active statistics",
+    "the historical override_pretraining_statistics value",
+    "a provenance-bearing training or inference invocation selecting the statistics",
+    "author intent",
+    "whether either normalizer choice changes policy actions or task outcome",
+    "active engineering effort, provider charges, energy, network overhead and unsampled peaks"
+  ],
+  "next_investment": {
+    "experiment": "a separately selected prospective normalizer-deployment intervention on a non-reserved executable policy task",
+    "selection": "observe and freeze a consequential integration failure before inspecting candidate outcome",
+    "intervention": "working and changed deployments differ only in bound normalizer/statistics selection, and the candidate must change at least one task-relevant action",
+    "comparison": "Nisayon and a competent conventional workflow choose independently from the same retained evidence and include full costs",
+    "confirmation": "run the full policy/controller/environment path and fresh predeclared confirmation conditions",
+    "stop_criterion": "return unresolved if the deployment selector cannot be bound, the candidate changes no action, or task outcome cannot be measured; stop after a competent real-case parity result rather than opening another nearby metadata case"
+  },
+  "metadata_stop_rule": "Do not acquire more nearby normalizer metadata unless a named unresolved deployment decision can change because of it.",
+  "validation": "docs/experiments/results/normalizer-execution-001/validation-001.json",
+  "boundaries": "No learned model or policy, weights, training, simulator, physics, robot/hardware, reserved incident, paid compute, outreach, publication or push was used. This result does not establish a NVIDIA defect, deployment correctness, physical safety or comparative repair advantage."
+}
+

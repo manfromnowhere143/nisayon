@@ -1,0 +1,172 @@
+{
+  "schema": "nisayon.transfer_evidence.validation.v1",
+  "source_parent": "383eb1462f329c30bb09ddf94c5e500c119edb41",
+  "source_sha256": {
+    "src/nisayon/cli.py": "704a8f4d780250e4df4e4c8b62af8eef934161346d4cf96b83023989da15be71",
+    "src/nisayon/engine/transfer_evidence.py": "12c13f142e8bfab928abbf5e3a34665f0f2e4be977a23bb0351b4ff246550a45",
+    "scripts/experiments/qualify_transfer_evidence.py": "06d6253926081fb5ba0bb52d5df3b2bcaa5df9fee3f37cb7fafcad60da2fa122",
+    "tests/engine/test_transfer_evidence.py": "e4b7cf1c6b51bba38cab2a326f2e8f0d44aa7e4f64bbaf70257c636ebf372299"
+  },
+  "tests": {
+    "passed": 1165,
+    "new_controls": 35,
+    "pytest_seconds": 271.48,
+    "lint": "passed",
+    "format": "passed",
+    "docs": 147,
+    "mermaid_rendering": "not_performed"
+  },
+  "commands": [
+    {
+      "id": "b3e1900b692b4f04bafa29b8684dc746",
+      "label": "transfer-evidence-controls",
+      "wall_seconds": 2.511614,
+      "returncode": 0,
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_transfer_evidence.py"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 99,
+          "sha256": "64747e8815efa37b8cea541f39e8f07486c3a653cc4c02ae4fb5979b8ec6d249"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "1e01496db2544eef8fe1b2ea6a68467d",
+      "label": "transfer-evidence-retained-b2",
+      "wall_seconds": 0.245671,
+      "returncode": 0,
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "nisayon.cli",
+        "verify-lift-transfer",
+        "--packet",
+        "artifacts/b2-semantic-transfer-001",
+        "--protocol",
+        "docs/experiments/results/b2-semantic-transfer-001/protocol.json",
+        "--out",
+        "artifacts/transfer-evidence-001/b2-inspection.json"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 3276,
+          "sha256": "08b18278e8fcb70330336dd04ce5c60e4cdf801f26d42c30b3fd5182ccf42514"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "43c89069b62543cfbee485727e20a70f",
+      "label": "transfer-evidence-clean-install",
+      "wall_seconds": 0.399381,
+      "returncode": 0,
+      "command": [
+        "env",
+        "UV_PROJECT_ENVIRONMENT=/Users/danielwahnich/workspace/nisayon-codex/artifacts/transfer-evidence-001/clean-venv",
+        "uv",
+        "sync",
+        "--frozen",
+        "--no-default-groups",
+        "--extra",
+        "records",
+        "--no-editable"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 1047,
+          "sha256": "503b4820dc1a4c1480dba8e9f77ea3bd2d812fc59995bcb9c15045bfda6c9aa8"
+        }
+      }
+    },
+    {
+      "id": "8110cd41fa144989a32e15398d16961c",
+      "label": "transfer-evidence-portability",
+      "wall_seconds": 5.194514,
+      "returncode": 0,
+      "command": [
+        "artifacts/transfer-evidence-001/clean-venv/bin/python",
+        "-B",
+        "scripts/experiments/qualify_transfer_evidence.py",
+        "--packet",
+        "artifacts/b2-semantic-transfer-001",
+        "--protocol",
+        "docs/experiments/results/b2-semantic-transfer-001/protocol.json",
+        "--out",
+        "artifacts/transfer-evidence-001/portability-001"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "8313482a96ff4e3395b999b5012f0201",
+      "label": "transfer-evidence-full-check",
+      "wall_seconds": 276.761241,
+      "returncode": 0,
+      "command": [
+        "make",
+        "check"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 1715,
+          "sha256": "68062235d581f7fb524821e0a6a314a198137e1df14d5086de7215ecb6194d51"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "id": "a6dd28f20e064eca93d647df14c26649",
+      "label": "transfer-evidence-preservation",
+      "wall_seconds": 11.237227,
+      "returncode": 0,
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-c",
+        "import importlib.util,json,hashlib\nfrom pathlib import Path\nspec=importlib.util.spec_from_file_location(\"runtime_custody\",\"scripts/experiments/prepare_a1_runtime_install.py\")\nmodule=importlib.util.module_from_spec(spec)\nspec.loader.exec_module(module)\nprotocol=json.loads(Path(\"docs/experiments/results/b2-semantic-transfer-001/protocol.json\").read_text())\ntrees={\"historical\":module.tree_identity(Path(\".venv\")),\"isolated\":module.tree_identity(Path(\"artifacts/a1-runtime-001/runtime-v1.3-001/venv\"))}\nassert trees==protocol[\"runtime\"][\"trees\"],trees\nchecked=0\nfor item in [*protocol[\"inputs\"].values(),*protocol[\"sources\"].values()]:\n    data=Path(item[\"path\"]).read_bytes()\n    assert len(data)==item[\"bytes\"] and hashlib.sha256(data).hexdigest()==item[\"sha256\"],item[\"path\"]\n    checked+=1\nfrom nisayon.engine.transfer_evidence import inspect_transfer\nresult=inspect_transfer(Path(\"artifacts/b2-semantic-transfer-001\"),Path(\"docs/experiments/results/b2-semantic-transfer-001/protocol.json\"))\nassert result[\"integrity\"]==\"verified\",result\nrecord={\"schema\":\"nisayon.transfer_evidence.preservation.v1\",\"runtime_trees_unchanged\":trees,\"original_input_and_source_pins_unchanged\":checked,\"b2_manifest_sha256\":result[\"manifest_sha256\"],\"b2_verified_members\":result[\"verified_members\"],\"b2_verified_member_bytes\":result[\"verified_member_bytes\"],\"verifier_sha256\":result[\"verifier_sha256\"],\"new_confirmation_episodes\":0,\"policy_or_simulator_execution_for_readback\":False}\npath=Path(\"artifacts/transfer-evidence-001/preservation.json\")\nwith path.open(\"x\") as stream: json.dump(record,stream,indent=2);stream.write(\"\\n\")\nprint(json.dumps(record))\n"
+      ],
+      "logs": {
+        "stdout.log": {
+          "bytes": 736,
+          "sha256": "9ad2a48c5034b8c3c3bd3b1830cbb1cb3422b51fb6f74dde2fdb8b82b7874a1a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "known_command_wall_seconds": 296.349648,
+  "cost_boundary": "Sum of the six distinct instrumented command walls. Nested portability child times are not added. Engineering, review, provider usage and uninstrumented discovery/editing/checks remain unmeasured.",
+  "new_confirmation_episodes": 0
+}

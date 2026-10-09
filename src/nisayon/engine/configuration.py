@@ -18,6 +18,9 @@ class Deployment:
     observation_stride_steps: int = 1
     policy_reset: Literal["episode", "every_action", "carry_prefix"] = "episode"
     suppress_actions: bool = False
+    # None preserves the original v1 record bytes and single-reset behavior.
+    # New case-specific probes explicitly declare either convention.
+    controller_target: Literal["restored", "nominal"] | None = None
 
     def __post_init__(self):
         for sign in [self.transport_gripper_sign, self.repair_gripper_sign]:
@@ -44,9 +47,16 @@ class Deployment:
             raise ValueError("Unknown policy reset mode")
         if type(self.suppress_actions) is not bool:
             raise ValueError("Action suppression must be a boolean")
+        if self.controller_target is not None and (
+            not isinstance(self.controller_target, str)
+            or self.controller_target not in {"restored", "nominal"}
+        ):
+            raise ValueError("Controller target must be restored or nominal")
 
     def record(self) -> dict:
         value = asdict(self)
+        if self.controller_target is None:
+            value.pop("controller_target")
         # Return the JSON-native shape also in memory, so integrity checks before
         # and after serialization compare the same contract representation.
         value["transport_translation_order"] = list(self.transport_translation_order)

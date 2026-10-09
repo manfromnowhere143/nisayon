@@ -1,0 +1,91 @@
+{
+  "schema": "nisayon.normalizer-execution-record-interface.v1",
+  "case_id": "normalizer-execution-001",
+  "status": "proposed_pending_independent_semantic_contract",
+  "purpose": "Keep source identity, declared obligation, executed selection, active numerical state, transformed arrays, serialization behavior, decision and costs separately inspectable.",
+  "required_case_fields": {
+    "identity": [
+      "case schema and ID",
+      "source revision and exact file SHA-256 values",
+      "runtime and extraction identity"
+    ],
+    "invocation": [
+      "embodiment",
+      "ordered modality groups and coordinate slices",
+      "input dtype",
+      "use_percentiles",
+      "clip_outliers",
+      "sin/cos and relative-action flags",
+      "per-modality mean/std selector keys",
+      "initial-statistics identity",
+      "candidate-statistics identity",
+      "override argument",
+      "declared numerical obligation"
+    ],
+    "membership": [
+      "source file path, bytes and SHA-256",
+      "preselected row indices",
+      "complete ordered input arrays for those rows",
+      "constructed probes marked as constructed"
+    ],
+    "comparison": [
+      "dtype-specific absolute and relative tolerance",
+      "higher-precision formula and result where meaningful",
+      "exact dtype, shape and finite checks"
+    ]
+  },
+  "required_execution_fields": {
+    "source_verification": "All executed source members match the frozen SHA-256 values and every extracted AST body is named.",
+    "reduced_boundary": "List omitted initializers, injected names, forbidden boundary calls, network guard and whether any forbidden boundary was reached.",
+    "events": "Ordered constructor, set_statistics, apply_state/apply_action, save and reload events with input/output and state digests.",
+    "selected_state": "Record outer mirror and nested active statistics before and after each selection call; a mirror digest cannot substitute for the nested active digest.",
+    "numeric_outputs": "Retain raw inputs and every transformed array with dtype, shape and content digest, including failures.",
+    "save_reload": "Record serialized files and digests, reloaded nested state, output equivalence and eligible domain. Report inverse loss separately.",
+    "process": "Separate exit status, software observation and scientific decision.",
+    "costs": "Outer wall, process CPU, written logical bytes and known/unknown resource scopes."
+  },
+  "decision": {
+    "operation_states": [
+      "keep_existing",
+      "replace_with_candidate",
+      "install_when_absent",
+      "abstain",
+      "invalid"
+    ],
+    "status_states": [
+      "supported",
+      "rejected",
+      "unresolved",
+      "invalid",
+      "failed"
+    ],
+    "rule": [
+      "Support an operation only when an executed selector makes the obligation's exact statistics active and the actual numerical map matches the declared transform on every frozen input.",
+      "Keep is supported when override false preserves already-active obligated statistics; a differing outer mirror is reported but is not the active selector.",
+      "Replacement or installation is supported only when the candidate is the declared numerical obligation and exact execution makes it active.",
+      "Reject an observed replacement or reuse that conflicts with the declared numerical obligation; subset agreement is not an obligation.",
+      "Return unresolved when required execution binding or selector evidence is absent, even if source bytes and declarations are valid.",
+      "Return invalid for malformed, missing-required-statistic, shape, non-finite or unsupported-dtype input; retain an executed exception as failed when it is not a prevalidated invalid case."
+    ],
+    "non_authorities": [
+      "outer mirror state",
+      "a role, mode or provenance label",
+      "a correct digest with an unexecuted or wrong call path",
+      "parameter equality without transformed-array execution",
+      "normalize/unnormalize round-trip alone",
+      "producer/reference agreement",
+      "process exit zero"
+    ]
+  },
+  "assessment_fields": [
+    "producer/reference operation and status",
+    "false acceptance",
+    "false refusal",
+    "unjustified replacement",
+    "unjustified reuse",
+    "unresolved cases",
+    "useful acceptance",
+    "conventional diagnostic decision",
+    "shared dependencies and independent computation boundary"
+  ]
+}

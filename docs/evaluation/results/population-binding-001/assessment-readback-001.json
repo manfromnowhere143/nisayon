@@ -1,0 +1,108 @@
+{
+  "schema": "nisayon.evaluation.population-assessment-readback.v1",
+  "recorded_at": "2026-09-20T19:41:00+00:00",
+  "producer_store": {
+    "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/population-binding-001/producer-001",
+    "case_commit": "bbda0e4",
+    "core_commit_in_store": "bbda0e48c7cf78fd50af99a4c046c0826772906e",
+    "summary_sha256": "ce8a33ac153a3441ee3b696a081e109cb2969c4d53e3111ce037421d045afac4",
+    "seal_summary_sha256": "ce8a33ac153a3441ee3b696a081e109cb2969c4d53e3111ce037421d045afac4",
+    "original_decision_sha256": "029da50b63aaea720370ddb55f90480091e44eb6b3a160114a5e322d148c6caa",
+    "sealed_at": "2026-09-20T19:35:52.052296+00:00"
+  },
+  "original_input": {
+    "producer": {
+      "role": "parent_population_summary",
+      "obligations": {
+        "role_binding": "supported",
+        "population_binding": "supported",
+        "selection_binding": "supported",
+        "arithmetic": "supported",
+        "normalization_interpretation": "unresolved"
+      },
+      "operation": "reuse",
+      "status": "supported",
+      "candidate_results": [
+        {
+          "operation": "reuse",
+          "status": "supported"
+        },
+        {
+          "operation": "recompute",
+          "status": "rejected",
+          "reason": "would replace a bound parent summary with subset moments"
+        }
+      ]
+    },
+    "reference": {
+      "role": "parent_population_summary",
+      "operation": "reuse",
+      "decision": "supported",
+      "selection": "supported_for_scoped_invocation",
+      "interpretation": "unresolved",
+      "missing": [
+        "interpretation: the consuming normalizer formula with a verified source (does not block the scoped invocation)"
+      ]
+    },
+    "comparison": {
+      "status": "compared",
+      "producer": {
+        "operation": "reuse",
+        "status": "supported"
+      },
+      "reference": {
+        "operation": "reuse",
+        "decision": "supported"
+      },
+      "agrees": true,
+      "false_acceptance": false,
+      "false_refusal": false,
+      "unjustified_recomputation": false,
+      "unjustified_reuse": false
+    },
+    "command": {
+      "id": "c6718e7454cf493aa399dc1ac2143c4b",
+      "started_at": "2026-09-20T19:40:40.792224+00:00",
+      "wall_seconds": 0.301534,
+      "process_status": "completed"
+    },
+    "assessment": "assessments/codex-producer-001-original.reference.json"
+  },
+  "controls": {
+    "producer_statuses": {
+      "PBC01-intact-current-population": "supported",
+      "PBC02-current-population-mismatch": "rejected",
+      "PBC03-bound-parent-reference": "supported",
+      "PBC04-parent-without-selection": "unresolved",
+      "PBC04-without-population-evidence": "unresolved",
+      "PBC05-intact-labelled-external": "supported",
+      "PBC05-changed-content-labelled-external": "rejected",
+      "PBC06-empty-population": "invalid",
+      "PBC06-non-finite-row": "invalid",
+      "PBC06-wrong-coordinate-count": "invalid",
+      "PBC06-malformed-statistics": "invalid",
+      "PBC06-non-finite-statistics": "invalid"
+    },
+    "expected_under_contract": {
+      "PBC01-intact-current-population": "supported",
+      "PBC02-current-population-mismatch": "rejected",
+      "PBC03-bound-parent-reference": "supported",
+      "PBC04-parent-without-selection": "unresolved",
+      "PBC04-without-population-evidence": "unresolved",
+      "PBC05-intact-labelled-external": "supported",
+      "PBC05-changed-content-labelled-external": "rejected",
+      "PBC06-empty-population": "invalid",
+      "PBC06-non-finite-row": "invalid",
+      "PBC06-wrong-coordinate-count": "invalid",
+      "PBC06-malformed-statistics": "invalid",
+      "PBC06-non-finite-statistics": "invalid"
+    },
+    "all_match": true,
+    "note": "the producer's control statuses match the contract's expected decisions; the producer's controls are its own fixtures and were not re-executed by this lane"
+  },
+  "open_finding": {
+    "id": "population-binding-001/finding-002",
+    "effect_on_this_store": "selection_binding: supported for the original input rests on the digest of the producer's own path-observation record, and the controls' selection on a literal 64-hex placeholder; both pass the core's check without being checked against retained bytes. The operation and status agree with the reference, whose selection support is bound to the retained pinned test file by digest and symbol. The store predates the finding; a corrected core should re-seal under a new identity, not overwrite this one."
+  },
+  "parity": "the producer and the conventional diagnostic both reach reuse/supported on the original input and the same statuses on every control; no decision-quality difference is observed; no cost advantage is inferred from sub-second commands"
+}

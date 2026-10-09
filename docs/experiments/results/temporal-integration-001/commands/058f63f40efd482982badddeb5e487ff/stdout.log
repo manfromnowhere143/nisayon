@@ -1,0 +1,1069 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+__ test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-None] __
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep0/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+>           for index, operation in enumerate(header["case"]["schedule"]):
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: 'NoneType' object is not subscriptable
+
+src/nisayon/engine/temporal_store.py:308: TypeError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep0')
+field = 'case', value = None
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("case", None),
+            ("case", []),
+            ("source", None),
+            ("source", {"files": []}),
+            ("case", {"schedule": [None]}),
+        ],
+    )
+    def test_nested_header_damage_keeps_raw_evidence_and_observed_costs(tmp_path, field, value):
+        root = tmp_path / "damaged-header"
+        original = run(root)
+        path = root / "assignment.json"
+        header = json.loads(path.read_bytes())
+        header[field] = value
+        path.write_text(json.dumps(header))
+>       result = inspect_store(root)
+                 ^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_temporal_store.py:273: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep0/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+            for index, operation in enumerate(header["case"]["schedule"]):
+                intent_name, completion_name = (
+                    f"intents/{index:06d}.json",
+                    f"completions/{index:06d}.json",
+                )
+                state = "unattempted"
+                if intent_name in observed:
+                    pending_input = operation["id"]
+                    state = "intent_retained_completion_unknown"
+                    intent = _read(resolve_member(root, intent_name))
+                    if (
+                        pending_seen
+                        or intent.get("index") != index
+                        or intent.get("assignment_sha256") != assignment_sha
+                        or intent.get("input") != operation
+                        or intent.get("event_start") != previous_end
+                        or intent.get("previous_event_sha256") != chain[previous_end]
+                    ):
+                        errors.append(f"input_intent_mismatch:{index}")
+                    if completion_name in observed:
+                        completion = _read(resolve_member(root, completion_name))
+                        end = completion.get("event_end")
+                        if (
+                            completion.get("index") != index
+                            or completion.get("assignment_sha256") != assignment_sha
+                            or completion.get("intent_sha256") != observed[intent_name]
+                            or completion.get("event_start") != previous_end
+                            or type(end) is not int
+                            or end < previous_end
+                            or end >= len(chain)
+                            or completion.get("last_event_sha256") != chain[end]
+                            or any(
+                                e.get("input_id") != operation["id"] for e in events[previous_end:end]
+                            )
+                        ):
+                            errors.append(f"input_completion_mismatch:{index}")
+                        else:
+                            state, previous_end = "completed", end
+                            pending_input = None
+                elif completion_name in observed:
+                    errors.append(f"completion_without_intent:{index}")
+                if state != "completed":
+                    pending_seen = True
+                input_rows.append({"index": index, "input_id": operation["id"], "state": state})
+            if events and (
+                events[0].get("kind") != "episode_start" or events[0].get("input_id") is not None
+            ):
+                errors.append("initial_episode_event_missing_or_misbound")
+            if len(events) > previous_end and (
+                pending_input is None
+                or any(e.get("input_id") != pending_input for e in events[previous_end:])
+            ):
+                errors.append("events_without_matching_input_intent")
+            assigned_names = {
+                f"{directory}/{index:06d}.json"
+                for directory in ("intents", "completions")
+                for index in range(len(input_rows))
+            }
+            for name in files:
+                if name.startswith(("intents/", "completions/")) and name not in assigned_names:
+                    if not (name.endswith(".pending") and not sealed):
+                        errors.append(f"unassigned_input_record:{name}")
+            if "execution.json" in observed:
+                execution = _read(resolve_member(root, "execution.json"))
+                if (
+                    execution.get("schema") != "nisayon.temporal-process.v1"
+                    or execution.get("outcome") not in {"completed", "failed"}
+                    or execution.get("assignment_sha256") != assignment_sha
+                    or execution.get("event_count") != len(events)
+                    or execution.get("last_event_sha256") != chain[-1]
+                    or execution.get("completed_inputs")
+                    != sum(r["state"] == "completed" for r in input_rows)
+                    or (execution.get("outcome") == "completed" and pending_seen)
+                ):
+                    errors.append("execution_prefix_mismatch")
+            if "trace.json" in observed and _read(resolve_member(root, "trace.json")) != trace_from(
+                header, events, execution["outcome"] if execution else "unknown"
+            ):
+                errors.append("derived_trace_mismatch")
+            if sealed and (execution is None or "trace.json" not in observed):
+                errors.append("sealed_terminal_evidence_missing")
+            if not sealed:
+                gaps.append({"what": "terminal_seal", "reason": "process_completion_not_established"})
+            if pending_seen:
+                gaps.append({"what": "scheduled_inputs", "reason": "not_all_inputs_completed"})
+        except (OSError, ValueError, KeyError, TypeError, IndexError) as error:
+            errors.append(f"inspection_error:{type(error).__name__}:{error}")
+            input_rows = (
+                [
+                    {"index": i, "input_id": row.get("id"), "state": "unverified"}
+>                   for i, row in enumerate(header.get("case", {}).get("schedule", []))
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+                ]
+                if isinstance(header, dict)
+                else []
+            )
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/nisayon/engine/temporal_store.py:398: AttributeError
+_ test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-value1] _
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep1/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+>           for index, operation in enumerate(header["case"]["schedule"]):
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: list indices must be integers or slices, not str
+
+src/nisayon/engine/temporal_store.py:308: TypeError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep1')
+field = 'case', value = []
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("case", None),
+            ("case", []),
+            ("source", None),
+            ("source", {"files": []}),
+            ("case", {"schedule": [None]}),
+        ],
+    )
+    def test_nested_header_damage_keeps_raw_evidence_and_observed_costs(tmp_path, field, value):
+        root = tmp_path / "damaged-header"
+        original = run(root)
+        path = root / "assignment.json"
+        header = json.loads(path.read_bytes())
+        header[field] = value
+        path.write_text(json.dumps(header))
+>       result = inspect_store(root)
+                 ^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_temporal_store.py:273: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep1/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+            for index, operation in enumerate(header["case"]["schedule"]):
+                intent_name, completion_name = (
+                    f"intents/{index:06d}.json",
+                    f"completions/{index:06d}.json",
+                )
+                state = "unattempted"
+                if intent_name in observed:
+                    pending_input = operation["id"]
+                    state = "intent_retained_completion_unknown"
+                    intent = _read(resolve_member(root, intent_name))
+                    if (
+                        pending_seen
+                        or intent.get("index") != index
+                        or intent.get("assignment_sha256") != assignment_sha
+                        or intent.get("input") != operation
+                        or intent.get("event_start") != previous_end
+                        or intent.get("previous_event_sha256") != chain[previous_end]
+                    ):
+                        errors.append(f"input_intent_mismatch:{index}")
+                    if completion_name in observed:
+                        completion = _read(resolve_member(root, completion_name))
+                        end = completion.get("event_end")
+                        if (
+                            completion.get("index") != index
+                            or completion.get("assignment_sha256") != assignment_sha
+                            or completion.get("intent_sha256") != observed[intent_name]
+                            or completion.get("event_start") != previous_end
+                            or type(end) is not int
+                            or end < previous_end
+                            or end >= len(chain)
+                            or completion.get("last_event_sha256") != chain[end]
+                            or any(
+                                e.get("input_id") != operation["id"] for e in events[previous_end:end]
+                            )
+                        ):
+                            errors.append(f"input_completion_mismatch:{index}")
+                        else:
+                            state, previous_end = "completed", end
+                            pending_input = None
+                elif completion_name in observed:
+                    errors.append(f"completion_without_intent:{index}")
+                if state != "completed":
+                    pending_seen = True
+                input_rows.append({"index": index, "input_id": operation["id"], "state": state})
+            if events and (
+                events[0].get("kind") != "episode_start" or events[0].get("input_id") is not None
+            ):
+                errors.append("initial_episode_event_missing_or_misbound")
+            if len(events) > previous_end and (
+                pending_input is None
+                or any(e.get("input_id") != pending_input for e in events[previous_end:])
+            ):
+                errors.append("events_without_matching_input_intent")
+            assigned_names = {
+                f"{directory}/{index:06d}.json"
+                for directory in ("intents", "completions")
+                for index in range(len(input_rows))
+            }
+            for name in files:
+                if name.startswith(("intents/", "completions/")) and name not in assigned_names:
+                    if not (name.endswith(".pending") and not sealed):
+                        errors.append(f"unassigned_input_record:{name}")
+            if "execution.json" in observed:
+                execution = _read(resolve_member(root, "execution.json"))
+                if (
+                    execution.get("schema") != "nisayon.temporal-process.v1"
+                    or execution.get("outcome") not in {"completed", "failed"}
+                    or execution.get("assignment_sha256") != assignment_sha
+                    or execution.get("event_count") != len(events)
+                    or execution.get("last_event_sha256") != chain[-1]
+                    or execution.get("completed_inputs")
+                    != sum(r["state"] == "completed" for r in input_rows)
+                    or (execution.get("outcome") == "completed" and pending_seen)
+                ):
+                    errors.append("execution_prefix_mismatch")
+            if "trace.json" in observed and _read(resolve_member(root, "trace.json")) != trace_from(
+                header, events, execution["outcome"] if execution else "unknown"
+            ):
+                errors.append("derived_trace_mismatch")
+            if sealed and (execution is None or "trace.json" not in observed):
+                errors.append("sealed_terminal_evidence_missing")
+            if not sealed:
+                gaps.append({"what": "terminal_seal", "reason": "process_completion_not_established"})
+            if pending_seen:
+                gaps.append({"what": "scheduled_inputs", "reason": "not_all_inputs_completed"})
+        except (OSError, ValueError, KeyError, TypeError, IndexError) as error:
+            errors.append(f"inspection_error:{type(error).__name__}:{error}")
+            input_rows = (
+                [
+                    {"index": i, "input_id": row.get("id"), "state": "unverified"}
+>                   for i, row in enumerate(header.get("case", {}).get("schedule", []))
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+                ]
+                if isinstance(header, dict)
+                else []
+            )
+E           AttributeError: 'list' object has no attribute 'get'
+
+src/nisayon/engine/temporal_store.py:398: AttributeError
+_ test_nested_header_damage_keeps_raw_evidence_and_observed_costs[source-None] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep2')
+field = 'source', value = None
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("case", None),
+            ("case", []),
+            ("source", None),
+            ("source", {"files": []}),
+            ("case", {"schedule": [None]}),
+        ],
+    )
+    def test_nested_header_damage_keeps_raw_evidence_and_observed_costs(tmp_path, field, value):
+        root = tmp_path / "damaged-header"
+        original = run(root)
+        path = root / "assignment.json"
+        header = json.loads(path.read_bytes())
+        header[field] = value
+        path.write_text(json.dumps(header))
+        result = inspect_store(root)
+        assert result["integrity"] == "invalid"
+        assert result["trace"] is None
+>       assert result["raw_event_records"]
+E       assert []
+
+tests/engine/test_temporal_store.py:276: AssertionError
+_ test_nested_header_damage_keeps_raw_evidence_and_observed_costs[source-value3] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep3')
+field = 'source', value = {'files': []}
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("case", None),
+            ("case", []),
+            ("source", None),
+            ("source", {"files": []}),
+            ("case", {"schedule": [None]}),
+        ],
+    )
+    def test_nested_header_damage_keeps_raw_evidence_and_observed_costs(tmp_path, field, value):
+        root = tmp_path / "damaged-header"
+        original = run(root)
+        path = root / "assignment.json"
+        header = json.loads(path.read_bytes())
+        header[field] = value
+        path.write_text(json.dumps(header))
+>       result = inspect_store(root)
+                 ^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_temporal_store.py:273: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep3/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+>           for name, sha in header["source"]["files"].items():
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'list' object has no attribute 'items'
+
+src/nisayon/engine/temporal_store.py:252: AttributeError
+_ test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-value4] _
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep4/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+            for index, operation in enumerate(header["case"]["schedule"]):
+                intent_name, completion_name = (
+                    f"intents/{index:06d}.json",
+                    f"completions/{index:06d}.json",
+                )
+                state = "unattempted"
+                if intent_name in observed:
+>                   pending_input = operation["id"]
+                                    ^^^^^^^^^^^^^^^
+E                   TypeError: 'NoneType' object is not subscriptable
+
+src/nisayon/engine/temporal_store.py:315: TypeError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep4')
+field = 'case', value = {'schedule': [None]}
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("case", None),
+            ("case", []),
+            ("source", None),
+            ("source", {"files": []}),
+            ("case", {"schedule": [None]}),
+        ],
+    )
+    def test_nested_header_damage_keeps_raw_evidence_and_observed_costs(tmp_path, field, value):
+        root = tmp_path / "damaged-header"
+        original = run(root)
+        path = root / "assignment.json"
+        header = json.loads(path.read_bytes())
+        header[field] = value
+        path.write_text(json.dumps(header))
+>       result = inspect_store(root)
+                 ^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_temporal_store.py:273: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_nested_header_damage_keep4/damaged-header')
+
+    def inspect_store(root: Path) -> dict:
+        """Read a completed or interrupted packet without importing any executor.
+    
+        The caller retains this derived readback outside the input store. A prefix
+        can be internally consistent while its evidence and process remain unknown.
+        File listings and hashes detect mutation, not adversarially rewritten history.
+        """
+        root = root.resolve(strict=True)
+        errors: list[str] = []
+        gaps: list[dict] = []
+        events: list[dict] = []
+        raw_event_records: list[dict] = []
+        header = None
+        execution = None
+        sealed = (root / "seal.json").exists()
+        files = sorted(p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file())
+        observed = {}
+        try:
+            observed = {name: file_digest(resolve_member(root, name)) for name in files}
+            header = _read(resolve_member(root, "assignment.json"))
+            if header.get("schema") != "nisayon.temporal-assignment.v1":
+                raise ValueError("Unsupported temporal assignment schema")
+            assignment_sha = digest(header)
+            for name, sha in header["source"]["files"].items():
+                try:
+                    if file_digest(resolve_member(root, "sources/" + _name(name))) != sha:
+                        errors.append(f"source_bytes_mismatch:{name}")
+                except (OSError, ValueError) as error:
+                    errors.append(f"source_member_error:{name}:{error}")
+            if sealed:
+                seal = _read(resolve_member(root, "seal.json"))
+                if seal["assignment_sha256"] != assignment_sha:
+                    errors.append("seal_assignment_mismatch")
+                try:
+                    members = verify_manifest(root, seal["artifact_manifest"])
+                    expected = set(members) | {"seal.json", seal["artifact_manifest"]["path"]}
+                    if expected != set(files):
+                        errors.append("sealed_file_membership_mismatch")
+                except (OSError, ValueError, KeyError, TypeError) as error:
+                    errors.append(f"manifest_verification_failed:{type(error).__name__}:{error}")
+            chain: list[str | None] = [None]
+            event_names = [n for n in files if n.startswith("events/") and not n.endswith(".pending")]
+            for name in files:
+                if name.endswith(".pending"):
+                    if sealed:
+                        errors.append(f"sealed_unpublished_write:{name}")
+                    else:
+                        gaps.append({"what": "unpublished_write", "path": name})
+            for name in event_names:
+                raw = {"path": name, "sha256": observed[name], "chain_verified": False}
+                try:
+                    raw["record"] = _read(resolve_member(root, name))
+                except (OSError, ValueError) as error:
+                    raw["error"] = str(error)
+                raw_event_records.append(raw)
+            for index, name in enumerate(event_names):
+                if name != f"events/{index:06d}.json":
+                    errors.append("event_sequence_gap_or_unpublished_member")
+                    break
+                record = _read(resolve_member(root, name))
+                if (
+                    record.get("schema") != "nisayon.temporal-event.v1"
+                    or type(record.get("seq")) is not int
+                    or record.get("seq") != index
+                    or not isinstance(record.get("event"), dict)
+                    or type(record["event"].get("seq")) is not int
+                    or record["event"].get("seq") != index
+                    or record.get("previous_sha256") != chain[-1]
+                    or record.get("assignment_sha256") != assignment_sha
+                ):
+                    errors.append(f"event_binding_mismatch:{index}")
+                    break
+                chain.append(digest(record))
+                events.append(record["event"])
+                raw_event_records[index]["chain_verified"] = True
+            input_rows = []
+            previous_end = 1 if events and events[0]["kind"] == "episode_start" else 0
+            pending_seen = False
+            pending_input = None
+            for index, operation in enumerate(header["case"]["schedule"]):
+                intent_name, completion_name = (
+                    f"intents/{index:06d}.json",
+                    f"completions/{index:06d}.json",
+                )
+                state = "unattempted"
+                if intent_name in observed:
+                    pending_input = operation["id"]
+                    state = "intent_retained_completion_unknown"
+                    intent = _read(resolve_member(root, intent_name))
+                    if (
+                        pending_seen
+                        or intent.get("index") != index
+                        or intent.get("assignment_sha256") != assignment_sha
+                        or intent.get("input") != operation
+                        or intent.get("event_start") != previous_end
+                        or intent.get("previous_event_sha256") != chain[previous_end]
+                    ):
+                        errors.append(f"input_intent_mismatch:{index}")
+                    if completion_name in observed:
+                        completion = _read(resolve_member(root, completion_name))
+                        end = completion.get("event_end")
+                        if (
+                            completion.get("index") != index
+                            or completion.get("assignment_sha256") != assignment_sha
+                            or completion.get("intent_sha256") != observed[intent_name]
+                            or completion.get("event_start") != previous_end
+                            or type(end) is not int
+                            or end < previous_end
+                            or end >= len(chain)
+                            or completion.get("last_event_sha256") != chain[end]
+                            or any(
+                                e.get("input_id") != operation["id"] for e in events[previous_end:end]
+                            )
+                        ):
+                            errors.append(f"input_completion_mismatch:{index}")
+                        else:
+                            state, previous_end = "completed", end
+                            pending_input = None
+                elif completion_name in observed:
+                    errors.append(f"completion_without_intent:{index}")
+                if state != "completed":
+                    pending_seen = True
+                input_rows.append({"index": index, "input_id": operation["id"], "state": state})
+            if events and (
+                events[0].get("kind") != "episode_start" or events[0].get("input_id") is not None
+            ):
+                errors.append("initial_episode_event_missing_or_misbound")
+            if len(events) > previous_end and (
+                pending_input is None
+                or any(e.get("input_id") != pending_input for e in events[previous_end:])
+            ):
+                errors.append("events_without_matching_input_intent")
+            assigned_names = {
+                f"{directory}/{index:06d}.json"
+                for directory in ("intents", "completions")
+                for index in range(len(input_rows))
+            }
+            for name in files:
+                if name.startswith(("intents/", "completions/")) and name not in assigned_names:
+                    if not (name.endswith(".pending") and not sealed):
+                        errors.append(f"unassigned_input_record:{name}")
+            if "execution.json" in observed:
+                execution = _read(resolve_member(root, "execution.json"))
+                if (
+                    execution.get("schema") != "nisayon.temporal-process.v1"
+                    or execution.get("outcome") not in {"completed", "failed"}
+                    or execution.get("assignment_sha256") != assignment_sha
+                    or execution.get("event_count") != len(events)
+                    or execution.get("last_event_sha256") != chain[-1]
+                    or execution.get("completed_inputs")
+                    != sum(r["state"] == "completed" for r in input_rows)
+                    or (execution.get("outcome") == "completed" and pending_seen)
+                ):
+                    errors.append("execution_prefix_mismatch")
+            if "trace.json" in observed and _read(resolve_member(root, "trace.json")) != trace_from(
+                header, events, execution["outcome"] if execution else "unknown"
+            ):
+                errors.append("derived_trace_mismatch")
+            if sealed and (execution is None or "trace.json" not in observed):
+                errors.append("sealed_terminal_evidence_missing")
+            if not sealed:
+                gaps.append({"what": "terminal_seal", "reason": "process_completion_not_established"})
+            if pending_seen:
+                gaps.append({"what": "scheduled_inputs", "reason": "not_all_inputs_completed"})
+        except (OSError, ValueError, KeyError, TypeError, IndexError) as error:
+            errors.append(f"inspection_error:{type(error).__name__}:{error}")
+            input_rows = (
+                [
+>                   {"index": i, "input_id": row.get("id"), "state": "unverified"}
+                                             ^^^^^^^
+                    for i, row in enumerate(header.get("case", {}).get("schedule", []))
+                ]
+                if isinstance(header, dict)
+                else []
+            )
+E           AttributeError: 'NoneType' object has no attribute 'get'
+
+src/nisayon/engine/temporal_store.py:397: AttributeError
+_______ test_unknown_record_version_is_not_a_verified_journal[seal.json] _______
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_unknown_record_version_is0')
+member = 'seal.json'
+
+    @pytest.mark.parametrize("member", ["seal.json", "completions/000000.json"])
+    def test_unknown_record_version_is_not_a_verified_journal(tmp_path, member):
+        root = tmp_path / "unsupported-version"
+        run(root)
+        if member != "seal.json":
+            (root / "seal.json").unlink()
+        path = root / member
+        record = json.loads(path.read_bytes())
+        record["schema"] = "unsupported-future-version"
+        path.write_text(json.dumps(record))
+        result = inspect_store(root)
+>       assert result["integrity"] == "invalid"
+E       AssertionError: assert 'verified_complete_store' == 'invalid'
+E         
+E         - invalid
+E         + verified_complete_store
+
+tests/engine/test_temporal_store.py:292: AssertionError
+_ test_unknown_record_version_is_not_a_verified_journal[completions/000000.json] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_unknown_record_version_is1')
+member = 'completions/000000.json'
+
+    @pytest.mark.parametrize("member", ["seal.json", "completions/000000.json"])
+    def test_unknown_record_version_is_not_a_verified_journal(tmp_path, member):
+        root = tmp_path / "unsupported-version"
+        run(root)
+        if member != "seal.json":
+            (root / "seal.json").unlink()
+        path = root / member
+        record = json.loads(path.read_bytes())
+        record["schema"] = "unsupported-future-version"
+        path.write_text(json.dumps(record))
+        result = inspect_store(root)
+>       assert result["integrity"] == "invalid"
+E       AssertionError: assert 'verified_prefix' == 'invalid'
+E         
+E         - invalid
+E         + verified_prefix
+
+tests/engine/test_temporal_store.py:292: AssertionError
+________ test_unknown_intent_version_does_not_establish_a_valid_prefix _________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-252/test_unknown_intent_version_do0')
+
+    def test_unknown_intent_version_does_not_establish_a_valid_prefix(tmp_path):
+        root = tmp_path / "unsupported-intent"
+    
+        class Interrupt(BaseException):
+            pass
+    
+        def stop(stage, _event):
+            if stage == "intent_published":
+                raise Interrupt
+    
+        with pytest.raises(Interrupt):
+            run(root, hook=stop)
+        path = root / "intents/000000.json"
+        intent = json.loads(path.read_bytes())
+        intent["schema"] = "unsupported-future-version"
+        path.write_text(json.dumps(intent))
+>       assert inspect_store(root)["integrity"] == "invalid"
+E       AssertionError: assert 'verified_prefix' == 'invalid'
+E         
+E         - invalid
+E         + verified_prefix
+
+tests/engine/test_temporal_store.py:312: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_temporal_store.py::test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-None]
+FAILED tests/engine/test_temporal_store.py::test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-value1]
+FAILED tests/engine/test_temporal_store.py::test_nested_header_damage_keeps_raw_evidence_and_observed_costs[source-None]
+FAILED tests/engine/test_temporal_store.py::test_nested_header_damage_keeps_raw_evidence_and_observed_costs[source-value3]
+FAILED tests/engine/test_temporal_store.py::test_nested_header_damage_keeps_raw_evidence_and_observed_costs[case-value4]
+FAILED tests/engine/test_temporal_store.py::test_unknown_record_version_is_not_a_verified_journal[seal.json]
+FAILED tests/engine/test_temporal_store.py::test_unknown_record_version_is_not_a_verified_journal[completions/000000.json]
+FAILED tests/engine/test_temporal_store.py::test_unknown_intent_version_does_not_establish_a_valid_prefix

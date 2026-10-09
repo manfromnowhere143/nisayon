@@ -1,0 +1,91 @@
+{
+  "schema": "nisayon.evaluation.integration-verification.v1",
+  "case": "normalizer-execution-001",
+  "recorded_at": "2026-09-21T06:06:14+00:00",
+  "private_main": {
+    "head": "0b7dc6f4a2aa8424b8fc43cd866db61b70887454",
+    "equals_build_execution": true,
+    "contains": [
+      "f289540 (reading and contract)",
+      "34fbb0f (evaluation application)",
+      "a4b153d (named delivery)",
+      "0513df0 (named assessment)",
+      "d65c1f5 (assessment merge)",
+      "8b22b0c (tested source)",
+      "8239deb (closeout)",
+      "0b7dc6f (execution checkpoint)"
+    ],
+    "evaluation_surfaces_identical_to_0513df0": true,
+    "source_or_tests_changed_after_tested_commit": false,
+    "commits_since_b15c843": 24,
+    "identity_violations": 0,
+    "attribution_trailers": 0
+  },
+  "execution_records_verified": {
+    "integration_readback": {
+      "path": "docs/experiments/results/normalizer-execution-001/integration-readback-001.json",
+      "sha256": "62e839ec7f10d553dbce0f1b502513c73d6502758d1b636570a34db1d06f1cec",
+      "checks": {
+        "contract_v1_1_sha256": true,
+        "producer_seal_sha256": true,
+        "producer_summary_sha256": true,
+        "counts (12 useful, 0/0/0/0, 2 differences, 3 gaps)": true,
+        "numerics (43 rows, 1406 coverage, 14 groups, 0 ulp, 0 outside min/max, 539 outside q01/q99)": true,
+        "witness state.x row 0 (0.218774676322937 vs 0.23911917209625244)": true,
+        "application commits named (34fbb0f, a4b153d, 0513df0)": true
+      }
+    },
+    "validation": {
+      "path": "docs/experiments/results/normalizer-execution-001/validation-001.json",
+      "sha256": "703f55a2dada35fab709ae59d8178fa30989b1d68c35a437e98e120cb513a2c9",
+      "checks": {
+        "full_check_receipt_sha256 e121ba4a\u2026": true,
+        "receipt tested_commit 8b22b0c, returncode 0": true,
+        "recorder 6f8b9e51 on clean 8b22b0c: 923 passed, lint, 397 formatted, 126 documents, 447.624844 s outer": true,
+        "evaluation lane check e2f955b5 cited (907 passed, 1 skipped, 263.322209 s)": true,
+        "assessment commands 434a2f82, 2f33232f, 86e83c86 cited": true,
+        "failed validation 2a2a20f3 retained with validation-failure-001.json": true,
+        "phase payload 10,206,991 B within 16 MiB; retained plus sampled peak 803,730,174 B within 1 GiB; minimum sampled free disk 16,033,677,312 B above 5 GiB; outside-monitor temporary unchanged": true
+      }
+    },
+    "handoff": {
+      "path": "docs/SESSION_HANDOFF.md",
+      "statements_checked": [
+        "libero_sim selects min/max for every group",
+        "nested processor owns the active statistics; override false keeps while the mirror takes the candidate; save/reload exact",
+        "producer-004 keep supported, replace rejected on 43 rows; assessment 0513df0 at 0 ulp with no false acceptance/refusal",
+        "1,406 rows inside parent min/max, 539 values outside q01/q99"
+      ],
+      "agree_with_assessment": true
+    }
+  },
+  "three_way_classification": {
+    "software_correctness": "supported for the reduced-execution boundary and independently reproduced at 0 ulp",
+    "deployment_applicability": "unresolved",
+    "comparative_value": "real-case parity; no demonstrated advantage in obtaining a valid confirmed repair; one constructed dtype-boundary diagnostic advantage (NX5d)",
+    "confirmed_software_correction": false,
+    "agrees_with_execution_readback": true
+  },
+  "failure_and_cost_retention": {
+    "failures_preserved": 8,
+    "unknown_costs_named": [
+      "active engineering effort",
+      "provider charges",
+      "energy",
+      "network overhead",
+      "unsampled peak memory"
+    ],
+    "source_phase": "6 of 12 responses, 102,904 of 2,097,152 bytes; this lane 0",
+    "agrees": true
+  },
+  "next_investment_and_stop_rule": {
+    "execution_statement": "a separately selected prospective normalizer-deployment intervention on a non-reserved executable policy task; stop rule: unresolved if the selector cannot be bound, the candidate changes no action, or task outcome cannot be measured; no further nearby metadata acquisition unless a named unresolved deployment decision can change",
+    "evaluation_position": "agreed; the same recommendation is made in this lane's closeout"
+  },
+  "clock": {
+    "original_mission_clock": "2026-09-17T21:30:41Z",
+    "phase_start_utc": "2026-09-21T04:52:24Z",
+    "integration_verified_utc": "2026-09-21T06:06:14Z",
+    "active_effort": "unmeasured; clock intervals are not effort evidence; the earlier five-hour requirement stays unmet"
+  }
+}

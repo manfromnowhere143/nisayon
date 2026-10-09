@@ -1,0 +1,435 @@
+{
+  "schema": "nisayon.evaluation.baseline-qualification-readback.v1",
+  "recorded_at": "2026-09-20T16:24:13+00:00",
+  "expectations": {
+    "path": "qualification-expectations.v1.json",
+    "frozen_at": "2026-09-20T16:11:05+00:00",
+    "commit": "fc4b482"
+  },
+  "implementation_reviewed": {
+    "commit": "e66f478fd5eb6813645a6e0cf0c2fca3e12d3c63",
+    "path": "scripts/experiments/conventional_processor_diagnostic.py",
+    "sha256": "e24f066cd28fae234dccb35b51f91096fabb962ef6c1320011abe6cf3575e1dc",
+    "consumed_by_merge_of": "f9b5008 into build/evaluation",
+    "imports": [
+      "__future__",
+      "argparse",
+      "ast",
+      "datetime",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "pathlib",
+      "platform",
+      "struct",
+      "subprocess",
+      "time",
+      "typing"
+    ],
+    "nisayon_imports": [],
+    "independent_by_inspection": [
+      "own safetensors reader and last-dot grouping",
+      "own pipeline configuration parser",
+      "own float32 MEAN_STD emulation via struct rounding",
+      "reporter's full suffix rule with both '.' and '_' branches",
+      "obligation-derived verdicts from meets_obligation per observation",
+      "own sealing and read-only inspection"
+    ],
+    "shared_by_inspection": [
+      "retained upstream bytes",
+      "public witnesses and remedies",
+      "generic Git, JSON and SHA-256 facilities"
+    ]
+  },
+  "E1_software_decision": {
+    "record": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/baseline-qualification-001/run-002/observation.json",
+      "sha256": "d15c69e3d5618284e4330d99b31e79e1ace0a0bf261dcb7f990bad06aa4c3838",
+      "seal_sha256": "88058731c7aa3d23f21b30320b9ae9836f81ba107e8088cf627c14db9ceebad2",
+      "execution_readback": "f9b5008"
+    },
+    "failed_attempt": {
+      "id": "64b6d2383668489f9ed32761fce678e2",
+      "label": "baseline-qualification-001 assess Codex run-002 observation (e66f478, readback f9b5008) with reference v2",
+      "started_at": "2026-09-20T16:09:37.982006+00:00",
+      "wall_seconds": 0.091571,
+      "process_status": "nonzero",
+      "returncode": 2,
+      "cause": "wrong input root passed by this lane; exit 2; no assessment written"
+    },
+    "assessment": {
+      "path": "assessments/run-002-observation.v2.assessment.json",
+      "command": {
+        "id": "c8a4368903f74a8e931ee9c2e496d624",
+        "label": "baseline-qualification-001 assess Codex run-002 observation (e66f478, readback f9b5008) with reference v2, root source-capture",
+        "started_at": "2026-09-20T16:09:49.832781+00:00",
+        "wall_seconds": 0.096444,
+        "process_status": "completed",
+        "returncode": 0
+      },
+      "rule": "external-decision-001/v2",
+      "outcomes": {
+        "as_is": "rejected_candidate",
+        "suffix_match": "rejected_candidate",
+        "explicit_override": "supported_software_correction"
+      },
+      "c2_binding": "unresolved",
+      "rows": 10,
+      "rows_agreeing": 10,
+      "producer_agrees_all": true,
+      "false_acceptance": [],
+      "false_refusal": []
+    },
+    "holds": true
+  },
+  "E2_E3_E4_frozen_controls": {
+    "source": "run-002/result.json (sha256 237450a2…) read directly and compared with the frozen plan at a7a412d",
+    "opaque-identifiers-and-order": {
+      "expected": {
+        "opaque-zeta": "supported_software_correction",
+        "opaque-alpha": "rejected_candidate",
+        "opaque-mu": "rejected_candidate"
+      },
+      "observed_match": true
+    },
+    "supported-statistic-made-incomplete": {
+      "expected": {
+        "C2_explicit_override": "rejected_candidate"
+      },
+      "observed_match": true,
+      "observation_that_changed_it": "preprocessor:observation.state incomplete_statistics (std absent)"
+    },
+    "complete-content-under-prior-failed-name": {
+      "expected": {
+        "C0_as_is": "supported_software_correction"
+      },
+      "observed_match": true
+    },
+    "holds": true
+  },
+  "E5_independence": {
+    "holds": true,
+    "limit": "implementation separation only: the script was written within this project by the execution lane and both lanes know the exposed inputs and remedies; not independent authorship, blinded diagnosis or external replication"
+  },
+  "E6_provenance_premise": {
+    "plan_copy": {
+      "path": "plans/e6-label-only-plan.json",
+      "sha256": "e7536ec1bfd8a3772b14fd3f39b14d1351e41d889e728fd981671fa605a290d2",
+      "source_plan_sha256": "6479e38264de253d7e19bf822de5073dd3a0b750a259059beaf3a96f279d81f4",
+      "mutation": [
+        "incident_candidates[C2].selector_evidence.status: missing_deployment_record -> verified_deployment_record",
+        "incident_candidates[C2].statistics_provenance: {action: artifact, observation.state: reporter_transcription} -> both verified_training_statistics"
+      ]
+    },
+    "run": {
+      "id": "9ddd09d81c5341ba89ea4332a053633b",
+      "label": "baseline-qualification-001 E6: conventional diagnostic (e66f478 script) on the labelled plan copy, labels only",
+      "started_at": "2026-09-20T16:11:39.863514+00:00",
+      "wall_seconds": 0.110107,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    "sealed_outputs": {
+      "result_sha256": "cd09abcafba1e42debae2c0984e4801093d5f2d7e58e30649edebd0e456a10df",
+      "observation_sha256": "49a2c6154f2712cbc06a9562f236a92281708435faefa3d3ce295bb0a68ce9aa",
+      "seal_sha256": "cc4a5f3006caba941d17e4e651d1a0a83a8204f743a0b6eb215ddb7c04ffa01a",
+      "retained_copies": [
+        "e6-label-only.result.json",
+        "e6-label-only.seal.json"
+      ]
+    },
+    "baseline_own_verdict": {
+      "C0_as_is": {
+        "outcome": "rejected_candidate",
+        "deployment_applicability": "not_applicable",
+        "deployment_reason": "Candidate is not a supported correction."
+      },
+      "C1_suffix_match": {
+        "outcome": "rejected_candidate",
+        "deployment_applicability": "not_applicable",
+        "deployment_reason": "Candidate is not a supported correction."
+      },
+      "C2_explicit_override": {
+        "outcome": "supported_software_correction",
+        "deployment_applicability": "supported",
+        "deployment_reason": "The retained deployment record selects these verified training statistics."
+      }
+    },
+    "expected_under_O4": "deployment_applicability unresolved",
+    "observed": "deployment_applicability supported with the reason 'The retained deployment record selects these verified training statistics.'; no such record exists",
+    "software_outcome_unchanged": true,
+    "reference_v2_assessment": {
+      "path": "assessments/e6-label-only-observation.v2.assessment.json",
+      "command": {
+        "id": "431a1a94d6ad4742804c8c0d34b9e74b",
+        "label": "baseline-qualification-001 E6: assess the labelled-plan observation with reference v2",
+        "started_at": "2026-09-20T16:12:19.006703+00:00",
+        "wall_seconds": 0.088012,
+        "process_status": "completed",
+        "returncode": 0
+      },
+      "c2_binding": "unresolved",
+      "false_binding_acceptance": true,
+      "findings": [
+        "explicit_override: observation.state: declared 'verified_training_statistics', established not_established only",
+        "explicit_override: action: declared 'verified_training_statistics', established matches_artifact_set only",
+        "producer declares deployment binding supported; no candidate's binding evidence establishes interpretation or selection"
+      ]
+    },
+    "holds": false,
+    "which_decision_changed": "only C2's deployment-applicability conclusion",
+    "which_observation_caused_it": "none: no observation, statistic, output or artifact byte changed",
+    "which_source_premise": "_deployment_binding in conventional_processor_diagnostic.py returns supported when selector_evidence.status == 'verified_deployment_record' and every repair row's statistics_provenance == 'verified_training_statistics'; both are caller-supplied plan labels"
+  },
+  "verdict": {
+    "software_decision": "qualified (e66f478 and later)",
+    "binding_conclusion": "not qualified at e66f478 (E6 failed); qualified at f69727a (E6 holds: unresolved with the contract limit stated)",
+    "comparative_value": "not established and not addressed by qualification",
+    "deployment_binding_of_C2": "unresolved; this lane concurs with deployment-binding-001.json: no provenance-bearing original state statistics and no recorded selector; the current dataset revision's statistics match none of C2's 24 values"
+  },
+  "commands": [
+    {
+      "id": "e5b4f4755ac54a9db5f6e15838bbabb3",
+      "label": "baseline-qualification-001 before: processor on labelled copy original at source 2779e423 (commit 25637ab)",
+      "started_at": "2026-09-20T16:00:47.786187+00:00",
+      "wall_seconds": 0.108295,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "6cd84a2c2d724c02835ae451b7fa8779",
+      "label": "baseline-qualification-001 before: processor on labelled copy provenance-label-only at source 2779e423 (commit 25637ab)",
+      "started_at": "2026-09-20T16:00:48.050284+00:00",
+      "wall_seconds": 0.08677,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "66ba1f8fafa74cd7bc03d96707374a0f",
+      "label": "baseline-qualification-001 before: processor on labelled copy artifact-label-only at source 2779e423 (commit 25637ab)",
+      "started_at": "2026-09-20T16:01:00.925283+00:00",
+      "wall_seconds": 0.092305,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "cba5bd04ffce43408a941a8646105120",
+      "label": "baseline-qualification-001 after: processor v2 on labelled copy original (reference source 7ede0b2a8fbe)",
+      "started_at": "2026-09-20T16:07:07.447825+00:00",
+      "wall_seconds": 0.092914,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "deded7702e45405183444ab2f9d98c02",
+      "label": "baseline-qualification-001 after: processor v2 on labelled copy provenance-label-only (reference source 7ede0b2a8fbe)",
+      "started_at": "2026-09-20T16:07:07.761461+00:00",
+      "wall_seconds": 0.087429,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "62f0445716784989af3fb74d178bc83a",
+      "label": "baseline-qualification-001 after: processor v2 on labelled copy artifact-label-only (reference source 7ede0b2a8fbe)",
+      "started_at": "2026-09-20T16:07:07.987901+00:00",
+      "wall_seconds": 0.090638,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "f82aa4f276194b1d9fe142cf35d213e3",
+      "label": "external-decision-001 v2 reread: arm A conventional-a-v1",
+      "started_at": "2026-09-20T16:07:08.227501+00:00",
+      "wall_seconds": 0.085405,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "f81191e0d99c4e1ebf4fa0b773e8c9b6",
+      "label": "external-decision-001 v2 reread: arm B nisayon-b-observation-v1",
+      "started_at": "2026-09-20T16:07:08.453015+00:00",
+      "wall_seconds": 0.087501,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "c83ba520f38c4ba7989601972f81f730",
+      "label": "external-decision-001 v2 reread: raw store nisayon-b-v1 with frozen case e7c8a3a",
+      "started_at": "2026-09-20T16:07:08.683095+00:00",
+      "wall_seconds": 0.092666,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "99576ee27bde4f3b9f0d5ae7b1d304df",
+      "label": "external-decision-001 v2 reread: first-observation-001 (d2759ce) via execution-record adapter",
+      "started_at": "2026-09-20T16:07:08.913431+00:00",
+      "wall_seconds": 0.08616,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "c14641e9b15c455d95ffd9bbad1e723e",
+      "label": "baseline-qualification-001 focused: processor reference tests (v2)",
+      "started_at": "2026-09-20T16:08:02.679313+00:00",
+      "wall_seconds": 2.083573,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "42a5869e626d4e66a9fee1de8a8f2c66",
+      "label": "baseline-qualification-001 focused: twelve processor controls (v2)",
+      "started_at": "2026-09-20T16:08:04.920407+00:00",
+      "wall_seconds": 0.11522,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "64b6d2383668489f9ed32761fce678e2",
+      "label": "baseline-qualification-001 assess Codex run-002 observation (e66f478, readback f9b5008) with reference v2",
+      "started_at": "2026-09-20T16:09:37.982006+00:00",
+      "wall_seconds": 0.091571,
+      "process_status": "nonzero",
+      "returncode": 2
+    },
+    {
+      "id": "c8a4368903f74a8e931ee9c2e496d624",
+      "label": "baseline-qualification-001 assess Codex run-002 observation (e66f478, readback f9b5008) with reference v2, root source-capture",
+      "started_at": "2026-09-20T16:09:49.832781+00:00",
+      "wall_seconds": 0.096444,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "9ddd09d81c5341ba89ea4332a053633b",
+      "label": "baseline-qualification-001 E6: conventional diagnostic (e66f478 script) on the labelled plan copy, labels only",
+      "started_at": "2026-09-20T16:11:39.863514+00:00",
+      "wall_seconds": 0.110107,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    {
+      "id": "431a1a94d6ad4742804c8c0d34b9e74b",
+      "label": "baseline-qualification-001 E6: assess the labelled-plan observation with reference v2",
+      "started_at": "2026-09-20T16:12:19.006703+00:00",
+      "wall_seconds": 0.088012,
+      "process_status": "completed",
+      "returncode": 0
+    }
+  ],
+  "costs": {
+    "recorded_wall_seconds_sum": 3.49501,
+    "coordinator_probe_counted_once": {
+      "wall_seconds": 0.21555491583421826,
+      "child_cpu_seconds": 0.168669
+    },
+    "lane_allocation": {
+      "software_research_cpu_seconds": 120,
+      "retained_artifact_bytes": 16777216,
+      "source_downloads": 0
+    },
+    "new_retained_artifact_bytes_lane": 106514,
+    "unknown": [
+      "engineering effort",
+      "provider charges",
+      "energy",
+      "peak memory"
+    ]
+  },
+  "E6_after_execution_correction": {
+    "execution_correction": {
+      "commit": "f69727ac51531811e47f8b530b87c19c70055f26",
+      "script_sha256": "53dc34d022ab298f",
+      "consumed_by_merge_of": "044652f into build/evaluation at a201fd5",
+      "change": "_deployment_binding takes no candidate fields and always returns unresolved with the contract limit stated; annotations are declarations only"
+    },
+    "run": {
+      "id": "c5ad6dee5f0c441c8cce6131fa471fa3",
+      "label": "baseline-qualification-001 E6 rerun: corrected diagnostic (f69727a script 53dc34d0) on the same labelled plan copy",
+      "started_at": "2026-09-20T16:23:33.279784+00:00",
+      "wall_seconds": 0.109183,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    "sealed_outputs": {
+      "result_sha256": "830fbf8ed66283880b9090f2501783a2ed8ab23a21417c805ab87867e5819b66",
+      "observation_sha256": "2e3a3342cbdbfc2edfe7ea0cd8f6e14ecac995f518acca3196474d80e0711398",
+      "seal_sha256": "9bd6aa8e897e1e7cc41103a6f437704514cd8e6b5ef0b394cd3a8ba5b52c8cce",
+      "retained_copies": [
+        "e6-label-only-corrected.result.json",
+        "e6-label-only-corrected.seal.json"
+      ]
+    },
+    "baseline_own_verdict": {
+      "C0_as_is": {
+        "outcome": "rejected_candidate",
+        "deployment_applicability": "not_applicable"
+      },
+      "C1_suffix_match": {
+        "outcome": "rejected_candidate",
+        "deployment_applicability": "not_applicable"
+      },
+      "C2_explicit_override": {
+        "outcome": "supported_software_correction",
+        "deployment_applicability": "unresolved"
+      }
+    },
+    "reference_v2_assessment": {
+      "path": "assessments/e6-label-only-corrected-observation.v2.assessment.json",
+      "command": {
+        "id": "04a9e4c7dc2f40698d4f512d983e10cf",
+        "label": "baseline-qualification-001 E6 rerun: assess the corrected labelled-plan observation with reference v2",
+        "started_at": "2026-09-20T16:23:33.554689+00:00",
+        "wall_seconds": 0.090865,
+        "process_status": "completed",
+        "returncode": 0
+      },
+      "c2_binding": "unresolved",
+      "false_binding_acceptance": false,
+      "producer_agrees_all": true,
+      "declared_label_findings": [
+        "explicit_override: observation.state: declared 'verified_training_statistics', established not_established only",
+        "explicit_override: action: declared 'verified_training_statistics', established matches_artifact_set only"
+      ]
+    },
+    "holds": true
+  },
+  "lane_checks": {
+    "first_lane_check": {
+      "id": "4ef636307ebe4441a21b035e697bb78a",
+      "label": "baseline-qualification-001 evaluation lane check: make check on clean 2ed2a31 (application 4e42ac7; 256 MiB temporary reservation)",
+      "started_at": "2026-09-20T16:14:58.841265+00:00",
+      "wall_seconds": 238.986944,
+      "process_status": "nonzero",
+      "returncode": 2,
+      "tested_commit": "2ed2a31913e72d9e87fe4ae7d204bb80bb5e9e3c",
+      "result": "ruff and formatting passed (365 files); pytest 868 passed, 1 skipped, 2 failed; make stopped before the documentation check",
+      "failed_tests": [
+        "tests/engine/test_conventional_processor_diagnostic.py::test_frozen_controls_follow_candidate_contents_not_identifiers",
+        "tests/engine/test_conventional_processor_diagnostic.py::test_incident_decision_is_computed_and_binding_stays_unresolved"
+      ],
+      "cause": "the execution lane's tests resolved the gitignored artifacts/external-decision-001/source-capture directory, absent in this checkout; every evaluation-owned test passed",
+      "disposition": "retained; corrected by the execution lane at fe8c0d6 with a generated fixture"
+    },
+    "documentation_supplement": {
+      "id": "4f0342021e074d5dbcb1f391c1ca2f97",
+      "label": "baseline-qualification-001 lane check supplement: documentation check on clean 2ed2a31 (make stopped after pytest failures)",
+      "started_at": "2026-09-20T16:19:29.657883+00:00",
+      "wall_seconds": 0.474729,
+      "process_status": "completed",
+      "returncode": 0,
+      "documents": 117,
+      "errors": []
+    },
+    "evaluation_tests_supplement": {
+      "id": "024e37cec26042f4bf4a97b72dbb0040",
+      "label": "baseline-qualification-001 lane check supplement: evaluation-owned tests on clean 2ed2a31",
+      "started_at": "2026-09-20T16:19:36.350623+00:00",
+      "wall_seconds": 215.469817,
+      "process_status": "completed",
+      "returncode": 0,
+      "result": "all evaluation-owned tests passed"
+    }
+  }
+}

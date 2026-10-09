@@ -1,0 +1,70 @@
+{
+  "schema": "nisayon.evaluation.baseline-qualification-expectations.v1",
+  "frozen_at": "2026-09-20T16:11:05+00:00",
+  "question": "Is the computed conventional diagnostic scripts/experiments/conventional_processor_diagnostic.py at e66f478fd5eb6813645a6e0cf0c2fca3e12d3c63 (sha256 e24f066c…) qualified (a) for the declared software decision on the retained LeRobot 4415 inputs under obligations O1-O4, and (b) for its separate deployment-binding conclusion?",
+  "adopted_freeze": {
+    "commit": "a7a412dbb3461fe2a114db68b11d6b0f95dd71cb",
+    "path": "docs/experiments/results/baseline-qualification-001/qualification-plan.v1.json",
+    "sha256": "6479e38264de253d7e19bf822de5073dd3a0b750a259059beaf3a96f279d81f4",
+    "note": "The three content-changing controls and their expected outcomes were frozen by the execution lane before its outputs and are adopted unchanged; their sealed outputs (readback f9b5008, 16:04:26Z) already existed when this file was written."
+  },
+  "timing_disclosure": "Expectations E1-E5 restate obligations that were frozen before the execution lane's outputs. E6 is new: it was written after the label-only promotion was reproduced in this lane's own reference (c401efa) and after reading the diagnostic's _deployment_binding function, and it is frozen here before its own output is produced. Both sessions know these exposed development inputs; nothing here is blind.",
+  "expectations": {
+    "E1_software_decision": {
+      "expected": "The sealed incident observation agrees with reference v2 on every execution row and every candidate: C0 rejected, C1 rejected, C2 supported software correction; no false acceptance or refusal.",
+      "status": "assessed before this freeze",
+      "evidence": "assessments/run-002-observation.v2.assessment.json, command c8a43689"
+    },
+    "E2_opaque_identifiers_and_order": {
+      "expected": {
+        "opaque-zeta": "supported_software_correction",
+        "opaque-alpha": "rejected_candidate",
+        "opaque-mu": "rejected_candidate"
+      },
+      "source": "obligations O1-O4: decisions follow contents"
+    },
+    "E3_supported_statistic_made_incomplete": {
+      "expected": {
+        "C2_explicit_override": "rejected_candidate"
+      },
+      "source": "O1: incomplete state statistics cannot transform"
+    },
+    "E4_complete_content_under_prior_failed_name": {
+      "expected": {
+        "C0_as_is": "supported_software_correction"
+      },
+      "source": "O1-O4 met by the contents whatever the name"
+    },
+    "E5_independence": {
+      "expected": "no import of nisayon or its submodules; own safetensors parsing, configuration inspection, float32 arithmetic and verdict computation; shared inputs limited to the retained upstream bytes, the public witnesses and remedies, and generic facilities",
+      "source": "assignment: sharing the pinned upstream library is legitimate; calling Nisayon's decisive machinery or preloading answers is not"
+    },
+    "E6_provenance_premise": {
+      "control": "labelled-plan copy: the frozen plan with C2_explicit_override's selector_evidence set to {status: verified_deployment_record} and its statistics_provenance set to verified_training_statistics for both features; every statistic, witness, selector name, order and control unchanged",
+      "expected_under_O4": "deployment_applicability unresolved, because O4 requires provenance-bearing statistics and a recorded deployment selector, and a label is neither",
+      "expected_software_outcome": "C2 supported_software_correction, unchanged",
+      "prediction_from_source_inspection": "the implementation at e66f478 returns supported from _deployment_binding when both labels are present; if so, the baseline is qualified for the software decision and not for the deployment-binding conclusion until that function derives its conclusion from evidence it can check",
+      "method": "run the diagnostic's public run command from a clean checkout containing the e66f478 script, with the labelled plan copy committed under this lane's results directory, output under this lane's artifacts; seal; read the baseline's own deployment_applicability before assessing its observation with reference v2"
+    }
+  },
+  "qualification_rule": {
+    "software_decision_qualified": "E1 through E5 hold",
+    "binding_conclusion_qualified": "E6 holds",
+    "meaning": "A qualified comparator can be used in a future frozen study; qualification is not a Nisayon advantage, a repair of the old comparison, a deployment binding or a robot outcome."
+  },
+  "cost_scope": {
+    "lane_allocation": {
+      "software_research_cpu_seconds": 120,
+      "retained_artifact_bytes": 16777216,
+      "source_downloads": 0
+    },
+    "measured": "recorder wall per command; the diagnostic's own nested meters are not added",
+    "unknown": [
+      "engineering effort",
+      "provider charges",
+      "energy",
+      "peak memory"
+    ]
+  },
+  "stopping_rule": "Run E6 once, seal, assess, report; do not adjust the label set to obtain a favourable outcome; do not pool the qualification controls with the eighteen incident executions."
+}

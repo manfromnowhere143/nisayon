@@ -1,0 +1,151 @@
+{
+  "schema": "nisayon.population-binding-execution-plan.v1",
+  "id": "population-binding-001",
+  "frozen_before_new_scored_execution": true,
+  "status": "proposed_pending_independent_semantic_contract",
+  "exposure": "The public five-episode discrepancy and reduced cache-probe result were known before this plan; this is a bounded diagnostic, not a blind discovery.",
+  "software_obligation": {
+    "question": "Do the retained bytes support reuse, recomputation or abstention for the selected normalization role?",
+    "role_states": [
+      "current_population_summary",
+      "external_reference_normalizer",
+      "unresolved"
+    ],
+    "operation_states": ["reuse", "recompute", "abstain", "invalid"],
+    "decision_states": ["supported", "rejected", "unresolved", "invalid"],
+    "rule": [
+      "Reuse a valid matching summary when evidence binds it to the complete declared current population and transform.",
+      "Recompute only when evidence binds the obligation to the current population and the retained summary fails the independently reproduced arithmetic.",
+      "Reuse a valid external reference even when evaluation-subset moments differ, but only when evidence binds the selected reference and its normalization interpretation to the scoped invocation.",
+      "Abstain when role, population membership, transform interpretation or selection evidence needed by the proposed operation is missing.",
+      "Return invalid, not unresolved or success, for malformed, empty, non-finite or unsupported numeric input."
+    ],
+    "non_authorities": [
+      "a role or provenance label without supporting evidence",
+      "a byte digest without role or selection evidence",
+      "schema compatibility without population identity",
+      "agreement between producer and evaluator",
+      "a constructed control",
+      "process exit zero"
+    ]
+  },
+  "original_public_input": {
+    "repository": "NVIDIA/Isaac-GR00T",
+    "revision": "1a1837f20538b7d7e21f977a11a5aee14f99803c",
+    "packet_root": "/Users/danielwahnich/.codex/reports/nisayon-next-evidence-decision-2026-09-20-8i17bt5a/sources",
+    "episode_files": [
+      {"path": "groot-episode-000000.parquet", "bytes": 20341, "rows": 214, "sha256": "2a593521d58a1e6b3c27d6d91641c2d4c8a12422cc4534d9bfab49b01e532e68"},
+      {"path": "groot-episode-000001.parquet", "bytes": 25937, "rows": 284, "sha256": "d02255b7218f7a89db07eea56477d8c283cc3c0afb996a8bf4553b2682fda75d"},
+      {"path": "groot-episode-000002.parquet", "bytes": 30641, "rows": 345, "sha256": "60ec6beaaf6b541d4321596758bfb69c96e2b9df8757fc2c9d70db32792790c9"},
+      {"path": "groot-episode-000003.parquet", "bytes": 26392, "rows": 285, "sha256": "21eed03b65778058696f14e676bf6a9d921bd7d128c6b6b2db749fdca1cea0f7"},
+      {"path": "groot-episode-000004.parquet", "bytes": 25030, "rows": 278, "sha256": "8e263ac6c3a1abb853a29d89c99d54c9e6a41a63d8a0acc5b31294804dd74a48"}
+    ],
+    "declared_rows": 1406,
+    "info": {"path": "groot-demo-info.json", "bytes": 3342, "sha256": "bed28e0687b6c4e32b10340a65beee744a130a9d31f428f7cffcaa63027b8783"},
+    "modality": {"path": "groot-demo-modality.json", "bytes": 1394, "sha256": "ecb86712195689112f8328c7952523e558d1b495dcbc3be7e2d4cd5a16a0cf6d"},
+    "published_statistics": {"path": "groot-demo-stats.json", "bytes": 3870, "sha256": "8283e003742e41f0a55cce468daee0c388e7d203e72b6a51d53c04765fb68110"},
+    "known_observation": "All twelve state/action mean, population-standard-deviation, minimum, maximum, q01 and q99 vectors differ from direct packet recomputation; this does not say every scalar differs.",
+    "known_cache_observation": "A reduced AST import of selected unchanged upstream bodies accepted copied metadata and skipped recomputation; it was not a full import, reader or CLI execution."
+  },
+  "arithmetic": {
+    "input_dtype": "float32, matching the pinned calculate_dataset_statistics body",
+    "direct_reference_dtype": "float64 accumulation over the exact float32 input values",
+    "mean": "sum(x_i) / n",
+    "variance": "sum((x_i - mean) ** 2) / n",
+    "standard_deviation": "sqrt(population variance), ddof=0",
+    "quantiles": [0.01, 0.99],
+    "quantile_convention": "numpy.quantile default linear method at the pinned revision",
+    "comparison": {"rtol": 0.00001, "atol": 0.000001},
+    "requirements": [
+      "Preserve complete membership, file order, row order, coordinate order and every finite value.",
+      "Report float32-source and higher-precision results separately; explain tolerance differences before changing tolerances.",
+      "Do not drop a missing, invalid or non-finite row or coordinate."
+    ]
+  },
+  "candidate_operations": [
+    {"id": "reuse_published", "change": "Use the retained published statistics without rewriting them."},
+    {"id": "recompute_current", "change": "Write a new diagnostic result from all declared current-population rows; never overwrite the foreign source."},
+    {"id": "reuse_bound_external", "change": "Use the exact selected external reference and its documented normalization rule; subset mismatch is not a rejection premise."},
+    {"id": "abstain", "change": "Retain the exact missing role, membership, interpretation or invocation evidence and make no numeric replacement."}
+  ],
+  "constructed_controls": [
+    {"id": "PBC01-intact-current-population", "purpose": "A valid summary of the complete declared local population permits useful reuse."},
+    {"id": "PBC02-current-population-mismatch", "purpose": "Changing numeric content without changing the current-summary declaration is detected and permits recomputation."},
+    {"id": "PBC03-bound-external-reference", "purpose": "A separately selected valid reference is reused although its moments differ from an evaluation subset."},
+    {"id": "PBC04-missing-role-or-selection", "purpose": "Missing binding evidence produces a precise abstention, not blanket reuse or recomputation."},
+    {"id": "PBC05-unchanged-label-changed-content", "purpose": "Decision follows measured contents and evidence rather than an unchanged identifier or role string."},
+    {"id": "PBC06-empty-invalid-nonfinite", "purpose": "Empty, malformed, non-finite and unsupported inputs remain distinct invalid failures."}
+  ],
+  "control_status": "constructed; no control establishes a historical training population or deployment selector",
+  "competing_explanations": [
+    {
+      "id": "E1-current-summary-stale",
+      "prediction": "Primary source binds stats.json to this complete dataset population and actual reader selection; direct arithmetic disagrees; operation is recompute for the diagnostic copy."
+    },
+    {
+      "id": "E2-legitimate-external-reference",
+      "prediction": "Primary source and an observed invocation bind a different reference population/transform; subset disagreement is compatible with reuse."
+    },
+    {
+      "id": "E3-role-or-selection-unresolved",
+      "prediction": "Available primary sources do not bind the historical population or selected reference; operation is abstain for the unresolved claim."
+    }
+  ],
+  "source_questions": [
+    "Which actual caller loads or validates the shipped statistics, and can it reuse them without row-content validation?",
+    "What exact normalizer formula, epsilon or constant-coordinate rule consumes them?",
+    "What configuration or invocation selects dataset statistics versus a checkpoint or other reference?"
+  ],
+  "source_coordination": {
+    "shared_max_new_responses": 12,
+    "shared_max_new_body_bytes": 2097152,
+    "execution_reserved_responses": 5,
+    "evaluation_reserved_responses": 7,
+    "execution_reserved_body_bytes": 1048576,
+    "evaluation_reserved_body_bytes": 1048576,
+    "already_retained_do_not_fetch": [
+      "gr00t/data/stats.py",
+      "tests/gr00t/data/test_generate_stats_cache_fingerprint.py",
+      "tests/gr00t/data/test_stats_pipeline.py",
+      "getting_started/data_config.md",
+      "the five demo Parquet files and demo metadata"
+    ],
+    "rule": "Each lane records exact URL, revision, response number, bytes and digest. Do not duplicate a retained or other-lane acquisition."
+  },
+  "execution_sequence": [
+    "Publish this plan and proposed neutral record interface.",
+    "Inventory available dependencies and trace exact pinned callers before installing anything.",
+    "Acquire only direct necessary pinned sources within the reserved response/body share.",
+    "Publish a neutral raw path/arithmetic observation and planned invocation.",
+    "Consume the evaluation lane's named semantic/control contract by exact commit and digest.",
+    "Implement and focus-test the smallest deterministic producer path.",
+    "Run the original packet and frozen controls once through applicable workflows and seal every outcome.",
+    "Consume and assess the independently authored conventional diagnostic; retain parity, negative and failure results.",
+    "Integrate the named evaluation delivery, run serialized final validation, fast-forward clean private main, and record readback."
+  ],
+  "cost_scope": {
+    "candidate_diagnostic_process_cpu_seconds_execution_reserved": 30,
+    "candidate_diagnostic_process_cpu_seconds_evaluation_reserved": 30,
+    "per_lane_hard_max_process_cpu_seconds": 120,
+    "durable_case_artifacts_execution_reserved_bytes": 8388608,
+    "durable_case_artifacts_evaluation_reserved_bytes": 8388608,
+    "combined_durable_case_artifact_cap_bytes": 16777216,
+    "initial_diagnostic_temporary_reservation_per_lane_bytes": 33554432,
+    "combined_phase_temporary_cap_bytes": 201326592,
+    "unallocated_temporary_bytes_for_serialized_validation": 134217728,
+    "new_dependency_body_reservation_bytes": 0,
+    "new_dependency_body_hard_cap_bytes": 33554432,
+    "measured": ["outer command wall", "outer process CPU", "written logical bytes", "source response bytes", "current free disk"],
+    "separate": ["nested command meters", "ordinary required validation"],
+    "unknown": ["active engineering effort", "provider charges", "energy", "HTTP overhead", "unsampled memory and filesystem peaks"]
+  },
+  "stopping_rule": "Stop after one original-input execution and the frozen controls are sealed and independently assessed, or earlier with a precise invalid/unresolved result when a required role or selection premise cannot be established. Do not expand to another dataset, model, simulator, robot or reserved incident.",
+  "prohibited": [
+    "model inference, model weights or training",
+    "physics or simulator execution",
+    "hardware or robot operation",
+    "reserved incident access",
+    "paid compute, outreach, publication or push",
+    "rewriting third-party statistics in place"
+  ]
+}

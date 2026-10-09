@@ -1,0 +1,53 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible _____
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-223/test_damaged_cost_record_keeps0')
+
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path):
+        output = tmp_path / "damaged-cost"
+        packet = workflow.run_demo(SOURCE, PLAN, output)
+        first = packet["rows"][0]
+        receipt = output / first["declaration"]["path"]
+        before = receipt.read_bytes()
+        cost = next((receipt.parent / "attempts").glob("*.result.json"))
+        cost.write_text("{damaged labelled test copy")
+>       report = workflow.inspect_demo(output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:460: in inspect_demo
+    recovery = inspect_declaration(root / case_id / arm / "declaration", evidence_root=root)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/declarations.py:417: in inspect_declaration
+    json.loads(
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:338: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <json.decoder.JSONDecoder object at 0x1026936e0>
+s = '{damaged labelled test copy', idx = 0
+
+    def raw_decode(self, s, idx=0):
+        """Decode a JSON document from ``s`` (a ``str`` beginning with
+        a JSON document) and return a 2-tuple of the Python
+        representation and the index in ``s`` where the document ended.
+    
+        This can be used to decode a JSON document from a string that may
+        have extraneous data at the end.
+    
+        """
+        try:
+>           obj, end = self.scan_once(s, idx)
+                       ^^^^^^^^^^^^^^^^^^^^^^
+E           json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:354: JSONDecodeError
+=========================== short test summary info ============================
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible
+1 failed, 5 deselected in 0.55s

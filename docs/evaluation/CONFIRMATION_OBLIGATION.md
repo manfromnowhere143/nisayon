@@ -45,6 +45,26 @@ so a decision can be traced back to the rule that produced it.
    attempt therefore cannot produce acceptance. A labelled derived control or a
    partial reuse is not a spare attempt: it cannot count for the obligation, so
    it is assessed on its own provenance and does not void the confirmation.
+   A producer may stop a confirmation after an observed violation and say so:
+   with `confirmation.assignments` naming each assignment's condition and a
+   `confirmation.cancellation` block (`status: stopped_after_violation`, the
+   violating condition, the cancelled condition ids), the assignments that
+   never ran are retained as `assignment_cancelled` and the verdict stays
+   `rejected` on the observed violation. The block's provenance is checked:
+   the cancelled ids must be assigned conditions without repetition and must
+   not include the violating condition; a supplied `violation.run_id` must be
+   one of that condition's two assigned runs; a supplied `violation.code` must
+   be a rejecting code observed on that assignment; a supplied `recorded_at`
+   must not precede the freeze or the violating run's start; and no cancelled
+   condition may have an attempted run in the bundle, because a cancellation
+   cannot hide an attempt or its cost. Any of these, or a cancellation that no
+   rejecting violation supports, is `cancellation_unsupported` (invalid) and
+   the unrun assignments stay `assigned_outcome_missing`. A present
+   cancellation that is not an object, or explicit assignments that disagree
+   with `condition_ids`, `reference_run_ids` or `candidate_run_ids`, are
+   `malformed_record`. Without the explicit assignments an unrun pair loses
+   its condition and the record is malformed, as before. Stopping never
+   produces an acceptance.
 5. **Valid pairs.** Both runs of a pair must be valid experiments; the
    underlying cause is named alongside `assigned_run_invalid` or
    `assigned_run_unresolved`. Paired runs must reset to the same recorded state

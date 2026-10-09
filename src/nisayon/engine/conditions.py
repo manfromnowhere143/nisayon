@@ -76,8 +76,8 @@ def consumed_history(root: Path, namespace: str, *, required: bool = True) -> di
     discovered = []
     results = root / "docs/experiments/results"
     sources = sorted({*results.rglob("*bundle.json.gz"), *results.rglob("frozen-suite.json")})
-    for path in sources:
-        source = resolve_member(root, str(path.relative_to(root)))
+    for candidate_path in sources:
+        source = resolve_member(root, str(candidate_path.relative_to(root)))
         if source in indexed_paths:
             continue
         observed = evidence_conditions(source)
@@ -85,7 +85,7 @@ def consumed_history(root: Path, namespace: str, *, required: bool = True) -> di
             continue
         seeds.update(observed["seeds"])
         reference = {
-            "path": str(path.relative_to(root)),
+            "path": str(candidate_path.relative_to(root)),
             "sha256": file_digest(source),
             "schema": observed["schema"],
         }

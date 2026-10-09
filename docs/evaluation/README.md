@@ -1,7 +1,36 @@
 # Evaluation lane
 
-**17 September 2026 · evaluator implemented; first real case decided on
-development evidence. No blinded result, superiority or external replication.**
+**21 September 2026 · task qualification for a prospective normalizer intervention:
+[results/task-qualification-001/](results/task-qualification-001/README.md). No held
+executable policy task consumes normalization statistics, so nothing qualifies without an
+authorized acquisition; the conditional task contract is frozen and the conventional arm
+gained a float32-faithful version.**
+
+**21 September 2026 · normalizer reference for the concrete GR00T N1.7 processor added:
+[NORMALIZER_REFERENCE.md](NORMALIZER_REFERENCE.md), reading, contract, real-invocation
+results and controls under [results/normalizer-execution-001/](results/normalizer-execution-001/README.md).
+Keep of the shipped parent statistics is supported on the declared invocation, replacement
+by the five-file moments is rejected with a witness row, and the conventional diagnostic
+reaches the same decisions except on one float32 overflow control.**
+
+**20 September 2026 · population reference for an external normalizer question
+(NVIDIA Isaac-GR00T LIBERO demo) added: [POPULATION_REFERENCE.md](POPULATION_REFERENCE.md),
+reading, contract and results under [results/population-binding-001/](results/population-binding-001/README.md).
+The shipped statistics are identified as a 379-episode parent population's summary
+carried into the five-episode subset; reuse in the scoped invocation is supported, intent
+is unresolved, and the conventional diagnostic reaches the same decisions.**
+
+**20 September 2026 · processor reference for an external deployment-software incident
+(LeRobot 4415) added: [PROCESSOR_REFERENCE.md](PROCESSOR_REFERENCE.md), qualification and
+frozen plan under [results/external-decision-001/](results/external-decision-001/QUALIFICATION.md).
+Reduced software mechanism only; no robot outcome, no comparative advantage.**
+
+**19 September 2026 · prospective decision-quality scorer, external-record assessment
+and corrected competitive assessment added; no blinded result, superiority or external
+replication.** Current position: [COMPETITIVE_ASSESSMENT_2026-09-19.md](COMPETITIVE_ASSESSMENT_2026-09-19.md).
+Prospective scoring: [PROSPECTIVE_CONTRACT.md](PROSPECTIVE_CONTRACT.md) and
+[PROSPECTIVE_STUDY.md](PROSPECTIVE_STUDY.md). External record:
+[EXTERNAL_RECORD_ROBOLAB.md](EXTERNAL_RECORD_ROBOLAB.md).
 
 A changed robot deployment fails a task. Someone proposes a correction and a
 record of an experiment that seems to show it works. The evaluator's job is to
@@ -20,6 +49,17 @@ uv run --frozen python -m nisayon.evaluation package PACKAGE.json      # a scree
 uv run --frozen python -m nisayon.evaluation evaluate BUNDLE    # directory or first_case JSON/JSON.gz
 uv run --frozen python -m nisayon.evaluation evaluate BUNDLE --history docs/evaluation/results/audit-2026-09-18   # every retained decision
 uv run --frozen python -m nisayon.evaluation replay-control BUNDLE.json.gz --out DERIVED.json.gz
+uv run --frozen python -m nisayon.evaluation score LEDGER.json                 # v1 comparison score
+uv run --frozen python -m nisayon.evaluation prospective LEDGER.json            # declarations against terminal references
+uv run --frozen python -m nisayon.evaluation prospective PACKET_DIR --historical-root SUITE_DIR
+uv run --frozen python -m nisayon.evaluation external INVENTORY_OR_EXTERNAL_RECORD.json
+uv run --frozen python -m nisayon.evaluation processor RECORD.json      # processor observation against the normalization reference
+uv run --frozen python -m nisayon.evaluation processor-store STORE --case CASE.json --sources ROOT   # an execution-lane case store
+uv run --frozen python -m nisayon.evaluation processor-controls          # constructed processor controls
+uv run --frozen python -m nisayon.evaluation population CASE.json [--producer RECORD.json]   # population reference
+uv run --frozen python -m nisayon.evaluation population-controls         # six constructed population controls
+uv run --frozen python -m nisayon.evaluation normalizer CASE.json [--producer RECORD.json]   # normalizer reference
+uv run --frozen python -m nisayon.evaluation normalizer-controls         # NX1-NX8 normalizer controls
 uv run --frozen pytest tests/evaluation
 ```
 
@@ -116,3 +156,130 @@ rewritten frozen protocol is caught only against retained history, and a
 careful forgery is caught only with the raw store.
 
 [Records](RECORD_INTERFACE.md) · [Controls](CONTROLS.md) · [Obligation](CONFIRMATION_OBLIGATION.md) · [Baseline](BASELINE.md) · [Review](FIRST_CASE_REVIEW.md) · [Trust boundary](TRUST_BOUNDARY.md) · [Scoring](SCORING_CONTRACT.md) · [Reserved screen](RESERVED_SCREEN.md) · [Suite review](DEVELOPMENT_SUITE_REVIEW.md) · [Timing and reset contract](OBSERVATION_RESET_CONTRACT.md)
+
+## Where this sits against other systems
+
+[COMPETITIVE_ASSESSMENT_2026-09-19.md](COMPETITIVE_ASSESSMENT_2026-09-19.md) is
+the current assessment. It supersedes the judgement in
+[COMPETITIVE_VERDICT.md](COMPETITIVE_VERDICT.md) (retained unchanged at `6f29489`)
+on six points: absence from competitor documentation is not absence; one ratio
+rewards abstention; the historical acceptance flag was the terminal verdict
+itself, so it cannot measure a pre-verdict intention (a shared checker does not
+force ties, and the observed ties, costs and lack of advantage stand);
+overlapping intervals and unmeasured costs prove nothing; a batch-regime
+failure can be real; prefix invariance is evidence under premises, not proof
+of reset. The competitor table of the original stands as authors' reported
+capabilities.
+
+## Deployment fields the scope check can see
+
+A candidate's repair is read from the deployment fields where it differs from the changed
+deployment, and each component is checked against the declared repair scope. A field the
+evaluator does not know cannot fail that check. When the execution lane added the
+declarable `controller_target` convention, a candidate could carry a convention change
+past a gripper-only scope and be accepted; the public command did so on a synthetic
+strict bundle. The field is now part of the evaluator's deployment fields with the
+documented default `restored`, so the same bundle is rejected for
+`candidate_outside_repair_scope`. Before and after decisions, the bundle and the
+commands are in
+[`results/audit-2026-09-19/controller-target-scope-001/`](results/audit-2026-09-19/controller-target-scope-001/README.md).
+Retained decisions and scores are unchanged, because no retained record carries the field.
+
+## Temporal evidence for asynchronous action chunks
+
+`nisayon.evaluation.temporal` is a separately implemented reference assessment of a
+producer's asynchronous action-chunk record: nine predicates (generation fencing,
+request and configuration binding, queue reset, duplicate dispatch, dispatch order,
+freshness under declared clocks, acknowledgement, useful execution) reported separately
+from software execution, evidence completeness and the unmeasured robot outcome.
+`python -m nisayon.evaluation temporal TRACE` assesses one record.
+[`results/temporal-integration-001/`](results/temporal-integration-001/README.md) holds
+the frozen constructed cases, an exhaustive 216-schedule enumeration per behavior, the
+source qualification of LeRobot issue 1116 / PR 1117 and the comparison: the ordinary
+remedies decide every case, the competent baseline admits no stale action, and the
+capability is measurement and regression, not a product advantage.
+
+The assessment is version 3 (`nisayon.temporal-assessment.v3`). Since version 2,
+configuration binding follows the activation context derived from recorded configuration
+changes, acknowledgements bind to the send attempt (`dispatch_id`), age arithmetic is
+exact, a mapped age interval that admits negative values is unresolved unless same-clock
+chain evidence bounds it, and the producer's frozen whole-case opportunity contract is
+read as `assigned_usefulness` beside the unchanged version-1 `useful_execution`.
+Chunk-target alignment, observation context and chunk identity are retrospective readings
+outside the frozen nine-predicate contract. The before/after reassessment of every
+retained trace, with each change named, is in
+[`results/temporal-integration-001/followthrough/`](results/temporal-integration-001/followthrough/README.md);
+the clock-declaration correction of version 3 is in
+[`followthrough/clock/`](results/temporal-integration-001/followthrough/clock/README.md).
+
+### Clock declarations: the rule and its supported domain
+
+A trace declares its clocks in `clocks`: `names`, a non-empty list of distinct strings
+whose first member is the controller clock, and `declared_mappings`, a list of
+declarations `{from, to, offset, uncertainty, unit}`. A declaration asserts one relation
+between two distinct declared clocks over the whole case: `t_to` lies in
+`[t_from + offset − uncertainty, t_from + offset + uncertainty]`, unit rate and constant
+offset, in the named unit; `offset` is a finite non-Boolean number, `uncertainty` a
+finite non-Boolean number that is not negative. A declaration written in the other
+direction (`from` and `to` exchanged, `offset` negated) is the same relation.
+
+The supported domain holds **at most one relation per unordered clock pair**. An exact
+repeat is counted once. Any other second declaration for a pair makes the pair
+*conflicting*, in whatever list order: the record grants no priority, and neither
+reading of two different assertions establishes freshness. Read as simultaneous
+constraints, exact offsets that differ have no jointly consistent calibration; read as
+alternatives, the admissible ages include both candidates and are not all within the
+limit. The reference therefore computes no age through a conflicting pair, reports the
+category `conflicting_declarations`, and leaves `freshness` unresolved unless same-clock
+chain evidence alone proves expiry (the age is at least dispatch time minus documented
+possession, a separate premise with bound observation and request identity). No
+composition through a third clock, rate, drift, validity interval or selection field is
+supported; a declaration carrying an unsupported field is not used and its pair stays
+unmapped (`unsupported_declaration`). A declaration or stamp naming an undeclared clock
+is `undeclared_clock`; a relation whose unit differs from the stamps' unit is
+`unit_mismatch`; both leave freshness unresolved.
+
+Let A be the set of admissible ages under the checked premises. `freshness` is satisfied
+only when A is nonempty and lies entirely in `[0, max_age]` (equality included), violated
+when A lies entirely above `max_age`, and unresolved otherwise: an empty A (the relation
+places acquisition after documented possession, `inconsistent`) is never a vacuous fresh
+result, an unknown calibration is never an age of zero, and an interval straddling the
+limit or crossing zero without chain evidence stays unresolved. Arithmetic is exact
+(`int`, `Fraction`); nothing is rounded, clamped or widened.
+
+Malformed clock evidence never raises. A `clocks` value that is not an object, a
+`declared_mappings` value that is not a list, a member that is not an object, a missing
+field, a self-relation, a Boolean or non-finite number or a negative uncertainty is a named
+problem: the trace reads `invalid`, every predicate stays visible, and no relation from a
+malformed list is used (an unreadable member may be the other half of a conflict).
+Two legacy forms are supported under named rules: `clocks` absent, or `names` absent,
+means the controller clock is the clock literally named `controller` and no other clock is
+declared. Names order carries the controller role; a bijective rename that keeps the
+order changes no verdict, a reordering is a different premise.
+
+## Confirmation feasibility
+
+Can a deployment-change decision be confirmed for materially less than the finite
+obligation's 67 runs? [`results/confirmation-feasibility-001/`](results/confirmation-feasibility-001/README.md)
+answers with exact enumeration and the primary sources of STEP, N-SCORE and the
+paired-binomial admission rule: not at equal certification. Any valid rule needs at
+least log α / log(1 − q) pairs to accept on an all-concordant record, the current 32
+pairs are exactly that number for the 9 % harmful-disagreement bound they imply, and
+sequential rules save rejection cost only, which the obligation can also save once the
+record carries a cancellation status. Cheaper contracts are weaker or answer a different
+question. The historical negatives are unchanged.
+
+## Prospective scoring and the external record
+
+[PROSPECTIVE_CONTRACT.md](PROSPECTIVE_CONTRACT.md) scores an arm's declaration,
+recorded before the terminal check, against the verified terminal decision and
+keeps supported, contradicted, unsupported and unknown claims apart; the v1
+scorer and both historical scores are unchanged. [PROSPECTIVE_STUDY.md](PROSPECTIVE_STUDY.md)
+fixes the population, reference, exclusions, categories, margins and stopping
+rule of the study those semantics serve; no case is open. Retained tables:
+[`results/audit-2026-09-19/`](results/audit-2026-09-19/README.md).
+[EXTERNAL_RECORD_ROBOLAB.md](EXTERNAL_RECORD_ROBOLAB.md) applies the obligation
+table to the pinned RoboLab recording field by field; three obligations are
+measurable, one more with an evaluator-added predicate, two declared only,
+five absent, three inapplicable, and each gap names its smallest additional
+measurement. It is record portability evidence, not value evidence.

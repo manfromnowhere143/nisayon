@@ -1,0 +1,3118 @@
+{
+  "schema": "nisayon.temporal-clock-conformance.v1",
+  "execution_source_commit": "7022cca5b96df4e47fa69673fd4eea6f734f3566",
+  "evaluation_delivery": "8e5465051a583823ce8bf3914846e71046fbdeee",
+  "reference_module_sha256": "83b7618a204d0c1aacdb9dac072c370e0084ac1ed51b9eba54def2a2d415996b",
+  "capture": {
+    "assigned": 8,
+    "complete": 8,
+    "legacy_contracts": {
+      "violated": 8
+    },
+    "assigned_contracts": {
+      "satisfied": 3,
+      "violated": 5
+    },
+    "process_cpu_s_before_final_write": 0.54903,
+    "retained_bytes_before_final_write": 3168412,
+    "allocation_cpu_s": 10,
+    "allocation_bytes": 8388608,
+    "new_simulator_executions": 0,
+    "boundary": "New exposed software clock-conformance controls, not original comparisons or robot outcomes"
+  },
+  "frozen_suite_sha256": "975ee284679ceaebde6bbcb86c426f39db25977fc899f66f457cf1b388991af0",
+  "assignments": [
+    {
+      "assignment": {
+        "case_id": "C01-single-fresh-mapping",
+        "id": "C01-single-fresh-mapping--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "trace_sha256": "bdfdcba15592c9555cd6bad991da9fe7b2ab6649744f2da328d8c1f87824702c",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "C01-single-fresh-mapping-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "mapped",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "C01-single-fresh-mapping-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "C01-single-fresh-mapping-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C01-single-fresh-mapping",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "C01-single-fresh-mapping-input-03:send",
+              "dispatch_id": "C01-single-fresh-mapping-input-03:send",
+              "failures": 0,
+              "input_id": "C01-single-fresh-mapping-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "6cf72cf03df3545cc4d2394644f26340da234f746aba6b59cd8ee94a92cb75fc",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.009411000000000003,
+        "capture_before_seal_wall_s": 0.010208958061411977,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 21774336,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.016075+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C01-single-fresh-mapping",
+        "id": "C01-single-fresh-mapping--conventional",
+        "remedy_id": "conventional"
+      },
+      "trace_sha256": "58f5244f34feb8b2eecda6c347f687cbd45d0d4ab64f566ca3b0c57b5834e104",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "C01-single-fresh-mapping-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "mapped",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "C01-single-fresh-mapping-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "C01-single-fresh-mapping-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C01-single-fresh-mapping",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "C01-single-fresh-mapping-input-03:send",
+              "dispatch_id": "C01-single-fresh-mapping-input-03:send",
+              "failures": 0,
+              "input_id": "C01-single-fresh-mapping-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "b131d4d48744bec142172d1a22f2f720928b253839cc926838e14f6763a0ee9c",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.009554000000000007,
+        "capture_before_seal_wall_s": 0.011180457891896367,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 23347200,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.049700+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C02-conflicting-fresh-first",
+        "id": "C02-conflicting-fresh-first--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "trace_sha256": "7087e772388a6f9501b69545832a4161a9e90c9097540e11fc9077fe69b1ff40",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "C02-conflicting-fresh-first-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "mapped",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "C02-conflicting-fresh-first-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "C02-conflicting-fresh-first-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C02-conflicting-fresh-first",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "C02-conflicting-fresh-first-input-03:send",
+              "dispatch_id": "C02-conflicting-fresh-first-input-03:send",
+              "failures": 0,
+              "input_id": "C02-conflicting-fresh-first-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "6cf72cf03df3545cc4d2394644f26340da234f746aba6b59cd8ee94a92cb75fc",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.009905999999999998,
+        "capture_before_seal_wall_s": 0.010730582987889647,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 24756224,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.087750+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C02-conflicting-fresh-first",
+        "id": "C02-conflicting-fresh-first--conventional",
+        "remedy_id": "conventional"
+      },
+      "trace_sha256": "3e6b5b63782dd598fcbb977f2f62c249b7aa9ddc2e7f550f67ed42e26cb63ba3",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 0,
+          "opportunities_dispatched": 0,
+          "opportunities_observed": 1,
+          "opportunities_refused": 1,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 0,
+          "rows": [
+            {
+              "acknowledged": null,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [],
+              "counted": "refused",
+              "input_id": "C02-conflicting-fresh-first-input-03",
+              "observed": [
+                "refusal"
+              ],
+              "refusal_reasons": [
+                "dispatch_age_unresolved"
+              ],
+              "valid": null
+            }
+          ],
+          "scope": "whole_case",
+          "status": "violated",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C02-conflicting-fresh-first",
+        "controller_clock": "controller",
+        "dispatch_refusals": 1,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {}
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [],
+          "generation": 0,
+          "queued_action_ids": [
+            "c0:0"
+          ],
+          "steps_dispatched": {},
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 0 of 1 opportunities units carried a dispatch (coverage 0.000 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "opportunities",
+              "coverage": 0.0,
+              "dispatched": 0,
+              "ticks": 1,
+              "window": null
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "af0fa3226e677f0c337c6f1436c382d2995d594ffbb37eca09d335a5504ec0e6",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.008750000000000008,
+        "capture_before_seal_wall_s": 0.010381083004176617,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 25313280,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.121774+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C03-conflicting-stale-first",
+        "id": "C03-conflicting-stale-first--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "trace_sha256": "3c9917f6a736bbf08016287b840fd8771eb50b6bb0c2b0c8334fe89ac8bd2c1e",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "C03-conflicting-stale-first-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "mapped",
+            "classification": "beyond",
+            "interval_used": [
+              120000000,
+              120000000
+            ],
+            "mapped_interval": [
+              120000000,
+              120000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "C03-conflicting-stale-first-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "C03-conflicting-stale-first-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": false
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C03-conflicting-stale-first",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "C03-conflicting-stale-first-input-03:send",
+              "dispatch_id": "C03-conflicting-stale-first-input-03:send",
+              "failures": 0,
+              "input_id": "C03-conflicting-stale-first-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": false,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [
+              {
+                "detail": "action c0:0 age [120000000, 120000000] exceeds the limit 50000000",
+                "predicate": "freshness",
+                "seq": 5,
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "6cf72cf03df3545cc4d2394644f26340da234f746aba6b59cd8ee94a92cb75fc",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.00900899999999999,
+        "capture_before_seal_wall_s": 0.009848625166341662,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26050560,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.154662+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C03-conflicting-stale-first",
+        "id": "C03-conflicting-stale-first--conventional",
+        "remedy_id": "conventional"
+      },
+      "trace_sha256": "593a12871555dbd781be2bc32ea8456b05dfa2de9236c6563184d77b5d24d2fc",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 0,
+          "opportunities_dispatched": 0,
+          "opportunities_observed": 1,
+          "opportunities_refused": 1,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 0,
+          "rows": [
+            {
+              "acknowledged": null,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [],
+              "counted": "refused",
+              "input_id": "C03-conflicting-stale-first-input-03",
+              "observed": [
+                "refusal"
+              ],
+              "refusal_reasons": [
+                "dispatch_age_unresolved"
+              ],
+              "valid": null
+            }
+          ],
+          "scope": "whole_case",
+          "status": "violated",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C03-conflicting-stale-first",
+        "controller_clock": "controller",
+        "dispatch_refusals": 1,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {}
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [],
+          "generation": 0,
+          "queued_action_ids": [
+            "c0:0"
+          ],
+          "steps_dispatched": {},
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 0 of 1 opportunities units carried a dispatch (coverage 0.000 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "opportunities",
+              "coverage": 0.0,
+              "dispatched": 0,
+              "ticks": 1,
+              "window": null
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "af0fa3226e677f0c337c6f1436c382d2995d594ffbb37eca09d335a5504ec0e6",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.008846999999999994,
+        "capture_before_seal_wall_s": 0.009890250163152814,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26230784,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.189059+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C04-single-stale-mapping",
+        "id": "C04-single-stale-mapping--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "trace_sha256": "3e02c070ce1e7a95bc0fdcfaf9837f1dd82d70a0f966f17a4a05c381ca16f408",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "C04-single-stale-mapping-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "mapped",
+            "classification": "beyond",
+            "interval_used": [
+              120000000,
+              120000000
+            ],
+            "mapped_interval": [
+              120000000,
+              120000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "C04-single-stale-mapping-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "C04-single-stale-mapping-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": false
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C04-single-stale-mapping",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "C04-single-stale-mapping-input-03:send",
+              "dispatch_id": "C04-single-stale-mapping-input-03:send",
+              "failures": 0,
+              "input_id": "C04-single-stale-mapping-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": false,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [
+              {
+                "detail": "action c0:0 age [120000000, 120000000] exceeds the limit 50000000",
+                "predicate": "freshness",
+                "seq": 5,
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "6cf72cf03df3545cc4d2394644f26340da234f746aba6b59cd8ee94a92cb75fc",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.010290999999999995,
+        "capture_before_seal_wall_s": 0.011264249915257096,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26443776,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.221840+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "C04-single-stale-mapping",
+        "id": "C04-single-stale-mapping--conventional",
+        "remedy_id": "conventional"
+      },
+      "trace_sha256": "be6e4c796147b0f7e42c955c0bfa9fc094692e1f7ce746003c6463e6eee60f7c",
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "reference_assessment": {
+        "age_readings": [],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 0,
+          "opportunities_dispatched": 0,
+          "opportunities_observed": 1,
+          "opportunities_refused": 1,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 0,
+          "rows": [
+            {
+              "acknowledged": null,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [],
+              "counted": "refused",
+              "input_id": "C04-single-stale-mapping-input-03",
+              "observed": [
+                "refusal"
+              ],
+              "refusal_reasons": [
+                "dispatch_age_overdue"
+              ],
+              "valid": null
+            }
+          ],
+          "scope": "whole_case",
+          "status": "violated",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "C04-single-stale-mapping",
+        "controller_clock": "controller",
+        "dispatch_refusals": 1,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {}
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [],
+          "generation": 0,
+          "queued_action_ids": [
+            "c0:0"
+          ],
+          "steps_dispatched": {},
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 0 of 1 opportunities units carried a dispatch (coverage 0.000 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "opportunities",
+              "coverage": 0.0,
+              "dispatched": 0,
+              "ticks": 1,
+              "window": null
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "normalized_event_sha256": "0fe7785577b9afd1ad531cce232596b9488009763fded5f5db7797699c156a0b",
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.009180999999999995,
+        "capture_before_seal_wall_s": 0.01003475021570921,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26574848,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:02:01.256996+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    }
+  ],
+  "permutation_pairs": [
+    {
+      "remedy": "unfenced_queue_control",
+      "fresh_first": "C02-conflicting-fresh-first--unfenced_queue_control",
+      "stale_first": "C03-conflicting-stale-first--unfenced_queue_control",
+      "mapping_multiset_equal": true,
+      "logical_events_equal_after_scoped_id_removal": true,
+      "removed_identity_fields": [
+        "input_id",
+        "delivery_id",
+        "dispatch_id"
+      ],
+      "assigned_contracts": [
+        "satisfied",
+        "violated"
+      ],
+      "freshness": [
+        "satisfied",
+        "violated"
+      ]
+    },
+    {
+      "remedy": "conventional",
+      "fresh_first": "C02-conflicting-fresh-first--conventional",
+      "stale_first": "C03-conflicting-stale-first--conventional",
+      "mapping_multiset_equal": true,
+      "logical_events_equal_after_scoped_id_removal": true,
+      "removed_identity_fields": [
+        "input_id",
+        "delivery_id",
+        "dispatch_id"
+      ],
+      "assigned_contracts": [
+        "violated",
+        "violated"
+      ],
+      "freshness": [
+        "satisfied",
+        "satisfied"
+      ]
+    }
+  ],
+  "archive": {
+    "path": "docs/experiments/results/temporal-integration-001/clock-conformance-001.tar.gz",
+    "sha256": "2e6cdff6aaa32508bc0183d54232b34794b3b7e6bba1f00ecbc24ace8b5b75d3",
+    "bytes": 845360,
+    "members": {
+      "assessment/artifact-manifest.json": {
+        "bytes": 2078,
+        "sha256": "64af921e9e6850ab7ab50a7e3d65dfd9a83729eac5ca2fc383981770764fdb6c"
+      },
+      "assessment/assessment-inputs.json": {
+        "bytes": 52422,
+        "sha256": "4e821783086239227bef495299d182cd5ad5fabfaa6ef3748c50a61c27f95116"
+      },
+      "assessment/assessment.json": {
+        "bytes": 21599,
+        "sha256": "69e923977023d705bb25f0dcb980f3a6e3ac4303c7b1bdc0ab810dad142e0b13"
+      },
+      "assessment/records/C01-single-fresh-mapping--conventional.json": {
+        "bytes": 26043,
+        "sha256": "e09a7e349f417e1caf378a864e609fb1fe74d6edc171d5bcbe42ecd8f71cc0a9"
+      },
+      "assessment/records/C01-single-fresh-mapping--unfenced_queue_control.json": {
+        "bytes": 25849,
+        "sha256": "ee37670822a629dbe36e0bb8feebb5a4e0f5a44a4f64a2e54ae862d6f8ff3be2"
+      },
+      "assessment/records/C02-conflicting-fresh-first--conventional.json": {
+        "bytes": 23848,
+        "sha256": "657bcb1fcf3170a55492e0732c1e6a6c849a68894af6a23f894c23a9430b8214"
+      },
+      "assessment/records/C02-conflicting-fresh-first--unfenced_queue_control.json": {
+        "bytes": 26086,
+        "sha256": "549433276c2d1fe2c3d7bac848473175538ea4faff5e6bdd77eba0a36dd31580"
+      },
+      "assessment/records/C03-conflicting-stale-first--conventional.json": {
+        "bytes": 23848,
+        "sha256": "cd33423c43e8ea3b4f1c4172a5b44728a7432a8f1decb68a807e7d66587ba2c5"
+      },
+      "assessment/records/C03-conflicting-stale-first--unfenced_queue_control.json": {
+        "bytes": 26214,
+        "sha256": "0f7269b7edae52c6399b2bc809a2aa50ab4f2628b981186676ffe295bb8402b7"
+      },
+      "assessment/records/C04-single-stale-mapping--conventional.json": {
+        "bytes": 23623,
+        "sha256": "40dd0f24d640a1d806f7c2f65baa4eefda33c1cc09908fd8e786566b04200ba7"
+      },
+      "assessment/records/C04-single-stale-mapping--unfenced_queue_control.json": {
+        "bytes": 25989,
+        "sha256": "a682a10c49afcd9b8477cbddd46d7fa858c477afff255b01768c1890e92470e4"
+      },
+      "assessment/seal.json": {
+        "bytes": 179,
+        "sha256": "04715a4dd03e306ec855bf9b6c59cb127b22042ecd376f3384af601a37bc3618"
+      },
+      "capture.json": {
+        "bytes": 447,
+        "sha256": "eef435cd6bc69e179cf14eaf0d94adf8137f6b6945c170efaff2eda96742e868"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "7fba08a63ff92b3dafe1953b16b1f43d78a81c170b99ba953505426696773991"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/assignment.json": {
+        "bytes": 4754,
+        "sha256": "350be5cd03fdfe42f2a4f48a964cdb6e09783599154a97a35ec856775fa4d61c"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "371449bd6ebe663a349998c8144d81a67ba288b34e07c61cecfd559525a8bcd5"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "53dc12aceb2c87c6ec621764a3935ab90cc7e4f2a94f03bf121f1de38f9037fc"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "e4c356db07ed94457418163cd994a8a6111fed9af60c8e56e6e1eebeb21e2950"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "a4fab179a2e279ee99bd2a442b31b16afdf43a8ebb907787e0fcba02bc06fd56"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "b546984c2e5b47c0406fd3bb7ae612c94648ed0c32225dd1df60088f75813faf"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000001.json": {
+        "bytes": 482,
+        "sha256": "c46b221bdfdbd83762ed792b8c79cfa152ed2fcf9040db76a59ad29e94006052"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000002.json": {
+        "bytes": 550,
+        "sha256": "1b70cdbd0957032af7e730f108fc85df4c35c6f85af7e619deaeda0558085409"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000003.json": {
+        "bytes": 673,
+        "sha256": "11656840a6b204f73dc3f2067f47ec08a8a6d75ec655ebd729841e3e2dda3b64"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000004.json": {
+        "bytes": 566,
+        "sha256": "cc986caa024b34ca54d73712f1cfb040745ed91bf0dd95d414de12f190cb01bd"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000005.json": {
+        "bytes": 763,
+        "sha256": "1b388f51a6f9e33250b18c87e4a50678924e7622f8dd731b70e57eb95ddc6109"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/events/000006.json": {
+        "bytes": 446,
+        "sha256": "a2c19f99a47e0248ce847d08491d1704ce8405cf5302b17983f9a1ba60e3e4d3"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/execution.json": {
+        "bytes": 1046,
+        "sha256": "268e9a9319819d03117a6ea71d1110baeb0aa0372515339d7a473c6eed3b81ee"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/intents/000000.json": {
+        "bytes": 399,
+        "sha256": "39461b4f525c27f2795de14c3fcdc8a12aa7048188add68b821fc8643dc95450"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/intents/000001.json": {
+        "bytes": 361,
+        "sha256": "1f02ea89c69a3d79d487ad24e3c33fe23dd1e6fe094edb5a7152b5d4142081a4"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "d1bcf68218e800a74d737cba93fd6c566f3610990208bd52427a2ca5268db235"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/intents/000003.json": {
+        "bytes": 335,
+        "sha256": "595dcc23d6e86a275faeb8cc16a6f805678f2d589af671f316670395fb15036b"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "2bf1e5387d3b6375480d7d5294d10cf6cc4a41debf31d3d1e44ce3a1cd6095c3"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C01-single-fresh-mapping--conventional/trace.json": {
+        "bytes": 5774,
+        "sha256": "f6f5400b820ad6e339541f625b93d325ca548512bdb45ba78bd3c838ffb5edb1"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "7a4b590de9a6a5ea741dc1a32b8e76ba9e8d40f941044471b70a207cc5a55acc"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/assignment.json": {
+        "bytes": 4788,
+        "sha256": "77a2463563c84c36b9ce28790cd046a35c15b4ce4d18096b5dd8f08ee4400c8b"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "c07cd4c9322a1d6de34abbbdfd720631ac1df5a100fc6d0cd56be4d4d46123d1"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "fab99bd32d99a362c48629ff009e5e11c8129d80083ca1cbc8c0fc03ea26318d"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "6b2c7b6afee9f75dc9bee942bbdb82179c5017be32fdf75f51c3239a6dd73042"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "763e4132f603504246f1dd2db89b602b6aa91eb99b511ec2d15290648467792c"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "778106740b6ef539879795b2d315bfab4e02f9aeea15fe58aa9daa2f67e892b9"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000001.json": {
+        "bytes": 482,
+        "sha256": "b2186db5f20067dce60a6ae81c84b06f9823a6a83e49f053abb90d06309f5a76"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000002.json": {
+        "bytes": 550,
+        "sha256": "ef662321bb28be35a310fc88db57e2c3b57596a348f0d240dfdc1c720836517f"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000003.json": {
+        "bytes": 673,
+        "sha256": "358a193bba345ef764f6db9c31b222d6f764385e77ef10e4a46443b588f9e863"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000004.json": {
+        "bytes": 566,
+        "sha256": "4642708aa3b5636d92edc4ed9ed8d87987b59cddc674a2562f1a00c894ffe77b"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000005.json": {
+        "bytes": 667,
+        "sha256": "fa7d1b2114d52ad122582e686bdcbcd80d9cf106082693fa59c9f55a03b35ebd"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/events/000006.json": {
+        "bytes": 446,
+        "sha256": "6da5cfc3072378f4d800c753c7e77a0f25882c65ece8362be63a87717043566c"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "6a5c22b05476fe00f03ca3ae4766aa2c7e6cd8f1199bedc43ed0242505aa22dd"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/intents/000000.json": {
+        "bytes": 399,
+        "sha256": "5a448f5f7280c037c9b81cef5c8525353b89f132f2fe215499691e33563c8d1d"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/intents/000001.json": {
+        "bytes": 361,
+        "sha256": "476b64daacf390383b0df97da2c3459c044eba03e68e5650c3a4c504f4ddb00b"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "926d15434ca7bb34d9ff9fe87a04613f0abf39efe013cfa73d2c840780430a14"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/intents/000003.json": {
+        "bytes": 335,
+        "sha256": "8f16e27acbda08a44d1c23384823d92125f4cf3fef32807c4e16d915a8e4ef93"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "704113a8b7e1828c2f8f55c1e30757eac7b5d88f56099bf13720c0d4f79c3703"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C01-single-fresh-mapping--unfenced_queue_control/trace.json": {
+        "bytes": 5712,
+        "sha256": "8d0b7a1dec57856ee817b6870410021277f1748b6d64ea0cafd04e8f130b09fa"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/artifact-manifest.json": {
+        "bytes": 4464,
+        "sha256": "b54bf77d0db3f69ed2e217bd4ec2d6c9a4a5be82d987d140b7a4291520104bd8"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/assignment.json": {
+        "bytes": 4862,
+        "sha256": "a10d1acf09d8d5f020afc863467ab81a11341456760608ac60cd8a3b30d19e68"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "82eb1543763e0097fe0da4db657821254ee7d7f77408d60e4717ac7d877cb839"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "d79d2d14651e3c8e2e73ddc3d12a11bd6ffddc050e874558b339d57151655700"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "fab2ec303a063f9906741a615bc40e1561c88bc63be5572a5d92a31181079523"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "d7a0ebebeaec3d9d5935c7235ed173ad43435fc284f3de84bdedcc2900430aaa"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "58ad6c1f2c8f74498fb174d0f35a0c1ea4eee584a5a7575e6cfbd15e75142621"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000001.json": {
+        "bytes": 485,
+        "sha256": "a4d095fd842d6dd38bb413d4cb64900e8ba5e436e67b80754ca52e727efc91b7"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000002.json": {
+        "bytes": 553,
+        "sha256": "a04d826b357365dcef91241f26839cc7167300f850cbd1061301ad31b0b6162f"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000003.json": {
+        "bytes": 679,
+        "sha256": "5454456233bbcf24555a97ca16a8cad3ed26947777edf8c76841f0a1c46deaed"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000004.json": {
+        "bytes": 572,
+        "sha256": "b06b1a5f05ec2d90770e34924b6e69f5d9b9e252afe68887ef75b88a42304c5e"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/events/000005.json": {
+        "bytes": 591,
+        "sha256": "41eb64cddaa1ae2b03e51702c01ef54ab6c72805c9d8adf9ea6f33cd840b0684"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/execution.json": {
+        "bytes": 1019,
+        "sha256": "f763e05848868d0406f8ee41c5cbff96ce46458bef627dc0be0281d808489698"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/intents/000000.json": {
+        "bytes": 402,
+        "sha256": "293422cdf09d02bccce1f8e4e25712e4c7a3482016d934c04d8af0359f4b4e5c"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/intents/000001.json": {
+        "bytes": 364,
+        "sha256": "bee4a5213396851b43ac88cf4753b5bc249430c11bbc063ba445a463cff4d2d8"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/intents/000002.json": {
+        "bytes": 564,
+        "sha256": "b8586ed2b94fd7ef8bd96055886296542ae85642db9142a0462c4878f3ae3fec"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/intents/000003.json": {
+        "bytes": 338,
+        "sha256": "e775a64e3bc3b2643d0146dff05dcd4b3cd17d968b7e2ed820fa2c8b0697f57d"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "22a606c9f5cfe03eeaa94b80c39aafa97af0c39fbd8d7687579b9ba0879ff870"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--conventional/trace.json": {
+        "bytes": 5497,
+        "sha256": "b331a58c266a42031b0ff00bb490236405dd7373e59e9c73b2f4d0d1bf1ea5bd"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "afe4d441b51c0cb9ebbb14c515a1894df5f722bf6fd3c4fd0ed53f4abf5aac00"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/assignment.json": {
+        "bytes": 4896,
+        "sha256": "ca4c247e2fdcd8e4cce49568878e82d0cfd5e43e413aadd83bf11e3385ad37ab"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "d9a1790ed1e7a96d239a15b7308dd8938a79005f77e74e2a4e5d0a5176ba4909"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "6422901b7eacc48e503bf5c1966df087859e354b9ec0476938ff0007f1f30b51"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "35088fa44b164194e8071ff23605cef26532c1d6852880325da76a889c61d330"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "75521252a74a5bf9a408d89c18a28b30c5c30deafbcea93cbe3982c0eacdec92"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "9a7a7d06e85d659cb7478264c56c611711de70c7cb308c0ced21865d57250e78"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000001.json": {
+        "bytes": 485,
+        "sha256": "e8b4876bf30856a920f478513299ab9028c1a3a1d2df679803ce8ad1810b23fb"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000002.json": {
+        "bytes": 553,
+        "sha256": "d46f9801fb5a8c53ffa6b5742dc1824547e1bdf8b2ffd1adc50325241d82bce5"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000003.json": {
+        "bytes": 679,
+        "sha256": "0675030c1b47c26aaeafa484737f8cdc687b58d3c6947abd6a7ec8b8138c93e3"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000004.json": {
+        "bytes": 572,
+        "sha256": "1503c1d5257e235d251223bef88076bc6f4320e5177b43b048551efebc5af2b7"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000005.json": {
+        "bytes": 673,
+        "sha256": "65fad5929d2399a6604b7562c60b6c6d75aa6cc7034d7adffd285b42f3e4a902"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/events/000006.json": {
+        "bytes": 452,
+        "sha256": "545536004b5d9b189e48938d1ff24e51796156d3d85ef356938e15b22eb6cdc6"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "ffeb2eab35986868158e31149d01218592559734560ae4db5e662a0ab926e56f"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/intents/000000.json": {
+        "bytes": 402,
+        "sha256": "fb0be4a5e8a5e4da0cba3241c3baa4e7611dd8795f54be4f45e476b285cdf018"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/intents/000001.json": {
+        "bytes": 364,
+        "sha256": "c37dfbd2e659810898c077f4f607dd5a5e595663556f4aeb16e9d4f91d0c502a"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/intents/000002.json": {
+        "bytes": 564,
+        "sha256": "ec3670a2e03e1cdba4c4907c6183e35e0a283f9db9414fbff55d5df4eea07cfa"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/intents/000003.json": {
+        "bytes": 338,
+        "sha256": "e57805f2b39791aadfe44c07d6970f2a349c77de565dcba18e4e49f7bccf72b2"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "ab275e90e2bd327928d8a6565b35008259953362fd50ec53111d52ae952bb67f"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C02-conflicting-fresh-first--unfenced_queue_control/trace.json": {
+        "bytes": 5838,
+        "sha256": "e3885ec74c41f4a0e0df0c67eb3fc4fa7a88a6f767006ab63d5b6326d2809b37"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/artifact-manifest.json": {
+        "bytes": 4464,
+        "sha256": "0cbc465ac75e3f0ab4645b21289601998df2db1a7e1c53c74e175691264fd34b"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/assignment.json": {
+        "bytes": 4862,
+        "sha256": "be3b2ebdd9c302899993449923e1632defb48e8a9efe838e4e4c898632af461e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "12258a2519f6d9630de61649aa51cc8376fde45bc3c774c4a39eefa498ae282e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "13a40ebbca9ab3ace279cd94535b77bdd213c3002af697028e61c0cb7a8f71c0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "b9458ec11e4b2de0a152cf9008355e9efaf36c760faade599cd70928d765f844"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "d8921b2d8008878aeefd20fa0c2d8989204fefe267148ec3bb67992e61730348"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "3a6a0fad058dee84645398b822fd9e23c04a6cd9c6c2ccfaa8e2b9c51ad23de4"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000001.json": {
+        "bytes": 485,
+        "sha256": "fea6ff53deb6141b5f4c609f82af2096380ec41c3937eba02841aab186154f24"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000002.json": {
+        "bytes": 553,
+        "sha256": "6bbf12715306e445545f4bc7d382b780bc76025b11c0a2d0fe155de5f7d75a91"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000003.json": {
+        "bytes": 679,
+        "sha256": "2f9ad5102af5c5708a1afbec8762ee13b1ca9081d36b4c0089806caf5dda2dd5"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000004.json": {
+        "bytes": 572,
+        "sha256": "872e6c93fe8cb4aa67a7babc7f4900ba82668324d00769c63581aba191dd5a3f"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/events/000005.json": {
+        "bytes": 591,
+        "sha256": "148f2a5b932b36b6d5716e3c3bdf0c21c7ab52dd84f7f4c8f488d7d70ac58682"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/execution.json": {
+        "bytes": 1019,
+        "sha256": "2715f181c3d5442407d1b64c1087ce3dcbdcfbb2ecc3080782e3722efd82f513"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/intents/000000.json": {
+        "bytes": 402,
+        "sha256": "9a90c4eebf77e587a8777f0215d6cd7f0cefcf5fe2d92c989122fbf1b2c33355"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/intents/000001.json": {
+        "bytes": 364,
+        "sha256": "408451e59b27f5fce5ffc34b2d5e5897c4b87e621d492be2bae4e2f0cf334319"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/intents/000002.json": {
+        "bytes": 564,
+        "sha256": "601f11db17535b43e97248d3732aa6cca3a0afa6de1870efce4431a7fdab2398"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/intents/000003.json": {
+        "bytes": 338,
+        "sha256": "39347ee6d8d7b5c9095a22d53ffa993683e396e1ffba0018b9110224756e92f0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "ca8c9e3df71842cc099f6d8a43a23931e0428c8e13d3e03cc7f61f2970df4461"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C03-conflicting-stale-first--conventional/trace.json": {
+        "bytes": 5497,
+        "sha256": "0085d2333e3c94b351fd043a37f8ff9aea4e52391d866a5e5cbc1b887984757e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "538ce0d7aa2e82b66af3cd4df49edc38e1a87f86787348e8254c04623a6eaee6"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/assignment.json": {
+        "bytes": 4896,
+        "sha256": "117f95c642baf8b693a838ffa284fea0065304ca3ca5197577904d02255481c5"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "bc189b75837b8b0b6a57683e2f801f12457e610cfc5d4a3520a09cee9f08dbd6"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "2b8550836a3fde14670eafe1029ca88054b105ca39e7b491a5793624e73cbef1"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "c58af0ac04173c871cb2b37ca430ed2741b0c8713920cfab88297cede62c27e5"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "f22145f79c1df016e0feceeef6dabec08280ad6aa48a5f779f8bcb1f578ac013"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "a8741250f3118ba975abeda783850debbafddb9826973613ddbb4cb2afd2c2e2"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000001.json": {
+        "bytes": 485,
+        "sha256": "b957911ad05f5b7c8e97ebcce138667cd8e78e58840e5a8c72dadb8511d2536a"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000002.json": {
+        "bytes": 553,
+        "sha256": "5e211d6e7828dd3cd5254f924ab18b4c8a8cf38d5eafc8df858caa0ddaea7b77"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000003.json": {
+        "bytes": 679,
+        "sha256": "b06a395dc493c389e33805b52720501be4add76e7fc2a35e91f9d970930a9c71"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000004.json": {
+        "bytes": 572,
+        "sha256": "a5889cfb9d0177abbbeeaf526f2b41021510e1dd16bdb4943ec6dd3f00364612"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000005.json": {
+        "bytes": 673,
+        "sha256": "b751ea2e1b9d2930b44d38a40074c90d9b47c8fe80c413d24762382453c44102"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/events/000006.json": {
+        "bytes": 452,
+        "sha256": "9f6cff66b26d6a958217f327a466577476b68f952bb232618279fe0345c70e03"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/execution.json": {
+        "bytes": 1045,
+        "sha256": "3f3ba47bed5c6ef0ac10763b153b83db907cf9aa7f14c78cb0a44f3ed9e2f8db"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/intents/000000.json": {
+        "bytes": 402,
+        "sha256": "8a92a06995f5345bde22675e18269c7034e7e47fadd9c0cc059eef8c797e2099"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/intents/000001.json": {
+        "bytes": 364,
+        "sha256": "c4a18eab35ae1ed579ec1340f4261062092c211010e800735c708a0043855cb5"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/intents/000002.json": {
+        "bytes": 564,
+        "sha256": "0e3d42230406b95f28fa3100af712402c7dc122ce79f737a580f29eda193956e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/intents/000003.json": {
+        "bytes": 338,
+        "sha256": "4a975f988dd10bf00b13d2e2cf450ae6ce59575e6f57ae9aaf7cca8773e512c9"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "c9a5da31d01256ff4a860234ff4368ed92fe9d8a0a5dd7c08fb370e1fa06ae6e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C03-conflicting-stale-first--unfenced_queue_control/trace.json": {
+        "bytes": 5838,
+        "sha256": "973f8ad0229c4fd8924555d6b23205e49bc5f52eb8433711f55341975e56edee"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/artifact-manifest.json": {
+        "bytes": 4464,
+        "sha256": "a1f33cabb4a5c6343fe7806a341f4a43d4501f8a4b1f8194b72cc96ba6c04459"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/assignment.json": {
+        "bytes": 4763,
+        "sha256": "e72b3159285753fd21f790491d84d23e3a717c74a66fab8b2b10bbcf6ec5d767"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "4e5a152628511620d2986efa46679646cbc08f320acb388336cb111eeee7947b"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "0221b74300248a43517f71b2f373631e830843430179fce0013be79deddcf5ca"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "8a2884465674f926302d272b85f43b3e795256c3ab434c872e76f44b09abff10"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "79b7055b27175f991bfdcf74d888e0dc3eec9c0df7231b707265daceeb068d1c"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "9ba812f7f1a170519623444f2b0f47b872555c2bf0224e727aae7ebe8c202e30"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000001.json": {
+        "bytes": 482,
+        "sha256": "022bfc6a22d566647c2fe68a33e057c6752abc2630d9746a654cb0877c2e905d"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000002.json": {
+        "bytes": 550,
+        "sha256": "c1ad27097959c7388d327a3668ebe289e3c4ee14962681b797c068337ab27e4e"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000003.json": {
+        "bytes": 673,
+        "sha256": "e8b2732d963a653ff0fb69c141bfa9608a701a45c262cc167d3f7303b6451d3a"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000004.json": {
+        "bytes": 566,
+        "sha256": "90e7933c796d31ddf0c9f3a685ad5d16793c81fc052ecda680e0ddae7ada67fa"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/events/000005.json": {
+        "bytes": 577,
+        "sha256": "dcc41c3f41ab1696ab5a2fbeca6eca28300311a71d12715d7aefc132d50eedd4"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/execution.json": {
+        "bytes": 1018,
+        "sha256": "d50479cb3ef4fa37345a7503c26f9bbec243d9a34e77d32b7446ba8ad625089c"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/intents/000000.json": {
+        "bytes": 399,
+        "sha256": "100de4e0e0f77e75a0105bab10b5cc6a2ac6ef237c2658a791d47003df23932c"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/intents/000001.json": {
+        "bytes": 361,
+        "sha256": "d8387039da9a07d2c6c0490fd42d86f53df2d276e025e30bbc5864074b9936a2"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "72050308061c194e62e86a90ecc666581bd76a556caf98271a9d161ea57e0042"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/intents/000003.json": {
+        "bytes": 335,
+        "sha256": "74479778fadc4dbdbff50afede811c28a1d99b0928f961b3dc249e736148c675"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "945a84fd8f4772c463b09fb3cd0a85651a3aaa882ab2609b4d9d585c751eec1f"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C04-single-stale-mapping--conventional/trace.json": {
+        "bytes": 5378,
+        "sha256": "0af7bf69aca8d58c9054587559e8a0e7cb35794c99e424e7b25b88e69d992959"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "799d76569b3eeddd371dd8d0fa8a3c98281687150189adcd100742d4f25937db"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/assignment.json": {
+        "bytes": 4797,
+        "sha256": "165013f09ff96f4dc2d840fc76b97ba149f60e86a9af15cd8a73949e7bdc44c1"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "fcc429e7c756704e20a6697b9c49da20db67b8fed04b7c7f36e42f9093c71b3a"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "1b8e8df1c4ab8f55d860d66b05daa6879d1cccea41337c48939dbc80a2a871e8"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "358a306f40fe81c767a0fe9a35c486cc591bf97f19694b1686f7838b95e5ae4a"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "a3a3150f510861f15e2198061d5795afc7eb8956fe9690b70f310287aba36821"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "4ad63bbdee24d7f26afea8cafe8d797e749a2f5515a9c695b0f6a370f0abcb15"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000001.json": {
+        "bytes": 482,
+        "sha256": "163e7136dc190882aa2e01f4942780878361853a3d210a7a805b941683874445"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000002.json": {
+        "bytes": 550,
+        "sha256": "485a812faecd5b0f9d2a7d5661e4df0c12a509a3a369be1265755571e83a6d74"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000003.json": {
+        "bytes": 673,
+        "sha256": "089eaf4c9e15d6474f77cc82b884526e430dfe82c32e0c6e48f81af4f08772ba"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000004.json": {
+        "bytes": 566,
+        "sha256": "60e1810b63b298109d2f39d53971723c2c7414fc18899d5562dacb5a8346d5cf"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000005.json": {
+        "bytes": 667,
+        "sha256": "125ca86a6be7f003625f0a4a272fb7ff87c8a1cc90824b7c33815690e4e62e61"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/events/000006.json": {
+        "bytes": 446,
+        "sha256": "5f3ad883b8e197afff65bd7c74a73f21b53db7cbd890b52588820766aadb41e9"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "ffe53ec93a57c206f727bec846cd9533f2068fc68a3971d5dc26c3afc5f59f19"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/intents/000000.json": {
+        "bytes": 399,
+        "sha256": "feab6ce41004ed2d8fff6ba65991dbb8ca946a33f1f415de16a9208a729ec37f"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/intents/000001.json": {
+        "bytes": 361,
+        "sha256": "65429b8679444609349ca360ff51308d11e0db0de133bdc2e26c4d56ebfd45f6"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "599b96f7570ce88dcecb0a8e432d22c10bdca5af0d5a2e6dd522436a27730034"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/intents/000003.json": {
+        "bytes": 335,
+        "sha256": "07ef0f8de295c78bd119082c1737b7e5a0f7fd4ff31549bf3ef974dd280cbc3a"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "267d173fcadbc9f6bb67a7086266bc7cbb35635a2930be08bb749ff3ec26fd6e"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/C04-single-stale-mapping--unfenced_queue_control/trace.json": {
+        "bytes": 5721,
+        "sha256": "f547092e07245e99bc43ab938836e6250eed1c4098bb82827e7640a9692ca5e7"
+      },
+      "execution/frozen-suite.json": {
+        "bytes": 12605,
+        "sha256": "5462216853ba7f4cbf47781818e8848552512f0810568e7ecd0d688d18ea2dde"
+      },
+      "execution/invocation.json": {
+        "bytes": 2259,
+        "sha256": "7a1442bfa1c1a3bb5d49354751f4d5f3fce7e7bdd60edfdcb89015e3fa3a0748"
+      },
+      "execution/readbacks/C01-single-fresh-mapping--conventional.json": {
+        "bytes": 1065,
+        "sha256": "2c64d8e676c693f9c508de8797a23161e0e88ec326063ef97889dbf10f62bf07"
+      },
+      "execution/readbacks/C01-single-fresh-mapping--unfenced_queue_control.json": {
+        "bytes": 1095,
+        "sha256": "99cf2196de5a89389fd45ca53236b1cc5ac347a0e933f931df663509053750fe"
+      },
+      "execution/readbacks/C02-conflicting-fresh-first--conventional.json": {
+        "bytes": 1047,
+        "sha256": "7513766c96c0a5bc1877374c301ee95eb07bfb29caaf740e9eea22e0acb3bc1f"
+      },
+      "execution/readbacks/C02-conflicting-fresh-first--unfenced_queue_control.json": {
+        "bytes": 1104,
+        "sha256": "5c230b6298bf9d8212a92334ed34e5e2d893a4da08570a4e6d5a9ed2057e2292"
+      },
+      "execution/readbacks/C03-conflicting-stale-first--conventional.json": {
+        "bytes": 1047,
+        "sha256": "41638ba6fa334efc6afa68c3165d07744a140befd9be195902944381113b09f4"
+      },
+      "execution/readbacks/C03-conflicting-stale-first--unfenced_queue_control.json": {
+        "bytes": 1103,
+        "sha256": "ec12f32ead341bc1fa10de3c1242b1946ab07944a6282b5ec79a8bf321ecde09"
+      },
+      "execution/readbacks/C04-single-stale-mapping--conventional.json": {
+        "bytes": 1037,
+        "sha256": "a9b78dea066f1ca15dbf5f5c3058106389a89d276884a14590858e4aadbecb10"
+      },
+      "execution/readbacks/C04-single-stale-mapping--unfenced_queue_control.json": {
+        "bytes": 1095,
+        "sha256": "f1ed4dd1e78f9485c81fbaf0fb3f362f460ba9dd6a4f8485e345d0b8c4c5f4fe"
+      },
+      "execution/summary.json": {
+        "bytes": 10850,
+        "sha256": "a3668464d7b3eb393251be9b1be1066ff63e3f4549c7967fc26617f6b100919e"
+      }
+    },
+    "verified_by_readback": true
+  },
+  "conclusion": "Observed reference order dependence on conflicting clock declarations with no declared priority. The producer conventional guard refuses both; no robot acceptance or product advantage. Correct invalid-versus-unresolved disposition belongs to the evaluation owner.",
+  "new_simulator_executions": 0,
+  "scientific_acceptance": "not_granted"
+}

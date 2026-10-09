@@ -1,0 +1,35 @@
+{
+  "schema": "nisayon.decision-case.control.v1",
+  "lead": "C",
+  "upstream": "https://github.com/ARISE-Initiative/robomimic/issues/262",
+  "installed": {
+    "robomimic": "0.3.0",
+    "torch": "2.5.1",
+    "python": "3.12.13",
+    "source_file": "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/models/obs_core.py",
+    "source_sha256": "75867a870f6d18abc832a0abb51c840a54baea6faeff0b4a63add731f4949494"
+  },
+  "invocation": "CropRandomizer(input_shape=(3,84,84), crop_height=76, crop_width=76, num_crops=1, pos_enc=True); forward_in on zeros(2,3,84,84) in train and eval mode",
+  "observed": {
+    "declared_output_shape_in": [
+      5,
+      76,
+      76
+    ],
+    "train_output_shape": [
+      2,
+      5,
+      76,
+      76
+    ],
+    "eval_output_shape": [
+      2,
+      3,
+      76,
+      76
+    ],
+    "channels_differ_between_modes": true,
+    "ordinary_dummy_input_check_in_eval_mode_passes": false
+  },
+  "reading": "The evaluation path drops the two positional-encoding channels the training path adds, so the declared output shape and the eval output disagree on a synthetic tensor. A dummy-input check through the declared interface catches it with no robot experiment; both a conventional workflow and Nisayon would make the same decision (repair the preprocessing) for the same check. This is a tensor-level control on the real upstream function, not a closed-loop repair."
+}

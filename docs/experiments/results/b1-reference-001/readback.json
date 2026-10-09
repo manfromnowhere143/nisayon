@@ -1,0 +1,91 @@
+{
+  "schema": "nisayon.b1-reference.readback.v1",
+  "recorded_at": "2026-10-09T09:42:00.098033+00:00",
+  "frozen_source": "441fee3966f5960617f45f530c0268200fcca086",
+  "protocol_sha256": "2db45300ae879b031e606adb86dea6b985a595824df25a628a23768535794a02",
+  "assessment_mode": "single_lane_non_independent",
+  "projection": "All 59 selected observation frames and 59 states match bytes. Final action next observations differ by at most 1.45e-10. Projection is not a dynamic task replay.",
+  "dynamic_fidelity": {
+    "replay-nominal": {
+      "byte_equal": false,
+      "max_absolute": 0.13008973298380186,
+      "root_mean_square": 0.007516740842761985,
+      "same_dtype": true,
+      "shape": [
+        59,
+        32
+      ]
+    },
+    "replay-restored": {
+      "byte_equal": false,
+      "max_absolute": 0.19067093939769836,
+      "root_mean_square": 0.012046151007521383,
+      "same_dtype": true,
+      "shape": [
+        59,
+        32
+      ]
+    }
+  },
+  "checkpoint_verdict": {
+    "assigned": 10,
+    "competent": false,
+    "execution_failures": 0,
+    "required_successes": 8,
+    "successes": 0,
+    "task_failures": 10
+  },
+  "operations": {
+    "control_calls_completed": 4119,
+    "control_calls_started": 4119,
+    "environment_constructions_started": 13,
+    "explicit_env_resets_started": 13,
+    "policy_calls_started": 4000,
+    "state_assignments_started": 61,
+    "xml_resets_started": 3
+  },
+  "contract_physics_substeps_upper": 102975,
+  "raw_records_verified": 91,
+  "artifact_manifest": {
+    "path": "artifact-manifest.json",
+    "sha256": "289ed2e76e83777db26172a00b68435d95d7bc87b07704f7e678e183caa5d9ae"
+  },
+  "execution_commands": [
+    {
+      "id": "4f82c7dce7624b18801539dbee191c8c",
+      "label": "b1-condition-reservation-and-runtime-readback",
+      "wall_seconds": 16.66319,
+      "returncode": 0
+    },
+    {
+      "id": "9ea6a2308f7f4523bf81cbbd3047239d",
+      "label": "b1-projection",
+      "wall_seconds": 12.606061,
+      "returncode": 0
+    },
+    {
+      "id": "f20bbde7228a4a80aa8b812488706456",
+      "label": "b1-replay-nominal",
+      "wall_seconds": 6.929695,
+      "returncode": 0
+    },
+    {
+      "id": "b51219fbf1f548cda68853520c19f496",
+      "label": "b1-replay-restored",
+      "wall_seconds": 7.670454,
+      "returncode": 0
+    },
+    {
+      "id": "8bc3c42e12f0439196e38577a2361185",
+      "label": "b1-policy-qualification",
+      "wall_seconds": 36.258952,
+      "returncode": 0
+    }
+  ],
+  "known_command_wall_seconds_including_preparation": 383.247718,
+  "decision": "Reject the unchanged public-checkpoint/1.5.1 pairing. Restored controller target does not repair historical replay. Investigate the source-proven reversal of the object-relative vector under a new fresh-pair protocol.",
+  "limits": [
+    "All B1 simulator slots consumed; no rerun is fresh confirmation.",
+    "Complete engineering cost and independent replication are not established."
+  ]
+}

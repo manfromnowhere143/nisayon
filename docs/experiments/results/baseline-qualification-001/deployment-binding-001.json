@@ -1,0 +1,101 @@
+{
+  "schema": "nisayon.processor-deployment-binding.v1",
+  "recorded_at": "2026-09-20T16:04:26Z",
+  "incident": "lerobot-issue-4415",
+  "decision": "unresolved",
+  "binding_experiment_started": false,
+  "reason": "Neither a provenance-bearing observation.state statistic set at the model's original training revision nor a recorded dataset/statistics selector for the target deployment was found. A current dataset statistic file is not evidence of either obligation.",
+  "missing_obligations": [
+    {
+      "id": "original_observation_state_statistics",
+      "status": "unresolved",
+      "required": "Original observation.state statistics with dataset revision, feature order, units, normalization mode and origin.",
+      "found": "A current dataset revision contains six-element observation.state MEAN_STD statistics, but it postdates the retained model revision and no retained record links it to model training.",
+      "why_insufficient": "All six current state means and all six current state standard deviations differ from the reporter transcription used by C2. Matching shape and repository name do not establish origin."
+    },
+    {
+      "id": "target_deployment_selector",
+      "status": "unresolved",
+      "required": "A recorded configuration or invocation selecting a particular dataset revision/statistic namespace for the target deployment.",
+      "found": "The old model card names lerobot/svla_so101_pickplace and the C2 proposal names so100. The retained current model config has repo_id null, and the retained processor state contains three action namespaces but no state namespace.",
+      "why_insufficient": "A model-card dataset name, candidate label, matching shape or dictionary order is not a deployment selector."
+    }
+  ],
+  "retained_evidence": [
+    {
+      "path": "artifacts/external-decision-001/source-capture/coordinator/sources/smolvla-3326b100334f.json",
+      "bytes": 1422,
+      "sha256": "f276df4425d703024bcd246f3f433c5a2eb94279be489b2b2ae5449d9199465a",
+      "provenance": "Retained Hugging Face model API response for exact revision 3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c.",
+      "finding": "The model metadata names dataset lerobot/svla_so101_pickplace and lists train_config.json, but supplies no dataset revision, state units/order, statistic bytes or deployment invocation. The listed train_config.json was not retrieved because the two-link continuation cap was exhausted."
+    },
+    {
+      "path": "artifacts/external-decision-001/source-capture/model/old/README.md",
+      "bytes": 1843,
+      "sha256": "d12076ee23aa276aa72dd1f0e5a9f7bf0d011d68c342307fa58786ffd7ee2ac6",
+      "provenance": "Retained file at model revision 3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c.",
+      "finding": "Names lerobot/svla_so101_pickplace in example training commands but does not pin its revision or bind a target deployment invocation."
+    },
+    {
+      "path": "artifacts/external-decision-001/source-capture/model/old/config.json",
+      "bytes": 2038,
+      "sha256": "9a05b5f91b3c3292a64fd25b3b62be31ec2ea2c56a8da6bddc73a8318a2bee5e",
+      "provenance": "Retained file at model revision 3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c.",
+      "finding": "Declares observation.state shape [6] and STATE MEAN_STD, but not the six coordinates' order or units and not the dataset/statistics origin."
+    },
+    {
+      "path": "artifacts/external-decision-001/source-capture/model/new/config.json",
+      "bytes": 2299,
+      "sha256": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "provenance": "Retained current model configuration used by the reduced processor case.",
+      "finding": "repo_id is null; no target deployment dataset/statistics selector is retained."
+    }
+  ],
+  "bounded_accesses": [
+    {
+      "ordinal": 1,
+      "url": "https://huggingface.co/api/datasets/lerobot/svla_so101_pickplace",
+      "initial_access": "The in-app browser returned no usable response or HTTP evidence; the same exact URL was then retrieved with capped curl command c12467909d51474989bd73a23eff1700.",
+      "terms_and_access": "Public, ungated dataset metadata; API tags declare license apache-2.0. No authentication was used.",
+      "body": {
+        "path": "artifacts/baseline-qualification-001/binding-sources/dataset-api.json",
+        "bytes": 1810,
+        "sha256": "2fbd7a136a7aecc25261bcb59e93e7e67450cd0a2233ff29352058aaf72e0012"
+      },
+      "headers": {
+        "path": "artifacts/baseline-qualification-001/binding-sources/dataset-api.headers",
+        "bytes": 943,
+        "sha256": "28af073c8009faa7a47fc2847eaf730d55d6aa5d54ce835a510a8c5eee50fff6"
+      },
+      "finding": "Current dataset revision f641879e22172be7e8161d5e6c1503c2d2feb657 was last modified 2025-09-27. It lists meta/stats.json but does not link this revision to the older model training or target deployment."
+    },
+    {
+      "ordinal": 2,
+      "url": "https://huggingface.co/datasets/lerobot/svla_so101_pickplace/resolve/f641879e22172be7e8161d5e6c1503c2d2feb657/meta/stats.json",
+      "command_id": "3fefc48a9e234e03b2322d02d12fbb5f",
+      "terms_and_access": "Small public file at the exact current dataset revision; HTTP x-repo-commit binds f641879e22172be7e8161d5e6c1503c2d2feb657 and ETag e7c4a9f47b046e0f0872556c57af4c2916676efa. No authentication was used.",
+      "body": {
+        "path": "artifacts/baseline-qualification-001/binding-sources/dataset-stats.json",
+        "bytes": 5914,
+        "sha256": "4ae86bed785e0f98914812e87736e216139a22b43cf2b990e68384d85168c3c8"
+      },
+      "headers": {
+        "path": "artifacts/baseline-qualification-001/binding-sources/dataset-stats.headers",
+        "bytes": 2754,
+        "sha256": "d06f899aca05d65d8e40fca932ae687bc6be5ef40e45b609ddfccdcc5c7879a6"
+      },
+      "finding": "The file has six-element state and action statistics. Zero of 12 state mean/std elements equal the C2 reporter values, and zero of 12 action mean/std elements equal the retained artifact values. The dataset revision is later than the 2025-06-24 model revision metadata."
+    }
+  ],
+  "access_limit": {
+    "maximum_exact_metadata_links": 2,
+    "used_exact_metadata_links": 2,
+    "additional_links_followed": false,
+    "retained_source_bytes": 11421,
+    "source_cap_bytes": 262144,
+    "cumulative_source_bytes_before": 4374474,
+    "cumulative_source_bytes_after": 4385895
+  },
+  "evidence_request": "Provide the original train_config.json or equivalent invocation under custody, the selected dataset repository and exact revision, observation.state coordinate order and units, normalization mode, original statistics bytes and their generation origin, plus the recorded target-deployment configuration or invocation that selects those statistics.",
+  "stopping_disposition": "Stop. Do not apply C2 prospectively, manufacture a selector, retrieve train_config.json after the two-link cap, or run a robot/model. The software correction remains supported and deployment applicability remains unresolved."
+}

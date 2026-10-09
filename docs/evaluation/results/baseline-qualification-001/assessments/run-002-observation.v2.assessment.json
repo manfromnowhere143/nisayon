@@ -1,0 +1,1044 @@
+{
+  "schema": "nisayon.processor-reference.assessment.v2",
+  "decision_rule": "external-decision-001/v2",
+  "rule_changes": [
+    "v2 (20 September 2026, after the label-only promotion was reproduced): a stats_provenance label is a declaration that is retained, reported and compared with what the evaluator established; it is never a premise of the deployment binding",
+    "v2: four facts are reported separately per candidate and feature: numeric agreement, byte provenance, interpretation and selection; byte provenance is established only from statistics the evaluator read from, or matched element for element against, the digest-verified artifact; interpretation and selection are not carried by the input contract, so a supported deployment binding is unreachable from it and the assessment says so with the missing inputs named",
+    "v2: the supported_software_correction outcome and the unresolved deployment conclusion are unchanged; a declared label the evaluator cannot establish is a named finding, not a process failure"
+  ],
+  "reference_source": {
+    "commit": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "normalize_processor_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6"
+  },
+  "arm": "A",
+  "incident": {
+    "id": "lerobot-issue-4415",
+    "url": "https://github.com/huggingface/lerobot/issues/4415",
+    "model_repository": "lerobot/smolvla_base",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "code_repository": "huggingface/lerobot",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "working_changed_deployment_pair": null,
+    "robot_outcome": null
+  },
+  "inputs": {
+    "preprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor.json",
+      "bytes": 1872,
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "declared_sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "digest_matches": true,
+      "declared_bytes": 1872,
+      "bytes_match": true
+    },
+    "preprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "postprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor.json",
+      "bytes": 660,
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "declared_sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "digest_matches": true,
+      "declared_bytes": 660,
+      "bytes_match": true
+    },
+    "postprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "processor_source": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/coordinator/sources/normalize_processor.py",
+      "bytes": 25161,
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "declared_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "digest_matches": true,
+      "declared_bytes": 25161,
+      "bytes_match": true,
+      "pinned_sha256_matches": true
+    }
+  },
+  "resolved": {
+    "preprocessor": {
+      "role": "preprocessor",
+      "step_index": 5,
+      "registry_name": "normalizer_processor",
+      "features": {
+        "observation.state": {
+          "type": "STATE",
+          "shape": [
+            6
+          ]
+        },
+        "observation.image2": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "observation.image": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "observation.image3": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "action": {
+          "type": "ACTION",
+          "shape": [
+            6
+          ]
+        }
+      },
+      "norm_map": {
+        "VISUAL": "IDENTITY",
+        "STATE": "MEAN_STD",
+        "ACTION": "MEAN_STD"
+      },
+      "eps": 1e-08,
+      "normalize_observation_keys": null,
+      "state_file": "policy_preprocessor_step_5_normalizer_processor.safetensors"
+    },
+    "postprocessor": {
+      "role": "postprocessor",
+      "step_index": 0,
+      "registry_name": "unnormalizer_processor",
+      "features": {
+        "action": {
+          "type": "ACTION",
+          "shape": [
+            6
+          ]
+        }
+      },
+      "norm_map": {
+        "VISUAL": "IDENTITY",
+        "STATE": "MEAN_STD",
+        "ACTION": "MEAN_STD"
+      },
+      "eps": 1e-08,
+      "normalize_observation_keys": null,
+      "state_file": "policy_postprocessor_step_0_unnormalizer_processor.safetensors"
+    }
+  },
+  "statistics_keys": {
+    "preprocessor": {
+      "so100-blue.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100-red.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100.buffer.action": [
+        "mean",
+        "std"
+      ]
+    },
+    "postprocessor": {
+      "so100-blue.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100-red.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100.buffer.action": [
+        "mean",
+        "std"
+      ]
+    }
+  },
+  "tensor_dtypes": {
+    "preprocessor": {
+      "so100-blue.buffer.action.mean": "F32",
+      "so100-blue.buffer.action.std": "F32",
+      "so100-red.buffer.action.mean": "F32",
+      "so100-red.buffer.action.std": "F32",
+      "so100.buffer.action.mean": "F32",
+      "so100.buffer.action.std": "F32"
+    },
+    "postprocessor": {
+      "so100-blue.buffer.action.mean": "F32",
+      "so100-blue.buffer.action.std": "F32",
+      "so100-red.buffer.action.mean": "F32",
+      "so100-red.buffer.action.std": "F32",
+      "so100.buffer.action.mean": "F32",
+      "so100.buffer.action.std": "F32"
+    }
+  },
+  "obligations": [
+    {
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "mode": "MEAN_STD",
+      "kind": "repair",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image2",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image3",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "mode": "MEAN_STD",
+      "kind": "repair",
+      "why": "policy action, inverse"
+    }
+  ],
+  "executions": [
+    {
+      "id": "independent-C0_as_is-0",
+      "candidate": "as_is",
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.state",
+        "feature_type": "STATE",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "as_is",
+        "mode": "MEAN_STD",
+        "class": "skipped_no_stats",
+        "bound_key": null,
+        "matches": [],
+        "detail": "no statistics key resolves 'observation.state': the pinned step returns the input"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C0_as_is-1",
+      "candidate": "as_is",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "status": "completed",
+      "expected": {
+        "feature": "action",
+        "feature_type": "ACTION",
+        "processor": "postprocessor",
+        "direction": "inverse",
+        "candidate": "as_is",
+        "mode": "MEAN_STD",
+        "class": "skipped_no_stats",
+        "bound_key": null,
+        "matches": [],
+        "detail": "no statistics key resolves 'action': the pinned step returns the input"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C0_as_is-2",
+      "candidate": "as_is",
+      "processor": "preprocessor",
+      "feature": "observation.image2",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.image2",
+        "feature_type": "VISUAL",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "as_is",
+        "mode": "IDENTITY",
+        "class": "identity_mode",
+        "bound_key": null,
+        "matches": [],
+        "detail": "mode IDENTITY: unchanged output is correct"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C1_suffix_match-0",
+      "candidate": "suffix_match",
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.state",
+        "feature_type": "STATE",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "suffix_match",
+        "mode": "MEAN_STD",
+        "class": "skipped_no_stats",
+        "bound_key": null,
+        "matches": [],
+        "detail": "no statistics key resolves 'observation.state': the pinned step returns the input"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C1_suffix_match-1",
+      "candidate": "suffix_match",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "status": "completed",
+      "expected": {
+        "feature": "action",
+        "feature_type": "ACTION",
+        "processor": "postprocessor",
+        "direction": "inverse",
+        "candidate": "suffix_match",
+        "mode": "MEAN_STD",
+        "class": "ambiguous",
+        "bound_key": "so100-blue.buffer.action",
+        "matches": [
+          "so100-blue.buffer.action",
+          "so100-red.buffer.action",
+          "so100.buffer.action"
+        ],
+        "detail": "3 keys match 'action'; the candidate binds the first in store order"
+      },
+      "bound_stats": {
+        "mean": [
+          1.4211928844451904,
+          125.72054290771484,
+          125.41930389404297,
+          63.783164978027344,
+          -106.54012298583984,
+          3.3484723567962646
+        ],
+        "std": [
+          14.081991195678711,
+          39.43141555786133,
+          18.23808479309082,
+          23.48975372314453,
+          38.111175537109375,
+          5.0482869148254395
+        ]
+      },
+      "byte_provenance": {
+        "status": "established_from_artifact",
+        "artifact_key": "so100-blue.buffer.action",
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [
+        {
+          "code": "identity_unbound",
+          "severity": "rejected",
+          "detail": "3 statistics keys match; different keys give different outputs; binding by store order is not a selection"
+        }
+      ],
+      "expected_output": {
+        "exact": [
+          8.462188482284546,
+          145.4362506866455,
+          134.53834629058838,
+          75.52804183959961,
+          -87.48453521728516,
+          5.872615814208984
+        ],
+        "float32_emulation": [
+          8.462188720703125,
+          145.43624877929688,
+          134.53834533691406,
+          75.52804565429688,
+          -87.48453521728516,
+          5.872615814208984
+        ],
+        "tolerance": [
+          6.7220458984375e-06,
+          6.966455078125e-05,
+          6.5849853515625e-05,
+          3.5332275390625e-05,
+          3.914697265625e-05,
+          3.86102294921875e-06
+        ],
+        "vacuous_elements": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vacuous": false
+      },
+      "comparison": {
+        "within_tolerance": true,
+        "max_ulp_error": 0.5,
+        "bit_exact_float32": true,
+        "detail": "observed against exact rational expectation with the frozen tolerance"
+      },
+      "order_dependent": true,
+      "alternatives": [
+        {
+          "key": "so100-blue.buffer.action",
+          "float32_emulation": [
+            8.462188720703125,
+            145.43624877929688,
+            134.53834533691406,
+            75.52804565429688,
+            -87.48453521728516,
+            5.872615814208984
+          ]
+        },
+        {
+          "key": "so100-red.buffer.action",
+          "float32_emulation": [
+            9.588296890258789,
+            146.323974609375,
+            132.99595642089844,
+            77.81857299804688,
+            -87.10980224609375,
+            5.130227088928223
+          ]
+        },
+        {
+          "key": "so100.buffer.action",
+          "float32_emulation": [
+            14.791803359985352,
+            146.14993286132812,
+            134.69668579101562,
+            75.20466613769531,
+            2.257282257080078,
+            21.522762298583984
+          ]
+        }
+      ],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C1_suffix_match-2",
+      "candidate": "suffix_match",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "status": "completed",
+      "expected": {
+        "feature": "action",
+        "feature_type": "ACTION",
+        "processor": "postprocessor",
+        "direction": "inverse",
+        "candidate": "suffix_match",
+        "mode": "MEAN_STD",
+        "class": "ambiguous",
+        "bound_key": "so100.buffer.action",
+        "matches": [
+          "so100.buffer.action",
+          "so100-red.buffer.action",
+          "so100-blue.buffer.action"
+        ],
+        "detail": "3 keys match 'action'; the candidate binds the first in store order"
+      },
+      "bound_stats": {
+        "mean": [
+          1.5959141254425049,
+          119.9442367553711,
+          109.769775390625,
+          56.70551300048828,
+          -27.422693252563477,
+          12.002785682678223
+        ],
+        "std": [
+          26.39177894592285,
+          52.41140365600586,
+          49.85380554199219,
+          36.9983024597168,
+          59.35995101928711,
+          19.039955139160156
+        ]
+      },
+      "byte_provenance": {
+        "status": "established_from_artifact",
+        "artifact_key": "so100.buffer.action",
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [
+        {
+          "code": "identity_unbound",
+          "severity": "rejected",
+          "detail": "3 statistics keys match; different keys give different outputs; binding by store order is not a selection"
+        }
+      ],
+      "expected_output": {
+        "exact": [
+          14.79180359840393,
+          146.14993858337402,
+          134.6966781616211,
+          75.20466423034668,
+          2.257282257080078,
+          21.5227632522583
+        ],
+        "float32_emulation": [
+          14.791803359985352,
+          146.14993286132812,
+          134.69668579101562,
+          75.20466613769531,
+          2.257282257080078,
+          21.522762298583984
+        ],
+        "tolerance": [
+          8.62939453125e-06,
+          6.966455078125e-05,
+          6.966455078125e-05,
+          3.914697265625e-05,
+          9.58306884765625e-06,
+          1.2444091796875e-05
+        ],
+        "vacuous_elements": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vacuous": false
+      },
+      "comparison": {
+        "within_tolerance": true,
+        "max_ulp_error": 0.5,
+        "bit_exact_float32": true,
+        "detail": "observed against exact rational expectation with the frozen tolerance"
+      },
+      "order_dependent": true,
+      "alternatives": [
+        {
+          "key": "so100.buffer.action",
+          "float32_emulation": [
+            14.791803359985352,
+            146.14993286132812,
+            134.69668579101562,
+            75.20466613769531,
+            2.257282257080078,
+            21.522762298583984
+          ]
+        },
+        {
+          "key": "so100-red.buffer.action",
+          "float32_emulation": [
+            9.588296890258789,
+            146.323974609375,
+            132.99595642089844,
+            77.81857299804688,
+            -87.10980224609375,
+            5.130227088928223
+          ]
+        },
+        {
+          "key": "so100-blue.buffer.action",
+          "float32_emulation": [
+            8.462188720703125,
+            145.43624877929688,
+            134.53834533691406,
+            75.52804565429688,
+            -87.48453521728516,
+            5.872615814208984
+          ]
+        }
+      ],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C1_suffix_match-3",
+      "candidate": "suffix_match",
+      "processor": "preprocessor",
+      "feature": "observation.image2",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.image2",
+        "feature_type": "VISUAL",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "suffix_match",
+        "mode": "IDENTITY",
+        "class": "identity_mode",
+        "bound_key": null,
+        "matches": [],
+        "detail": "mode IDENTITY: unchanged output is correct"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C2_explicit_override-0",
+      "candidate": "explicit_override",
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.state",
+        "feature_type": "STATE",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "explicit_override",
+        "mode": "MEAN_STD",
+        "class": "transformed",
+        "bound_key": "observation.state",
+        "matches": [
+          "observation.state"
+        ],
+        "detail": "MEAN_STD with 'observation.state'"
+      },
+      "bound_stats": {
+        "mean": [
+          1.559999942779541,
+          118.6500015258789,
+          110.8499984741211,
+          56.630001068115234,
+          -27.280000686645508,
+          13.949999809265137
+        ],
+        "std": [
+          26.149999618530273,
+          52.650001525878906,
+          49.380001068115234,
+          36.56999969482422,
+          58.900001525878906,
+          17.989999771118164
+        ]
+      },
+      "byte_provenance": {
+        "status": "not_established",
+        "artifact_key": null,
+        "declared": "reporter_transcription"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "expected_output": {
+        "exact": [
+          -0.05965583039923044,
+          -1.4938271458982204,
+          1.8053867877574707,
+          -2.095433461488555,
+          0.972495741816805,
+          -1.3312951695754012
+        ],
+        "float32_emulation": [
+          -0.05965583026409149,
+          -1.4938271045684814,
+          1.8053867816925049,
+          -2.095433473587036,
+          0.9724957346916199,
+          -1.3312952518463135
+        ],
+        "tolerance": [
+          1.050540741990072e-06,
+          2.4894025881983543e-06,
+          2.652730091241732e-06,
+          3.662489077727059e-06,
+          1.7494185055658657e-06,
+          2.4655181387222085e-06
+        ],
+        "vacuous_elements": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vacuous": false
+      },
+      "comparison": {
+        "within_tolerance": true,
+        "max_ulp_error": 0.6901384328801471,
+        "bit_exact_float32": true,
+        "detail": "observed against exact rational expectation with the frozen tolerance"
+      },
+      "stats_provenance": "reporter_transcription"
+    },
+    {
+      "id": "independent-C2_explicit_override-1",
+      "candidate": "explicit_override",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "status": "completed",
+      "expected": {
+        "feature": "action",
+        "feature_type": "ACTION",
+        "processor": "postprocessor",
+        "direction": "inverse",
+        "candidate": "explicit_override",
+        "mode": "MEAN_STD",
+        "class": "transformed",
+        "bound_key": "action",
+        "matches": [
+          "action"
+        ],
+        "detail": "MEAN_STD with 'action'"
+      },
+      "bound_stats": {
+        "mean": [
+          1.5959141254425049,
+          119.9442367553711,
+          109.769775390625,
+          56.70551300048828,
+          -27.422693252563477,
+          12.002785682678223
+        ],
+        "std": [
+          26.39177894592285,
+          52.41140365600586,
+          49.85380554199219,
+          36.9983024597168,
+          59.35995101928711,
+          19.039955139160156
+        ]
+      },
+      "byte_provenance": {
+        "status": "matches_artifact_set",
+        "artifact_key": "so100.buffer.action",
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "expected_output": {
+        "exact": [
+          14.79180359840393,
+          146.14993858337402,
+          134.6966781616211,
+          75.20466423034668,
+          2.257282257080078,
+          21.5227632522583
+        ],
+        "float32_emulation": [
+          14.791803359985352,
+          146.14993286132812,
+          134.69668579101562,
+          75.20466613769531,
+          2.257282257080078,
+          21.522762298583984
+        ],
+        "tolerance": [
+          8.62939453125e-06,
+          6.966455078125e-05,
+          6.966455078125e-05,
+          3.914697265625e-05,
+          9.58306884765625e-06,
+          1.2444091796875e-05
+        ],
+        "vacuous_elements": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "vacuous": false
+      },
+      "comparison": {
+        "within_tolerance": true,
+        "max_ulp_error": 0.5,
+        "bit_exact_float32": true,
+        "detail": "observed against exact rational expectation with the frozen tolerance"
+      },
+      "stats_provenance": "artifact"
+    },
+    {
+      "id": "independent-C2_explicit_override-2",
+      "candidate": "explicit_override",
+      "processor": "preprocessor",
+      "feature": "observation.image2",
+      "direction": "forward",
+      "status": "completed",
+      "expected": {
+        "feature": "observation.image2",
+        "feature_type": "VISUAL",
+        "processor": "preprocessor",
+        "direction": "forward",
+        "candidate": "explicit_override",
+        "mode": "IDENTITY",
+        "class": "identity_mode",
+        "bound_key": null,
+        "matches": [],
+        "detail": "mode IDENTITY: unchanged output is correct"
+      },
+      "bound_stats": {},
+      "byte_provenance": {
+        "status": "not_applicable",
+        "artifact_key": null,
+        "declared": "artifact"
+      },
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    }
+  ],
+  "reference_decision": {
+    "overall": "supported_software_correction",
+    "supported_candidates": [
+      "explicit_override"
+    ],
+    "per_candidate": {
+      "as_is": {
+        "candidate": "as_is",
+        "outcome": "rejected_candidate",
+        "reason": "unmet obligation: postprocessor:action:inverse: skipped_no_stats; preprocessor:observation.state:forward: skipped_no_stats",
+        "unmet": [
+          "postprocessor:action:inverse: skipped_no_stats",
+          "preprocessor:observation.state:forward: skipped_no_stats"
+        ],
+        "unexercised": [],
+        "legitimacy_violations": [],
+        "disagreements": [],
+        "reference_mismatches": [],
+        "vacuous_only": [],
+        "statistics_provenance": [
+          "artifact"
+        ],
+        "binding_evidence": {
+          "numeric_agreement": "not_established",
+          "byte_provenance": "not_applicable",
+          "per_feature": [],
+          "interpretation": "not_carried_by_contract",
+          "selection": "not_carried_by_contract",
+          "declared_not_established": []
+        },
+        "deployment_binding": "not_applicable",
+        "binding_missing": [],
+        "binding_note": null
+      },
+      "suffix_match": {
+        "candidate": "suffix_match",
+        "outcome": "rejected_candidate",
+        "reason": "unmet obligation: postprocessor:action:inverse: ambiguous among ['so100-blue.buffer.action', 'so100-red.buffer.action', 'so100.buffer.action']; postprocessor:action:inverse: ambiguous among ['so100.buffer.action', 'so100-red.buffer.action', 'so100-blue.buffer.action']; preprocessor:observation.state:forward: skipped_no_stats",
+        "unmet": [
+          "postprocessor:action:inverse: ambiguous among ['so100-blue.buffer.action', 'so100-red.buffer.action', 'so100.buffer.action']",
+          "postprocessor:action:inverse: ambiguous among ['so100.buffer.action', 'so100-red.buffer.action', 'so100-blue.buffer.action']",
+          "preprocessor:observation.state:forward: skipped_no_stats"
+        ],
+        "unexercised": [],
+        "legitimacy_violations": [],
+        "disagreements": [],
+        "reference_mismatches": [],
+        "vacuous_only": [],
+        "statistics_provenance": [
+          "artifact"
+        ],
+        "binding_evidence": {
+          "numeric_agreement": "not_established",
+          "byte_provenance": "not_applicable",
+          "per_feature": [
+            {
+              "feature": "action",
+              "declared": "artifact",
+              "byte_provenance": "established_from_artifact",
+              "artifact_key": "so100.buffer.action",
+              "numeric_agreement": true
+            }
+          ],
+          "interpretation": "not_carried_by_contract",
+          "selection": "not_carried_by_contract",
+          "declared_not_established": []
+        },
+        "deployment_binding": "not_applicable",
+        "binding_missing": [],
+        "binding_note": null
+      },
+      "explicit_override": {
+        "candidate": "explicit_override",
+        "outcome": "supported_software_correction",
+        "reason": "every repair obligation transformed with one bound key and a non-vacuous witness",
+        "unmet": [],
+        "unexercised": [],
+        "legitimacy_violations": [],
+        "disagreements": [],
+        "reference_mismatches": [],
+        "vacuous_only": [],
+        "statistics_provenance": [
+          "artifact",
+          "reporter_transcription"
+        ],
+        "binding_evidence": {
+          "numeric_agreement": "established",
+          "byte_provenance": "not_established",
+          "per_feature": [
+            {
+              "feature": "action",
+              "declared": "artifact",
+              "byte_provenance": "matches_artifact_set",
+              "artifact_key": "so100.buffer.action",
+              "numeric_agreement": true
+            },
+            {
+              "feature": "observation.state",
+              "declared": "reporter_transcription",
+              "byte_provenance": "not_established",
+              "artifact_key": null,
+              "numeric_agreement": true
+            }
+          ],
+          "interpretation": "not_carried_by_contract",
+          "selection": "not_carried_by_contract",
+          "declared_not_established": []
+        },
+        "deployment_binding": "unresolved",
+        "binding_missing": [
+          "byte_provenance: observation.state (override values match no statistics set in the verified artifact)",
+          "interpretation: not_carried_by_contract",
+          "selection: not_carried_by_contract"
+        ],
+        "binding_note": "a supported binding needs numeric agreement, byte provenance, interpretation and selection all established; the input contract carries no field that establishes interpretation or selection, so the binding stays unresolved whatever the record declares"
+      }
+    }
+  },
+  "reference_statistics": null,
+  "producer_decision": {
+    "candidates": {
+      "as_is": {
+        "outcome": "rejected_candidate",
+        "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:skipped_no_stats; both:dataset_binding:not_explicit"
+      },
+      "suffix_match": {
+        "outcome": "rejected_candidate",
+        "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:ambiguous; postprocessor:action:ambiguous; both:dataset_binding:not_explicit"
+      },
+      "explicit_override": {
+        "outcome": "supported_software_correction",
+        "reason": "State and action transform non-vacuously with complete explicitly selected statistics; visual IDENTITY remains unchanged."
+      }
+    },
+    "software_decision": "supported_software_correction",
+    "deployment_applicability": "unresolved",
+    "robot_task_outcome": "unmeasured"
+  },
+  "decision_agreement": {
+    "status": "compared",
+    "per_candidate": {
+      "as_is": {
+        "producer": "rejected_candidate",
+        "reference": "rejected_candidate",
+        "agrees": true
+      },
+      "suffix_match": {
+        "producer": "rejected_candidate",
+        "reference": "rejected_candidate",
+        "agrees": true
+      },
+      "explicit_override": {
+        "producer": "supported_software_correction",
+        "reference": "supported_software_correction",
+        "agrees": true
+      }
+    },
+    "false_acceptance": [],
+    "false_refusal": [],
+    "all_agree": true
+  },
+  "findings": [
+    {
+      "code": "identity_unbound",
+      "severity": "rejected",
+      "detail": "3 statistics keys match; different keys give different outputs; binding by store order is not a selection"
+    },
+    {
+      "code": "identity_unbound",
+      "severity": "rejected",
+      "detail": "3 statistics keys match; different keys give different outputs; binding by store order is not a selection"
+    }
+  ],
+  "binding_contract_limit": "nisayon.processor-observation.v1 carries no field that establishes which model, dataset and feature semantics a statistics set belongs to, or which statistics the target deployment selected; a supported deployment binding is unreachable from it",
+  "boundary": "software mechanism only: a supported correction of the processor step is not a recovered robot task; declared provenance is reported, never assumed, and the deployment binding stays unresolved until interpretation and selection evidence exist outside this contract",
+  "records": [
+    "/Users/danielwahnich/workspace/nisayon-codex/artifacts/baseline-qualification-001/run-002/observation.json"
+  ]
+}

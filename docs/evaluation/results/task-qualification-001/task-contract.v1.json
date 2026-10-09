@@ -1,0 +1,120 @@
+{
+  "schema": "nisayon.task-contract.v1",
+  "case": "task-qualification-001",
+  "status": "frozen, conditional on the acquisition in evidence-acquisition-001.json; no rollout of this contract has run",
+  "frozen_at": "2026-09-21T06:24:00Z",
+  "frozen_before": "any comparative answer; no working or changed deployment of the A1 policy exists yet",
+  "task": {
+    "environment": "robosuite 1.4.1 Lift, MuJoCo 3.2.7, controller OSC_POSE (checkpoint env_metadata), control frequency 20 Hz",
+    "horizon": 400,
+    "success": "cube body height exceeds table height plus 0.04 m (robosuite Lift._check_success), evaluated every step, rollout stops on success",
+    "executor": "nisayon.engine.lift.LiftExecutor: single torch thread, deterministic algorithms, seeds 0..2^32-1, retained telemetry"
+  },
+  "policy": {
+    "family": "robomimic 0.3.0 BC-RNN low-dim trained with hdf5_normalize_obs true (path A1)",
+    "identity_binding": "checkpoint sha256, training config digest, dataset sha256 and robomimic/torch versions recorded at acquisition; the contract is void for any other checkpoint",
+    "observation_keys_in_order": [
+      "object (10)",
+      "robot0_eef_pos (3)",
+      "robot0_eef_quat (4)",
+      "robot0_gripper_qpos (2)"
+    ],
+    "observation_dtype": "float64 numpy observations from the simulator; RolloutPolicy._prepare_observation normalizes in float64 numpy first (ObsUtils.normalize_obs) and then converts to float32 tensors (TensorUtils.to_float); the reference must emulate that order",
+    "action": "7 values in [-1,1]: OSC_POSE pose deltas scaled by output_max 0.05 m and 0.5 rad, gripper sign",
+    "statistics_path": "RolloutPolicy.obs_normalization_stats: per key mean and std, (obs - mean) / std with robomimic's normalize_obs; bound from ckpt_dict['obs_normalization_stats'] by policy_from_checkpoint"
+  },
+  "intervention": {
+    "working": "the checkpoint with the statistics it was trained with",
+    "changed": "the same checkpoint with candidate statistics bound in ckpt_dict before policy_from_checkpoint; nothing else differs",
+    "candidates_scope": [
+      "statistics of a different public release of the same task (if held)",
+      "statistics recomputed over a declared subset of demonstrations",
+      "the identity (no normalization) as the null candidate"
+    ],
+    "fixed": [
+      "model bytes",
+      "task and controller",
+      "seeds",
+      "observation pipeline",
+      "torch settings",
+      "horizon",
+      "telemetry"
+    ]
+  },
+  "distinctions": {
+    "numeric_map_difference": "on the working trajectory's recorded observations, replay both normalizers through the policy (teacher forced) and compare per-step actions; threshold max |delta action| > 0.01 in any pose coordinate or any gripper sign change; below threshold the change is numerically inert on that domain",
+    "executed_action_difference": "closed-loop rollouts of both deployments on the same seed diverge at the first step where the threshold is exceeded; the divergence step is recorded",
+    "task_outcome_difference": "the success indicator differs on a seed, or the step of success differs by more than 40 steps (10 percent of the horizon)",
+    "valid_confirmed_repair": "the arm's chosen operation, applied as a deployment, succeeds on every fresh confirmation seed on which the working deployment succeeds, with the confirmation seeds and rule declared here"
+  },
+  "trial_assignment": {
+    "screening_seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "screening_role": "exploratory; both deployments run; effects observed here never count as confirmation",
+    "confirmation_seeds": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "confirmation_role": "fresh; run once per arm's chosen deployment after both arms have committed their decision",
+    "retention": "failed, cancelled, missing and unresolved rollouts stay in the assigned population and count against the arm"
+  },
+  "arms": {
+    "nisayon": "reference emulation of the robomimic normalizer plus the engine's keep/replace rule; may request up to 20 rollouts of screening seeds",
+    "conventional": "a separately authored float32-faithful workflow that recomputes the normalized observations and actions itself and decides keep/replace with its own rule; same 20-rollout budget, same evidence, same permissions",
+    "shared": "the executor, simulator, checkpoint bytes and telemetry are shared witnesses and are disclosed; decision code is not shared",
+    "independence_limit": "both arms are written in this repository by the two lanes; model-session separation is not empirical independence"
+  },
+  "endpoint": {
+    "primary": "decision quality at the equal rollout budget: for each candidate, an arm is correct when its keep/replace/abstain matches the confirmation outcome (replace supported only if the changed deployment passes the confirmation rule; keep supported only if the changed deployment fails it; abstain is never correct when the confirmation resolves)",
+    "secondary": "complete cost per arm: rollouts requested, wall and CPU of decision computation, retries, storage; shared acquisition, training and setup costs reported separately and not divided",
+    "undefined": "cost per confirmed repair when there is no confirmed repair"
+  },
+  "thresholds_basis": "0.01 normalized action equals 0.5 mm or 5 mrad of commanded delta per step, below which the OSC controller's response is within its steady-state error; 40 steps is 2 s at 20 Hz; both set from the task semantics before any result",
+  "resource_ceilings": {
+    "rollouts_total": "at most 60 (20 per arm screening, 20 confirmation)",
+    "process_cpu_seconds": "at most 1800 for rollouts plus 120 per lane for diagnostics",
+    "artifacts": "within the 16 MiB durable phase cap; the telemetry profile and checkpoint retention plan must be declared and sized before the first rollout (earlier full-profile Lift telemetry was about 77 MiB for 69 rollouts)",
+    "temporary": "within the 192 MiB phase cap"
+  },
+  "stopping_rule": "stop after the confirmation seeds for both arms' chosen deployments have run once; a tie or a failed candidate is a valid outcome; no candidate is added after outcomes are seen",
+  "exposure": "the remedy class (keep the training statistics) is known to both lanes; the study is labelled exposed and is not a blinded repair discovery",
+  "void_if": [
+    "the policy is not the one bound at acquisition",
+    "the changed deployment differs in anything but the bound statistics",
+    "a seed is replaced after it has run"
+  ],
+  "amendments": [
+    {
+      "id": "A1",
+      "recorded_at": "2026-09-21T06:31:00Z",
+      "kind": "wording precision before any rollout",
+      "change": "observation_dtype now states that normalization runs in float64 numpy before the float32 conversion, as read in robomimic 0.3.0 algo.py _prepare_observation",
+      "effect": "none on thresholds, seeds, arms or endpoints"
+    },
+    {
+      "id": "A2",
+      "recorded_at": "2026-09-21T06:30:21Z",
+      "kind": "precondition added before any rollout",
+      "change": "the run requires an exact telemetry and checkpoint size plan within the 16 MiB durable phase cap (or a raised cap) and license evidence for the dataset and executed checkpoint, both declared before the first rollout",
+      "effect": "none on thresholds, seeds, arms or endpoints"
+    }
+  ]
+}

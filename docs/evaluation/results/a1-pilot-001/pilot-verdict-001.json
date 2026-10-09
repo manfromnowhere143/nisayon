@@ -1,0 +1,101 @@
+{
+  "schema": "nisayon.a1-pilot.verdict.v1",
+  "case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T10:08:01Z",
+  "acceptance": {
+    "path": "pilot-acceptance.v1.json",
+    "sha256": "4221d260c485f6028f8d1986391a218a993f9ad36ec35b99df44874d837bb32f",
+    "frozen_at": "2026-09-21T09:41:48Z"
+  },
+  "execution_packet": {
+    "delivery": "docs/experiments/results/a1-feasibility-001/execution-delivery-001.json",
+    "sha256": "71e69059034e5d85e7129ab87e9f3336e1c94cac5c61ac69737d14d379f4594e",
+    "readiness": "54e6ad9d1018923ee80ee792c8ae05709fadaa911911b0cd2e8dbfdc61e733f5",
+    "source_ledger": "649147d9cacf6b8d9183cc21dd304a54c694594573f3e0d9d7fe74881b3a3dad",
+    "authorization": "dea3b7ebd611543ab3b408ab0b7871e47e3081a2d6c343c430af147325746caa",
+    "protocol": "cbfc649ef1be6aad82a768229aadbc61f48aa28b19c1e6aee1e7029b8628cd4b",
+    "commits": {
+      "protocol_and_authorization": "aaaee29",
+      "gate": "b49bb90",
+      "seal": "b1fdb0c",
+      "checkpoint": "0139f02"
+    }
+  },
+  "authorization_verified": {
+    "record": "authorization.v1.json recorded at 09:47:09Z, before the first retained request (the ledger's first GET) and before any training command",
+    "basis": "the operator's instruction to the execution lane and its follow-up, as recorded there; this lane's own assignment names the same pilot and the same ownership",
+    "numeric_limits_recorded_before_requests": {
+      "dataset_body_bytes": 33554432,
+      "cumulative_source_bytes": 67108864,
+      "training_updates": 100,
+      "durable_output_bytes": 16777216,
+      "temporary_bytes": 201326592,
+      "rollouts": 0
+    },
+    "ordering": "protocol aaaee29 (09:47:09Z) precedes the three retained requests and the gate; the complete training contract was to be frozen after dataset inspection and before the first update, which never became due"
+  },
+  "gate_reproduction": {
+    "command": "9db94baf4adc424cb387ce2f5f146784",
+    "record": "gate-reproduction-001.json",
+    "inputs": "labelled copies of the three retained responses; digests equal the execution records",
+    "own_parsing": {
+      "official_license": "mit (dataset card and tag)",
+      "official_object": "v1.5/lift/ph/low_dim_v15.hdf5, 21,084,088 B, sha256 2067777c\u2026, at revision 74fa0184",
+      "rename": "the retained commit page is titled as the rename of low_dim_v141.hdf5 to low_dim_v15.hdf5 at 33d08702; the zero-line-change count was not independently parsed from the HTML and is taken from the execution record",
+      "pinned_object": "HEAD 200, Content-Length 21,693,920, ETag 646d9c59-14b05e0 whose size field equals the length and whose time field equals the Last-Modified of 24 May 2023"
+    },
+    "decision": "reproduced: unequal lengths (difference 609,832 B) make SHA-256 identity impossible, so the retained MIT terms cannot be bound to the pinned bytes without any body request; the gate's stop before the GET follows the frozen protocol"
+  },
+  "checklist_outcomes": {
+    "P1_rights_and_compatibility": "unresolved: applicable terms for the exact pinned object are not retained; compatibility untested",
+    "P2_membership_and_population": "not reached (no dataset body)",
+    "P3_effective_normalization": "not reached",
+    "P4_workload_and_device": "not reached; zero optimizer updates executed against the assigned 100",
+    "P5_no_rollouts": "satisfied trivially: none assigned, none executed",
+    "P6_checkpoint_identity": "not reached; no checkpoint",
+    "P7_costs_and_failures": "accepted: three retained responses (90,237 body bytes, 2.777 s outer wall) in distinct scopes with curl times not added, zero dataset and training bytes, two failures retained (a format check and the unresolved gate), unknown costs named including six pre-freeze web-tool calls without byte or CPU accounting"
+  },
+  "conclusions": {
+    "executability": "unresolved (nothing executed)",
+    "custody": "unresolved (terms for the pinned bytes missing); infeasible only for the specific rule of binding the MIT terms by byte identity",
+    "resource_feasibility": "unresolved; the headroom preflight (17.9 GB free, 16 GiB memory) and caps were satisfied for the acquisition that did not occur",
+    "continuation_estimate": "unresolved, correctly: no optimizer update ran and the frozen method forbids extrapolating from another policy or the fastest batch",
+    "competence_decision_comparative_value": "not addressed, as frozen",
+    "original_objective": "outstanding; no independently discovered deployment failure was reproduced"
+  },
+  "discrepancies": "none consequential between the execution packet and this reproduction; one presentation limit is noted (the zero-line-change rename count rests on the execution record's parse)",
+  "next_investment": {
+    "separated": {
+      "feasible": "the gate, accounting, runtime stack and machine headroom",
+      "infeasible": "binding the official MIT terms to the pinned Stanford v1.4.1 object by byte identity",
+      "unresolved": "terms for the pinned object; dataset compatibility with robosuite 1.4.1; training executability and cost; everything downstream"
+    },
+    "options": [
+      {
+        "id": "N1",
+        "action": "one retained request by the execution lane for an authoritative statement of terms that covers the Stanford-hosted v1.4.1 objects (the dataset documentation or card text naming that host); if it exists and covers them, acquire the pinned object under the existing limits",
+        "cost": "at most one small response; no training",
+        "stop": "if no such statement is retained, do not infer terms"
+      },
+      {
+        "id": "N2",
+        "action": "under a new explicit authorization, acquire the MIT-declared object itself (21,084,088 B, within the 32 MiB cap; projected cumulative 42.7 MB within 64 MiB), verify its digest 2067777c\u2026 after the GET, then inspect env_args for compatibility with the locked robosuite 1.4.1 before any training; an incompatible object ends the pilot as infeasible on this stack rather than unresolved",
+        "cost": "one GET of 21.1 MB plus inspection; no training until the contract is frozen",
+        "risk": "the v1.5 object may declare a newer robosuite; upgrading the simulator is new dependency bodies and new authority"
+      },
+      {
+        "id": "N3",
+        "action": "stop the A1 line and return to the outstanding objective with a different asset class",
+        "cost": "none"
+      }
+    ],
+    "recommendation": "N1 first because it is one small request and preserves the pinned object; if it fails, N2 under a new authorization with the compatibility check as the first stop rule; N3 if neither is authorized. None of these changes the claim boundary: feasibility and cost only, no competence, no decision, no comparative value",
+    "stays_unassigned": "the sixty-rollout contract and the predeclared task-evaluation prerequisites"
+  },
+  "clock": {
+    "original_mission_clock": "2026-09-17T21:30:41Z",
+    "phase_start_utc": "2026-09-21T09:38:59Z",
+    "verdict_utc": "2026-09-21T10:08:01Z",
+    "active_effort": "unmeasured; monitoring and waiting are not counted"
+  }
+}

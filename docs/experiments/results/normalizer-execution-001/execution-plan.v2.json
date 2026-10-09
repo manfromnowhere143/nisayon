@@ -1,0 +1,52 @@
+{
+  "schema": "nisayon.normalizer-execution-plan.v2",
+  "id": "normalizer-execution-001",
+  "status": "frozen_after_independent_contract_before_scored_output",
+  "inherits": {
+    "path": "execution-plan.v1.json",
+    "sha256": "d45c3a29e09a1bdef31dd4bc0344013649ed54f1c1f7c2ecc54d669cbfa4b3e4"
+  },
+  "contract": {
+    "evaluation_commit": "f289540cc067e7250cfb4dc8859eba2753e9c6d0",
+    "path": "docs/evaluation/results/normalizer-execution-001/contract.v1.json",
+    "sha256": "e27547e01dc0796fd8dcb6a6cf9f88d6d8d4f14d53c02fc9eaaa41ad70bedc00"
+  },
+  "change_reason": "The independent reading sharpened the operation-specific tolerance, effective-map rule, real-row membership and nonredundant controls. No scored producer output existed.",
+  "effective_changes": {
+    "tolerance": "Replace the proposed float tolerance with exact mode/mask/order checks and 0-ulp equality to a stepwise float32 emulation. Exact-rational bounds explain a discrepancy but never absorb one.",
+    "decision": "Grade keep/replace by the effective numerical map on the declared domain. Parameter inequality alone is not rejection: changes confined to unused q01/q99 under use_percentiles=false preserve the map.",
+    "row_selector": "Use each of five episodes' first, floor(n/2) and last rows plus the first row attaining each of the 30 subset extrema, deduplicated. Retain (episode_index, frame_index) membership.",
+    "coverage": "Run one bounded pass over all 1,406 exposed rows to count coordinates outside parent min/max and q01/q99. This asks whether clipping is exercised; it does not create a task outcome.",
+    "controls": "Adopt contract NX1-NX8 exactly: eight families, twenty-three runs, within the maximum twenty-four constructed executions.",
+    "source": "Reserve the direct embodiment_configs.py import requested by evaluation; preserve the declared-local interpretation if its pinned configuration cannot be bound."
+  },
+  "frozen_real_operations": [
+    {
+      "id": "real-keep",
+      "existing": "published parent statistics",
+      "candidate": "five-episode moments",
+      "override": false,
+      "declared_operation": "keep"
+    },
+    {
+      "id": "real-replace",
+      "existing": "published parent statistics",
+      "candidate": "five-episode moments",
+      "override": true,
+      "declared_operation": "replace"
+    }
+  ],
+  "frozen_controls": {
+    "source": "contract.v1.json controls.families",
+    "families": 8,
+    "runs": 23,
+    "maximum_runs": 24,
+    "expected_results_location": "evaluation contract only; producer case will contain setups and obligations, not expected decisions"
+  },
+  "preserved": [
+    "All v1 source identities, strategic separation, reduced-execution boundary, resource caps, prohibited actions and stopping rule.",
+    "The v1 proposal and its timing.",
+    "The initial episode-0 selector remains recorded; v2 expands it before any transformed value was read.",
+    "Historical training/inference selection, checkpoint lineage, author intent and robot-task outcome remain unresolved."
+  ]
+}

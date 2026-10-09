@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "60781285133b42eeba2dedf34cbba7d2",
+  "label": "temporal-integration-20260920-finite-readback-summary-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nout=Path(\"artifacts/engine-integration-001/temporal-integration-001\")\nrows=[]\nfor case,expected in ((\"D01-gripper-sign\",\"accepted\"),(\"D05-recurrent-carry\",\"rejected\")):\n p=out/(case+\"-evaluation.json\")\n result=json.loads(p.read_bytes())\n codes=sorted({r[\"code\"] for r in result[\"reasons\"]})\n assert result[\"decision\"]==expected\n if case.startswith(\"D05\"): assert \"progress_lost\" in codes\n rows.append({\"case\":case,\"decision\":result[\"decision\"],\"reason_codes\":codes,\"evaluation_wall_s\":result[\"evaluation_wall_s\"],\"retained_evaluation_sha256\":file_digest(p)})\nreport={\"records\":rows,\"actual_evaluation_command\":\"efcc9db2cff74f69a2b5a20e170f4137\",\"initial_command_status\":\"nonzero_after_both_evaluations_completed_and_were_written\",\"initial_summary_error\":\"Read reason_codes instead of the evaluator reasons[].code field; actual decision files are unchanged and were not re-evaluated.\",\"new_simulator_executions\":0,\"scope\":\"Summary of current evaluator readbacks on the original actual stores; nested evaluation costs belong to the original command\"}\nwrite_json(out/\"finite-readback.json\",report)\nprint(json.dumps(report,indent=2))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T09:51:04.790957+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "037561b7bf961a57da6f3323f970522b9a5e4cd3",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 24277,
+  "returncode": 0,
+  "ended_at": "2026-09-20T09:51:04.972171+00:00",
+  "wall_seconds": 0.042253,
+  "logs": {
+    "stdout.log": {
+      "bytes": 1029,
+      "sha256": "4debaf1c83203ddfc8bca288a0d0351a7ec890b3da2155088b2ff144682f7cef"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

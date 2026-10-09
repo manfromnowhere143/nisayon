@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .declarations import inspect_declaration
 from .io import digest, file_digest, write_json
 from .recovery import inspect_execution
 from .store import resolve_member
@@ -50,11 +51,36 @@ def inspect_comparison(root: Path) -> dict:
                 "outcome": "unknown",
                 "costs": None,
             }
-            if phases:
+            declaration_root = folder / "declaration"
+            if declaration_root.exists():
+                row["declaration"] = inspect_declaration(declaration_root, evidence_root=root)
+                ref = row["declaration"]["references"].get("declaration")
+                if ref:
+                    receipt = json.loads(resolve_member(root, ref["path"]).read_text())
+                    assigned = receipt["assignment"]
+                    if (
+                        assigned["suite_id"] != digest(suite)
+                        or assigned["case_id"] != case["id"]
+                        or assigned["arm"] != arm
+                        or assigned["frozen_inputs_sha256"] != digest(case["frozen"])
+                    ):
+                        raise ValueError("Declaration differs from frozen comparison assignment")
+            if phases or "declaration" in row:
                 row["status"] = "partial_trial_with_unknown_final_outcome"
             if trial_path.is_file():
                 trial_path = resolve_member(root, str(trial_path.relative_to(root)))
                 trial = json.loads(trial_path.read_text())
+                if trial.get("declaration_contract") is not None:
+                    if trial["declaration_contract"] != "nisayon.arm-declaration.v1":
+                        raise ValueError("Unsupported retained declaration contract")
+                    row["declaration_contract"] = trial["declaration_contract"]
+                    row["declaration_missing"] = trial.get("arm_declaration") is None
+                if trial.get("arm_declaration") is not None:
+                    actual = row.get("declaration", {}).get("references", {}).get("declaration")
+                    if trial["arm_declaration"] != actual:
+                        raise ValueError(
+                            "Trial's original declaration bytes changed or are missing"
+                        )
                 if (
                     trial["case_id"] != case["id"]
                     or trial["arm"] != arm
@@ -78,7 +104,9 @@ def inspect_comparison(root: Path) -> dict:
         p["bytes_stable_during_inspection"] for r in rows for p in r["phases"].values()
     )
     return {
-        "schema": "nisayon.comparison-recovery.v1",
+        "schema": "nisayon.comparison-recovery.v2"
+        if any("declaration" in r or "declaration_contract" in r for r in rows)
+        else "nisayon.comparison-recovery.v1",
         "suite_sha256": digest(suite),
         "suite_file_sha256": before,
         "assigned_trials": len(rows),

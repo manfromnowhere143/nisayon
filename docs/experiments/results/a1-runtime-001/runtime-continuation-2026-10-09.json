@@ -1,0 +1,164 @@
+{
+  "schema": "nisayon.a1-runtime.execution-continuation.v1",
+  "case": "a1-runtime-001",
+  "frozen_at": "2026-10-09T07:31:09.422935+00:00",
+  "source_commit_before_amendment": "83ed5fe9459b797b0d885ce48172f0790c0b7781",
+  "contract": {
+    "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.4.json",
+    "sha256": "94ad0859a81e235b009b82fad86a34e03bb733a74ebc7cc31557dfdcd9bd14bb"
+  },
+  "source": {
+    "executor": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "sha256": "d759af84625ad59d81523767580038d7271fda54f51db161ff58bb6580b96eb3"
+    },
+    "monitor": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "sha256": "449d0cbddd2ec6f2a0b55aa1923eadde1dd2a34e8779382cd30f760057884213"
+    },
+    "assessor": {
+      "path": "src/nisayon/evaluation/a1_runtime_assessor.py",
+      "sha256": "c8d3e31852c89612089b167838037060cf0623b0cfd0008774844d82e9c4d2fa"
+    }
+  },
+  "parent_python": "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+  "parent_cli": "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/nisayon",
+  "parent_command_change": "Use the existing installed interpreter/CLI with bytecode writes disabled. Do not invoke a dependency synchronizer against the historically bound environment.",
+  "runtime_python": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+  "inputs": {
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "checkpoint": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532"
+    },
+    "pilot_statistics": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/normalization-stats.npz",
+      "sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e"
+    },
+    "runtime_install_manifest": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-manifest-002.json",
+      "sha256": "761a633a67ea2041cce28b6af3e24e51cfe3da25291fad70e361ace49c4e3cd6"
+    },
+    "runtime_install_result": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-result-001.json",
+      "sha256": "7f9b11f022649fb0413d4110a7a2afbf131cc9a49c4ec73da0d358e1dd9dbd4d"
+    },
+    "runtime_install_receipt": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/install-receipt-001.json",
+      "sha256": "c27642d9e6f075a8b1bba06f5dd31685de858e31710a7db61172c690f34a8157"
+    }
+  },
+  "outputs": {
+    "durable_staging_root": "artifacts/a1-runtime-001/runtime-v1.4-execution-001",
+    "temporary_root": "artifacts/a1-runtime-001/runtime-v1.4-temporary-001",
+    "sealed_packet": "artifacts/a1-runtime-001/runtime-v1.4-packet-001",
+    "create_only": true
+  },
+  "limits": {
+    "process_tree_rss_bytes": 2147483648,
+    "process_cpu_seconds_per_command": 1800,
+    "temporary_bytes_per_command": 201326592,
+    "durable_packet_bytes": 16777216,
+    "free_disk_floor_bytes": 5368709120,
+    "sample_interval_seconds": 0.1,
+    "qualification_wall_seconds": 300,
+    "replay_wall_seconds_each": 600,
+    "development_wall_seconds": 1200,
+    "qualification_control_steps": 20,
+    "replay_control_steps_each": 59,
+    "development_control_steps_maximum": 4000,
+    "phase_control_steps_maximum": 4138,
+    "replay_attempts": 2,
+    "development_attempts": 10
+  },
+  "operation_order": [
+    {
+      "order": 1,
+      "scope": "probe",
+      "simulator_construction": 1,
+      "control_steps": 20,
+      "policy_actions": 0,
+      "stopping_rule": "any construction, controller, observation, direction, timing, resource or Mink-absence failure stops before replay"
+    },
+    {
+      "order": 2,
+      "scope": "reset-sample-A",
+      "seed": 900,
+      "separate_process": true,
+      "control_steps": 0
+    },
+    {
+      "order": 3,
+      "scope": "reset-sample-B",
+      "seed": 900,
+      "separate_process": true,
+      "control_steps": 0
+    },
+    {
+      "order": 4,
+      "scope": "aggregate-reset",
+      "simulator": false,
+      "decision": "bitwise state and observation equality including shape and dtype"
+    },
+    {
+      "order": 5,
+      "scope": "replay-R-1",
+      "attempt": "R-1",
+      "control_steps": 59,
+      "policy_actions": 0
+    },
+    {
+      "order": 6,
+      "scope": "replay-R-2",
+      "attempt": "R-2",
+      "control_steps": 59,
+      "policy_actions": 0,
+      "rule": "runs regardless of R-1's outcome and is not a retry"
+    },
+    {
+      "order": 7,
+      "scope": "producer-gate",
+      "simulator": false,
+      "decision": "C2-C8 plus both completed bitwise-reproducible replays; C1 package/custody facts are bound separately",
+      "stopping_rule": "a false producer gate stops before development"
+    },
+    {
+      "order": 8,
+      "scope": "development",
+      "attempts": [
+        "E-200",
+        "E-201",
+        "E-202",
+        "E-203",
+        "E-204",
+        "E-205",
+        "E-206",
+        "E-207",
+        "E-208",
+        "E-209"
+      ],
+      "horizon": 400,
+      "policy_loaded_once": true,
+      "normalization": "checkpoint statistics equal the pilot archive by key, shape, dtype and bytes; network forward_step inputs are retained at steps 0, 1, 2 and the actual final step",
+      "stopping_rule": "one prescribed attempt per seed, no retry, no checkpoint selection or adjustment"
+    }
+  ],
+  "original_failure": {
+    "path": "docs/experiments/results/a1-runtime-001/qualification-probe-failure-001.json",
+    "sha256": "936cb48f6bcf650b4bb3d5efff418998b24886fe700c8b961349b854a1c5304b"
+  },
+  "accounting": "The new packet must retain the earlier failed probe and cumulative counts. Qualification reset total <=4 and phase reset total <=16. No scientific credit from the original failure.",
+  "preflight": "Before construction verify actual inputs, prior failure outputs, both runtime trees, disk and memory, source hashes, a clean committed execution tree, and absent new output paths.",
+  "stop_rule": "The first material qualification failure stops the sequence. Check scientific probe flags and arrays, not merely exit zero. After a successful probe and reset checks run both assigned replays; development requires the entire producer compatibility gate.",
+  "assessment_mode": {
+    "execution_and_assessment": "single_lane",
+    "independent": false,
+    "external_replication": false,
+    "scope": "Only this A1 runtime closeout; existing assessment calculations and scientific thresholds remain unchanged."
+  },
+  "new_training_updates": 0,
+  "new_network_responses": 0
+}

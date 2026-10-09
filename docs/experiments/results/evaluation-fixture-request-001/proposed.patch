@@ -1,0 +1,28 @@
+--- a/tests/evaluation/test_evaluation_history_self.py
++++ b/tests/evaluation/test_evaluation_history_self.py
+@@ -9,6 +9,7 @@
+ 
+ import json
+ import shutil
++from datetime import datetime, timedelta
+ from pathlib import Path
+ 
+ import pytest
+@@ -110,14 +111,15 @@
+     other["bundle_sha256"] = "sha256:" + "ee" * 32
+     other["bundle"] = "/elsewhere/bundle.json"
+     other["confirmation"]["protocol"]["producer_protocol_sha256"] = "ff" * 32
+-    other["decided_at"] = "2026-09-19T00:00:00+00:00"  # after this record's decision
++    decided_at = datetime.fromisoformat(first["decided_at"])
++    other["decided_at"] = (decided_at + timedelta(days=1)).isoformat()
+     retain(other, tmp_path / "history", "other")
+     decision = evaluate_bundle(path, history=[tmp_path / "history"])
+     assert "confirmation_condition_reused" not in reasons(decision)
+     assert "protocol_mismatch" not in reasons(decision)
+     assert "history_later_records" in notes(decision)
+     assert "history_absent" not in notes(decision)
+-    other["decided_at"] = "2026-09-01T00:00:00+00:00"  # before this record's decision
++    other["decided_at"] = (decided_at - timedelta(days=1)).isoformat()
+     retain(other, tmp_path / "history", "other")
+     decision = evaluate_bundle(path, history=[tmp_path / "history"])
+     assert decision["decision"] == "invalid"

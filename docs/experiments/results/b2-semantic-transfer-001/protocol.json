@@ -1,0 +1,176 @@
+{
+  "schema": "nisayon.b2-transfer.protocol.v1",
+  "case": "b2-semantic-transfer-001",
+  "frozen_at": "2026-10-09T09:47:26.632224+00:00",
+  "status": "frozen_before_policy_or_simulator_execution",
+  "authorization": "Standing local engineering mission plus explicit continuation after A1. B1 is closed at 0/10; this new phase prospectively tests a source-derived single correction and unchanged control on new paired conditions. No completed allocation is reopened.",
+  "assessment_mode": "single_lane_non_independent",
+  "seeds": [
+    180100,
+    180101,
+    180102,
+    180103,
+    180104,
+    180105,
+    180106,
+    180107,
+    180108,
+    180109
+  ],
+  "episode_order": "For each seed, unchanged then corrected; all twenty assigned outcomes retained.",
+  "inputs": {
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "bytes": 21084088,
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "policy": {
+      "path": "artifacts/assets/lift_ph_low_dim_epoch_1000_succ_100.pth",
+      "bytes": 7959022,
+      "sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605"
+    },
+    "historical_lock": {
+      "path": "uv.lock",
+      "bytes": 209060,
+      "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    },
+    "b1_result": {
+      "path": "docs/experiments/results/b1-reference-001/qualification-result.json",
+      "bytes": 4679,
+      "sha256": "29587fb46f103b356db587b8af3823a88a32ad0b6d1333dafc25c1e595cc125c"
+    },
+    "source_finding": {
+      "path": "docs/experiments/results/b2-semantic-transfer-001/source-finding.json",
+      "bytes": 1975,
+      "sha256": "5498a01ce81a7aeb84d1ed2d273c268454148b3fb97741ba0f4627dac9bd47f3"
+    }
+  },
+  "sources": {
+    "0": {
+      "path": "scripts/experiments/run_b2_transfer.py",
+      "bytes": 11282,
+      "sha256": "9c0c691735e30a90f0ede99938ef638017ffb30516859dd3d34f5bfa34f3b965"
+    },
+    "1": {
+      "path": "scripts/experiments/run_b1_reference.py",
+      "bytes": 16597,
+      "sha256": "1b7fce44696a1eb2af7debdd02bd2f579d79e2251a9dab935501fce37839b0b5"
+    },
+    "2": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "bytes": 50643,
+      "sha256": "6511f21b52b3edc1adc61e6f28a73db75de60beb82b0df254b26eeb04c280825"
+    },
+    "3": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "bytes": 12127,
+      "sha256": "449d0cbddd2ec6f2a0b55aa1923eadde1dd2a34e8779382cd30f760057884213"
+    },
+    "4": {
+      "path": "src/nisayon/engine/assets.py",
+      "bytes": 2356,
+      "sha256": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9"
+    },
+    "5": {
+      "path": "src/nisayon/engine/conditions.py",
+      "bytes": 8804,
+      "sha256": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf"
+    },
+    "6": {
+      "path": "src/nisayon/engine/lift_observation.py",
+      "bytes": 1659,
+      "sha256": "950c6f8cf854a2fa2537f1b4c8d8d784bb7a4d8c0752d728f658d3e0fc373a31"
+    },
+    "7": {
+      "path": ".venv/lib/python3.12/site-packages/robosuite/environments/manipulation/lift.py",
+      "bytes": 18193,
+      "sha256": "3e9569fd5bf2af714364de75faa68d60bfc085734ed4ef7f35290bcf90652270"
+    },
+    "8": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/lib/python3.12/site-packages/robosuite/environments/manipulation/lift.py",
+      "bytes": 18054,
+      "sha256": "8f7c422af47d4cabf3043ed5060b1a3c47ff87b0e3474ef722d1f685c39530eb"
+    },
+    "9": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/lib/python3.12/site-packages/robosuite/environments/manipulation/manipulation_env.py",
+      "bytes": 23945,
+      "sha256": "fde14741acc23e363216defd87fd2406e616a66549c0e6f936f090e52ea7aa73"
+    }
+  },
+  "runtime": {
+    "python": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+    "trees": {
+      "historical": {
+        "sha256": "e74d6f8a32610d1772bab2e3e2879434e45f26fc0908113ebbd2b9a408417dc4",
+        "files": 28817,
+        "logical_bytes": 1682480783
+      },
+      "isolated": {
+        "sha256": "6c316d0267919f5fb336197d499b37234ef2829092497abb8eca64434278f9e6",
+        "files": 24307,
+        "logical_bytes": 1392171663
+      }
+    },
+    "robosuite": "1.5.1",
+    "mujoco": "3.2.7",
+    "torch": "2.5.1",
+    "torch_threads": 1,
+    "lite_physics": false,
+    "environment": "Unchanged dataset env_kwargs through the hash-bound A1 adapter; no runtime installation or source mutation."
+  },
+  "output": "artifacts/b2-semantic-transfer-001/paired-execution",
+  "candidate": {
+    "operation": "Negate only object[7:10] at the policy-input boundary. Retain raw sensor packets. Recompute every subsequent state and observation in fresh closed-loop simulation.",
+    "source_convention": "robosuite 1.5.1 cube position minus gripper position",
+    "policy_convention": "gripper position minus cube position, as in its qualified 1.4.1 deployment",
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "weights": "unchanged",
+    "normalization": "none as trained",
+    "controller_and_reset": "unchanged ordinary 1.5.1 reset in both arms",
+    "actions": "same [-1,1] clipping boundary in both arms; retain intentions",
+    "not_applicable": "Do not apply to A1 trained on v1.5.1 observations."
+  },
+  "criteria": {
+    "paired_repairs_at_least": 8,
+    "paired_conditions": 10,
+    "paired_regressions": 0,
+    "execution_failures": 0,
+    "all_captured_initial_states_observations_model_and_controller_equal": true,
+    "task": "cube centre exceeds table height plus 0.04 m within 400 steps, backend success and reward agree",
+    "network_witness": "Every actual forward_step observation must byte-match declared policy input after float32 cast",
+    "all_other_observation_fields_unchanged": true,
+    "freshness": "Shared Git-common reservation plus committed history; development, not blinded or reserved evaluation."
+  },
+  "caps": {
+    "environment_constructions_started": 20,
+    "explicit_env_resets_started": 20,
+    "xml_resets_started": 0,
+    "state_assignments_started": 0,
+    "control_calls_started": 8000,
+    "policy_calls_started": 8000,
+    "contract_physics_substeps_upper": 200000,
+    "optimizer_updates": 0,
+    "new_asset_downloads": 0,
+    "retries": 0,
+    "wall_seconds": 1200,
+    "cpu_seconds": 1800,
+    "rss_bytes": 2147483648,
+    "temporary_bytes": 201326592,
+    "durable_bytes": 16777216,
+    "free_disk_floor_bytes": 5368709120
+  },
+  "stop": "One paired-execution attempt, no outcome-driven candidate revision. An execution failure rejects support; retain all available evidence and every assignment.",
+  "inference_limits": [
+    "Does not establish generic autonomous diagnosis or cost advantage.",
+    "Source inspection gave the ordinary semantic remedy; a competent conventional baseline receives it too.",
+    "Historic dataset action replay fidelity remains unresolved.",
+    "No training, cloud, hardware, outreach, publication or pushes."
+  ],
+  "cost_boundary": "Known preparation/check/failure/run wall and sampled resource use retained. Human effort, unmetered discovery, provider usage and unsampled peaks remain unknown.",
+  "preflight": {
+    "known_consumed_seed_count": 589,
+    "seed_collision": false,
+    "free_disk_bytes": 15383044096,
+    "available_memory_bytes": 2992340992
+  }
+}

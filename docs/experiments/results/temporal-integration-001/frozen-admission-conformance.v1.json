@@ -1,0 +1,484 @@
+{
+  "schema": "nisayon.temporal-suite.v1",
+  "role": "exploratory_queue_admission_conformance_after_integration",
+  "hypothesis": "The reference latest chunk dictionary may replace the origin of a still-queued action even when the later colliding delivery is explicitly refused. Distinct replacement may expose a usefulness tradeoff in the frozen dispatch-only freshness guard. These remain hypotheses until capture.",
+  "source_base_suite_sha256": "424119e7e27ccfc45235f91baca1acc108d3a2ffccc9856625c2c0fccfe3c649",
+  "source_base_case_sha256": "eaf4cb90f17b23332d7c58e50915ce63ccc36909572f3aeab828253e1c1b9458",
+  "evaluation_delivery_under_review": "8e5465051a583823ce8bf3914846e71046fbdeee",
+  "cpu_suballocation_s": 10,
+  "output_suballocation_bytes": 8388608,
+  "cases": [
+    {
+      "id": "Y01-fresh-queued-action",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y01-fresh-queued-action-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y01-fresh-queued-action-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y01-fresh-queued-action-input-02",
+          "delivery_id": "Y01-fresh-queued-action-delivery-2"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y01-fresh-queued-action-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "positive"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y02-rejected-conflicting-delivery-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y02-rejected-conflicting-delivery-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y02-rejected-conflicting-delivery-input-02",
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-2"
+        },
+        {
+          "at_ns": 12000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "Y02-rejected-conflicting-delivery-input-03",
+          "stamp": {
+            "value": -100000000,
+            "clock": "controller",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 13000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "Y02-rejected-conflicting-delivery-input-04"
+        },
+        {
+          "at_ns": 14000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-later",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            99
+          ],
+          "id": "Y02-rejected-conflicting-delivery-input-05",
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y02-rejected-conflicting-delivery-input-06"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "collision"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y03-stale-distinct-replacement-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y03-stale-distinct-replacement-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y03-stale-distinct-replacement-input-02",
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-2"
+        },
+        {
+          "at_ns": 12000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "Y03-stale-distinct-replacement-input-03",
+          "stamp": {
+            "value": -100000000,
+            "clock": "controller",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 13000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "Y03-stale-distinct-replacement-input-04"
+        },
+        {
+          "at_ns": 14000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-later",
+          "chunk_id": "c1",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            99
+          ],
+          "id": "Y03-stale-distinct-replacement-input-05",
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-5"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y03-stale-distinct-replacement-input-06"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "replacement"
+    },
+    {
+      "id": "Y04-rejected-identical-delivery",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y04-rejected-identical-delivery-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y04-rejected-identical-delivery-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y04-rejected-identical-delivery-input-02",
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-2"
+        },
+        {
+          "at_ns": 14000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y04-rejected-identical-delivery-input-03",
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-3"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y04-rejected-identical-delivery-input-04"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "duplicate"
+    }
+  ],
+  "remedies": [
+    {
+      "id": "unfenced_queue_control",
+      "role": "constructed_failure_control",
+      "reset_queue": false,
+      "bind_request": false,
+      "bind_configuration": false,
+      "fence_generation": false,
+      "deduplicate": false,
+      "ordered_overlap": false,
+      "deadline_check": "none",
+      "drop_all": false
+    },
+    {
+      "id": "conventional",
+      "role": "competent_ordinary_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": false
+    }
+  ],
+  "assignments": [
+    {
+      "id": "Y01-fresh-queued-action--unfenced_queue_control",
+      "case_id": "Y01-fresh-queued-action",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "Y01-fresh-queued-action--conventional",
+      "case_id": "Y01-fresh-queued-action",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--unfenced_queue_control",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--conventional",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement--unfenced_queue_control",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement--conventional",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "Y04-rejected-identical-delivery--unfenced_queue_control",
+      "case_id": "Y04-rejected-identical-delivery",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "Y04-rejected-identical-delivery--conventional",
+      "case_id": "Y04-rejected-identical-delivery",
+      "remedy_id": "conventional"
+    }
+  ],
+  "boundary": "Eight new exposed software assignments, not an independent incident or original comparison. No thresholds, prior records or existing remedy flags change."
+}

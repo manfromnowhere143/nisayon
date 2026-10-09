@@ -1,0 +1,15 @@
+{
+  "schema": "nisayon.population-path-failure.v1",
+  "attempt": 1,
+  "command_record_id": "e13a8eea449048da9a8253ee020271aa",
+  "executed_source_commit": "d7da0fa80008613478ce059711ebae548e2a892a",
+  "process_status": "nonzero",
+  "exit_code": 1,
+  "wall_seconds": 0.547604,
+  "stdout": {"bytes": 111, "sha256": "b1b613acdc756b7cbced4b5c39394710133ca7b22e422cee396d6a3d20eb36e7"},
+  "stderr": {"bytes": 654, "sha256": "473f8ab2bcdaa7d122ef5b8c6e20ca4f37244bc38e6576b17b5d4399ccc63780"},
+  "failure": "The extracted ShardedMixtureDataset.merge_statistics method replaced the module-level merge_statistics function in the shared harness namespace. Its internal keyword call then targeted itself and raised TypeError.",
+  "correction": "Rename only the extracted method in the harness namespace, leaving its body and the pinned module-level function unchanged.",
+  "scientific_status": "failed_before_observation; no population, selection or operation result was produced",
+  "retention": "The complete command stdout/stderr remains in the lane-local Nisayon command record."
+}

@@ -1,0 +1,99 @@
+{
+  "schema": "nisayon.a1-runtime-subset-suffix-conformance.v4",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:59:21Z",
+  "status": "proposed incremental member planner passes synthetic controls; real wheel costs and storage fit remain unobserved",
+  "supersedes": {
+    "path": "docs/experiments/results/a1-runtime-001/subset-suffix-conformance-003.json",
+    "scope": "executable subset source binding, retained-range accounting, and storage projection only",
+    "preservation": "v1-v3, I8, I10, their validation, and every development failure remain before-evidence"
+  },
+  "source": {
+    "commit": "cdb1b73ed485299850604586c0ae370cc20e0a93",
+    "script": "scripts/experiments/a1_wheel_subset.py",
+    "script_sha256": "72f76b391601616df43e1c4f35cd870e8386eb2ef0fc0ffc272f2f76c0c778b7",
+    "tests": "tests/engine/test_a1_wheel_subset.py",
+    "tests_sha256": "963f364e02dd0afb259e418b3eff686a4b244fbf1deeeb602969ba366a71f25a",
+    "new_behavior": [
+      "subtract exact verified retained data ranges before operational range coalescing",
+      "charge any retained bytes that request-count coalescing deliberately fetches again",
+      "separate prior response bytes, reusable selected-span bytes, pre-coalescing incremental bytes, operational response bytes, and the cumulative body total",
+      "emit subset-plan schema v2 with exact sparse-archive logical length, selected extracted payload length, and their coexisting logical-file-length sum",
+      "state the storage quantities excluded from that projection instead of presenting it as a measured peak"
+    ]
+  },
+  "validation": {
+    "committed_source": {
+      "tests": {
+        "command_record_id": "7ab2c955bef24fa5bb21c64b099ae342",
+        "command_record_sha256": "27566b57f8ca7b5c00dc17e1439e460e50126b42b2c050e1dcc538cccdff8aab",
+        "outer_wall_seconds": 0.340231,
+        "passed": 24,
+        "failed": 0
+      },
+      "ruff": {
+        "command_record_id": "294e03c4c0ca476c9d4d2585b7646dd8",
+        "command_record_sha256": "dded8b2b4724ed5bc2eb8cf12ee7e23a097c30c6a5c664af81d3f097d0d62048",
+        "outer_wall_seconds": 0.073492,
+        "result": "passed"
+      },
+      "format": {
+        "command_record_id": "5d1b606521fe49b6bb62b1173e80ac30",
+        "command_record_sha256": "a6e0f16b0628c32b5d1f1298d3ccf4a8bc9d312f867b8a894ca1a9c3f314412c",
+        "outer_wall_seconds": 0.011162,
+        "result": "passed"
+      }
+    },
+    "preserved_development_outcomes": [
+      {
+        "command_record_id": "7b7fe5425e6744c581d24e772ba1994c",
+        "command_record_sha256": "2cd1e3f8ad816a82374a72f4b9428dccce15c1544ba63dcbd7408273e086050c",
+        "outer_wall_seconds": 0.021176,
+        "result": "format check failed after retained-range subtraction was added",
+        "correction_command_record_id": "af4df9a191a14402bb8756e195656b1f",
+        "correction_command_record_sha256": "0ae8e88c6b1ca009f38b6fd3fb647175e59b335ec831d817990b7f8b3582fe41"
+      },
+      {
+        "command_record_id": "3acdb921eb2c487f86dc181d5e55904a",
+        "command_record_sha256": "38c955f736f6016d375bbfe54601eb9c4d24f932fd4f5c95296208fdc1c7ea12",
+        "outer_wall_seconds": 0.02101,
+        "result": "format check failed after the logical-storage projection was added",
+        "correction_command_record_id": "e5294666830244c7a429baf23ffca968",
+        "correction_command_record_sha256": "8983757b0249b76ec48e96f80a08714373b1ae13bbb2137ec9cb4824103e0d66"
+      },
+      {
+        "command_record_id": "2ad46e5c33994a29b9019dd88619abbc",
+        "command_record_sha256": "919b203275b719063b57fe90cd66126ccbc0b9a8815c557420c418dfbac963a5",
+        "outer_wall_seconds": 0.405041,
+        "result": "one control failed because it assumed a terminal retained rights range would be bridged by one coalesced request; the implementation correctly avoided it",
+        "correction": "the discriminating control was moved to a retained middle range, where one-request coalescing must and does charge the repeated bytes",
+        "correction_command_record_id": "1af210dac24e4d4b99919edd8ab440e3",
+        "correction_command_record_sha256": "cc29448846c326410533d0d8f935262ddee27aa9f01c5acc0b9c0775cc2a0abf"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "I12",
+      "disposition": "prospectively correctable; not yet accepted by the evaluation owner",
+      "statement": "The earlier P1 route could download L1's already retained rights records again. Source cdb1b73 plans from incremental uncovered spans and still charges any repeated bytes introduced by range coalescing."
+    },
+    {
+      "id": "I13",
+      "disposition": "requires prospective contract semantics before materialization",
+      "statement": "The contract gives a 201,326,592-byte temporary ceiling but does not say whether sparse logical length, allocated blocks, fetched range files, extracted payloads, or their coexistence controls the stop. Plan v2 exposes exact logical quantities after directory parsing; Opus must bind the accounting rule and lifecycle before extraction."
+    }
+  ],
+  "operations": {
+    "external_network_attempts": 0,
+    "application_responses": 0,
+    "response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0
+  },
+  "claim_boundary": "synthetic incremental planning only; no real range reuse, package storage, dependency fit, runtime behavior, or task outcome is established",
+  "publication": "private; no push or publication"
+}

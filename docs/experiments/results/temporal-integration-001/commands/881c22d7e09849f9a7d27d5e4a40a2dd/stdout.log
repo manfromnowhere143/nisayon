@@ -1,0 +1,14 @@
+E731 Do not assign a `lambda` expression, use a `def`
+  --> src/nisayon/engine/temporal_clocks.py:44:5
+   |
+42 |     Inclusive equality is within the deadline; a crossing interval is unknown.
+43 |     """
+44 |     unknown = lambda why: Age("unresolved", None, None, why)
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+45 |     if not _integer(max_age) or max_age < 0:
+46 |         return unknown("unsupported_deadline")
+   |
+help: Rewrite `unknown` as a `def`
+
+Found 1 error.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

@@ -16,6 +16,33 @@ The diagrams below describe that proposed architecture; the
 [README's experiment path](../README.md#how-a-correction-earns-acceptance)
 describes the implemented workflow.
 
+The temporal software harness executes scripted queues and lifecycle changes
+with a virtual clock and a reference assessment. Its
+[interface](experiments/TEMPORAL_INTERFACE.md) preserves missing evidence and
+interrupted attempts. Robot dynamics and learned inference are outside this
+software experiment's scope.
+
+The A1 line has retained evidence for rights-qualified offline data,
+100 normalized CPU optimizer updates and checkpoint state recovery. Its separate
+robosuite 1.5.1 runtime now passes the declared qualification checks. The exact
+checkpoint completes 1/10 development tasks against the required 8/10, so it is
+rejected as the competent reference in this runtime. Historical trajectory
+fidelity remains limited. The [runtime record](experiments/results/a1-runtime-001/README.md)
+retains every producer failure, the corrections and the single-lane assessment;
+neither task repair nor comparative value follows from this qualification.
+
+The subsequent [B2 experiment](experiments/results/b2-semantic-transfer-001/README.md)
+retains a real cross-version observation-convention failure. Its policy-specific
+adapter restores 9/10 fresh paired tasks versus 0/10 with unchanged inputs, with
+all actual network inputs checked and every downstream trajectory recomputed.
+This qualifies that exact corrected reference. The one remaining task failure,
+historical replay discrepancy and absence of comparative cost evidence remain.
+
+The [portable transfer reader](experiments/TRANSFER_EVIDENCE.md) separately
+recomputes B2's recorded obligations with NumPy. It provides a reproducible
+evidence readback for this exact sealed case; generic correction dispatch and
+the five-field agent repair interface are unchanged.
+
 ## The problem we intend to own
 
 A learned policy works in one deployment and fails after a change. Its engineer
@@ -92,6 +119,30 @@ them; do not generate empty schemas for an imagined platform.
 A `Run` can finish successfully as a process and still contain an invalid
 experiment. A valid experiment can leave the decision unresolved. Avoid a
 single `success` boolean across these layers.
+
+## Evidence ladder
+
+Each transition requires its own executed evidence. A later success cannot repair
+an unsupported earlier binding, and an earlier software check cannot stand in for
+a task outcome.
+
+```mermaid
+flowchart TD
+    accTitle: Evidence required for a deployment decision
+    accDescr: Inputs and rights lead to an executable numeric operation, then runtime behavior, task competence, a fixed intervention, fresh confirmation and finally a matched value comparison. A failure or unknown at any layer stops stronger claims while preserving earlier supported results.
+    A["Inputs, rights and provenance"] --> B["Bound numeric operation"]
+    B --> C["Qualified runtime semantics"]
+    C --> D["Development task competence"]
+    D --> E["Fixed intervention<br/>weights held constant"]
+    E --> F["Fresh confirmed task outcome"]
+    F --> G["Matched conventional comparison<br/>decision quality and complete cost"]
+    X["Invalid · failed · unresolved"] -. "stop stronger claim; retain evidence" .-> A
+    X -.-> B
+    X -.-> C
+    X -.-> D
+    X -.-> E
+    X -.-> F
+```
 
 ## Intervention validity
 
@@ -202,7 +253,10 @@ Keep simulator-specific state and timing semantics at the adapter boundary.
 ## Implementation order
 
 1. Engineering tools, shared memory and recovery. **Implemented foundation.**
-2. One pinned backend and a measured reset/replay qualification.
+2. One pinned backend and a measured reset/replay qualification. **Historical Lift
+   backend complete; A1 runtime qualified under its declared checks, checkpoint
+   competence rejected at 1/10. B2's exact semantic adapter qualifies its separate
+   legacy-policy reference at 9/10 fresh paired conditions.**
 3. One integration regression, full rerun, and invalid-replay control.
 4. Explicit intervention checks and fresh correction confirmation.
 5. The three-arm experiment with complete cost accounting.

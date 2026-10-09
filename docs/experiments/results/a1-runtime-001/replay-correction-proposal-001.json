@@ -1,0 +1,217 @@
+{
+  "schema": "nisayon.a1-runtime.recorder-validation-proposal.v1",
+  "status": "proposed_not_authorized_not_executed",
+  "recorded_at": "2026-10-09T07:59:46.188628+00:00",
+  "question": "Authorize exactly two additional 59-step fixed-action replays of the corrected recorder, followed only on a complete compatibility pass by the original ten unstarted development episodes?",
+  "reason": "Both original replay slots were consumed by the retained recorder-binding failure. The software correction passes its regression and all 1100 repository tests, but its simulator behavior is untested.",
+  "basis": {
+    "frozen_contract": {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.4.json",
+      "bytes": 14357,
+      "sha256": "94ad0859a81e235b009b82fad86a34e03bb733a74ebc7cc31557dfdcd9bd14bb"
+    },
+    "original_operator_scope": {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.json",
+      "bytes": 32000,
+      "sha256": "8c8b6b1b351f135094abd995e1719e7db48dc55ed06d46ec19205e4f24b1f2ef"
+    },
+    "no_retry_quote": "Failed started attempts consume their assigned slots; there are no automatic retry slots.",
+    "prior_packet_seal": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.4-packet-001/seal.json",
+      "bytes": 930,
+      "sha256": "7e7fe7a616d3ed412e74498b313c84746aa49b67ae733a04a0d82fc5f4074def"
+    },
+    "assessment": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-v1.4-assessment-001.json",
+      "bytes": 39368,
+      "sha256": "efbce2b46bfdbe13987d60021780d9844b49f0fafd42dee673a1f19d6beaed67"
+    },
+    "correction_commit": "0fb6a512bb62f974faf5b2c1fbbafeec76605a68",
+    "correction": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "bytes": 48922,
+      "sha256": "16a7ef8678db65bb63554ca32397ee54f443125593fd96480cc2919ff59ce8c5"
+    }
+  },
+  "assessment_mode": "single_lane_non_independent",
+  "accounting_before": {
+    "original_failed_probe_explicit_resets": 1,
+    "replacement_probe_explicit_resets": 1,
+    "reset_witness_explicit_resets": 2,
+    "replay_explicit_resets": 2,
+    "cumulative_explicit_resets": 6,
+    "qualification_control_steps": 20,
+    "replay_control_steps": 118,
+    "cumulative_control_steps": 138,
+    "contract_counted_physics_substeps": 3450,
+    "policy_actions": 0,
+    "replay_assigned_started_consumed": [
+      2,
+      2,
+      2
+    ],
+    "development_assigned_started_consumed": [
+      10,
+      0,
+      0
+    ],
+    "new_optimizer_updates": 0,
+    "new_network_responses": 0
+  },
+  "requested_increment": {
+    "replay_attempts": 2,
+    "explicit_resets": 2,
+    "control_steps": 118,
+    "contract_counted_physics_substeps": 2950,
+    "new_qualification_probes": 0,
+    "new_reset_witnesses": 0,
+    "additional_development_attempts": 0
+  },
+  "cumulative_phase_ceilings_if_approved": {
+    "replay_attempts": 4,
+    "qualification_explicit_resets": 4,
+    "explicit_resets": 18,
+    "control_steps": 4256,
+    "contract_counted_physics_substeps": 106400,
+    "policy_actions": 4000,
+    "development_attempts": 10
+  },
+  "unchanged": {
+    "development_seeds": [
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209
+    ],
+    "development_horizon": 400,
+    "development_success_minimum": 8,
+    "checkpoint": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532"
+    },
+    "criteria": "All C1-C9, replay bitwise equality, initial-frame and historical-fidelity thresholds unchanged. No post-episode witness may be inferred before it exists.",
+    "resource_limits": {
+      "process_tree_rss_bytes": 2147483648,
+      "process_cpu_seconds_per_command": 1800,
+      "temporary_bytes_per_command": 201326592,
+      "durable_packet_bytes": 16777216,
+      "free_disk_floor_bytes": 5368709120,
+      "sample_interval_seconds": 0.1,
+      "qualification_wall_seconds": 300,
+      "replay_wall_seconds_each": 600,
+      "development_wall_seconds": 1200
+    },
+    "new_training_updates": 0,
+    "new_network_responses": 0,
+    "paid_compute": false,
+    "cloud_starts": false,
+    "hardware": false,
+    "reserved_outcomes": false,
+    "publication_or_push": false,
+    "replay_control_steps_each": 59
+  },
+  "output_series": {
+    "staging_root": "artifacts/a1-runtime-001/recorder-validation-001",
+    "temporary_root": "artifacts/a1-runtime-001/recorder-validation-temporary-001",
+    "packet_root": "artifacts/a1-runtime-001/recorder-validation-packet-001",
+    "create_only": true,
+    "attempt_identity": "Global R-3 and R-4 retain local repetition IDs R-1 and R-2 required by the existing executor/assessor. Series identity and cumulative ledger must be present in every interpretation. Original R-1 and R-2 remain failed and consumed."
+  },
+  "commands": [
+    {
+      "global_attempt": "R-3",
+      "local_schema_id": "R-1",
+      "output": "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3",
+      "wall_seconds": 600,
+      "child_command": [
+        "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+        "-B",
+        "scripts/experiments/run_a1_runtime.py",
+        "replay",
+        "--output",
+        "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3",
+        "--attempt",
+        "R-1",
+        "--dataset",
+        "artifacts/assets/lift/ph/low_dim_v15.hdf5"
+      ]
+    },
+    {
+      "global_attempt": "R-4",
+      "local_schema_id": "R-2",
+      "output": "artifacts/a1-runtime-001/recorder-validation-001/replay-R-4",
+      "wall_seconds": 600,
+      "child_command": [
+        "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+        "-B",
+        "scripts/experiments/run_a1_runtime.py",
+        "replay",
+        "--output",
+        "artifacts/a1-runtime-001/recorder-validation-001/replay-R-4",
+        "--attempt",
+        "R-2",
+        "--dataset",
+        "artifacts/assets/lift/ph/low_dim_v15.hdf5"
+      ]
+    }
+  ],
+  "producer_gate_child_command": [
+    "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+    "-B",
+    "scripts/experiments/run_a1_runtime.py",
+    "gate",
+    "--dataset",
+    "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+    "--output",
+    "artifacts/a1-runtime-001/recorder-validation-001/producer-gate",
+    "--probe",
+    "artifacts/a1-runtime-001/runtime-v1.4-execution-001/probe/probe-001.npz",
+    "--env-args",
+    "artifacts/a1-runtime-001/runtime-v1.4-execution-001/probe/env-args-001.json",
+    "--controller",
+    "artifacts/a1-runtime-001/runtime-v1.4-execution-001/probe/controller-001.json",
+    "--timing",
+    "artifacts/a1-runtime-001/runtime-v1.4-execution-001/probe/timing-001.json",
+    "--reset",
+    "artifacts/a1-runtime-001/runtime-v1.4-execution-001/aggregate-reset/reset-determinism-001.json",
+    "--replay-1",
+    "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3/replay-R-1-001.npz",
+    "--replay-1-meta",
+    "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3/replay-R-1-001.json",
+    "--replay-2",
+    "artifacts/a1-runtime-001/recorder-validation-001/replay-R-4/replay-R-2-001.npz",
+    "--replay-2-meta",
+    "artifacts/a1-runtime-001/recorder-validation-001/replay-R-4/replay-R-2-001.json"
+  ],
+  "conditional_development_child_command": [
+    "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+    "-B",
+    "scripts/experiments/run_a1_runtime.py",
+    "development",
+    "--output",
+    "artifacts/a1-runtime-001/recorder-validation-001/development",
+    "--dataset",
+    "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+    "--checkpoint",
+    "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+    "--pilot-stats",
+    "artifacts/a1-feasibility-001/pilot-v1.2-001/normalization-stats.npz",
+    "--gate-path",
+    "artifacts/a1-runtime-001/recorder-validation-001/producer-gate/producer-compatibility-gate-001.json"
+  ],
+  "execution_requirements": [
+    "Do not execute this proposal without explicit operator approval and a committed digest-bound prospective amendment.",
+    "Before execution verify code/input/environment identities, free disk and memory, retained packet seals and absent create-only paths.",
+    "Each replay runs under the existing process monitor and nisayon run with its 600-second wall ceiling; R-4 is assigned separately and runs regardless of R-3 outcome unless a resource guard stops the phase.",
+    "Reuse only the valid v1.4 probe/controller/timing/reset evidence, identified by sealed bytes; no additional probe or reset witness is requested.",
+    "Development retains its existing 1200-second limit and runs only if the complete producer compatibility gate passes. No extra episode or automatic retry is permitted.",
+    "Assess and report both original failed attempts and this explicitly amended follow-up, without treating it as fresh independent confirmation or comparative repair evidence.",
+    "A further material failure ends this proposed allowance."
+  ]
+}

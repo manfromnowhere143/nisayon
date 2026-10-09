@@ -1,0 +1,64 @@
+{
+  "schema": "nisayon.a1-pilot.verdict.v2",
+  "case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T10:15:42Z",
+  "supersedes": {
+    "path": "pilot-verdict-001.json",
+    "sha256": "880b796632482e2a30aab5eff728588ac449be890a8c9eeb687d83d3512e0e91",
+    "on": "the packet binding only: verdict 001 bound the execution delivery as committed at b1fdb0c (71e69059\u2026) before the formal packet was sealed from 5e7d534 at 10:11:40Z; this record binds the sealed packet",
+    "finding": "docs/experiments/results/a1-feasibility-001/integration-finding-001.json (assessment_precedes_formal_seal) at c8d8c21: reproduced and agreed"
+  },
+  "sealed_packet": {
+    "path": "nisayon-codex/artifacts/a1-pilot-001/execution-001",
+    "seal_sha256": "382e3228882449febe60de6b5f619f759f3488ec4d37c229c415cdae4f61e588",
+    "source_commit": "5e7d534",
+    "sealed_at": "2026-09-21T10:11:40.071201+00:00",
+    "checks": {
+      "summary_digest": true,
+      "invocation_digest": true,
+      "manifest_digest": true,
+      "manifest_entries": 57,
+      "manifest_entries_bad": 0,
+      "rights_inputs_identical_to_reproduction_copies": true,
+      "embedded_delivery_digest": "454ed0e67c78b7e47e0c289b2556475b566cd1ca284bf033cb2061dc683430f8",
+      "embedded_delivery_equals_committed": true,
+      "embedded_acceptance_equals_this_lane": true,
+      "network_during_seal": 0,
+      "commands_retained": 11
+    }
+  },
+  "differences_from_verdict_001": {
+    "failures": {
+      "verdict_001": 2,
+      "sealed_packet": 4,
+      "added": [
+        "an ad hoc zsh consistency loop that failed on word splitting, with no command record and unmeasured cost, corrected by a /bin/sh command",
+        "a lint failure on the packet builder (two lowercase JSON booleans), record 2b0cffce, corrected before construction"
+      ]
+    },
+    "costs_added": [
+      "partial_packet_failed_check 0.076 s",
+      "partial_packet_corrected_check 0.395 s"
+    ],
+    "scientific_inputs": "unchanged: same three responses and digests, same sizes, same rule, zero dataset bytes, zero updates, unresolved",
+    "gate_reproduction": "unchanged and still valid (gate-reproduction-001.json)"
+  },
+  "conclusions": {
+    "unchanged_from_001": true,
+    "custody": "unresolved",
+    "executability": "unresolved",
+    "resource_feasibility": "unresolved",
+    "infeasible": "binding the MIT terms to the pinned object by byte identity",
+    "costs": "accepted in distinct scopes; one failure (the ad hoc shell loop) has no command record, so its cost is unknown and its identity rests on the delivery's description; disclosed, not counted",
+    "seal_integrity": "verified",
+    "next_investment": "as in verdict 001: N1 terms request, then N2 under new authorization with the compatibility stop rule, else N3"
+  },
+  "clock": {
+    "original_mission_clock": "2026-09-17T21:30:41Z",
+    "phase_start_utc": "2026-09-21T09:38:59Z",
+    "verdict_001_utc": "2026-09-21T10:08:01Z",
+    "formal_seal_utc": "2026-09-21T10:11:40Z",
+    "disposition_utc": "2026-09-21T10:15:42Z",
+    "active_effort": "unmeasured"
+  }
+}

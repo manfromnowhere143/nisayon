@@ -1,0 +1,215 @@
+{
+ "schema": "nisayon.temporal-trace.v1",
+ "case_id": "interface-example/dispatch_without_time",
+ "schedule_sha256": "493361cd6e6f3b7146d60c468d11318196600b9e14efa02ebb9f90e4aaa9e991",
+ "record_status": "constructed_interface_example_not_executed",
+ "source": {
+  "kind": "constructed_control",
+  "commit": null,
+  "files": {}
+ },
+ "clocks": {
+  "names": [
+   "virtual_controller"
+  ],
+  "declared_mappings": []
+ },
+ "configuration": {
+  "policy_id": "scripted-policy-a",
+  "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+  "chunk_length": 1,
+  "control_period": 100000000,
+  "aggregation": "latest_request_wins_same_step",
+  "max_age": 200000000,
+  "time_unit": "ns"
+ },
+ "events": [
+  {
+   "kind": "episode_start",
+   "generation": 0,
+   "at": {
+    "value": 0,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 0
+  },
+  {
+   "kind": "observation_acquired",
+   "obs_id": "o0",
+   "generation": 0,
+   "step": 0,
+   "at": {
+    "value": 0,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 1
+  },
+  {
+   "kind": "request_sent",
+   "req_id": "q0",
+   "obs_id": "o0",
+   "generation": 0,
+   "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+   "at": {
+    "value": 10000000,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 2
+  },
+  {
+   "kind": "response_arrived",
+   "resp_id": "r0",
+   "req_id": "q0",
+   "chunk_id": "c0",
+   "first_step": 0,
+   "ordinals": 1,
+   "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+   "generation": 0,
+   "at": {
+    "value": 50000000,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 3
+  },
+  {
+   "kind": "queue_admitted",
+   "chunk_id": "c0",
+   "admitted": [
+    0
+   ],
+   "skipped": [],
+   "replaced": [],
+   "reason": "bound_current_response",
+   "at": {
+    "value": 50000000,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 4
+  },
+  {
+   "kind": "action_dispatched",
+   "action_id": "c0:0",
+   "chunk_id": "c0",
+   "ordinal": 0,
+   "step": 0,
+   "generation": 0,
+   "at": null,
+   "seq": 5
+  },
+  {
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:0",
+   "at": {
+    "value": 100000000,
+    "clock": "virtual_controller",
+    "unit": "ns"
+   },
+   "seq": 6
+  }
+ ],
+ "robot_task_outcome": "unmeasured",
+ "execution_status": "not_executed",
+ "evidence_completeness": "constructed_example",
+ "schedule": {
+  "case_id": "interface-example",
+  "status": "constructed_interface_example_not_executed",
+  "events": [
+   {
+    "kind": "episode_start",
+    "generation": 0,
+    "at": {
+     "value": 0,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 0
+   },
+   {
+    "kind": "observation_acquired",
+    "obs_id": "o0",
+    "generation": 0,
+    "step": 0,
+    "at": {
+     "value": 0,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 1
+   },
+   {
+    "kind": "request_sent",
+    "req_id": "q0",
+    "obs_id": "o0",
+    "generation": 0,
+    "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+    "at": {
+     "value": 10000000,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 2
+   },
+   {
+    "kind": "response_arrived",
+    "resp_id": "r0",
+    "req_id": "q0",
+    "chunk_id": "c0",
+    "first_step": 0,
+    "ordinals": 1,
+    "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+    "generation": 0,
+    "at": {
+     "value": 50000000,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 3
+   },
+   {
+    "kind": "queue_admitted",
+    "chunk_id": "c0",
+    "admitted": [
+     0
+    ],
+    "skipped": [],
+    "replaced": [],
+    "reason": "bound_current_response",
+    "at": {
+     "value": 50000000,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 4
+   },
+   {
+    "kind": "action_dispatched",
+    "action_id": "c0:0",
+    "chunk_id": "c0",
+    "ordinal": 0,
+    "step": 0,
+    "generation": 0,
+    "at": {
+     "value": 100000000,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 5
+   },
+   {
+    "kind": "dispatch_acknowledged",
+    "action_id": "c0:0",
+    "at": {
+     "value": 100000000,
+     "clock": "virtual_controller",
+     "unit": "ns"
+    },
+    "seq": 6
+   }
+  ]
+ }
+}

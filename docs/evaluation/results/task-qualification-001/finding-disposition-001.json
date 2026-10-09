@@ -1,0 +1,33 @@
+{
+  "schema": "nisayon.evaluation.finding-disposition.v1",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:33:56Z",
+  "finding": {
+    "path": "docs/experiments/results/task-qualification-001/integration-finding-001.json",
+    "sha256": "045fc96a0d1273792ec85f035968863d398bbbd85446a7c21fedd0290606e635",
+    "code": "checkpoint_license_not_established",
+    "execution_commit": "be8f114"
+  },
+  "reproduced": true,
+  "reproduction": "selection-rule.v1.json C1 requires a license permitting local execution; screening-001.json marked CAND-01 C1 pass while stating the weights license is unspecified; docs/experiments/ASSETS.md and src/nisayon/engine/assets.py record 'Public model-zoo download; separate weights license not specified'; no retained license evidence exists for the checkpoint bytes",
+  "disposition": {
+    "c1": "unresolved, not pass: a public download recipe and MIT/Apache-2.0 code licenses do not establish a license for the checkpoint bytes",
+    "candidate_score": "4 of 7",
+    "first_failed": "C1 (unresolved)",
+    "overall": "unchanged: zero candidates qualify; CAND-01 also fails C3 and C5; the other six candidates are rejected on their own criteria",
+    "trial_count": "unchanged: none assigned or executed",
+    "acquisition_and_training_boundary": "unchanged: none authorized or executed",
+    "future_a1": "agreed: a checkpoint trained here binds to the dataset's verified license terms and its own weights; the held checkpoint's unstated license governs only if its weights are used, and A1 does not use them"
+  },
+  "corrected_by": {
+    "commit": "1c88a40",
+    "records": [
+      "screening-002.json (supersedes screening-001.json on C1)",
+      "evidence-acquisition-002.json (supersedes 001; adds license evidence and a telemetry plan to A1's missing material)",
+      "task-contract.v1.json amendment A2 (both as preconditions before any rollout)"
+    ],
+    "named": "5917498",
+    "note": "the correction was committed at 06:30:21 UTC on this lane before the execution lane's finding record (06:33 UTC) was read here; the two records agree"
+  },
+  "no_rerun": "inventory, controls and the full suite were not rerun for this records-only disposition"
+}

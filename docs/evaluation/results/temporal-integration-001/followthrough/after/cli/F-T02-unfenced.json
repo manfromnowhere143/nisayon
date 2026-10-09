@@ -1,0 +1,334 @@
+{
+  "schema": "nisayon.temporal-assessment.v2",
+  "assessment_version": {
+    "schema": "nisayon.temporal-assessment.v2",
+    "supersedes": "nisayon.temporal-assessment.v1",
+    "changes": [
+      "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+      "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+      "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+      "age and grid arithmetic are exact (no float conversion of stamps)",
+      "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+      "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+    ],
+    "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept"
+  },
+  "case_id": "T02-queued-reset",
+  "software_execution": "completed",
+  "evidence": {
+    "problems": [],
+    "unknowns": [],
+    "unbound_responses": [],
+    "unacknowledged_dispatches": [],
+    "unacknowledged_attempts": [],
+    "attempts": [
+      {
+        "attempt": "T02-queued-reset-input-04:send",
+        "dispatch_id": "T02-queued-reset-input-04:send",
+        "action_id": "c0:0",
+        "input_id": "T02-queued-reset-input-04",
+        "seq": 7,
+        "outcome": "acknowledged",
+        "acknowledgements": 1,
+        "failures": 0,
+        "validity": {
+          "first_attempt_of_action": true,
+          "bound": true,
+          "generation": false,
+          "configuration": true,
+          "freshness": true
+        }
+      },
+      {
+        "attempt": "T02-queued-reset-input-08:send",
+        "dispatch_id": "T02-queued-reset-input-08:send",
+        "action_id": "c1:0",
+        "input_id": "T02-queued-reset-input-08",
+        "seq": 13,
+        "outcome": "acknowledged",
+        "acknowledgements": 1,
+        "failures": 0,
+        "validity": {
+          "first_attempt_of_action": true,
+          "bound": true,
+          "generation": true,
+          "configuration": true,
+          "freshness": true
+        }
+      }
+    ],
+    "unmatched_outcomes": [],
+    "activation_transitions": [],
+    "activation_contradictions": [],
+    "non_integer_stamps": false,
+    "completeness": "complete"
+  },
+  "temporal_contract": "violated",
+  "predicates": {
+    "generation_fencing": {
+      "status": "violated",
+      "findings": [
+        {
+          "predicate": "generation_fencing",
+          "status": "violated",
+          "detail": "action c0:0 from generation 0 dispatched in generation 1 (request binding)",
+          "seq": 7
+        }
+      ]
+    },
+    "request_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "configuration_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "queue_reset": {
+      "status": "violated",
+      "findings": [
+        {
+          "predicate": "queue_reset",
+          "status": "violated",
+          "detail": "2 queued action(s) from before the reset remain queued after generation 1 began: ['c0:0', 'c0:1']",
+          "seq": 6
+        }
+      ]
+    },
+    "duplicate_dispatch": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "dispatch_order": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "freshness": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "acknowledgement": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "useful_execution": {
+      "status": "unresolved",
+      "findings": [
+        {
+          "predicate": "useful_execution",
+          "status": "unresolved",
+          "detail": "generation 0: no response arrived, or no control tick or recorded opportunity lies in the window, so dispatch coverage cannot be judged"
+        },
+        {
+          "predicate": "useful_execution",
+          "status": "unresolved",
+          "detail": "generation 1: no response arrived, or no control tick or recorded opportunity lies in the window, so dispatch coverage cannot be judged"
+        }
+      ]
+    }
+  },
+  "useful_execution": {
+    "status": "unresolved",
+    "coverage_by_generation": {
+      "0": {
+        "basis": "grid",
+        "ticks": 0,
+        "dispatched": 0,
+        "coverage": null,
+        "window": null
+      },
+      "1": {
+        "basis": "grid",
+        "ticks": 0,
+        "dispatched": 0,
+        "coverage": null,
+        "window": null
+      }
+    },
+    "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator"
+  },
+  "assigned_usefulness": {
+    "basis": "frozen_case_dispatch_target",
+    "scope": "whole_case",
+    "status": "satisfied",
+    "membership": "valid",
+    "membership_problems": [],
+    "minimum_dispatches": 1,
+    "opportunities": 2,
+    "opportunities_observed": 2,
+    "opportunities_unobserved": [],
+    "opportunities_dispatched": 2,
+    "opportunities_refused": 0,
+    "raw_dispatch_attempts": 2,
+    "opportunities_valid": 1,
+    "opportunities_validity_unresolved": 0,
+    "opportunities_acknowledged": 2,
+    "opportunities_valid_acknowledged": 1,
+    "valid_acknowledged_status": "satisfied",
+    "rows": [
+      {
+        "input_id": "T02-queued-reset-input-04",
+        "at": {
+          "value": 4000000,
+          "clock": "controller",
+          "unit": "ns"
+        },
+        "observed": [
+          "dispatch"
+        ],
+        "attempts": [
+          "T02-queued-reset-input-04:send"
+        ],
+        "refusal_reasons": [],
+        "counted": "dispatched",
+        "valid": false,
+        "acknowledged": true
+      },
+      {
+        "input_id": "T02-queued-reset-input-08",
+        "at": {
+          "value": 8000000,
+          "clock": "controller",
+          "unit": "ns"
+        },
+        "observed": [
+          "dispatch"
+        ],
+        "attempts": [
+          "T02-queued-reset-input-08:send"
+        ],
+        "refusal_reasons": [],
+        "counted": "dispatched",
+        "valid": true,
+        "acknowledged": true
+      }
+    ],
+    "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts"
+  },
+  "assigned_contract": "violated",
+  "retrospective": {
+    "chunk_target_alignment": {
+      "status": "violated",
+      "findings": [
+        {
+          "predicate": "chunk_target_alignment",
+          "status": "violated",
+          "detail": "action c1:0 dispatched at step 1 but targeted step 0 (first_step 0 + ordinal 0)",
+          "seq": 13,
+          "witness": {
+            "dispatched_step": 1,
+            "target_step": 0,
+            "generation": 1
+          }
+        }
+      ],
+      "premises": [
+        "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+        "the dispatch step is the executed local consumption counter",
+        "alignment means the action ran at the step it targeted; software indices only, no physical state"
+      ]
+    },
+    "observation_context": {
+      "status": "satisfied",
+      "findings": [],
+      "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored"
+    },
+    "admissions_stricter_than_frozen_rule": [],
+    "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract"
+  },
+  "age_readings": [
+    {
+      "attempt": "T02-queued-reset-input-04:send",
+      "action_id": "c0:0",
+      "chronology": "same_clock",
+      "mapped_interval": [
+        4000000,
+        4000000
+      ],
+      "chain_lower_bound": 4000000,
+      "interval_used": [
+        4000000,
+        4000000
+      ],
+      "max_age": 50000000,
+      "classification": "within",
+      "premise": null,
+      "non_integer_inputs": false
+    },
+    {
+      "attempt": "T02-queued-reset-input-08:send",
+      "action_id": "c1:0",
+      "chronology": "same_clock",
+      "mapped_interval": [
+        3000000,
+        3000000
+      ],
+      "chain_lower_bound": 3000000,
+      "interval_used": [
+        3000000,
+        3000000
+      ],
+      "max_age": 50000000,
+      "classification": "within",
+      "premise": null,
+      "non_integer_inputs": false
+    }
+  ],
+  "robot_task_outcome": "unmeasured",
+  "controller_clock": "controller",
+  "useful_coverage_min": 0.8,
+  "dispatch_refusals": 0,
+  "exploratory_stale_overwrites": [],
+  "repeated_deliveries": [],
+  "exploratory_after_freeze": {
+    "queue_reset_before_first_dispatch": {
+      "1": {
+        "survivors_at_reset": [
+          "c0:0",
+          "c0:1"
+        ],
+        "still_queued_at_first_dispatch": [
+          "c0:0",
+          "c0:1"
+        ]
+      }
+    },
+    "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+  },
+  "final_state": {
+    "generation": 1,
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+    "activation": 0,
+    "queued_action_ids": [
+      "c0:1"
+    ],
+    "dispatched_action_ids": [
+      "c0:0",
+      "c1:0"
+    ],
+    "chunks": {
+      "c0": {
+        "req_id": "q0",
+        "generation": 0,
+        "generation_source": "request",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "activation": 0
+      },
+      "c1": {
+        "req_id": "q1",
+        "generation": 1,
+        "generation_source": "request",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "activation": 0
+      }
+    },
+    "steps_dispatched": {
+      "1": [
+        0,
+        1
+      ]
+    },
+    "unknowns": []
+  },
+  "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

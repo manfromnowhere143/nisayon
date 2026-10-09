@@ -1,0 +1,34 @@
+External record assessment: assessed · producer robolab · episode demo_0 · rows 648 · declared success True
+Rule: first-case-obligation-v0.2 unchanged; an unsupported foreign field never relaxes or tightens it
+  obligation                      status                                gap code / smallest additional measurement
+  task_outcome                    measurable_with_evaluator_predicate   predicate_not_preregistered / a frozen outcome predicate over retained fields, plus the contact and gripper-detachment measurements the producer's conditional uses
+      evidence: producer declares success=True; object and robot states are retained per step, so an evaluator-added geometric predicate can be computed and is reported as not preregistered; the producer's own conditional (contact, gripper detached) is not recomputable from retained fields
+  progress                        absent                                preregistration_missing / a producer-frozen progress quantity and minimum gain
+      evidence: object trajectories are retained, so a progress quantity could be defined; no frozen progress minimum or activation tolerance exists
+  constraints_action              measurable                            constraint_undeclared / a declared action bound to check the range against
+      evidence: actions [648, 8] float32; dimension and range measurable ({'min': [-0.137341, -0.623854, -0.194548, -2.555484, -0.171974, 1.888797, -0.920769, 0.0], 'max': [0.161562, 0.325349, 0.14165, -2.15839, 0.213492, 2.646354, 0.951805, 1.0]}); declared limit: None
+  constraints_step_period         declared_only                         predicate_unmeasurable / a simulation clock per row
+      evidence: step period 0.066666667 s derived from configuration (dt × decimation); no per-row clock
+  timing_observation_age          absent                                timing_unmeasured / acquisition and consumption stamps per observation component
+      evidence: no acquisition stamps; the age of what the policy consumed is unknown
+  observation_record              absent                                - / the consumed observation, or its digest and acquisition stamp, per row
+      evidence: the observation the policy consumed is not retained (image observations were dropped by the producer's export), so the observation-to-action chain cannot be checked
+  reset_evidence                  absent                                reset_evidence_incomplete / a digest of the policy's recurrent state and action-chunk position at reset and per step
+      evidence: no policy state or chunk schedule; policy declared as 'pi05'
+  initial_state                   measurable                            - / none for this record; a reader must reject rows that differ
+      evidence: 2 identical rows on the leading axis (repeated post-reset records concatenated by the writer); the pinned reader restores row 0
+  identity                        declared_only                         identity_unbound / digests of the policy checkpoint, simulator build and configuration bound to each run
+      evidence: producer names {'isaaclab_version': '2.2.0', 'isaacsim_version': '5.0.0.0', 'policy': 'pi05'}; no digest binds the policy checkpoint, code or dependencies
+  artifact_manifest               absent                                artifact_manifest_missing / a producer-written manifest of every retained file with digests
+      evidence: the producer ships no manifest; the source packet binds the file digests externally
+  frozen_candidate_and_protocol   inapplicable                          confirmation_missing / a working and a changed deployment with a frozen candidate and paired fresh conditions
+      evidence: a single episode; no working/changed pair, no candidate, no assignments
+  fresh_conditions                inapplicable                          confirmation_missing / assigned fresh conditions with reference and candidate runs
+      evidence: one episode on declared seed 0; no assignment of conditions
+  intervention_validity           inapplicable                          - / a full closed-loop rerun after any changed action
+      evidence: no intervention; the producer documents open-loop replay of recorded actions, which is legitimate for its purpose and cannot validate a changed action against the recorded future
+  raw_trace_consistency           measurable                            - / none
+      evidence: per-step datasets agree on the row count; num_samples and data.total equal the action rows; actions carry no NaN
+Counts: {'measurable': 3, 'measurable_with_evaluator_predicate': 1, 'declared_only': 2, 'absent': 5, 'ambiguous': 0, 'inapplicable': 3}
+Repair comparison applicable: False
+Reading: record portability evidence only: usable measurements are listed per obligation; an upstream successful episode is not a repair comparison, a backend qualification or an independently verified success

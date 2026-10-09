@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/a1-pilot-001/controls/statistics_reference_control.py", line 41, in <module>
+    ds = SequenceDataset(hdf5_path=str(path), obs_keys=list(keys), dataset_keys=["actions"], seq_length=10, hdf5_cache_mode="all", hdf5_use_swmr=False, hdf5_normalize_obs=True, filter_by_attribute=None)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/utils/dataset.py", line 134, in __init__
+    self.hdf5_cache = self.load_dataset_in_memory(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/utils/dataset.py", line 289, in load_dataset_in_memory
+    all_data[ep]["next_obs"] = {k: hdf5_file["data/{}/next_obs/{}".format(ep, k)][()] for k in obs_keys}
+                                   ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/h5py/_hl/group.py", line 407, in __getitem__
+    return self._get(name)
+           ^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/h5py/_hl/group.py", line 421, in _get
+    oid = h5o.open(self.id, self._e(name), lapl=lapl)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5o.pyx", line 255, in h5py.h5o.open
+KeyError: 'Unable to synchronously open object (component not found)'

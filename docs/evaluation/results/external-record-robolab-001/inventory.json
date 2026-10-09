@@ -1,0 +1,690 @@
+{
+  "schema": "nisayon.external-record.inventory.v1",
+  "producer": "robolab",
+  "source": {
+    "upstream": "https://github.com/NVlabs/RoboLab",
+    "commit": "ad45d4f974725d020f82c2b0d77d78533aeba2b3",
+    "upstream_path": "examples/recorded_data/RubiksCubeAndBananaTask/data.hdf5",
+    "license_observed": "Root LICENSE states Apache-2.0 with NVIDIA copyright. Check any additional notices and asset-specific terms before redistribution.",
+    "path": "source-check/robolab/data.hdf5 (verified packet; bytes not redistributed here)",
+    "bytes": 393616,
+    "sha256": "edf09c3fa8e0773694e3d4ea2174e10f7410571f29e874e1562570470eba064a",
+    "sidecars": [
+      {
+        "path": "env_cfg.json",
+        "bytes": 39806,
+        "sha256": "3472c04b6795b0ee5cb7529d6f5fccd1f78df331ba04bc8f850cdb48020144a8",
+        "role": "environment configuration"
+      },
+      {
+        "path": "manifest.json",
+        "bytes": 2290,
+        "sha256": "c214bcfd83f4f0acd663e254df3106dac5a118d563f97d80d64987c5343f1694",
+        "role": "source packet manifest"
+      }
+    ]
+  },
+  "producer_declarations": {
+    "env_args": "{\"env_name\": \"RubiksCubeAndBananaTask\", \"type\": 2}",
+    "isaaclab_version": "2.2.0",
+    "isaacsim_version": "5.0.0.0",
+    "policy": "pi05",
+    "recorded_at": "2026-07-18T09:43:53+00:00",
+    "total": 648,
+    "success": true,
+    "num_samples": 648,
+    "seed": 0,
+    "sim_dt_s": 0.008333333333333333,
+    "decimation": 8,
+    "step_period_s": 0.066666667,
+    "num_envs": 1,
+    "episode_length_s": 60,
+    "instruction": "Put the cube and the banana in the bowl",
+    "action_clip": null,
+    "action_terms": [
+      "body",
+      "finger_joint"
+    ],
+    "success_conditional": {
+      "func": "robolab.core.task.conditionals:object_in_container",
+      "params": {
+        "object": [
+          "rubiks_cube",
+          "banana"
+        ],
+        "container": "bowl",
+        "logical": "all",
+        "tolerance": 0.0,
+        "require_contact_with": true,
+        "require_gripper_detached": true
+      }
+    },
+    "recorders": [
+      "record_actions",
+      "record_bbox",
+      "record_ee_pose",
+      "record_initial_state",
+      "record_states"
+    ]
+  },
+  "episodes": [
+    {
+      "id": "demo_0",
+      "rows": 648,
+      "success_declared": true,
+      "fields": [
+        {
+          "path": "actions",
+          "shape": [
+            648,
+            8
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "action",
+          "hook": "pre_step",
+          "frame": null
+        },
+        {
+          "path": "bbox/bbox_mm/banana",
+          "shape": [
+            648,
+            8,
+            3
+          ],
+          "dtype": "int16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/bbox_mm/bowl",
+          "shape": [
+            648,
+            8,
+            3
+          ],
+          "dtype": "int16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/bbox_mm/rubiks_cube",
+          "shape": [
+            648,
+            8,
+            3
+          ],
+          "dtype": "int16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/bbox_mm/table",
+          "shape": [
+            648,
+            8,
+            3
+          ],
+          "dtype": "int16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/centroid/banana",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/centroid/bowl",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/centroid/rubiks_cube",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "bbox/centroid/table",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float16",
+          "compression": "gzip",
+          "role": "object_geometry",
+          "hook": "post_step",
+          "frame": "millimetres (int16) for corners, metres (float16) for centroids"
+        },
+        {
+          "path": "ee_pose/angular_velocity",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "end_effector",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "ee_pose/linear_velocity",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "end_effector",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "ee_pose/orientation",
+          "shape": [
+            648,
+            4
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "end_effector",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "ee_pose/position",
+          "shape": [
+            648,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "end_effector",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/articulation/robot/joint_position",
+          "shape": [
+            2,
+            13
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/articulation/robot/joint_velocity",
+          "shape": [
+            2,
+            13
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/articulation/robot/root_pose",
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/articulation/robot/root_velocity",
+          "shape": [
+            2,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/egocentric_mirrored_camera/orientation",
+          "shape": [
+            2,
+            4
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/egocentric_mirrored_camera/position",
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/over_shoulder_left_camera/orientation",
+          "shape": [
+            2,
+            4
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/over_shoulder_left_camera/position",
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/wrist_cam/orientation",
+          "shape": [
+            2,
+            4
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/cameras/wrist_cam/position",
+          "shape": [
+            2,
+            3
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/banana/root_pose",
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/banana/root_velocity",
+          "shape": [
+            2,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/bowl/root_pose",
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/bowl/root_velocity",
+          "shape": [
+            2,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/rubiks_cube/root_pose",
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/rubiks_cube/root_velocity",
+          "shape": [
+            2,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/table/root_pose",
+          "shape": [
+            2,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "initial_state/rigid_object/table/root_velocity",
+          "shape": [
+            2,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "initial_state",
+          "hook": "post_reset",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/articulation/robot/joint_position",
+          "shape": [
+            648,
+            13
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/articulation/robot/joint_velocity",
+          "shape": [
+            648,
+            13
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/articulation/robot/root_pose",
+          "shape": [
+            648,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/articulation/robot/root_velocity",
+          "shape": [
+            648,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/banana/root_pose",
+          "shape": [
+            648,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/banana/root_velocity",
+          "shape": [
+            648,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/bowl/root_pose",
+          "shape": [
+            648,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/bowl/root_velocity",
+          "shape": [
+            648,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/rubiks_cube/root_pose",
+          "shape": [
+            648,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/rubiks_cube/root_velocity",
+          "shape": [
+            648,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/table/root_pose",
+          "shape": [
+            648,
+            7
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        },
+        {
+          "path": "states/rigid_object/table/root_velocity",
+          "shape": [
+            648,
+            6
+          ],
+          "dtype": "float32",
+          "compression": "gzip",
+          "role": "state",
+          "hook": "post_step",
+          "frame": "env-local positions, world-frame orientations and velocities"
+        }
+      ],
+      "all_episodes": [
+        "demo_0"
+      ]
+    }
+  ],
+  "field_semantics_source": "robolab/core/events/basic_recorders.py and examples/episodes.py at ad45d4f974725d020f82c2b0d77d78533aeba2b3; Isaac Lab 2.2.0 recorder_manager.py, recorders.py and episode_data.py",
+  "consistency": [
+    {
+      "check": "per-step datasets agree on the row count",
+      "status": "consistent",
+      "detail": "rows [648]"
+    },
+    {
+      "check": "num_samples and data.total equal the action rows",
+      "status": "consistent",
+      "detail": "num_samples 648, total 648, rows 648"
+    },
+    {
+      "check": "actions carry no NaN",
+      "status": "consistent",
+      "detail": "float32 actions"
+    }
+  ],
+  "direct_measurements": {
+    "action_bounds": {
+      "min": [
+        -0.137341,
+        -0.623854,
+        -0.194548,
+        -2.555484,
+        -0.171974,
+        1.888797,
+        -0.920769,
+        0.0
+      ],
+      "max": [
+        0.161562,
+        0.325349,
+        0.14165,
+        -2.15839,
+        0.213492,
+        2.646354,
+        0.951805,
+        1.0
+      ]
+    },
+    "action_nan": false,
+    "gripper_column_values": [
+      0.0,
+      1.0
+    ],
+    "initial_state_rows_identical": true,
+    "initial_state_leading_axis": [
+      2
+    ],
+    "initial_vs_first_post_step_max_abs": {
+      "articulation/robot/joint_position": 0.002061,
+      "rigid_object/rubiks_cube/root_pose": 0.000389
+    },
+    "object_to_bowl_distance": {
+      "banana": {
+        "initial_m": 0.224239,
+        "final_m": 0.053488,
+        "final_z_minus_bowl_z_m": 0.052831
+      },
+      "rubiks_cube": {
+        "initial_m": 0.224402,
+        "final_m": 0.094332,
+        "final_z_minus_bowl_z_m": 0.054939
+      }
+    },
+    "final_centroid_inside_bowl_obb_xy_and_below_rim_plus_5cm": {
+      "banana": true,
+      "rubiks_cube": true
+    },
+    "bowl_obb_final_m": {
+      "min": [
+        0.361,
+        0.045,
+        0.048
+      ],
+      "max": [
+        0.524,
+        0.207,
+        0.108
+      ]
+    }
+  },
+  "inspection": {
+    "tool": "h5py 3.16.0",
+    "at": "2026-09-19T10:36:24.535393+00:00",
+    "scope": "read-only inspection of retained values; no simulation, policy inference or evaluation"
+  }
+}

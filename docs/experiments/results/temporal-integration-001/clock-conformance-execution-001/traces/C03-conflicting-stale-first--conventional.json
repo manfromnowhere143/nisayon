@@ -1,0 +1,217 @@
+{
+  "schema": "nisayon.temporal-trace.v1",
+  "case_id": "C03-conflicting-stale-first",
+  "schedule_sha256": "521ed7bba384c69cca916c3c1a3779b2f344493b170030d8808d1222b78bb956",
+  "source": {
+    "commit": "7022cca5b96df4e47fa69673fd4eea6f734f3566",
+    "dependency_lock_sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+    "dependency_scope": "standard-library software executor; no learned or simulator runtime imported",
+    "files": {
+      "pyproject.toml": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822",
+      "src/nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "src/nisayon/engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "src/nisayon/engine/declarations.py": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+      "src/nisayon/engine/io.py": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "src/nisayon/engine/store.py": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "src/nisayon/engine/telemetry.py": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "src/nisayon/engine/temporal_clocks.py": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc",
+      "src/nisayon/engine/temporal_experiment.py": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0",
+      "src/nisayon/engine/temporal_runtime.py": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d",
+      "src/nisayon/engine/temporal_store.py": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0",
+      "src/nisayon/engine/temporal_workflow.py": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3",
+      "uv.lock": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    },
+    "interpreter": {
+      "implementation": "CPython",
+      "version": "3.12.13"
+    },
+    "kind": "constructed_control"
+  },
+  "clocks": {
+    "declared_mappings": [
+      {
+        "from": "sensor",
+        "offset": -100000000,
+        "to": "controller",
+        "uncertainty": 0,
+        "unit": "ns"
+      },
+      {
+        "from": "sensor",
+        "offset": 0,
+        "to": "controller",
+        "uncertainty": 0,
+        "unit": "ns"
+      }
+    ],
+    "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration.",
+    "names": [
+      "controller",
+      "sensor"
+    ]
+  },
+  "configuration": {
+    "aggregation": "latest_request_wins_same_step",
+    "chunk_length": 3,
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+    "control_period": 10000000,
+    "max_age": 50000000,
+    "policy_id": "scripted-policy-a",
+    "time_unit": "ns"
+  },
+  "assignment": {
+    "case_id": "C03-conflicting-stale-first",
+    "id": "C03-conflicting-stale-first--conventional",
+    "remedy_id": "conventional"
+  },
+  "remedy": {
+    "bind_configuration": true,
+    "bind_request": true,
+    "deadline_check": "dispatch",
+    "deduplicate": true,
+    "drop_all": false,
+    "fence_generation": true,
+    "id": "conventional",
+    "ordered_overlap": true,
+    "reset_queue": true,
+    "role": "competent_ordinary_remedy"
+  },
+  "minimum_dispatches": 1,
+  "usefulness_contract": {
+    "basis": "frozen_case_dispatch_target",
+    "minimum_dispatches": 1,
+    "scope": "whole_case",
+    "dispatch_opportunities": [
+      {
+        "input_id": "C03-conflicting-stale-first-input-03",
+        "at": {
+          "value": 20000000,
+          "clock": "controller",
+          "unit": "ns"
+        }
+      }
+    ],
+    "boundary": "Frozen suite v2 target. Do not silently substitute a per-generation periodic-grid threshold. Validity and acknowledgement remain separate."
+  },
+  "execution_status": "completed",
+  "events": [
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": null,
+      "kind": "episode_start",
+      "seq": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "sensor",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": "C03-conflicting-stale-first-input-00",
+      "kind": "observation_acquired",
+      "obs_id": "o0",
+      "observed_by_driver_at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "seq": 1,
+      "step": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 1000000
+      },
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "generation": 0,
+      "input_id": "C03-conflicting-stale-first-input-01",
+      "kind": "request_sent",
+      "obs_id": "o0",
+      "observation_available_at_send": true,
+      "order": 0,
+      "req_id": "q0",
+      "seq": 2
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 10000000
+      },
+      "chunk_id": "c0",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "delivery_id": "C03-conflicting-stale-first-delivery",
+      "first_step": 0,
+      "generation": 0,
+      "input_id": "C03-conflicting-stale-first-input-02",
+      "kind": "response_arrived",
+      "ordinals": 1,
+      "req_id": "q0",
+      "resp_id": "r-c0",
+      "seq": 3,
+      "values_sha256": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+    },
+    {
+      "admitted": [
+        0
+      ],
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 10000000
+      },
+      "chunk_id": "c0",
+      "decisions": [
+        {
+          "disposition": "admitted",
+          "ordinal": 0,
+          "reason": "admitted"
+        }
+      ],
+      "delivery_id": "C03-conflicting-stale-first-delivery",
+      "input_id": "C03-conflicting-stale-first-input-02",
+      "kind": "queue_admitted",
+      "reason": "admitted",
+      "replaced": [],
+      "seq": 4,
+      "skipped": []
+    },
+    {
+      "action_id": "c0:0",
+      "age_guard": {
+        "lower_ns": null,
+        "reason": "missing_or_multiple_clock_relations",
+        "status": "unresolved",
+        "upper_ns": null
+      },
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 20000000
+      },
+      "chunk_id": "c0",
+      "generation": 0,
+      "input_id": "C03-conflicting-stale-first-input-03",
+      "kind": "dispatch_refused",
+      "ordinal": 0,
+      "reason": "dispatch_age_unresolved",
+      "seq": 5,
+      "step": 0
+    }
+  ],
+  "robot_task_outcome": "unmeasured",
+  "scope": "executed local software with constructed message inputs and scripted send returns",
+  "attempt_id": "323b829289274352aba053122ccf8a84",
+  "invocation_id": "f7f31ff59c3a43a49597563d462037a8"
+}

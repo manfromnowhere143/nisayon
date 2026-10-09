@@ -1,0 +1,95 @@
+{
+  "protocol_sha256": "f3a3aa3aa829e741526b88a52ce5c58df83777fac3422c9029ca5f8b93719c42",
+  "steps": [
+    {
+      "name": "initialize",
+      "response": {
+        "id": 1,
+        "result": {
+          "userAgent": "nisayon_boundary_probe/0.155.1 (Mac OS 14.4.0; arm64) iTerm.app/3.6.10 (nisayon_boundary_probe; 0.1.0)",
+          "codexHome": "/Users/danielwahnich/.codex",
+          "platformFamily": "unix",
+          "platformOs": "macos"
+        }
+      }
+    },
+    {
+      "name": "read_public",
+      "request": {
+        "method": "command/exec",
+        "params": {
+          "command": [
+            "/bin/cat",
+            "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public/canary.txt"
+          ],
+          "cwd": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public",
+          "permissionProfile": "nisayon_canary_probe",
+          "timeoutMs": 10000
+        }
+      },
+      "response": {
+        "id": 2,
+        "result": {
+          "exitCode": 0,
+          "stdout": "nisayon-public-canary\n",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "name": "deny_excluded",
+      "request": {
+        "method": "command/exec",
+        "params": {
+          "command": [
+            "/bin/cat",
+            "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/excluded/canary.txt"
+          ],
+          "cwd": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public",
+          "permissionProfile": "nisayon_canary_probe",
+          "timeoutMs": 10000
+        }
+      },
+      "response": {
+        "id": 3,
+        "result": {
+          "exitCode": 1,
+          "stdout": "",
+          "stderr": "cat: /Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/excluded/canary.txt: Operation not permitted\n"
+        }
+      }
+    },
+    {
+      "name": "deny_symlink",
+      "request": {
+        "method": "command/exec",
+        "params": {
+          "command": [
+            "/bin/cat",
+            "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public/outside-link.txt"
+          ],
+          "cwd": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public",
+          "permissionProfile": "nisayon_canary_probe",
+          "timeoutMs": 10000
+        }
+      },
+      "response": {
+        "id": 4,
+        "result": {
+          "exitCode": 1,
+          "stdout": "",
+          "stderr": "cat: /Users/danielwahnich/workspace/nisayon-codex/artifacts/cli-01551-boundary-001/public/outside-link.txt: Operation not permitted\n"
+        }
+      }
+    }
+  ],
+  "model_calls": 0,
+  "simulator_runs": 0,
+  "agent_adapter_ready": false,
+  "provider_charges": null,
+  "human_time_s": null,
+  "restricted_reads_demonstrated": true,
+  "measured_probe_wall_s": 0.140891290968284,
+  "cli_identity_unchanged": true,
+  "qualification_scope": "Observed public command/exec canaries only; no model-issued call, provider budget or reserved custodian boundary qualified"
+}

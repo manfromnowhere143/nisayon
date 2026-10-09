@@ -1,0 +1,202 @@
+{
+  "schema": "nisayon.a1-executed-pilot-integration-readback.v1",
+  "case": "a1-feasibility-001",
+  "evaluation_case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T12:02:22Z",
+  "status": "executed, sealed, independently assessed, combined-validated and integrated to private main",
+  "clock": {
+    "original_mission_start": "2026-09-17T21:30:41Z",
+    "pilot_phase_start": "2026-09-21T09:38:58Z",
+    "active_engineering_effort": "unknown; waiting and command wall time are not treated as active engineering"
+  },
+  "revisions": {
+    "phase_base": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+    "tested_training_source": "6b344f33db859bc4f4954c3d5610b80b6e6bc975",
+    "named_execution_delivery": "5d7cddcd5225a87d4445c1221670fc8d6570062d",
+    "first_assessor_source": "cafb7650ef521045239539ae0ea435c0614963e6",
+    "corrected_assessor_source_before_rebase": "0ded527",
+    "corrected_assessor_source_integrated": "6bb946942d961975356e71f3616d9ac0a486c6f6",
+    "named_evaluation_delivery_before_rebase": "5a0954e",
+    "named_evaluation_delivery_integrated": "4ee6a58bf9c78b1fb8b48d3381aab3066d8aeb39",
+    "evaluation_checkpoint_before_rebase": "7a3e32a",
+    "evaluation_checkpoint_integrated": "318422ad2210bbfd6a2d81dc7292e38992d591c9",
+    "combined_tested_source": "f04985e0e9fd55a24665266a606262a13d2a667e"
+  },
+  "bindings": {
+    "dataset": {
+      "repository_revision": "74fa018461f479cd9fd15b924a16103012096203",
+      "path": "v1.5/lift/ph/low_dim_v15.hdf5",
+      "bytes": 21084088,
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "training_contract_sha256": "12283fa15dd038c5f3c1a8e7722bd8a70eaafd76aa958751cfc64007e7326de8",
+    "canonical_effective_configuration_sha256": "1066b93774e4b4284b14fc7a7a130da595be2582a174530a5136b7049858f03d",
+    "serialized_effective_configuration_file_sha256": "db774a42c21d8771542487b81f1f1134cc62b1d65cd3038a9d643179b705e601",
+    "checkpoint": {
+      "bytes": 7961224,
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+      "kind": "inference checkpoint; optimizer and random-number-generator state are absent"
+    },
+    "packet": {
+      "seal_sha256": "5c0e4deba795a9d6364856bbe3f8cfdb54a6e966c61fd2495eb39aa92becc3f2",
+      "manifest_sha256": "975fc8e8df5e87ad39fa5c47e9104ed5d29a8656868e88dbc71d0c7d918d3ce0",
+      "manifest_members": 204,
+      "manifest_bad": 0,
+      "retained_bytes": 10170550,
+      "durable_cap_bytes": 16777216
+    },
+    "records": {
+      "execution_delivery_sha256": "fc80864e97f70579e5be6f5e3245605544fe4834d0a5b41f420f5916b8507a6f",
+      "assessment_readback_sha256": "0e6d5965023cb7940cf07bb69d1587b82857f62aeb9ed845f6d6801cf51b7424",
+      "first_assessment_sha256": "94c8a4826e2f28a6b540d70ec409b001425239bc151bb4ae7f441a9f53aab080",
+      "corrected_assessment_sha256": "36ac511d8cc6ccddc24f759843089cb4da76c7b51289c97d003e14b984fd3896"
+    }
+  },
+  "assigned_and_executed": {
+    "dataset_gets": {"assigned": 1, "executed": 1, "unresolved": 0},
+    "training_invocations": {"assigned": 1, "executed": 1, "unresolved": 0, "retries": 0},
+    "optimizer_updates": {"assigned": 100, "executed": 100, "unresolved": 0},
+    "simulator_rollouts": {"assigned": 0, "executed": 0},
+    "policy_actions": {"assigned": 0, "executed": 0},
+    "task_trials": {"assigned": 0, "executed": 0},
+    "confirmed_repairs": 0,
+    "sixty_rollout_contract": "unassigned"
+  },
+  "independent_assessment": {
+    "first_command": "975e7ec98b21469e9bcc1cc244932666",
+    "corrected_command": "305a40f7203d44cc90fb8966ab0e59d9",
+    "before_evidence": "the first assessment reported Q3 differs because the assessor selected the dataset-normalized array and assumed float32 normalization arithmetic",
+    "correction": "the corrected assessor selects the learner array and reproduces the executed float64 normalization followed by the learner float32 cast bit for bit; no tolerance was loosened",
+    "Q1_permission_and_custody": "supported for the official substitute object; Stanford-object permission remains unresolved",
+    "Q2_data_and_implementation_compatibility": "supported for the pinned offline path only",
+    "Q3_effective_normalized_training": "supported for exactly 100 updates; checkpoint statistics equal the independent emulation bit for bit and the learner batch equals one normalization application bit for bit, not two",
+    "Q4_executed_optimizer_updates": "supported: 100 of 100, all losses and parameters finite, parameter state changed",
+    "Q5_checkpoint_identity_and_reload": "supported for serialization and state recovery; inference equivalence and resumable training were not established",
+    "Q6_measured_resource_feasibility": "supported for the measured 100-update local CPU workload",
+    "Q7_process": "accepted; all 29 packet command records, ten non-zero returns, two unrecorded failures of unknown cost, the historical stopped-pilot failures and six unaccounted web calls remain preserved"
+  },
+  "claim_ladder": {
+    "A_permission_and_custody": "supported only for the official substitute object",
+    "B_data_and_implementation_compatibility": "supported for offline loading and training; not simulator compatibility",
+    "C_effective_normalized_training": "supported within the executed 100-update pilot",
+    "D_checkpoint_recovery": "supported for identical model and statistics state; no inference probe and no resumable optimizer state",
+    "E_measured_resource_feasibility": "supported for the measured bounded workload",
+    "F_simulator_compatibility": "untested and statically negatively signalled by the robosuite 1.5.1 composite-controller metadata versus the held 1.4.1 runtime",
+    "G_policy_competence": "untested; falling training loss is not a competence result",
+    "H_task_intervention_and_confirmed_repair": "untested; no action or task trial executed",
+    "I_comparative_value": "unproven; neither arm made a deployment decision on this checkpoint"
+  },
+  "decision": {
+    "pilot": "feasible within the authorized 100-update local CPU pilot budget",
+    "continuation": "a larger training continuation has only a bounded cost estimate and is not authorized or established feasible",
+    "engineer_value": "an engineer now has a rights-bound dataset, an exactly normalized and reloadable experimental checkpoint, and measured local costs from which to design runtime qualification; the checkpoint is not yet a competent policy or a repair"
+  },
+  "known_costs": {
+    "acquisition_get_outer_wall_seconds": 37.64481,
+    "acquisition_verification_outer_wall_seconds": 0.123786,
+    "dataset_inventory_outer_wall_seconds": 0.720754,
+    "training_recorder_outer_wall_seconds": 8.4079,
+    "training_internal_wall_seconds": 5.809943665983155,
+    "training_internal_process_cpu_seconds": 11.015303999999999,
+    "training_process_user_cpu_seconds": 10.97,
+    "training_process_system_cpu_seconds": 2.78,
+    "training_process_maximum_resident_bytes": 503742464,
+    "training_sampled_peak_process_tree_rss_bytes": 537313280,
+    "seal_outer_wall_seconds": 0.450473,
+    "seal_readback_outer_wall_seconds": 0.18255,
+    "first_assessor_outer_wall_seconds": 1.666905,
+    "corrected_assessor_outer_wall_seconds": 1.994347,
+    "combined_validation_outer_wall_seconds": 263.632735,
+    "combined_validation_nested_pytest_seconds": 257.05,
+    "aggregation_rule": "all scopes are reported separately; nested and potentially overlapping durations are not added",
+    "unknown": [
+      "pre-freeze discovery response bytes and CPU",
+      "network protocol overhead",
+      "two unrecorded failure costs",
+      "unsampled memory peaks",
+      "active engineering effort",
+      "energy",
+      "charges, if any"
+    ],
+    "cost_per_confirmed_repair": "undefined because no repair qualified"
+  },
+  "combined_validation": {
+    "command_record_id": "c23ba1c15cdd483cabff3733edc64ff5",
+    "command_record_sha256": "166d78312ec43b095a67e249884f58c3d916664b0ac28181ac55d0ed4564ff3b",
+    "receipt_path": "artifacts/a1-feasibility-001/combined-validation-005.json",
+    "receipt_sha256": "d6b5604a720c122ef640d82d01c306d0f57554b67c3dcbcb675bfa003558db59",
+    "tested_source": "f04985e0e9fd55a24665266a606262a13d2a667e",
+    "returncode": 0,
+    "pytest_passed": 967,
+    "pytest_failed": 0,
+    "lint": "passed",
+    "formatted_files": 435,
+    "documents": 138,
+    "document_errors": 0,
+    "resource": {
+      "retained_payload_bytes": 652546133,
+      "sampled_peak_temporary_bytes": 155090028,
+      "retained_plus_sampled_peak_bytes": 807636161,
+      "project_cap_bytes": 1073741824,
+      "retained_temporary_bytes": 0,
+      "outside_monitor_bytes_before_and_after": 238334200,
+      "outside_monitor_plus_sampled_peak_bytes": 393424228,
+      "shared_temporary_cap_bytes": 536870912,
+      "free_disk_bytes_at_start": 14440226816,
+      "minimum_free_disk_bytes": 5368709120,
+      "violations": [],
+      "protected_failed_files_unchanged": 5,
+      "measurement_limit": "discrete logical-byte samples do not bound unobserved peaks"
+    }
+  },
+  "integration_audit": {
+    "commits_checked_since_phase_base": 22,
+    "authors": "all Daniel Wahnich <cogitoergosum143@gmail.com>",
+    "committers": "all Daniel Wahnich <cogitoergosum143@gmail.com>",
+    "prohibited_attribution_trailers": 0,
+    "diff_check": "passed",
+    "monitor": "training and validation monitor processes are stopped; the empty validation temporary root was removed after its zero-byte readback",
+    "heavy_check_reservation": "released"
+  },
+  "private_main_transition": {
+    "initial_main": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+    "first_integrated_checkpoint": "f5d249fe1785024d9975534dc2ef21d677a056b8",
+    "method": "clean git merge --ff-only after ancestry, identity, message and clean-state checks",
+    "exact_final_readback": "artifacts/a1-feasibility-001/private-main-closeout-002.json",
+    "post_transition_resource_command": "172a2e729d754363b38c783844f5edef",
+    "post_transition_resource_receipt": {
+      "path": "artifacts/a1-feasibility-001/private-main-resource-002.json",
+      "sha256": "fb42761dff87ebb4db01dd010530be5ff7021edeb6d88a0f291e304ce073736a",
+      "retained_payload_bytes": 652604524,
+      "outside_temporary_bytes": 238337959,
+      "free_disk_bytes": 14213287936,
+      "minimum_free_disk_bytes": 5368709120,
+      "protected_failed_files_unchanged": 5
+    },
+    "push_or_publication": false
+  },
+  "authorized_next_phase": {
+    "status": "operator-authorized but not ready to execute until Opus supplies a named prospectively frozen contract with all ceilings",
+    "compatibility_replay_attempt_ceiling": 2,
+    "development_policy_attempt_ceiling": 10,
+    "currently_assigned_attempts": 0,
+    "currently_executed_attempts": 0,
+    "requirements_before_execution": [
+      "source-pinned isolated runtime and exact dependency identity",
+      "prospectively frozen compatibility and competence questions, assignments, comparison tolerances and stopping rules",
+      "exact dependency-download, memory, storage, wall-time and simulator-step ceilings",
+      "frozen reset, randomness, fixed-action and development seed assignments",
+      "proof that inference applies the bound observation normalization exactly once"
+    ],
+    "prohibited": [
+      "additional optimizer updates",
+      "paid compute or cloud-instance starts",
+      "hardware operation",
+      "reserved-outcome access",
+      "publication or pushes",
+      "the unassigned sixty-rollout confirmation study"
+    ],
+    "claim_boundary": "runtime compatibility, checkpoint competence and later comparative value are separate verdicts; unchanged sampled actions do not prove closed-loop trajectory equivalence"
+  },
+  "publication": "private; no push or publication performed or authorized"
+}

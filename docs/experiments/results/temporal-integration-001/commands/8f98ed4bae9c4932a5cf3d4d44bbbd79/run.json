@@ -1,0 +1,51 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "8f98ed4bae9c4932a5cf3d4d44bbbd79",
+  "label": "temporal-integration-20260920-final-owner-binding-preflight-002",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import sys,json\nfrom pathlib import Path\nsys.path.insert(0,str(Path(\"scripts/experiments\").resolve()))\nfrom audit_temporal_closeout import read_owner,disposition_row\nfrom nisayon.engine.temporal_audit import exact_index\nrepo=Path.cwd()\ncoverage=json.loads(Path(\"docs/experiments/results/temporal-integration-001/frozen-audit-coverage.v1.json\").read_text())\nowner=Path(\"docs/evaluation/results/temporal-integration-001/followthrough/clock\")\ndelivery=\"46a338677edcd452e7b18b2f99a06365dd4a3a40\"\n_,before=read_owner(repo,owner/\"before/assessments.json\",delivery,coverage,installed=False)\nmanifest,after=read_owner(repo,owner/\"after/assessments.json\",delivery,coverage,installed=True)\nhashes={(p[\"name\"],r[\"assignment_id\"]):r[\"trace_sha256\"] for p in manifest[\"populations\"] for r in p[\"rows\"]}\ncomparison=json.loads((owner/\"comparison.json\").read_text())\nexplanations={p[\"name\"]:p for p in comparison[\"populations\"]}\ncounts={}\nfor p in [*coverage[\"populations\"],coverage[\"prefix_population\"]]:\n rows=exact_index(explanations[p[\"owner_population\"]][\"rows\"],[m[\"identity\"] for m in p[\"members\"]],key=lambda r:r[\"assignment_id\"],scope=p[\"name\"])\n for m in p[\"members\"]:\n  key=(p[\"name\"],m[\"identity\"])\n  delta=disposition_row(m,before[key],after[key],rows[m[\"identity\"]],p[\"name\"],hashes[(p[\"owner_population\"],m[\"identity\"])])\n  counts[p[\"name\"]]=counts.get(p[\"name\"],0)+bool(delta[\"predicate_changes\"])\nprint(json.dumps({\"owner_records\":len(after),\"predicate_changed_assignments\":counts,\"execution_performed\":False}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T11:56:11.676668+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "79c7152ecde32d3756d3f6f085aa31d266986b9a",
+    "changes": [
+      "M docs/experiments/TEMPORAL_INTERFACE.md",
+      " M scripts/experiments/audit_temporal_reconciliation.py",
+      " M src/nisayon/engine/temporal_audit.py",
+      " M src/nisayon/engine/temporal_workflow.py",
+      " M tests/engine/test_temporal_audit.py",
+      " M tests/engine/test_temporal_workflow.py",
+      "?? scripts/experiments/audit_temporal_closeout.py"
+    ],
+    "diff_stat": "docs/experiments/TEMPORAL_INTERFACE.md             | 25 ++++++++++++++--\n .../experiments/audit_temporal_reconciliation.py   | 34 ++++++++++++++++++++++\n src/nisayon/engine/temporal_audit.py               |  2 +-\n src/nisayon/engine/temporal_workflow.py            |  4 +--\n tests/engine/test_temporal_audit.py                |  1 +\n tests/engine/test_temporal_workflow.py             |  2 ++\n 6 files changed, 63 insertions(+), 5 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 57000,
+  "returncode": 0,
+  "ended_at": "2026-09-20T11:56:14.960799+00:00",
+  "wall_seconds": 3.207589,
+  "logs": {
+    "stdout.log": {
+      "bytes": 350,
+      "sha256": "37417cea5765f5349fa9829fb17e68474641d6747409aa54416091b8e62ad515"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

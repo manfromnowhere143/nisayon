@@ -707,6 +707,10 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+records = [
+    { name = "h5py" },
+    { name = "numpy" },
+]
 simulation = [
     { name = "mujoco" },
     { name = "numba" },
@@ -721,15 +725,20 @@ simulation = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "h5py" },
+    { name = "numpy" },
+    { name = "psutil" },
     { name = "pytest" },
     { name = "ruff" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "h5py", marker = "extra == 'records'", specifier = "==3.16.0" },
     { name = "mcp", specifier = "==2.2.0" },
     { name = "mujoco", marker = "extra == 'simulation'", specifier = "==3.2.7" },
     { name = "numba", marker = "extra == 'simulation'", specifier = "==0.61.2" },
+    { name = "numpy", marker = "extra == 'records'", specifier = "==1.26.4" },
     { name = "numpy", marker = "extra == 'simulation'", specifier = "==1.26.4" },
     { name = "opencv-python", marker = "extra == 'simulation'", specifier = "==4.10.0.84" },
     { name = "robomimic", marker = "extra == 'simulation'", specifier = "==0.3.0" },
@@ -738,10 +747,13 @@ requires-dist = [
     { name = "torch", marker = "extra == 'simulation'", specifier = "==2.5.1" },
     { name = "torchvision", marker = "extra == 'simulation'", specifier = "==0.20.1" },
 ]
-provides-extras = ["simulation"]
+provides-extras = ["records", "simulation"]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "h5py", specifier = "==3.16.0" },
+    { name = "numpy", specifier = "==1.26.4" },
+    { name = "psutil", specifier = "==7.2.2" },
     { name = "pytest", specifier = ">=8.4,<10" },
     { name = "ruff", specifier = ">=0.12,<1" },
 ]

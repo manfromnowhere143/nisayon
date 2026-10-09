@@ -1,0 +1,143 @@
+{
+  "schema": "nisayon.population-binding-integration-readback.v1",
+  "case": "population-binding-001",
+  "recorded_at": "2026-09-20T19:58:12Z",
+  "mission_status": "complete_bounded_software_investigation",
+  "tested_integrated_source": "f73a2a61a4eb361b2aba418757000ae498183696",
+  "application_commits": {
+    "execution_plan_and_interface": "8662c8d14c9b944b8903904287c104b4f1b984cb",
+    "evaluation_contract": "ece5d8e1687b35185db26f592a862df43f1ad78c",
+    "reachable_path_observation": "7e575048fdef116736225f2246d330025feec6e8",
+    "decision_core": "1b384831bb5fea488064b3b7d50f26746b379d07",
+    "declaration_only_correction": "19b41437f17544a7aa111cedecc4ed5391f428f8",
+    "corrected_case_locator": "7c351daeaec8bb05cd719f4f2b41e4e19c407bcd",
+    "evaluation_application": "c7089cbe8498f7e4017c38f121826027b9c0b9f5",
+    "evaluation_assessment": "80449dd5a117d5890f910f258c53d02e43dfcdef",
+    "assessment_merge": "f73a2a61a4eb361b2aba418757000ae498183696"
+  },
+  "established_population": {
+    "role": "parent_population_summary",
+    "parent_episodes": 379,
+    "parent_frames": 101469,
+    "current_subset_episodes": 5,
+    "current_subset_rows": 1406,
+    "subset_is_parent_episodes": [0, 1, 2, 3, 4],
+    "membership_is_bit_identical": true,
+    "published_extremes_equal_parent_union": true,
+    "published_moments_match_pooled_parent_within_frozen_T3": true,
+    "published_values_equal_current_subset": false,
+    "interpretation": "The shipped statistics describe the enumerated 379-episode parent population, not the five-file evaluation subset. This establishes population identity, not the author's reason for carrying the values into the subset."
+  },
+  "original_input_identities": {
+    "upstream_revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c",
+    "case_v3_sha256": "64330340fbaff01210027660c15e3d1b590eb9ffb70211777c0e118aef11ba5e",
+    "published_statistics_sha256": "8283e003742e41f0a55cce468daee0c388e7d203e72b6a51d53c04765fb68110",
+    "parent_enumeration_sha256": "884f963e29d3078a0c32099d055a7d46e4701935b2a00f70c68801baae9619ea",
+    "upstream_path_observation_sha256": "879c8960f9ed013ac291e70e144a1b0536cb6e7175e8059907b08c5ff911c806",
+    "public_demo_episode_sha256": [
+      "2a593521d58a1e6b3c27d6d91641c2d4c8a12422cc4534d9bfab49b01e532e68",
+      "d02255b7218f7a89db07eea56477d8c283cc3c0afb996a8bf4553b2682fda75d",
+      "60ec6beaaf6b541d4321596758bfb69c96e2b9df8757fc2c9d70db32792790c9",
+      "21eed03b65778058696f14e676bf6a9d921bd7d128c6b6b2db749fdca1cea0f7",
+      "8e263ac6c3a1abb853a29d89c99d54c9e6a41a63d8a0acc5b31294804dd74a48"
+    ],
+    "producer_003_seal_sha256": "f78c78be339e9be01555de938fe8da56866e7740a42e8f38b2ec843ab96d53c4",
+    "producer_003_original_decision_sha256": "bbfa10e4e1b178f8b183dccc1f3ad36d355b9c20e6d057950d5ae1525df7a2da"
+  },
+  "real_processing_path": {
+    "status": "supported_to_abstract_processor_boundary",
+    "observed": "DatasetFactory calls generate_stats; the cache predicate accepts the shipped metadata; LeRobotEpisodeLoader loads and slices stats.json; ShardedMixtureDataset merges the values and passes them to processor.set_statistics(global_stats, override=override_pretraining_statistics).",
+    "reduced_execution": "Unchanged selected pinned bodies accepted the cache, reached no recomputation or writer, loaded five episodes, and delivered the same statistics digest to set_statistics with each override value.",
+    "qualification": "This was exact-body reduced execution with declared substitutions, not a full GR00T import, concrete processor execution, training invocation or inference run."
+  },
+  "software_decision": {
+    "original": {
+      "role": "parent_population_summary",
+      "selected_operation": "reuse",
+      "status": "supported",
+      "scope": "the identified parent summary in the observed cache-generation invocation",
+      "recompute": "rejected because it would replace a bound parent summary with moments from the five-episode subset",
+      "normalization_interpretation": "unresolved"
+    },
+    "current_population_rule": "Reuse when complete retained membership reproduces the summary; recompute a diagnostic copy and reject reuse on a genuine mismatch.",
+    "external_reference_rule": "Reuse only when retained reference rows reproduce the published values and selection plus formula evidence verify against exact retained text.",
+    "missing_evidence_rule": "Abstain and return unresolved when population or selection evidence is missing; keep empty, malformed and non-finite inputs invalid."
+  },
+  "controls": {
+    "producer_cases": 14,
+    "outcomes": {
+      "reuse_supported": 4,
+      "recompute_rejected": 2,
+      "abstain_unresolved": 3,
+      "invalid": 5
+    },
+    "all_match_evaluation_contract_rule": true,
+    "PBC07": {
+      "sha256": "cca7309ce66158da5379d7a45a1b0473b55cb1868b5c17ced867b5ec64ac8848",
+      "result": "reuse_supported",
+      "qualification": "constructed rows and constructed verified formula text only; no historical lineage or deployment claim"
+    },
+    "PBC08": {
+      "sha256": "b1fcb1756098d19b7c344b2e69bad7415363d5ae93c255ede090798055cd8fa0",
+      "result": "abstain_unresolved",
+      "qualification": "labels, a self-consistent digest and booleans cannot promote a decision"
+    }
+  },
+  "independent_assessment": {
+    "delivery": "80449dd5a117d5890f910f258c53d02e43dfcdef",
+    "readback": "docs/evaluation/results/population-binding-001/assessment-readback-002.json",
+    "finding_002": "closed",
+    "original_agrees": true,
+    "false_acceptance": 0,
+    "false_refusal": 0,
+    "unjustified_reuse": 0,
+    "unjustified_recomputation": 0,
+    "declaration_derived_premise_remaining": false
+  },
+  "comparator": {
+    "current_upstream": "The pinned cache predicate accepts and the reduced reachable path reuses the shipped file for cache generation.",
+    "standalone_conventional": "A separately authored diagnostic computes its own arithmetic and decisions without importing execution verdict functions. It returns reuse/supported on the original, abstains without enumeration, and recomputes/rejects a declared current summary that lacks matching evidence.",
+    "outcome": "parity",
+    "comparative_advantage": "not_established"
+  },
+  "failures_preserved": [
+    {
+      "kind": "execution_failure",
+      "command_record_id": "e13a8eea449048da9a8253ee020271aa",
+      "result": "failed before observation because the reduced harness shadowed the module-level merge_statistics function; the narrowly renamed retry succeeded"
+    },
+    {
+      "kind": "decision_failure",
+      "subject_commit": "c7eab6a333d429055d56b575b7ae5f2c97cbcbe2",
+      "result": "finding 002 reproduced declaration-only external-reference promotion; correction 19b4143 and PBC08 now abstain"
+    },
+    {
+      "kind": "sealed_intermediate",
+      "store": "producer-001",
+      "result": "original parent decision was correct, but the store predates finding 002 and remains retained rather than silently rewritten"
+    },
+    {
+      "kind": "execution_failure",
+      "command_record_id": "c26352a9daa4415abf699b9087482492",
+      "result": "producer-002 failed before decisions because the frozen locator refused amended bytes; its six-file, 1004421-byte partial store remains retained"
+    },
+    {
+      "kind": "resource_boundary_violation",
+      "result": "concurrent stale reservations produced 14 responses against a cap of 12, including two exact duplicates and one zero-byte 404; both lanes stopped source access"
+    }
+  ],
+  "unresolved": [
+    "the concrete processor's normalization formula, epsilon and constant-coordinate behavior",
+    "override=False behavior when checkpoint statistics already exist",
+    "checkpoint-versus-dataset precedence at inference time",
+    "the author's intent for carrying the parent summary into the five-file subset"
+  ],
+  "next_evidence": {
+    "item": "the concrete processor implementation under gr00t/model/gr00t_n1d7/ together with a provenance-bearing training or inference invocation that shows which statistics are selected",
+    "purpose": "resolve formula and checkpoint-versus-dataset precedence without inferring them from the abstract interface",
+    "availability": "outside this exhausted source-response phase; acquire only under a separately authorized and budgeted continuation",
+    "expected_decision_change": "may either support a bounded external normalizer selection or preserve abstention; it cannot retroactively establish robot outcome"
+  },
+  "validation": "docs/experiments/results/population-binding-001/validation-001.json",
+  "boundaries": "No full upstream import, concrete processor, learned model or policy, training, weights, simulator, physics, hardware, reserved incident, paid compute, outreach, publication or push was used. This is a software investigation, not a robot-task repair or a defect claim against NVIDIA."
+}

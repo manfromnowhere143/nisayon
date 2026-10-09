@@ -1,0 +1,56 @@
+{
+  "schema": "nisayon.normalizer-validation-failure.v1",
+  "recorded_at": "2026-09-21T05:46:30Z",
+  "source_commit": "d65c1f5546145048657910aec0cc4e851ef4331a",
+  "command_record": {
+    "id": "2a2a20f378d746ffac25c8d3fe18444d",
+    "label": "normalizer-integrated-check",
+    "returncode": 1,
+    "outer_wall_seconds": 445.868929,
+    "stdout_sha256": "1d757f81791b3dab84e92f560ea2c73deb5b1db25b17df5801d449b25907340f",
+    "stderr_sha256": "e8d0567b9a85dd97ceb686957a046dc05e3ccfa707ec75c8a5c0ff64d2089c66"
+  },
+  "repository_checks": {
+    "ruff_check": "passed",
+    "ruff_format_check": "396 files already formatted",
+    "pytest": "921 passed in 415.00 seconds",
+    "documents": "126 documents, 3 Mermaid blocks, 0 errors"
+  },
+  "wrapper_failure": {
+    "stage": "post-check outside-monitor inventory comparison",
+    "exception": "AssertionError",
+    "full_check_artifact_written": false,
+    "sampled_peak_temporary_bytes": "unknown because validation raised before writing the in-memory monitor result",
+    "changed_outside_root": {
+      "path": "/private/tmp/nisayon-fitted-evidence-tests-final.json",
+      "before_logical_bytes": 73322,
+      "after_logical_bytes": 73576,
+      "after_sha256": "9325756d74c613a0ae218a7549b4adfed652c3017c424c7cdb724c416cc9fd7b",
+      "observed_delta_bytes": 254,
+      "attribution": "unresolved; the file is outside the declared monitor root and contains a sibling UI-worktree Vitest receipt with timestamps during the monitored interval"
+    },
+    "before_snapshot": {
+      "path": "artifacts/normalizer-execution-001/resource-pre-full-check-001.json",
+      "sha256": "40708f759c204d9526464cf8ecde493f348abf3d417874b96cd30fa1da04e9df"
+    },
+    "after_snapshot": {
+      "path": "artifacts/normalizer-execution-001/resource-after-failed-full-check-001.json",
+      "sha256": "42f3dece9394b6c1ce14965b8b146a0405d720a527e77bd30f1eff2c36522514"
+    }
+  },
+  "correction_prechecks": [
+    {
+      "check": "ruff check on the resource checker and its new focused test",
+      "outcome": "failed",
+      "detail": "One import-order finding in tests/engine/test_normalizer_resource_check.py; fixed mechanically."
+    },
+    {
+      "check": "ruff format --check on the resource checker and its new focused test",
+      "outcome": "failed",
+      "detail": "Both files required repository formatting; formatted mechanically."
+    }
+  ],
+  "scientific_status": "invalid as a complete validation receipt; repository checks passed but resource validation did not complete",
+  "correction": "Record every outside-root delta without assigning causality, enforce the shared cap against the larger observed outside inventory plus the sampled monitored peak, and continue exact digest protection for the five inherited failed files.",
+  "cost_boundary": "Outer wall and nested pytest wall are measured and not additive. Process CPU, human effort, provider charges and energy are unmeasured."
+}

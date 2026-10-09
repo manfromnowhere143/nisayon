@@ -1,0 +1,208 @@
+{
+  "schema": "nisayon.external-processor-observation.v1",
+  "recorded_at": "2026-09-20T13:03:47.994449+00:00",
+  "request": {
+    "path": "docs/experiments/results/external-decision-001/observation-request.v1.json",
+    "sha256": "23137f870696c307503ce4c52c1ea5add7c72f4269a958859dea4ca9f23ff549",
+    "frozen_commit": "e59bd39a01aa7a51da487fe2b06f29a17410b7be"
+  },
+  "raw_record": {
+    "path": "artifacts/external-decision-001/first-observation/record.json",
+    "bytes": 7602,
+    "sha256": "8b1521783361338d835eec4e9563b5a1511f0191d05a0fd2f3e30a3eac729352"
+  },
+  "incident": {
+    "id": "lerobot-4415",
+    "report_url": "https://github.com/huggingface/lerobot/issues/4415",
+    "reported_at": "2026-08-11T09:35:06Z",
+    "exposure": "retrospective_public_issue_and_remedy_exposed",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "earlier_model_revision": "3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c"
+  },
+  "inputs": [
+    {
+      "role": "external_report",
+      "path": "artifacts/external-decision-001/source-capture/coordinator/sources/issue-4415.json",
+      "sha256": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "bytes": 7419,
+      "revision": null,
+      "rights_scope": "user-contributed issue text; private local research"
+    },
+    {
+      "role": "pipeline_config",
+      "path": "artifacts/external-decision-001/source-capture/model/new/policy_postprocessor.json",
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "bytes": 660,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "exact-revision model repository; redistribution unresolved"
+    },
+    {
+      "role": "processor_state",
+      "path": "artifacts/external-decision-001/source-capture/model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "bytes": 640,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "exact-revision model repository; redistribution unresolved"
+    },
+    {
+      "role": "normalizer_implementation",
+      "path": "artifacts/external-decision-001/source-capture/coordinator/sources/normalize_processor.py",
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "bytes": 25161,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source with retained header"
+    },
+    {
+      "role": "factory_call_path",
+      "path": "artifacts/external-decision-001/source-capture/lerobot/factory.py",
+      "sha256": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "bytes": 25858,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source with retained header"
+    },
+    {
+      "role": "pipeline_loader_call_path",
+      "path": "artifacts/external-decision-001/source-capture/lerobot/pipeline.py",
+      "sha256": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "bytes": 89183,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source with retained header"
+    },
+    {
+      "role": "policy_specific_factory_boundary",
+      "path": "artifacts/external-decision-001/source-capture/lerobot/processor_smolvla.py",
+      "sha256": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "bytes": 2822,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source with retained header"
+    }
+  ],
+  "operation": {
+    "pipeline": "policy_postprocessor",
+    "step_index": 0,
+    "registry_name": "unnormalizer_processor",
+    "requested_feature_key": "action",
+    "feature_type": "ACTION",
+    "normalization_mode": "MEAN_STD",
+    "inverse": true,
+    "witness": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ]
+  },
+  "execution": {
+    "method": "reviewed_upstream_class_extraction",
+    "implementation_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+    "callable": "_normalize_action -> _apply_transform",
+    "source_extraction": {
+      "class_lines": [
+        40,
+        421
+      ],
+      "apply_transform_lines": [
+        302,
+        421
+      ]
+    },
+    "imports_replaced": [
+      "LeRobot enums and PolicyFeature value types",
+      "LeRobot recursive tensor conversion helpers",
+      "LeRobot ACTION constant"
+    ],
+    "omitted_boundaries": [
+      "Hub client and cache",
+      "full PolicyProcessorPipeline construction and converters",
+      "device processor",
+      "policy and model weights",
+      "environment and robot task"
+    ],
+    "static_call_path": {
+      "make_pre_post_processors_lines": [
+        151,
+        275
+      ],
+      "smolvla_pretrained_override_present": false,
+      "pipeline_from_pretrained_lines": [
+        639,
+        783
+      ],
+      "pipeline_load_step_state_lines": [
+        1254,
+        1333
+      ],
+      "state_load_call": "step_instance.load_state_dict(load_file(state_path))"
+    },
+    "process_status": "completed"
+  },
+  "resolved": {
+    "state_tensor_keys": [
+      "so100-blue.buffer.action.mean",
+      "so100-blue.buffer.action.std",
+      "so100-red.buffer.action.mean",
+      "so100-red.buffer.action.std",
+      "so100.buffer.action.mean",
+      "so100.buffer.action.std"
+    ],
+    "loaded_stats_keys": [
+      "so100-blue.buffer.action",
+      "so100-red.buffer.action",
+      "so100.buffer.action"
+    ],
+    "exact_key_available": false,
+    "suffix_matches": [
+      "so100-blue.buffer.action",
+      "so100-red.buffer.action",
+      "so100.buffer.action"
+    ],
+    "selected_stats_key": null,
+    "dataset_selector": null,
+    "required_statistics": [
+      "mean",
+      "std"
+    ],
+    "missing_statistics": [
+      "action"
+    ]
+  },
+  "observation": {
+    "status": "observed",
+    "input": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "output": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "changed": false,
+    "reason": "The exact upstream _apply_transform returned before arithmetic because the configured MEAN_STD feature key 'action' is absent from _tensor_stats."
+  },
+  "limits": {
+    "full_upstream_pipeline_executed": false,
+    "policy_or_model_executed": false,
+    "robot_task_observed": false,
+    "deployment_outcome_observed": false,
+    "boundary": "The exact reviewed mixin class, state loader and transform method ran on exact retained config/state bytes. LeRobot registry, pipeline converters, Hub loading, device transfer, policy inference and the reported deployment were not executed."
+  },
+  "cost": {
+    "command_record_id": "506e55495144496b9492e8c7c8f96086",
+    "command_wall_seconds": 1.721048,
+    "inner_wall_seconds_before_final_write": 1.4688364579342306,
+    "process_cpu_seconds": 2.8010479999999998,
+    "wrapper_overhead": "The command wall includes the child and wrapper; the inner wall and CPU are nested and are not added to it."
+  },
+  "scientific_status": "Observed reduced software behavior. Semantic correction acceptance, full deployment reproduction, robot recovery and comparative value are not assessed."
+}

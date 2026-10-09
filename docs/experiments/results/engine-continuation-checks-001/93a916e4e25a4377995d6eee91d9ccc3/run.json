@@ -1,0 +1,44 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "93a916e4e25a4377995d6eee91d9ccc3",
+  "label": "preserve-overrun-inventory-and-own-failed-test",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json\nimport os\nimport shutil\nfrom datetime import UTC, datetime\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest\nroot = Path.cwd().resolve()\nrun_id = \"b599095296434883b5ce699bef58c6f8\"\nrun_root = root / \".nisayon/runs\" / run_id\nrun = json.loads((run_root / \"run.json\").read_text())\nassert run[\"process_status\"] == \"nonzero\" and run[\"ended_at\"]\nassert run[\"cwd\"] == str(root) and run[\"command\"] == [\"make\", \"check\"]\ntemporary = Path(\"/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-229\").resolve(strict=True)\nfailed = \"test_a_confirmation_decided_la0\"\nassert not temporary.is_symlink() and temporary.stat().st_uid == os.getuid()\nassert not (temporary / \".lock\").exists()\nassert str(temporary / failed) in (run_root / \"stdout.log\").read_text()\noutput = root / \"docs/experiments/results/engine-resource-control-001\"\noutput.mkdir()\nbefore = []\nfor path in sorted(temporary.rglob(\"*\")):\n    if path.is_file() and not path.is_symlink():\n        before.append({\"path\":str(path.relative_to(temporary)), \"bytes\":path.stat().st_size, \"sha256\":file_digest(path)})\npreserved = [item for item in before if item[\"path\"].startswith(failed + \"/\")]\nassert len(preserved) == 5\ninventory = {\"schema\":\"nisayon.test-temporary-inventory.v1\",\"created_at\":datetime.now(UTC).isoformat(),\"root\":str(temporary),\"run\":run_id,\"run_sha256\":file_digest(run_root / \"run.json\"),\"ownership_evidence\":\"Completed lane-local command, exact pytest root in failure output, current UID and no active pytest lock\",\"files\":before,\"bytes\":sum(item[\"bytes\"] for item in before),\"preserved_failed_test\":failed,\"physical_experiments\":0}\n(output / \"before-inventory.json\").write_text(json.dumps(inventory,indent=2)+\"\\n\")\nremoved = []\nfor entry in sorted(temporary.iterdir()):\n    if entry.name == failed:\n        continue\n    if entry.is_symlink():\n        if entry.resolve() == temporary / failed:\n            continue\n        entry.unlink()\n    elif entry.is_dir():\n        shutil.rmtree(entry)\n    else:\n        entry.unlink()\n    removed.append(entry.name)\nfor item in preserved:\n    path = temporary / item[\"path\"]\n    assert path.stat().st_size == item[\"bytes\"] and file_digest(path) == item[\"sha256\"]\nresult = {\"schema\":\"nisayon.test-temporary-cleanup.v1\",\"completed_at\":datetime.now(UTC).isoformat(),\"root\":str(temporary),\"command_run\":run_id,\"inventory_sha256\":file_digest(output / \"before-inventory.json\"),\"temporary_bytes_before\":inventory[\"bytes\"],\"failed_test_bytes_preserved\":sum(item[\"bytes\"] for item in preserved),\"removed_entries\":removed,\"scope\":\"Only passing-test temporary copies from this identified completed run. Original source artifacts, failed test files, other pytest roots and other-session artifacts were not changed.\",\"resource_violation\":\"The full suite retained 1.61 GiB in its temporary root; combined measured new payload was about 1.78 GiB, exceeding the 1 GiB bound. Cleanup does not erase that overrun.\"}\n(output / \"cleanup.json\").write_text(json.dumps(result,indent=2)+\"\\n\")\nprint(json.dumps({k:v for k,v in result.items() if k != \"removed_entries\"},indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T09:10:27.114922+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "7751783bf47efee8af45c6a2a3dc8853e855af6d",
+    "changes": [
+      "M work/continuations/engine-2026-09-19.json",
+      "?? docs/experiments/results/engine-continuation-checks-001/152a1ae0ed064a5ca22a96aec69a6f9b/",
+      "?? docs/experiments/results/engine-continuation-checks-001/195531a5ff3c4ebf8fc5a004714d8284/"
+    ],
+    "diff_stat": "work/continuations/engine-2026-09-19.json | 19 ++++++++++++++-----\n 1 file changed, 14 insertions(+), 5 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 1866,
+  "returncode": 0,
+  "ended_at": "2026-09-19T09:10:30.345374+00:00",
+  "wall_seconds": 3.177819,
+  "logs": {
+    "stdout.log": {
+      "bytes": 830,
+      "sha256": "fdb5ab77e608b7d9967d81b93902d935b2fcad52b1812a9dbc307149fe6427d1"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

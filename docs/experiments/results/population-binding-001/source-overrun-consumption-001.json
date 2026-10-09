@@ -1,0 +1,39 @@
+{
+  "schema": "nisayon.population-source-overrun-consumption.v1",
+  "case": "population-binding-001",
+  "recorded_at": "2026-09-20T19:39:00Z",
+  "evaluation_record": {
+    "commit": "d9e36b9",
+    "path": "docs/evaluation/results/population-binding-001/source-overrun-001.json"
+  },
+  "actual": {
+    "execution_responses": 7,
+    "execution_body_bytes": 84799,
+    "evaluation_responses": 7,
+    "evaluation_body_bytes": 962486,
+    "combined_responses": 14,
+    "combined_body_bytes": 1047285,
+    "response_cap": 12,
+    "body_cap_bytes": 2097152
+  },
+  "duplicates": [
+    {
+      "source": "gr00t/data/interfaces.py",
+      "bytes_each": 5257,
+      "sha256": "daa4c6c41e785abc549181153d870fd8d6cca70e3a5ebc43e51bc6b492fad864"
+    },
+    {
+      "source": "gr00t/model package listing",
+      "bytes_each": 4580,
+      "sha256": "df7e7d443ef6bb8ab22f4a1c71ed17beb2b1744e9b206176cdaf65e03abde786"
+    }
+  ],
+  "miss": {
+    "source": "gr00t/model/gr00t_n1d7/processor.py",
+    "status": 404,
+    "body_bytes": 0
+  },
+  "cause": "Evaluation acted on execution's earlier committed three-response request while execution concurrently committed a reservation transfer and fetched the same direct sources. Each lane observed a stale allocation during the same two-minute interval.",
+  "scientific_effect": "The duplicate bytes add no evidence and the 404 establishes no processor behavior. Formula, epsilon/constant handling and checkpoint-versus-dataset precedence remain unresolved.",
+  "disposition": "The response-count boundary was exceeded by two. The byte cap remains satisfied. Both lanes stopped all further source/API acquisition; the violation is retained and is not relabelled as compliant."
+}

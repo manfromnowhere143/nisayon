@@ -1,0 +1,910 @@
+{
+  "schema": "nisayon.confirmation-profile.v1",
+  "input_spec_sha256": "817b39e2ee976291929f7708195a7cdce98b678d175eff646ac309b5fb3d45c0",
+  "profiler_source_sha256": "00be396f673c4cbf7c61856464e67b6a6d1ae3879221060673efd0af49c098f6",
+  "dependencies": {
+    "src/nisayon/engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+    "src/nisayon/engine/agent_diagnostics.py": "622708370aa9873f65e1b917ea19f056dcd27454f0d5f1c3deadda76e26e4ef6",
+    "src/nisayon/engine/assets.py": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9",
+    "src/nisayon/engine/bounded_agent.py": "351067ab41d3482a259f103184968eb83a15c9efa2aa0aab95218f3ed0d926cb",
+    "src/nisayon/engine/budgets.py": "9905bb0fc79da3512d20bdc16cec5445827c0aae1ba2c2efa4ad175645f580e5",
+    "src/nisayon/engine/cli_identity.py": "388d5cefe8a5c250951002c2890a06aa6157a43493aa2037853d20f97619359e",
+    "src/nisayon/engine/comparison_recovery.py": "65779b18abfffc0393cdda6e49f78d913a7638469ddcf5840da4009a5ee4021d",
+    "src/nisayon/engine/conditions.py": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf",
+    "src/nisayon/engine/configuration.py": "8a43db4a0e984a12982ad4a7d65ca9e18862b99e0d052353e158130e1d2f69dc",
+    "src/nisayon/engine/confirmation_costs.py": "093bb80d0eee194c7b1458adfeae37fd2ecd3af62b757f6e7f6067e6d2db14fe",
+    "src/nisayon/engine/confirmation_pairs.py": "9dfee6405ab788105304fe5692c87a9ae63d5aa6a51ac66ce167592868ce6e06",
+    "src/nisayon/engine/confirmation_service.py": "ecd1e1a5fc6c708afdae4acedbbee02423f4801e05a505c9978e406b0afa7d28",
+    "src/nisayon/engine/confirmation_view.py": "ab2e69515d55d14ccf38d7b269372f0816a92aa33470929069b97f97193071cd",
+    "src/nisayon/engine/costs.py": "92979dfe563c44826b1728f8f3e869fb66d1154f053a580ab4cdd20056aca9e8",
+    "src/nisayon/engine/declarations.py": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+    "src/nisayon/engine/development.py": "29a3e3360edc3627a970093ece812c25664fd32410fd22f8c45bae390e46564d",
+    "src/nisayon/engine/development_cases.py": "cbe87df824ee327bb93025f571380a663832dfff13236b70aa565788266f8f32",
+    "src/nisayon/engine/development_diagnostics.py": "03f25f9cb58cc12840e61d001ade677990be02c72ec2b065ee07d8d1a45981c4",
+    "src/nisayon/engine/diagnostics.py": "551d6dad0fc740b3d9e3b5732cf51bff71f62db4c685afceb3b91748fe46daef",
+    "src/nisayon/engine/execution_store.py": "774529c3ddfd2674416e246e08f86a07e832191213cb63fd8e65c5a931417115",
+    "src/nisayon/engine/family_calibration.py": "aa8a16883acddc261420c3be3763fdfe8f8902236b30b8014932b97e118454e0",
+    "src/nisayon/engine/first_case.py": "76828320abf16175cfac8a646ebb57291d2465b3cd56d0a09c9bafe977023a0c",
+    "src/nisayon/engine/history.py": "7daee40bd7abbe121295602a9db4d48e1dc53af3d9572cc953b78312aeb3d6a0",
+    "src/nisayon/engine/identity.py": "d5b96fc1cd04beeed40e2578244e95667405e8d568e9cd680cfdd800db152ac4",
+    "src/nisayon/engine/integrate.py": "69f674d06b2c670a499ce2d35f39caa4c72127f8adeceac4558f26931e7274ca",
+    "src/nisayon/engine/io.py": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+    "src/nisayon/engine/joint_case.py": "d3b6069d4efafc59f24cac399dd549be74bc01afda10cfef7488b9c26bc6b98d",
+    "src/nisayon/engine/lift.py": "e20d3dcf9d9edda71fd96a1420b75c52e9134d420265ee93d2560fe96e6561c1",
+    "src/nisayon/engine/observations.py": "2f79aa8f80307aaa5703d9813c8c444ce880afb1e1e86d81f4915af09991fc14",
+    "src/nisayon/engine/qualification.py": "2b4a7513bd41b4d4429317c3a55c1899a400bc49071a485de75a8e95381ab47a",
+    "src/nisayon/engine/qualify_development.py": "10455333d464c1aebe4e4aa17d560c69fc59ab4abb51653656164f7c00d1f5d3",
+    "src/nisayon/engine/records.py": "24efc2daace5bb412e2c8a60852170dfc36b6f9e7d92c3150c1326ccb5165f96",
+    "src/nisayon/engine/recovery.py": "0ae37c53e19cdb66cbe372913daf37bdba06c4716f04be69959bd4b7bcd2b52f",
+    "src/nisayon/engine/retained_declarations.py": "1a0b4e08dedef4da1afa3d7d56af89b9e64359c19fbe43ddc3ae1acfc5118766",
+    "src/nisayon/engine/robolab_record.py": "754c2066f97527a8af9e270ece35e2df073b08cfddd5fd35a8b3dd375f38c5cf",
+    "src/nisayon/engine/screen.py": "e876ba3d02c2bd24b57ed93d7e9394d2068085bf8fd04f6754c63f6dcc510f7a",
+    "src/nisayon/engine/store.py": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+    "src/nisayon/engine/telemetry.py": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+    "src/nisayon/evaluation/__init__.py": "25009d0b6caff69b3b3dd2b597cb5fca61d29cfa8aa97b5b40a073bdbd6b7200",
+    "src/nisayon/evaluation/__main__.py": "1d92d8755980daa1f696ce210c17d70977319d27553c2d0c4969ae1d262fb7cc",
+    "src/nisayon/evaluation/bundle.py": "90771a4774104c22074b4ddfa74922c8cda22de8b76cd5b2b04f1b526c8826e1",
+    "src/nisayon/evaluation/case.py": "97f766a14084a942fceb8a1f6dfe875ea16418d8de71d6ed86ba8af884f534e0",
+    "src/nisayon/evaluation/checks.py": "817d4828ef6fff64f349b6857834efee399ce00923b958ebaee63d5f250e15b8",
+    "src/nisayon/evaluation/codes.py": "955373db8b09071a54b6439adac545abb61835e2a6f4eae41caf2764b04fc426",
+    "src/nisayon/evaluation/confirmation.py": "d7866db8aad8ac92062701cb41108b4b970c71fb0d371d2a227900896f450bb0",
+    "src/nisayon/evaluation/controls.py": "b973bff6879c59f193c6ff93069a913d90a89c7f2cc2b7802982b28dbddcfcbe",
+    "src/nisayon/evaluation/decision.py": "04584375d85cbb5413148a270c51dbb6ebe6edfcde8c70d370440eb437158e58",
+    "src/nisayon/evaluation/external.py": "52ee99aa71265271ac89353b7bc2fc163dafaf132b84a0b20f5e687f57101d12",
+    "src/nisayon/evaluation/first_case.py": "45a21bee3331accaefb0537045a9724467bb17e73608be61932514c3a2af0a45",
+    "src/nisayon/evaluation/fixtures.py": "5382abedb9c9e2b6348f3c7cc81304fa4d3351d1d4768be10d7bf1714e334aaf",
+    "src/nisayon/evaluation/ledger.py": "c9ce218ea26977097e91fc52478032a3f60cba7d7711cea81e12be288aa80e34",
+    "src/nisayon/evaluation/package.py": "a9d304ce4e2806cc7a9854ebb5c1274b3ee78c2fce73afa022dbced9e75ca557",
+    "src/nisayon/evaluation/prospective.py": "44154b3ed1512da1c57472be69bf9029722643c8980c842a9663f13963dc3c3d",
+    "src/nisayon/evaluation/prospective_fixtures.py": "bcafbe849643597cfb49f428cd7d615eb8d9adf2b4ec51423a23560af7764091",
+    "src/nisayon/evaluation/report.py": "86a170d87f1e021b97ac81910a83c307327c11f5f884938be902308465a50477",
+    "src/nisayon/evaluation/reserved.py": "e933e81b0504e5c4ad6c148cc9985c1e701029c62bdef452c2f5cedcda7661e4",
+    "src/nisayon/evaluation/reserved_fixtures.py": "b0d5f0e126f245b0d27e58f663fd7b67e0d99b2b8a3281f3380c4122cd959453",
+    "src/nisayon/evaluation/retained.py": "15d8ca0612b59acedff0e1a9bcec7fd9e03eddf0dbdca3dd45c294cbbc711d36",
+    "src/nisayon/evaluation/schema.py": "5d9728911ec9376f9b321932596097b1eb567e7bc0b59b8c532833e0ce4f01a7",
+    "src/nisayon/evaluation/scoring.py": "7adab1539c83e6eae0b7382de41cecccf21f5e3fae315aacb61f992297aeb9a4",
+    "src/nisayon/evaluation/scoring_fixtures.py": "ee045fc093a1c5bc314cc7f8ea92d973bb72ef464cf386bbeb48adf07fadc7f2",
+    "uv.lock": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+    "pyproject.toml": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822",
+    "docs/evaluation/results/confirmation-feasibility-001/cost_reproduction.py": "e00a926f6ddde0652c084364906c5a611a34f838ae474fb7aead609aca5c0543",
+    "docs/evaluation/results/confirmation-feasibility-001/feasibility.py": "b8a08c99be378efb689c9c3e74514240239afa96f2784b1997a000a777a2f721",
+    "docs/evaluation/results/confirmation-feasibility-001/finite_witness.py": "22c6dfd534293634767a4e449c16ec2e3b1338bc22193bbd08f19af51b65ae95",
+    "docs/evaluation/results/confirmation-feasibility-001/render_table.py": "3b792505d58f974a19d8fb1c07ca4a84097496d330a81918b9ce041bc56e1c76",
+    "docs/evaluation/results/confirmation-feasibility-001/spec.json": "cb3cfcfff2c78e891fcf1690576958c97d4f9168c3506529f4cd40804f23d860"
+  },
+  "order": {
+    "frozen_before_measurement": true,
+    "trials_in_order": [
+      [
+        "development-ablation-001",
+        "D01-gripper-sign",
+        "A"
+      ],
+      [
+        "development-ablation-001",
+        "D05-recurrent-carry",
+        "A"
+      ],
+      [
+        "bounded-agent-comparison-001",
+        "E01-r02",
+        "A"
+      ],
+      [
+        "development-ablation-001",
+        "D08-old-future-replay",
+        "A"
+      ]
+    ],
+    "reads": [
+      "fresh_process_first_read",
+      "warm_repeat_1",
+      "warm_repeat_2"
+    ],
+    "cpu_limit_s": 600,
+    "cache_claim": "OS cache state unknown; warm repeats use the same process but repeat every verification.",
+    "optimization_rule": "Only a demonstrated material avoidable owned cost warrants a change; identical input identities and integrity checks required. No target speedup is presumed."
+  },
+  "instrumentation": "cProfile on every read, same checks and inputs; peak RSS is cumulative for this fresh process and excludes Git child peaks",
+  "reads": [
+    {
+      "label": "fresh_process_first_read",
+      "trials": [
+        {
+          "trial": [
+            "development-ablation-001",
+            "D01-gripper-sign",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.16568241687491536,
+          "required_verification_s": 7.831861834041774,
+          "extraction_s": 0.3181728741619736
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D05-recurrent-carry",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.2783812079578638,
+          "required_verification_s": 13.319885374978185,
+          "extraction_s": 0.520130000077188
+        },
+        {
+          "trial": [
+            "bounded-agent-comparison-001",
+            "E01-r02",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.15977979102171957,
+          "required_verification_s": 7.858202583855018,
+          "extraction_s": 0.32892125006765127
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D08-old-future-replay",
+            "A"
+          ],
+          "extraction_s": 0.03281466686166823
+        }
+      ],
+      "total_read_wall_s": 30.928264583926648,
+      "serialization_s": 0.014028457924723625,
+      "serialization_cpu_s": 0.013982999999999635,
+      "read_and_serialization_cpu_s": 30.160933,
+      "output_bytes": 2337998,
+      "view_content_sha256": "c5ee34951dd8b12df630fa2d867f00680a1160f571b0d3079fcd88864a19b6ee",
+      "cumulative_process_peak_rss_bytes": 306855936,
+      "hotspots": [
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:302:build_view",
+          "primitive_calls": 1,
+          "calls": 1,
+          "profile_self_s": 0.022523749000000003,
+          "profile_cumulative_s": 30.928266167
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:165:_trial",
+          "primitive_calls": 4,
+          "calls": 4,
+          "profile_self_s": 0.002392112,
+          "profile_cumulative_s": 30.813847958
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:96:_raw_confirmation",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.004706536,
+          "profile_cumulative_s": 29.613809124000003
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:96:verify_execution",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.689158016,
+          "profile_cumulative_s": 28.256002751
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:12:digest",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.045264802,
+          "profile_cumulative_s": 14.509025001000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:8:canonical_bytes",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.038940478,
+          "profile_cumulative_s": 14.04808756
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:183:dumps",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.065137817,
+          "profile_cumulative_s": 13.972505036000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:183:encode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.05739632,
+          "profile_cumulative_s": 13.894311279
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:205:iterencode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 13.812088979,
+          "profile_cumulative_s": 13.812088979
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/telemetry.py:35:policy_digest",
+          "primitive_calls": 24546,
+          "calls": 24546,
+          "profile_self_s": 0.023832484,
+          "profile_cumulative_s": 12.63026016
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:299:loads",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.010623488,
+          "profile_cumulative_s": 9.876642939
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:333:decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.01665099,
+          "profile_cumulative_s": 9.850597354000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:344:raw_decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 9.69484704,
+          "profile_cumulative_s": 9.819702103000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:340:read1",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.040566305000000004,
+          "profile_cumulative_s": 2.452105511
+        },
+        {
+          "function": "~:0:<method 'read1' of '_io.BufferedReader' objects>",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.049670406,
+          "profile_cumulative_s": 2.3858520060000004
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/_compression.py:66:readinto",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.14350485500000001,
+          "profile_cumulative_s": 2.3361816
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:519:read",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.10634762,
+          "profile_cumulative_s": 2.140869433
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:53:verify_manifest",
+          "primitive_calls": 6,
+          "calls": 6,
+          "profile_self_s": 0.032534060000000004,
+          "profile_cumulative_s": 1.884997709
+        },
+        {
+          "function": "~:0:<method 'decompress' of 'zlib._ZlibDecompressor' objects>",
+          "primitive_calls": 113137,
+          "calls": 113137,
+          "profile_self_s": 1.8364163670000002,
+          "profile_cumulative_s": 1.8364163670000002
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:16:file_digest",
+          "primitive_calls": 2668,
+          "calls": 2668,
+          "profile_self_s": 0.010099139,
+          "profile_cumulative_s": 1.335333605
+        },
+        {
+          "function": "~:0:<method 'read' of '_io.BufferedReader' objects>",
+          "primitive_calls": 20185,
+          "calls": 20185,
+          "profile_self_s": 1.049925433,
+          "profile_cumulative_s": 1.049925433
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:82:assigned_pairs",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.001353873,
+          "profile_cumulative_s": 1.009271166
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:12:run_observation",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.002346757,
+          "profile_cumulative_s": 1.0060867960000002
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:15:resolve_member",
+          "primitive_calls": 3345,
+          "calls": 3345,
+          "profile_self_s": 0.030123253000000003,
+          "profile_cumulative_s": 0.8472640950000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:19:<lambda>",
+          "primitive_calls": 6060,
+          "calls": 6060,
+          "profile_self_s": 0.002002668,
+          "profile_cumulative_s": 0.7506511530000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:23:_json",
+          "primitive_calls": 30,
+          "calls": 30,
+          "profile_self_s": 0.002113624,
+          "profile_cumulative_s": 0.53003529
+        },
+        {
+          "function": "~:0:<method 'update' of '_hashlib.HASH' objects>",
+          "primitive_calls": 3392,
+          "calls": 3392,
+          "profile_self_s": 0.512278369,
+          "profile_cumulative_s": 0.512278369
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/diagnostics.py:90:ordinary_checks",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.09677730600000001,
+          "profile_cumulative_s": 0.47609454900000003
+        },
+        {
+          "function": "~:0:<built-in method _hashlib.openssl_sha256>",
+          "primitive_calls": 88996,
+          "calls": 88996,
+          "profile_self_s": 0.429938305,
+          "profile_cumulative_s": 0.429938305
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1228:resolve",
+          "primitive_calls": 6693,
+          "calls": 6693,
+          "profile_self_s": 0.0044927510000000006,
+          "profile_cumulative_s": 0.351159749
+        }
+      ]
+    },
+    {
+      "label": "warm_repeat_1",
+      "trials": [
+        {
+          "trial": [
+            "development-ablation-001",
+            "D01-gripper-sign",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.16288299998268485,
+          "required_verification_s": 7.8032331669237465,
+          "extraction_s": 0.3243241251911968
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D05-recurrent-carry",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.2803995830472559,
+          "required_verification_s": 13.364552666898817,
+          "extraction_s": 0.5227791669312865
+        },
+        {
+          "trial": [
+            "bounded-agent-comparison-001",
+            "E01-r02",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.16998629202134907,
+          "required_verification_s": 7.7925745830871165,
+          "extraction_s": 0.3457474580500275
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D08-old-future-replay",
+            "A"
+          ],
+          "extraction_s": 0.030598583864048123
+        }
+      ],
+      "total_read_wall_s": 30.921866124961525,
+      "serialization_s": 0.014060583896934986,
+      "serialization_cpu_s": 0.014046000000000447,
+      "read_and_serialization_cpu_s": 30.178085,
+      "output_bytes": 2337998,
+      "view_content_sha256": "c5ee34951dd8b12df630fa2d867f00680a1160f571b0d3079fcd88864a19b6ee",
+      "cumulative_process_peak_rss_bytes": 336510976,
+      "hotspots": [
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:302:build_view",
+          "primitive_calls": 1,
+          "calls": 1,
+          "profile_self_s": 0.021227255,
+          "profile_cumulative_s": 30.921868875
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:165:_trial",
+          "primitive_calls": 4,
+          "calls": 4,
+          "profile_self_s": 0.0021075530000000003,
+          "profile_cumulative_s": 30.797093917
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:96:_raw_confirmation",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.004856877,
+          "profile_cumulative_s": 29.573642084000003
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:96:verify_execution",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.6820868010000001,
+          "profile_cumulative_s": 28.145519792
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:12:digest",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.044645927,
+          "profile_cumulative_s": 14.496642059000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:8:canonical_bytes",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.039100739,
+          "profile_cumulative_s": 14.037732400000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:183:dumps",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.064094754,
+          "profile_cumulative_s": 13.962798771000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:183:encode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.056942320000000005,
+          "profile_cumulative_s": 13.885897369
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:205:iterencode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 13.804508583,
+          "profile_cumulative_s": 13.804508583
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/telemetry.py:35:policy_digest",
+          "primitive_calls": 24546,
+          "calls": 24546,
+          "profile_self_s": 0.023966556,
+          "profile_cumulative_s": 12.62207309
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:299:loads",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.010358549,
+          "profile_cumulative_s": 9.875225124
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:333:decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.016805188000000002,
+          "profile_cumulative_s": 9.84130223
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:344:raw_decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 9.672084044,
+          "profile_cumulative_s": 9.810443496000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:340:read1",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.040773243,
+          "profile_cumulative_s": 2.428475943
+        },
+        {
+          "function": "~:0:<method 'read1' of '_io.BufferedReader' objects>",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.049820063000000005,
+          "profile_cumulative_s": 2.361987848
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/_compression.py:66:readinto",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.141222864,
+          "profile_cumulative_s": 2.312167785
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:519:read",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.106052779,
+          "profile_cumulative_s": 2.119287055
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:53:verify_manifest",
+          "primitive_calls": 6,
+          "calls": 6,
+          "profile_self_s": 0.035475629,
+          "profile_cumulative_s": 1.916603333
+        },
+        {
+          "function": "~:0:<method 'decompress' of 'zlib._ZlibDecompressor' objects>",
+          "primitive_calls": 113137,
+          "calls": 113137,
+          "profile_self_s": 1.837770372,
+          "profile_cumulative_s": 1.837770372
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:16:file_digest",
+          "primitive_calls": 2668,
+          "calls": 2668,
+          "profile_self_s": 0.010361931000000001,
+          "profile_cumulative_s": 1.378338598
+        },
+        {
+          "function": "~:0:<method 'read' of '_io.BufferedReader' objects>",
+          "primitive_calls": 20185,
+          "calls": 20185,
+          "profile_self_s": 1.06304734,
+          "profile_cumulative_s": 1.06304734
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:82:assigned_pairs",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.0013547020000000002,
+          "profile_cumulative_s": 1.011219125
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:12:run_observation",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.0023212130000000004,
+          "profile_cumulative_s": 1.008047009
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:15:resolve_member",
+          "primitive_calls": 3345,
+          "calls": 3345,
+          "profile_self_s": 0.030673255000000003,
+          "profile_cumulative_s": 0.849217497
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:19:<lambda>",
+          "primitive_calls": 6060,
+          "calls": 6060,
+          "profile_self_s": 0.001975796,
+          "profile_cumulative_s": 0.796714702
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:23:_json",
+          "primitive_calls": 30,
+          "calls": 30,
+          "profile_self_s": 0.001743834,
+          "profile_cumulative_s": 0.5558190860000001
+        },
+        {
+          "function": "~:0:<method 'update' of '_hashlib.HASH' objects>",
+          "primitive_calls": 3392,
+          "calls": 3392,
+          "profile_self_s": 0.512660954,
+          "profile_cumulative_s": 0.512660954
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/diagnostics.py:90:ordinary_checks",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.09735491900000001,
+          "profile_cumulative_s": 0.47950491100000003
+        },
+        {
+          "function": "~:0:<built-in method _hashlib.openssl_sha256>",
+          "primitive_calls": 88996,
+          "calls": 88996,
+          "profile_self_s": 0.43225000100000005,
+          "profile_cumulative_s": 0.43225000100000005
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1228:resolve",
+          "primitive_calls": 6693,
+          "calls": 6693,
+          "profile_self_s": 0.004569827,
+          "profile_cumulative_s": 0.35223609100000003
+        }
+      ]
+    },
+    {
+      "label": "warm_repeat_2",
+      "trials": [
+        {
+          "trial": [
+            "development-ablation-001",
+            "D01-gripper-sign",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.15689429198391736,
+          "required_verification_s": 7.955410582944751,
+          "extraction_s": 0.33468966698274016
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D05-recurrent-carry",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.3001428749412298,
+          "required_verification_s": 16.721206334186718,
+          "extraction_s": 0.5357954988721758
+        },
+        {
+          "trial": [
+            "bounded-agent-comparison-001",
+            "E01-r02",
+            "A"
+          ],
+          "bundle_read_and_decode_s": 0.14931229199282825,
+          "required_verification_s": 7.7908294999506325,
+          "extraction_s": 0.34027891606092453
+        },
+        {
+          "trial": [
+            "development-ablation-001",
+            "D08-old-future-replay",
+            "A"
+          ],
+          "extraction_s": 0.028247417183592916
+        }
+      ],
+      "total_read_wall_s": 34.43509641685523,
+      "serialization_s": 0.01371791586279869,
+      "serialization_cpu_s": 0.01366399999999146,
+      "read_and_serialization_cpu_s": 31.18998399999999,
+      "output_bytes": 2337998,
+      "view_content_sha256": "c5ee34951dd8b12df630fa2d867f00680a1160f571b0d3079fcd88864a19b6ee",
+      "cumulative_process_peak_rss_bytes": 336510976,
+      "hotspots": [
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:302:build_view",
+          "primitive_calls": 1,
+          "calls": 1,
+          "profile_self_s": 0.024481413,
+          "profile_cumulative_s": 34.435100959
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:165:_trial",
+          "primitive_calls": 4,
+          "calls": 4,
+          "profile_self_s": 0.004112337000000001,
+          "profile_cumulative_s": 34.312820875
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:96:_raw_confirmation",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.004816377,
+          "profile_cumulative_s": 33.073807958
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:96:verify_execution",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.8284819870000001,
+          "profile_cumulative_s": 31.601768375000002
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:12:digest",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.049695915,
+          "profile_cumulative_s": 16.138159036
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:8:canonical_bytes",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.045685915,
+          "profile_cumulative_s": 15.59065499
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:183:dumps",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.115810112,
+          "profile_cumulative_s": 15.501637998000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:183:encode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 0.081775388,
+          "profile_cumulative_s": 15.37111462
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/encoder.py:205:iterencode",
+          "primitive_calls": 86298,
+          "calls": 86298,
+          "profile_self_s": 15.251929968,
+          "profile_cumulative_s": 15.251929968
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/telemetry.py:35:policy_digest",
+          "primitive_calls": 24546,
+          "calls": 24546,
+          "profile_self_s": 0.028949215,
+          "profile_cumulative_s": 13.88751221
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py:299:loads",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.012803292,
+          "profile_cumulative_s": 10.817009310000001
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:333:decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 0.037182228000000005,
+          "profile_cumulative_s": 10.787417331
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py:344:raw_decode",
+          "primitive_calls": 12851,
+          "calls": 12851,
+          "profile_self_s": 10.597124562000001,
+          "profile_cumulative_s": 10.729150322
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:340:read1",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.045498540000000004,
+          "profile_cumulative_s": 2.923383185
+        },
+        {
+          "function": "~:0:<method 'read1' of '_io.BufferedReader' objects>",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.060683237,
+          "profile_cumulative_s": 2.849595455
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/_compression.py:66:readinto",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.155599447,
+          "profile_cumulative_s": 2.788912218
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/gzip.py:519:read",
+          "primitive_calls": 113405,
+          "calls": 113405,
+          "profile_self_s": 0.134893391,
+          "profile_cumulative_s": 2.5785025320000003
+        },
+        {
+          "function": "~:0:<method 'decompress' of 'zlib._ZlibDecompressor' objects>",
+          "primitive_calls": 113137,
+          "calls": 113137,
+          "profile_self_s": 2.028999389,
+          "profile_cumulative_s": 2.028999389
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:53:verify_manifest",
+          "primitive_calls": 6,
+          "calls": 6,
+          "profile_self_s": 0.034131987,
+          "profile_cumulative_s": 1.972385668
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:16:file_digest",
+          "primitive_calls": 2668,
+          "calls": 2668,
+          "profile_self_s": 0.010491252000000001,
+          "profile_cumulative_s": 1.4212551420000001
+        },
+        {
+          "function": "~:0:<method 'read' of '_io.BufferedReader' objects>",
+          "primitive_calls": 20185,
+          "calls": 20185,
+          "profile_self_s": 1.331763443,
+          "profile_cumulative_s": 1.331763443
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:82:assigned_pairs",
+          "primitive_calls": 3,
+          "calls": 3,
+          "profile_self_s": 0.001440544,
+          "profile_cumulative_s": 1.030417666
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_pairs.py:12:run_observation",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.0025035540000000003,
+          "profile_cumulative_s": 1.02709658
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/store.py:15:resolve_member",
+          "primitive_calls": 3345,
+          "calls": 3345,
+          "profile_self_s": 0.033937957000000005,
+          "profile_cumulative_s": 0.897450441
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/io.py:19:<lambda>",
+          "primitive_calls": 6060,
+          "calls": 6060,
+          "profile_self_s": 0.002117401,
+          "profile_cumulative_s": 0.8322771320000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/confirmation_view.py:23:_json",
+          "primitive_calls": 30,
+          "calls": 30,
+          "profile_self_s": 0.0017815810000000002,
+          "profile_cumulative_s": 0.534750374
+        },
+        {
+          "function": "~:0:<method 'update' of '_hashlib.HASH' objects>",
+          "primitive_calls": 3392,
+          "calls": 3392,
+          "profile_self_s": 0.5140494870000001,
+          "profile_cumulative_s": 0.5140494870000001
+        },
+        {
+          "function": "~:0:<built-in method _hashlib.openssl_sha256>",
+          "primitive_calls": 88996,
+          "calls": 88996,
+          "profile_self_s": 0.5034374970000001,
+          "profile_cumulative_s": 0.5034374970000001
+        },
+        {
+          "function": "/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/engine/diagnostics.py:90:ordinary_checks",
+          "primitive_calls": 268,
+          "calls": 268,
+          "profile_self_s": 0.099509805,
+          "profile_cumulative_s": 0.486322087
+        },
+        {
+          "function": "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1228:resolve",
+          "primitive_calls": 6693,
+          "calls": 6693,
+          "profile_self_s": 0.0050617380000000005,
+          "profile_cumulative_s": 0.37896827400000005
+        }
+      ]
+    }
+  ],
+  "status": "complete",
+  "new_simulator_runs": 0,
+  "experimental_model_calls": 0,
+  "prior_profile": {
+    "path": "artifacts/engine-integration-001/confirmation-engine-001/profile-001/profile.json",
+    "sha256": "e760daccfd1438a1870f28e6ca7686b9f8405ff0d3385f4a8e4440b49cc52c95",
+    "cpu_s": 91.02688099999999
+  },
+  "identical_views_across_reads": true,
+  "cumulative_cpu_s": 91.57784299999999,
+  "initial_profile_budget_cpu_s": 182.604728,
+  "outer_wall_s": 96.38117245794274,
+  "cumulative_process_peak_rss_bytes": 336510976
+}

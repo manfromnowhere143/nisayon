@@ -1,0 +1,137 @@
+{
+  "schema": "nisayon.evaluation.provenance-promotion-finding.v1",
+  "recorded_at": "2026-09-20T16:01:32+00:00",
+  "block_started_at": "2026-09-20T15:59:21Z",
+  "evaluation_commit_at_reproduction": "25637ab874b13265789804bb660e7e8a35509ed2",
+  "reference_source_sha256": "2779e423a09806beb6edcda0c18ed778544a88ddcfca255723d8f98a7b666826",
+  "promotion_lines": {
+    "input_annotation": [
+      748,
+      755
+    ],
+    "binding_from_labels": [
+      1106,
+      1113
+    ]
+  },
+  "coordinator_probe": {
+    "packet": "/Users/danielwahnich/.codex/reports/nisayon-claude-baseline-binding-2026-09-20-9a97to6h",
+    "record": "PROBE_RESULTS.json",
+    "measured_wall_seconds": 0.21555491583421826,
+    "measured_child_cpu_seconds": 0.168669,
+    "counted_once_in_combined_costs": true
+  },
+  "labelled_copies": {
+    "original": {
+      "path": "artifacts/baseline-qualification-001/probe-copies/original.json",
+      "sha256": "33bc318ba9e71c3de08042b8b8a7abf5f57888500a9df97a8182baa1ddb5c21d"
+    },
+    "provenance-label-only": {
+      "path": "artifacts/baseline-qualification-001/probe-copies/provenance-label-only.json",
+      "sha256": "69ffd5cf29e1de00751cd3f94fe553cb013cbeda369f427b2cc4c9bf1d1d7b76"
+    },
+    "artifact-label-only": {
+      "path": "artifacts/baseline-qualification-001/probe-copies/artifact-label-only.json",
+      "sha256": "82fdc5f17d120760359f6296a733378a5e731516f8add0816e23090b799b59b0"
+    }
+  },
+  "original_record_identity": {
+    "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/workflows/conventional-a-v1.json",
+    "sha256": "33bc318ba9e71c3de08042b8b8a7abf5f57888500a9df97a8182baa1ddb5c21d",
+    "unchanged": true
+  },
+  "mutations": {
+    "provenance-label-only": [
+      {
+        "path": "$.executions[6].stats_provenance",
+        "before": "reporter_transcription",
+        "after": "verified_training_statistics"
+      },
+      {
+        "path": "$.executions[7].stats_provenance",
+        "before": "artifact",
+        "after": "verified_training_statistics"
+      },
+      {
+        "path": "$.executions[8].stats_provenance",
+        "before": "artifact",
+        "after": "verified_training_statistics"
+      }
+    ],
+    "artifact-label-only": [
+      {
+        "path": "$.executions[6].stats_provenance",
+        "before": "reporter_transcription",
+        "after": "artifact"
+      }
+    ]
+  },
+  "commands": {
+    "original": {
+      "id": "e5b4f4755ac54a9db5f6e15838bbabb3",
+      "started_at": "2026-09-20T16:00:47.786187+00:00",
+      "wall_seconds": 0.108295,
+      "process_status": "completed"
+    },
+    "provenance-label-only": {
+      "id": "6cd84a2c2d724c02835ae451b7fa8779",
+      "started_at": "2026-09-20T16:00:48.050284+00:00",
+      "wall_seconds": 0.08677,
+      "process_status": "completed"
+    },
+    "artifact-label-only": {
+      "id": "66ba1f8fafa74cd7bc03d96707374a0f",
+      "started_at": "2026-09-20T16:01:00.925283+00:00",
+      "wall_seconds": 0.092305,
+      "process_status": "completed"
+    }
+  },
+  "before_results": {
+    "original": {
+      "assessment": "before/original.assessment.json",
+      "rule": "external-decision-001/v1",
+      "schema": "nisayon.processor-reference.assessment.v1",
+      "outcome": "supported_software_correction",
+      "deployment_binding": "unresolved",
+      "statistics_provenance": [
+        "artifact",
+        "reporter_transcription"
+      ],
+      "inputs_verified": true
+    },
+    "provenance-label-only": {
+      "assessment": "before/provenance-label-only.assessment.json",
+      "rule": "external-decision-001/v1",
+      "schema": "nisayon.processor-reference.assessment.v1",
+      "outcome": "supported_software_correction",
+      "deployment_binding": "supported",
+      "statistics_provenance": [
+        "verified_training_statistics"
+      ],
+      "inputs_verified": true
+    },
+    "artifact-label-only": {
+      "assessment": "before/artifact-label-only.assessment.json",
+      "rule": "external-decision-001/v1",
+      "schema": "nisayon.processor-reference.assessment.v1",
+      "outcome": "supported_software_correction",
+      "deployment_binding": "artifact_bound",
+      "statistics_provenance": [
+        "artifact"
+      ],
+      "inputs_verified": true
+    }
+  },
+  "finding": "On the public flat-record path, deployment_binding is decided from the set of caller-supplied stats_provenance labels on the explicit-override rows. Changing only those labels promotes the binding from unresolved to supported (verified_training_statistics) or to artifact_bound (artifact) with no new statistics, observation, artifact byte or selection evidence.",
+  "scope": "A caller-supplied flat observation record assessed by the public processor command and by the routes that build such records (execution-record adapter, case-store adapter). No sealed store was altered; no historical result claimed supported binding; the original C2 binding was and remains unresolved.",
+  "intended_correction": [
+    "Rule identity external-decision-001/v2 and assessment schema nisayon.processor-reference.assessment.v2; version-1 results stay retained and are marked historical.",
+    "A stats_provenance label is a declaration, retained and reported, never a premise. deployment_binding is derived only from facts the evaluator establishes itself.",
+    "Four facts kept separate per candidate and feature: numeric agreement (the transform matches its declared statistics); byte provenance (the bound statistics were read from, or equal element for element, a statistics set in the digest-verified artifact); interpretation (the statistics belong to the intended model, dataset and feature semantics); selection (the deployment actually selected them).",
+    "Byte provenance is established by the evaluator for as_is and suffix_match candidates (read from the verified state file) and, for an explicit override, only for a feature whose override values equal a statistics set the evaluator read from the verified artifact. Interpretation and selection are not carried by the current input contract and are reported as not established; a declared label cannot supply them.",
+    "Therefore supported binding is unreachable under the current contract and is said so explicitly; the legitimate supported_software_correction outcome and the unresolved deployment conclusion are preserved; a label the evaluator cannot establish produces a named finding, not a process failure.",
+    "Controls added with their actual timing: label-only promotion, artifact label on an override whose bytes are absent from the artifact, artifact label on an override whose bytes match the artifact for one feature only, the legitimate original correction with unresolved binding, and a synthetic artifact carrying complete unprefixed statistics where byte provenance is established for both features without any deployment claim."
+  ],
+  "request_to_execution_lane": "Unsupported provenance annotations must not become a binding premise in the new baseline. A candidate's declared stats_provenance or selector label may be recorded, but the baseline's own deployment conclusion must derive only from evidence it can check; under the retained inputs that conclusion is unresolved for the base model.",
+  "limits": "No source download, physics, model inference, reserved access or push; 0.287 s of recorded reproduction commands in this lane plus the coordinator's probe scope."
+}

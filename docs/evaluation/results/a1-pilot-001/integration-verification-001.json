@@ -1,0 +1,76 @@
+{
+ "schema": "nisayon.a1-executed-pilot-integration-verification.v1",
+ "case": "a1-pilot-001",
+ "recorded_at": "2026-09-21T12:08:58Z",
+ "verified_once": true,
+ "private_main": {
+  "head": "77f6f713ae2ae1c7f28fca6375517b1ed4c54ba9",
+  "equals_execution": true,
+  "equals_this_lane": false
+ },
+ "delivery_mapping": {
+  "note": "the execution lane rebased this lane's build/evaluation branch in this worktree at 2026-09-21T11:54:54Z (reflog: rebase (finish) onto 6137200) and added a one-line whitespace commit; this session made neither change",
+  "patch_identical": {
+   "739b1d4": "ec6cdd1",
+   "b80fe95": "d6c7c11",
+   "8143746": "d5bd5f7",
+   "bab4026": "732f5a6",
+   "cafb765": "98e313c",
+   "0ded527": "6bb9469",
+   "5a0954e": "4ee6a58",
+   "7a3e32a": "318422a"
+  },
+  "method": "git patch-id --stable equal for all eight pairs; evaluation surfaces at 318422a equal this lane's 7a3e32a with an empty diff",
+  "whitespace_commit": {
+   "hash": "f04985e",
+   "change": "docs/evaluation/results/a1-pilot-001/README.md: one trailing blank line removed"
+  },
+  "lane_boundary": "content and identity preserved; this lane's worktree branch should be consumed by named commits from the execution checkout rather than rewritten in place"
+ },
+ "receipt": {
+  "readback": "docs/experiments/results/a1-feasibility-001/integration-readback-002.json",
+  "readback_sha256": "ef4c750e501230fae91abd86d93f07d263eb59242039d115ce9ad604aa037ee0",
+  "integration_commits": [
+   "ba643fd",
+   "f5d249f"
+  ],
+  "tested_source": "f04985e0e9fd55a24665266a606262a13d2a667e",
+  "changes_after_tested_source": "docs/SESSION_HANDOFF.md, the case README, integration-readback-002.json, work/lanes/codex.md and one memory checkpoint; no source, test or evaluation record changed",
+  "combined_validation": {
+   "command_record": "c23ba1c15cdd483cabff3733edc64ff5",
+   "receipt": "artifacts/a1-feasibility-001/combined-validation-005.json",
+   "digests_match": true,
+   "pytest_passed": 967,
+   "pytest_failed": 0,
+   "lint": "passed",
+   "formatted_files": 435,
+   "documents": 138,
+   "returncode": 0,
+   "head_at_run": "f04985e",
+   "wall": "11:55:45Z to 12:00:08Z"
+  },
+  "record_digests_bound": [
+   "training-execution-delivery-v1.2.json",
+   "pilot-assessment-readback-001.json",
+   "assessments/pilot-v1.2-001.assessment.json",
+   "assessments/pilot-v1.2-001.assessment-002.json"
+  ],
+  "identity": {
+   "commits_since_phase_base": 24,
+   "author_and_committer": "Daniel Wahnich <cogitoergosum143@gmail.com> on all 24",
+   "attribution_trailers": 0
+  },
+  "assigned_and_executed": {
+   "dataset_gets": "1/1",
+   "training_invocations": "1/1",
+   "optimizer_updates": "100/100",
+   "simulator_rollouts": "0/0",
+   "policy_actions": "0/0",
+   "task_trials": "0/0",
+   "sixty_rollout_contract": "unassigned"
+  }
+ },
+ "verdict_preserved": "claims A-E supported within their stated scopes, F untested and negatively signalled, G-H untested, I unproven; the readback's claim boundary matches this lane's assessment",
+ "monitor": "the pilot integration monitor that waited for main to contain 5a0954e was stopped after the rebase made that condition unreachable; a replacement waited for 4ee6a58 and exited when main reached f5d249f; no monitor remains armed",
+ "next": "freeze the runtime-qualification and development-competence contract (a1-runtime-001) before the execution lane pins any dependency"
+}

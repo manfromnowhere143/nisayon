@@ -1,0 +1,38 @@
+{
+  "schema": "nisayon.b2-transfer.source-finding.v1",
+  "recorded_at": "2026-10-09T09:42:00.106673+00:00",
+  "sources": [
+    {
+      "original_path": ".venv/lib/python3.12/site-packages/robosuite/environments/manipulation/lift.py",
+      "retained_path": "artifacts/b2-semantic-transfer-001/sources/lift-v1.4.1.py",
+      "sha256": "3e9569fd5bf2af714364de75faa68d60bfc085734ed4ef7f35290bcf90652270",
+      "bytes": 18193
+    },
+    {
+      "original_path": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/lib/python3.12/site-packages/robosuite/environments/manipulation/lift.py",
+      "retained_path": "artifacts/b2-semantic-transfer-001/sources/lift-v1.5.1.py",
+      "sha256": "8f7c422af47d4cabf3043ed5060b1a3c47ff87b0e3474ef722d1f685c39530eb",
+      "bytes": 18054
+    },
+    {
+      "original_path": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/lib/python3.12/site-packages/robosuite/environments/manipulation/manipulation_env.py",
+      "retained_path": "artifacts/b2-semantic-transfer-001/sources/manipulation-v1.5.1.py",
+      "sha256": "fde14741acc23e363216defd87fd2406e616a66549c0e6f936f090e52ea7aa73",
+      "bytes": 23945
+    }
+  ],
+  "old": {
+    "line": 367,
+    "expression": "obs_cache[f'{pf}eef_pos'] - obs_cache['cube_pos']"
+  },
+  "new": {
+    "line": 231,
+    "expression": "obs_cache[obj_key] - obs_cache[f'{prefix}eef_pos']"
+  },
+  "scope": "Lift object[7:10] reverses from eef-minus-cube to cube-minus-eef; both vectors remain length 10. Every retained B1 qualification frame satisfies the latter relationship.",
+  "hypothesis": "Reverse only these three values for the exact public legacy checkpoint. Do not transform the current-version training dataset or the normalized A1 checkpoint.",
+  "primary_links": [
+    "https://github.com/ARISE-Initiative/robosuite/blob/v1.4.1/robosuite/environments/manipulation/lift.py",
+    "https://github.com/ARISE-Initiative/robosuite/blob/v1.5.1/robosuite/environments/manipulation/manipulation_env.py"
+  ]
+}

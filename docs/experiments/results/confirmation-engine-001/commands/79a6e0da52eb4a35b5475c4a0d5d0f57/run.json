@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "79a6e0da52eb4a35b5475c4a0d5d0f57",
+  "label": "confirmation-engine-20260919-inspect-shapes",
+  "command": [
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfor name in ('development-ablation-001','bounded-agent-comparison-001'):\n p=Path('docs/experiments/results')/name\n suite=json.loads((p/'frozen-suite.json').read_text()); score=json.loads((p/'comparison-score.json').read_text())\n print(name,'suite',suite['id'],'case author',suite['cases'][0]['author_record'],'score cases type',type(score['cases']).__name__,'case value',str(score['cases'])[:1400])\n for arm in ('A','B'):\n  records=[json.loads(x.read_text()) for x in sorted(p.glob(f'*/{arm}/confirmation/confirmation-result.json'))]\n  keys=['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']\n  print(arm,len(records), {k:sum(r[k] for r in records) for k in keys}, 'runs',sum(r['costs']['physical_rollouts'] for r in records),'nestedwall',sum(r['costs']['known_run_wall_s'] for r in records))\n print('score costs',score['arms']['A']['costs'])\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution')\nb=json.loads((p/'bundle.json').read_text());run=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',str(b['confirmation'])[:1200]);print('run no trace',json.dumps({k:v for k,v in run.items() if k!='trace'})[:7800]);print('trace row',str(run['trace'][0])[:2400])\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:04:54.766489+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "14e7805643dfe32252f2b46926512807d56c0035",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 50754,
+  "returncode": 1,
+  "ended_at": "2026-09-19T19:04:54.854152+00:00",
+  "wall_seconds": 0.027238,
+  "logs": {
+    "stdout.log": {
+      "bytes": 3048,
+      "sha256": "20ea56d5cc4ca345eb5a7b49da5892aa3fdf63e49e3b0a19a0805372b3539476"
+    },
+    "stderr.log": {
+      "bytes": 100,
+      "sha256": "96268255fe76173916958c73203808a8cf1f6cf69701cb928663446627593f9a"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

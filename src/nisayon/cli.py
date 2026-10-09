@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from pathlib import Path
 
 from . import records, runs, workspace
 
@@ -47,13 +48,33 @@ def parser() -> argparse.ArgumentParser:
     listing = sub.add_parser("runs")
     listing.add_argument("id", nargs="?")
     listing.add_argument("--limit", type=int, default=10)
+    external = sub.add_parser(
+        "external-decision", help="run or inspect a bounded external processor decision"
+    ).add_subparsers(dest="external_command", required=True)
+    external_run = external.add_parser("run")
+    external_run.add_argument("--case", type=Path, required=True)
+    external_run.add_argument("--sources", type=Path, required=True)
+    external_run.add_argument("--out", type=Path, required=True)
+    external_run.add_argument("--resume", action="store_true")
+    external_run.add_argument("--interrupt-at")
+    external_inspect = external.add_parser("inspect")
+    external_inspect.add_argument("store", type=Path)
+    external_inspect.add_argument("--out", type=Path)
+    transfer = sub.add_parser(
+        "verify-lift-transfer",
+        help="recompute sealed B2 evidence without policy or simulator execution",
+    )
+    transfer.add_argument("--packet", type=Path, required=True)
+    transfer.add_argument("--protocol", type=Path, required=True)
+    transfer.add_argument("--out", type=Path)
     return app
 
 
 def main() -> None:
     args = parser().parse_args()
     try:
-        root = workspace.project_root()
+        # A portable evidence packet can be inspected outside a Git workspace.
+        root = None if args.command == "verify-lift-transfer" else workspace.project_root()
         exit_code = 0
         match args.command:
             case "start":
@@ -113,6 +134,73 @@ def main() -> None:
                 result = (
                     runs.run_inspect(root, args.id) if args.id else runs.run_list(root, args.limit)
                 )
+            case "external-decision":
+                from .engine.declarations import _write_once
+                from .engine.processor_case import PlannedInterruption, inspect_store, run_case
+
+                if args.external_command == "inspect":
+                    result = inspect_store(args.store)
+                    if args.out is not None:
+                        if args.out.resolve().is_relative_to(args.store.resolve()):
+                            raise ValueError("Retain derived inspection outside the raw store")
+                        _write_once(args.out, result)
+                    exit_code = 1 if result["integrity"] == "invalid" else 0
+                else:
+                    try:
+                        inspection = run_case(
+                            args.case,
+                            args.sources,
+                            args.out,
+                            resume=args.resume,
+                            interrupt_at=args.interrupt_at,
+                        )
+                    except PlannedInterruption as error:
+                        inspection = inspect_store(args.out)
+                        result = {
+                            "process_status": "interrupted",
+                            "assignment": str(error),
+                            "inspection": inspection,
+                            "scientific_acceptance": "not_granted",
+                        }
+                        exit_code = 3
+                    else:
+                        result = {
+                            "process_status": "completed",
+                            "integrity": inspection["integrity"],
+                            "completed_assignments": inspection["completed_assignments"],
+                            "decisions": (
+                                inspection["summary"]["decisions"]
+                                if inspection["summary"]
+                                else None
+                            ),
+                            "limits": (
+                                inspection["summary"]["limits"] if inspection["summary"] else None
+                            ),
+                            "scientific_acceptance": "not_granted",
+                        }
+                        exit_code = 0 if inspection["integrity"] == "verified_complete_store" else 1
+            case "verify-lift-transfer":
+                try:
+                    from .engine.transfer_evidence import inspect_transfer
+                except ModuleNotFoundError as error:
+                    if error.name == "numpy":
+                        raise RuntimeError(
+                            "Lift evidence inspection needs the locked records extra"
+                        ) from error
+                    raise
+                from .engine.io import write_json
+
+                if args.out is not None and (
+                    args.out.resolve().is_relative_to(args.packet.resolve())
+                    or args.out.resolve() == args.protocol.resolve()
+                ):
+                    raise ValueError(
+                        "Retain derived inspection outside the raw packet and protocol"
+                    )
+                result = inspect_transfer(args.packet, args.protocol)
+                if args.out is not None:
+                    write_json(args.out, result)
+                exit_code = 0 if result["integrity"] == "verified" else 1
             case _:
                 raise ValueError("Unknown command")
         print(json.dumps(result, ensure_ascii=False, indent=2))

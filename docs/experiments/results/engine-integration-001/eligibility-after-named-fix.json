@@ -1,0 +1,4490 @@
+{
+  "schema": "nisayon.integration-eligibility-readback.v1",
+  "scope": "Labelled synthetic development controls from the evaluation owner's fixtures, consumed through the public CLI. No physics or model calls; not effectiveness evidence. Reference correctness, study validity and product eligibility are inspected separately; every assigned case must remain visible.",
+  "controls": [
+    {
+      "name": "prospective_fair",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/prospective_fair/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/prospective_fair",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/prospective_fair/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "5e0d57293ada43d885c030785721539b905259c6d73c79432693fe740770728c",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 6,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "all_abstain",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/all_abstain/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/all_abstain",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/all_abstain/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "9a88207fcfb2d2baa6c1a3c525061f379c41ddc08b921fd71e5fafd81c3db828",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 0,
+          "confirmed_correct": 0,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 0,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 3,
+            "refuse": 0,
+            "unresolved": 0,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 2,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 0,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 0,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 0,
+          "rates": {
+            "D_over_N": 0.0,
+            "C_over_N": 0.0,
+            "F_over_N": 0.0,
+            "F_over_D": null,
+            "U_over_D": null,
+            "K_over_D": null,
+            "reference_coverage_of_claims": null,
+            "F_over_C_supplementary": null,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "correct_refusals_over_non_acceptances": 0.25,
+            "missed_over_non_acceptances": 0.5
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": null,
+                "unit": "s",
+                "missing": "no confirmed correct claim"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "no confirmed correct claim"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "no confirmed correct claim"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": null,
+                "unit": "s",
+                "missing": "no declared acceptance"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "no declared acceptance"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "no declared acceptance"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 3,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D01-gripper-sign': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D07-sign-and-backlog': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D10-opaque-policy-state': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D10-opaque-policy-state"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "refusal_missed_correct_opportunity",
+          "detail": "arm 'A' did not accept on 'D01-gripper-sign'; paired arm B had a candidate accepted under the same frozen obligation; the refusal left an adjudicated correction on the table",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "refusal_missed_correct_opportunity",
+          "detail": "arm 'A' did not accept on 'D07-sign-and-backlog'; paired arm B had a candidate accepted under the same frozen obligation; the refusal left an adjudicated correction on the table",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "method_never_accepts",
+          "detail": "arm 'A' declared no acceptance on 4 assigned cases; zero contradicted claims is not evidence of quality (C/N = 0, D/N = 0)",
+          "arm": "A"
+        }
+      ]
+    },
+    {
+      "name": "missing_assigned_case",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/missing_assigned_case/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/missing_assigned_case",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/missing_assigned_case/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "52a0a3da6b0838e1cb3fd6e5a01f7b7588b66ba6ee0b05366638d87cb2caaa54",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 0,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 1,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 0
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 2,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 193.2,
+                "known_trials": 3,
+                "missing_trials": 0,
+                "unreported_trials": 1
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 3,
+                "unreported_trials": 1
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 3,
+                "unreported_trials": 1
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 96.6,
+                "unit": "s",
+                "note": "known part only; some trials did not report this component"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 96.6,
+                "unit": "s",
+                "note": "known part only; some trials did not report this component"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 193.2,
+            "diagnostic_elapsed_wall_s": 2400.0,
+            "full_elapsed_wall_s": 2400.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 138
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 5,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_missing",
+          "detail": "arm 'B' has no trial for case 'D10-opaque-policy-state'; counted as not attempted with unknown cost",
+          "arm": "B",
+          "case_id": "D10-opaque-policy-state"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "terminal_binding_broken",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/terminal_binding_broken/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/terminal_binding_broken",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/terminal_binding_broken/report.json"
+      ],
+      "returncode": 1,
+      "report_sha256": "6e14a7f4f0391120e30d3a5ce9385aa4178a69fcbe4c23f6c1af51eae8d619c2",
+      "fair": false,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": false,
+          "blocking_findings": [
+            "terminal_binding_unverifiable"
+          ],
+          "statement": "blocking findings present: arm totals are descriptive only and are not a usable study result; per-trial product eligibility is stated separately and never rewrites a verified reference outcome"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": false,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 3,
+          "usable_as_study_result": false,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 2,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 5,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "terminal_binding_unverifiable",
+          "detail": "arm 'B', case 'D01-gripper-sign': terminal_evidence[0] 'decisions/B-D01-gripper-sign.json': digest mismatch; terminal_evidence does not include the trial's terminal decision",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "reference_missing",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_missing/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_missing",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_missing/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "ea6c58ccebd93c87e317768848b1c119644e113c0dc48deda317ecd9fdb9b82e",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 1,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 1,
+          "claim_categories": {
+            "supported": 1,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 1,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 1,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 1,
+          "v1_false_acceptances": 1,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 2,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.25,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.5,
+            "reference_coverage_of_claims": 0.5,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.25,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.006309,
+              0.80588
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 145.6,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 145.6,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 72.8,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 145.6,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 104
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 5,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "false_acceptance",
+          "detail": "arm 'A' claimed acceptance on 'D01-gripper-sign'; the shared decision says None",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "execution_incomplete",
+          "detail": "the ledger declares its execution incomplete; assigned trials that are absent count as not attempted with unknown cost, and no arm total is final"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D01-gripper-sign': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "reference_missing",
+          "detail": "arm 'A' claimed acceptance on 'D01-gripper-sign' and no terminal decision is named; the claim is unknown, not false",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        }
+      ]
+    },
+    {
+      "name": "reference_corrupt",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_corrupt/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_corrupt",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/reference_corrupt/report.json"
+      ],
+      "returncode": 1,
+      "report_sha256": "7adb12dad574dd9459db78da9bcb3d5dcc7a0a956084dd2c7da17ba1c0716c15",
+      "fair": false,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": false,
+          "blocking_findings": [
+            "decision_unverifiable",
+            "terminal_binding_unverifiable"
+          ],
+          "statement": "blocking findings present: arm totals are descriptive only and are not a usable study result; per-trial product eligibility is stated separately and never rewrites a verified reference outcome"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 1,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 1,
+          "claim_categories": {
+            "supported": 1,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 1,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 1,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 3,
+          "usable_as_study_result": false,
+          "v1_confirmed": 1,
+          "v1_false_acceptances": 1,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 2,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.25,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.5,
+            "reference_coverage_of_claims": 0.5,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.25,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.006309,
+              0.80588
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 219.8,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": false,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 5,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "decision_unverifiable",
+          "detail": "arm 'A' names a decision record for 'D01-gripper-sign' that cannot be verified: record digest mismatch",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "confirmation_unsupported",
+          "detail": "arm 'A' reports 'D01-gripper-sign' confirmed; record digest mismatch; counted as a false acceptance",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "false_acceptance",
+          "detail": "arm 'A' claimed acceptance on 'D01-gripper-sign'; the shared decision says None",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "terminal_binding_unverifiable",
+          "detail": "arm 'A', case 'D01-gripper-sign': terminal_evidence[0] 'decisions/A-D01-gripper-sign.json': digest mismatch",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "unsupported_acceptance_invalid",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/unsupported_acceptance_invalid/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/unsupported_acceptance_invalid",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/unsupported_acceptance_invalid/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "ec797943b83c70217b30f9041ca14f45e9660250b7366b5fe4a7f3effdc1b0be",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 3,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 1,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 1,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 0,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 1,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 4,
+          "rates": {
+            "D_over_N": 0.75,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.333333,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 0.666667,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.25,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.0,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 73.266666667,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 7,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "false_acceptance",
+          "detail": "arm 'A' claimed acceptance on 'D08-old-future-replay'; the shared decision says 'invalid'",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "partial_costs",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/partial_costs/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/partial_costs",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/partial_costs/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "7bf2fb1fd02a8a77d3f13814c32d371703af0f0ebc21d7dbbffcd1908ae72c74",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 21.0,
+                "known_trials": 2,
+                "missing_trials": 1,
+                "unreported_trials": 1
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              },
+              "simulator_wall": {
+                "value": 10.5,
+                "unit": "s",
+                "note": "known part only; some trials did not report this component"
+              }
+            },
+            "per_declared_acceptance": {
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              },
+              "simulator_wall": {
+                "value": 10.5,
+                "unit": "s",
+                "note": "known part only; some trials did not report this component"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 21.0,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 157
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 6,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        }
+      ]
+    },
+    {
+      "name": "over_budget_supported",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python3",
+        "-m",
+        "nisayon.evaluation",
+        "prospective",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/over_budget_supported/ledger.json",
+        "--root",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/over_budget_supported",
+        "--out",
+        "artifacts/engine-integration-001/eligibility-after-named-fix/over_budget_supported/report.json"
+      ],
+      "returncode": 0,
+      "report_sha256": "12459df87f868e5574988715cce67efc5bc0d4d4db1754273e9cf3c854d44a75",
+      "fair": true,
+      "report_eligibility": {
+        "eligibility": {
+          "usable_as_study_result": true,
+          "blocking_findings": [],
+          "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+        }
+      },
+      "arms": {
+        "A": {
+          "kind": "scripted",
+          "validity_layer": false,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 0,
+            "unresolved": 1,
+            "invalid_experiment": 1,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 1,
+          "product_blocked_acceptances": 1,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 1,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 219.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 109.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 219.8,
+            "diagnostic_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_s": 3300.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 247
+          }
+        },
+        "B": {
+          "kind": "scripted",
+          "validity_layer": true,
+          "selection": "fixed",
+          "assigned_cases": 4,
+          "declared_acceptances": 2,
+          "confirmed_correct": 2,
+          "contradicted": 0,
+          "unsupported": 0,
+          "unknown": 0,
+          "claim_categories": {
+            "supported": 2,
+            "contradicted": 0,
+            "unsupported_insufficient_evidence": 0,
+            "unsupported_invalid_experiment": 0,
+            "unknown_reference_missing": 0,
+            "unknown_reference_unverifiable": 0,
+            "unknown_reference_unbound": 0,
+            "unknown_reference_candidate_mismatch": 0
+          },
+          "contradiction_codes": {},
+          "non_acceptance_states": {
+            "abstain": 0,
+            "refuse": 1,
+            "unresolved": 1,
+            "invalid_experiment": 0,
+            "unsupported_capability": 0,
+            "timeout": 0,
+            "not_attempted": 0,
+            "no_declaration": 0,
+            "declaration_unusable": 0
+          },
+          "refusals": {
+            "correct_refusal": 1,
+            "missed_correct_opportunity": 0,
+            "refusal_unadjudicated": 1
+          },
+          "product_accepted": 2,
+          "product_blocked_acceptances": 0,
+          "study_eligible_trials": 4,
+          "usable_as_study_result": true,
+          "v1_confirmed": 2,
+          "v1_false_acceptances": 0,
+          "declaration_origins": [
+            "receipt"
+          ],
+          "prospective_trials": 3,
+          "rates": {
+            "D_over_N": 0.5,
+            "C_over_N": 0.5,
+            "F_over_N": 0.0,
+            "F_over_D": 0.0,
+            "U_over_D": 0.0,
+            "K_over_D": 0.0,
+            "reference_coverage_of_claims": 1.0,
+            "F_over_C_supplementary": 0.0,
+            "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+            "F_over_N_exact_95": [
+              0.0,
+              0.602365
+            ],
+            "C_over_N_exact_95": [
+              0.067586,
+              0.932414
+            ],
+            "correct_refusals_over_non_acceptances": 0.5,
+            "missed_over_non_acceptances": 0.0
+          },
+          "costs": {
+            "components": {
+              "simulator_wall": {
+                "unit": "s",
+                "known_total": 205.8,
+                "known_trials": 4,
+                "missing_trials": 0,
+                "unreported_trials": 0
+              },
+              "agent_tokens": {
+                "unit": "tokens",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              },
+              "engineer_time": {
+                "unit": "s",
+                "known_total": 0.0,
+                "known_trials": 0,
+                "missing_trials": 4,
+                "unreported_trials": 0
+              }
+            },
+            "categories": [
+              {
+                "category": "preparation_and_import",
+                "status": "not_reported",
+                "components": [],
+                "note": "shared preparation ledger"
+              },
+              {
+                "category": "diagnosis",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "proposal_validation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "simulation_including_prefixes",
+                "status": "reported",
+                "components": [
+                  "simulator_wall"
+                ],
+                "note": "nested in phase walls; never added to them"
+              },
+              {
+                "category": "confirmation",
+                "status": "not_reported",
+                "components": [],
+                "note": "phase wall"
+              },
+              {
+                "category": "retries_and_failures",
+                "status": "not_reported",
+                "components": [],
+                "note": "retries also counted"
+              },
+              {
+                "category": "model_calls_and_tokens",
+                "status": "declared_unknown",
+                "components": [
+                  "agent_tokens"
+                ],
+                "note": "tokens; charges separate"
+              },
+              {
+                "category": "adjudication",
+                "status": "not_reported",
+                "components": [],
+                "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+              },
+              {
+                "category": "human_effort",
+                "status": "declared_unknown",
+                "components": [
+                  "engineer_time"
+                ],
+                "note": "unknown unless tracked"
+              },
+              {
+                "category": "provider_and_compute_charges",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless billed"
+              },
+              {
+                "category": "energy",
+                "status": "not_reported",
+                "components": [],
+                "note": "unknown unless metered"
+              }
+            ],
+            "per_correct_claim": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "per_declared_acceptance": {
+              "simulator_wall": {
+                "value": 102.9,
+                "unit": "s"
+              },
+              "agent_tokens": {
+                "value": null,
+                "unit": "tokens",
+                "missing": "not measured in any trial"
+              },
+              "engineer_time": {
+                "value": null,
+                "unit": "s",
+                "missing": "not measured in any trial"
+              }
+            },
+            "cumulative_resource_time_s": null,
+            "cumulative_resource_time_scope": null,
+            "cumulative_simulator_wall_s": 205.8,
+            "diagnostic_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_s": 3000.0,
+            "full_elapsed_wall_scope": "diagnostic_only",
+            "retries": 0,
+            "rollouts": 147
+          }
+        }
+      },
+      "declarations": {
+        "origins": [
+          "receipt"
+        ],
+        "prospective_trials": 6,
+        "trials": 8,
+        "reading": "mixed"
+      },
+      "findings": [
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D01-gripper-sign' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D01-gripper-sign"
+        },
+        {
+          "code": "budget_exceeded",
+          "detail": "arm 'A' exceeded the budget on 'D07-sign-and-backlog'; counted as timeout",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'A' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "trial_names_no_execution_record",
+          "detail": "arm 'B' confirms 'D07-sign-and-backlog' without naming a confirmation or diagnosis record; the decision cannot be bound to an execution",
+          "arm": "B",
+          "case_id": "D07-sign-and-backlog"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'A', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "A",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "declaration_order_unverified",
+          "detail": "arm 'B', case 'D08-old-future-replay': the declaration is not bound by a terminal-start/terminal-result chain; its order against the reference rests on timestamps only",
+          "arm": "B",
+          "case_id": "D08-old-future-replay"
+        },
+        {
+          "code": "claim_over_budget",
+          "detail": "arm 'A' claimed acceptance on 'D07-sign-and-backlog' after exceeding its diagnostic budget; the claim is classified 'supported' and is not a product acceptance",
+          "arm": "A",
+          "case_id": "D07-sign-and-backlog"
+        }
+      ]
+    }
+  ]
+}

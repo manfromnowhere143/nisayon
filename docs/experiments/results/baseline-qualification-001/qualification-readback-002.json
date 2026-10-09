@@ -1,0 +1,125 @@
+{
+  "schema": "nisayon.baseline-qualification-integrated-readback.v1",
+  "recorded_at": "2026-09-20T16:36:43Z",
+  "extends": "qualification-readback-001.json",
+  "evaluation_readback": "../../../evaluation/results/baseline-qualification-001/qualification-readback-001.json",
+  "starting_commit": "34bda84fb79dd6b99eadb4f81306a9418ab237d8",
+  "integrated_delivery": "2c520b305e74cdfa3afca660c6b7d347b9aef209",
+  "before": {
+    "path": "scripts/experiments/processor_observations.py",
+    "sha256_at_start": "d5d7008e065b53830a2731d9603bb33e2ebd6642992195de78cf7d30db1f0ec8",
+    "decisive_product_imports": true,
+    "candidate_outcomes_were_constants": true,
+    "disposition": "preserved_uninformative_by_construction"
+  },
+  "qualified_baseline": {
+    "identity": "conventional-content-derived-v1",
+    "path": "scripts/experiments/conventional_processor_diagnostic.py",
+    "corrected_implementation_commit": "f69727ac51531811e47f8b530b87c19c70055f26",
+    "sha256": "53dc34d022ab298f2dcb30624884e1e66af76ea869e0878aedb14c0ebdefd634",
+    "nisayon_imports": [],
+    "own_computation": [
+      "safetensors parsing and statistics grouping",
+      "processor configuration and pinned-source inspection",
+      "float32 MEAN_STD arithmetic",
+      "candidate obligation and verdict computation",
+      "qualification-control execution and sealing"
+    ],
+    "shared_inputs": [
+      "retained upstream source, configuration and statistics bytes",
+      "public numeric witnesses and remedies",
+      "generic Git, JSON and SHA-256 facilities"
+    ],
+    "independence_limit": "Implementation separation only. The execution and evaluation lanes knew the exposed inputs and remedies; this is not independent authorship, blinded diagnosis or external replication."
+  },
+  "corrected_sealed_run": {
+    "command_id": "3546a80f017c47c3b698682d340bae60",
+    "outer_wall_seconds": 0.136919,
+    "process_cpu_seconds_before_write": 0.017008,
+    "result": {
+      "path": "artifacts/baseline-qualification-001/run-003/result.json",
+      "bytes": 46144,
+      "sha256": "171455c1642ff01ac104bf6626e058f847408c92eba778ea3a303325656032cd"
+    },
+    "observation": {
+      "path": "artifacts/baseline-qualification-001/run-003/observation.json",
+      "bytes": 18011,
+      "sha256": "783a202b67bd23413668845f6c51e9fd44c937c20ae58a29a2c9a12dfa5ae578"
+    },
+    "seal": {
+      "path": "artifacts/baseline-qualification-001/run-003/seal.json",
+      "bytes": 653,
+      "sha256": "43504ca705dc92b3690dc93f2f2840e88723692ad1e120d7c4087ec6ab0bf76c"
+    },
+    "inspection_command_id": "137102e1b4634405ab52c6215b49485b",
+    "computed_candidates": {
+      "C0_as_is": "rejected_candidate",
+      "C1_suffix_match": "rejected_candidate",
+      "C2_explicit_override": "supported_software_correction"
+    },
+    "deployment_applicability": "unresolved",
+    "robot_task_outcome": "unmeasured"
+  },
+  "frozen_content_controls": {
+    "opaque_identifiers_and_order_follow_contents": true,
+    "removed_C2_state_std_changes_supported_to_rejected": true,
+    "complete_valid_content_under_C0_name_changes_rejected_to_supported": true,
+    "useful_positive_present": true,
+    "legitimate_identity_preserved": true,
+    "ambiguous_and_incomplete_paths_refused": true
+  },
+  "evaluation_E6": {
+    "frozen_plan_sha256": "e7536ec1bfd8a3772b14fd3f39b14d1351e41d889e728fd981671fa605a290d2",
+    "mutation": "Only selector/provenance declaration labels changed; no observation, statistic, output or artifact byte changed.",
+    "initial_failure": {
+      "producer_command_id": "9ddd09d81c5341ba89ea4332a053633b",
+      "reference_command_id": "431a1a94d6ad4742804c8c0d34b9e74b",
+      "producer_binding": "supported",
+      "reference_binding": "unresolved",
+      "false_binding_acceptance": true,
+      "cause": "The producer treated caller-supplied verified-deployment and verified-statistics labels as evidence."
+    },
+    "correction": {
+      "commit": "f69727ac51531811e47f8b530b87c19c70055f26",
+      "rule": "Provenance and selector annotations are declarations. This contract cannot establish interpretation or target-deployment selection, so supported software candidates remain deployment-unresolved."
+    },
+    "corrected_run": {
+      "producer_command_id": "c5ad6dee5f0c441c8cce6131fa471fa3",
+      "producer_wall_seconds": 0.109183,
+      "producer_process_cpu_seconds_before_write": 0.016843,
+      "result_sha256": "830fbf8ed66283880b9090f2501783a2ed8ab23a21417c805ab87867e5819b66",
+      "observation_sha256": "2e3a3342cbdbfc2edfe7ea0cd8f6e14ecac995f518acca3196474d80e0711398",
+      "seal_sha256": "9bd6aa8e897e1e7cc41103a6f437704514cd8e6b5ef0b394cd3a8ba5b52c8cce",
+      "reference_command_id": "04a9e4c7dc2f40698d4f512d983e10cf",
+      "reference_wall_seconds": 0.090865,
+      "producer_agrees_all": true,
+      "false_binding_acceptance": false,
+      "binding": "unresolved",
+      "declared_but_unestablished": [
+        "observation.state verified_training_statistics",
+        "action verified_training_statistics"
+      ]
+    },
+    "holds_after_correction": true
+  },
+  "deployment_binding": {
+    "status": "unresolved_after_two_link_cap",
+    "record": "deployment-binding-001.json",
+    "reason": "The current public dataset revision postdates the retained model revision, all 24 compared mean/std elements differ from C2, and retained evidence contains neither provenance-bearing original state statistics nor a recorded target-deployment selector.",
+    "evidence_request": "Obtain under custody the original training invocation or train_config.json, selected dataset and exact revision, state feature order and units, normalization mode, statistics bytes and origin, and the target-deployment configuration or invocation linking that selection to those statistics."
+  },
+  "decision": {
+    "baseline_software_decision": "qualified_for_future_comparison",
+    "baseline_binding_conclusion": "qualified_to_return_unresolved",
+    "old_comparison": "preserved_uninformative_by_construction",
+    "comparative_advantage": "not_established",
+    "deployment_applicability": "unresolved",
+    "robot_task_outcome": "unmeasured"
+  },
+  "failures_preserved": [
+    "run-001 separate assessment rejected an unsupported visual provenance declaration",
+    "E6 initially exposed false deployment-binding acceptance",
+    "the first evaluation combined check failed because two execution tests depended on a gitignored checkout-local fixture"
+  ],
+  "boundaries": "No physics, learned inference or training, weights or ranges, paid or cloud compute, hardware, reserved access, outreach, publication or push occurred."
+}

@@ -1,0 +1,129 @@
+{
+  "schema": "nisayon.external-decision.premises-readback.v1",
+  "recorded_at": "2026-09-20T13:22:58+00:00",
+  "qualification": "qualification.json",
+  "execution_commit_read": "3f6ef5d3f30121a61cf5fae0964de9bd86b7348f",
+  "bytes_read_from": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new (read-only; digests verified against the execution lane's manifest and the Hub tree listing)",
+  "inputs": {
+    "preprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor.json",
+      "bytes": 1872,
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "declared_sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "digest_matches": true,
+      "declared_bytes": 1872,
+      "bytes_match": true
+    },
+    "preprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "postprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor.json",
+      "bytes": 660,
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "declared_sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "digest_matches": true,
+      "declared_bytes": 660,
+      "bytes_match": true
+    },
+    "postprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "processor_source": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/coordinator/sources/normalize_processor.py",
+      "bytes": 25161,
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "declared_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "digest_matches": true,
+      "declared_bytes": 25161,
+      "bytes_match": true,
+      "pinned_sha256_matches": true
+    }
+  },
+  "premises": {
+    "P1": {
+      "status": "verified",
+      "detail": "policy_preprocessor.json: normalizer_processor at step 5; features observation.state STATE [6], observation.image / observation.image2 / observation.image3 VISUAL [3,256,256], action ACTION [6]; norm_map VISUAL=IDENTITY, STATE=MEAN_STD, ACTION=MEAN_STD; eps 1e-08; no normalize_observation_keys; device step declares cuda"
+    },
+    "P2": {
+      "status": "verified",
+      "detail": "policy_postprocessor.json: unnormalizer_processor at step 0 with feature action ACTION [6] and the same norm_map; a device step declares cpu"
+    },
+    "P3": {
+      "status": "verified",
+      "detail": "the 640-byte state file (both pipelines, sha256 490ab239…) holds six F32 tensors of shape [6]: so100-blue.buffer.action.{mean,std}, so100-red.buffer.action.{mean,std}, so100.buffer.action.{mean,std}, in that header order; no observation.state key"
+    },
+    "P4": {
+      "status": "verified",
+      "detail": "config.json (2,299 B, sha256 650584b5…) declares normalization_mapping VISUAL=IDENTITY, STATE=MEAN_STD, ACTION=MEAN_STD, input_features observation.state and observation.images.camera1..3, output_features action"
+    }
+  },
+  "additional_facts": [
+    "The preprocessor's declared visual feature names (observation.image, observation.image2, observation.image3) differ from the policy config's input feature names (observation.images.camera1..3); the rename step's map is empty. Under IDENTITY this has no numeric effect on normalization and is outside the frozen decision; it is retained as a resolved-configuration fact.",
+    "The artifact's so100.buffer.action mean [1.5959, 119.9442, 109.7698, 56.7055, -27.4227, 12.0028] and std [26.3918, 52.4114, 49.8538, 36.9983, 59.36, 19.04] agree to two decimals with the reporter's transcription of the pre-migration unnormalize_outputs.so100_buffer_action values for the three elements the reporter listed. This is consistent with a faithful copy of the action statistics; it does not establish the state statistics.",
+    "The dataset count is three, not the open-ended list in the issue body: so100, so100-blue, so100-red."
+  ],
+  "statistics_float32": {
+    "so100-blue.buffer.action.mean": [
+      1.4211928844451904,
+      125.72054290771484,
+      125.41930389404297,
+      63.783164978027344,
+      -106.54012298583984,
+      3.3484723567962646
+    ],
+    "so100-blue.buffer.action.std": [
+      14.081991195678711,
+      39.43141555786133,
+      18.23808479309082,
+      23.48975372314453,
+      38.111175537109375,
+      5.0482869148254395
+    ],
+    "so100-red.buffer.action.mean": [
+      2.4387083053588867,
+      124.93787384033203,
+      123.55780029296875,
+      66.99261474609375,
+      -103.8768310546875,
+      2.8912413120269775
+    ],
+    "so100-red.buffer.action.std": [
+      14.299178123474121,
+      42.77220916748047,
+      18.876314163208008,
+      21.651918411254883,
+      33.53406524658203,
+      4.47797155380249
+    ],
+    "so100.buffer.action.mean": [
+      1.5959141254425049,
+      119.9442367553711,
+      109.769775390625,
+      56.70551300048828,
+      -27.422693252563477,
+      12.002785682678223
+    ],
+    "so100.buffer.action.std": [
+      26.39177894592285,
+      52.41140365600586,
+      49.85380554199219,
+      36.9983024597168,
+      59.35995101928711,
+      19.039955139160156
+    ]
+  },
+  "hypothesis_table_status": "unchanged: C0 and C1 are rejected statically from the bytes; C2 awaits executions; C3 remains out of scope"
+}

@@ -1,0 +1,182 @@
+{
+  "schema": "nisayon.a1-training-execution-delivery.v1",
+  "case": "a1-feasibility-001",
+  "evaluation_case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T11:45:25Z",
+  "status": "executed and sealed; independent assessment pending",
+  "decision": "producer evidence supports feasibility within the authorized 100-update local CPU pilot budget; Opus must independently assess the sealed packet before this becomes the integrated decision",
+  "source": {
+    "tested_training_commit": "6b344f33db859bc4f4954c3d5610b80b6e6bc975",
+    "sealer_commit": "99f695bbf8126def3972cfda774e20f1c0601c60",
+    "contract_sha256": "12283fa15dd038c5f3c1a8e7722bd8a70eaafd76aa958751cfc64007e7326de8",
+    "effective_config_sha256": "1066b93774e4b4284b14fc7a7a130da595be2582a174530a5136b7049858f03d",
+    "driver_sha256": "d72f0d289935ad913af6b52a1dfb52241eef1c1285b2411cfec03cdb6227d7da",
+    "monitor_sha256": "dd7e8d00b9a3d9f44f06d17e87a279a74a351cadcfa17b3cab0837abd1dc7d83",
+    "sealer_sha256": "39dfdf20e2eb91d846a1296d0ad09d06fe9d3386e7eb58a212350e385c1dc4b2",
+    "prospective_evaluator_commit": "cafb7650ef521045239539ae0ea435c0614963e6"
+  },
+  "packet": {
+    "private_store": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/a1-feasibility-001/pilot-v1.2-001",
+    "seal_sha256": "5c0e4deba795a9d6364856bbe3f8cfdb54a6e966c61fd2495eb39aa92becc3f2",
+    "manifest_sha256": "975fc8e8df5e87ad39fa5c47e9104ed5d29a8656868e88dbc71d0c7d918d3ce0",
+    "summary_sha256": "f73ce70e2ab7ebfb7e2efdb8a91645ddc498e46bb69fdb8082942b11bfdd51c3",
+    "invocation_sha256": "f540aa28aa9135a14ee40c3be2a002efbd3cfedf407f648d180a465d181bc555",
+    "manifest_members": 204,
+    "retained_bytes": 10170550,
+    "durable_cap_bytes": 16777216,
+    "within_durable_cap": true,
+    "dataset_copied_into_packet": false,
+    "create_only": true,
+    "seal_command_record_id": "5314559c8774451c993062607df19ef1",
+    "seal_command_record_sha256": "284bf280f8bec6cd2898c2ca49936c73a166d424280007289aed12bd6c11a987",
+    "readback_command_record_id": "bd2cdbc993b844c1991a07eb16dbe7e7",
+    "readback_command_record_sha256": "19fb94c3bfa05fef423e042f1aaa43977619dcd8e98cfeed4d18cfea88c51b14",
+    "readback": "all 204 manifest members, the seal identities, the separately retained dataset digest and the 16 MiB bound passed"
+  },
+  "dataset": {
+    "private_path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/assets/lift/ph/low_dim_v15.hdf5",
+    "bytes": 21084088,
+    "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "permission_scope": "official robomimic_datasets object at revision 74fa018461f479cd9fd15b924a16103012096203 under the retained repository MIT declaration; Stanford-object permission remains unresolved",
+    "simulator_scope": "offline use only; file metadata declares robosuite 1.5.1 while the held runtime is 1.4.1"
+  },
+  "workload": {
+    "dataset_gets_assigned": 1,
+    "dataset_gets_executed": 1,
+    "training_invocations_assigned": 1,
+    "training_invocations_executed": 1,
+    "optimizer_updates_assigned": 100,
+    "optimizer_updates_executed": 100,
+    "sequence_examples_sampled": 10000,
+    "unique_sequence_starts_sampled": 9606,
+    "repeated_sequence_assignments": 394,
+    "rollouts_assigned": 0,
+    "rollouts_executed": 0,
+    "task_trials_assigned": 0,
+    "task_trials_executed": 0,
+    "retries": 0
+  },
+  "numerical_result": {
+    "loss_first": 5.37565803527832,
+    "loss_last": -3.805656671524048,
+    "loss_minimum": -3.805656671524048,
+    "loss_maximum": 5.37565803527832,
+    "all_losses_finite": true,
+    "maximum_finite_gradient_norm": 79420.05738583009,
+    "all_parameters_finite_after_every_update": true,
+    "parameter_l2_difference": 9.62264131208971,
+    "first_batch_single_application_bitwise_all_keys": true,
+    "first_batch_double_application_bitwise_all_keys": false,
+    "warning": "large finite gradient norms are preserved; the pilot does not establish convergence, stability under continuation or policy competence"
+  },
+  "checkpoint": {
+    "bytes": 7961224,
+    "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+    "model_state_sha256": "fe5e83fdf11bbc70a56b0e7bb984e8ebad7b69b4b3269973a33a051f5ec7e223",
+    "kind": "inference checkpoint",
+    "statistics_present": true,
+    "loaded_model_equals_saved": true,
+    "loaded_statistics_bitwise_equal": true,
+    "policy_actions_during_reload": 0,
+    "omitted": [
+      "optimizer state",
+      "random-number-generator state"
+    ],
+    "resumable_training_checkpoint": false
+  },
+  "known_costs": {
+    "dataset_get_outer_wall_seconds": 37.64481,
+    "dataset_get_process_real_seconds": 37.61,
+    "dataset_get_process_user_cpu_seconds": 0.13,
+    "dataset_get_process_system_cpu_seconds": 0.2,
+    "dataset_verification_outer_wall_seconds": 0.123786,
+    "dataset_inventory_outer_wall_seconds": 0.720754,
+    "training_recorder_outer_wall_seconds": 8.4079,
+    "training_internal_wall_seconds": 5.809943665983155,
+    "training_internal_process_cpu_seconds": 11.015303999999999,
+    "training_process_real_seconds": 8.36,
+    "training_process_user_cpu_seconds": 10.97,
+    "training_process_system_cpu_seconds": 2.78,
+    "training_process_maximum_resident_bytes": 503742464,
+    "sampled_peak_process_tree_rss_bytes": 537313280,
+    "sampled_peak_temporary_bytes": 4985,
+    "training_output_bytes_before_seal": 8487663,
+    "sealed_packet_bytes": 10170550,
+    "seal_outer_wall_seconds": 0.450473,
+    "seal_readback_outer_wall_seconds": 0.18255,
+    "cost_per_confirmed_repair": null,
+    "nesting_rule": "acquisition, verification, inventory, training child, process witness, monitor, recorder, seal and readback are separate scopes; nested durations are not added"
+  },
+  "continuation_estimate": {
+    "measured_non_update_remainder_seconds": 0.9799523293040693,
+    "observed_per_update_seconds": {
+      "minimum": 0.04232908389531076,
+      "median": 0.04648716701194644,
+      "maximum": 0.14743391703814268
+    },
+    "examples": {
+      "1000_updates_median_to_observed_max_seconds": [
+        47.46711934125051,
+        148.41386936744675
+      ],
+      "5000_updates_median_to_observed_max_seconds": [
+        233.41578738903627,
+        738.1495375200175
+      ]
+    },
+    "boundary": "illustrative formula only; it does not project CPU, memory, thermal, storage, numerical stability, convergence or competence and does not authorize more training"
+  },
+  "failures_and_unknowns": {
+    "current_amendment_command_records": "all 29 commands from the pre-acquisition samples through the training invocation are retained in the packet; ten have non-zero return codes",
+    "unrecorded_preinspection_failure": "wrong documentation-script path; cost unmeasured; corrected validation retained",
+    "unrecorded_preseal_failure": "first local packet check passed lint but stopped at formatting before pytest; cost unmeasured; corrected recorded control passed",
+    "historical_stopped_pilot": "the complete earlier sealed packet, its four failures and its six unaccounted pre-freeze web calls are retained under zz-history/stopped-pilot",
+    "unknown_costs": [
+      "pre-freeze discovery response bytes and CPU",
+      "network protocol overhead",
+      "energy",
+      "unsampled memory peaks",
+      "active human effort",
+      "charges, if any"
+    ]
+  },
+  "claim_ladder": {
+    "A_permission_and_custody": "producer-supported for the official substitute; independent assessment pending; Stanford permission unresolved",
+    "B_data_and_implementation_compatibility": "producer-supported for the pinned offline path; independent assessment pending",
+    "C_effective_normalized_training": "producer-supported for exactly 100 updates; independent assessment pending",
+    "D_checkpoint_reloadability": "producer-supported without an action or rollout; independent assessment pending",
+    "E_measured_resource_feasibility": "producer-supported for this bounded pilot; independent assessment pending",
+    "F_simulator_compatibility": "unresolved",
+    "G_policy_competence": "unresolved",
+    "H_task_intervention_and_confirmed_repair": "unobserved",
+    "I_comparative_value": "unproven"
+  },
+  "readiness": {
+    "ready_to_execute": true,
+    "executed": true,
+    "independently_assessed": false,
+    "no_more_training_or_rollout_authorized": true
+  },
+  "evaluation_handoff": {
+    "working_directory": "/Users/danielwahnich/workspace/nisayon-fable5",
+    "command": [
+      "uv",
+      "run",
+      "--frozen",
+      "python",
+      "-m",
+      "nisayon.evaluation",
+      "a1-assess",
+      "/Users/danielwahnich/workspace/nisayon-codex/artifacts/a1-feasibility-001/pilot-v1.2-001",
+      "--reference",
+      "docs/evaluation/results/a1-pilot-001/acquired-reference-002.json",
+      "--dataset",
+      "/Users/danielwahnich/workspace/nisayon-codex/artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "--json",
+      "--out",
+      "artifacts/a1-pilot-001/assessment-v1.2-001.json"
+    ],
+    "instruction": "read the packet without editing it, preserve any smallest discrepancy witness, assess Q1-Q7 and return a named committed verdict delivery; do not infer competence, task repair or comparative value"
+  },
+  "engineer_value": "The pilot now supplies a verified, normalized, reloadable experimental checkpoint and measured local cost for designing a future qualification protocol. It is not yet a competent policy or a deployment repair."
+}

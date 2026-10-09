@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/Users/danielwahnich/workspace/nisayon-fable5/docs/evaluation/results/decision-case-001/score_probe_pairs.py", line 134, in <module>
+    main(sys.argv)
+  File "/Users/danielwahnich/workspace/nisayon-fable5/docs/evaluation/results/decision-case-001/score_probe_pairs.py", line 108, in main
+    first = run_summary(Path(a).parent, Path(a).name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/docs/evaluation/results/decision-case-001/score_probe_pairs.py", line 37, in run_summary
+    document = read_document(
+               ^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/src/nisayon/evaluation/first_case.py", line 176, in read_document
+    data = json.loads(raw.decode(), parse_constant=_reject_constant)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/__init__.py", line 359, in loads
+    return cls(**kw).decode(s)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py", line 338, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/json/decoder.py", line 354, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/src/nisayon/evaluation/first_case.py", line 166, in _reject_constant
+    raise Malformed("$", f"non-finite JSON constant {name}")
+nisayon.evaluation.schema.Malformed: $: non-finite JSON constant NaN

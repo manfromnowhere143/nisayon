@@ -1,0 +1,974 @@
+{
+  "schema": "nisayon.normalizer-controls.v1",
+  "contract": "normalizer-execution-001/contract.v1",
+  "reference": {
+    "path": "src/nisayon/evaluation/normalizer_reference.py",
+    "sha256": "70b23a7aa32d45d29efa8f2f6d6aa7f40b563b9fa5d1687ce14274b67ba1881a"
+  },
+  "families": [
+    "NX1",
+    "NX2",
+    "NX3",
+    "NX4",
+    "NX5",
+    "NX6",
+    "NX7",
+    "NX8"
+  ],
+  "runs": 23,
+  "cases_evaluated": 26,
+  "passed": 26,
+  "conventional_agreements": 25,
+  "conventional_v2_agreements": 26,
+  "conventional_v2_disagreements": [],
+  "conventional_disagreements": [
+    "NX5d"
+  ],
+  "results": [
+    {
+      "id": "NX1a",
+      "family": "NX1",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "outcome:kept",
+          "ok": true,
+          "note": "outcome kept"
+        },
+        {
+          "check": "mirror_is_candidate",
+          "ok": true,
+          "note": "mirror holds the candidate while the nested state keeps the existing statistics"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX1b",
+      "family": "NX1",
+      "expected": [
+        "replace",
+        "supported"
+      ],
+      "reference": [
+        "replace",
+        "supported"
+      ],
+      "reference_reason": "the candidate statistics give the contract's effective map on the declared rows (replaced)",
+      "conventional": [
+        "replace",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (replace)",
+      "conventional_expected": [
+        "replace",
+        "supported"
+      ],
+      "conventional_v2": [
+        "replace",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "outcome:replaced",
+          "ok": true,
+          "note": "outcome replaced"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX1c",
+      "family": "NX1",
+      "expected": [
+        "replace",
+        "supported"
+      ],
+      "reference": [
+        "replace",
+        "supported"
+      ],
+      "reference_reason": "the candidate statistics give the contract's effective map on the declared rows (installed)",
+      "conventional": [
+        "replace",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (replace)",
+      "conventional_expected": [
+        "replace",
+        "supported"
+      ],
+      "conventional_v2": [
+        "replace",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "outcome:installed",
+          "ok": true,
+          "note": "outcome installed"
+        },
+        {
+          "check": "install_independent_of_override",
+          "ok": true,
+          "note": "absent embodiment installed with either override value"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX2a",
+      "family": "NX2",
+      "expected": [
+        "replace",
+        "rejected"
+      ],
+      "reference": [
+        "replace",
+        "rejected"
+      ],
+      "reference_reason": "the effective map differs from the contract on the declared rows (replaced)",
+      "conventional": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_reason": "state.x: the active statistics do not reproduce the contract map on the rows",
+      "conventional_expected": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_v2": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "witness_present",
+          "ok": true,
+          "note": "witness {'modality': 'state', 'group': 'x', 'row': 0, 'coordinate': 0, 'a': 0.218774676322937, 'b': 0.23911917209625244}"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "retained"
+    },
+    {
+      "id": "NX2b",
+      "family": "NX2",
+      "expected": [
+        "replace",
+        "supported"
+      ],
+      "reference": [
+        "replace",
+        "supported"
+      ],
+      "reference_reason": "the candidate statistics give the contract's effective map on the declared rows (replaced)",
+      "conventional": [
+        "replace",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (replace)",
+      "conventional_expected": [
+        "replace",
+        "supported"
+      ],
+      "conventional_v2": [
+        "replace",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "parameters_differ",
+          "ok": true,
+          "note": "candidate parameters differ from the contract while the maps agree"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX3a-current",
+      "family": "NX3",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "same_as:NX3a",
+          "ok": true,
+          "note": "1 label variants agree"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX3a-parent",
+      "family": "NX3",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "same_as:NX3a",
+          "ok": true,
+          "note": "2 label variants agree"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX3a-training_reference",
+      "family": "NX3",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "same_as:NX3a",
+          "ok": true,
+          "note": "3 label variants agree"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX3b",
+      "family": "NX3",
+      "expected": [
+        "replace",
+        "rejected"
+      ],
+      "reference": [
+        "replace",
+        "rejected"
+      ],
+      "reference_reason": "the effective map differs from the contract on the declared rows (replaced)",
+      "conventional": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_reason": "state.b: the active statistics do not reproduce the contract map on the rows",
+      "conventional_expected": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_v2": [
+        "replace",
+        "rejected"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "witness_present",
+          "ok": true,
+          "note": "witness {'modality': 'state', 'group': 'b', 'row': 0, 'coordinate': 0, 'a': -0.25037479400634766, 'b': -0.25}"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX4a",
+      "family": "NX4",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "mode:state.a=minmax",
+          "ok": true,
+          "note": "state.a mode minmax"
+        },
+        {
+          "check": "mode:action.u=minmax",
+          "ok": true,
+          "note": "action.u mode minmax"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX4b",
+      "family": "NX4",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "mode:state.a=meanstd",
+          "ok": true,
+          "note": "state.a mode meanstd"
+        },
+        {
+          "check": "mode:action.u=meanstd",
+          "ok": true,
+          "note": "action.u mode meanstd"
+        },
+        {
+          "check": "state_unclipped",
+          "ok": true,
+          "note": "state.a max |out| 4.0"
+        },
+        {
+          "check": "action_clipped",
+          "ok": true,
+          "note": "action.u max |out| 1.0"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX5a",
+      "family": "NX5",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "zero_at:state.b.1",
+          "ok": true,
+          "note": "output [0.0]"
+        },
+        {
+          "check": "inverse_min_at:state.b.1",
+          "ok": true,
+          "note": "inverse [10.0] min 10.0"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX5b",
+      "family": "NX5",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "zero_at:state.b.1",
+          "ok": true,
+          "note": "output [0.0]"
+        },
+        {
+          "check": "inverse_midpoint_at:state.b.1",
+          "ok": true,
+          "note": "inverse [1000.0025] midpoint 1000.0025"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX5c",
+      "family": "NX5",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "passthrough_at:state.a.0",
+          "ok": true,
+          "note": "output [0.75] input [0.75]"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX5d",
+      "family": "NX5",
+      "expected": [
+        "invalid",
+        "invalid"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "reference_reason": "outputs: the source operation yields a non-finite output on these rows",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_note": "a float64 transcription stays finite (about 2.5e39) and cannot see the float32 overflow that the executed operation produces; this is a false acceptance of the conventional workflow on a dtype boundary",
+      "checks": [
+        {
+          "check": "non_finite_reason",
+          "ok": true,
+          "note": "outputs: the source operation yields a non-finite output on these rows"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX6a",
+      "family": "NX6",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "all_clipped_outputs_are_pm1",
+          "ok": true,
+          "note": "every out-of-range coordinate maps to exactly ±1"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX6b",
+      "family": "NX6",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "outputs_beyond_pm1",
+          "ok": true,
+          "note": "max |out| 3.0"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX6c",
+      "family": "NX6",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "json_roundtrip_exact",
+          "ok": true,
+          "note": "statistics and outputs identical after json.dumps/json.loads"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX6d",
+      "family": "NX6",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (unchanged)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "inverse_roundtrip_eligible",
+          "ok": true,
+          "note": "worst error / bound on eligible coordinates 0.0294"
+        },
+        {
+          "check": "inverse_loss_ineligible",
+          "ok": true,
+          "note": "clipped probe returns the bound, max loss 1"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX7a",
+      "family": "NX7",
+      "expected": [
+        "invalid",
+        "invalid"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "reference_reason": "modality.state.c: group has no start/end slice",
+      "conventional": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_reason": "malformed case: 'c'",
+      "conventional_expected": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_v2": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": null
+    },
+    {
+      "id": "NX7b",
+      "family": "NX7",
+      "expected": [
+        "invalid",
+        "invalid"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "reference_reason": "statistics.state.a.std: missing or empty statistic",
+      "conventional": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_reason": "statistics: std missing",
+      "conventional_expected": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_v2": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX7c-width",
+      "family": "NX7",
+      "expected": [
+        "invalid",
+        "invalid"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "reference_reason": "rows.state: row width 2 below slice end 3",
+      "conventional": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_reason": "rows: state.b: width 1 vs 2",
+      "conventional_expected": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_v2": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": null
+    },
+    {
+      "id": "NX7c-nan",
+      "family": "NX7",
+      "expected": [
+        "invalid",
+        "invalid"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "reference_reason": "rows.state.b: non-finite input row",
+      "conventional": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_reason": "rows: state.b: non-finite input",
+      "conventional_expected": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_v2": [
+        "invalid",
+        "invalid"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX7d",
+      "family": "NX7",
+      "expected": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "keep",
+        "supported"
+      ],
+      "reference_reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "conventional_reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+      "conventional_expected": [
+        "keep",
+        "supported"
+      ],
+      "conventional_v2": [
+        "keep",
+        "supported"
+      ],
+      "conventional_note": null,
+      "checks": [
+        {
+          "check": "useful_acceptance",
+          "ok": true,
+          "note": "keep supported on retained rows"
+        }
+      ],
+      "pass": true,
+      "rows_provenance": "retained"
+    },
+    {
+      "id": "NX8a",
+      "family": "NX8",
+      "expected": [
+        "abstain",
+        "unresolved"
+      ],
+      "reference": [
+        "abstain",
+        "unresolved"
+      ],
+      "reference_reason": "call record lacks ['apply_action', 'apply_state']; digests and declarations do not substitute",
+      "conventional": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_reason": "the claimed execution has no call record for the transform; a digest or name is not a run",
+      "conventional_expected": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_v2": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": "constructed"
+    },
+    {
+      "id": "NX8b",
+      "family": "NX8",
+      "expected": [
+        "abstain",
+        "unresolved"
+      ],
+      "reference": [
+        "abstain",
+        "unresolved"
+      ],
+      "reference_reason": "transform calls carry no output identity",
+      "conventional": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_reason": "the claimed execution has no call record for the transform; a digest or name is not a run",
+      "conventional_expected": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_v2": [
+        "abstain",
+        "unresolved"
+      ],
+      "conventional_note": null,
+      "checks": [],
+      "pass": true,
+      "rows_provenance": "constructed"
+    }
+  ]
+}

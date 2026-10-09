@@ -1,0 +1,38 @@
+Decision: UNRESOLVED
+Scope: calibration probes for case 'lift-reset-equivalence-qualification-v1' under first-case-obligation-v0.2; no scored incident
+Case: lift-reset-equivalence-qualification-v1 · evidence origin: simulator
+Evidence: obligation first-case-obligation-v0.2 · timing measured_from_acquisition_stamps · identity not_applicable · artifacts manifest_verified · reproduction missing · deployability declared · progress_predicate producer_frozen
+Premises: reference established=None · regression reproduced=None
+Reasons:
+  - unresolved: calibration_only: calibration probes only: no working or changed revision, no frozen candidate and no confirmation; per-run assessments are retained, nothing is scored
+Runs:
+  run                                 role       rev      cond      process   measure    outcome   progress  constr    timing
+  reference                           probe      probe    seed-0    completed unresolved completed preserved satisfied satisfied
+  cleared-prefix-10-prefix            probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  cleared-prefix-10                   probe      probe    seed-0-prefix-10-21completed unresolved completed preserved satisfied satisfied
+  cleared-prefix-11-prefix            probe      probe    seed-11   completed unresolved failed    lost      satisfied satisfied
+  cleared-prefix-11                   probe      probe    seed-0-prefix-11-21completed unresolved completed preserved satisfied satisfied
+  carried-prefix-10-prefix            probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  carried-prefix-10                   probe      probe    seed-0-prefix-10-21completed valid      failed    lost      satisfied satisfied
+  carried-prefix-11-prefix            probe      probe    seed-11   completed unresolved failed    lost      satisfied satisfied
+  carried-prefix-11                   probe      probe    seed-0-prefix-11-21completed valid      completed preserved satisfied satisfied
+  every-action-prefix-10-prefix       probe      probe    seed-10   completed unresolved failed    lost      satisfied satisfied
+  every-action-prefix-10              probe      probe    seed-0-prefix-10-21completed unresolved completed preserved satisfied satisfied
+  every-action-prefix-11-prefix       probe      probe    seed-11   completed unresolved failed    lost      satisfied satisfied
+  every-action-prefix-11              probe      probe    seed-0-prefix-11-21completed unresolved completed preserved satisfied satisfied
+Notes:
+  - artifact_manifest_verified: artifact-manifest.json: 43 files verified under /Users/danielwahnich/workspace/nisayon-fable5/artifacts/reset-equivalence-qualification-001
+  - qualification_repeat: runs 'cleared-prefix-10-prefix' and 'carried-prefix-10-prefix' repeat deployment 62b0c6cda95a on seed-10 with identical recorded state, observation, recurrent-state and action sequences over 21 steps
+  - qualification_repeat: runs 'cleared-prefix-10-prefix' and 'every-action-prefix-10-prefix' repeat deployment 62b0c6cda95a on seed-10 with identical recorded state, observation, recurrent-state and action sequences over 21 steps
+  - qualification_repeat: runs 'cleared-prefix-11-prefix' and 'carried-prefix-11-prefix' repeat deployment 62b0c6cda95a on seed-11 with identical recorded state, observation, recurrent-state and action sequences over 21 steps
+  - qualification_repeat: runs 'cleared-prefix-11-prefix' and 'every-action-prefix-11-prefix' repeat deployment 62b0c6cda95a on seed-11 with identical recorded state, observation, recurrent-state and action sequences over 21 steps
+Producer: nisayon.first_case.v1 · execution code 0281f145dbc55ee8d689979a828fcbc2eaaa4f33
+Costs (known totals; unknown costs are not zero):
+  reset_rollout_trace_write: 11.376373292 s over 7 runs; missing in 0 runs
+Limits:
+  - The decision covers the finite declared conditions; it is not a stochastic reliability estimate.
+  - Digest matches bind bytes, not physical truth.
+  - Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.
+  - Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.
+  - State declared as not captured: MuJoCo internal solver caches; all observable internal buffers; full controller object; OS scheduling; hardware floating point state; policy LSTM state and counter: Frozen policy interface does not export recurrent-state telemetry.
+  - Intervention runs are valid under the recorded reset and provenance premises only.

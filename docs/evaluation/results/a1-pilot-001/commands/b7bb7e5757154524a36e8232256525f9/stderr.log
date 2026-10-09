@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/a1-pilot-001/controls/statistics_reference_control.py", line 41, in <module>
+    ds = SequenceDataset(hdf5_path=str(path), obs_keys=list(keys), dataset_keys=["actions"], seq_length=10, hdf5_cache_mode="all", hdf5_use_swmr=False, hdf5_normalize_obs=True, filter_by_attribute=None, load_next_obs=False)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/utils/dataset.py", line 146, in __init__
+    self.getitem_cache = [self.get_item(i) for i in LogUtils.custom_tqdm(range(len(self)))]
+                          ^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/utils/dataset.py", line 446, in get_item
+    meta["obs"] = ObsUtils.normalize_obs(meta["obs"], obs_normalization_stats=self.obs_normalization_stats)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robomimic/utils/obs_utils.py", line 491, in normalize_obs
+    assert mean.shape[shape_len_diff:] == obs_dict[m].shape, "shape mismatch in @normalize obs"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: shape mismatch in @normalize obs

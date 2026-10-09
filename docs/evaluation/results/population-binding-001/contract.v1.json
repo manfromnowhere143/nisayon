@@ -1,0 +1,164 @@
+{
+  "schema": "nisayon.evaluation.population-binding-contract.v1",
+  "case": "population-binding-001",
+  "frozen_at": "2026-09-20T19:14:59+00:00",
+  "frozen_before": "any scored producer execution of this case; the original five-episode discrepancy, the reduced cache probe and this lane's population identification are already exposed",
+  "consumed_execution_plan": {
+    "commit": "8662c8d14c9b944b8903904287c104b4f1b984cb",
+    "path": "docs/experiments/results/population-binding-001/execution-plan.v1.json",
+    "sha256": "30d1a82058a9aac28701ecc0b8b7e8dfa47004ac04c79e9d9714f3186aadfc9d"
+  },
+  "consumed_record_interface": {
+    "commit": "8662c8d14c9b944b8903904287c104b4f1b984cb",
+    "path": "docs/experiments/results/population-binding-001/record-interface.v1.json",
+    "sha256": "4f053e4324b838b2dddcbcdfc3f167f8324a5ffcd1654e3095d81c561bcbec9b"
+  },
+  "claim_categories": {
+    "role": {
+      "current_population_summary": "the statistics summarize exactly the declared current directory population under the declared transform and convention",
+      "parent_population_summary": "the statistics summarize a declared superset population enumerated by retained evidence (here meta/episodes_stats.jsonl) of which the current directory is a subset",
+      "external_reference_normalizer": "the statistics are a separately selected reference whose population is not the current directory",
+      "unresolved": "role evidence insufficient"
+    },
+    "facts_kept_separate": [
+      "numeric agreement (published vs recomputed under stated tolerances)",
+      "population identity (which rows the published values summarize)",
+      "provenance (who/what produced the file, from history)",
+      "interpretation (the normalization formula that consumes the values)",
+      "selection (which caller/invocation binds the file to an execution)",
+      "software applicability (whether reuse/recompute/abstain is justified for the scoped invocation)"
+    ],
+    "operation_states": [
+      "reuse",
+      "recompute",
+      "abstain",
+      "invalid"
+    ],
+    "decision_states": [
+      "supported",
+      "rejected",
+      "unresolved",
+      "invalid"
+    ],
+    "non_authorities": [
+      "a role or provenance label",
+      "a digest",
+      "schema compatibility",
+      "producer-evaluator agreement",
+      "a constructed control",
+      "exit code zero"
+    ]
+  },
+  "reference_algorithm": {
+    "reader": "nisayon.evaluation.parquet_reader (pure Python, identity recorded per run); shared with no decision function",
+    "membership": "every declared episode file present, rows equal declared length, frame_index 0..n-1, episode_index constant, global index continuous, timestamps at 1/fps, coordinate count equal to the declared shape; a violation is invalid, not unresolved",
+    "exact": "per coordinate: mu = fsum(x)/n; variance = fsum((x-mu)^2)/n (population, ddof 0); std = sqrt(variance); min, max; q01 and q99 by the numpy linear rule pos = q*(n-1), interpolate between floor and ceil; all in float64 over the exact float32 values",
+    "float32_convention": "numpy float32 reduction along axis 0 of the stacked (N, D) array, as the pinned calculate_dataset_statistics does; reported beside the exact values",
+    "pooling_from_per_episode_statistics": "mean = sum(n_i m_i)/N; variance = sum(n_i (s_i^2 + m_i^2))/N - mean^2; min = min_i min_i; max = max_i max_i; quantiles not reproducible from per-episode statistics",
+    "non_finite": "any NaN or infinity in a compared column makes the column invalid; never dropped"
+  },
+  "tolerance_policy": {
+    "T1_direct_recomputation": {
+      "applies": "published vector against recomputation from the complete declared population (raw rows)",
+      "rtol": 1e-05,
+      "atol": 1e-06,
+      "justification": "float32 reduction error over the subset is at most 5.2e-6 relative (measured); the declared upstream test tolerance is the same order"
+    },
+    "T2_extremes": {
+      "applies": "min and max",
+      "rule": "exact equality of float32 values; extremes involve no arithmetic"
+    },
+    "T3_pooled_from_float32_episode_statistics": {
+      "applies": "published moments against pooling of float32-rounded per-episode statistics over about 1e5 rows",
+      "mean_rtol": 0.0001,
+      "std_rtol": 0.001,
+      "justification": "numpy's sequential float32 axis-0 reduction over 101,469 rows accumulates about 3e-4 relative std error (demonstrated on a synthetic binary column of the same length and mean: 3.2e-4; pairwise 3.8e-8; subset 5.2e-6); means of dyadic values stay exact",
+      "identity_rests_on": "T2 exact equality on every coordinate plus bit-identical per-episode entries for the retained files, not on T3"
+    },
+    "quantiles": "compared only when raw rows of the claimed population are retained; otherwise reported as bracketed-consistent or not comparable, never as matched"
+  },
+  "expected_reference_decisions": {
+    "original_public_input": {
+      "input": "the five retained Parquet files, meta/info.json, meta/stats.json (sha256 8283e003…), meta/episodes_stats.jsonl (sha256 884f963e…) at 1a1837f2",
+      "role": "parent_population_summary",
+      "population_binding": "supported: 379 episodes / 101,469 frames enumerated; extremes exact on 15/15; per-episode entries bit-identical for the five files",
+      "arithmetic": "supported for the parent within T2/T3; rejected as a summary of the five-episode directory (T1 fails on every vector; extremes strictly outside the subset)",
+      "provenance": "supported from history: unchanged since release 23ace64f; fingerprints attached at 4c0662fc without recomputation",
+      "interpretation": "unresolved pending the execution lane's call-path evidence for the consuming normalizer formula",
+      "selection": "supported for the scoped software invocation check_stats_validity/generate_stats on the demo directory (the pinned tests assert acceptance and reuse); unresolved for inference-time precedence between a checkpoint's statistics and the dataset file",
+      "expected_operation_for_the_scoped_invocation": "reuse",
+      "expected_decision": "supported for reuse of the identified parent-population reference in the scoped invocation; recompute is not a justified correction because it would replace the parent normalizer with a five-episode summary; the author's intent for the demo subset stays unresolved and is named as the missing evidence",
+      "exposure": "these expectations were written after this lane's own identification; they are frozen before the producer's scored execution only"
+    },
+    "constructed_controls": {
+      "PBC01-intact-current-population": {
+        "role": "current_population_summary",
+        "arithmetic": "supported (T1)",
+        "operation": "reuse",
+        "decision": "supported"
+      },
+      "PBC02-current-population-mismatch": {
+        "role": "current_population_summary",
+        "arithmetic": "rejected (T1 fails after a content change with the declaration unchanged)",
+        "operation": "recompute (diagnostic copy, source untouched)",
+        "decision": "rejected for reuse; recompute supported"
+      },
+      "PBC03-bound-external-reference": {
+        "role": "parent_population_summary or external_reference_normalizer with an enumeration that reproduces the extremes (T2) and moments (T3)",
+        "operation": "reuse",
+        "decision": "supported, with subset mismatch not a rejection premise; no deployment or training-lineage claim"
+      },
+      "PBC04-missing-role-or-selection": {
+        "role": "unresolved",
+        "operation": "abstain",
+        "decision": "unresolved with the exact missing evidence named"
+      },
+      "PBC05-unchanged-label-changed-content": {
+        "rule": "the decision must equal what the content alone gives; a role string of 'training_reference' or 'current' changes nothing"
+      },
+      "PBC06-empty-invalid-nonfinite": {
+        "decision": "invalid, with distinct reasons: empty population, non-finite value, wrong coordinate count, malformed file"
+      }
+    }
+  },
+  "failure_states": {
+    "invalid": "malformed file, empty population, non-finite value, dimension mismatch, undeclared feature; a process failure is reported as failed, not as any decision",
+    "unresolved": "a well-formed record whose role, membership, interpretation or selection evidence is missing; the missing item is named"
+  },
+  "conventional_diagnostic": {
+    "owner": "this lane, separate module from the reference",
+    "requirements": [
+      "inspects the declared role and the retained evidence",
+      "recomputes from raw rows when the obligation is a current summary",
+      "pools a retained per-episode enumeration when one exists and identifies the population from the extremes",
+      "returns unresolved when role or selection evidence is absent",
+      "may cache justified results",
+      "imports no execution verdict function and no reference expectation",
+      "decisions follow content, not candidate names or labels"
+    ],
+    "qualification": "the frozen controls above; qualification is not a Nisayon gain"
+  },
+  "cost_scope": {
+    "evaluation_diagnostic_process_cpu_seconds_reserved": 30,
+    "evaluation_durable_output_bytes_reserved": 8388608,
+    "evaluation_temporary_bytes_reserved": 33554432,
+    "sources": {
+      "responses_used": 4,
+      "bytes_used": 952649,
+      "reserved_responses": 7,
+      "reserved_bytes": 1048576
+    },
+    "measured": [
+      "recorder wall per command",
+      "process CPU where measured"
+    ],
+    "unknown": [
+      "engineering effort",
+      "provider charges",
+      "energy",
+      "HTTP overhead",
+      "peak memory"
+    ]
+  },
+  "stopping_rule": "Assess one original-input execution and the frozen controls once; a tie between the conventional diagnostic and the Nisayon path is retained; no other dataset, model, simulator, robot or reserved incident."
+}

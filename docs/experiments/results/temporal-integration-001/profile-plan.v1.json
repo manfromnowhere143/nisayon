@@ -1,0 +1,188 @@
+{
+  "schema": "nisayon.temporal-profile-plan.v1",
+  "frozen_at": "2026-09-20T05:24:16.348177+00:00",
+  "suite": {
+    "path": "docs/experiments/results/temporal-integration-001/frozen-suite.v2.json",
+    "sha256": "424119e7e27ccfc45235f91baca1acc108d3a2ffccc9856625c2c0fccfe3c649"
+  },
+  "case_ids": [
+    "T01-healthy",
+    "T07-overlapping-chunks",
+    "T16-unacknowledged-dispatch",
+    "T18-no-response-observed"
+  ],
+  "repetitions": [
+    {
+      "id": "first_process_pass",
+      "order": [
+        "conventional",
+        "selected_intervention"
+      ]
+    },
+    {
+      "id": "warm_pass_1",
+      "order": [
+        "selected_intervention",
+        "conventional"
+      ]
+    },
+    {
+      "id": "warm_pass_2",
+      "order": [
+        "conventional",
+        "selected_intervention"
+      ]
+    }
+  ],
+  "loop_order": "repetition, case, remedy",
+  "assignments": [
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T01-healthy",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T01-healthy",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "first_process_pass",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T01-healthy",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T01-healthy",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_1",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T01-healthy",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T01-healthy",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T07-overlapping-chunks",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T16-unacknowledged-dispatch",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "conventional"
+    },
+    {
+      "repetition": "warm_pass_2",
+      "case_id": "T18-no-response-observed",
+      "remedy_id": "selected_intervention"
+    }
+  ],
+  "phases": [
+    "capture_including_seal",
+    "verify_and_inspect",
+    "separate_reference",
+    "serialize_inspection_to_bytes"
+  ],
+  "retained_capture_count": 24,
+  "clock_boundary": "First pass in a fresh Python process, not a flushed filesystem cache. Virtual time remains a scripted input.",
+  "cpu_limit_s": 30,
+  "lane_initial_research_cpu_allowance_s": 600,
+  "artifact_limit_bytes": 16777216,
+  "known_research_cpu_prior_lower_bound_s": 5.296043,
+  "phase_rule": "The 30-second profile limit is a suballocation of the original 600 CPU seconds; it does not reset prior costs. Required tests are separate.",
+  "measurements": [
+    "per-phase CPU and wall",
+    "canonical inspection bytes",
+    "retained raw bytes",
+    "cumulative process peak resident memory",
+    "event and software-operation counts"
+  ],
+  "scope": "Exposed software profile repetitions; not fresh incidents, robot executions or model calls. Source and reference identities are recorded at execution.",
+  "decision_rule": "Optimize only a demonstrated, relevant bottleneck without weakening verification. No application-workflow or 2x saving is inferred from local report or JSON costs.",
+  "unknowns": [
+    "active engineering effort",
+    "unrecorded tool overhead",
+    "charges",
+    "energy"
+  ]
+}

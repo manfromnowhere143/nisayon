@@ -1,0 +1,48 @@
+{
+ "schema": "nisayon.decision-case.sweep.v1",
+ "lead": "A",
+ "question": "does the retained controller nullspace target equal the restored start state (Nisayon single reset) or the nominal configuration (robosuite/robomimic double reset)?",
+ "nominal_init_qpos": [
+  0.0,
+  0.19635,
+  0.0,
+  -2.617994,
+  0.0,
+  2.941593,
+  0.785398
+ ],
+ "nominal_source": {
+  "source_file": "/Users/danielwahnich/workspace/nisayon-fable5/.venv/lib/python3.12/site-packages/robosuite/models/robots/manipulators/panda_robot.py",
+  "source_sha256": "cedaeef03d4c01b6a76a56838f9cf8f68b34f85bac823cb2c76543492553c736"
+ },
+ "runs": 1448,
+ "runs_with_target_equal_to_restored_state": 1448,
+ "runs_with_target_equal_to_nominal": 0,
+ "target_minus_nominal": {
+  "per_joint_mean_rad": [
+   0.003542,
+   0.001403,
+   0.001732,
+   -0.000681,
+   -0.00023,
+   -0.001394,
+   0.000158
+  ],
+  "per_joint_std_rad": [
+   0.019692,
+   0.019448,
+   0.021584,
+   0.017912,
+   0.019423,
+   0.020361,
+   0.01793
+  ],
+  "max_abs_rad": 0.074173
+ },
+ "osc_nullspace_gain": {
+  "joint_kp": 10.0,
+  "joint_kv": 6.324555,
+  "source": "robosuite.utils.control_utils.nullspace_torques defaults"
+ },
+ "reading": "Every retained Nisayon run starts with the controller's nullspace target equal to the noisy restored state, none with the nominal configuration; under the native robosuite/robomimic convention the target would be the nominal configuration and the term kp*(initial - q) would be nonzero from step 0 by the initialization noise. This is a measured deployment difference on retained records, not an observed task failure."
+}

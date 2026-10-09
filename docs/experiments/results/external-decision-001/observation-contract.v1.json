@@ -1,0 +1,74 @@
+{
+  "schema": "nisayon.external-processor-observation-contract.v1",
+  "purpose": "Exchange one source-bound processor observation without treating the producer's verdict as evaluation acceptance.",
+  "required": {
+    "schema": "nisayon.external-processor-observation.v1",
+    "incident": [
+      "id",
+      "report_url",
+      "reported_at",
+      "exposure",
+      "code_revision",
+      "model_revision"
+    ],
+    "inputs": "Nonempty list of role, path, sha256, bytes, revision and rights_scope. Original report, configuration, processor state and implementation source retain distinct roles.",
+    "operation": [
+      "pipeline",
+      "step_index",
+      "registry_name",
+      "requested_feature_key",
+      "feature_type",
+      "normalization_mode",
+      "inverse",
+      "witness"
+    ],
+    "execution": [
+      "method",
+      "implementation_sha256",
+      "callable",
+      "imports_replaced",
+      "omitted_boundaries",
+      "process_status"
+    ],
+    "resolved": [
+      "state_tensor_keys",
+      "exact_key_available",
+      "suffix_matches",
+      "selected_stats_key",
+      "dataset_selector",
+      "required_statistics",
+      "missing_statistics"
+    ],
+    "observation": [
+      "status",
+      "input",
+      "output",
+      "changed",
+      "reason"
+    ],
+    "limits": [
+      "full_upstream_pipeline_executed",
+      "policy_or_model_executed",
+      "robot_task_observed",
+      "deployment_outcome_observed"
+    ],
+    "cost": [
+      "command_record_id",
+      "command_wall_seconds",
+      "process_cpu_seconds"
+    ]
+  },
+  "statuses": [
+    "observed",
+    "invalid_input",
+    "unsupported",
+    "unresolved"
+  ],
+  "rules": [
+    "Absent values remain null or named missing; they do not become zero, identity or a default dataset.",
+    "A process completion is separate from the observation status.",
+    "An unchanged output can be legitimate only when the configured mode is explicit identity or the independently specified witness is a fixed point; byte equality alone is not acceptance.",
+    "Multiple suffix matches do not select a dataset. The record may enumerate them but selected_stats_key remains null without an explicit selector.",
+    "Producer observations do not grant semantic acceptance. Evaluation consumes this record under its separately committed expectations."
+  ]
+}

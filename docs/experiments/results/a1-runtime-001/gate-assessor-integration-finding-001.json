@@ -1,0 +1,138 @@
+{
+  "schema": "nisayon.a1-runtime-gate-assessor-integration-finding.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:54:47Z",
+  "status": "gate stop supported independently; amendment conditional; packet assessor not ready for producer evidence",
+  "delivery": {
+    "evaluation_head": "9c59382319acbdee3d26f9c016f49acbc65bc5c8",
+    "execution_merge": "c6bd13e03102f3b658abc4ba579ada13cc16972f",
+    "gate_outcome_path": "docs/evaluation/results/a1-runtime-001/gate-outcome-001.json",
+    "gate_outcome_sha256": "b6b23c61e4cbac0db4325ecf387de7e6ac17e6996e8409e1c2b782c391e8dd4f",
+    "amendment_path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.1.json",
+    "amendment_sha256": "5c79411e67ed4816f6f3d02de45aef7bf9042d8ff24aafb508b67d81e6d0eb16",
+    "assessor_path": "src/nisayon/evaluation/a1_runtime_assessor.py",
+    "assessor_sha256": "93908eb54dc78ee9218e699333042e9fa24991d7539673ec9216cfd6458a196c",
+    "assessor_tests_sha256": "4657ba3183f8d454cc4561b85568c72ba56a2b9d98dec45143f53c61577ed795"
+  },
+  "accepted_gate_decision": {
+    "disposition": "G0_not_qualified_at_network_gate_under_current_authority",
+    "basis": [
+      "the exact full wheel is 152,011,410 bytes and exact sdist is 150,852,523 bytes, both above the 33,554,432-byte dependency cap and the 24,430,709-byte cumulative remainder",
+      "the authoritative cumulative application-response ledger is 12 of 12 after the one metadata response",
+      "no HEAD, Range, license, index or dependency response is authorized, so the partial route cannot start",
+      "no package archive byte, environment construction, physics step or policy action occurred"
+    ],
+    "independence_from_assessor": "this decision follows directly from the retained source and accounting records; it does not rely on a synthetic packet or the packet assessor"
+  },
+  "amendment_review": {
+    "I1_through_I6": "prospectively resolved in structure: explicit operator response authority remains required, bytes are corrected to 24,430,709, rights are first, partial identity is coherent, reset seed is 900, and freeze timing is exact",
+    "I7_mink": "recognized but unresolved: no held index entry, exact version, archive, digest, bytes, transitive set or applicable rights exists; a future restart needs a prospective exact dependency step within newly authorized responses",
+    "ready_to_execute": false
+  },
+  "synthetic_probe": {
+    "source_commit": "542d6d8a3d1d9023dfb71d5f7b155d5ae3c9317a",
+    "script": "scripts/experiments/probe_a1_runtime_assessor.py",
+    "script_sha256": "6263b43b7200299318f64456070b5871f454ac9e21ee841d03eb1925fb4e6741",
+    "command_record_id": "f729bdbc4cf943cb8a455b4f8e4d9b06",
+    "command_record_sha256": "094448562b2f33c727addad0b89c9a39ef95fd377d85fb843199a029b3ae027a",
+    "stdout_sha256": "ce7557cc49e2a09921af40d52af7bd6431cebbd31c15aedae5c279adefd3cebc",
+    "outer_wall_seconds": 0.988267,
+    "labelled_copies_only": true,
+    "network_requests": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0
+  },
+  "assessor_findings": [
+    {
+      "id": "A1-seal-not-authoritative",
+      "severity": "blocking",
+      "witness": "after a sealed costs.json byte changed, seal.status was differs with costs.json named bad, yet Q-C was compatible and disposition D3; an added unmanifested 000-runtime-identity.json changed C1 and the disposition while seal.status remained verified",
+      "required_correction": "a non-verified seal must stop assessment as invalid or unresolved; every consumed record must be exactly manifest-bound, and ambiguous or extra matching records must be rejected rather than selected lexicographically"
+    },
+    {
+      "id": "A2-amendment-not-consumed",
+      "severity": "blocking",
+      "witness": "passing runtime-contract.v1.1.json to assess_packet raises KeyError: 'ceilings'; passing v1 binds only v1's digest and uses its superseded 24,439,491-byte ceiling",
+      "required_correction": "compose and digest-bind v1 plus v1.1 as the effective contract, or seal one canonical effective contract; assess the effective 24,430,709-byte ceiling and seed 900 without hard-coded partial amendment state"
+    },
+    {
+      "id": "A3-incomplete-replays-accepted",
+      "severity": "blocking",
+      "witness": "R-1 and R-2 metadata both had completed=false; their arrays agreed, and the assessor returned reproducibility agree, Q-C compatible and D3",
+      "required_correction": "compatibility requires two completed assigned replay attempts plus C6 from a completed replay; incomplete or failed attempts remain retained and cannot qualify compatibility"
+    },
+    {
+      "id": "A4-binding-and-C1-C9-undercheck",
+      "severity": "blocking",
+      "witness": "a random non-official dataset digest, no checkpoint, one placeholder member, one package (torch), no object-state evidence and no checkpoint-statistics comparison still produced C1 pass, C4 pass, C9 pass and D3",
+      "required_correction": "bind the exact dataset, checkpoint, pilot statistics and effective contract digests; validate route B's complete selected-member table, CRC confirmations, member SHA-256 values and central-directory digest; validate every exact runtime package and digest including any Mink resolution; require object/object-state equality or prospectively remove that criterion; require checkpoint and pilot statistics with exact dtype, shape and bytes before C9 can pass"
+    },
+    {
+      "id": "A5-policy-and-action-contract-not-scored",
+      "severity": "blocking",
+      "witness": "different policy parameter digests before and after the episodes still produced competent_for_development and D3; an E-200 action array changed to float64 with one component 2.0 also produced compatible, competent and D3",
+      "required_correction": "an unchanged checkpoint/parameter digest must be a competence precondition; every action must have the frozen float32 dtype and shape (7,), and any bound/range rule must be adjudicated rather than merely reported"
+    },
+    {
+      "id": "A6-bare-stop-assertion-yields-G0",
+      "severity": "blocking",
+      "witness": "a sealed dependency-gate record containing only stopped=true, with null route, bytes, pin and request evidence, yielded G0",
+      "required_correction": "G0 requires the exact frozen gate identity, authoritative cumulative ledger, declared and downloaded byte accounting, response count, stop reason and pin evidence; a bare producer assertion is unresolved"
+    }
+  ],
+  "delivery_wording_findings": [
+    {
+      "id": "W1-assignment-count",
+      "observed": "gate-outcome status says nothing assigned, while its attempts object and contract assign 2 replay and 10 development conditions",
+      "correction": "report assigned 2/10, started 0/10 and consumed 0/10; all assigned task attempts remain not run behind the gate"
+    },
+    {
+      "id": "W2-partial-route-fit",
+      "observed": "gate-outcome calls route B inside the byte ceiling, but no real central directory, selected ranges, Mink artifacts or member bytes were measured",
+      "correction": "route B is projected at 11-15 MB from historical scale evidence and remains unresolved until a rights-first real directory plan is measured"
+    },
+    {
+      "id": "W3-full-wheel-risk",
+      "observed": "the W option says risk is none beyond disk, although release rights, Mink, adapter/API compatibility and simulator behavior remain unresolved",
+      "correction": "limit the statement to measured download and historical expanded-size estimates; retain all non-storage risks"
+    }
+  ],
+  "focused_validation": {
+    "ruff": {
+      "command_record_id": "b177da70903c474c826ae73c105cbc01",
+      "command_record_sha256": "f5da616ff1280cd76aa85d2be5735d00e77dd1a1a35b63bca8c690f2493c5940",
+      "outer_wall_seconds": 0.074505,
+      "result": "passed"
+    },
+    "format": {
+      "command_record_id": "c3db8d5a9a344228a5111502067ad44c",
+      "command_record_sha256": "1c59211f68261e4c2449857f7de186f22edd184d2d45462151e4b84fab1bc7ff",
+      "outer_wall_seconds": 0.041656,
+      "result": "5 files already formatted"
+    },
+    "tests": {
+      "command_record_id": "7087d042a3c94a7d892633d7ad8504c8",
+      "command_record_sha256": "9742fcdcf6202b8cfba60882fccd4488e0696b960fed2bccda47ea389197a419",
+      "stdout_sha256": "5cba8a0d336f6301764b9e7cb54d2168880bd1238a4afa7c45b0666fad715409",
+      "outer_wall_seconds": 1.151097,
+      "passed": 32,
+      "failed": 0,
+      "interpretation": "the delivered tests and execution subset controls pass, but they do not cover the reproduced acceptance failures above"
+    }
+  },
+  "current_counts": {
+    "replay_assigned": 2,
+    "replay_started": 0,
+    "replay_consumed": 0,
+    "development_assigned": 10,
+    "development_started": 0,
+    "development_consumed": 0,
+    "optimizer_updates": 0,
+    "package_archive_bytes": 0,
+    "physics_steps": 0,
+    "policy_actions": 0
+  },
+  "request_to_evaluation_owner": "Preserve delivery 9c59382 as before-evidence. Correct the assessor and wording with the probe controls as regressions, then issue one named evaluation delivery. No producer execution waits on the assessor because the network gate independently stops the phase; no response-cap expansion is inferred.",
+  "publication": "private; no push or publication"
+}

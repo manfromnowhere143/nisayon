@@ -1,0 +1,78 @@
+B023 Function definition does not bind loop variable `target`
+   --> scripts/experiments/profile_temporal_workflow.py:106:21
+    |
+104 |             execution, row["phases"]["capture_including_seal"] = timed(
+105 |                 lambda: run_assignment(
+106 |                     target,
+    |                     ^^^^^^
+107 |                     case=case,
+108 |                     remedy=remedy,
+    |
+
+B023 Function definition does not bind loop variable `case`
+   --> scripts/experiments/profile_temporal_workflow.py:107:26
+    |
+105 |                 lambda: run_assignment(
+106 |                     target,
+107 |                     case=case,
+    |                          ^^^^
+108 |                     remedy=remedy,
+109 |                     assignment=assignment,
+    |
+
+B023 Function definition does not bind loop variable `remedy`
+   --> scripts/experiments/profile_temporal_workflow.py:108:28
+    |
+106 |                     target,
+107 |                     case=case,
+108 |                     remedy=remedy,
+    |                            ^^^^^^
+109 |                     assignment=assignment,
+110 |                     source=source,
+    |
+
+B023 Function definition does not bind loop variable `assignment`
+   --> scripts/experiments/profile_temporal_workflow.py:109:32
+    |
+107 |                     case=case,
+108 |                     remedy=remedy,
+109 |                     assignment=assignment,
+    |                                ^^^^^^^^^^
+110 |                     source=source,
+111 |                     payloads=payloads,
+    |
+
+B023 Function definition does not bind loop variable `target`
+   --> scripts/experiments/profile_temporal_workflow.py:115:90
+    |
+113 |                 )
+114 |             )
+115 |             inspected, row["phases"]["verify_and_inspect"] = timed(lambda: inspect_store(target))
+    |                                                                                          ^^^^^^
+116 |             if inspected["integrity"] != "verified_complete_store":
+117 |                 raise ValueError(f"Profile capture is not verified: {inspected['errors']}")
+    |
+
+B023 Function definition does not bind loop variable `inspected`
+   --> scripts/experiments/profile_temporal_workflow.py:119:32
+    |
+117 |                 raise ValueError(f"Profile capture is not verified: {inspected['errors']}")
+118 |             assessment, row["phases"]["separate_reference"] = timed(
+119 |                 lambda: assess(inspected["trace"])
+    |                                ^^^^^^^^^
+120 |             )
+121 |             serialized, row["phases"]["serialize_inspection_to_bytes"] = timed(
+    |
+
+B023 Function definition does not bind loop variable `inspected`
+   --> scripts/experiments/profile_temporal_workflow.py:122:41
+    |
+120 |             )
+121 |             serialized, row["phases"]["serialize_inspection_to_bytes"] = timed(
+122 |                 lambda: canonical_bytes(inspected)
+    |                                         ^^^^^^^^^
+123 |             )
+124 |             view = root / "views" / f"{index:03d}.json"
+    |
+
+Found 7 errors.

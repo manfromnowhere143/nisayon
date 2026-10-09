@@ -5,6 +5,11 @@ engine. The first joint case and two development comparisons are implemented
 and measured. Neither comparison demonstrates an efficiency advantage; the
 reserved screen remains unrun. See the [release scope](RELEASE.md).
 
+The [temporal software harness](experiments/TEMPORAL_INTERFACE.md) adds local
+queue/lifecycle execution, durable event prefixes and a separate reference
+assessment. It needs only the base environment. Its constructed software cases
+and historical source extraction stay separate from robot-policy confirmation.
+
 ## Local setup
 
 Install Git, Python 3.12, uv and ripgrep (`rg`) before the Python environment.
@@ -13,6 +18,9 @@ or `sudo apt-get install ripgrep` on Debian/Ubuntu. CI installs this system
 prerequisite explicitly and reports its version; Python dependencies use the
 committed lockfile. Base CI checks do not install the optional simulator stack.
 
+Use a new checkout for these installation commands. Do not synchronize either
+environment retained by an experiment protocol.
+
 ```sh
 uv sync --frozen
 make check
@@ -20,12 +28,35 @@ uv run nisayon doctor
 ```
 
 Python is pinned in `.python-version`; direct and transitive dependencies are
-locked in `uv.lock`. The project uses the official MCP Python SDK. It needs no
-database, cloud account or API key for its workspace tools. Simulation and
-policy dependencies are an optional locked extra. Use `uv sync --frozen --extra
-simulation` for the [joint CPU Lift case](experiments/LIFT_PROTOCOL_V3.md).
-The current recipe was exercised in a clean clone and new virtual environment;
-see [clean reproduction](experiments/CLEAN_REPRODUCTION.md).
+locked in `uv.lock`. The development group includes NumPy, h5py and psutil for
+record, array and resource-monitor tests. The workspace package still declares
+only the MCP SDK as a direct dependency. Its tools need no database, cloud account or
+API key.
+
+Simulation and policy dependencies are an optional locked extra. In a separate
+checkout with a new environment, install and check the full stack with:
+
+```sh
+uv sync --frozen --extra simulation
+UV_NO_SYNC=1 make check
+```
+
+`UV_NO_SYNC=1` runs the checks against the completed full installation without
+resynchronizing it. Run the preceding frozen sync first.
+Tests that require PyTorch or robomimic report skips in the base profile and run
+when those packages are installed. Tests that need private retained artifacts
+also report skips when those artifacts are absent; a clean checkout is not a
+scientific replay. Use `PYTEST_ADDOPTS=-ra` to see the skip reasons.
+
+The retained environments' exact package and file identities belong to the
+historical protocols. The [joint CPU Lift case](experiments/LIFT_PROTOCOL_V3.md)
+and [historical clean reproduction](experiments/CLEAN_REPRODUCTION.md) retain
+their original reproduction instructions.
+
+The [Lift transfer evidence reader](experiments/TRANSFER_EVIDENCE.md) uses only
+the `records` extra. Its installed CLI can inspect a relocated raw B2 packet
+outside Git. Use a separate environment for that recipe; do not synchronize
+either retained experiment environment. It does not execute a policy or simulator.
 
 `uv run python scripts/install_local.py` installs four symlinks in
 `~/.local/bin`: `nisayon`, `nisayon-mcp`, `nisayoncodes`, and `nisayonclaudes`.
@@ -168,6 +199,18 @@ collisions; they do not resolve conflicting scientific interpretations.
 ## Checks and changes
 
 `make check` runs Ruff, formatting verification, tests, and documentation checks.
+
+Pytest removes each passing test body's `tmp_path` after its fixture finishes.
+Failed test bodies keep their temporary files under the configured retention
+count; command records keep the complete output for every check. This avoids
+accumulating many copies of retained execution stores during a full suite.
+It is pytest's `failed` retention policy, not a promise to preserve every setup
+or teardown failure's files. Use a fresh temporary root outside Git for a
+specific run when ownership or resource measurements matter. Never point
+`--basetemp` at existing evidence: pytest clears that directory before use.
+Override with `-o tmp_path_retention_policy=all` only when those copies are needed
+and their storage fits the task's budget.
+
 The tests cover repository identity, path boundaries, append-only memory,
 interrupted commands, hooks, installation, launcher routing, and a real MCP
 stdio round trip. The GitHub workflow runs the same checks with pinned actions.

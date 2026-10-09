@@ -1,0 +1,59 @@
+{
+  "schema": "nisayon.temporal-integration.qualification.v1",
+  "retrieved_at": "2026-09-20T04:05:09+00:00",
+  "bytes_this_lane": 75021,
+  "lane_cap_bytes": 3145728,
+  "upstream_1116_1117": {
+    "issue": "https://github.com/huggingface/lerobot/issues/1116 (closed 2025-05-22): the policy action queue is not emptied at reset, so action queues from different episodes can mix when an episode is stopped early",
+    "pull_request": "https://github.com/huggingface/lerobot/pull/1117, merged 2025-05-22; base a445d9c9da6bea99a8972daa4fe1fdd053d711d2, head 4f7fa8bd6e7229a1137cefde2276b3bd93b9fba4, merge 6163daaaa4fa193d0e37468a94d90e07ef3c95ce",
+    "files": {
+      "lerobot/common/robot_devices/control_utils.py@a445d9c": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "lerobot/common/robot_devices/control_utils.py@6163daa": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "lerobot/scripts/control_robot.py@6163daa": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "lerobot/common/policies/act/modeling_act.py@6163daa": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241"
+    },
+    "verified_patch": [
+      "+",
+      "+    # Controls starts, if policy is given it needs cleaning up",
+      "+    if policy is not None:",
+      "+        policy.reset()",
+      "+"
+    ],
+    "verified_patch_reading": "exactly five added lines at control_loop entry (lines 247 to 250 at 6163daa): if a policy is given, policy.reset(); nothing else in the file changed between the parent and the merge",
+    "caller_path": "control_robot.py record(): while recorded_episodes < num_episodes: record_episode(policy=policy) -> control_loop(policy=policy); then reset_environment() -> control_loop(teleoperate=True) without the policy; the right-arrow key sets events['exit_early'], which breaks control_loop mid-episode",
+    "mechanism": "ACT's select_action keeps a deque _action_queue of n_action_steps actions and pops one per call; reset() replaces it with an empty deque (or resets the temporal ensembler). At a445d9c nothing between episodes called reset(), so a deque left non-empty at the end of one episode (early exit, or an episode length that is not a multiple of n_action_steps) supplied the first actions of the next episode from old observations. At 6163daa the reset at control_loop entry empties it before any action of the new episode.",
+    "reachability": "reachable in the affected version for any policy with an internal chunk queue whenever the loop exits with a non-empty deque; the retained issue names early stopping, and the same mechanism applies at a normal episode end unless the deque is empty; the fixed version leaves the deque populated only during the teleoperated reset period, when the policy is not consulted",
+    "evidence_grade": "source-level qualification of a known, fixed historical defect; not an executed reproduction and not a new discovery",
+    "mapping_to_the_reference_model": "cases early_reset_affected and early_reset_upstream_fix; the frozen reset-time predicate queue_reset is violated by both because the fix clears at the next control-loop entry, after reset_completed; generation_fencing separates them"
+  },
+  "pinned_async_client_5aa7455": {
+    "files": {
+      "lerobot-current-client.py": "804f850e87d444b49f5b182d794ef1e9af2f059e0e95369f633fe8d15d5db5fb",
+      "lerobot-current-server.py": "88ee490394adab0d229e9e2407bec900e89cf72302237c7f128da2c07de37fe7",
+      "lerobot-current-helpers.py": "1457c5bb556b4f10225a9c94ac95553bd53c7b51665f1c918e15bb2acb0ac24e"
+    },
+    "readings": [
+      "one episode per client process: start() calls Ready, which resets the server's observation queue and predicted-timestep set; latest_action is never reset; there is no in-process reset path, so an early reset with queued actions and a late response after a reset are not reachable in this program as written (constructed controls only)",
+      "one sequential receiver thread issues one GetActions call at a time and the server predicts from a one-slot observation queue, so chunks arrive in production order; out-of-order arrival and duplicate delivery are not reachable here (constructed controls only)",
+      "_aggregate_action_queues builds the future queue only from the incoming chunk: overlapping timesteps are aggregated (default: the arriving action wins) and queued actions whose timesteps the incoming chunk does not cover are dropped; the incoming chunk starts at the observation's timestep, which is the latest performed action, so its horizon always extends beyond the old queue and a wholly obsolete arrival that empties the queue is not reachable under the client's own control loop",
+      "a late chunk has its leading actions (timesteps <= latest_action) skipped and its tail admitted; queue starvation while waiting is a useful-execution cost, not an identity violation",
+      "timestamps: observations and actions carry the client's time.time(); action timestamps are t_0 + i * environment_dt with t_0 the observation's client timestamp, so the client's logged server_to_client_latency is the client-clock round trip including inference, not a server-to-client one-way latency; the server logs receive_time - obs_timestamp across two hosts' wall clocks without a declared mapping; neither quantity gates control decisions, and no age limit is enforced anywhere",
+      "identity: the timestep is an integer control step, the only identity carried by observations and actions; there is no request, chunk, episode or configuration identity on the wire; the server skips an observation whose timestep it already predicted unless must_go is set"
+    ],
+    "evidence_grade": "source reading of the pinned files; nothing was executed"
+  },
+  "issue_2866_pr_3160": {
+    "issue": "https://github.com/huggingface/lerobot/issues/2866 (open, 2026-01-28): repeated policy reload between evaluation runs of the async client",
+    "pull_request": "https://github.com/huggingface/lerobot/pull/3160 (open at observation, head 8ecbb8f5493cd413a50e914772dbbeba1069a603): cache the loaded policy path and type on the server and skip the reload when the same policy is requested; mutable fields such as lerobot_features and actions_per_chunk are still updated",
+    "retained_comment": "2026-08-07: the same checkpoint on a different device would skip the reload and keep stale device_processor overrides; the rename_map should be compared too; the old policy stays resident during a reload",
+    "reading": "a lifecycle and configuration-identity lead: a skip keyed on path and type is a partial identity; the reference model's configuration_binding predicate keys on a full configuration digest (config_sha256) carried by requests, so a response computed under one configuration dispatched under another is flagged; not a demonstrated upstream defect and not a measured saving",
+    "mapping_to_the_reference_model": "case configuration_change"
+  },
+  "license": "the retrieved files carry the Hugging Face copyright and the Apache License, Version 2.0 header; only the five-line patch and function names are quoted here, with attribution; no LeRobot code is executed or incorporated by this lane",
+  "cross_check_with_execution_lane": {
+    "recorded_at": "2026-09-20T04:26:00+00:00",
+    "execution_lane_packet": "docs/experiments/results/temporal-integration-001/sources/historical-1117/ (retrieval.json, retrieved 03:59:50 UTC, first parent 8e2a39444255d62869d2fd63ea4f8a157236a029)",
+    "agreement": "control_utils.py at the merge's first parent 8e2a394 (execution lane) and at the PR base a445d9c (this lane) have the same sha256 a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a; the fixed file, the caller and the ACT module match byte for byte across both retrievals; the two parent readings name different commits and the same bytes",
+    "consequence": "this lane's 75,021-byte retrieval duplicated the execution lane's; later work uses its committed packet by reference"
+  }
+}

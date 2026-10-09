@@ -1,0 +1,1237 @@
+{
+  "schema": "nisayon.decision-case.pair-score.v2",
+  "case_id": "DC01-controller-target-convention",
+  "plan": {
+    "path": "docs/evaluation/results/decision-case-001/plan.v2.json",
+    "sha256": "993985de04c887737bb72bb8098174a7d9a0f1be52fac59840ca2d4fa482823d"
+  },
+  "scorer_sha256": "aa478ab15f4c3a19e27f97f8112359f7d7af7ed8fee10f6f80b0429866890dab",
+  "criterion": {
+    "step_tolerance": 2,
+    "progress_tolerance_m": 0.01,
+    "eef_report_tolerance_m": 0.001,
+    "known_outcomes": [
+      "completed",
+      "failed"
+    ],
+    "states": [
+      "valid",
+      "invalid",
+      "unresolved",
+      "missing"
+    ]
+  },
+  "mode": "manifest",
+  "store": "artifacts/engine-integration-001/decision-case-001/execution",
+  "bundle_check": {
+    "check": "record_readable",
+    "status": "pass",
+    "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+    "source": "evaluation"
+  },
+  "attempts": [
+    {
+      "id": "DC01-s0-restored",
+      "seed": 0,
+      "convention": "restored",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 44,
+      "error": null,
+      "source": "bundle run record"
+    },
+    {
+      "id": "DC01-s0-nominal",
+      "seed": 0,
+      "convention": "nominal",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 44,
+      "error": null,
+      "source": "bundle run record"
+    },
+    {
+      "id": "DC01-s10-restored",
+      "seed": 10,
+      "convention": "restored",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 43,
+      "error": null,
+      "source": "bundle run record"
+    },
+    {
+      "id": "DC01-s10-nominal",
+      "seed": 10,
+      "convention": "nominal",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 43,
+      "error": null,
+      "source": "bundle run record"
+    },
+    {
+      "id": "DC01-s11-restored",
+      "seed": 11,
+      "convention": "restored",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 37,
+      "error": null,
+      "source": "bundle run record"
+    },
+    {
+      "id": "DC01-s11-nominal",
+      "seed": 11,
+      "convention": "nominal",
+      "process_status": "completed",
+      "task_outcome": "completed",
+      "steps": 37,
+      "error": null,
+      "source": "bundle run record"
+    }
+  ],
+  "executions_recorded": 6,
+  "executions_planned": 6,
+  "executions_maximum": 8,
+  "unplanned_records": [],
+  "pairs": [
+    {
+      "label": "s0",
+      "state": "valid",
+      "reading": "E1",
+      "first": {
+        "run_id": "DC01-s0-restored",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 44,
+        "initial_cube_height_m": 0.8200132041994985,
+        "final_cube_height_m": 0.8442316266404608,
+        "progress_gain_m": 0.024218422440962284,
+        "declared_convention": "restored",
+        "controller_target_rad": [
+          0.021616238261108908,
+          0.19271788939473816,
+          0.028204092622624286,
+          -2.6254833118110983,
+          0.005503966311526405,
+          2.922377561355117,
+          0.792936702897354
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 0,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s0-restored' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "44 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "44 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "44 compact rows agree with the raw record DC01-s0-restored.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s0-restored.jsonl.gz: 45 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "44 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s0-restored",
+        "attempts_for_assignment": [
+          "DC01-s0-restored"
+        ]
+      },
+      "second": {
+        "run_id": "DC01-s0-nominal",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 44,
+        "initial_cube_height_m": 0.8200132041994985,
+        "final_cube_height_m": 0.8455136811950403,
+        "progress_gain_m": 0.02550047699554181,
+        "declared_convention": "nominal",
+        "controller_target_rad": [
+          0.0,
+          0.19634954084936207,
+          0.0,
+          -2.617993877991494,
+          0.0,
+          2.941592653589793,
+          0.7853981633974483
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 0,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s0-nominal' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "44 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "44 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "44 compact rows agree with the raw record DC01-s0-nominal.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s0-nominal.jsonl.gz: 45 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "44 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s0-nominal",
+        "attempts_for_assignment": [
+          "DC01-s0-nominal"
+        ]
+      },
+      "binding": {
+        "state": "valid",
+        "checks": [
+          {
+            "check": "same_seed",
+            "status": "pass",
+            "detail": "seed 0",
+            "source": "evaluation"
+          },
+          {
+            "check": "two_conventions_declared",
+            "status": "pass",
+            "detail": "declared ('restored', 'nominal')",
+            "source": "evaluation"
+          },
+          {
+            "check": "same_policy_sha256",
+            "status": "pass",
+            "detail": "policy_sha256 3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_git_head",
+            "status": "pass",
+            "detail": "code_git_head 62bb2dab174b737a6d02573b131b2c59f1d88812",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_lock_sha256",
+            "status": "pass",
+            "detail": "code_lock_sha256 3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sources_sha256",
+            "status": "pass",
+            "detail": "code_sources_sha256 75ebeb69e2487ae9867f1aab8c48e9f64dac9798a30ada5f57e7a099acb5ac64",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sha256",
+            "status": "pass",
+            "detail": "code_sha256 c85af99daa46d3ec32f95cc3ded97ff9a5fe81caa4f592d9cf6c68343befbc75",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_dependencies_sha256",
+            "status": "pass",
+            "detail": "dependencies_sha256 123e9e6842734f05978d5a6f0a624157c55e41d741cf9c594abaf4dd1d5a3cd1",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "frozen_policy",
+            "status": "pass",
+            "detail": "both runs use the frozen checkpoint 3ee222cab41f",
+            "source": "evaluation"
+          },
+          {
+            "check": "configuration_differs_only_in_target",
+            "status": "pass",
+            "detail": "identical except controller_target",
+            "source": "evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s0-restored equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s0-nominal equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_state_matched_except_target",
+            "status": "pass",
+            "detail": "recorded reset states identical except controller.initial_joint; digest bf9968d3dfd3c44842f6efffa1020bbed3dd6bf9930aa51ad899fcfb8d3f1ef3",
+            "source": "evaluation"
+          },
+          {
+            "check": "policy_reset_matched",
+            "status": "pass",
+            "detail": "raw policy reset state",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "policy_reset_event_matched",
+            "status": "pass",
+            "detail": "policy reset mode, application, entering-state digest and prefix",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_observation_matched",
+            "status": "pass",
+            "detail": "first-step observation",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "model_xml_matched",
+            "status": "pass",
+            "detail": "declared model XML digest",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s0-restored: restored target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s0-nominal: nominal target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          }
+        ]
+      },
+      "metric": {
+        "same_task_outcome": true,
+        "step_count_difference": 0,
+        "progress_gain_difference_m": 0.001282055,
+        "progress_gain_difference_nm": 1282055,
+        "qualifying_difference": false,
+        "reading": "no_qualifying_difference"
+      },
+      "diagnostic": {
+        "common_steps": 44,
+        "eef_max_deviation_m_over_common_steps": 0.000943,
+        "eef_first_step_above_1mm": null,
+        "eef_exceeds_report_tolerance": false,
+        "joint_max_deviation_rad_over_common_steps": 0.015306,
+        "role": "report_only; not a decision predicate"
+      },
+      "engine_audit": {
+        "present": true,
+        "engine_initial_state_excluding_target_sha256": "bf9968d3dfd3c44842f6efffa1020bbed3dd6bf9930aa51ad899fcfb8d3f1ef3",
+        "evaluation_initial_state_excluding_target_sha256": "bf9968d3dfd3c44842f6efffa1020bbed3dd6bf9930aa51ad899fcfb8d3f1ef3",
+        "agrees": true,
+        "role": "producer claim, consumed for comparison only; validity above is recomputed here"
+      }
+    },
+    {
+      "label": "s10",
+      "state": "valid",
+      "reading": "E1",
+      "first": {
+        "run_id": "DC01-s10-restored",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 43,
+        "initial_cube_height_m": 0.8199004036580103,
+        "final_cube_height_m": 0.8467483630907073,
+        "progress_gain_m": 0.02684795943269702,
+        "declared_convention": "restored",
+        "controller_target_rad": [
+          -0.011654632956849747,
+          0.20574235935160456,
+          -0.0046792518069037805,
+          -2.610920719215542,
+          0.035674018827696455,
+          2.9345866293128573,
+          0.7656051713146197
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 10,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s10-restored' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "43 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "43 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "43 compact rows agree with the raw record DC01-s10-restored.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s10-restored.jsonl.gz: 44 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "43 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s10-restored",
+        "attempts_for_assignment": [
+          "DC01-s10-restored"
+        ]
+      },
+      "second": {
+        "run_id": "DC01-s10-nominal",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 43,
+        "initial_cube_height_m": 0.8199004036580103,
+        "final_cube_height_m": 0.8470154101466953,
+        "progress_gain_m": 0.027115006488685034,
+        "declared_convention": "nominal",
+        "controller_target_rad": [
+          0.0,
+          0.19634954084936207,
+          0.0,
+          -2.617993877991494,
+          0.0,
+          2.941592653589793,
+          0.7853981633974483
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 10,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s10-nominal' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "43 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "43 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "43 compact rows agree with the raw record DC01-s10-nominal.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s10-nominal.jsonl.gz: 44 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "43 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s10-nominal",
+        "attempts_for_assignment": [
+          "DC01-s10-nominal"
+        ]
+      },
+      "binding": {
+        "state": "valid",
+        "checks": [
+          {
+            "check": "same_seed",
+            "status": "pass",
+            "detail": "seed 10",
+            "source": "evaluation"
+          },
+          {
+            "check": "two_conventions_declared",
+            "status": "pass",
+            "detail": "declared ('restored', 'nominal')",
+            "source": "evaluation"
+          },
+          {
+            "check": "same_policy_sha256",
+            "status": "pass",
+            "detail": "policy_sha256 3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_git_head",
+            "status": "pass",
+            "detail": "code_git_head 62bb2dab174b737a6d02573b131b2c59f1d88812",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_lock_sha256",
+            "status": "pass",
+            "detail": "code_lock_sha256 3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sources_sha256",
+            "status": "pass",
+            "detail": "code_sources_sha256 75ebeb69e2487ae9867f1aab8c48e9f64dac9798a30ada5f57e7a099acb5ac64",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sha256",
+            "status": "pass",
+            "detail": "code_sha256 c85af99daa46d3ec32f95cc3ded97ff9a5fe81caa4f592d9cf6c68343befbc75",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_dependencies_sha256",
+            "status": "pass",
+            "detail": "dependencies_sha256 123e9e6842734f05978d5a6f0a624157c55e41d741cf9c594abaf4dd1d5a3cd1",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "frozen_policy",
+            "status": "pass",
+            "detail": "both runs use the frozen checkpoint 3ee222cab41f",
+            "source": "evaluation"
+          },
+          {
+            "check": "configuration_differs_only_in_target",
+            "status": "pass",
+            "detail": "identical except controller_target",
+            "source": "evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s10-restored equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s10-nominal equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_state_matched_except_target",
+            "status": "pass",
+            "detail": "recorded reset states identical except controller.initial_joint; digest c4972ba6a736c8fc3fa7a1392a2c07df472cec09fa9a5a814b939eac9bf8e68f",
+            "source": "evaluation"
+          },
+          {
+            "check": "policy_reset_matched",
+            "status": "pass",
+            "detail": "raw policy reset state",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "policy_reset_event_matched",
+            "status": "pass",
+            "detail": "policy reset mode, application, entering-state digest and prefix",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_observation_matched",
+            "status": "pass",
+            "detail": "first-step observation",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "model_xml_matched",
+            "status": "pass",
+            "detail": "declared model XML digest",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s10-restored: restored target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s10-nominal: nominal target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          }
+        ]
+      },
+      "metric": {
+        "same_task_outcome": true,
+        "step_count_difference": 0,
+        "progress_gain_difference_m": 0.000267047,
+        "progress_gain_difference_nm": 267047,
+        "qualifying_difference": false,
+        "reading": "no_qualifying_difference"
+      },
+      "diagnostic": {
+        "common_steps": 43,
+        "eef_max_deviation_m_over_common_steps": 0.000444,
+        "eef_first_step_above_1mm": null,
+        "eef_exceeds_report_tolerance": false,
+        "joint_max_deviation_rad_over_common_steps": 0.015784,
+        "role": "report_only; not a decision predicate"
+      },
+      "engine_audit": {
+        "present": true,
+        "engine_initial_state_excluding_target_sha256": "c4972ba6a736c8fc3fa7a1392a2c07df472cec09fa9a5a814b939eac9bf8e68f",
+        "evaluation_initial_state_excluding_target_sha256": "c4972ba6a736c8fc3fa7a1392a2c07df472cec09fa9a5a814b939eac9bf8e68f",
+        "agrees": true,
+        "role": "producer claim, consumed for comparison only; validity above is recomputed here"
+      }
+    },
+    {
+      "label": "s11",
+      "state": "valid",
+      "reading": "E1",
+      "first": {
+        "run_id": "DC01-s11-restored",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 37,
+        "initial_cube_height_m": 0.81849790120087,
+        "final_cube_height_m": 0.8407053675143331,
+        "progress_gain_m": 0.022207466313463153,
+        "declared_convention": "restored",
+        "controller_target_rad": [
+          0.014020460935644779,
+          0.1893810258380828,
+          -0.014544099524018842,
+          -2.608549800112963,
+          -0.012474739186961317,
+          2.931288425199118,
+          0.8065056210579413
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 11,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s11-restored' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "37 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "37 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "37 compact rows agree with the raw record DC01-s11-restored.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s11-restored.jsonl.gz: 38 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "37 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s11-restored",
+        "attempts_for_assignment": [
+          "DC01-s11-restored"
+        ]
+      },
+      "second": {
+        "run_id": "DC01-s11-nominal",
+        "execution_dir": "artifacts/engine-integration-001/decision-case-001/execution",
+        "task_outcome": "completed",
+        "steps": 37,
+        "initial_cube_height_m": 0.81849790120087,
+        "final_cube_height_m": 0.8407782443912664,
+        "progress_gain_m": 0.0222803431903964,
+        "declared_convention": "nominal",
+        "controller_target_rad": [
+          0.0,
+          0.19634954084936207,
+          0.0,
+          -2.617993877991494,
+          0.0,
+          2.941592653589793,
+          0.7853981633974483
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 11,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 c9f9241d40b2ba8e5119ff69d75371d8a21527f497e8247c1bb545992f208d85",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'DC01-s11-nominal' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "37 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "37 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/engine-integration-001/decision-case-001/execution",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "37 compact rows agree with the raw record DC01-s11-nominal.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "DC01-s11-nominal.jsonl.gz: 38 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "37 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid",
+        "assignment_id": "DC01-s11-nominal",
+        "attempts_for_assignment": [
+          "DC01-s11-nominal"
+        ]
+      },
+      "binding": {
+        "state": "valid",
+        "checks": [
+          {
+            "check": "same_seed",
+            "status": "pass",
+            "detail": "seed 11",
+            "source": "evaluation"
+          },
+          {
+            "check": "two_conventions_declared",
+            "status": "pass",
+            "detail": "declared ('restored', 'nominal')",
+            "source": "evaluation"
+          },
+          {
+            "check": "same_policy_sha256",
+            "status": "pass",
+            "detail": "policy_sha256 3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_git_head",
+            "status": "pass",
+            "detail": "code_git_head 62bb2dab174b737a6d02573b131b2c59f1d88812",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_lock_sha256",
+            "status": "pass",
+            "detail": "code_lock_sha256 3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sources_sha256",
+            "status": "pass",
+            "detail": "code_sources_sha256 75ebeb69e2487ae9867f1aab8c48e9f64dac9798a30ada5f57e7a099acb5ac64",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sha256",
+            "status": "pass",
+            "detail": "code_sha256 c85af99daa46d3ec32f95cc3ded97ff9a5fe81caa4f592d9cf6c68343befbc75",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_dependencies_sha256",
+            "status": "pass",
+            "detail": "dependencies_sha256 123e9e6842734f05978d5a6f0a624157c55e41d741cf9c594abaf4dd1d5a3cd1",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "frozen_policy",
+            "status": "pass",
+            "detail": "both runs use the frozen checkpoint 3ee222cab41f",
+            "source": "evaluation"
+          },
+          {
+            "check": "configuration_differs_only_in_target",
+            "status": "pass",
+            "detail": "identical except controller_target",
+            "source": "evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s11-restored equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of DC01-s11-nominal equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_state_matched_except_target",
+            "status": "pass",
+            "detail": "recorded reset states identical except controller.initial_joint; digest b4d0c31a3ac5eaa563dee57225b08f75d34266266a31ff3c8d55180427134aa1",
+            "source": "evaluation"
+          },
+          {
+            "check": "policy_reset_matched",
+            "status": "pass",
+            "detail": "raw policy reset state",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "policy_reset_event_matched",
+            "status": "pass",
+            "detail": "policy reset mode, application, entering-state digest and prefix",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_observation_matched",
+            "status": "pass",
+            "detail": "first-step observation",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "model_xml_matched",
+            "status": "pass",
+            "detail": "declared model XML digest",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s11-restored: restored target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "DC01-s11-nominal: nominal target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          }
+        ]
+      },
+      "metric": {
+        "same_task_outcome": true,
+        "step_count_difference": 0,
+        "progress_gain_difference_m": 7.2877e-05,
+        "progress_gain_difference_nm": 72877,
+        "qualifying_difference": false,
+        "reading": "no_qualifying_difference"
+      },
+      "diagnostic": {
+        "common_steps": 37,
+        "eef_max_deviation_m_over_common_steps": 0.000228,
+        "eef_first_step_above_1mm": null,
+        "eef_exceeds_report_tolerance": false,
+        "joint_max_deviation_rad_over_common_steps": 0.007381,
+        "role": "report_only; not a decision predicate"
+      },
+      "engine_audit": {
+        "present": true,
+        "engine_initial_state_excluding_target_sha256": "b4d0c31a3ac5eaa563dee57225b08f75d34266266a31ff3c8d55180427134aa1",
+        "evaluation_initial_state_excluding_target_sha256": "b4d0c31a3ac5eaa563dee57225b08f75d34266266a31ff3c8d55180427134aa1",
+        "agrees": true,
+        "role": "producer claim, consumed for comparison only; validity above is recomputed here"
+      }
+    }
+  ],
+  "aggregate": {
+    "planned_pairs": 3,
+    "counts": {
+      "valid": 3,
+      "invalid": 0,
+      "unresolved": 0,
+      "missing": 0
+    },
+    "E1_pairs": [
+      "s0",
+      "s10",
+      "s11"
+    ],
+    "E2_pairs": [],
+    "allocation": "6 of at most 8 executions recorded",
+    "allocation_conforms": true,
+    "reading": "E1: no qualifying difference on all 3 admitted pairs under the frozen tolerances; this is not equivalence over Lift or other seeds"
+  }
+}

@@ -107,6 +107,35 @@ def recurrent_state(policy) -> dict:
     }
 
 
+def configure_controller_target(env, convention: str) -> dict:
+    """Set the target with the same controller refresh for both declared modes."""
+    if convention not in {"restored", "nominal"}:
+        raise ValueError("Controller target must be restored or nominal")
+    robot = env.robots[0]
+    before = np.array(robot.controller.initial_joint, copy=True)
+    nominal = np.array(robot.init_qpos, copy=True)
+    restored = np.array(env.sim.data.qpos[robot._ref_joint_pos_indexes], copy=True)
+    # The real OSC method also calls sim.forward and resets Cartesian goals.
+    # Apply it in both explicit modes to avoid confounding those side effects
+    # with the target choice. Omitted legacy settings do not call this helper.
+    robot.controller.update_initial_joints(nominal if convention == "nominal" else restored)
+    actual = np.array(robot.controller.initial_joint, copy=True)
+    expected = nominal if convention == "nominal" else restored
+    if not np.isfinite(actual).all() or not np.array_equal(actual, expected):
+        raise ValueError("Controller target does not match the declared reset convention")
+    return {
+        "convention": convention,
+        "before_target_rad": before.tolist(),
+        "actual_target_rad": actual.tolist(),
+        "nominal_target_rad": nominal.tolist(),
+        "restored_joint_position_rad": restored.tolist(),
+        "target_minus_restored_rad": (actual - restored).tolist(),
+        "target_minus_nominal_rad": (actual - nominal).tolist(),
+        "method": "update_initial_joints in both explicit conventions",
+        "boundary": "Measured target only; no assertion about all hidden reset state",
+    }
+
+
 class LiftExecutor:
     def __init__(self, checkpoint: Path):
         self.host_origin = time.perf_counter()
@@ -308,7 +337,12 @@ class LiftExecutor:
             }
             if telemetry_profile == "policy_state_unavailable":
                 record["policy_state_reset"]["missing_reason"] = MISSING_REASON
-            captured = sensor_recorder.capture(env.reset(), self.keys, step=0)
+            observation = env.reset()
+            if settings.controller_target is not None:
+                record["controller_reset"] = configure_controller_target(
+                    env, settings.controller_target
+                )
+            captured = sensor_recorder.capture(observation, self.keys, step=0)
             observations = [captured]
             initial = state(env)
             record["initial_state_sha256"] = digest(initial)

@@ -1,0 +1,337 @@
+{
+  "schema": "nisayon.processor-reference.assessment.v1",
+  "decision_rule": "external-decision-001/v1",
+  "reference_source": {
+    "commit": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "normalize_processor_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6"
+  },
+  "arm": "B",
+  "incident": {
+    "id": "lerobot-4415",
+    "report_url": "https://github.com/huggingface/lerobot/issues/4415",
+    "reported_at": "2026-08-11T09:35:06Z",
+    "exposure": "retrospective_public_issue_and_remedy_exposed",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "earlier_model_revision": "3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c"
+  },
+  "inputs": {
+    "preprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor.json",
+      "bytes": 1872,
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "declared_sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "digest_matches": true,
+      "declared_bytes": 1872,
+      "bytes_match": true
+    },
+    "preprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "postprocessor_config": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor.json",
+      "bytes": 660,
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "declared_sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "digest_matches": true,
+      "declared_bytes": 660,
+      "bytes_match": true
+    },
+    "postprocessor_stats": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "declared_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "digest_matches": true,
+      "declared_bytes": 640,
+      "bytes_match": true
+    },
+    "processor_source": {
+      "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/external-decision-001/source-capture/coordinator/sources/normalize_processor.py",
+      "bytes": 25161,
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "declared_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "digest_matches": true,
+      "declared_bytes": 25161,
+      "bytes_match": true,
+      "pinned_sha256_matches": true
+    }
+  },
+  "resolved": {
+    "preprocessor": {
+      "role": "preprocessor",
+      "step_index": 5,
+      "registry_name": "normalizer_processor",
+      "features": {
+        "observation.state": {
+          "type": "STATE",
+          "shape": [
+            6
+          ]
+        },
+        "observation.image2": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "observation.image": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "observation.image3": {
+          "type": "VISUAL",
+          "shape": [
+            3,
+            256,
+            256
+          ]
+        },
+        "action": {
+          "type": "ACTION",
+          "shape": [
+            6
+          ]
+        }
+      },
+      "norm_map": {
+        "VISUAL": "IDENTITY",
+        "STATE": "MEAN_STD",
+        "ACTION": "MEAN_STD"
+      },
+      "eps": 1e-08,
+      "normalize_observation_keys": null,
+      "state_file": "policy_preprocessor_step_5_normalizer_processor.safetensors"
+    },
+    "postprocessor": {
+      "role": "postprocessor",
+      "step_index": 0,
+      "registry_name": "unnormalizer_processor",
+      "features": {
+        "action": {
+          "type": "ACTION",
+          "shape": [
+            6
+          ]
+        }
+      },
+      "norm_map": {
+        "VISUAL": "IDENTITY",
+        "STATE": "MEAN_STD",
+        "ACTION": "MEAN_STD"
+      },
+      "eps": 1e-08,
+      "normalize_observation_keys": null,
+      "state_file": "policy_postprocessor_step_0_unnormalizer_processor.safetensors"
+    }
+  },
+  "statistics_keys": {
+    "preprocessor": {
+      "so100-blue.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100-red.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100.buffer.action": [
+        "mean",
+        "std"
+      ]
+    },
+    "postprocessor": {
+      "so100-blue.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100-red.buffer.action": [
+        "mean",
+        "std"
+      ],
+      "so100.buffer.action": [
+        "mean",
+        "std"
+      ]
+    }
+  },
+  "tensor_dtypes": {
+    "preprocessor": {
+      "so100-blue.buffer.action.mean": "F32",
+      "so100-blue.buffer.action.std": "F32",
+      "so100-red.buffer.action.mean": "F32",
+      "so100-red.buffer.action.std": "F32",
+      "so100.buffer.action.mean": "F32",
+      "so100.buffer.action.std": "F32"
+    },
+    "postprocessor": {
+      "so100-blue.buffer.action.mean": "F32",
+      "so100-blue.buffer.action.std": "F32",
+      "so100-red.buffer.action.mean": "F32",
+      "so100-red.buffer.action.std": "F32",
+      "so100.buffer.action.mean": "F32",
+      "so100.buffer.action.std": "F32"
+    }
+  },
+  "obligations": [
+    {
+      "processor": "preprocessor",
+      "feature": "observation.state",
+      "direction": "forward",
+      "mode": "MEAN_STD",
+      "kind": "repair",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image2",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "preprocessor",
+      "feature": "observation.image3",
+      "direction": "forward",
+      "mode": "IDENTITY",
+      "kind": "identity_legitimacy",
+      "why": "observation feature, forward"
+    },
+    {
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "mode": "MEAN_STD",
+      "kind": "repair",
+      "why": "policy action, inverse"
+    }
+  ],
+  "executions": [
+    {
+      "id": "2026-09-20T13:03:47.994449+00:00",
+      "candidate": "as_is",
+      "processor": "postprocessor",
+      "feature": "action",
+      "direction": "inverse",
+      "status": "completed",
+      "expected": {
+        "feature": "action",
+        "feature_type": "ACTION",
+        "processor": "postprocessor",
+        "direction": "inverse",
+        "candidate": "as_is",
+        "mode": "MEAN_STD",
+        "class": "skipped_no_stats",
+        "bound_key": null,
+        "matches": [],
+        "detail": "no statistics key resolves 'action': the pinned step returns the input"
+      },
+      "bound_stats": {},
+      "agreement": "agrees",
+      "vacuous": false,
+      "findings": [],
+      "stats_provenance": "artifact"
+    }
+  ],
+  "reference_decision": {
+    "overall": "rejected_candidate",
+    "supported_candidates": [],
+    "per_candidate": {
+      "as_is": {
+        "candidate": "as_is",
+        "outcome": "rejected_candidate",
+        "reason": "unmet obligation: postprocessor:action:inverse: skipped_no_stats; preprocessor:observation.state:forward: skipped_no_stats (no statistics key resolves 'observation.state': the pinned step returns the input)",
+        "unmet": [
+          "postprocessor:action:inverse: skipped_no_stats",
+          "preprocessor:observation.state:forward: skipped_no_stats (no statistics key resolves 'observation.state': the pinned step returns the input)"
+        ],
+        "unexercised": [],
+        "legitimacy_violations": [],
+        "disagreements": [],
+        "reference_mismatches": [],
+        "vacuous_only": [],
+        "statistics_provenance": [
+          "artifact"
+        ],
+        "deployment_binding": "not_applicable",
+        "binding_note": null
+      },
+      "suffix_match": {
+        "candidate": "suffix_match",
+        "outcome": "rejected_candidate",
+        "reason": "unmet obligation: postprocessor:action:inverse: ambiguous (3 keys match 'action'; the candidate binds the first in store order); preprocessor:observation.state:forward: skipped_no_stats (no statistics key resolves 'observation.state': the pinned step returns the input)",
+        "unmet": [
+          "postprocessor:action:inverse: ambiguous (3 keys match 'action'; the candidate binds the first in store order)",
+          "preprocessor:observation.state:forward: skipped_no_stats (no statistics key resolves 'observation.state': the pinned step returns the input)"
+        ],
+        "unexercised": [],
+        "legitimacy_violations": [],
+        "disagreements": [],
+        "reference_mismatches": [],
+        "vacuous_only": [],
+        "statistics_provenance": [],
+        "deployment_binding": "not_applicable",
+        "binding_note": null
+      }
+    }
+  },
+  "reference_statistics": null,
+  "producer_decision": null,
+  "decision_agreement": {
+    "status": "no_producer_decision",
+    "per_candidate": {}
+  },
+  "findings": [],
+  "boundary": "software mechanism only: a supported correction of the processor step is not a recovered robot task, and statistics of unverified provenance leave the deployment binding unresolved",
+  "adapted_from": {
+    "schema": "nisayon.external-processor-observation.v1",
+    "raw_record": {
+      "path": "artifacts/external-decision-001/first-observation/record.json",
+      "bytes": 7602,
+      "sha256": "8b1521783361338d835eec4e9563b5a1511f0191d05a0fd2f3e30a3eac729352"
+    },
+    "request": {
+      "path": "docs/experiments/results/external-decision-001/observation-request.v1.json",
+      "sha256": "23137f870696c307503ce4c52c1ea5add7c72f4269a958859dea4ca9f23ff549",
+      "frozen_commit": "e59bd39a01aa7a51da487fe2b06f29a17410b7be"
+    },
+    "cost": {
+      "command_record_id": "506e55495144496b9492e8c7c8f96086",
+      "command_wall_seconds": 1.721048,
+      "inner_wall_seconds_before_final_write": 1.4688364579342306,
+      "process_cpu_seconds": 2.8010479999999998,
+      "wrapper_overhead": "The command wall includes the child and wrapper; the inner wall and CPU are nested and are not added to it."
+    },
+    "limits": {
+      "full_upstream_pipeline_executed": false,
+      "policy_or_model_executed": false,
+      "robot_task_observed": false,
+      "deployment_outcome_observed": false,
+      "boundary": "The exact reviewed mixin class, state loader and transform method ran on exact retained config/state bytes. LeRobot registry, pipeline converters, Hub loading, device transfer, policy inference and the reported deployment were not executed."
+    }
+  },
+  "records": [
+    "/private/tmp/claude-501/-Users-danielwahnich-workspace-nisayon/293fc0e0-642f-4a9a-8262-c1d1bf82ec1b/scratchpad/first-observation-001.json"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "nisayon.a1-runtime-acquisition-proposal.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:28:00Z",
+  "status": "execution proposal for prospective evaluation-owner acceptance; not authority to dispatch",
+  "operator_limits": {
+    "application_response_cap": 52,
+    "application_responses_consumed": 12,
+    "application_responses_remaining": 40,
+    "cumulative_body_cap_bytes": 67108864,
+    "cumulative_body_bytes_consumed": 42678155,
+    "body_bytes_remaining": 24430709,
+    "source": "docs/experiments/results/a1-runtime-001/network-authority-001.json",
+    "no_reset": "every response, redirect, error and partial body remains chargeable"
+  },
+  "bound_inputs": {
+    "wheel_url": "https://files.pythonhosted.org/packages/f4/15/82093cadf23811463d0b52ec6745949356b66badf6e25bee64ec82aa8689/robosuite-1.5.1-py3-none-any.whl",
+    "wheel_bytes": 152011410,
+    "publisher_whole_sha256_declared_unverified": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153",
+    "asset_manifest_path": "docs/experiments/results/a1-runtime-001/referenced-assets-001.json",
+    "asset_manifest_sha256": "3d4e22e1909a115d3b9bb5a9aaee085f2c8b2dc8c1481b5965c3f8160e05db93",
+    "asset_members_sha256": "e7fc1acfb92b1b46ce61d3222429ec9c2b6e31a2b12a0efccf0124e6b17149d3",
+    "asset_members": 69,
+    "transport_source_commit": "c6786ac6e5d7612b088af68ffcc176ac30c8c1cc",
+    "transport_sha256": "986dd7497c75a360b42c1f2e856020ffa86adbc1e82457c376fe74b03e8eac17",
+    "subset_source_commit": "431d46ce65d3019f32bfdbd20cafff9a5cf4eb86",
+    "subset_sha256": "687fce4ca3e58b81069baaccd3d3fca09b2c868236a94b4c4fe289a12e63d77f"
+  },
+  "response_allocation": {
+    "wheel_head": 1,
+    "eocd_suffix": 1,
+    "central_directory_completion": 1,
+    "license_and_metadata_first": 1,
+    "operational_member_ranges": 20,
+    "supplementary_member_ranges": 2,
+    "dependency_metadata_and_rights": 7,
+    "dependency_artifacts": 7,
+    "total": 40,
+    "unused_rule": "a conditional response not needed remains unused and is not automatically reallocated"
+  },
+  "ordered_route": [
+    {
+      "id": "H1",
+      "request": "one HEAD of the exact wheel URL",
+      "pass": "200; Content-Length 152011410; Accept-Ranges bytes; zero body",
+      "stop": "any redirect, missing or conflicting header, different length, body byte or transport failure"
+    },
+    {
+      "id": "D1",
+      "request": "one GET Range of the last 65,557 archive bytes, positions 151945853-152011409 inclusive",
+      "purpose": "discover a terminal classic-ZIP EOCD without trusting an earlier signature",
+      "pass": "206 with exact Content-Range and length; classic, single-disk, non-ZIP64 EOCD whose archive length and directory bounds are internally consistent",
+      "boundary": "the entire suffix counts; any incidentally included member bytes are retained but not interpreted, extracted or used before the rights gate",
+      "stop": "invalid EOCD, ZIP64, split archive or response mismatch"
+    },
+    {
+      "id": "D2",
+      "request": "only if the EOCD-declared directory begins before D1: one exact Range from central_offset through 151945852 inclusive",
+      "purpose": "complete the central directory without overlapping D1",
+      "pass": "the assembled exact directory parses completely; every member is safe, unique, supported and within the archive",
+      "unused": "if D1 already contains the complete directory, D2 is not sent and its response remains unused"
+    },
+    {
+      "id": "L1",
+      "request": "one smallest continuous Range containing METADATA and every listed distribution LICENSE* member selected prospectively by the directory rule",
+      "pass": "all selected members verify against central CRC32 and sizes; the license declaration plainly covers this distribution under a recognized permissive license; METADATA states no conflicting terms",
+      "stop": "no rights member, ambiguous coverage, conflict, extraction difference or non-permissive terms; no operational member request follows"
+    },
+    {
+      "id": "P1",
+      "operation": "apply the already-frozen selection to the complete central-directory table: every non-asset member, every asset XML/JSON member and all 69 exact manifest members",
+      "pass": "all required members exist; coalesce to at most 20 non-overlapping ranges; retain their exact byte total without sending a member request",
+      "post_output_change": "forbidden; missing paths do not permit editing the asset manifest or selection rule"
+    },
+    {
+      "id": "M1",
+      "operation": "resolve mink>=0.0.5 and every not-held transitive only through prospectively named official release-metadata endpoints, before each artifact GET",
+      "metadata_limit": 7,
+      "artifact_limit": 7,
+      "metadata_body_limit_each_bytes": 1048576,
+      "rights": "each artifact needs an applicable release-level permissive declaration before its GET; a repository declaration is not silently extended to an external artifact",
+      "selection_needed_from_evaluation_owner": "exact Mink version or a deterministic pre-output version rule, exact endpoint family, compatible-wheel rule, transitive recursion rule and stop disposition when metadata, rights, response or byte limits do not suffice",
+      "stop": "no uncontrolled package-manager network resolution; no artifact GET until exact filename, bytes, sha256, requirements and rights are retained"
+    },
+    {
+      "id": "P2",
+      "operation": "combine every body byte already consumed with D1, optional D2, L1, the exact P1 range total, every dependency metadata body and every declared dependency artifact size",
+      "pass": "the resulting cumulative total is at most 67,108,864 bytes, the phase increment is at most 24,430,709 bytes, and the complete response plan remains at most forty",
+      "stop": "stop before O1 if any size is unknown, a limit is exceeded, or satisfying the dependency graph needs an unallocated response"
+    },
+    {
+      "id": "O1",
+      "request": "only after L1 and M1 have qualified the entire declared plan: at most 20 exact operational wheel member ranges, then at most seven exact dependency artifacts",
+      "pass": "every response and extracted member matches its frozen range, length, CRC32 where applicable and sha256; no redirect is followed",
+      "stop": "any mismatch or unexpected location; partial bytes and failures remain retained"
+    },
+    {
+      "id": "S1",
+      "request": "at most two supplementary wheel ranges only for a missing member named by a failed construction and permitted by a prospectively accepted selection rule",
+      "boundary": "the failed construction is retained; supplementary acquisition does not erase it and cannot expand runtime scope"
+    }
+  ],
+  "required_contract_corrections": [
+    "compose and digest-bind runtime contract v1 with amendment v1.1 as one effective input",
+    "bind the exact response allocation above or a different allocation whose total is at most forty",
+    "state that D1 incidental member-byte overfetch is permitted only as uninterpreted directory-discovery evidence, or choose another executable directory route",
+    "bind the asset manifest and canonical member-list digests",
+    "bind the exact Mink and transitive resolution rule",
+    "accept stop-on-redirect or prospectively pin and budget every permitted hop",
+    "correct the packet assessor's eight reproduced acceptance failures before it is used"
+  ],
+  "pre_dispatch_checks": [
+    "execution and private main clean and ancestry reconciled",
+    "current disk free space at least 5,368,709,120 bytes",
+    "current memory sample retained against the 2,147,483,648-byte per-command RSS ceiling and existing machine guard",
+    "historical pyproject.toml, uv.lock and .venv identities retained before the first request",
+    "exact next request receipt and body paths absent and reserved",
+    "effective contract and this accepted plan committed before H1"
+  ],
+  "current_operations": {
+    "new_application_responses": 0,
+    "new_response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "replay_started": 0,
+    "development_started": 0
+  },
+  "claim_boundary": "this proposal makes acquisition reviewable but establishes no live-server behavior, rights, package identity, runtime compatibility, policy competence, task outcome, repair or comparative value",
+  "publication": "private; no push or publication"
+}

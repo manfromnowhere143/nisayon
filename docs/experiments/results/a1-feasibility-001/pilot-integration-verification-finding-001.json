@@ -1,0 +1,57 @@
+{
+  "schema": "nisayon.a1-pilot-integration-verification-finding.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T12:16:54Z",
+  "named_evaluation_delivery": {
+    "original_commit": "7ffb76c8f807b369fe922b53b3e1f1ce20ab30c8",
+    "integrated_commit": "2fbbf2630f226ba62f03735904d651b2e320562e",
+    "path": "docs/evaluation/results/a1-pilot-001/integration-verification-001.json",
+    "sha256": "076c9e65f81419b59fbc19331d8bfb47d8d427ef77a2df2f13f5fa1d3d1941fc",
+    "status": "preserved as before-evidence"
+  },
+  "trigger": "the delivery names private-main head 77f6f71 but binds the earlier f5d249f readback digest and commit count",
+  "reproduction": {
+    "command_record_id": "fdb75bfbfebf4bb1b633e7b9fbaa1b92",
+    "command_record_sha256": "25641f4421f19a8fbfe7e5ba918dd5a252b4be70f8c737861067bb7d77790cce",
+    "stdout_sha256": "79cbad4a64619fb6d47d259351f3516b082032a0a11141211d4832c20539e560",
+    "outer_wall_seconds": 0.091901,
+    "inputs": {
+      "phase_base": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+      "earlier_snapshot": "f5d249fe1785024d9975534dc2ef21d677a056b8",
+      "declared_private_main": "77f6f713ae2ae1c7f28fca6375517b1ed4c54ba9",
+      "evaluation_record": "7ffb76c8f807b369fe922b53b3e1f1ce20ab30c8"
+    },
+    "observations": {
+      "declared_readback_sha256": "ef4c750e501230fae91abd86d93f07d263eb59242039d115ce9ad604aa037ee0",
+      "earlier_snapshot_readback_sha256": "ef4c750e501230fae91abd86d93f07d263eb59242039d115ce9ad604aa037ee0",
+      "declared_private_main_readback_sha256": "c4cd569f724ca29b0ada9441eabfbd1bc2af04ab4eddf5d47f74c6b772efa526",
+      "declared_digest_matches_earlier_snapshot": true,
+      "declared_digest_matches_declared_private_main": false,
+      "declared_commit_count": 24,
+      "earlier_snapshot_commit_count": 24,
+      "declared_private_main_commit_count": 25,
+      "changed_top_level_keys": [
+        "private_main_transition",
+        "status"
+      ],
+      "claim_ladder_equal": true,
+      "decision_equal": true
+    },
+    "operations": {
+      "network_requests": 0,
+      "simulator_constructions": 0,
+      "physics_steps": 0,
+      "policy_actions": 0
+    }
+  },
+  "cause": "concurrent records-only private-main closeout advanced f5d249f to 77f6f71 after the evaluation lane had hashed the earlier readback but before it recorded the observed main head",
+  "disposition": {
+    "accepted_scope": "the delivery verifies the readback bytes and 24-commit integration at f5d249f",
+    "rejected_scope": "its digest and commit count do not verify the stated 77f6f71 snapshot",
+    "scientific_effect": "none; the claim ladder and decision are byte-equal across the two readback versions",
+    "correction_rule": "a corrected evaluation record may substitute the f5d249f head or bind the 77f6f71 digest and 25-commit count from this labelled witness; no reassessment or repeated full validation is needed",
+    "current_readback": "the execution lane's later private-main receipt supersedes the transition metadata, not the independent scientific verdict"
+  },
+  "cost_boundary": "only the 0.091901-second witness is added; reading and integration effort remain unmeasured",
+  "publication": "private; no push or publication"
+}

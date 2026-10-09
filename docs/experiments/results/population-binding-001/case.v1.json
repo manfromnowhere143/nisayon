@@ -1,0 +1,341 @@
+{
+  "schema": "nisayon.population-binding-case.v1",
+  "id": "population-binding-001",
+  "frozen_at": "2026-09-20T19:34:00Z",
+  "exposure": "The five-episode discrepancy and the parent-population identification were exposed before this diagnostic. The case is frozen before its first scored producer execution.",
+  "interface": {
+    "schema": "nisayon.population-binding-record-interface.v2",
+    "path": "docs/experiments/results/population-binding-001/record-interface.v2.json",
+    "sha256": "5c7573172065ad73701576f1f297a56d30094f83dcea2dd991301a10cac80f25"
+  },
+  "evaluation_contract": {
+    "delivery": "ece5d8e1687b35185db26f592a862df43f1ad78c",
+    "path": "docs/evaluation/results/population-binding-001/contract.v1.json",
+    "sha256": "c0fba03586e7b701301a328e5f0f74973bf5b015017e21325c1ea296e2c490e0",
+    "runtime_input_to_producer": false
+  },
+  "sources": [
+    {
+      "id": "published_statistics",
+      "role": "published parent-population statistics",
+      "revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c",
+      "bytes": 3870,
+      "sha256": "8283e003742e41f0a55cce468daee0c388e7d203e72b6a51d53c04765fb68110",
+      "locators": [
+        "/Users/danielwahnich/.codex/reports/nisayon-next-evidence-decision-2026-09-20-8i17bt5a/sources/groot-demo-stats.json",
+        "artifacts/population-binding-001/producer-001/inputs/sources/published_statistics/groot-demo-stats.json"
+      ],
+      "rights_scope": "private retained research evidence; redistribution not established"
+    },
+    {
+      "id": "parent_enumeration",
+      "role": "complete per-episode enumeration for the identified parent population",
+      "revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c",
+      "bytes": 938760,
+      "sha256": "884f963e29d3078a0c32099d055a7d46e4701935b2a00f70c68801baae9619ea",
+      "locators": [
+        "/Users/danielwahnich/workspace/nisayon-fable5/artifacts/population-binding-001/sources/groot-demo-episodes_stats-1a1837.jsonl",
+        "artifacts/population-binding-001/producer-001/inputs/sources/parent_enumeration/groot-demo-episodes_stats-1a1837.jsonl"
+      ],
+      "rights_scope": "private retained research evidence; redistribution not established"
+    },
+    {
+      "id": "population_identity",
+      "role": "independently computed parent/subset identity record",
+      "revision": "evaluation delivery e119af08d8ccc1a846a8c1925fc3142e7136d5c3",
+      "bytes": 25080,
+      "sha256": "3cd144829971827b8eca2ef460737c4e0fc47d440bdeb9fff92bcd9e7769af7a",
+      "locators": [
+        "docs/evaluation/results/population-binding-001/population-identity-001.json",
+        "/Users/danielwahnich/workspace/nisayon-fable5/docs/evaluation/results/population-binding-001/population-identity-001.json"
+      ],
+      "rights_scope": "Nisayon evaluation record referencing private upstream evidence"
+    },
+    {
+      "id": "upstream_path_observation",
+      "role": "reduced execution of pinned cache, reader and mixture call-path bodies",
+      "revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c; Nisayon execution@7e575048fdef116736225f2246d330025feec6e8",
+      "bytes": 19040,
+      "sha256": "879c8960f9ed013ac291e70e144a1b0536cb6e7175e8059907b08c5ff911c806",
+      "locators": [
+        "docs/experiments/results/population-binding-001/upstream-path-observation-001.json"
+      ],
+      "rights_scope": "Nisayon observation; exact upstream source identities recorded separately"
+    },
+    {
+      "id": "normalizer_selection",
+      "role": "bounded formula and precedence source result",
+      "revision": "Nisayon execution@2aec97c1cc05f606e27cff90e5b7fef872196afd",
+      "bytes": 3253,
+      "sha256": "b93e9c18a7247adacd86c1145518ce8239619fc03ccad83ed67d6a4f96603e65",
+      "locators": [
+        "docs/experiments/results/population-binding-001/normalizer-selection-001.json"
+      ],
+      "rights_scope": "Nisayon source finding; upstream payload identities recorded separately"
+    }
+  ],
+  "original_input": {
+    "id": "original-public-input",
+    "label": "libero_demo_published_statistics",
+    "published_statistics_source": "published_statistics",
+    "parent_enumeration_source": "parent_enumeration",
+    "population_identity_source": "population_identity",
+    "upstream_path_observation_source": "upstream_path_observation",
+    "normalization_interpretation": {
+      "status": "unresolved",
+      "formula": null,
+      "epsilon": null,
+      "constant_coordinate_behavior": null,
+      "checkpoint_vs_dataset_precedence": null,
+      "evidence_source": "normalizer_selection"
+    }
+  },
+  "constructed_controls": [
+    {
+      "id": "PBC01-intact-current-population",
+      "label": "training_reference",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {
+        "current_obligation": true,
+        "scope": "constructed_control"
+      },
+      "current_rows": {
+        "state": [[1.0], [3.0]]
+      },
+      "published_statistics": {
+        "state": {
+          "mean": [2.0],
+          "std": [1.0],
+          "min": [1.0],
+          "max": [3.0],
+          "q01": [1.02],
+          "q99": [2.98]
+        }
+      },
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC02-current-population-mismatch",
+      "label": "training_reference",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {
+        "current_obligation": true,
+        "scope": "constructed_control"
+      },
+      "current_rows": {
+        "state": [[1.0], [5.0]]
+      },
+      "published_statistics": {
+        "state": {
+          "mean": [2.0],
+          "std": [1.0],
+          "min": [1.0],
+          "max": [3.0],
+          "q01": [1.02],
+          "q99": [2.98]
+        }
+      },
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC03-bound-parent-reference",
+      "label": "current",
+      "role_obligation": "parent_population_summary",
+      "published_statistics": {
+        "observation.state": {
+          "mean": [3.0],
+          "std": [2.23606797749979],
+          "min": [0.0],
+          "max": [6.0],
+          "q01": [0.0],
+          "q99": [6.0]
+        },
+        "action": {
+          "mean": [4.0],
+          "std": [2.23606797749979],
+          "min": [1.0],
+          "max": [7.0],
+          "q01": [1.0],
+          "q99": [7.0]
+        }
+      },
+      "parent_episode_statistics": [
+        {
+          "episode_index": 0,
+          "stats": {
+            "observation.state": {"count": [2], "mean": [1.0], "std": [1.0], "min": [0.0], "max": [2.0]},
+            "action": {"count": [2], "mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0]}
+          }
+        },
+        {
+          "episode_index": 1,
+          "stats": {
+            "observation.state": {"count": [2], "mean": [5.0], "std": [1.0], "min": [4.0], "max": [6.0]},
+            "action": {"count": [2], "mean": [6.0], "std": [1.0], "min": [5.0], "max": [7.0]}
+          }
+        }
+      ],
+      "subset_observations": [
+        {
+          "episode_index": 0,
+          "max_abs_difference": {
+            "observation.state": {"min": 0.0, "max": 0.0, "mean": 0.0, "std": 0.0, "count": 2},
+            "action": {"min": 0.0, "max": 0.0, "mean": 0.0, "std": 0.0, "count": 2}
+          }
+        }
+      ],
+      "subset_members": 1,
+      "bind_selection_to_published": true,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC04-parent-without-selection",
+      "label": "parent",
+      "role_obligation": "parent_population_summary",
+      "published_statistics": {
+        "observation.state": {"mean": [3.0], "std": [2.23606797749979], "min": [0.0], "max": [6.0], "q01": [0.0], "q99": [6.0]},
+        "action": {"mean": [4.0], "std": [2.23606797749979], "min": [1.0], "max": [7.0], "q01": [1.0], "q99": [7.0]}
+      },
+      "parent_episode_statistics": [
+        {
+          "episode_index": 0,
+          "stats": {
+            "observation.state": {"count": [2], "mean": [1.0], "std": [1.0], "min": [0.0], "max": [2.0]},
+            "action": {"count": [2], "mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0]}
+          }
+        },
+        {
+          "episode_index": 1,
+          "stats": {
+            "observation.state": {"count": [2], "mean": [5.0], "std": [1.0], "min": [4.0], "max": [6.0]},
+            "action": {"count": [2], "mean": [6.0], "std": [1.0], "min": [5.0], "max": [7.0]}
+          }
+        }
+      ],
+      "subset_observations": [
+        {
+          "episode_index": 0,
+          "max_abs_difference": {
+            "observation.state": {"min": 0.0, "max": 0.0, "mean": 0.0, "std": 0.0, "count": 2},
+            "action": {"min": 0.0, "max": 0.0, "mean": 0.0, "std": 0.0, "count": 2}
+          }
+        }
+      ],
+      "subset_members": 1,
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC04-without-population-evidence",
+      "label": "external_reference_normalizer",
+      "role_obligation": "unresolved",
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "missing_evidence": ["population enumeration or supported external-reference binding"],
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC05-intact-labelled-external",
+      "label": "external_reference_normalizer",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true, "scope": "constructed_control"},
+      "current_rows": {"state": [[1.0], [3.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC05-changed-content-labelled-external",
+      "label": "external_reference_normalizer",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true, "scope": "constructed_control"},
+      "current_rows": {"state": [[1.0], [5.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "selection": null,
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC06-empty-population",
+      "label": "constructed_invalid",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true},
+      "current_rows": {"state": []},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC06-non-finite-row",
+      "label": "constructed_invalid",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true},
+      "current_rows": {"state": [[1.0], [3.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "fixture_mutation": "non_finite_current_row",
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC06-wrong-coordinate-count",
+      "label": "constructed_invalid",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true},
+      "current_rows": {"state": [[1.0], [2.0, 3.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC06-malformed-statistics",
+      "label": "constructed_invalid",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true},
+      "current_rows": {"state": [[1.0], [3.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "normalization_interpretation": {"status": "unresolved"}
+    },
+    {
+      "id": "PBC06-non-finite-statistics",
+      "label": "constructed_invalid",
+      "role_obligation": "current_population_summary",
+      "role_evidence": {"current_obligation": true},
+      "current_rows": {"state": [[1.0], [3.0]]},
+      "published_statistics": {
+        "state": {"mean": [2.0], "std": [1.0], "min": [1.0], "max": [3.0], "q01": [1.02], "q99": [2.98]}
+      },
+      "fixture_mutation": "non_finite_statistics",
+      "normalization_interpretation": {"status": "unresolved"}
+    }
+  ],
+  "retained_failures": [
+    {
+      "id": "population-path-probe-first-attempt",
+      "command_record_id": "e13a8eea449048da9a8253ee020271aa",
+      "record": "docs/experiments/results/population-binding-001/upstream-path-failure-001.json",
+      "status": "failed",
+      "effect": "No observation was accepted from the failed attempt; the corrected retry is retained separately."
+    }
+  ],
+  "budget": {
+    "process_cpu_seconds": 30,
+    "artifact_bytes": 8388608,
+    "dependency_download_bytes": 0,
+    "model_or_policy_executions": 0,
+    "simulator_or_robot_executions": 0,
+    "reserved_incidents_accessed": 0
+  },
+  "stopping_rule": "Run the original input and these twelve constructed controls once, seal all results, and stop. Do not expand to another dataset, model, simulator, robot or reserved incident."
+}

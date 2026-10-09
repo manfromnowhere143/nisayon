@@ -1,0 +1,117 @@
+{
+  "schema": "nisayon.a1-runtime.execution-plan-amendment.v1",
+  "case": "a1-runtime-001",
+  "frozen_at": "2026-09-21T17:35:09Z",
+  "frozen_before": "any simulator construction, physics step, replay attempt, policy action or development episode",
+  "amends": {
+    "path": "runtime-execution-plan-001.json",
+    "sha256": "b54d8529b47bf952e1d05dd109577b3b66256c215536210d4f45d1803775fd3e",
+    "rule": "the original plan remains before-evidence; only bytecode handling, the isolated-runtime expansion identity, effective environment and Python argv below are superseded"
+  },
+  "trigger": {
+    "stage": "immediate pre-construction readback",
+    "finding": "the isolated runtime differed from its post-install identity while the historical runtime remained exactly unchanged",
+    "stop_behavior": "execution stopped before construction and resolved the exact changed set"
+  },
+  "resolution": {
+    "baseline": {
+      "files": 24194,
+      "logical_bytes": 1388800885,
+      "sha256": "52bbdc3cae26581c6675cb5afdb4b2a0a16d94dd9b38345adece9f2e1f3fb1fd"
+    },
+    "observed": {
+      "files": 24305,
+      "logical_bytes": 1392059860,
+      "sha256": "1ee0fe4641abebdc8b7618269b6481d9544f0ad636febbc6aa221007bc56d4d7"
+    },
+    "difference": {
+      "files": 111,
+      "logical_bytes": 3258975,
+      "kind": "CPython 3.12 bytecode caches only",
+      "suffix": ".pyc",
+      "manifest_rule": "sorted JSON rows of relative path, bytes, sha256 and mtime_ns encoded with sort_keys and compact separators",
+      "manifest_sha256": "447fc8b546a9b5aebe4fcdc762498bb7eee3062af322b93ed8d33c70f009b479",
+      "first_mtime_ns": 1790011041860920666,
+      "last_mtime_ns": 1790011042555476540,
+      "cause": "the retained pre-execution isolated-interpreter --help check imported the executor's top-level NumPy dependency with bytecode writes enabled",
+      "effect": "no installed source, extension, metadata, link target or package archive identity changed"
+    },
+    "proof": {
+      "identity_after_excluding_only_pyc_files": {
+        "files": 24194,
+        "logical_bytes": 1388800885,
+        "sha256": "52bbdc3cae26581c6675cb5afdb4b2a0a16d94dd9b38345adece9f2e1f3fb1fd"
+      },
+      "equals_install_baseline": true,
+      "historical_runtime": {
+        "files": 28817,
+        "logical_bytes": 1682480783,
+        "sha256": "e74d6f8a32610d1772bab2e3e2879434e45f26fc0908113ebbd2b9a408417dc4",
+        "equals_install_baseline": true
+      }
+    },
+    "disposition": {
+      "delete_caches": false,
+      "reason": "the files are a measured preparation outcome, fit the cap and do not change installed package content; retaining them avoids erasing before-evidence",
+      "new_expansion_identity": "the observed identity above is the pre-construction isolated-runtime identity",
+      "future_writes": "disabled redundantly by PYTHONDONTWRITEBYTECODE=1 and Python -B for every isolated executor command"
+    }
+  },
+  "source": {
+    "tested_source_commit": "cfd4a4d971422693f26ebb1317b44e1cdd4f96de",
+    "executor": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "sha256": "fce01746402518aaea1e83c808d440771fe3924bc37c1c1dd1f4995a46d73288"
+    },
+    "monitor": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "sha256": "5ad2c089c7246678996fa658bdeffe384f553505dd4f2cebc0c454b07fe5f1f8"
+    },
+    "monitor_change": "the child environment now fixes PYTHONDONTWRITEBYTECODE=1; its focused and assessor-inclusive 35-test set passes"
+  },
+  "effective_command_change": {
+    "isolated_python_prefix": [
+      "/Users/danielwahnich/workspace/nisayon-codex/artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+      "-B"
+    ],
+    "effective_environment_addition": {
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "assertion": "the bytecode manifest and isolated-runtime tree identity are checked after the phase; any further file or byte change is a preserved discrepancy"
+  },
+  "resource_readback": {
+    "measured_at": "2026-09-21T17:33:43Z",
+    "measurement_command_wall_seconds": 11.9,
+    "free_disk_bytes": 12942888960,
+    "physical_memory_bytes": 17179869184,
+    "available_memory_bytes_point_sample": 2498543616,
+    "retained_wheel_bytes": 152011410,
+    "isolated_runtime_and_wheel_logical_bytes": 1544071270,
+    "isolated_environment_and_wheel_cap_bytes": 1610612736,
+    "headroom_bytes": 66541466,
+    "free_disk_floor_passed": true,
+    "storage_cap_passed": true,
+    "create_only_paths_absent": [
+      "artifacts/a1-runtime-001/runtime-v1.3-execution-001",
+      "artifacts/a1-runtime-001/runtime-v1.3-temporary-001",
+      "artifacts/a1-runtime-001/runtime-v1.3-packet-001"
+    ]
+  },
+  "attempt_accounting": {
+    "replay": {
+      "assigned": 2,
+      "started": 0,
+      "consumed": 0
+    },
+    "development": {
+      "assigned": 10,
+      "started": 0,
+      "consumed": 0
+    },
+    "simulator_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0
+  },
+  "claim_boundary": "This resolves executable-tree drift before execution. It does not establish construction, compatibility, policy behavior, task competence, repair or comparative value.",
+  "publication": "private; no push or publication authorized"
+}

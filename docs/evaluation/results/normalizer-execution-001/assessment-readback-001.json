@@ -1,0 +1,732 @@
+{
+  "schema": "nisayon.evaluation.normalizer-assessment-readback.v1",
+  "recorded_at": "2026-09-21T05:33:35+00:00",
+  "contract": {
+    "v1": "contract.v1.json",
+    "v1_1": "contract.v1.1.json",
+    "v1_1_sha256": "49e842e373b9540fa7268cf432b0802ce8fa5987fb344a151595ffdafb7a7b04"
+  },
+  "producer_store": {
+    "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/normalizer-execution-001/producer-004",
+    "source_commit": "4d208a8d4519c12325ebcefcf06223b39347388d",
+    "sealed_at": "2026-09-21T05:29:02.144556+00:00",
+    "seal_sha256": "c5c45397301a0f5c75aa4b0dfa0989a9f251b28199137564b81d1a3407b9af20",
+    "summary_sha256": "96469d6d66952f9e993f72cee33da0f6b49d7cf4f1c53f48d0ef3e9e377d7b75",
+    "seal_checks": {
+      "summary.json": true,
+      "inputs/frozen-case.json": true,
+      "artifact-manifest.json": true,
+      "manifest_entries": 81,
+      "manifest_entries_bad": []
+    },
+    "superseded_and_failed_stores_retained": [
+      "producer-001 (failed at the first control; unsealed)",
+      "producer-002 (failed on strict JSON at NX5d; unsealed)",
+      "producer-003 (sealed against contract v1; NX5d probe differs from v1.1)"
+    ],
+    "requested_by": "execution lane record at c1ededc/5b1de60"
+  },
+  "reduced_import_boundary": {
+    "declared": {
+      "kind": "model_free_reduced_import",
+      "unchanged": [
+        "apply_sin_cos_encoding",
+        "nested_dict_to_numpy",
+        "normalize_values_minmax",
+        "unnormalize_values_minmax",
+        "normalize_values_meanstd",
+        "unnormalize_values_meanstd",
+        "to_json_serializable",
+        "parse_modality_configs",
+        "StateActionProcessor",
+        "Gr00tN1d7Processor.set_statistics",
+        "Gr00tN1d7Processor.save_pretrained",
+        "Gr00tN1d7Processor.from_pretrained"
+      ],
+      "substituted": [
+        "Gr00tN1d7Processor model-free constructor shell",
+        "unused relative-action pose/chunk types that raise ForbiddenBoundary",
+        "remote cached_file that raises ForbiddenBoundary"
+      ],
+      "omitted": [
+        "VLM/tokenizer construction",
+        "image transforms and augmentation",
+        "data collator",
+        "learned model or policy",
+        "relative pose conversion"
+      ],
+      "claims_full_upstream_import": false
+    },
+    "source_digests_match_packet": true,
+    "assessment": "unchanged numeric bodies, the complete StateActionProcessor and the exact outer set_statistics/save_pretrained/from_pretrained executed; the constructor shell, relative-action types and remote cache are substituted and named; no full upstream import is claimed"
+  },
+  "row_identity": {
+    "membership_rows": 43,
+    "runs": {
+      "real-keep": {
+        "bound": true,
+        "detail": [
+          "state: identical (43 rows)",
+          "action: identical (43 rows)"
+        ]
+      },
+      "real-replace": {
+        "bound": true,
+        "detail": [
+          "state: identical (43 rows)",
+          "action: identical (43 rows)"
+        ]
+      }
+    },
+    "parquet_sha256": {
+      "0": "2a593521d58a1e6b3c27d6d91641c2d4c8a12422cc4534d9bfab49b01e532e68",
+      "1": "d02255b7218f7a89db07eea56477d8c283cc3c0afb996a8bf4553b2682fda75d",
+      "2": "60ec6beaaf6b541d4321596758bfb69c96e2b9df8757fc2c9d70db32792790c9",
+      "3": "21eed03b65778058696f14e676bf6a9d921bd7d128c6b6b2db749fdca1cea0f7",
+      "4": "8e263ac6c3a1abb853a29d89c99d54c9e6a41a63d8a0acc5b31294804dd74a48"
+    }
+  },
+  "candidate_agreement": {
+    "status": "compared",
+    "worst_relative_difference": 5.23530827435414e-06,
+    "within_1e-5": true
+  },
+  "real_runs": {
+    "real-keep": {
+      "producer": {
+        "operation": "keep_existing",
+        "status": "supported",
+        "reason": "executed active statistics and numeric map satisfy the declared obligation",
+        "obligations": {
+          "selection_procedure": "supported",
+          "effective_map_binding": "supported",
+          "persistence": "supported"
+        }
+      },
+      "reference": {
+        "operation": "keep",
+        "decision": "supported",
+        "reason": "the existing statistics give the contract's effective map on the declared rows (kept)",
+        "witness": null,
+        "effective": {
+          "libero_sim": "kept"
+        }
+      },
+      "outputs_all_match_0_ulp": true,
+      "groups_compared": 14,
+      "selection": {
+        "outcome": "kept",
+        "nested_matches_rule": true,
+        "outer_matches_mirror": true,
+        "outer_equals_nested": false
+      },
+      "persistence": {
+        "claimed": true,
+        "reloaded_nested_equals_selected": true,
+        "reloaded_outputs_equal_outputs": true,
+        "statistics_json_equals_selected_nested": true,
+        "statistics_json_sha256": "0e9432ad43e8256a8aab2ee191f9308d72ebbc3b6d3bdee556acd1f53f39a0a3"
+      },
+      "call_record": {
+        "callables": [
+          "Gr00tN1d7Processor.reduced_constructor",
+          "Gr00tN1d7Processor.set_statistics",
+          "StateActionProcessor.apply",
+          "Gr00tN1d7Processor.save_pretrained",
+          "Gr00tN1d7Processor.from_pretrained",
+          "StateActionProcessor.apply(reloaded)"
+        ],
+        "selection_called": true,
+        "transform_called": true,
+        "all_returned": true,
+        "network_attempts": []
+      },
+      "conventional": {
+        "selected_operation": "keep",
+        "status": "supported",
+        "reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+        "witness": null
+      },
+      "comparison": {
+        "status": "compared",
+        "producer": {
+          "operation": "keep",
+          "status": "supported",
+          "raw_operation": "keep_existing"
+        },
+        "reference": {
+          "operation": "keep",
+          "decision": "supported"
+        },
+        "agrees": true,
+        "counts": {
+          "useful_acceptance": true,
+          "false_acceptance": false,
+          "false_refusal": false,
+          "unjustified_replacement": false,
+          "unjustified_reuse": false,
+          "unresolved": false,
+          "invalid": false
+        }
+      }
+    },
+    "real-replace": {
+      "producer": {
+        "operation": "replace_with_candidate",
+        "status": "rejected",
+        "reason": "declared operation does not preserve: effective_map_binding",
+        "obligations": {
+          "selection_procedure": "supported",
+          "effective_map_binding": "rejected",
+          "persistence": "supported"
+        }
+      },
+      "reference": {
+        "operation": "replace",
+        "decision": "rejected",
+        "reason": "the effective map differs from the contract on the declared rows (replaced)",
+        "witness": {
+          "modality": "state",
+          "group": "x",
+          "row": 0,
+          "coordinate": 0,
+          "a": 0.218774676322937,
+          "b": 0.23911917209625244
+        },
+        "effective": {
+          "libero_sim": "replaced"
+        }
+      },
+      "outputs_all_match_0_ulp": true,
+      "groups_compared": 14,
+      "selection": {
+        "outcome": "replaced",
+        "nested_matches_rule": true,
+        "outer_matches_mirror": true,
+        "outer_equals_nested": true
+      },
+      "persistence": {
+        "claimed": true,
+        "reloaded_nested_equals_selected": true,
+        "reloaded_outputs_equal_outputs": true,
+        "statistics_json_equals_selected_nested": true,
+        "statistics_json_sha256": "73bf7a161fe25282345ce19fb694a603ea61ab54922e6305a8388619d283186c"
+      },
+      "call_record": {
+        "callables": [
+          "Gr00tN1d7Processor.reduced_constructor",
+          "Gr00tN1d7Processor.set_statistics",
+          "StateActionProcessor.apply",
+          "Gr00tN1d7Processor.save_pretrained",
+          "Gr00tN1d7Processor.from_pretrained",
+          "StateActionProcessor.apply(reloaded)"
+        ],
+        "selection_called": true,
+        "transform_called": true,
+        "all_returned": true,
+        "network_attempts": []
+      },
+      "conventional": {
+        "selected_operation": "replace",
+        "status": "rejected",
+        "reason": "state.x: the active statistics do not reproduce the contract map on the rows",
+        "witness": {
+          "row": 0,
+          "coordinate": 0,
+          "a": 0.2187747288082713,
+          "b": 0.23911919500554002
+        }
+      },
+      "comparison": {
+        "status": "compared",
+        "producer": {
+          "operation": "replace",
+          "status": "rejected",
+          "raw_operation": "replace_with_candidate"
+        },
+        "reference": {
+          "operation": "replace",
+          "decision": "rejected"
+        },
+        "agrees": true,
+        "counts": {
+          "useful_acceptance": false,
+          "false_acceptance": false,
+          "false_refusal": false,
+          "unjustified_replacement": false,
+          "unjustified_reuse": false,
+          "unresolved": false,
+          "invalid": false
+        }
+      }
+    }
+  },
+  "controls": {
+    "executed_and_recomputed": {
+      "NX1a": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX1b": {
+        "producer": [
+          "replace_with_candidate",
+          "rejected"
+        ],
+        "reference": [
+          "replace",
+          "rejected"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "replace",
+          "supported"
+        ]
+      },
+      "NX1c": {
+        "producer": [
+          "install_when_absent",
+          "supported"
+        ],
+        "reference": [
+          "replace",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "replace",
+          "supported"
+        ]
+      },
+      "NX2b": {
+        "producer": [
+          "replace_with_candidate",
+          "supported"
+        ],
+        "reference": [
+          "replace",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "replace",
+          "supported"
+        ]
+      },
+      "NX3a": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX3b": {
+        "producer": [
+          "replace_with_candidate",
+          "rejected"
+        ],
+        "reference": [
+          "replace",
+          "rejected"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "replace",
+          "rejected"
+        ]
+      },
+      "NX4a": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX4b": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": [
+          "state.value=meanstd",
+          "action.value=meanstd"
+        ],
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX5a": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX5b": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX5c": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": [
+          "state.value=meanstd",
+          "action.value=meanstd"
+        ],
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX6a": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      },
+      "NX6b": {
+        "producer": [
+          "keep_existing",
+          "supported"
+        ],
+        "reference": [
+          "keep",
+          "supported"
+        ],
+        "outputs_match": true,
+        "modes_inferred": null,
+        "expected": [
+          "keep",
+          "supported"
+        ]
+      }
+    },
+    "other_records": {
+      "NX2a": {
+        "producer": {
+          "operation": "keep_existing",
+          "status": "supported",
+          "reason": "executed active statistics and numeric map satisfy the declared obligation"
+        },
+        "expected_under_contract": [
+          "replace",
+          "rejected"
+        ],
+        "kind": "alias",
+        "evidence_digest_verified": true,
+        "producer_matches_contract": false
+      },
+      "NX5d": {
+        "producer": {
+          "operation": "invalid",
+          "status": "invalid",
+          "reason": "frozen input violates the numerical invocation contract"
+        },
+        "expected_under_contract": [
+          "invalid",
+          "invalid"
+        ],
+        "kind": "observed_invalid",
+        "executed_source_bodies": true,
+        "non_finite_outputs": {
+          "state.value": true,
+          "action.value": false
+        },
+        "inputs_recorded": false,
+        "producer_matches_contract": true,
+        "reason_wording": "the reason names the input as the violation"
+      },
+      "NX6c": {
+        "producer": {
+          "operation": "keep_existing",
+          "status": "supported",
+          "reason": "executed active statistics and numeric map satisfy the declared obligation"
+        },
+        "expected_under_contract": [
+          "keep",
+          "supported"
+        ],
+        "kind": "alias",
+        "evidence_digest_verified": true,
+        "producer_matches_contract": true
+      },
+      "NX6d": {
+        "producer": {
+          "operation": "domain_property",
+          "status": "observed",
+          "reason": null
+        },
+        "expected_under_contract": [
+          "keep",
+          "supported"
+        ],
+        "kind": "domain_property",
+        "eligible_roundtrip_exact": true,
+        "ineligible_loss": true,
+        "producer_matches_contract": true
+      },
+      "NX7a": {
+        "producer": {
+          "operation": "invalid",
+          "status": "invalid",
+          "reason": "frozen input violates the numerical invocation contract"
+        },
+        "expected_under_contract": [
+          "invalid",
+          "invalid"
+        ],
+        "kind": "observed_invalid",
+        "executed_source_bodies": false,
+        "producer_matches_contract": true,
+        "reason_wording": "the reason names the input as the violation"
+      },
+      "NX7b": {
+        "producer": {
+          "operation": "invalid",
+          "status": "invalid",
+          "reason": "frozen input violates the numerical invocation contract"
+        },
+        "expected_under_contract": [
+          "invalid",
+          "invalid"
+        ],
+        "kind": "observed_invalid",
+        "executed_source_bodies": false,
+        "producer_matches_contract": true,
+        "reason_wording": "the reason names the input as the violation"
+      },
+      "NX7c": {
+        "producer": {
+          "operation": "invalid",
+          "status": "invalid",
+          "reason": "frozen input violates the numerical invocation contract"
+        },
+        "expected_under_contract": [
+          "invalid",
+          "invalid"
+        ],
+        "kind": "observed_invalid",
+        "executed_source_bodies": false,
+        "producer_matches_contract": true,
+        "reason_wording": "the reason names the input as the violation"
+      },
+      "NX7d": {
+        "producer": {
+          "operation": "keep_existing",
+          "status": "supported",
+          "reason": "executed active statistics and numeric map satisfy the declared obligation"
+        },
+        "expected_under_contract": [
+          "keep",
+          "supported"
+        ],
+        "kind": "alias",
+        "evidence_digest_verified": true,
+        "producer_matches_contract": true
+      },
+      "NX8a": {
+        "producer": {
+          "operation": "abstain",
+          "status": "unresolved",
+          "reason": "the ordered selector/apply call path is not bound to the retained outputs"
+        },
+        "expected_under_contract": [
+          "abstain",
+          "unresolved"
+        ],
+        "kind": "binding",
+        "numeric_call_made": false,
+        "producer_matches_contract": true
+      },
+      "NX8b": {
+        "producer": {
+          "operation": "abstain",
+          "status": "unresolved",
+          "reason": "the ordered selector/apply call path is not bound to the retained outputs"
+        },
+        "expected_under_contract": [
+          "abstain",
+          "unresolved"
+        ],
+        "kind": "binding",
+        "numeric_call_made": false,
+        "producer_matches_contract": true
+      }
+    },
+    "status_counts_producer": {
+      "supported": 14,
+      "rejected": 2,
+      "unresolved": 2,
+      "invalid": 4,
+      "observed": 1
+    },
+    "instantiation_differences": [
+      {
+        "control": "NX1b",
+        "producer": "existing parent, candidate subset, override true, obligation = existing (parent): replace rejected",
+        "evaluation": "same setup with obligation = candidate: replace supported",
+        "reading": "contract v1 says only 'replace graded against S*' for NX1b; each lane fixed S* differently; both decisions follow their declared obligation and the producer's rejection is not a false refusal; useful acceptance of replacement is covered by NX1c and NX2b in both lanes"
+      },
+      {
+        "control": "NX2a",
+        "producer": "aliases the real keep run (keep supported)",
+        "evaluation": "instantiated as the real replace run (replace rejected with a witness)",
+        "reading": "the contract's NX2a states both halves; the producer's real-replace run carries the rejection with a witness, so the class is covered"
+      }
+    ],
+    "record_gaps": [
+      "the modality configuration that selected the mode is not recorded in any run; for NX4b and NX5c the executed mean/std mode was inferred from the outputs and then matched at 0 ulp",
+      "NX5d records no input arrays (mean 1, std 1e-40, x 0.75 are declared in the committed runner and the amendment record, not in the run)",
+      "NX5d's reason string names the input as the violation while the record shows a finite input and a non-finite executed output"
+    ]
+  },
+  "counts": {
+    "useful_acceptance": 12,
+    "false_acceptance": 0,
+    "false_refusal": 0,
+    "unjustified_replacement": 0,
+    "unjustified_reuse": 0,
+    "unresolved": 0,
+    "invalid": 0,
+    "agreements": 15,
+    "compared": 15,
+    "not_rebuilt": 0
+  },
+  "conventional": {
+    "real_runs": {
+      "real-keep": {
+        "selected_operation": "keep",
+        "status": "supported",
+        "reason": "the active statistics reproduce the contract map on all rows within the float32 store bound (keep)",
+        "witness": null
+      },
+      "real-replace": {
+        "selected_operation": "replace",
+        "status": "rejected",
+        "reason": "state.x: the active statistics do not reproduce the contract map on the rows",
+        "witness": {
+          "row": 0,
+          "coordinate": 0,
+          "a": 0.2187747288082713,
+          "b": 0.23911919500554002
+        }
+      }
+    },
+    "NX5d_v1_1": {
+      "conventional": [
+        "keep",
+        "supported"
+      ],
+      "reference": [
+        "invalid",
+        "invalid"
+      ],
+      "producer": [
+        "invalid",
+        "invalid"
+      ],
+      "reading": "the float64 transcription cannot see the float32 overflow that the executed operation and the reference both produce; one false acceptance on a dtype boundary"
+    },
+    "parity": "on both real runs and on every other control the conventional diagnostic reaches the producer's and the reference's decision"
+  },
+  "shared_dependencies": [
+    "nisayon.evaluation.parquet_reader (rows; also used by the producer to read rows)",
+    "nisayon.evaluation.schema.load_json",
+    "numpy 1.26.4 for IEEE elementwise arithmetic; the reference adds fractions.Fraction exact values"
+  ],
+  "verdict": {
+    "software_behavior": "executed and independently reproduced at 0 ulp on 43 retained rows and 13 executed controls",
+    "software_correction": "none proposed; no upstream defect shown",
+    "deployment_applicability": "unresolved (no checkpoint statistics, override value or inference invocation retained)",
+    "comparative_value": "parity, except one dtype-boundary control where the conventional workflow accepts a non-finite executed output",
+    "false_acceptance": 0,
+    "false_refusal": 0,
+    "unjustified_replacement": 0,
+    "unjustified_reuse": 0,
+    "useful_acceptance": 12,
+    "unresolved_records": 2,
+    "invalid_records": 4
+  },
+  "commands": {
+    "store_assessment": "434a2f82e57c4e6bb78b621b77fe256d",
+    "conventional_real_keep": "2f33232f241544808384218adf791a08",
+    "conventional_real_replace": "86e83c86ef9540149e9d515e4cd87f4f"
+  }
+}

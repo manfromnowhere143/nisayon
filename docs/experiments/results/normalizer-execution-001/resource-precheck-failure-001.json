@@ -1,0 +1,16 @@
+{
+  "schema": "nisayon.normalizer-resource-failure.v1",
+  "case_id": "normalizer-execution-001",
+  "command_record_id": "9921b1d926e449a8a24734a7b04c6ae9",
+  "started_at": "2026-09-21T05:00:09.314664+00:00",
+  "wall_seconds": 0.828431,
+  "process_status": "nonzero",
+  "scientific_status": "not_started",
+  "failure": "AttributeError: module 'integration_monitor' has no attribute 'free_disk_bytes'",
+  "cause": "The new accounting wrapper called a helper not exported by the inherited monitor.",
+  "effect": "No experiment or source request ran and no resource snapshot was written.",
+  "correction": "Use shutil.disk_usage on the explicit execution root.",
+  "corrected_command_record_id": "700e0f44ab9243799695cf5be5c89d8b",
+  "corrected_record": "resource-precheck-002.json",
+  "retention": "The failed command logs remain in the lane-local run store; this committed record preserves their identity and cause."
+}

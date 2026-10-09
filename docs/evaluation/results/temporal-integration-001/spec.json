@@ -1,0 +1,189 @@
+{
+  "schema": "nisayon.temporal-integration.spec.v1",
+  "study_id": "temporal-integration-001",
+  "frozen_at": "2026-09-20T04:13:11+00:00",
+  "frozen_before": "any assessment output of the constructed cases, the order enumeration and any producer record comparison; additions after this time are marked exploratory",
+  "question": "When policy inference and action execution overlap, what recorded evidence distinguishes a wrong policy action from a stale, misaligned or cross-episode action, and which correction preserves useful execution?",
+  "scope": "software queue and lifecycle semantics on scripted chunks and a virtual clock; no robot dynamics, no learned inference, no physical actuation; robot task outcome unmeasured",
+  "event_alphabet": [
+    "action_dispatched",
+    "cancellation_requested",
+    "configuration_changed",
+    "dispatch_acknowledged",
+    "dispatch_failed",
+    "episode_start",
+    "evidence_gap",
+    "inference_ended",
+    "inference_started",
+    "observation_acquired",
+    "queue_admitted",
+    "request_sent",
+    "reset_completed",
+    "reset_requested",
+    "response_arrived"
+  ],
+  "bounds": {
+    "chunk_length": 3,
+    "control_period_ticks": 1,
+    "max_age_ticks": 4,
+    "useful_coverage_min": 0.8,
+    "generations": "at most 2 per case",
+    "steps_per_case": "at most 8"
+  },
+  "clock_rule": "ages within one clock are exact; across clocks only through a declared mapping t_to = t_from + offset +- uncertainty, as an interval; an age equal to the limit is within it; an interval straddling the limit is overlapping (unresolved); a missing acquisition time is unknown (unresolved) and is never replaced by the arrival time",
+  "predicates": {
+    "generation_fencing": "no action from a chunk of generation g is dispatched in generation g' != g; chunk generation comes from the bound request, else from a producer claim, else unknown",
+    "request_binding": "every response names its request; an unbound response is unresolved with a two-history witness",
+    "configuration_binding": "an action is dispatched under the configuration its chunk was computed with",
+    "queue_reset": "no action queued before a reset remains queued after reset_completed",
+    "duplicate_dispatch": "no action id is dispatched twice and no chunk is re-admitted after any of its actions was dispatched",
+    "dispatch_order": "dispatched steps strictly increase within a generation",
+    "freshness": "age at dispatch (dispatch time minus the acquisition time of the chunk's observation) is within max_age",
+    "acknowledgement": "every dispatch is acknowledged or has a failure record; an unacknowledged dispatch is unresolved, not failed",
+    "useful_execution": "from the first response arrival in a generation to the generation's end, at least useful_coverage_min of control ticks carry a dispatch; a generation with no arrival is unresolved"
+  },
+  "verdict_composition": "temporal_contract is invalid if the trace is malformed, violated if any predicate is violated, unresolved if any is unresolved, else satisfied; software execution, evidence completeness, useful execution and the unmeasured robot outcome are reported separately",
+  "remedy_set": {
+    "affected": "no policy reset at episode start, no generation fencing, no request or configuration binding, latest-arrival-wins aggregation (LeRobot control_utils.py at a445d9c for the reset defect; the pinned async client for aggregation)",
+    "upstream_fix": "policy.reset() at control-loop entry (PR 1117 at 6163daa): the queue is emptied at every episode start",
+    "competent_baseline": "the upstream fix plus generation fencing of obsolete responses, request and configuration binding of responses, duplicate suppression by action id, declared clocks with a mapping and uncertainty, and acknowledgement recording; every remedy is available to both workflows on the same event stream"
+  },
+  "baseline_behavior": "the competent baseline with the same observations, remedies and budgets; a naive queue is a failure control, not the competitive comparator",
+  "cases": {
+    "healthy_execution": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "positive control: overlapping chunks under the frozen aggregation rule, every dispatch acknowledged"
+      },
+      "expected": {}
+    },
+    "early_reset_affected": {
+      "source": {
+        "kind": "upstream_source_bound",
+        "note": "LeRobot issue 1116: policy action queue survives an early episode reset; control_utils.py at a445d9c has no policy.reset() at control_loop entry"
+      },
+      "expected": {
+        "generation_fencing": "violated",
+        "queue_reset": "violated"
+      }
+    },
+    "early_reset_upstream_fix": {
+      "source": {
+        "kind": "upstream_source_bound",
+        "note": "LeRobot PR 1117 at 6163daa: five added lines call policy.reset() at control_loop entry"
+      },
+      "expected": {}
+    },
+    "late_response_after_reset": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "not reachable in the pinned async client, which has no in-process reset; a stale response after a reset is a distinct case from an uncleared queue"
+      },
+      "expected": {
+        "generation_fencing": "violated",
+        "useful_execution": "unresolved"
+      }
+    },
+    "late_response_fenced": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "competent remedy: reject responses of an obsolete generation"
+      },
+      "expected": {
+        "useful_execution": "unresolved"
+      }
+    },
+    "duplicate_response": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "a duplicate delivery re-admitted after dispatch; the pinned client's sequential receiver does not produce duplicates"
+      },
+      "expected": {
+        "duplicate_dispatch": "violated"
+      }
+    },
+    "out_of_order_arrival": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "not reachable in the pinned client: one sequential receiver over one channel; constructed to exercise freshness under reordering"
+      },
+      "expected": {}
+    },
+    "overlapping_chunks_aggregated": {
+      "source": {
+        "kind": "upstream_source_bound",
+        "note": "the pinned client's _aggregate_action_queues replaces overlapping steps by the latest arrival and drops uncovered queued actions; constructed schedule on that rule"
+      },
+      "expected": {}
+    },
+    "configuration_change": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "a response computed under the old configuration dispatched after the change; issue 2866 / PR 3160 motivate full configuration identity (path, type, device, rename map)"
+      },
+      "expected": {
+        "configuration_binding": "violated"
+      }
+    },
+    "ambiguous_clock_mapping": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "server-stamped acquisitions with a declared +-1 tick mapping: ages 1-3 within, 4-5 overlapping, 6 beyond the limit 4; coverage 6 of 7 ticks"
+      },
+      "expected": {
+        "freshness": "violated"
+      }
+    },
+    "lost_dispatch_acknowledgement": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "one dispatch has no acknowledgement and no failure record"
+      },
+      "expected": {
+        "acknowledgement": "unresolved"
+      }
+    },
+    "incomplete_raw_evidence": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "two compatible histories: the unbound chunk may belong to this or an earlier generation; the unstamped observation may be fresh or stale"
+      },
+      "expected": {
+        "request_binding": "unresolved",
+        "generation_fencing": "unresolved",
+        "configuration_binding": "unresolved",
+        "freshness": "unresolved"
+      }
+    },
+    "stop_drop_all": {
+      "source": {
+        "kind": "constructed_control",
+        "note": "a correction that refuses every chunk satisfies every identity predicate and fails usefulness"
+      },
+      "expected": {
+        "useful_execution": "violated"
+      }
+    }
+  },
+  "expected_default": "satisfied for every predicate not listed",
+  "order_enumeration": {
+    "alphabet": "one generation-0 request r0 with response chunk c0 (3 actions), a reset to generation 1 at a fixed tick, one generation-1 request r1 with response c1 (3 actions); the free variables are the arrival ticks of c0 and c1 within [1, 8] and the reset tick within [1, 6]",
+    "admissible_orders": "a response arrives after its request; the reset follows the last generation-0 dispatch tick it interrupts; dispatches follow admission; ticks are integers",
+    "behaviors": [
+      "affected",
+      "upstream_fix",
+      "competent_baseline"
+    ],
+    "oracle": "direct formulas on the schedule: affected dispatches a generation-0 action after the reset iff c0 has undispatched actions at the reset tick or arrives after it; the upstream fix violates iff c0 arrives after the reset (a late response is not a queue); the competent baseline never dispatches a generation-0 action after the reset",
+    "coverage": "exhaustive over the integer grid above (8 x 8 x 6 = 384 schedules per behavior); nothing outside the alphabet is claimed; no partial-order reduction is used",
+    "cpu_cap_seconds": 600
+  },
+  "analysis": "per case: expected against observed statuses per predicate; per behavior on the enumeration: counts of correct temporal admissions, wrong admissions, false refusals, unresolved cases and dispatch coverage; costs recorded as CPU seconds of the checker and sizes of inputs and outputs, separately from virtual time",
+  "not_claimed": [
+    "reachability of constructed schedules in upstream programs unless stated per case",
+    "robot task outcomes",
+    "policy quality",
+    "physical actuation",
+    "general causal identification"
+  ]
+}

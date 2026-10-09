@@ -1,0 +1,138 @@
+{
+  "schema": "nisayon.a1-pilot.acceptance.v1",
+  "case": "a1-pilot-001",
+  "frozen_at": "2026-09-21T09:41:48Z",
+  "frozen_before": "any pilot output; at this time no authorization record with numeric limits, no source packet and no training command exists on either lane",
+  "phase_start_utc": "2026-09-21T09:38:59Z",
+  "original_mission_clock": "2026-09-17T21:30:41Z",
+  "state_reconciliation": {
+    "main": "42d2756",
+    "build_execution": "42d2756",
+    "build_evaluation": "42d2756",
+    "note": "the execution lane fast-forwarded private main to this lane's closeout checkpoint 42d2756, so the two record-only commits reported earlier are integrated; ancestry of 6006df3, 5917498, 058aaa3, d3fb6fa, 4fc9cf1, 886950a and 59d0eb0 verified in the previous closeout",
+    "preserved": {
+      "screened_candidates": 7,
+      "qualified_tasks": 0,
+      "assigned_trials": 0,
+      "executed_trials": 0
+    }
+  },
+  "scope": {
+    "what_a1_is": "a controlled experimental policy: a Lift PH low-dim BC-RNN trained locally with observation normalization so that a keep/replace decision on bound statistics can later be adjudicated on an executable task",
+    "what_a1_is_not": "it does not satisfy the original objective of reproducing an independently discovered deployment failure; that objective stays outstanding and is not discharged by any pilot outcome",
+    "pilot_question": "can the execution lane acquire the dataset lawfully, train under CPU-only bounded resources with normalization actually applied, and seal a checkpoint whose statistics and replay capability are established, within measured costs?"
+  },
+  "authorization": {
+    "instruction": "Daniel's assignment of 21 September to this lane names the pilot and assigns acquisition and training to the execution lane",
+    "numeric_limits": "not yet recorded anywhere committed at freeze time; the pilot is acceptable only if a record naming the dataset byte limit, the training CPU-second or step budget, the storage bound and the rollout prohibition is committed before the first acquisition or training command",
+    "acquisition_ownership": "execution lane only; this lane makes no request and consumes the execution lane's retained packet by digest"
+  },
+  "checklist": [
+    {
+      "id": "P1",
+      "item": "dataset rights and simulator compatibility",
+      "configured_evidence": "the dataset URL, bytes, sha256 and the license text or terms retained in the packet; the robosuite/MuJoCo versions the dataset's env_args declare",
+      "execution_evidence": "the retained license bytes permit local research use and training; the dataset's env_args (env_name Lift, controller OSC_POSE, control_freq 20) match the locked robosuite 1.4.1 executor without conversion; a mismatch is recorded, not patched",
+      "accept": "both present and consistent; otherwise unresolved"
+    },
+    {
+      "id": "P2",
+      "item": "actual training membership and normalization population",
+      "configured_evidence": "train.hdf5_filter_key, hdf5_validation_filter_key and the demo list the config selects",
+      "execution_evidence": "the demo keys and per-demo frame counts the SequenceDataset iterated (retained as a list with total frames per observation key), and the statistics population equal to that membership; robomimic computes mean and population std plus 1e-3 over all frames of the iterated demos in float32 with per-trajectory merging",
+      "accept": "membership listed; statistics population equals it; this lane recomputes mean and std from the retained dataset rows and compares within float32 tolerance (rtol 1e-5 on mean, 1e-4 on std after the 1e-3 offset), or marks unresolved if the rows are not retained"
+    },
+    {
+      "id": "P3",
+      "item": "effective normalization during training",
+      "configured_evidence": "train.hdf5_normalize_obs true in the sealed config",
+      "execution_evidence": "the SequenceDataset log line 'normalizing observations', a non-null obs_normalization_stats passed to run_epoch (recorded by a harness hook that does not alter training, for example the first batch's per-key mean and std after postprocess_batch_for_training), and the same statistics saved into the checkpoint",
+      "accept": "a configured flag alone is a declaration; acceptance needs a batch-level or call-level witness plus the saved statistics"
+    },
+    {
+      "id": "P4",
+      "item": "exact optimizer workload and CPU-only execution",
+      "configured_evidence": "num_epochs, epoch_every_n_steps, batch_size, seq_length, learning rate, torch thread count, device",
+      "execution_evidence": "the gradient-step count actually executed, per-step wall times (min, median, max, not only the fastest), initialization and data-loading time, device cpu, no CUDA or MPS initialization in the log",
+      "accept": "executed steps equal the declared budget or the shortfall is recorded; CPU only"
+    },
+    {
+      "id": "P5",
+      "item": "absence of automatic rollouts",
+      "configured_evidence": "experiment.rollout.enabled false, experiment.validate as declared, render_video false",
+      "execution_evidence": "no environment construction, no RolloutPolicy instantiation and no rollout log lines in the retained training log; env_meta retained for the checkpoint only",
+      "accept": "no rollout of any kind; a rollout makes the pilot a development execution and must be declared as such"
+    },
+    {
+      "id": "P6",
+      "item": "checkpoint identity, saved statistics and declared replay capability",
+      "configured_evidence": "experiment.save settings",
+      "execution_evidence": "the checkpoint file bytes and sha256, ckpt_dict keys, config.train.hdf5_normalize_obs true and obs_normalization_stats non-null inside it, shape_metadata and env_metadata, and a load through policy_from_checkpoint (no rollout) that binds the statistics into RolloutPolicy",
+      "accept": "identity bound and the load witnessed; replay capability is declared, not demonstrated, until a rollout is authorized"
+    },
+    {
+      "id": "P7",
+      "item": "complete measured costs and retained failures",
+      "configured_evidence": "the declared budget",
+      "execution_evidence": "outer wall, process CPU (user and system), disk bytes written and retained, sampled temporary peak if any, download bytes and wall, every failed or repeated command with its record id",
+      "accept": "costs reported in distinct scopes and never added across nesting; failures retained; unknown costs named"
+    }
+  ],
+  "possible_conclusions": {
+    "dimensions": [
+      "executability",
+      "custody",
+      "resource_feasibility"
+    ],
+    "values": [
+      "feasible",
+      "infeasible",
+      "unresolved"
+    ],
+    "rules": {
+      "feasible": "every checklist item accepted for that dimension",
+      "infeasible": "an item fails with retained evidence that cannot be corrected within the recorded limits",
+      "unresolved": "an item lacks execution evidence or the limits were not recorded first"
+    },
+    "cannot_conclude": [
+      "task competence of the trained policy",
+      "any keep/replace decision",
+      "comparative value of either workflow",
+      "that the original objective is satisfied"
+    ],
+    "loss_and_checkpoint": "a training loss, one completed epoch or a saved checkpoint establishes executability only"
+  },
+  "continuation_estimate_method": "from the pilot's per-step times use the median and the maximum, add the measured initialization, data loading and checkpoint-writing times per epoch, multiply by the declared epoch budget, and report a range with the sources of uncertainty (thread contention, cache mode, memory); the fastest batch is never the basis; a pilot shorter than one full epoch cannot ground the estimate",
+  "reference_config_family": {
+    "source": "the held zoo checkpoint's config (3ee222ca\u2026)",
+    "bc_rnn": {
+      "rnn": "LSTM 2 layers, hidden 400, horizon 10",
+      "gmm": true,
+      "seq_length": 10,
+      "batch_size": 100,
+      "epoch_every_n_steps": 100,
+      "learning_rate": 0.0001,
+      "hdf5_cache_mode": "all",
+      "num_epochs_configured": 2000,
+      "zoo_checkpoint_epoch": 1000,
+      "zoo_selection": "on_best_rollout_success_rate true, so the zoo checkpoint was selected by rollouts; A1 must not select by rollouts that could leak into confirmation"
+    }
+  },
+  "task_evaluation_prerequisites_predeclared": {
+    "status": "predeclared now; activates only after a feasible pilot, a recorded full-training authority and Daniel's decision; the 60-rollout contract stays unassigned",
+    "reference_policy_qualification": "the trained policy qualifies as the working deployment only if it succeeds on at least 8 of 10 development seeds 200-209 at horizon 400; these qualification rollouts are budgeted separately from the contract's sixty and are declared before they run",
+    "checkpoint_selection_rule": "the final epoch of the declared budget, or a predeclared epoch; never selection by rollout success on any seed that the contract uses",
+    "development_versus_confirmation": "seeds 200-209 develop and qualify; seeds 0-9 screen under the contract; seeds 100-109 confirm; no seed serves two roles",
+    "rollout_budget_consumption": "qualification 10 rollouts outside the contract; contract screening 20 per arm; confirmation 20; total ceiling 70, amended from 60 before any outcome if adopted",
+    "comparator": "the float32-faithful conventional workflow (version 2) extended to robomimic's normalize_obs order: float64 numpy normalization then float32 tensors; it recomputes normalized observations and policy actions itself and decides with its own rule",
+    "endpoint": "decision quality at the equal rollout budget, then complete cost per arm with shared costs separate; cost per confirmed repair undefined without a confirmed repair"
+  },
+  "nisayon_contribution_statement": "what Nisayon can add over the conventional workflow in this study: (a) a population-identity check that the candidate statistics summarize the declared demos, which the ordinary workflow does not perform; (b) the dtype-faithful effective-map comparison with witness rows and the four-level distinction (numeric map, executed action, task outcome, confirmed repair) kept apart in the record; (c) automatic retention of failures and costs. Neither arm withholds evidence from the other; both read the same packet. If both make the same valid decisions at comparable cost the result is parity, and a constructed success is a case-level result only",
+  "non_authorities": [
+    "a configured flag without an execution witness",
+    "a training loss curve",
+    "a saved checkpoint without its statistics",
+    "an estimate extrapolated from the fastest batch",
+    "a rollout success rate on any seed the contract uses"
+  ]
+}

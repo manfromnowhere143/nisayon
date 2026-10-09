@@ -35,9 +35,16 @@ def frozen(case_id: str) -> dict:
     }
 
 
-def decision_record(case_id: str, decision: str, candidate: str, arm: str = "A") -> dict:
+def decision_record(
+    case_id: str,
+    decision: str,
+    candidate: str,
+    arm: str = "A",
+    reasons: list | None = None,
+    decided_at: str | None = None,
+) -> dict:
     # Each arm's confirmation is its own execution, so its record differs byte for byte.
-    return {
+    record = {
         "schema": "nisayon.decision.v1",
         "evidence_origin": ORIGIN,
         "case_id": case_id,
@@ -45,6 +52,11 @@ def decision_record(case_id: str, decision: str, candidate: str, arm: str = "A")
         "confirmation": {"candidate": {"id": "candidate", "digest": candidate}},
         "runs": {f"{arm}-confirmation": {"role": "candidate"}},
     }
+    if reasons:
+        record["reasons"] = reasons
+    if decided_at:
+        record["decided_at"] = decided_at
+    return record
 
 
 def stamp(minute: int) -> str:
@@ -263,6 +275,8 @@ def write_ledger(ledger: dict, folder: Path, *, records: bool = True) -> Path:
                     decision["decision"],
                     decision.get("candidate_digest"),
                     item["arm"],
+                    decision.pop("reasons", None),
+                    decision.pop("decided_at", None),
                 )
                 raw = (json.dumps(record, indent=2) + "\n").encode()
                 (folder / decision["path"]).write_bytes(raw)

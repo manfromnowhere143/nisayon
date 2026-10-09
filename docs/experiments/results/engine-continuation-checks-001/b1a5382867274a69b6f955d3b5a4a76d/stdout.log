@@ -1,0 +1,29 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_pending_intent_preserves_unknown_cost_without_counting_published_links_twice[False] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-219/test_pending_intent_preserves_0')
+after_link = False
+
+    @pytest.mark.parametrize("after_link", [False, True])
+    def test_pending_intent_preserves_unknown_cost_without_counting_published_links_twice(
+        tmp_path, after_link
+    ):
+        request = payload(tmp_path)
+        process = multiprocessing.get_context("spawn").Process(
+            target=_crash_at_intent_publication, args=(str(tmp_path), request, after_link)
+        )
+        process.start()
+        process.join(10)
+        assert process.exitcode == 19
+        root = tmp_path / "receipts"
+        recovered = declarations.inspect_declaration(root, evidence_root=tmp_path)
+        assert recovered["state"] == "awaiting_declaration"
+        assert len(recovered["unpublished_files"]) == 1
+>       assert len(recovered["attempts"]) == recovered["attempts_with_unknown_cost"] == 1
+E       assert 0 == 1
+
+tests/engine/test_declarations.py:133: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_declarations.py::test_pending_intent_preserves_unknown_cost_without_counting_published_links_twice[False]
+1 failed, 1 passed, 16 deselected in 0.41s

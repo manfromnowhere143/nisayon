@@ -1,0 +1,44 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "29113d51060d4e2eb04de823a86475a8",
+  "label": "engine-continuation-resource-closeout",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json\nimport shutil\nimport subprocess\nimport tempfile\nfrom datetime import UTC, datetime\nfrom pathlib import Path\nroot = Path.cwd().resolve()\nbase = root / \"docs/experiments/results/engine-continuation-checks-001\"\ncontinuation = json.loads((root / \"work/continuations/engine-2026-09-19.json\").read_text())\nstart = datetime.fromisoformat(continuation[\"started_at\"]).timestamp()\ndef size(path):\n    files = [p for p in path.rglob(\"*\") if p.is_file() and not p.is_symlink()]\n    return {\"path\": str(path), \"bytes\": sum(p.stat().st_size for p in files), \"files\": len(files)}\ndef created(path):\n    return path.is_dir() and not path.is_symlink() and path.stat().st_birthtime >= start\nartifacts = [size(p) for p in sorted((root / \"artifacts\").iterdir()) if created(p)]\ntemporary = Path(tempfile.gettempdir())\ntests = [size(p) for p in sorted((temporary / \"pytest-of-danielwahnich\").iterdir()) if created(p)]\nproposals = [size(p) for p in sorted(temporary.glob(\"nisayon-history-fixture-proposal-*\")) if created(p)]\nruns = [size(p) for p in sorted((root / \".nisayon/runs\").iterdir()) if created(p)]\nadded = subprocess.check_output([\"git\", \"diff\", \"--name-only\", \"--diff-filter=A\", \"-z\", \"21ed4f6a8d8c1f1acbef1036d8f7d31f83e29755\", \"HEAD\"], cwd=root).decode().split(\"\\0\")\nuntracked = subprocess.check_output([\"git\", \"ls-files\", \"--others\", \"--exclude-standard\", \"-z\"], cwd=root).decode().split(\"\\0\")\nworking = sum((root / name).stat().st_size for name in set(added + untracked) if name and (root / name).is_file())\nretained_bytes = sum(item[\"bytes\"] for item in artifacts + tests + proposals + runs) + working\nfree = shutil.disk_usage(root).free\nresult = {\n    \"schema\": \"nisayon.engine-resource-snapshot.v1\",\n    \"recorded_at\": datetime.now(UTC).isoformat(),\n    \"continuation_start\": continuation[\"started_at\"],\n    \"new_artifact_directories\": artifacts,\n    \"remaining_test_temporary_directories\": tests,\n    \"isolated_proposal_temporary_directories\": proposals,\n    \"command_record_directories\": runs,\n    \"added_git_working_files_bytes\": working,\n    \"known_retained_non_environment_bytes\": retained_bytes,\n    \"cap_bytes\": 1024**3,\n    \"free_disk_bytes\": free,\n    \"minimum_free_disk_bytes\": 5*1024**3,\n    \"source_download_bytes\": continuation[\"source_download_bytes\"],\n    \"source_download_cap_bytes\": 64*1024**2,\n    \"scope\": \"Logical retained payload in artifact directories, remaining pytest/proposal directories, command records created during this continuation and added/untracked Git working files. Includes copies; excludes environments and shared Git object storage. Temporary-directory inclusion is conservative and does not establish other-session ownership. This is a retained-size observation, not a historical peak or allocation meter.\",\n    \"transient_controls\": \"D01/D05 raw-store checks used sequential self-cleaning temporary copies of 161 MiB/264 MiB. The latest full-suite run's temporary store is included if retained. No other-session cleanup was performed.\",\n    \"running_measurement_exclusion\": \"This command's final logs/metadata and subsequent small closeout records do not yet have their final byte count.\",\n}\nassert retained_bytes < result[\"cap_bytes\"] and free > result[\"minimum_free_disk_bytes\"]\npath = base / \"resource-snapshot.json\"\nprior = base / \"resource-snapshot-20260919T082026.json\"\nif not prior.exists():\n    shutil.copyfile(path, prior)\npath.write_text(json.dumps(result, indent=2) + \"\\n\")\nids = {Path(r[\"path\"]).name for r in runs}\nprint(json.dumps({\"retained_non_environment_bytes\": retained_bytes, \"free_disk_bytes\": free, \"source_download_bytes\":continuation[\"source_download_bytes\"], \"command_directories\":len(runs), \"not_yet_in_continuation_ledger\":sorted(ids-set(continuation[\"command_records\"]))}, indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T09:07:54.438602+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "7751783bf47efee8af45c6a2a3dc8853e855af6d",
+    "changes": [
+      "M work/continuations/engine-2026-09-19.json",
+      "?? docs/experiments/results/engine-continuation-checks-001/152a1ae0ed064a5ca22a96aec69a6f9b/",
+      "?? docs/experiments/results/engine-continuation-checks-001/195531a5ff3c4ebf8fc5a004714d8284/"
+    ],
+    "diff_stat": "work/continuations/engine-2026-09-19.json | 19 ++++++++++++++-----\n 1 file changed, 14 insertions(+), 5 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 99824,
+  "returncode": 1,
+  "ended_at": "2026-09-19T09:07:55.153174+00:00",
+  "wall_seconds": 0.673058,
+  "logs": {
+    "stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.log": {
+      "bytes": 90,
+      "sha256": "b5437cea249426c2b7d7e8c3cb65508817ff7e84b65c3cc3dc84a515cda1034a"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

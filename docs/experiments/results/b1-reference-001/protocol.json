@@ -1,0 +1,157 @@
+{
+  "schema": "nisayon.b1-reference.protocol.v1",
+  "case": "b1-reference-001",
+  "frozen_at": "2026-10-09T09:26:40.605870+00:00",
+  "authorization": "User directed continuation after completed A1 and competent-reference recommendation. New bounded local development phase; standing authorization covers implementation and simulation. A1 remains closed.",
+  "assessment_mode": "single_lane_non_independent",
+  "status": "frozen_before_simulation",
+  "seeds": [
+    180000,
+    180001,
+    180002,
+    180003,
+    180004,
+    180005,
+    180006,
+    180007,
+    180008,
+    180009
+  ],
+  "inputs": {
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "bytes": 21084088,
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "policy": {
+      "path": "artifacts/assets/lift_ph_low_dim_epoch_1000_succ_100.pth",
+      "bytes": 7959022,
+      "sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605"
+    },
+    "a1_assessment": {
+      "path": "docs/experiments/results/a1-runtime-001/completed-runtime-assessment-readback-001.json",
+      "bytes": 7925,
+      "sha256": "c439e17056783a185feca6a36ca2a23fcfc8f258e210eb7e3483cffc3e7e972e"
+    },
+    "a1_replay": {
+      "path": "artifacts/a1-runtime-001/recorder-validation-001/replay-R-3/replay-R-1-001.npz",
+      "bytes": 28486,
+      "sha256": "2352ba313bd1e03b00ac5e4a7d103f6c8fcd17ebc215afeb7b9c7efacada8e18"
+    },
+    "historical_lock": {
+      "path": "uv.lock",
+      "bytes": 209060,
+      "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    }
+  },
+  "sources": {
+    "0": {
+      "path": "scripts/experiments/run_b1_reference.py",
+      "bytes": 16597,
+      "sha256": "1b7fce44696a1eb2af7debdd02bd2f579d79e2251a9dab935501fce37839b0b5"
+    },
+    "1": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "bytes": 50643,
+      "sha256": "6511f21b52b3edc1adc61e6f28a73db75de60beb82b0df254b26eeb04c280825"
+    },
+    "2": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "bytes": 12127,
+      "sha256": "449d0cbddd2ec6f2a0b55aa1923eadde1dd2a34e8779382cd30f760057884213"
+    },
+    "3": {
+      "path": "src/nisayon/engine/assets.py",
+      "bytes": 2356,
+      "sha256": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9"
+    },
+    "4": {
+      "path": "src/nisayon/engine/conditions.py",
+      "bytes": 8804,
+      "sha256": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf"
+    },
+    "5": {
+      "path": "src/nisayon/engine/io.py",
+      "bytes": 869,
+      "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+    }
+  },
+  "runtime": {
+    "python": "artifacts/a1-runtime-001/runtime-v1.3-001/venv/bin/python",
+    "trees": {
+      "historical": {
+        "sha256": "e74d6f8a32610d1772bab2e3e2879434e45f26fc0908113ebbd2b9a408417dc4",
+        "files": 28817,
+        "logical_bytes": 1682480783
+      },
+      "isolated": {
+        "sha256": "6c316d0267919f5fb336197d499b37234ef2829092497abb8eca64434278f9e6",
+        "files": 24307,
+        "logical_bytes": 1392171663
+      }
+    },
+    "robosuite": "1.5.1",
+    "mujoco": "3.2.7",
+    "torch": "2.5.1",
+    "torch_threads": 1,
+    "lite_physics": false,
+    "environment": "Unchanged dataset env_kwargs through the hash-bound A1 adapter; no runtime installation or source mutation."
+  },
+  "outputs": {
+    "projection": "artifacts/b1-reference-001/projection",
+    "replay-nominal": "artifacts/b1-reference-001/replay-nominal",
+    "replay-restored": "artifacts/b1-reference-001/replay-restored",
+    "qualification": "artifacts/b1-reference-001/qualification"
+  },
+  "order": [
+    "projection",
+    "replay-nominal",
+    "replay-restored",
+    "qualification"
+  ],
+  "diagnostics": {
+    "dataset_partition": "already exposed demo_0 only",
+    "projection": "Load 59 recorded states; execute only the final action, mirroring upstream extraction. Never a task-replay success.",
+    "controller_comparison": "59 original actions each; same update_initial_joints method in both nominal and restored variants. Restored target is a hypothesis, not proven historical controller state.",
+    "selection": "No reset hypothesis is selected for policy qualification. All policy episodes use the unchanged ordinary reset."
+  },
+  "criteria": {
+    "projection_observations_max_absolute_per_key": 1e-06,
+    "historical_dynamic_fidelity_report_atol": 0.001,
+    "historical_dynamic_fidelity_required_for_policy_gate": false,
+    "policy_success": "cube center > table height + 0.04 m, checked against backend success and reward",
+    "policy_required_successes": 8,
+    "policy_denominator": 10,
+    "episode_horizon": 400,
+    "zero_execution_failures_required": true,
+    "action_boundary": "Record intended outputs and clip to [-1,1], matching existing qualified LiftExecutor deployment. Report clipping count.",
+    "normalization": "Preserve absent observation normalization. This reference cannot qualify a learned normalizer repair."
+  },
+  "caps": {
+    "environment_constructions_started": 13,
+    "explicit_env_resets_started": 13,
+    "xml_resets_started": 3,
+    "state_assignments_started": 61,
+    "control_calls_started": 4119,
+    "policy_calls_started": 4000,
+    "contract_physics_substeps_upper": 102975,
+    "optimizer_updates": 0,
+    "new_asset_downloads": 0,
+    "retries": 0,
+    "wall_per_diagnostic_s": 600,
+    "wall_qualification_s": 1200,
+    "cpu_per_command_s": 1800,
+    "rss_bytes": 2147483648,
+    "temporary_bytes_per_command": 201326592,
+    "durable_bytes": 16777216,
+    "free_disk_floor_bytes": 5368709120
+  },
+  "stop": "One assigned attempt per mode on its exact create-only path. Stop on diagnostic execution/monitor failure or projection gate failure. All policy outcomes remain in denominator; no outcome-driven tuning or retries.",
+  "costs": "Retain preparation/check/failed-command wall, sampled CPU/RSS, source body bytes and simulator operations. Unknown engineer effort, provider tokens/billing, web discovery cost and unsampled peaks are not zero.",
+  "boundaries": [
+    "fresh development, not reserved evaluation",
+    "no historical benchmark reproduction claim",
+    "no comparative repair value",
+    "no new training, package install, hardware, cloud, outreach, publication or pushes"
+  ]
+}

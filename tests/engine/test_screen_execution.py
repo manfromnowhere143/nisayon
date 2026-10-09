@@ -5,11 +5,13 @@ from types import SimpleNamespace
 import pytest
 
 from nisayon.engine import development, screen
+from nisayon.engine.declarations import declare
 from nisayon.engine.development_cases import load_suite
-from nisayon.engine.io import write_json
+from nisayon.engine.io import digest, write_json
 
 
-def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path):
+@pytest.mark.parametrize("study", [False, True])
+def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path, study):
     root = Path(__file__).resolve().parents[2]
     source, cases, limits = load_suite(root / "work/development/incidents-proposed-v1.json")
     incident = cases[0]
@@ -20,6 +22,25 @@ def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path
     def diagnose(executor, case, asset, arm, directory, *args, **kwargs):
         events.append("diagnose-" + arm)
         result = {"candidate": {"synthetic_candidate": arm}}
+        if study:
+            context = kwargs["declaration_context"]
+            result["arm_declaration"] = declare(
+                context["root"],
+                {
+                    "assignment": context["assignment"],
+                    "candidate": {
+                        "configuration": result["candidate"],
+                        "configuration_sha256": digest(result["candidate"]),
+                    },
+                    "disposition": "claim_acceptance",
+                    "reason": "Labelled boundary test",
+                    "source": {"test": True},
+                    "settings": {"test": True},
+                    "evidence": [],
+                    "evidence_scope": "prospective_execution",
+                },
+                evidence_root=tmp_path,
+            )
         write_json(directory / "diagnosis.json", result)
         return result
 
@@ -27,6 +48,10 @@ def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path
         assert events[:2] == ["diagnose-B", "diagnose-A"]
         joint = json.loads((tmp_path / incident.id / "joint-freeze.json").read_text())
         assert set(joint["candidates"]) == {"A", "B"}
+        if study:
+            assert set(joint["declarations"]) == {"A", "B"}
+            assert joint["frozen_inputs_sha256"] == digest(frozen)
+            assert kwargs["declaration"].reference == joint["declarations"][arm]
         events.append("prepare-" + arm)
         return arm
 
@@ -56,6 +81,8 @@ def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path
         order=["B", "A"],
         condition_seeds=seeds,
         suite_sha256="synthetic",
+        diagnose_fn=diagnose if study else None,
+        study_declarations=study,
     )
     assert [r["arm"] for r in result] == ["B", "A"]
     assert events == [
@@ -80,6 +107,47 @@ def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path
             condition_seeds=seeds,
             suite_sha256="synthetic",
         )
+
+
+def test_missing_study_declaration_cannot_fall_back_to_v1_confirmation(monkeypatch, tmp_path):
+    root = Path(__file__).resolve().parents[2]
+    source, cases, limits = load_suite(root / "work/development/incidents-proposed-v1.json")
+    incident = cases[0]
+    seeds = list(range(10000, 10032))
+    frozen = development.shared_inputs(incident, seeds, source["shared_information"])
+
+    def diagnostic(executor, case, asset, arm, directory, *args, **kwargs):
+        result = {"candidate": {"test": arm}, "arm_declaration": None}
+        write_json(directory / "diagnosis.json", result)
+        return result
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("Missing declarations must not schedule terminal physics")
+
+    def retain(root, case, arm, frozen, diagnosis, directory, confirmed, confirmation_directory):
+        assert confirmed is None and diagnosis["candidate"] is not None
+        return {"arm": arm, "status": "unresolved"}
+
+    monkeypatch.setattr(development, "verify_reservation", lambda *args: {"test": True})
+    monkeypatch.setattr(development, "prepare_confirmation", forbidden)
+    monkeypatch.setattr(development, "execute_confirmation", forbidden)
+    monkeypatch.setattr(development, "trial_record", retain)
+    trials = development.run_assigned_case(
+        SimpleNamespace(invocation={"id": "test"}),
+        incident,
+        {"frozen": frozen},
+        {},
+        tmp_path,
+        limits,
+        {},
+        [],
+        order=["A", "B"],
+        condition_seeds=seeds,
+        suite_sha256="labelled-test",
+        diagnose_fn=diagnostic,
+        study_declarations=True,
+    )
+    assert len(trials) == 2 and all(t["status"] == "unresolved" for t in trials)
 
 
 def test_reserved_request_stays_closed_even_if_package_asserts_custody(monkeypatch, tmp_path):

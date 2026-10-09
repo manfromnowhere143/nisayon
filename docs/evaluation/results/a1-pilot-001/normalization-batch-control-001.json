@@ -1,0 +1,53 @@
+{
+  "schema": "nisayon.a1-pilot.control.normalization-batch.v1",
+  "robomimic": "0.3.0",
+  "torch": "2.5.1",
+  "model": "BC_RNN_GMM",
+  "cases": [
+    {
+      "batch_size": 100,
+      "seq_length": 10,
+      "process_batch_obs_shape": [
+        100,
+        10,
+        10
+      ],
+      "postprocess": "AssertionError: shape length mismatch in @normalize_obs"
+    },
+    {
+      "batch_size": 2,
+      "seq_length": 10,
+      "process_batch_obs_shape": [
+        2,
+        10,
+        10
+      ],
+      "postprocess": "AssertionError: shape length mismatch in @normalize_obs"
+    },
+    {
+      "batch_size": 1,
+      "seq_length": 10,
+      "process_batch_obs_shape": [
+        1,
+        10,
+        10
+      ],
+      "postprocess": "AssertionError: shape length mismatch in @normalize_obs"
+    },
+    {
+      "rollout_shape": [
+        10
+      ],
+      "normalize_obs": "returned"
+    },
+    {
+      "rollout_shape": [
+        1,
+        10
+      ],
+      "normalize_obs": "returned"
+    }
+  ],
+  "optimizer_updates_executed": 0,
+  "simulator_created": false
+}

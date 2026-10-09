@@ -1,0 +1,141 @@
+{
+  "schema": "nisayon.task-qualification-validation.v1",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:41:53Z",
+  "source": {
+    "phase_start_commit": "a38953531f596f3df5ccdb6fba0f464e80134ab6",
+    "evaluation_application": "6006df3ab2699c01ed9034004f160462c6b95435",
+    "first_evaluation_delivery": "da36b9d427b3956e65ceb9ff0ada3889701a17f7",
+    "evaluation_correction": "1c88a40ad4e5bebfd9c40fb3a2cc2eb963aea20a",
+    "corrected_evaluation_delivery": "591749826401f2460b128fb5ed0bf749eeb96d5c",
+    "tested_integrated_commit": "886950abc9dd6050532e945324f6a61726cc09d4"
+  },
+  "integrated_monitored_check": {
+    "command_record_id": "439130ffb8d54cf188d5bfb10e44fbaf",
+    "outer_wall_seconds": 294.730106,
+    "nested_pytest_seconds": 286.37,
+    "parent_nested_rule": "The recorder outer wall and nested pytest wall are reported separately and are not added.",
+    "receipt": {
+      "path": "artifacts/task-qualification-001/full-check-001.json",
+      "bytes": 118272,
+      "sha256": "034c0fff4957d5ebf6f9c0a78a0c1cf8e808debee831f0622293846e11ee54b1"
+    },
+    "returncode": 0,
+    "tests": {
+      "passed": 927,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lint": "passed",
+    "format": {
+      "status": "passed",
+      "files": 405
+    },
+    "documents": {
+      "status": "passed",
+      "files": 132,
+      "mermaid_blocks": 3,
+      "errors": []
+    }
+  },
+  "evaluation_lane_validation": {
+    "command_record_id": "dbb6ce6eabda4f8fa8beed413504c2d3",
+    "tested_commit": "345c19d63efb066f438d1e7bd050283c9d486afa",
+    "tested_application_commit": "6006df3ab2699c01ed9034004f160462c6b95435",
+    "outer_wall_seconds": 321.709885,
+    "nested_pytest_seconds": 319.42,
+    "tests": "923 passed, 1 skipped",
+    "lint": "passed",
+    "format_files": 402,
+    "documents": 131,
+    "reservation": "released before the integrated check"
+  },
+  "focused_validation": [
+    {
+      "result": "14 passed",
+      "scope": "integrated evaluation normalizer tests plus bounded inventory synthetic tests",
+      "cost": "not separately recorded"
+    },
+    {
+      "result": "26 of 26 conventional-v2 agreements; historical conventional v1 remains 25 of 26",
+      "scope": "NX1-NX8 synthetic normalizer controls",
+      "artifact": "artifacts/task-qualification-001/controls-v1-reproduction-001.json",
+      "sha256": "788f395ab0bb02a34c43ee9e882366b7de94ec967cede627db6a0696e82a2955",
+      "cost": "not separately recorded"
+    }
+  ],
+  "resource_accounting": {
+    "preflight_command": "8d88de87a8434ffa899eaaf8e0f5e169",
+    "preflight_outer_wall_seconds": 1.438178,
+    "baseline_retained_payload_bytes": 650260574,
+    "task_artifact_roots": {
+      "execution": {
+        "files": 6,
+        "logical_bytes": 249624,
+        "post_check_identity_audit": {
+          "path": "artifacts/task-qualification-001/identity-audit-001.txt",
+          "bytes": 5696,
+          "sha256": "efcdcf189cc232bd48543953fb891f17cc3ffee9dedc7f123c38d79f8025fd22"
+        }
+      },
+      "evaluation": {
+        "files": 4,
+        "logical_bytes": 176084
+      },
+      "combined_logical_bytes": 425708
+    },
+    "adjusted_retained_payload_bytes": 650686282,
+    "sampled_peak_temporary_bytes": 155090028,
+    "adjusted_retained_plus_sampled_peak_bytes": 805776310,
+    "project_cap_bytes": 1073741824,
+    "outside_monitor_temporary_bytes_before": 238101808,
+    "outside_monitor_temporary_bytes_after": 238101808,
+    "outside_monitor_plus_sampled_peak_bytes": 393191836,
+    "shared_temporary_cap_bytes": 536870912,
+    "retained_test_temporary_bytes": 0,
+    "minimum_sampled_free_disk_bytes": 22735626240,
+    "minimum_free_disk_bytes": 5368709120,
+    "sample_count": 1124,
+    "measurement_limit": "Discrete logical-byte samples do not bound unobserved peaks.",
+    "violations": [],
+    "prior_failed_check_files": 5,
+    "prior_failed_check_files_unchanged": true,
+    "outside_monitor_temporary_unchanged": true
+  },
+  "task_phase_acquisition": {
+    "network_requests": 0,
+    "source_body_bytes": 0,
+    "new_dependency_body_bytes": 0,
+    "policy_weight_bytes_acquired": 0,
+    "dataset_bytes_acquired": 0
+  },
+  "failures_preserved": [
+    {
+      "record": "inventory-failure-001.json",
+      "command": "482ee3d810884748becff9d8a04038c5",
+      "result": "the execution inventory hit its 60-second CPU limit and emitted no result; zero decisions accepted; evaluation independently completed the frozen screen"
+    },
+    {
+      "record": "inventory-failure-001.json",
+      "result": "the first script format check failed and two unqualified python invocations did not launch; corrected locked-environment checks passed"
+    },
+    {
+      "record": "integration-finding-001.json",
+      "result": "the first evaluation screen incorrectly passed C1 despite unspecified weight terms; screening-002 corrects C1 to unresolved and Lift to 4 of 7 without changing the result"
+    },
+    {
+      "record": "post-check read diagnostic",
+      "result": "the first receipt summary attempted a nonexistent wall_seconds field and raised KeyError; it changed no evidence and the corrected read used recorder wall time plus receipt fields"
+    },
+    {
+      "record": "pre-closeout commit identity readback",
+      "result": "two manually expanded abbreviated commit IDs were wrong in draft records; git rev-parse supplied the exact application and correction IDs before final validation records were committed"
+    },
+    {
+      "record": "post-closeout artifact reconciliation search",
+      "result": "the first rg pattern included a literal newline escape and returned 2; the corrected single-line search located every affected byte total"
+    }
+  ],
+  "reservation": "released after the successful receipt",
+  "scientific_scope": "This validation establishes software and record consistency only. It contains no policy inference, simulator rollout, task outcome or repair confirmation."
+}

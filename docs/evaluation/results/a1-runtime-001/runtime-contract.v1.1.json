@@ -1,0 +1,71 @@
+{
+ "schema": "nisayon.a1-runtime-contract-amendment.v1.1",
+ "case": "a1-runtime-001",
+ "frozen_at": "2026-09-21T12:39:36Z",
+ "frozen_before": "any package byte, HEAD, Range, license or dependency response, runtime construction, replay, policy action or development episode",
+ "amends": {
+  "path": "runtime-contract.v1.json",
+  "sha256": "8c8b6b1b351f135094abd995e1719e7db48dc55ed06d46ec19205e4f24b1f2ef",
+  "rule": "v1 is retained unchanged as before-evidence; only the items below are superseded; every other term of v1 stands"
+ },
+ "triggered_by": {
+  "execution_intake": "docs/experiments/results/a1-runtime-001/contract-intake-001.json",
+  "findings": [
+   "I1",
+   "I2",
+   "I3",
+   "I4",
+   "I5",
+   "I6"
+  ],
+  "metadata_response": "docs/experiments/results/a1-runtime-001/source-delivery-001.json"
+ },
+ "A1_download_ceiling": {
+  "supersedes": "ceilings.dependency_and_download.phase_download_ceiling_bytes = 24439491",
+  "now": 24430709,
+  "basis": "the 8,782-byte metadata response raised authoritative cumulative source bytes to 42,678,155 of 67,108,864",
+  "counting": "every response body counts: HEAD (0 body), central directory, members, license, dependency wheels, redirects, errors and supplementary fetches"
+ },
+ "A2_response_authority": {
+  "supersedes": "ceilings.dependency_and_download.requests",
+  "status": "conditional: the A1 ledger's application-response cap is 12 of 12 consumed; no request below may be sent until Daniel records a new cumulative application-response ceiling for the A1 line; this amendment cannot enlarge that limit",
+  "requested_ceiling": "52 cumulative application responses (12 consumed plus at most 40 for this phase)",
+  "phase_maximums": {
+   "HEAD_of_pinned_wheel": 1,
+   "central_directory_range": 1,
+   "license_first_range": 1,
+   "member_ranges": 30,
+   "supplementary_member_ranges": 2,
+   "dependency_wheel_gets": 5,
+   "total": 40
+  },
+  "order": "HEAD; central directory; license-first terms step (A3); stop or continue; member ranges; dependency wheels; construction; supplementary only on a named missing member",
+  "bytes": "all inside A1"
+ },
+ "A3_rights_gate": {
+  "adds": "a pass/fail terms step before any operational member byte",
+  "procedure": "from the central directory select the smallest range containing the distribution's license file (robosuite-1.5.1.dist-info/LICENSE*, or a LICENSE member under robosuite/, whichever the central directory lists; if none is listed, stop) together with METADATA; fetch that one range first",
+  "pass": "the retained license text is a recognised permissive declaration that plainly covers the distribution (MIT is expected from the repository's declared license) and METADATA names it or names no conflicting terms",
+  "fail": "any other outcome stops the route before another member byte; the retained bytes, offsets, CRC32 and provenance are recorded either way",
+  "scope": "the declaration binds the fetched distribution members only; it is not extended to another version or to the repository"
+ },
+ "A4_identity_rule": {
+  "supersedes": "compatibility_criteria.C1_identity.check (wheel byte digest equals the pinned sha256)",
+  "now": "route A: the whole-wheel sha256 equals 39810a9e...; route B: the executed identity is the pinned URL, the sha256 of the fetched central-directory bytes, and a complete member table for the selection rule with offset, compressed and uncompressed sizes, central-directory CRC32 verified against the extracted bytes, and the extracted sha256 of every member; the publisher's whole-wheel sha256 is recorded as declared and unverified. C1 passes under route B iff every selected member is present, every CRC32 verifies and the table is complete; the other C1 terms (1.5.1 inside the runtime, every package pinned, the historical lock and environment byte-identical) stand"
+ },
+ "A5_reset_determinism_seed": {
+  "supersedes": "compatibility_criteria.C7_reset_determinism (seed 200) and ceilings.simulator_steps.qualification_probe resets",
+  "now": "C7 uses seed 900, checked unexposed on 2026-09-21 (its only appearance is an unrelated third-party test file); seeds 200-209 stay unexposed until E-200 starts; the probe still has 3 resets (1 probe, 2 determinism)",
+  "exposure_note": "seed 900 becomes exposed by C7 and is excluded from any later development, screening or confirmation set"
+ },
+ "A6_timing": {
+  "supersedes": "frozen_before: any dependency request",
+  "now": "v1 was frozen at 12:25:27 UTC, 57.46 s after the execution lane's single reserved PyPI metadata request began (command 3bfd31c5); it preceded every package byte, HEAD, Range, license and dependency response, runtime construction, replay, policy action and outcome; its pin came from the 17 September index cache and matches the response",
+  "record": "gate-outcome-001.json"
+ },
+ "A7_requirements": {
+  "adds": "the wheel's declared requirements (numpy>=1.13.3, numba>=0.49.1, scipy>=1.2.3, mujoco>=3.2.3, mink>=0.0.5, Pillow, opencv-python, pynput, termcolor, pytest, tqdm) are satisfied by held versions except mink and its own requirements; those wheels are pinned by index sha256 before their GET, counted under A1 and A2, and recorded in the runtime lock"
+ },
+ "unchanged": "the two questions, C2-C6, C8, C9, R-1 and R-2, E-200..E-209 and the 8-of-10 rule, thresholds 1e-6 and 1e-3, every memory, storage, wall-time, simulator-step and attempt ceiling, the dispositions and the value mechanism",
+ "assessor": "a1_runtime_assessor C7 expects seed 900 from this amendment on; C1 accepts members or a wheel digest as v1's assessor already did"
+}

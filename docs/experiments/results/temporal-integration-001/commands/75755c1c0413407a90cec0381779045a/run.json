@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "75755c1c0413407a90cec0381779045a",
+  "label": "temporal-integration-20260920-confirmation-semantic-comparison-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import gzip,json\nfrom pathlib import Path\nfrom nisayon.engine.io import digest,file_digest,write_json\nold_path=Path(\"docs/experiments/results/confirmation-engine-001/view.json.gz\")\nnew_path=Path(\"artifacts/engine-integration-001/temporal-integration-001/confirmation-export-001/view.json\")\nold=json.loads(gzip.decompress(old_path.read_bytes()));new=json.loads(new_path.read_bytes())\nchanged=[k for k in sorted(old.keys()|new.keys()) if old.get(k)!=new.get(k)]\nassert changed==[\"dependencies\"],changed\nreport={\"schema\":\"nisayon.confirmation-semantic-comparison.v1\",\"old_compressed_sha256\":file_digest(old_path),\"new_view_sha256\":file_digest(new_path),\"changed_top_level_fields\":changed,\"old_dependencies\":old[\"dependencies\"],\"new_dependencies\":new[\"dependencies\"],\"identical_non_dependency_fields\":sorted(set(new)-{\"dependencies\"}),\"non_dependency_content_sha256\":digest({k:v for k,v in new.items() if k!=\"dependencies\"}),\"original_numeric_inputs_and_historical_outcomes_unchanged\":True,\"new_execution\":False}\nwrite_json(new_path.parent.parent/\"confirmation-semantic-comparison-001.json\",report)\nprint(json.dumps({\"changed\":changed,\"unchanged_fields\":report[\"identical_non_dependency_fields\"]}))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T09:51:42.585066+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "037561b7bf961a57da6f3323f970522b9a5e4cd3",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 25641,
+  "returncode": 0,
+  "ended_at": "2026-09-20T09:51:42.967884+00:00",
+  "wall_seconds": 0.291459,
+  "logs": {
+    "stdout.log": {
+      "bytes": 236,
+      "sha256": "6d13c71f1f782558f2c46d8167ef82f8420585b95bcec788eba30fb0cd1a0d40"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

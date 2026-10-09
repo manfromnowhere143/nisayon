@@ -1,0 +1,80 @@
+{
+  "schema": "nisayon.a1-pilot-readiness.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T10:01:25Z",
+  "status": "not_ready_to_execute",
+  "reason": "The dataset rights gate stopped before a body GET, so exact dataset identity, environment metadata, membership and normalization population do not exist locally and a complete training configuration cannot be frozen truthfully.",
+  "runtime": {
+    "robomimic": "0.3.0",
+    "robosuite": "1.4.1",
+    "mujoco": "3.2.7",
+    "torch": "2.5.1",
+    "h5py": "3.16.0",
+    "numpy": "1.26.4",
+    "device_required": "cpu"
+  },
+  "installed_source_identities": {
+    "robomimic/scripts/train.py": "fdd900130ef3c8d103e80d9c0fcdd2b9e28e7cd66e715ff5c016cd9d39707048",
+    "robomimic/utils/train_utils.py": "1c58b93ad73410e31d5313746f33366e05810ab582c3ae82fb677813b9e57017",
+    "robomimic/utils/dataset.py": "6332793f2ce8d6b1e38f6306e9c5267e2566a64bb67db65d6573ae6faaa26b8d",
+    "robomimic/config/base_config.py": "9ca10c3d443261ade58e69d612422688ff88d636719783a78f38f6c152839bf6",
+    "robomimic/config/bc_config.py": "daff093a4f0eb63d01a29ce176bd881674b2ebd49bf7081b6ffd77eaae9a28f5",
+    "robomimic/exps/templates/bc.json": "3f887e67f77fdf3e27e3e24cfbde0f8cf68bb054aa5d8ca9435baeafc68c1c7f",
+    "robomimic/scripts/generate_paper_configs.py": "34df666cb6953c29815eb69541a2ed26986437c5d8e3ca81775d109643740a55",
+    "robomimic-0.3.0/LICENSE": "7cdbfab482b23a4d925d59ff169ab0bc5f8c97ceb0db79f9fd5bf46ef8aa1556"
+  },
+  "prospectively_selected_family": {
+    "provenance": "Architecture and workload family read from the held Lift PH BC-RNN checkpoint; none of its weights would be reused.",
+    "architecture": "BC-RNN, LSTM, two layers, hidden size 400, horizon 10, five-mode GMM, no actor MLP layers",
+    "batch_size": 100,
+    "sequence_length": 10,
+    "optimizer": "Adam defaults through robomimic BCConfig",
+    "learning_rate": 0.0001,
+    "paper_epoch_definition": "exactly 100 optimizer updates; 100 batches and 10,000 sampled length-10 sequence examples",
+    "epochs_in_pilot": 1,
+    "observation_order": [
+      "object",
+      "robot0_eef_pos",
+      "robot0_eef_quat",
+      "robot0_gripper_qpos"
+    ],
+    "normalization": "For every declared training demo, cast observations to float32, compute per-demo means and squared deviations, merge them over the complete population, set std=sqrt(M2/n)+1e-3, then apply (x-mean)/std with no clipping.",
+    "data_loader_workers": 0,
+    "torch_intraop_threads": 2,
+    "validation": false,
+    "automatic_rollouts": false,
+    "rendering": false,
+    "video": false,
+    "remote_telemetry": false,
+    "gpu_selection": false,
+    "checkpoint_selection": "the only epoch; never rollout-selected"
+  },
+  "committed_pre_request_limits": {
+    "dataset_body_bytes": 33554432,
+    "training_updates": 100,
+    "durable_output_bytes": 16777216,
+    "temporary_bytes": 201326592,
+    "minimum_free_disk_bytes": 5368709120,
+    "rollouts": 0
+  },
+  "unfreezable_without_dataset": {
+    "dataset_sha256": null,
+    "dataset_environment_arguments": null,
+    "training_demo_keys": null,
+    "per_demo_frame_counts": null,
+    "total_sequence_starts": null,
+    "normalization_statistics_population": null,
+    "immutable_training_config_sha256": null
+  },
+  "checkpoint_plan_if_a_future_gate_passes": {
+    "inference_checkpoint": "robomimic TrainUtils.save_model output with model, config, algorithm, environment metadata, shape metadata and observation statistics",
+    "resumable_training_checkpoint": "not provided by that standard save path because optimizer and RNG states are absent; exact resumption must not be claimed",
+    "replay_requirement": "load through policy_from_checkpoint without a rollout and verify the bound statistics before describing replay capability"
+  },
+  "continuation_cost_estimate": {
+    "status": "unresolved",
+    "fixed_costs": "rights metadata and HEAD costs are measured in source-ledger.v1.json; dataset loading, statistics and initialization were not executed",
+    "per_update_cost": null,
+    "reason": "No optimizer update ran. Extrapolating from an unrelated policy or the fastest observed operation would violate the frozen evaluation method."
+  }
+}

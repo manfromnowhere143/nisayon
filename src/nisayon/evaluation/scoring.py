@@ -29,6 +29,9 @@ from .schema import (
 )
 
 LEDGER_SCHEMA = "nisayon.comparison.v1"
+# A v2 ledger adds declaration receipts to each trial (read by ``prospective``); every
+# field the v1 scorer reads is unchanged, so the v1 score of a v2 ledger keeps its meaning.
+LEDGER_SCHEMAS = {LEDGER_SCHEMA, "nisayon.comparison.v2"}
 SCORE_SCHEMA = "nisayon.comparison.score.v1"
 STATUSES = {
     "confirmed",
@@ -321,6 +324,25 @@ def _verify_decision(trial: dict, root: Path | None, arm_id: str) -> dict:
     result["candidate"] = ((record.get("confirmation") or {}).get("candidate") or {}).get("digest")
     result["case_id"] = record.get("case_id")
     result["bundle_sha256"] = record.get("bundle_sha256")
+    result["reasons"] = [
+        {"code": item.get("code"), "severity": item.get("severity")}
+        for item in (record.get("reasons") or [])
+        if isinstance(item, dict)
+    ]
+    result["premises"] = record.get("premises") if isinstance(record.get("premises"), dict) else {}
+    result["decided_at"] = record.get("decided_at")
+    result["evaluation_wall_s"] = record.get("evaluation_wall_s")
+    result["run_measurements"] = {
+        str(run_id): {
+            "role": run.get("role"),
+            "measurement": run.get("measurement"),
+            "outcome": (run.get("outcome") or {}).get("observed")
+            if isinstance(run.get("outcome"), dict)
+            else None,
+        }
+        for run_id, run in (record.get("runs") or {}).items()
+        if isinstance(run, dict)
+    }
     # The shared record names the case it decided; an arm-specific execution of the case
     # carries the arm suffix. Any other case is somebody else's decision.
     if result["case_id"] not in (trial["case_id"], f"{trial['case_id']}-{arm_id}"):
@@ -334,6 +356,102 @@ def _verify_decision(trial: dict, root: Path | None, arm_id: str) -> dict:
             f"the ledger declares {declared!r}; the verified record says {result['decision']!r}"
         )
     return result
+
+
+def parse_ledger(ledger: object) -> dict:
+    """Parse a comparison ledger's suite, cases, arms and trials, or raise ``Malformed``.
+
+    Shared by the v1 scorer and the prospective scorer so that both read one ledger the
+    same way. ``raw_trials`` keeps each trial's original object for fields the v1 scorer
+    does not read (declaration receipts and terminal bindings).
+    """
+    data = mapping(ledger, "ledger")
+    schema = string(data, "schema", "ledger")
+    if schema not in LEDGER_SCHEMAS:
+        raise Malformed("ledger.schema", f"expected {LEDGER_SCHEMA}, found {schema!r}")
+    suite = mapping(require(data, "suite", "ledger"), "ledger.suite")
+    parsed: dict = {
+        "schema": schema,
+        "suite": {
+            "id": string(suite, "id", "ledger.suite"),
+            "obligation": suite.get("obligation"),
+            "evaluator_commit": suite.get("evaluator_commit"),
+            "solver_kind": suite.get("solver_kind"),
+        },
+        "suite_ids": {
+            value
+            for value in (
+                suite.get("id"),
+                suite.get("case_ledger_sha256"),
+                suite.get("declaration_suite_id"),
+            )
+            if isinstance(value, str) and value
+        },
+        "cases": {},
+        "arms": {},
+        "trials": [],
+        "raw_trials": [],
+        "findings": [],
+    }
+    cases: dict[str, dict] = parsed["cases"]
+    for index, item in enumerate(sequence(require(data, "cases", "ledger"), "ledger.cases")):
+        cpath = f"ledger.cases[{index}]"
+        cdata = mapping(item, cpath)
+        case_id = string(cdata, "id", cpath)
+        if case_id in cases:
+            raise Malformed(f"{cpath}.id", f"duplicate case {case_id!r}")
+        budget = mapping(cdata.get("budget", {}), f"{cpath}.budget")
+        cases[case_id] = {
+            "family": cdata.get("family"),
+            "intended_class": cdata.get("intended_class"),
+            "budget": {
+                "max_rollouts": integer(
+                    budget["max_rollouts"], f"{cpath}.budget.max_rollouts", minimum=0
+                )
+                if "max_rollouts" in budget
+                else None,
+                "max_wall_seconds": finite(
+                    budget["max_wall_seconds"], f"{cpath}.budget.max_wall_seconds"
+                )
+                if "max_wall_seconds" in budget
+                else None,
+            },
+            "frozen": mapping(require(cdata, "frozen", cpath), f"{cpath}.frozen"),
+        }
+    arms: dict[str, dict] = parsed["arms"]
+    for index, item in enumerate(sequence(require(data, "arms", "ledger"), "ledger.arms")):
+        apath = f"ledger.arms[{index}]"
+        adata = mapping(item, apath)
+        arm_id = string(adata, "id", apath)
+        if arm_id in arms:
+            raise Malformed(f"{apath}.id", f"duplicate arm {arm_id!r}")
+        arms[arm_id] = {
+            "kind": string(adata, "kind", apath, allowed=ARM_KINDS),
+            "validity_layer": boolean(adata, "validity_layer", apath),
+            "selection": string(adata, "selection", apath, allowed=SELECTIONS),
+            "agent": adata.get("agent"),
+            "budget": adata.get("budget"),
+        }
+    for index, item in enumerate(sequence(require(data, "trials", "ledger"), "ledger.trials")):
+        trial, trial_findings = _parse_trial(item, index, cases, arms)
+        parsed["findings"].extend(trial_findings)
+        parsed["trials"].append(trial)
+        parsed["raw_trials"].append(item)
+    return parsed
+
+
+def verify_trial_decision(trial: dict, root: Path | None, arm_id: str) -> dict:
+    """The v1 verification of a parsed trial's decision record plus its execution binding.
+
+    Adds ``bound`` (verified and bound to the execution the trial names) and
+    ``binding_problem``; the other keys are those of the internal verification.
+    """
+    verification = _verify_decision(trial, root, arm_id)
+    verification["binding_problem"] = (
+        _binding_problem(trial, root, verification) if verification["verified"] else None
+    )
+    verification["bound"] = verification["verified"] and verification["binding_problem"] is None
+    return verification
 
 
 def score_comparison(ledger: object, root: Path | None = None) -> dict:
@@ -354,64 +472,13 @@ def score_comparison(ledger: object, root: Path | None = None) -> dict:
         ],
     }
     try:
-        data = mapping(ledger, "ledger")
-        schema = string(data, "schema", "ledger")
-        if schema != LEDGER_SCHEMA:
-            raise Malformed("ledger.schema", f"expected {LEDGER_SCHEMA}, found {schema!r}")
-        suite = mapping(require(data, "suite", "ledger"), "ledger.suite")
-        result["suite"] = {
-            "id": string(suite, "id", "ledger.suite"),
-            "obligation": suite.get("obligation"),
-            "evaluator_commit": suite.get("evaluator_commit"),
-            "solver_kind": suite.get("solver_kind"),
-        }
-        cases: dict[str, dict] = {}
-        for index, item in enumerate(sequence(require(data, "cases", "ledger"), "ledger.cases")):
-            cpath = f"ledger.cases[{index}]"
-            cdata = mapping(item, cpath)
-            case_id = string(cdata, "id", cpath)
-            if case_id in cases:
-                raise Malformed(f"{cpath}.id", f"duplicate case {case_id!r}")
-            budget = mapping(cdata.get("budget", {}), f"{cpath}.budget")
-            cases[case_id] = {
-                "family": cdata.get("family"),
-                "intended_class": cdata.get("intended_class"),
-                "budget": {
-                    "max_rollouts": integer(
-                        budget["max_rollouts"], f"{cpath}.budget.max_rollouts", minimum=0
-                    )
-                    if "max_rollouts" in budget
-                    else None,
-                    "max_wall_seconds": finite(
-                        budget["max_wall_seconds"], f"{cpath}.budget.max_wall_seconds"
-                    )
-                    if "max_wall_seconds" in budget
-                    else None,
-                },
-                "frozen": mapping(require(cdata, "frozen", cpath), f"{cpath}.frozen"),
-            }
-        arms: dict[str, dict] = {}
-        for index, item in enumerate(sequence(require(data, "arms", "ledger"), "ledger.arms")):
-            apath = f"ledger.arms[{index}]"
-            adata = mapping(item, apath)
-            arm_id = string(adata, "id", apath)
-            if arm_id in arms:
-                raise Malformed(f"{apath}.id", f"duplicate arm {arm_id!r}")
-            arms[arm_id] = {
-                "kind": string(adata, "kind", apath, allowed=ARM_KINDS),
-                "validity_layer": boolean(adata, "validity_layer", apath),
-                "selection": string(adata, "selection", apath, allowed=SELECTIONS),
-                "agent": adata.get("agent"),
-                "budget": adata.get("budget"),
-            }
-        trials: list[dict] = []
-        for index, item in enumerate(sequence(require(data, "trials", "ledger"), "ledger.trials")):
-            trial, trial_findings = _parse_trial(item, index, cases, arms)
-            findings.extend(trial_findings)
-            trials.append(trial)
+        parsed = parse_ledger(ledger)
     except Malformed as error:
         findings.append({"code": "malformed_ledger", "detail": str(error)})
         return result
+    result["suite"] = parsed["suite"]
+    cases, arms, trials = parsed["cases"], parsed["arms"], parsed["trials"]
+    findings.extend(parsed["findings"])
 
     kinds = {arm["kind"] for arm in arms.values()}
     # An agent arm must say which model, settings and context boundary it ran under; a
@@ -911,9 +978,12 @@ def render_score(score: dict) -> str:
 
 __all__ = [
     "LEDGER_SCHEMA",
+    "LEDGER_SCHEMAS",
     "SCORE_SCHEMA",
     "Quantity",
+    "parse_ledger",
     "render_score",
     "score_comparison",
     "score_file",
+    "verify_trial_decision",
 ]

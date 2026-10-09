@@ -1,0 +1,351 @@
+{
+  "schema": "nisayon.temporal-trace.v1",
+  "case_id": "X03-configuration-aba",
+  "schedule_sha256": "5905ac423b4ed14c4971fb81718123b13de342212345e8c248e3891f5ab8d262",
+  "source": {
+    "commit": "1332e7fd6143a49648435c79bf50f9f410b0697f",
+    "dependency_lock_sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+    "dependency_scope": "standard-library software executor; no learned or simulator runtime imported",
+    "files": {
+      "pyproject.toml": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822",
+      "src/nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "src/nisayon/engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "src/nisayon/engine/declarations.py": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+      "src/nisayon/engine/io.py": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "src/nisayon/engine/store.py": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "src/nisayon/engine/telemetry.py": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "src/nisayon/engine/temporal_clocks.py": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc",
+      "src/nisayon/engine/temporal_experiment.py": "0b74bb507723188d48961f7c5f642ade1483467a4c04debaf84e3d76248c9bd0",
+      "src/nisayon/engine/temporal_runtime.py": "3f39172971d2f8c9b9e5562a24f865fa7fcd43462f9b9abab8802124c3032c5e",
+      "src/nisayon/engine/temporal_store.py": "88154dedaeeec67cc8162b06029e53af3127e08a5191895c2cd59efc3ee58446",
+      "uv.lock": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    },
+    "interpreter": {
+      "implementation": "CPython",
+      "version": "3.12.13"
+    },
+    "kind": "constructed_control"
+  },
+  "clocks": {
+    "declared_mappings": [],
+    "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported.",
+    "names": [
+      "controller",
+      "sensor"
+    ]
+  },
+  "configuration": {
+    "aggregation": "latest_request_wins_same_step",
+    "chunk_length": 3,
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+    "control_period": 10000000,
+    "max_age": 50000000,
+    "policy_id": "scripted-policy-a",
+    "time_unit": "ns"
+  },
+  "assignment": {
+    "case_id": "X03-configuration-aba",
+    "id": "X03-configuration-aba--selected_intervention",
+    "remedy_id": "selected_intervention"
+  },
+  "remedy": {
+    "bind_configuration": true,
+    "bind_request": true,
+    "deadline_check": "dispatch",
+    "deduplicate": true,
+    "drop_all": false,
+    "fence_generation": true,
+    "id": "selected_intervention",
+    "ordered_overlap": true,
+    "reset_queue": true,
+    "role": "same_conventional_remedy_through_intervention_interface"
+  },
+  "minimum_dispatches": 1,
+  "usefulness_contract": {
+    "basis": "frozen_case_dispatch_target",
+    "minimum_dispatches": 1,
+    "scope": "whole_case",
+    "dispatch_opportunities": [
+      {
+        "input_id": "X03-configuration-aba-input-05",
+        "at": {
+          "value": 5000000,
+          "clock": "controller",
+          "unit": "ns"
+        }
+      },
+      {
+        "input_id": "X03-configuration-aba-input-09",
+        "at": {
+          "value": 9000000,
+          "clock": "controller",
+          "unit": "ns"
+        }
+      }
+    ],
+    "boundary": "Frozen suite v2 target. Do not silently substitute a per-generation periodic-grid threshold. Validity and acknowledgement remain separate."
+  },
+  "execution_status": "completed",
+  "events": [
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": null,
+      "kind": "episode_start",
+      "seq": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-00",
+      "kind": "observation_acquired",
+      "obs_id": "o0",
+      "observed_by_driver_at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 0
+      },
+      "seq": 1,
+      "step": 0
+    },
+    {
+      "activation": 0,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 1000000
+      },
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-01",
+      "kind": "request_sent",
+      "obs_id": "o0",
+      "order": 0,
+      "req_id": "q0",
+      "seq": 2
+    },
+    {
+      "activation": 1,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 2000000
+      },
+      "from_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "input_id": "X03-configuration-aba-input-02",
+      "kind": "configuration_changed",
+      "local_queue_revocation": true,
+      "queued_after": [],
+      "queued_before": [],
+      "seq": 3,
+      "to_sha256": "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f"
+    },
+    {
+      "activation": 2,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 3000000
+      },
+      "from_sha256": "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f",
+      "input_id": "X03-configuration-aba-input-03",
+      "kind": "configuration_changed",
+      "local_queue_revocation": true,
+      "queued_after": [],
+      "queued_before": [],
+      "seq": 4,
+      "to_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c"
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 4000000
+      },
+      "chunk_id": "c0",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "delivery_id": "X03-configuration-aba-delivery-04",
+      "first_step": 0,
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-04",
+      "kind": "response_arrived",
+      "ordinals": 1,
+      "req_id": "q0",
+      "resp_id": "r-c0",
+      "seq": 5,
+      "values_sha256": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+    },
+    {
+      "admitted": [],
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 4000000
+      },
+      "chunk_id": "c0",
+      "decisions": [
+        {
+          "disposition": "skipped",
+          "ordinal": 0,
+          "reason": "configuration_fence"
+        }
+      ],
+      "delivery_id": "X03-configuration-aba-delivery-04",
+      "input_id": "X03-configuration-aba-input-04",
+      "kind": "queue_admitted",
+      "reason": "configuration_fence",
+      "replaced": [],
+      "seq": 6,
+      "skipped": [
+        0
+      ]
+    },
+    {
+      "action_id": null,
+      "age_guard": null,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 5000000
+      },
+      "chunk_id": null,
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-05",
+      "kind": "dispatch_refused",
+      "ordinal": null,
+      "reason": "empty_queue",
+      "seq": 7,
+      "step": 0
+    },
+    {
+      "activation": 2,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 6000000
+      },
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-06",
+      "kind": "observation_acquired",
+      "obs_id": "o1",
+      "observed_by_driver_at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 6000000
+      },
+      "seq": 8,
+      "step": 0
+    },
+    {
+      "activation": 2,
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 7000000
+      },
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-07",
+      "kind": "request_sent",
+      "obs_id": "o1",
+      "order": 1,
+      "req_id": "q1",
+      "seq": 9
+    },
+    {
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 8000000
+      },
+      "chunk_id": "c1",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "delivery_id": "X03-configuration-aba-delivery-08",
+      "first_step": 0,
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-08",
+      "kind": "response_arrived",
+      "ordinals": 1,
+      "req_id": "q1",
+      "resp_id": "r-c1",
+      "seq": 10,
+      "values_sha256": "41164c427f4cf681cc1b50eaf1a175e3574a1d015c6c90fbdaf77aea39d24086"
+    },
+    {
+      "admitted": [
+        0
+      ],
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 8000000
+      },
+      "chunk_id": "c1",
+      "decisions": [
+        {
+          "disposition": "admitted",
+          "ordinal": 0,
+          "reason": "admitted"
+        }
+      ],
+      "delivery_id": "X03-configuration-aba-delivery-08",
+      "input_id": "X03-configuration-aba-input-08",
+      "kind": "queue_admitted",
+      "reason": "admitted",
+      "replaced": [],
+      "seq": 11,
+      "skipped": []
+    },
+    {
+      "action_id": "c1:0",
+      "activation": 2,
+      "age_guard": {
+        "lower_ns": 3000000,
+        "reason": "age_within_inclusive_deadline",
+        "status": "within",
+        "upper_ns": 3000000
+      },
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 9000000
+      },
+      "chunk_id": "c1",
+      "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "dispatch_id": "X03-configuration-aba-input-09:send",
+      "generation": 0,
+      "input_id": "X03-configuration-aba-input-09",
+      "kind": "action_dispatched",
+      "ordinal": 0,
+      "seq": 12,
+      "sink": "scripted_software_call",
+      "step": 0,
+      "target_step": 0,
+      "value": 10
+    },
+    {
+      "action_id": "c1:0",
+      "at": {
+        "clock": "controller",
+        "unit": "ns",
+        "value": 9000000
+      },
+      "dispatch_id": "X03-configuration-aba-input-09:send",
+      "input_id": "X03-configuration-aba-input-09",
+      "kind": "dispatch_acknowledged",
+      "seq": 13
+    }
+  ],
+  "robot_task_outcome": "unmeasured",
+  "scope": "executed local software with constructed message inputs and scripted send returns"
+}

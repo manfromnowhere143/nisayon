@@ -1,0 +1,224 @@
+{
+ "schema": "nisayon.temporal-trace.v1",
+ "case_id": "duplicate_response",
+ "schedule_sha256": "5e92443f4898bf09936148ce39a647330b62eaf9d11d905c7fd90731566c268e",
+ "source": {
+  "kind": "constructed_control",
+  "note": "a duplicate delivery re-admitted after dispatch; the pinned client's sequential receiver does not produce duplicates"
+ },
+ "clocks": {
+  "names": [
+   "controller",
+   "server"
+  ],
+  "declared_mappings": []
+ },
+ "configuration": {
+  "policy_id": "scripted-double",
+  "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+  "chunk_length": 3,
+  "control_period": 1,
+  "aggregation": "latest_arrival_wins",
+  "max_age": 4,
+  "steps_per_generation": 6,
+  "useful_coverage_min": 0.8
+ },
+ "execution_status": "completed",
+ "events": [
+  {
+   "seq": 1,
+   "kind": "episode_start",
+   "generation": 0,
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 2,
+   "kind": "observation_acquired",
+   "obs_id": "o0",
+   "generation": 0,
+   "step": 0,
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 3,
+   "kind": "request_sent",
+   "req_id": "r0",
+   "obs_id": "o0",
+   "generation": 0,
+   "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 4,
+   "kind": "response_arrived",
+   "resp_id": "p0",
+   "req_id": "r0",
+   "chunk_id": "c0",
+   "first_step": 1,
+   "ordinals": 3,
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 5,
+   "kind": "queue_admitted",
+   "chunk_id": "c0",
+   "admitted": [
+    0,
+    1,
+    2
+   ],
+   "skipped": [],
+   "replaced": [],
+   "reason": "admitted",
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 6,
+   "kind": "action_dispatched",
+   "action_id": "c0:0",
+   "chunk_id": "c0",
+   "ordinal": 0,
+   "step": 1,
+   "generation": 0,
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 7,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:0",
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 8,
+   "kind": "response_arrived",
+   "resp_id": "p0-dup",
+   "req_id": "r0",
+   "chunk_id": "c0",
+   "first_step": 1,
+   "ordinals": 3,
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 9,
+   "kind": "queue_admitted",
+   "chunk_id": "c0",
+   "admitted": [
+    0,
+    1,
+    2
+   ],
+   "skipped": [],
+   "replaced": [],
+   "reason": "duplicate delivery admitted again",
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 10,
+   "kind": "action_dispatched",
+   "action_id": "c0:0",
+   "chunk_id": "c0",
+   "ordinal": 0,
+   "step": 2,
+   "generation": 0,
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 11,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:0",
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 12,
+   "kind": "action_dispatched",
+   "action_id": "c0:1",
+   "chunk_id": "c0",
+   "ordinal": 1,
+   "step": 3,
+   "generation": 0,
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 13,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:1",
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 14,
+   "kind": "action_dispatched",
+   "action_id": "c0:2",
+   "chunk_id": "c0",
+   "ordinal": 2,
+   "step": 4,
+   "generation": 0,
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 15,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:2",
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  }
+ ]
+}

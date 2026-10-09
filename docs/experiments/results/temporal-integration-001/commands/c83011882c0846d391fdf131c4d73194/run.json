@@ -1,0 +1,51 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "c83011882c0846d391fdf131c4d73194",
+  "label": "temporal-integration-20260920-final-public-retention-002",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nfrom nisayon.engine.temporal_workflow import load_assessment\nfrom scripts.experiments.audit_temporal_reconciliation import archive_packet\nraw=Path(\"artifacts/engine-integration-001/temporal-integration-001\")\nresults=Path(\"docs/experiments/results/temporal-integration-001\")\npublic=raw/\"public-closeout-001\"\nnew=json.loads((public/\"assessment/assessment.json\").read_text())\ncomplete=json.loads((public/\"complete-inspection.json\").read_text())\nprefix=json.loads((public/\"prefix-inspection.json\").read_text())\nassert len(new[\"assignments\"])==6 and new[\"complete_records\"]==6\nassert complete[\"integrity\"]==\"verified_complete_store\" and complete[\"process_outcome\"]==\"completed\"\nassert prefix[\"integrity\"]==\"verified_prefix\" and prefix[\"process_outcome\"]==\"unknown\"\nold_error=None\ntry: load_assessment(raw/\"reference-reconciliation-001/cli_demonstration\",raw/\"complete-example-001/execution\")\nexcept ValueError as error: old_error=str(error)\nassert old_error==\"Assessment reader, reference or interpreter changed\",old_error\npub={\"schema\":\"nisayon.temporal-public-closeout.v1\",\"application_commit\":\"04804a6f0adac00ac8e1f79d68ba8027d1abe2ad\",\"complete_inspect_command\":\"f3fb615c751841a085bd0bf0e5ecd73e\",\"prefix_inspect_command\":\"a201bf90cc6b42fe9697595b845e0a27\",\"assess_command\":\"2e8077e5c8c3480ca16915ceec00ab8a\",\"read_assessment_command\":\"4e0e6f78fe17405ba3c44b1d6755ae4c\",\"complete_records\":new[\"complete_records\"],\"assigned_contract_counts\":new[\"assigned_contract_counts\"],\"retrospective_counts\":new[\"retrospective_counts\"],\"prefix\":{\"process_outcome\":prefix[\"process_outcome\"],\"integrity\":prefix[\"integrity\"],\"snapshot_sha256\":prefix[\"snapshot_sha256\"]},\"old_assessment_path\":str(raw/\"reference-reconciliation-001/cli_demonstration\"),\"old_assessment_current_reuse_error\":old_error,\"earlier_retention_command\":\"65aaa449827a4399be1d36abb6f71eeb\",\"earlier_retention_outcome\":\"Confirmation archive and all seven readbacks completed. Public retention then failed on selecting the older unsealed demonstration assessment; no evidence changed. This command selects the sealed historical read for the dependency-refusal control.\",\"execution_or_retry_performed\":False,\"robot_task_outcome\":\"unmeasured\",\"scientific_acceptance\":\"not_granted\",\"archive\":archive_packet(public,results/\"public-closeout-001.tar.gz\")}\nwrite_json(results/\"public-closeout-001.json\",pub)\nprint(json.dumps({\"public_archive_bytes\":pub[\"archive\"][\"bytes\"],\"old_reuse\":old_error}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T12:04:23.743120+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "04804a6f0adac00ac8e1f79d68ba8027d1abe2ad",
+    "changes": [
+      "M README.md",
+      " M docs/experiments/results/temporal-integration-001/ADMISSION_CONFORMANCE.md",
+      " M docs/experiments/results/temporal-integration-001/CLOCK_CONFORMANCE.md",
+      " M docs/experiments/results/temporal-integration-001/COMBINED_DEADLINE.md",
+      "?? docs/experiments/results/temporal-integration-001/confirmation-revalidation-002/",
+      "?? docs/experiments/results/temporal-integration-001/reconciliation-audit-002.json",
+      "?? docs/experiments/results/temporal-integration-001/reference-reconciliation-002.tar.gz"
+    ],
+    "diff_stat": "README.md                                          | 25 +++++++++++-----------\n .../ADMISSION_CONFORMANCE.md                       |  7 ++++++\n .../temporal-integration-001/CLOCK_CONFORMANCE.md  |  8 +++++++\n .../temporal-integration-001/COMBINED_DEADLINE.md  |  9 +++++++-\n 4 files changed, 35 insertions(+), 14 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 68298,
+  "returncode": 0,
+  "ended_at": "2026-09-20T12:04:24.014240+00:00",
+  "wall_seconds": 0.114727,
+  "logs": {
+    "stdout.log": {
+      "bytes": 100,
+      "sha256": "e2ae4494854491b800e2b65301dd4479b4d5c879ff22f8eee20f4b9284754478"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

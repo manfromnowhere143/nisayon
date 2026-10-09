@@ -9,12 +9,12 @@ from __future__ import annotations
 import argparse
 import json
 import selectors
-import shutil
 import subprocess
 import time
 from datetime import UTC, datetime
 from pathlib import Path
 
+from nisayon.engine.cli_identity import resolve_cli, unchanged
 from nisayon.engine.identity import code_identity
 from nisayon.engine.io import digest, write_json
 
@@ -27,10 +27,8 @@ def probe(output: Path) -> dict:
     (public / "canary.txt").write_text("nisayon-public-canary\n")
     (excluded / "canary.txt").write_text("nisayon-excluded-canary\n")
     (public / "outside-link.txt").symlink_to(excluded / "canary.txt")
-    binary = shutil.which("codex")
-    if binary is None:
-        raise RuntimeError("No local Codex CLI; no substitute provider selected")
-    version = subprocess.check_output([binary, "--version"], text=True).strip()
+    cli = resolve_cli()
+    binary = cli["executable"]["path"]
     # CLI 0.154 rejects the older readOnly.access shape still shown on the
     # app-server page. Use its generated schema and named permission profiles.
     profile_name = "nisayon_canary_probe"
@@ -45,12 +43,12 @@ def probe(output: Path) -> dict:
         f"permissions.{profile_name}={{filesystem={{{filesystem_toml}}},network={{enabled=false}}}}"
     )
     protocol = {
-        "schema": "nisayon.agent-boundary-probe.v2",
+        "schema": "nisayon.agent-boundary-probe.v3",
         "frozen_at": datetime.now(UTC).isoformat(),
         "code": code_identity(),
-        "cli": {"path": binary, "version": version},
+        "cli": cli,
         "permission_profile": {"id": profile_name, "rules": policy},
-        "steps": ["initialize", "model/list", "read_public", "deny_excluded", "deny_symlink"],
+        "steps": ["initialize", "read_public", "deny_excluded", "deny_symlink"],
         "budgets": {"request_wall_s": 20, "model_calls": 0, "simulator_runs": 0},
         "expected_new_output_bytes_upper_bound": 200000,
         "acceptance": "Public canary readable; excluded canary and symlink target denied. No model/solver qualification inferred.",
@@ -123,24 +121,25 @@ def probe(output: Path) -> dict:
                 }
             )
             send({"method": "initialized"})
-            listed = request("model/list", {"limit": 100, "includeHidden": False})
-            # Model IDs/capabilities only; never request or retain auth material.
-            result["steps"].append({"name": "model/list", "response": listed})
             for name, path in (
                 ("read_public", public / "canary.txt"),
                 ("deny_excluded", excluded / "canary.txt"),
                 ("deny_symlink", public / "outside-link.txt"),
             ):
-                response = request(
-                    "command/exec",
+                params = {
+                    "command": ["/bin/cat", str(path)],
+                    "cwd": str(public),
+                    "permissionProfile": profile_name,
+                    "timeoutMs": 10000,
+                }
+                response = request("command/exec", params)
+                result["steps"].append(
                     {
-                        "command": ["/bin/cat", str(path)],
-                        "cwd": str(public),
-                        "permissionProfile": profile_name,
-                        "timeoutMs": 10000,
-                    },
+                        "name": name,
+                        "request": {"method": "command/exec", "params": params},
+                        "response": response,
+                    }
                 )
-                result["steps"].append({"name": name, "response": response})
             by_name = {s["name"]: s["response"].get("result", {}) for s in result["steps"]}
             result["restricted_reads_demonstrated"] = (
                 by_name["read_public"].get("exitCode") == 0
@@ -148,6 +147,14 @@ def probe(output: Path) -> dict:
                 and all(
                     by_name[name].get("exitCode") not in (None, 0)
                     and "nisayon-excluded-canary" not in by_name[name].get("stdout", "")
+                    and any(
+                        message in by_name[name].get("stderr", "").lower()
+                        for message in (
+                            "operation not permitted",
+                            "permission denied",
+                            "access is denied",
+                        )
+                    )
                     for name in ("deny_excluded", "deny_symlink")
                 )
             )
@@ -163,6 +170,11 @@ def probe(output: Path) -> dict:
                 process.wait(timeout=5)
             selector.close()
     result["measured_probe_wall_s"] = time.perf_counter() - start
+    result["cli_identity_unchanged"] = unchanged(cli)
+    result["restricted_reads_demonstrated"] &= result["cli_identity_unchanged"]
+    result["qualification_scope"] = (
+        "Observed public command/exec canaries only; no model-issued call, provider budget or reserved custodian boundary qualified"
+    )
     write_json(output / "result.json", result)
     return result
 

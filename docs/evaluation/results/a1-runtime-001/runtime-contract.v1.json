@@ -1,0 +1,425 @@
+{
+ "schema": "nisayon.a1-runtime-contract.v1",
+ "case": "a1-runtime-001",
+ "frozen_at": "2026-09-21T12:25:27Z",
+ "frozen_before": "any dependency request, runtime construction, replay, policy action or development episode of this phase",
+ "operator_scope_verbatim": "I authorize qualification of an isolated, source-pinned runtime compatible with the acquired dataset's robosuite 1.5 controller format, followed by:\n- at most two fixed-action compatibility replay attempts;\n- at most ten development-only policy evaluation attempts.\n\nCodex owns these executions. Opus owns prospective evaluation and review.\n\nAll attempts must remain inside the existing applicable resource limits. Preserve cumulative accounting and all prior evidence. Failed started attempts consume their assigned slots; there are no automatic retry slots.\n\nBefore execution, the shared contract must state exact dependency, download, memory, storage, wall-time and simulator-step ceilings within those limits. A missing ceiling is not an unlimited allowance.\n\nNo additional optimizer updates, paid compute, cloud-instance starts, hardware operation, reserved-outcome access, publication or pushes. The sixty-rollout confirmation contract remains unassigned.\n\nCodex must receive this operator scope and the named frozen contract before executing the new phase.",
+ "operator_scope_source": "Daniel Wahnich's assignment message of 2026-09-21T11:58:58Z; the assignment's numbered items 1-7 govern this contract",
+ "lanes": {
+  "execution": "Codex: runtime construction, replay attempts, development episodes, sealing, integration",
+  "evaluation": "Opus: this contract, the assessor, the two verdicts, the disposition, one integration readback"
+ },
+ "inputs": {
+  "dataset": {
+   "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+   "bytes": 21084088,
+   "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+   "env_version": "1.5.1",
+   "demos": 200,
+   "frames": 9666,
+   "masks": {
+    "train": 180,
+    "valid": 20
+   }
+  },
+  "checkpoint": {
+   "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+   "bytes": 7961224,
+   "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+   "kind": "inference checkpoint from 100 CPU Adam updates; optimizer and RNG state absent; not resumable",
+   "algo": "bc with rnn LSTM 2x400, horizon 10, open_loop false",
+   "obs_keys": [
+    "object",
+    "robot0_eef_pos",
+    "robot0_eef_quat",
+    "robot0_gripper_qpos"
+   ],
+   "obs_dims": {
+    "object": 10,
+    "robot0_eef_pos": 3,
+    "robot0_eef_quat": 4,
+    "robot0_gripper_qpos": 2
+   },
+   "action_dim": 7
+  },
+  "normalizer": {
+   "source": "the checkpoint's obs_normalization_stats, bitwise equal at reload to the sealed packet's normalization-stats.npz and to the evaluation lane's float32 emulation (pilot assessment 002)",
+   "application_at_inference": "robomimic 0.3.0 RolloutPolicy._prepare_observation: float64 tensor, (x - mean) / std, then float32 cast"
+  },
+  "pilot_packet": {
+   "seal_sha256": "5c0e4deba795a9d6364856bbe3f8cfdb54a6e966c61fd2495eb39aa92becc3f2",
+   "producer": "6b344f3",
+   "assessment": "docs/evaluation/results/a1-pilot-001/pilot-assessment-readback-001.json"
+  },
+  "env_args": {
+   "env_name": "Lift",
+   "type": 1,
+   "env_version": "1.5.1",
+   "controller": "BASIC composite with body_parts.right OSC_POSE (input ±1, output ±0.05 m and ±0.5 rad, kp 150, damping 1, fixed impedance, control_delta true, input_ref_frame world, uncouple_pos_ori true, interpolation null, ramp_ratio 0.2) and gripper GRIP",
+   "robots": [
+    "Panda"
+   ],
+   "control_freq": 20,
+   "reward_shaping": false,
+   "ignore_done": true,
+   "use_object_obs": true,
+   "use_camera_obs": false,
+   "lite_physics": false,
+   "attr_binding": "the exact env_args attribute string of the dataset file is the reference; the runtime must retain the string it consumed and its sha256"
+  }
+ },
+ "questions": {
+  "compatibility": {
+   "id": "Q-C",
+   "text": "Does the isolated runtime implement the declared environment, observations, controller and action semantics reproducibly enough for the proposed experiment?",
+   "verdicts": [
+    "compatible",
+    "incompatible",
+    "not_qualified_dependency_ceiling",
+    "unresolved"
+   ],
+   "decided_by": "criteria C1-C9 and replay attempts R-1 and R-2 below; independent of any policy outcome"
+  },
+  "competence": {
+   "id": "Q-K",
+   "text": "Does this exact frozen checkpoint satisfy the prospectively declared development criterion in that qualified runtime?",
+   "verdicts": [
+    "competent_for_development",
+    "not_competent",
+    "unresolved",
+    "not_run_precondition_failed"
+   ],
+   "decided_by": "episodes E-200..E-209 below; a correctly functioning runtime can execute an undertrained policy, and poor task performance alone does not demonstrate an adapter defect"
+  }
+ },
+ "existing_limits_applied": {
+  "phase_new_dependency_bytes": 33554432,
+  "cumulative_known_source_cap_bytes": 67108864,
+  "cumulative_known_source_used_bytes": 42669373,
+  "cumulative_known_source_remaining_bytes": 24439491,
+  "reading": "project practice has not counted dependency wheels in the cumulative source ledger (the held robosuite 1.4.1 and torch installs were never entered), while the A1 phase records an explicit 32 MiB new-dependency cap; this contract applies the stricter of the two readings to every byte downloaded in this phase",
+  "per_process_rss_bytes": 4294967296,
+  "per_command_outer_wall_seconds": 1200,
+  "per_command_process_cpu_seconds": 1800,
+  "temporary_bytes": 201326592,
+  "shared_temporary_bytes": 536870912,
+  "durable_output_bytes": 16777216,
+  "project_retained_cap_bytes": 1073741824,
+  "minimum_free_disk_bytes": 5368709120,
+  "source": "acquisition-protocol.v1.json shared_limits and stopping rules; training-contract.v1.json limits; combined-validation resource scopes"
+ },
+ "ceilings": {
+  "dependency_and_download": {
+   "phase_download_ceiling_bytes": 24439491,
+   "requests": {
+    "metadata": "at most 2 (one HEAD of the pinned wheel URL for Content-Length and Accept-Ranges; one index metadata GET of at most 1 MiB for the wheel's requirements)",
+    "route_A_full_wheel": "one GET of the whole wheel only if its Content-Length is at or below the ceiling (expected false)",
+    "route_B_partial_members": "at most 64 HTTP Range requests against the same pinned URL and at most one supplementary round of at most 16 requests if construction reports a missing file; every response's bytes are counted",
+    "other_wheels": "at most one GET per uncached requirement wheel, only after the declared total of all routes stays at or below the ceiling",
+    "redirects": "followed and counted; retries 0"
+   },
+   "pinned_identity": {
+    "package": "robosuite",
+    "version": "1.5.1",
+    "wheel": "robosuite-1.5.1-py3-none-any.whl",
+    "sha256": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153",
+    "url": "https://files.pythonhosted.org/packages/f4/15/82093cadf23811463d0b52ec6745949356b66badf6e25bee64ec82aa8689/robosuite-1.5.1-py3-none-any.whl",
+    "digest_source": "the uv simple-index cache of 2026-09-17T23:04 local time (simple-v22/pypi/robosuite.rkyv); the live index digest must equal it before the GET and the byte digest after"
+   },
+   "held_versions_to_reuse_when_they_satisfy_the_wheel_requirements": {
+    "torch": "2.5.1",
+    "robomimic": "0.3.0",
+    "numpy": "1.26.4",
+    "mujoco": "3.2.7",
+    "numba": "0.61.2",
+    "llvmlite": "0.44.0",
+    "scipy": "1.13.1",
+    "pillow": "12.3.0",
+    "pynput": "1.8.2",
+    "termcolor": "3.3.0",
+    "h5py": "3.16.0",
+    "note": "all present in the uv cache; reuse costs zero download; a requirement these cannot satisfy is a new wheel whose declared size counts against the same ceiling"
+   },
+   "expected_outcome": "the held robosuite 1.4.1 install (1,026 files, 613,229,953 B) deflates to about 193 MB, so the 1.5.1 wheel is expected to exceed the ceiling by roughly eight times and route A is expected to be refused; route B is expected to need roughly 11-15 MB and to stay inside the ceiling. If route B's computed total also exceeds the ceiling, the phase stops with G0 and the numeric decision returns to Daniel",
+   "gate": "G-0: HEAD first. If Content-Length is absent, stop. If it is at or below the ceiling, route A. Otherwise route B: fetch and digest the central directory, compute the coalesced ranges, and stop before the first member request if their total (plus any uncached requirement wheel) exceeds 24,439,491 B; write dependency-gate-001.json with every declared size. No substitution of another package, version, index or asset set beyond the selection rule.",
+   "route_B_partial_members": {
+    "when": "Content-Length of the pinned wheel exceeds the ceiling",
+    "identity": "the pinned URL; sha256 of the fetched central directory bytes; for every extracted member its central-directory offset, compressed and uncompressed sizes, CRC32 (verified after extraction) and sha256 of the extracted bytes; the whole-wheel sha256 39810a9e... is recorded as the declared index digest and marked unverified because the whole file is not fetched",
+    "selection": "every member not under robosuite/models/assets/; every *.xml and *.json under robosuite/models/assets/; every member whose path ends with one of the 69 asset paths referenced by the dataset's demo_0 model_file (the compiled Lift/Panda scene); the wheel METADATA member for the requirement lines; ranges coalesced with a gap tolerance so that the request count stays within the ceiling",
+    "size_basis": "in the held 1.4.1 tree the 68 referenced files present deflate to 9,758,161 B and the Python sources to 371,783 B; small XML, JSON and metadata members add little; the coalesced ranges must be summed from the central directory before the first Range request and the route stops if the sum exceeds the ceiling",
+    "explicit_adaptation": "an asset subset: the runtime supports the Lift/Panda scene only; every other robosuite environment, robot or gripper is unsupported in this runtime by construction. This is an explicit adaptation with no effect on the Lift task contract as long as every file the Lift/Panda scene loads is present, which C2-C6 test; it is recorded in the packet as the runtime's declared scope",
+    "installation": "the extracted robosuite package tree is used as a path package (PYTHONPATH or a path dependency) inside the isolated uv project; no pip resolution downloads it; the project's own lock pins every other package to the held versions when they satisfy the METADATA requirements"
+   }
+  },
+  "memory": {
+   "peak_rss_bytes_per_command": 2147483648,
+   "inside": "the existing 4 GiB per-process limit",
+   "sampling": "0.1 s process-tree samples as in the pilot; samples do not bound unseen peaks"
+  },
+  "storage": {
+   "durable_packet_bytes": 16777216,
+   "temporary_bytes_per_command": 201326592,
+   "isolated_environment_and_wheel_cache_logical_bytes": 1610612736,
+   "environment_scope": "the retained-payload measure excludes environments by its existing scope; the free-disk minimum of 5,368,709,120 B applies to them and is checked before and after installation",
+   "project_lock": "uv.lock, pyproject.toml and the historical .venv must be byte-identical before and after the phase"
+  },
+  "wall_time_seconds": {
+   "runtime_install": 900,
+   "qualification_probe": 300,
+   "replay_attempt_each": 600,
+   "development_episodes_command": 1200,
+   "assessor": 600,
+   "inside": "the existing 1,200 s outer-wall and 1,800 s process-CPU limits per command",
+   "measurement": "outer recorder wall, internal wall and process CPU reported separately; nested durations are not added"
+  },
+  "simulator_steps": {
+   "unit": "control steps at 20 Hz; each is 25 physics substeps at 0.002 s",
+   "qualification_probe": {
+    "control_steps": 20,
+    "resets": 3
+   },
+   "replay_attempt_each": {
+    "control_steps": 59,
+    "resets": 1,
+    "basis": "demo_0 has 59 actions; a replay stops after its last recorded action"
+   },
+   "development_episodes": {
+    "control_steps": 4000,
+    "resets": 10,
+    "basis": "10 episodes x horizon 400"
+   },
+   "phase_total": {
+    "control_steps": 4138,
+    "resets": 15,
+    "physics_substeps": 103450
+   },
+   "policy_actions": {
+    "replay": 0,
+    "development": 4000,
+    "probe": 0
+   }
+  },
+  "attempt_slots": {
+   "replay": {
+    "assigned": 2,
+    "ids": [
+     "R-1",
+     "R-2"
+    ]
+   },
+   "development": {
+    "assigned": 10,
+    "ids": [
+     "E-200",
+     "E-201",
+     "E-202",
+     "E-203",
+     "E-204",
+     "E-205",
+     "E-206",
+     "E-207",
+     "E-208",
+     "E-209"
+    ]
+   },
+   "rule": "a started attempt that fails for any reason consumes its slot and is reported; there are no retry slots; an unstarted attempt whose precondition failed is reported as not started and consumes nothing",
+   "not_attempts": "the dependency gate, the runtime installation and the qualification probe are qualification work with their own ceilings; they consume no slot but every environment step they take is counted and retained"
+  }
+ },
+ "runtime_requirements": {
+  "isolation": "a separate uv project (for example runtimes/robosuite-1.5.1/ with its own pyproject.toml and uv.lock) whose lock pins every package by version and digest; the historical project lock and environment stay byte-identical",
+  "adapter": "robomimic 0.3.0's EnvRobosuite imports mujoco_py unconditionally and cannot load here, so the runtime needs a Nisayon adapter that reproduces its semantics: construct robosuite.make(env_name, **env_kwargs) from the dataset env_args with the composite controller_configs passed unchanged; force only has_renderer False, has_offscreen_renderer False, ignore_done True, use_object_obs True, use_camera_obs False, camera_depths False (all equal to the dataset values); assemble observations as get_observation does (object from object-state; every robot0_ key except *proprio-state copied as np.array); reset_to(model, states) via edit_model_xml, reset_from_xml_string, sim.reset, set_state_from_flattened, sim.forward; is_success from env._check_success(); is_done always False; reward from env.reward()",
+  "prohibited_adaptations": "flattening the composite controller to a legacy OSC_POSE dict, deleting or renaming rejected env_kwargs, editing the demo model xml beyond edit_model_xml's asset-path rewrite, clipping or rescaling actions outside the controller, normalizing observations in the adapter, changing horizon, success predicate or seeds after outcomes",
+  "explicit_adaptation_rule": "the asset subset of route B is the only adaptation declared in advance; any other adaptation not listed must be recorded before execution with its effect on the task contract; an adaptation discovered necessary during execution stops the attempt"
+ },
+ "compatibility_criteria": {
+  "C1_identity": {
+   "check": "robosuite.__version__ == '1.5.1' inside the runtime; the wheel byte digest equals the pinned sha256; every package in the runtime lock is recorded with version and digest; the historical environment still reports robosuite 1.4.1 and its lock digest is unchanged",
+   "pass": "all equal"
+  },
+  "C2_metadata_unchanged": {
+   "check": "sha256 of the env_args string the runtime consumed equals sha256 of the dataset attribute; the kwargs passed to robosuite.make equal env_kwargs plus only the six forced flags at their dataset values",
+   "pass": "equal; any rejected kwarg is a C2 failure, not a reason to drop it"
+  },
+  "C3_controller": {
+   "check": "effective values read from the constructed controller objects (not from the input dict): part right is OSC_POSE with input_max 1, input_min -1, output_max [0.05,0.05,0.05,0.5,0.5,0.5], output_min negated, kp 150, damping 1 (or the derived damping ratio the class stores), impedance fixed, control_delta true, input_ref_frame world, uncouple_pos_ori true, interpolator none, ramp_ratio 0.2; gripper GRIP; env.action_dim == 7; action_spec bounds -1 and 1 on all seven",
+   "pass": "all equal",
+   "C3b_gripper_direction": "probe: 10 steps of [0,0,0,0,0,0,1] from reset close the gripper (robot0_gripper_qpos[0] decreases monotonically from about 0.0208) and 10 steps of [0,0,0,0,0,0,-1] reopen it; pass iff both directions hold"
+  },
+  "C4_observation_contract": {
+   "check": "keys object (10), robot0_eef_pos (3), robot0_eef_quat (4), robot0_gripper_qpos (2) present as float64 1-D arrays; object equals object-state; no key is transformed by the adapter",
+   "pass": "all equal; units and frames are decided by C6"
+  },
+  "C5_timing": {
+   "check": "env.control_freq == 20; env.control_timestep == 0.05; env.model_timestep == 0.002 == sim.model.opt.timestep; sim.data.time advances by 0.05 per env.step within 1e-12 over the probe steps",
+   "pass": "all equal"
+  },
+  "C6_first_frame": {
+   "check": "after reset_to(demo_0 model_file, demo_0 states[0]) and before any action, the four keys equal the dataset obs[0] with max abs deviation <= 1e-6 per key (metres, unit-quaternion components, metres)",
+   "pass": "<= 1e-6 on every key; a larger deviation is a frame, unit or model mismatch and fails compatibility",
+   "frozen": "this threshold is fixed now and is not relaxed after the result"
+  },
+  "C7_reset_determinism": {
+   "check": "two resets under the seeding rule with seed 200 in separate processes yield bitwise-identical flattened sim states and observations",
+   "pass": "bitwise equal"
+  },
+  "C8_success_termination": {
+   "check": "per step the runtime retains cube_z, table_z (table_offset[2]), success flag, reward and termination reason; the assessor recomputes success as cube_z > table_z + 0.04 and reward as 1.0 on success steps else 0.0 (reward_shaping false); termination is 'success' at the first success step under terminate_on_success or 'horizon' at step 400; is_done never terminates",
+   "pass": "recomputed flags equal the retained flags on every step"
+  },
+  "C9_normalization_once": {
+   "check": "at steps 0, 1, 2 and the final step of every development episode the tensor consumed by nets['policy'].forward_step equals ((raw - mean) / std) computed in float64 then cast to float32, bitwise, for all four keys, and differs from the double application; RolloutPolicy.obs_normalization_stats is present and bitwise equal to the checkpoint's stats and to the pilot packet's normalization-stats.npz; the raw observation given to the policy equals the environment observation bitwise (no adapter normalization)",
+   "pass": "every witness equal; one application only",
+   "evidence": "a forward pre-hook or wrapper on the policy network retaining the consumed tensors; retained raw observations; the stats digests"
+  }
+ },
+ "replay_attempts": {
+  "condition": {
+   "demo": "demo_0",
+   "mask": "valid (not in the checkpoint's 180 training demos; irrelevant to a fixed-action replay and stated for completeness)",
+   "T": 59,
+   "model_file_sha256": "222252fb0f634b703929ab0757974404c6227a10ce6f1a4356485fef39c1237e",
+   "states_sha256": "09dc321ff34ef360c06b2b3e14f3d1cd51129db8c7256434715dead9a5e6b273",
+   "states0_sha256": "0acd9d0289bbb4882fc9ee6a2e7cc5d9d2434d0d5089a576ef9eee8b2bfb3dbd",
+   "actions_sha256": "37c365cc4971ee15c7e3a78bb8c6f6359634818f252fa6f0e63617b85ea12fe6",
+   "dataset_first_success_step": 54,
+   "dataset_reward_sum": 5.0
+  },
+  "procedure": "reset(); reset_to({'model': model_file, 'states': states[0]}); retain the observation; for t in 0..58: env.step(actions[t]) exactly as stored (float64, no clipping outside the controller); after each step retain the flattened sim state, all observation keys, cube_z, table_z, success flag, reward and sim time; no policy is invoked; no warm-up step; the initial reset() before reset_to is counted and retained",
+  "attempts": {
+   "R-1": "one process executing the procedure once",
+   "R-2": "a second, separately started process executing the identical procedure once; R-2 runs regardless of R-1's result and is not a retry"
+  },
+  "randomness": "the replay consumes no random numbers after reset_to; np.random, torch and random are nevertheless seeded with 0 and their post-reset states digested; MuJoCo has no stochastic terms here; thread counts are fixed at 1",
+  "comparison_R1_reproducibility": "R-1 and R-2 retained per-step states and observations must be bitwise identical on every step; the first differing step, key and element are retained if not",
+  "comparison_R2_fidelity": "each attempt against the dataset: first frame per C6 (<= 1e-6 abs); per step t the max abs deviation per key between the runtime observation after action t and next_obs[t] (equivalently obs[t+1]), and between the runtime state and states[t+1]; grades reported: faithful through step k where k is the last step with every key <= 1e-3 abs; whether the replay reaches success and at which step versus the dataset's step 54; the smallest first divergence and its propagation are retained",
+  "claims": "R1 agreement establishes reproducibility within the new stack only; R2 establishes historical trajectory fidelity only to the reported step and threshold; neither establishes closed-loop competence",
+  "necessary_for_compatibility": "C6 on at least one completed attempt; R1 agreement when both attempts complete; a fidelity grade below full length does not by itself fail compatibility but bounds every later claim"
+ },
+ "development_episodes": {
+  "seeds": [
+   200,
+   201,
+   202,
+   203,
+   204,
+   205,
+   206,
+   207,
+   208,
+   209
+  ],
+  "exposure": "docs/evaluation/results/a1-runtime-001/exposure-check-001.json: unexposed before this phase",
+  "precondition": "C1-C8 pass with C6 from a completed replay attempt; otherwise the episodes are not started and Q-K is not_run_precondition_failed",
+  "procedure": "per episode: np.random.seed(seed); torch.manual_seed(seed); random.seed(seed); env = robosuite.make(...) under the adapter; policy.start_episode() (recurrent state cleared; the checkpoint's own every-10-step hidden reset with rnn horizon 10 and open_loop false is retained as its behavior); obs = env.reset(); for step in 0..399: action = policy(ob=obs) with the RolloutPolicy from policy_from_checkpoint (obs stats bound); obs, reward, _, _ = env.step(action as produced, float32 numpy of shape (7,)); retain per step; stop at the first step whose success flag is true (terminate_on_success) or after step 399 (horizon)",
+  "determinism": "torch.set_num_threads(1); torch.use_deterministic_algorithms(True); policy loaded once and its parameter digest retained before and after the ten episodes (must be equal)",
+  "retained_per_step": [
+   "action (7, float32)",
+   "raw observation on the four keys (float64)",
+   "success flag",
+   "reward",
+   "cube_z",
+   "table_z",
+   "policy inference wall seconds",
+   "env step wall seconds",
+   "normalized witness tensors at steps 0, 1, 2 and the final step"
+  ],
+  "retained_per_episode": [
+   "seed",
+   "initial flattened state digest",
+   "steps executed",
+   "termination reason (success | horizon | failed)",
+   "first success step or null",
+   "cumulative reward",
+   "max cube_z",
+   "wall and CPU seconds",
+   "failure record when the episode did not complete"
+  ],
+  "criterion": {
+   "rule": "competent_for_development iff at least 8 of the 10 assigned episodes terminate with success; the denominator is always 10; an episode that fails to execute counts as a non-success and is reported as a failure",
+   "source": "pilot-acceptance.v1.json reference_policy_qualification, predeclared on 2026-09-21T09:41:48Z",
+   "justification": "binomial screen: if the true success probability were at most 0.5, P(>= 8 of 10) <= 0.0547; at 0.9 it is 0.9298; the bar selects a working deployment that succeeds most of the time for a keep/replace experiment and is not a population estimate",
+   "scope": "a development measurement on ten selected conditions, not deployment certification and not the confirmation contract"
+  },
+  "prohibited_after_outcomes": "checkpoint selection, seed substitution, extra training, normalization adjustment, horizon or predicate change, re-running any episode",
+  "unresolved": "Q-K is unresolved only if fewer than 10 episodes were started for a reason outside the runtime (for example a ceiling stop during the command); started failures are non-successes"
+ },
+ "checkpoint_limitation": "the checkpoint holds model weights and statistics only; loading them into a fresh optimizer is warm-starting a new training run, not resuming the pilot; any training proposal below is a new run with its own budget",
+ "dispositions": {
+  "D1_runtime_incompatible": "any C1-C9 failure, both replay attempts failed, or a material unresolved defect: name the smallest blocking mechanism and the necessary correction; no competence claim; no training proposal",
+  "D2_qualified_not_competent": "C1-C9 pass and fewer than 8 successes: report the ten results and propose one bounded training run: 5,000 CPU Adam updates (50 robomimic epochs at batch 100) on the same 180 training demos from the pilot's frozen configuration with a fresh optimizer and seed 2, estimated from the measured per-update times (min 0.0423, median 0.0465, max 0.147 s) at 212-735 s internal wall plus setup and checkpoint writing; selection rule fixed now: the final-update checkpoint only, evaluated on unexposed development seeds 210-219 under this same competence rule; no selection by contract seeds",
+  "D3_qualified_and_competent": "C1-C9 pass and at least 8 successes: prepare a prospective intervention with fixed weights, an explicitly bound normalization change as the changed deployment, the float32-faithful conventional comparator with the same information, and separate screening (0-9) and confirmation (100-109) conditions; passing competence does not assign the sixty-rollout study",
+  "G0_not_qualified_dependency_ceiling": "both routes exceed the ceiling or the index digest differs from the pin: report the declared sizes against the ceiling; no slot consumed; the numeric ceiling decision returns to Daniel"
+ },
+ "value_mechanism": {
+  "levels": {
+   "L1_sampled_normalization_equality": "for a sample of observations, candidate and reference normalization outputs are equal (the pilot's Q3 and this phase's C9 witnesses are L1 statements)",
+   "L2_action_equality_on_a_tested_prefix": "for a fixed observation sequence o_0..o_k (recorded, not generated by the candidate), candidate and reference actions are equal on steps 0..k",
+   "L3_complete_trajectory_equivalence": "for one specified initial condition and RNG, the candidate's closed loop produces the identical state, observation and action sequence as the reference through termination, including recurrent and controller state",
+   "L4_population_equivalence": "outcomes coincide on every condition of an unobserved population; not establishable by sampling; only bounded probabilistically under stated assumptions"
+  },
+  "non_implications": "L1 does not give L2 (the sampled inputs need not cover the inputs the closed loop visits); L2 does not give L3 (a difference beyond the prefix, or a recurrent-state difference that has not yet reached the action, diverges later); L3 on one condition does not give L4 (another initial placement visits other inputs); unchanged actions on a few observations do not prove that a candidate is inert throughout a closed-loop trajectory",
+  "proposed_reuse_rule": {
+   "statement": "a candidate may reuse the working deployment's recorded outcome for condition c without a fresh simulator rollout only if, for every step of the reference's recorded trajectory on c, the candidate's action computed from the recorded observation and the candidate's own recurrent state (carried from step 0 under the same reset) is bitwise equal to the recorded action, and the candidate's normalization statistics agree bitwise with the reference's on every coordinate that any recorded observation of c touches; the claim then covers condition c only, under the same runtime, thread count, dtypes and RNG",
+   "proof_obligation": "retained per-step action comparison over the full length of c (not a prefix), retained recurrent-state digests per step, the statistics comparison record, and the runtime identity; the check itself is a policy-only pass over recorded observations whose wall and CPU are measured and reported as checking overhead",
+   "exclusions": "any tolerance other than bitwise equality; any step skipped; any condition not replayed in full; any change to controller state, timing or reset; a reference trajectory recorded under a different runtime identity",
+   "confirmation": "reuse never substitutes for the confirmation contract: fresh confirmation conditions are executed for every accepted candidate; the rule only removes simulator work on development or screening conditions whose full-length action equality is proven"
+  },
+  "counterexamples": [
+   "a candidate std that differs only where cube_z exceeds table_z + 0.03: the prefix before the lift is action-identical (L2) and the trajectory diverges at the lift (no L3)",
+   "a candidate whose statistics equal the reference's on the 9,666 dataset frames but whose clipping bound differs: the closed loop leaves the dataset's range on an unusual placement and the outcome changes (L1 without L4)",
+   "two candidates equal to the reference at 1e-7 but not bitwise: LSTM hidden states drift, a grasp closes one step later, the cube slips (equality within tolerance is not equality)",
+   "L3 proven on seed 200 does not transfer to seed 201: the different placement visits normalized coordinates the seed-200 trajectory never touched"
+  ],
+  "parity": "the conventional arm receives the same recorded trajectories, the same statistics comparison and the same full-length action replay; if both arms reach the same disposition at the same checking cost, parity is reported, not a Nisayon advantage",
+  "overhead_measurement": "wall and CPU seconds of every L1-L3 check are recorded separately from rollout costs; the saving claimed is the simulator cost of the skipped rollouts minus the checking overhead, per condition, with denominators"
+ },
+ "packet": {
+  "format": "the pilot's seal.json and manifest layout",
+  "required_members": [
+   "runtime lock and resolved digests",
+   "dependency-gate-001.json",
+   "env_args consumed and digest",
+   "controller effective values",
+   "timing values",
+   "probe records",
+   "R-1 and R-2 per-step arrays (npz) and comparison records",
+   "dataset comparison arrays",
+   "E-200..E-209 per-step arrays with witness tensors and per-episode records",
+   "failures with partial output",
+   "cost records per scope",
+   "command records via nisayon run",
+   "sealed inputs: this contract by digest"
+  ],
+  "durable_cap_bytes": 16777216
+ },
+ "costs": {
+  "scopes": [
+   "network requests and bytes",
+   "installation wall and CPU",
+   "probe",
+   "R-1",
+   "R-2",
+   "development episodes per episode and total",
+   "checking overhead",
+   "assessor",
+   "combined validation"
+  ],
+  "unknowns_to_list": [
+   "network protocol overhead",
+   "unsampled memory peaks",
+   "active engineering effort",
+   "energy",
+   "charges, if any"
+  ],
+  "clock": "original mission clock 2026-09-17T21:30:41Z unchanged; elapsed and monitoring time are not effort"
+ },
+ "stop_rules": [
+  "G-0 dependency gate stops before any member or wheel download when the declared total of the selected route exceeds 24,439,491 B",
+  "any ceiling exceeded stops the command; partial output is retained; a started attempt counts as failed",
+  "a C1-C8 failure stops the phase before the development episodes",
+  "a necessary unlisted adaptation stops the attempt",
+  "no retry, substitution, tolerance change or seed change after outcomes"
+ ],
+ "assessor": "docs/evaluation/results/a1-runtime-001 will hold the evaluation lane's assessor, tests and outputs; the assessor recomputes C6, C8, C9, R1 and R2 from the retained arrays and the dataset and reports both verdicts and one disposition"
+}

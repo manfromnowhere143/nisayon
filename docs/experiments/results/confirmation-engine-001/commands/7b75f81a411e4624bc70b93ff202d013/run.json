@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "7b75f81a411e4624bc70b93ff202d013",
+  "label": "confirmation-engine-20260919-inspect-bounded",
+  "command": [
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\np=Path('docs/experiments/results/bounded-agent-comparison-001')\nsuite=json.loads((p/'frozen-suite.json').read_text());score=json.loads((p/'comparison-score.json').read_text())\nprint('case',json.dumps({k:v for k,v in suite['cases'][0].items() if k!='frozen'}))\nfor arm in ('A','B'):\n r=[json.loads(x.read_text()) for x in p.glob(f'*/{arm}/confirmation/confirmation-result.json')]\n print(arm,{k:sum(x[k] for x in r) for k in ['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']},'nested',sum(x['costs']['known_run_wall_s'] for x in r))\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution');b=json.loads((p/'bundle.json').read_text());r=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',str(b['confirmation'])[:1400]);print('run no trace',json.dumps({k:v for k,v in r.items() if k!='trace'})[:10000]);print('trace row',str(r['trace'][0])[:2800])\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:05:11.766018+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "14e7805643dfe32252f2b46926512807d56c0035",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 52182,
+  "returncode": 0,
+  "ended_at": "2026-09-19T19:05:12.113820+00:00",
+  "wall_seconds": 0.279574,
+  "logs": {
+    "stdout.log": {
+      "bytes": 15129,
+      "sha256": "a9c4872230b22492267f9ba7c54ea17755edddf802832df8fef3d9c855c2ac61"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

@@ -1,0 +1,417 @@
+{
+  "schema": "nisayon.temporal-integration.producer-expectations.v1",
+  "written_at": "2026-09-20T04:46:09+00:00",
+  "written_before": "any executed record of the execution lane's frozen suite existed on its branch (last seen 8a274be, which holds schedules only)",
+  "suite": "docs/experiments/results/temporal-integration-001/frozen-suite.v1.json (frozen 2026-09-20T04:31:20Z by the execution lane)",
+  "semantics": "predicate statuses of nisayon.evaluation.temporal on the produced trace; a predicate not listed is expected satisfied; 'uncertain' means the outcome depends on transport details the schedule does not fix (whether an empty-queue opportunity is recorded as a refusal, queue order with two admitted chunks, the position of the queue-clearing event relative to reset_completed, or whether an unknown age is refused or dispatched) and will be resolved by inspection, not counted as agreement or disagreement",
+  "notes": {
+    "queue_reset": "judged at reset_completed as frozen in this lane's spec; a producer that clears the queue after reset_completed violates it while dispatching nothing stale, exactly as PR 1117 does",
+    "useful_execution": "measured over recorded control opportunities when the producer records refusals, else on the tick grid; with two opportunities and one refusal the coverage is 0.5 and reads violated under the frozen 0.8 threshold",
+    "T09": "an unbound response leaves request_binding unresolved for every remedy because the record cannot prove the binding, whatever the remedy did with it",
+    "T10": "a response whose asserted configuration disagrees with its bound request violates request_binding for every remedy; whether the conventional remedy refuses it only changes usefulness"
+  },
+  "expectations": {
+    "T01-healthy": {
+      "unfenced_queue_control": {},
+      "reset_only": {},
+      "arrival_deadline_only": {},
+      "conventional": {},
+      "selected_intervention": {},
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T02-queued-reset": {
+      "unfenced_queue_control": {
+        "generation_fencing": "violated",
+        "queue_reset": "violated",
+        "dispatch_order": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "reset_only": {
+        "generation_fencing": "satisfied",
+        "queue_reset": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "arrival_deadline_only": {
+        "generation_fencing": "satisfied",
+        "queue_reset": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "generation_fencing": "satisfied",
+        "queue_reset": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "generation_fencing": "satisfied",
+        "queue_reset": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated",
+        "queue_reset": "uncertain"
+      }
+    },
+    "T03-late-after-reset": {
+      "unfenced_queue_control": {
+        "generation_fencing": "violated"
+      },
+      "reset_only": {
+        "generation_fencing": "violated"
+      },
+      "arrival_deadline_only": {
+        "generation_fencing": "satisfied"
+      },
+      "conventional": {
+        "generation_fencing": "satisfied"
+      },
+      "selected_intervention": {
+        "generation_fencing": "satisfied"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T04-reordered-responses": {
+      "unfenced_queue_control": {},
+      "reset_only": {},
+      "arrival_deadline_only": {},
+      "conventional": {},
+      "selected_intervention": {},
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T05-duplicate-before-dispatch": {
+      "unfenced_queue_control": {
+        "duplicate_dispatch": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "reset_only": {
+        "duplicate_dispatch": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "arrival_deadline_only": {
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T06-duplicate-after-dispatch": {
+      "unfenced_queue_control": {
+        "duplicate_dispatch": "violated"
+      },
+      "reset_only": {
+        "duplicate_dispatch": "violated"
+      },
+      "arrival_deadline_only": {
+        "duplicate_dispatch": "satisfied",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "duplicate_dispatch": "satisfied",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "duplicate_dispatch": "satisfied",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T07-overlapping-chunks": {
+      "unfenced_queue_control": {},
+      "reset_only": {},
+      "arrival_deadline_only": {},
+      "conventional": {},
+      "selected_intervention": {},
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T08-configuration-in-flight": {
+      "unfenced_queue_control": {
+        "configuration_binding": "uncertain"
+      },
+      "reset_only": {
+        "configuration_binding": "uncertain"
+      },
+      "arrival_deadline_only": {
+        "configuration_binding": "satisfied"
+      },
+      "conventional": {
+        "configuration_binding": "satisfied"
+      },
+      "selected_intervention": {
+        "configuration_binding": "satisfied"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T09-unbound-response": {
+      "unfenced_queue_control": {
+        "request_binding": "unresolved",
+        "freshness": "unresolved"
+      },
+      "reset_only": {
+        "request_binding": "unresolved",
+        "freshness": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "request_binding": "unresolved",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "request_binding": "unresolved",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "request_binding": "unresolved",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "request_binding": "unresolved",
+        "useful_execution": "violated"
+      }
+    },
+    "T10-response-config-mismatch": {
+      "unfenced_queue_control": {
+        "request_binding": "violated"
+      },
+      "reset_only": {
+        "request_binding": "violated"
+      },
+      "arrival_deadline_only": {
+        "request_binding": "violated",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "request_binding": "violated",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "request_binding": "violated",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "request_binding": "violated",
+        "useful_execution": "violated"
+      }
+    },
+    "T11-missing-acquisition": {
+      "unfenced_queue_control": {
+        "freshness": "unresolved"
+      },
+      "reset_only": {
+        "freshness": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T12-unmapped-clock": {
+      "unfenced_queue_control": {
+        "freshness": "unresolved"
+      },
+      "reset_only": {
+        "freshness": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T13-ambiguous-clock": {
+      "unfenced_queue_control": {
+        "freshness": "unresolved"
+      },
+      "reset_only": {
+        "freshness": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T14-deadline-equality": {
+      "unfenced_queue_control": {},
+      "reset_only": {},
+      "arrival_deadline_only": {},
+      "conventional": {},
+      "selected_intervention": {},
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T15-expiry-in-queue": {
+      "unfenced_queue_control": {
+        "freshness": "violated"
+      },
+      "reset_only": {
+        "freshness": "violated"
+      },
+      "arrival_deadline_only": {
+        "freshness": "violated"
+      },
+      "conventional": {
+        "freshness": "satisfied",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "freshness": "satisfied",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T16-unacknowledged-dispatch": {
+      "unfenced_queue_control": {
+        "acknowledgement": "unresolved"
+      },
+      "reset_only": {
+        "acknowledgement": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "acknowledgement": "unresolved"
+      },
+      "conventional": {
+        "acknowledgement": "unresolved"
+      },
+      "selected_intervention": {
+        "acknowledgement": "unresolved"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T17-failed-dispatch": {
+      "unfenced_queue_control": {
+        "acknowledgement": "violated"
+      },
+      "reset_only": {
+        "acknowledgement": "violated"
+      },
+      "arrival_deadline_only": {
+        "acknowledgement": "violated"
+      },
+      "conventional": {
+        "acknowledgement": "violated"
+      },
+      "selected_intervention": {
+        "acknowledgement": "violated"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T18-no-response-observed": {
+      "unfenced_queue_control": {
+        "useful_execution": "uncertain"
+      },
+      "reset_only": {
+        "useful_execution": "uncertain"
+      },
+      "arrival_deadline_only": {
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "uncertain"
+      }
+    },
+    "T19-cancellation-is-not-completion": {
+      "unfenced_queue_control": {},
+      "reset_only": {},
+      "arrival_deadline_only": {
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    },
+    "T20-inconsistent-clock": {
+      "unfenced_queue_control": {
+        "freshness": "unresolved"
+      },
+      "reset_only": {
+        "freshness": "unresolved"
+      },
+      "arrival_deadline_only": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "conventional": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "selected_intervention": {
+        "freshness": "uncertain",
+        "useful_execution": "uncertain"
+      },
+      "drop_all": {
+        "useful_execution": "violated"
+      }
+    }
+  },
+  "applies_to": [
+    "frozen-suite.v1.json (8a274be)",
+    "frozen-suite.v2.json (14c54f0)"
+  ],
+  "v2_note": "read after the expectations were written: v2 moves T07's second chunk to first step 1 (its observation's step), specifies the offset direction, configuration activation (old requests are fenced after activation even if the content hash returns) and the scope of a remote cancellation request; none of these changes the expectations above, and the T08 unfenced outcome stays uncertain"
+}

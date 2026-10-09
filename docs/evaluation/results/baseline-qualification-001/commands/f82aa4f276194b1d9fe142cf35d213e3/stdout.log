@@ -1,0 +1,22 @@
+processor reference · rule external-decision-001/v2 · arm A
+reference decision: supported_software_correction
+  as_is             rejected_candidate              unmet obligation: postprocessor:action:inverse: skipped_no_stats; preprocessor:observation.state:forward: skipped_no_stats
+  suffix_match      rejected_candidate              unmet obligation: postprocessor:action:inverse: ambiguous among ['so100-blue.buffer.action', 'so100-red.buffer.action', 'so100.buffer.action']; postprocessor:action:inverse: ambiguous among ['so100.buffer.action', 'so100-red.buffer.action', 'so100-blue.buffer.action']; preprocessor:observation.state:forward: skipped_no_stats
+  explicit_override supported_software_correction   every repair obligation transformed with one bound key and a non-vacuous witness
+                    deployment binding: unresolved (numeric established, bytes not_established, interpretation not_carried_by_contract, selection not_carried_by_contract)
+                      action: declared artifact, established matches_artifact_set [so100.buffer.action]
+                      observation.state: declared reporter_transcription, established not_established
+executions:
+  A-C0-state                        as_is             preprocessor  observation.state   forward  skipped_no_stats  agrees
+  A-C0-action                       as_is             postprocessor action              inverse  skipped_no_stats  agrees
+  A-C0-identity                     as_is             preprocessor  observation.image2  forward  identity_mode     agrees
+  A-C1-state                        suffix_match      preprocessor  observation.state   forward  skipped_no_stats  agrees
+  A-C1-action-original-order        suffix_match      postprocessor action              inverse  ambiguous         agrees max 0.50 ulp ORDER-DEPENDENT
+  A-C1-action-reordered             suffix_match      postprocessor action              inverse  ambiguous         agrees max 0.50 ulp ORDER-DEPENDENT
+  A-C2-state                        explicit_override preprocessor  observation.state   forward  transformed       agrees max 0.69 ulp
+  A-C2-action                       explicit_override postprocessor action              inverse  transformed       agrees max 0.50 ulp
+  A-C2-identity                     explicit_override preprocessor  observation.image2  forward  identity_mode     agrees
+producer decision: agrees on every candidate
+  [rejected] identity_unbound: 3 statistics keys match; different keys give different outputs; binding by store order is not a selection
+  [rejected] identity_unbound: 3 statistics keys match; different keys give different outputs; binding by store order is not a selection
+software mechanism only: a supported correction of the processor step is not a recovered robot task; declared provenance is reported, never assumed, and the deployment binding stays unresolved until interpretation and selection evidence exist outside this contract

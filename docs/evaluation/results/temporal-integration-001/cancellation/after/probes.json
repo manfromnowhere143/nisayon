@@ -1,0 +1,242 @@
+{
+  "schema": "nisayon.cancellation-probes.v1",
+  "source": "f27e858f42b80ac24910b13ceb0ee7075b9d5cc7",
+  "kind": "labelled synthetic metadata-conformance probes on the test fixture; not robot trials, not false-repair-acceptance evidence",
+  "command_wall_s": 0.054223,
+  "rows": [
+    {
+      "variant": "valid_stop_control",
+      "decision": "rejected",
+      "codes": [
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "reason_details": [
+        "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+        "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+      ],
+      "confirmation_findings": [
+        "assignment_cancelled",
+        "identity_verified",
+        "regression_on_fresh_condition"
+      ],
+      "cancellation": {
+        "status": "stopped_after_violation",
+        "violation_condition_id": "seed-1001",
+        "violation_run_id": "confirmation-correction-1001",
+        "violation_code": null,
+        "recorded_at": "2026-09-17T20:16:00+00:00",
+        "cancelled_condition_ids": [
+          "seed-1002",
+          "seed-1003"
+        ]
+      },
+      "summary": {
+        "reproduction": "fixed",
+        "fresh_declared": 4,
+        "fresh_assigned": 4,
+        "fresh_pass": 1,
+        "fresh_regression": 1,
+        "fresh_both_failed": 0,
+        "fresh_improved": 0,
+        "fresh_gap_or_invalid": 0,
+        "fresh_cancelled": 2
+      }
+    },
+    {
+      "variant": "wrong_violation_run_id",
+      "decision": "invalid",
+      "codes": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "reason_details": [
+        "assigned_outcome_missing: condition 'seed-1002': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "assigned_outcome_missing: condition 'seed-1003': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "cancellation_unsupported: the cancellation is not supported by the record: violation run 'not-an-assigned-run' is not an assigned run of condition 'seed-1001'; the missing assignments st",
+        "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+        "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+      ],
+      "confirmation_findings": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "identity_verified",
+        "regression_on_fresh_condition"
+      ],
+      "cancellation": {
+        "status": "stopped_after_violation",
+        "violation_condition_id": "seed-1001",
+        "violation_run_id": "not-an-assigned-run",
+        "violation_code": null,
+        "recorded_at": "2026-09-17T20:16:00+00:00",
+        "cancelled_condition_ids": [
+          "seed-1002",
+          "seed-1003"
+        ]
+      },
+      "summary": {
+        "reproduction": "fixed",
+        "fresh_declared": 4,
+        "fresh_assigned": 4,
+        "fresh_pass": 1,
+        "fresh_regression": 1,
+        "fresh_both_failed": 0,
+        "fresh_improved": 0,
+        "fresh_gap_or_invalid": 2,
+        "fresh_cancelled": 0
+      }
+    },
+    {
+      "variant": "cancellation_before_freeze",
+      "decision": "invalid",
+      "codes": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "reason_details": [
+        "assigned_outcome_missing: condition 'seed-1002': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "assigned_outcome_missing: condition 'seed-1003': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "cancellation_unsupported: the cancellation is not supported by the record: the cancellation is recorded before the candidate was frozen; the cancellation is recorded before the violating",
+        "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+        "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+      ],
+      "confirmation_findings": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "identity_verified",
+        "regression_on_fresh_condition"
+      ],
+      "cancellation": {
+        "status": "stopped_after_violation",
+        "violation_condition_id": "seed-1001",
+        "violation_run_id": "confirmation-correction-1001",
+        "violation_code": null,
+        "recorded_at": "2026-09-16T00:00:00+00:00",
+        "cancelled_condition_ids": [
+          "seed-1002",
+          "seed-1003"
+        ]
+      },
+      "summary": {
+        "reproduction": "fixed",
+        "fresh_declared": 4,
+        "fresh_assigned": 4,
+        "fresh_pass": 1,
+        "fresh_regression": 1,
+        "fresh_both_failed": 0,
+        "fresh_improved": 0,
+        "fresh_gap_or_invalid": 2,
+        "fresh_cancelled": 0
+      }
+    },
+    {
+      "variant": "unknown_cancelled_condition",
+      "decision": "invalid",
+      "codes": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "reason_details": [
+        "assigned_outcome_missing: condition 'seed-1002': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "assigned_outcome_missing: condition 'seed-1003': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "cancellation_unsupported: the cancellation is not supported by the record: cancelled conditions ['not-assigned'] are not assigned conditions; the missing assignments stay a gap",
+        "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+        "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+      ],
+      "confirmation_findings": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "identity_verified",
+        "regression_on_fresh_condition"
+      ],
+      "cancellation": {
+        "status": "stopped_after_violation",
+        "violation_condition_id": "seed-1001",
+        "violation_run_id": "confirmation-correction-1001",
+        "violation_code": null,
+        "recorded_at": "2026-09-17T20:16:00+00:00",
+        "cancelled_condition_ids": [
+          "seed-1002",
+          "seed-1003",
+          "not-assigned"
+        ]
+      },
+      "summary": {
+        "reproduction": "fixed",
+        "fresh_declared": 4,
+        "fresh_assigned": 4,
+        "fresh_pass": 1,
+        "fresh_regression": 1,
+        "fresh_both_failed": 0,
+        "fresh_improved": 0,
+        "fresh_gap_or_invalid": 2,
+        "fresh_cancelled": 0
+      }
+    },
+    {
+      "variant": "duplicate_cancelled_condition",
+      "decision": "invalid",
+      "codes": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "reason_details": [
+        "assigned_outcome_missing: condition 'seed-1002': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "assigned_outcome_missing: condition 'seed-1003': assignment not run after the violation on 'seed-1001'; retained in the denominator",
+        "cancellation_unsupported: the cancellation is not supported by the record: cancelled_condition_ids repeats a condition; the missing assignments stay a gap",
+        "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+        "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+      ],
+      "confirmation_findings": [
+        "assigned_outcome_missing",
+        "cancellation_unsupported",
+        "identity_verified",
+        "regression_on_fresh_condition"
+      ],
+      "cancellation": {
+        "status": "stopped_after_violation",
+        "violation_condition_id": "seed-1001",
+        "violation_run_id": "confirmation-correction-1001",
+        "violation_code": null,
+        "recorded_at": "2026-09-17T20:16:00+00:00",
+        "cancelled_condition_ids": [
+          "seed-1002",
+          "seed-1003",
+          "seed-1002"
+        ]
+      },
+      "summary": {
+        "reproduction": "fixed",
+        "fresh_declared": 4,
+        "fresh_assigned": 4,
+        "fresh_pass": 1,
+        "fresh_regression": 1,
+        "fresh_both_failed": 0,
+        "fresh_improved": 0,
+        "fresh_gap_or_invalid": 2,
+        "fresh_cancelled": 0
+      }
+    },
+    {
+      "variant": "malformed_present_cancellation",
+      "decision": "invalid",
+      "codes": [
+        "malformed_record"
+      ],
+      "reason_details": [
+        "malformed_record: expected an object"
+      ],
+      "confirmation_findings": [],
+      "cancellation": null,
+      "summary": null
+    }
+  ]
+}

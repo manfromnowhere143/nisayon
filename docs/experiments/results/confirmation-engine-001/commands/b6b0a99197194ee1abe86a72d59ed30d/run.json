@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "b6b0a99197194ee1abe86a72d59ed30d",
+  "label": "confirmation-engine-20260919-retain-validation",
+  "command": [
+    "python",
+    "-c",
+    "import json,shutil,subprocess\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nout=Path('docs/experiments/results/confirmation-engine-001')\nraw=Path('artifacts/engine-integration-001/confirmation-engine-001')\nsource=raw/'full-check-001.json'\nreport=json.loads(source.read_text())\nassert report['tested_commit']=='db9eae282d0e62ca097df002ddb33f1c404565ee'\nassert report['returncode']==0 and not report['violations']\nassert report['prior_failed_files_unchanged']==5 and report['retained_temporary_bytes']==0\nshutil.copyfile(source,out/'full-check-001.json')\nassert not subprocess.check_output(['git','diff','--name-only','f4b1880','HEAD','--','src','tests','scripts','pyproject.toml','uv.lock','Makefile']).strip()\nvalidation={'schema':'nisayon.confirmation-engine-validation.v1','implementation_commit':'f4b1880b716c4194c3fd4392e06c9dc484315250','combined_tested_commit':report['tested_commit'],'evaluation_delivery':'96ac31318cc5b6ba6d8c7015effd518ea45b0ba0','integration_merge':'6ce4fb25ec06301531676721cd37b3f6302bd04c','tests_passed':639,'pytest_wall_s':245.03,'full_command_wall_s':260.070674,'documentation_checks':97,'lint':'passed','format':'279 files checked','full_command_id':'b029a60837ec456c8596b1f741d73245','full_report':{'path':'full-check-001.json','sha256':file_digest(out/'full-check-001.json')},'baseline_plus_sampled_temporary_peak_bytes':report['baseline_plus_sampled_peak_bytes'],'sampled_temporary_peak_bytes':report['sampled_peak_temporary_bytes'],'minimum_sampled_free_disk_bytes':min(row[2] for row in report['samples']),'sample_count':len(report['samples']),'earlier_failed_files_preserved':5,'new_test_temporary_bytes_retained':0,'prior_storage_overrun_preserved':'docs/experiments/results/engine-resource-control-001/README.md','source_download_bytes_cumulative':2836848,'new_simulator_executions':0,'new_experimental_model_calls':0,'reserved_access':False,'dc01_allocation':{'used':6,'unused_technical_retry_only':2,'unallocated':16},'historical_outcomes':'6/10 per arm and 3/3 repetitions of one exposed D07 per arm unchanged; DC01 E1 on all three pairs, no changed repair decision','scientific_acceptance':'none'}\nwrite_json(out/'validation.json',validation)\nprint(validation)\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:50:52.149597+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "db9eae282d0e62ca097df002ddb33f1c404565ee",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 27234,
+  "returncode": 0,
+  "ended_at": "2026-09-19T19:50:52.264490+00:00",
+  "wall_seconds": 0.036221,
+  "logs": {
+    "stdout.log": {
+      "bytes": 1420,
+      "sha256": "956a00772faf4bae8cc1cf8e71c16c607ec299eef7548a6bb77d5a44cabe0d21"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

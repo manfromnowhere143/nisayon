@@ -13,6 +13,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from .configuration import Deployment
+from .declarations import DeclarationBinding, begin_terminal, finish_terminal
 from .development_cases import Incident
 from .development_diagnostics import diagnostic_header, measured_run_costs
 from .diagnostics import deployment_from_record
@@ -85,6 +86,7 @@ class PreparedConfirmation:
     directory: Path
     frozen: dict
     preparation_wall_s: float
+    declaration: DeclarationBinding | None = None
 
 
 def prepare_confirmation(
@@ -100,6 +102,7 @@ def prepare_confirmation(
     joint_freeze: Path,
     *,
     suite_sha256: str,
+    declaration: DeclarationBinding | None = None,
 ) -> PreparedConfirmation:
     """Write the candidate, configurations and assignments before any execution."""
     start = time.perf_counter()
@@ -118,6 +121,23 @@ def prepare_confirmation(
         raise ValueError("Joint freeze differs from the assigned suite or conditions")
     if executor.identity["code"]["source_changes"]:
         raise ValueError("Scored confirmation requires committed execution sources")
+    declaration_record = None
+    if declaration is not None:
+        if not directory.is_relative_to(declaration.evidence_root):
+            raise ValueError(
+                "Confirmation must retain its results under the declaration evidence root"
+            )
+        declaration_record = declaration.read(
+            case_id=incident.id, arm=arm, candidate=candidate.record()
+        )
+        if declaration_record["assignment"]["suite_id"] != suite_sha256:
+            raise ValueError("Declaration belongs to another frozen suite")
+        if declaration_record["assignment"]["frozen_inputs_sha256"] != joint.get(
+            "frozen_inputs_sha256"
+        ):
+            raise ValueError("Declaration differs from the joint frozen inputs")
+        if joint.get("declarations", {}).get(arm) != declaration.reference:
+            raise ValueError("Declaration is not bound by the joint pre-confirmation freeze")
     header = diagnostic_header(executor, incident, asset, arm, "scored_development_confirmation")
     for plan in header["plans"]:
         if plan["id"] == "correction":
@@ -178,7 +198,19 @@ def prepare_confirmation(
             "contamination": [],
         },
     )
+    if declaration_record is not None:
+        reference = {"path": "arm-declaration.json", "sha256": declaration.reference["sha256"]}
+        frozen["arm_declaration"] = reference
+        header["arm_declaration"] = reference
+        # The extension is part of the native frozen protocol, never an unbound note.
+        header["confirmation"]["protocol_sha256"] = digest(frozen)
     store = ExecutionStore(directory / "execution", header, executor, preparation_costs)
+    if declaration is not None:
+        original = declaration.evidence_root / declaration.reference["path"]
+        with (store.root / "arm-declaration.json").open("xb") as stream:
+            stream.write(original.read_bytes())
+        if file_digest(store.root / "arm-declaration.json") != declaration.reference["sha256"]:
+            raise ValueError("Declaration changed while preparing confirmation")
     write_json(store.root / "frozen-protocol.json", frozen)
     with (store.root / "joint-freeze.json").open("xb") as stream:
         stream.write(joint_freeze.read_bytes())
@@ -187,7 +219,7 @@ def prepare_confirmation(
     if file_digest(store.root / "joint-freeze.json") != frozen["joint_freeze_sha256"]:
         raise ValueError("Joint freeze changed while preparing confirmation; do not execute")
     return PreparedConfirmation(
-        store, incident, candidate, directory, frozen, time.perf_counter() - start
+        store, incident, candidate, directory, frozen, time.perf_counter() - start, declaration
     )
 
 
@@ -196,6 +228,15 @@ def execute_confirmation(prepared: PreparedConfirmation) -> dict:
 
     start, started_at = time.perf_counter(), datetime.now(UTC).isoformat()
     store, incident = prepared.store, prepared.incident
+    declaration_record, terminal_start = None, None
+    if prepared.declaration is not None:
+        binding = prepared.declaration
+        declaration_record = binding.read(
+            case_id=incident.id, arm=store.header["arm"], candidate=prepared.candidate.record()
+        )
+        terminal_start = begin_terminal(
+            binding.root, binding.reference, evidence_root=binding.evidence_root
+        )
     deployments = {
         "reference": incident.working,
         "regression": incident.changed,
@@ -235,7 +276,9 @@ def execute_confirmation(prepared: PreparedConfirmation) -> dict:
     write_json(decision_path, assessment)
     confirmed = integrity["status"] == "verified" and assessment["decision"] == "accepted"
     result = {
-        "schema": "nisayon.development-confirmation.v1",
+        "schema": "nisayon.development-confirmation.v2"
+        if declaration_record
+        else "nisayon.development-confirmation.v1",
         "case_id": incident.id,
         "arm": store.header["arm"],
         "status": "confirmed" if confirmed else assessment["decision"],
@@ -257,10 +300,29 @@ def execute_confirmation(prepared: PreparedConfirmation) -> dict:
             "decision": assessment["decision"],
             "candidate_digest": digest(prepared.candidate.record()),
         },
-        "arm_claimed_acceptance": confirmed,
+        "arm_claimed_acceptance": (
+            declaration_record["disposition"] == "claim_acceptance"
+            if declaration_record
+            else confirmed
+        ),
         "scope": "Finite development conditions, producer-measured evidence and shared final checker; no custody, unique cause or reliability claim",
     }
     if integrity["status"] != "verified":
         result["status"] = "unresolved"
+    if declaration_record is not None:
+        result["arm_declaration"] = prepared.declaration.reference
+        result["terminal_start"] = terminal_start
+        result["declaration_scope"] = declaration_record["evidence_scope"]
     write_json(prepared.directory / "confirmation-result.json", result)
+    if prepared.declaration is not None:
+        binding = prepared.declaration
+        finish_terminal(
+            binding.root,
+            terminal_start,
+            [
+                {"path": str(path.relative_to(binding.evidence_root)), "sha256": file_digest(path)}
+                for path in (decision_path, prepared.directory / "confirmation-result.json")
+            ],
+            evidence_root=binding.evidence_root,
+        )
     return result

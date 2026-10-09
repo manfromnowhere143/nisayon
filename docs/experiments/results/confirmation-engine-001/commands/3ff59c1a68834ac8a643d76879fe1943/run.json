@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "3ff59c1a68834ac8a643d76879fe1943",
+  "label": "confirmation-engine-20260919-inspect-actual",
+  "command": [
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfor name in ('development-ablation-001','bounded-agent-comparison-001'):\n p=Path('docs/experiments/results')/name\n suite=json.loads((p/'frozen-suite.json').read_text()); ledger=json.loads((p/'comparison-ledger.json').read_text()); score=json.loads((p/'comparison-score.json').read_text())\n print(name, 'author',suite['cases'][0]['author_record'])\n print('ledger first',json.dumps(ledger['trials'][0])[:1100]);print('score case',json.dumps(score['cases'][0])[:1100])\n for arm in ('A','B'):\n  records=[json.loads(x.read_text()) for x in sorted(p.glob(f'*/{arm}/confirmation/confirmation-result.json'))]\n  keys=['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']\n  print(arm,len(records), {k:sum(r[k] for r in records) for k in keys}, 'runs',sum(r['costs']['physical_rollouts'] for r in records),'nestedwall',sum(r['costs']['known_run_wall_s'] for r in records))\n print('score costs',json.dumps(score['arms']['A']['costs']))\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution')\nb=json.loads((p/'bundle.json').read_text());run=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',json.dumps(b['confirmation'])[:1200]);print('run keys',list(run));print('run no trace',json.dumps({k:v for k,v in run.items() if k!='trace'})[:8500]);print('trace row',json.dumps(run['trace'][0])[:2500])\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:04:27.791348+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "14e7805643dfe32252f2b46926512807d56c0035",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 48845,
+  "returncode": 1,
+  "ended_at": "2026-09-19T19:04:27.884040+00:00",
+  "wall_seconds": 0.02596,
+  "logs": {
+    "stdout.log": {
+      "bytes": 1372,
+      "sha256": "2293d1e59effce21d14bf142759dcfb776e6d432f8f4bd64be34b777bd2db9bb"
+    },
+    "stderr.log": {
+      "bytes": 86,
+      "sha256": "cda0506e704b97ad6c88138611974ba7df89f484c0f2397a72721bc7fa2a3b2f"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

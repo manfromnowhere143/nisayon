@@ -9,13 +9,13 @@ Each call has its own command record; tokens come only from that call's events.
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
 
 from nisayon.runs import run_command
 
+from .cli_identity import resolve_cli, unchanged
 from .identity import project_root
-from .io import file_digest, write_json
+from .io import digest, file_digest, write_json
 
 MODEL = "gpt-6-astra"
 EFFORT = "medium"
@@ -42,10 +42,10 @@ DISABLED_FEATURES = (
 )
 
 
-def arguments(public: Path, output: Path, schema: Path, prompt: str) -> list[str]:
-    binary = shutil.which("codex")
-    if binary is None:
-        raise RuntimeError("Pinned local Codex CLI unavailable; no provider substitution")
+def arguments(
+    public: Path, output: Path, schema: Path, prompt: str, *, cli: dict | None = None
+) -> list[str]:
+    binary = (cli or resolve_cli())["executable"]["path"]
     public = public.resolve(strict=True)
     profile = (
         'permissions.nisayon_decision={filesystem={":root"="deny",":minimal"="read",'
@@ -94,7 +94,8 @@ def decide(public: Path, output: Path, schema: dict, prompt: str, *, timeout: in
     schema_path = output / "response-schema.json"
     write_json(schema_path, schema)
     final = output / "response.json"
-    argv = arguments(public, final, schema_path, prompt)
+    cli = resolve_cli()
+    argv = arguments(public, final, schema_path, prompt, cli=cli)
     packet_files = {
         str(p.relative_to(public)): file_digest(p)
         for p in public.rglob("*")
@@ -103,9 +104,14 @@ def decide(public: Path, output: Path, schema: dict, prompt: str, *, timeout: in
     write_json(
         output / "invocation.json",
         {
+            "schema": "nisayon.bounded-agent-invocation.v2",
+            "cli": cli,
             "model": MODEL,
             "reasoning_effort": EFFORT,
             "command": argv,
+            "command_sha256": digest(argv),
+            "response_schema_sha256": file_digest(schema_path),
+            "prompt_sha256": digest(prompt),
             "public_packet": packet_files,
             "timeout_seconds": timeout,
             "provider_model_substitution_permitted": False,
@@ -132,15 +138,23 @@ def decide(public: Path, output: Path, schema: dict, prompt: str, *, timeout: in
             response = json.loads(final.read_text())
         except ValueError as error:
             response_error = f"Invalid structured response: {error}"
+    cli_stable = unchanged(cli)
     result = {
-        "schema": "nisayon.bounded-agent-decision.v1",
+        "schema": "nisayon.bounded-agent-decision.v2",
+        "cli": cli,
+        "cli_identity_unchanged": cli_stable,
+        "invocation": {
+            "path": "invocation.json",
+            "sha256": file_digest(output / "invocation.json"),
+        },
         "model": MODEL,
         "effort": EFFORT,
         "command_record": record,
         "response": response,
         "response_error": response_error,
         "usage_events": usage,
-        "usage_complete": len(usage) == 1
+        "usage_complete": cli_stable
+        and len(usage) == 1
         and record["process_status"] == "completed"
         and all(
             type(usage[0].get(key)) is int and usage[0][key] >= 0
@@ -152,7 +166,7 @@ def decide(public: Path, output: Path, schema: dict, prompt: str, *, timeout: in
             "sha256": file_digest(directory / "stdout.log"),
         },
         "provider_charge_usd": None,
-        "model_binding": "Pinned requested CLI model ID; provider-side weight/version attestation is unavailable",
+        "model_binding": "Requested CLI model and observed executable bytes; provider-side weight/version attestation is unavailable",
         "scope": "Client-reported per-call tokens and command wall. Provider invoices and human time unknown; a model ID does not attest backend weights.",
     }
     write_json(output / "result.json", result)

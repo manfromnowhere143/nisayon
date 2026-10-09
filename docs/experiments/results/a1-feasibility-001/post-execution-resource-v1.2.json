@@ -1,0 +1,71 @@
+{
+  "schema": "nisayon.a1-post-execution-resource.v1",
+  "case": "a1-feasibility-001",
+  "recorded_at": "2026-09-21T11:49:19Z",
+  "snapshot": {
+    "path": "artifacts/a1-feasibility-001/resource-post-training-v1.2.json",
+    "sha256": "cc410bce2904a64c24108c56812f3457767b94d140c66c535064318e1060b0eb",
+    "command_record_id": "a1d42e9b9c394808807340f28daf0293",
+    "command_record_sha256": "94b3ab88c56c78235aa78bcb45636d77bf7abf51e7327344fdfa2ca6210d7ed8",
+    "outer_wall_seconds": 0.706776
+  },
+  "disk": {
+    "snapshot_free_bytes": 14970572800,
+    "later_df_available_kib": 14520300,
+    "later_df_available_bytes": 14868787200,
+    "minimum_free_bytes": 5368709120,
+    "within": true
+  },
+  "memory": {
+    "physical_bytes": 17179869184,
+    "later_system_free_percent": 39,
+    "training_sampled_peak_process_tree_rss_bytes": 537313280,
+    "sampling_limit": "the monitor's 0.1-second samples do not bound unseen peaks"
+  },
+  "project_storage": {
+    "snapshot_retained_payload_bytes": 651977843,
+    "dataset_bytes_outside_snapshot_roots": 21084088,
+    "adjusted_retained_payload_bytes": 673061931,
+    "project_cap_bytes": 1073741824,
+    "remaining_bytes": 400679893,
+    "within": true,
+    "note": "the snapshot scope includes the 10,170,550-byte sealed pilot packet; the official dataset is added once because it resides outside those roots"
+  },
+  "temporary_storage": {
+    "outside_monitor_logical_bytes": 238316004,
+    "shared_cap_bytes": 536870912,
+    "within": true,
+    "pilot_temporary_root": "/private/tmp/nisayon-a1-pilot-v1.2-001",
+    "pilot_files": 1,
+    "pilot_logical_bytes": 0,
+    "pilot_member": "uv-c12d9638c0408faf.lock",
+    "pilot_member_bytes": 0,
+    "disposition": "retained and disclosed; it has no capacity consequence, so no cleanup is justified"
+  },
+  "protected_history": {
+    "failed_files_checked": 5,
+    "all_exist": true,
+    "all_byte_exact": true,
+    "cleanup_performed": false
+  },
+  "source_accounting": {
+    "snapshot_counters_are_historical": true,
+    "authoritative_known_body_bytes": 42669373,
+    "body_cap_bytes": 67108864,
+    "application_responses_consumed": 11,
+    "application_response_cap": 12,
+    "training_and_sealing_network_requests": 0
+  },
+  "machine_checks": {
+    "first_command_record_id": "439e6000b5834ca6814c31410bd63424",
+    "first_command_record_sha256": "8128709ac1056250a2191582ddde70ae92d14a63ce7284e48fe7ce66fcd187e0",
+    "first_returncode": 1,
+    "failure": "the command incorrectly required the pilot temporary directory itself to be absent; it retained one zero-byte uv lock",
+    "corrected_command_record_id": "1b844ca625a94828b2ae747af2bba3de",
+    "corrected_command_record_sha256": "4b6701cde34535de1fe019ff75e6d17e8fa9f1e4508847619a7de64ad632bede",
+    "corrected_returncode": 0,
+    "correction": "require the directory, exactly one file and no positive-size file; do not delete it",
+    "evaluation_worktree_status": "expected untracked assessments directory while Opus evaluates; no execution-lane file was written there"
+  },
+  "decision": "current disk, memory and retained-storage headroom remain sufficient; cleanup is neither required nor justified"
+}

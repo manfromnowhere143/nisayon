@@ -1,0 +1,3323 @@
+{
+  "schema": "nisayon.temporal.upstream-reproduction.v1",
+  "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+  "driver_sha256": "d6fd6c790b2de48ed1e2eb4f3feb1ccc61a9d38a1dc5887b99bfe4d44b8f1a4d",
+  "inputs": {
+    "schema": "nisayon.temporal.upstream-inputs.v1",
+    "frozen_at": "2026-09-20T04:07:16.337103+00:00",
+    "scope": "Exposed historical software qualification using actual source functions with scripted doubles; no independent incident or robot outcome.",
+    "known_issue": "https://github.com/huggingface/lerobot/issues/1116",
+    "fixed_commit": "6163daaaa4fa193d0e37468a94d90e07ef3c95ce",
+    "affected_first_parent": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+    "assignments": [
+      {
+        "id": "early-reset-affected",
+        "case": "early-reset",
+        "variant": "affected",
+        "action_counts": [
+          1,
+          1
+        ]
+      },
+      {
+        "id": "early-reset-upstream_fix",
+        "case": "early-reset",
+        "variant": "upstream_fix",
+        "action_counts": [
+          1,
+          1
+        ]
+      },
+      {
+        "id": "early-reset-conventional_reset",
+        "case": "early-reset",
+        "variant": "conventional_reset",
+        "action_counts": [
+          1,
+          1
+        ]
+      },
+      {
+        "id": "drained-queue-affected",
+        "case": "drained-queue",
+        "variant": "affected",
+        "action_counts": [
+          3,
+          3
+        ]
+      },
+      {
+        "id": "drained-queue-upstream_fix",
+        "case": "drained-queue",
+        "variant": "upstream_fix",
+        "action_counts": [
+          3,
+          3
+        ]
+      },
+      {
+        "id": "drained-queue-conventional_reset",
+        "case": "drained-queue",
+        "variant": "conventional_reset",
+        "action_counts": [
+          3,
+          3
+        ]
+      }
+    ],
+    "predicates": {
+      "software_dispatches": "sum(action_counts); never substitute a stop-all remedy",
+      "episode_membership": "origin_episode equals caller episode for every software dispatch",
+      "robot_task_outcome": "unmeasured"
+    },
+    "scripted_chunk_length": 3,
+    "fps": 10,
+    "clock": "virtual_control",
+    "unit": "ns",
+    "normalization": "identity double",
+    "policy_branch": "ACT non-ensembled CPU, non-image queue",
+    "absent_evidence": [
+      "physical reset state",
+      "sensor acquisition hardware time",
+      "learned predictions",
+      "real transport",
+      "actuator acknowledgement"
+    ]
+  },
+  "inputs_sha256": "a814073f5d1521bc17fb91df560c49916d984e40d2182f5d9da30e4af1d6bec0",
+  "extractions": [
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 289,
+      "definition_source_sha256": "65ee3197f55fcb90fdbc180cf732eadb9293b60ce1f6bd7a133008a17a1670d9",
+      "body_ast_sha256": "96359ade182c2f300e77aa86397a3ceeb5b78a01ed52962fe43d929457200540",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 292,
+      "last_line": 303,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 294,
+      "definition_source_sha256": "77c4b06cb45e2eddd1174a8bcbfc36100cb604c1df9431c39ec585bf03c4bb55",
+      "body_ast_sha256": "7b06c9aaf3cd4ede0810efe15dde5326d21ee8139079f71c5d49f37739213143",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 297,
+      "last_line": 308,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 289,
+      "definition_source_sha256": "65ee3197f55fcb90fdbc180cf732eadb9293b60ce1f6bd7a133008a17a1670d9",
+      "body_ast_sha256": "96359ade182c2f300e77aa86397a3ceeb5b78a01ed52962fe43d929457200540",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 292,
+      "last_line": 303,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 289,
+      "definition_source_sha256": "65ee3197f55fcb90fdbc180cf732eadb9293b60ce1f6bd7a133008a17a1670d9",
+      "body_ast_sha256": "96359ade182c2f300e77aa86397a3ceeb5b78a01ed52962fe43d929457200540",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 292,
+      "last_line": 303,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 294,
+      "definition_source_sha256": "77c4b06cb45e2eddd1174a8bcbfc36100cb604c1df9431c39ec585bf03c4bb55",
+      "body_ast_sha256": "7b06c9aaf3cd4ede0810efe15dde5326d21ee8139079f71c5d49f37739213143",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-control.txt",
+      "file_sha256": "edaf60274fdb7e613847876625cbdcd3051ed7d78ed194657835ad5876a268ee",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 297,
+      "last_line": 308,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "fixed-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.reset",
+      "first_definition_line": 102,
+      "last_line": 107,
+      "definition_source_sha256": "64e6ded5995fc60fe908a613996f524952b77c4293fa87d5b1522a7171823b55",
+      "body_ast_sha256": "f4da39c47afb6f6cb0b0d41d93b38e9f8cc22be981cdd142a125b9370821f27b",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-act.txt",
+      "file_sha256": "b0464e05914c3fc4cff8ac89d4ae1d5e84c8355c968bf63062d1fc42f1320241",
+      "qualified_name": "ACTPolicy.select_action",
+      "first_definition_line": 110,
+      "last_line": 143,
+      "definition_source_sha256": "a9111126914fe97307dd77345ca1b63d88e299f3ecbd202bb06ad934b4f06121",
+      "body_ast_sha256": "257ec0b3114abecbdbc0a917f0d0278a7e314519fe94a38b803491fd703443f4",
+      "omitted_decorators": [
+        "torch.no_grad"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "predict_action",
+      "first_definition_line": 104,
+      "last_line": 128,
+      "definition_source_sha256": "137bfb4c082ab16e16e530d7701d7b77b31ed01ab7811295d2b3fc772d1d9e4f",
+      "body_ast_sha256": "07005f07abb5a02a004c6a37de4126e150bdb7ed9f7a99bd9ab5b76f544fd993",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "control_loop",
+      "first_definition_line": 214,
+      "last_line": 289,
+      "definition_source_sha256": "65ee3197f55fcb90fdbc180cf732eadb9293b60ce1f6bd7a133008a17a1670d9",
+      "body_ast_sha256": "96359ade182c2f300e77aa86397a3ceeb5b78a01ed52962fe43d929457200540",
+      "omitted_decorators": [
+        "safe_stop_image_writer"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "warmup_record",
+      "first_definition_line": 172,
+      "last_line": 187,
+      "definition_source_sha256": "352f9007ef3f4482c79963abf92acd7a8bab70725ee97f461e101cc36208a0db",
+      "body_ast_sha256": "07f169aa7cf787a7f11cb76d3d7bc1e7c5bf60b5b77ff1526026529fd8af4667",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "record_episode",
+      "first_definition_line": 190,
+      "last_line": 210,
+      "definition_source_sha256": "78e442246133c701252553a1ae960591b378bf74213481189bf26c0597b0b3d1",
+      "body_ast_sha256": "eb83a463510225de378fa667dc35e411ee13fb5aefd836b388a57f0b4318dc00",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-control.txt",
+      "file_sha256": "a86b8f82bf37e971fa01a699ed7f04919aa172c482a9a5855bf69342a97be56a",
+      "qualified_name": "reset_environment",
+      "first_definition_line": 292,
+      "last_line": 303,
+      "definition_source_sha256": "151bfd25303c71d2469a1386b1ffd0d7fb2bf3582e31615fc4709e1802628ad2",
+      "body_ast_sha256": "f5bf238f835c2bf41047d21339ee6cd3f1905d53d624630b04733c5f249fca0f",
+      "omitted_decorators": [],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    },
+    {
+      "file": "parent-caller.txt",
+      "file_sha256": "7c96faf04fd1d7d50d3e88185928d042c75f68f8d2fe497bf5af9049f7bbe007",
+      "qualified_name": "record",
+      "first_definition_line": 245,
+      "last_line": 340,
+      "definition_source_sha256": "06135bb08fcb7ac288c9e8f8f1b104c077c61085bb65cc149f6e3f65dd804202",
+      "body_ast_sha256": "b50905ffa3cd38fc1760966ec7cc568b59681ec004c9d1632634eea08fb545d8",
+      "omitted_decorators": [
+        "safe_disconnect"
+      ],
+      "transformations": [
+        "decorators omitted",
+        "annotations postponed"
+      ],
+      "body_changed": false
+    }
+  ],
+  "runs": [
+    {
+      "assignment_id": "early-reset-affected",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "affected",
+      "upstream_commit": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        1,
+        1
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 5,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 6,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 7,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 8,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 9,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 10,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 11,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 12,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 13,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 1,
+            "value": 1,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 14,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 15,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 16,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 17,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 2,
+        "origin_episode_mismatches": 1,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 1,
+        "virtual_elapsed_ns": 300000000,
+        "caller_cpu_s": 7.000000000000062e-05,
+        "caller_wall_s": 6.679189391434193e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    },
+    {
+      "assignment_id": "early-reset-upstream_fix",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "upstream_fix",
+      "upstream_commit": "6163daaaa4fa193d0e37468a94d90e07ef3c95ce",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        1,
+        1
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 5,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 6,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 8,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 9,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 10,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 11,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 12,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 13,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "removed_actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 14,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 15,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-1",
+          "actions": [
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 0,
+              "value": 10,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 1,
+              "value": 11,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 2,
+              "value": 12,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 16,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 0,
+            "value": 10,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 17,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 18,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 19,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 20,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 2,
+        "origin_episode_mismatches": 0,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 2,
+        "virtual_elapsed_ns": 300000000,
+        "caller_cpu_s": 0.00010099999999998999,
+        "caller_wall_s": 9.82498750090599e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    },
+    {
+      "assignment_id": "early-reset-conventional_reset",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "conventional_reset",
+      "upstream_commit": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        1,
+        1
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 5,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 6,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 8,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 9,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 10,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 11,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 12,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 13,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "removed_actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 14,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 15,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-1",
+          "actions": [
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 0,
+              "value": 10,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 1,
+              "value": 11,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 2,
+              "value": 12,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 16,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 0,
+            "value": 10,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 17,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 18,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 19,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 20,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 2,
+        "origin_episode_mismatches": 0,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 2,
+        "virtual_elapsed_ns": 300000000,
+        "caller_cpu_s": 8.299999999999974e-05,
+        "caller_wall_s": 7.895799353718758e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    },
+    {
+      "assignment_id": "drained-queue-affected",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "affected",
+      "upstream_commit": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        3,
+        3
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 5,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 6,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 7,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 8,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-1"
+        },
+        {
+          "seq": 9,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 1,
+            "value": 1,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 10,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 11,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-2"
+        },
+        {
+          "seq": 12,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 2,
+            "value": 2,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 13,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 14,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 15,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 16,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 17,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 18,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 19,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-1",
+          "actions": [
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 0,
+              "value": 10,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 1,
+              "value": 11,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 2,
+              "value": 12,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 20,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 0,
+            "value": 10,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 21,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 22,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-1"
+        },
+        {
+          "seq": 23,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 1,
+            "value": 11,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 24,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 25,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-2"
+        },
+        {
+          "seq": 26,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 2,
+            "value": 12,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 27,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 28,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 29,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 30,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 6,
+        "origin_episode_mismatches": 0,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 2,
+        "virtual_elapsed_ns": 700000000,
+        "caller_cpu_s": 8.400000000000074e-05,
+        "caller_wall_s": 8.133286610245705e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    },
+    {
+      "assignment_id": "drained-queue-upstream_fix",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "upstream_fix",
+      "upstream_commit": "6163daaaa4fa193d0e37468a94d90e07ef3c95ce",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        3,
+        3
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 5,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 6,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 8,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 9,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-1"
+        },
+        {
+          "seq": 10,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 1,
+            "value": 1,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 11,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 12,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-2"
+        },
+        {
+          "seq": 13,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 2,
+            "value": 2,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 14,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 15,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 16,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 17,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 18,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 19,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "removed_actions": []
+        },
+        {
+          "seq": 20,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 21,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-1",
+          "actions": [
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 0,
+              "value": 10,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 1,
+              "value": 11,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 2,
+              "value": 12,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 22,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 0,
+            "value": 10,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 23,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 24,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-1"
+        },
+        {
+          "seq": 25,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 1,
+            "value": 11,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 26,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 27,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-2"
+        },
+        {
+          "seq": 28,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 2,
+            "value": 12,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 29,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 30,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 31,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 32,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 6,
+        "origin_episode_mismatches": 0,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 2,
+        "virtual_elapsed_ns": 700000000,
+        "caller_cpu_s": 8.299999999999974e-05,
+        "caller_wall_s": 8.099991828203201e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    },
+    {
+      "assignment_id": "drained-queue-conventional_reset",
+      "schema": "nisayon.temporal.upstream-control.v1",
+      "variant": "conventional_reset",
+      "upstream_commit": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+      "source_retrieval_sha256": "c65722a38b4da71b6780b72c99357569239878bf094dbb57683d587e8537a2f4",
+      "action_counts": [
+        3,
+        3
+      ],
+      "events": [
+        {
+          "seq": 0,
+          "kind": "dataset_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "storage": "in_memory_double"
+        },
+        {
+          "seq": 1,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 2,
+          "kind": "policy_double_created",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "constructor": "scripted; actual ACT constructor not executed"
+        },
+        {
+          "seq": 3,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 4,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "removed_actions": []
+        },
+        {
+          "seq": 5,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-0"
+        },
+        {
+          "seq": 6,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-0",
+          "actions": [
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 0,
+              "value": 0,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 1,
+              "value": 1,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 0,
+              "observation_id": "episode-0-observation-0",
+              "chunk_id": "scripted-chunk-0",
+              "ordinal": 2,
+              "value": 2,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 7,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 0,
+            "value": 0,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 8,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 0
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 9,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-1"
+        },
+        {
+          "seq": 10,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 1,
+            "value": 1,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 11,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 100000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 12,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "observation_id": "episode-0-observation-2"
+        },
+        {
+          "seq": 13,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0,
+          "action": {
+            "origin_episode": 0,
+            "observation_id": "episode-0-observation-0",
+            "chunk_id": "scripted-chunk-0",
+            "ordinal": 2,
+            "value": 2,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 14,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 15,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 200000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 16,
+          "kind": "environment_reset_step",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 300000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 17,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 0
+        },
+        {
+          "seq": 18,
+          "kind": "episode_started",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 19,
+          "kind": "policy_reset",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "removed_actions": []
+        },
+        {
+          "seq": 20,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-0"
+        },
+        {
+          "seq": 21,
+          "kind": "scripted_chunk_returned",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "chunk_id": "scripted-chunk-1",
+          "actions": [
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 0,
+              "value": 10,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 1,
+              "value": 11,
+              "value_provenance": "scripted_test_double"
+            },
+            {
+              "origin_episode": 1,
+              "observation_id": "episode-1-observation-0",
+              "chunk_id": "scripted-chunk-1",
+              "ordinal": 2,
+              "value": 12,
+              "value_provenance": "scripted_test_double"
+            }
+          ]
+        },
+        {
+          "seq": 22,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 0,
+            "value": 10,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 23,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 400000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 24,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-1"
+        },
+        {
+          "seq": 25,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 1,
+            "value": 11,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 26,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 500000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 27,
+          "kind": "observation_acquired",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "observation_id": "episode-1-observation-2"
+        },
+        {
+          "seq": 28,
+          "kind": "action_dispatched",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1,
+          "action": {
+            "origin_episode": 1,
+            "observation_id": "episode-1-observation-0",
+            "chunk_id": "scripted-chunk-1",
+            "ordinal": 2,
+            "value": 12,
+            "value_provenance": "scripted_test_double"
+          }
+        },
+        {
+          "seq": 29,
+          "kind": "scripted_keyboard_stop",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 30,
+          "kind": "frame_recorded",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 600000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 31,
+          "kind": "episode_saved",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event",
+          "episode": 1
+        },
+        {
+          "seq": 32,
+          "kind": "recording_stopped",
+          "at": {
+            "clock": "virtual_control",
+            "unit": "ns",
+            "value": 700000000
+          },
+          "evidence": "observed_software_double_event"
+        }
+      ],
+      "measurements": {
+        "software_dispatches": 6,
+        "origin_episode_mismatches": 0,
+        "make_policy_calls": 1,
+        "scripted_forward_calls": 2,
+        "virtual_elapsed_ns": 700000000,
+        "caller_cpu_s": 9.500000000001174e-05,
+        "caller_wall_s": 8.791591972112656e-05
+      },
+      "provenance": {
+        "kind": "source_bound_software_execution_with_doubles",
+        "clock": "exact virtual control clock; not observed robot latency",
+        "scalars_and_chunks": "minimal doubles for the exercised CPU, non-image, non-ensembled ACT branch",
+        "normalization": "identity double; no learned weights or original numeric transformations",
+        "decorators": "omitted; image-writer cleanup, disconnect and autograd wrapper behavior unqualified",
+        "robot_task_outcome": "unmeasured",
+        "robot_simulator_executions": 0,
+        "learned_inference_calls": 0,
+        "hardware_operations": 0
+      },
+      "scientific_acceptance": "not_assessed"
+    }
+  ]
+}

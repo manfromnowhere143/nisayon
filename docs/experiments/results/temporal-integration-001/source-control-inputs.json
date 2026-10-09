@@ -1,0 +1,82 @@
+{
+  "schema": "nisayon.temporal.upstream-inputs.v1",
+  "frozen_at": "2026-09-20T04:07:16.337103+00:00",
+  "scope": "Exposed historical software qualification using actual source functions with scripted doubles; no independent incident or robot outcome.",
+  "known_issue": "https://github.com/huggingface/lerobot/issues/1116",
+  "fixed_commit": "6163daaaa4fa193d0e37468a94d90e07ef3c95ce",
+  "affected_first_parent": "8e2a39444255d62869d2fd63ea4f8a157236a029",
+  "assignments": [
+    {
+      "id": "early-reset-affected",
+      "case": "early-reset",
+      "variant": "affected",
+      "action_counts": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "early-reset-upstream_fix",
+      "case": "early-reset",
+      "variant": "upstream_fix",
+      "action_counts": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "early-reset-conventional_reset",
+      "case": "early-reset",
+      "variant": "conventional_reset",
+      "action_counts": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "drained-queue-affected",
+      "case": "drained-queue",
+      "variant": "affected",
+      "action_counts": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "drained-queue-upstream_fix",
+      "case": "drained-queue",
+      "variant": "upstream_fix",
+      "action_counts": [
+        3,
+        3
+      ]
+    },
+    {
+      "id": "drained-queue-conventional_reset",
+      "case": "drained-queue",
+      "variant": "conventional_reset",
+      "action_counts": [
+        3,
+        3
+      ]
+    }
+  ],
+  "predicates": {
+    "software_dispatches": "sum(action_counts); never substitute a stop-all remedy",
+    "episode_membership": "origin_episode equals caller episode for every software dispatch",
+    "robot_task_outcome": "unmeasured"
+  },
+  "scripted_chunk_length": 3,
+  "fps": 10,
+  "clock": "virtual_control",
+  "unit": "ns",
+  "normalization": "identity double",
+  "policy_branch": "ACT non-ensembled CPU, non-image queue",
+  "absent_evidence": [
+    "physical reset state",
+    "sensor acquisition hardware time",
+    "learned predictions",
+    "real transport",
+    "actuator acknowledgement"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "nisayon.evaluation.finding.v1",
+  "id": "population-binding-001/finding-002",
+  "recorded_at": "2026-09-20T19:33:34+00:00",
+  "subject": {
+    "commit": "c7eab6a",
+    "path": "src/nisayon/engine/population_binding.py",
+    "module_sha256": "8eba5a9f48dcaf44164a5f2c713ef627ee902719f5982d619eb1f2922376246a",
+    "functions": [
+      "decide_population_binding (external_reference_normalizer branch)",
+      "_selection_supported",
+      "normalization_interpretation acceptance"
+    ]
+  },
+  "contract": {
+    "path": "docs/evaluation/results/population-binding-001/contract.v1.json",
+    "sha256": "c0fba03586e7b701301a328e5f0f74973bf5b015017e21325c1ea296e2c490e0",
+    "clause": "non_authorities: a role or provenance label without supporting evidence; a byte digest without role or selection evidence"
+  },
+  "reproducer": {
+    "path": "artifacts/population-binding-001/probes/codex-core-c7eab6a-label-only.json",
+    "how": "import the module from a git show copy and call decide_population_binding on case A",
+    "case_A": "role_obligation external_reference_normalizer; published statistics = the demo's shipped values; external_reference = {reference_sha256: <canonical digest of those same published values>, statistics_valid: true}; selection = {observed: true, selected_statistics_sha256: <same digest>, invocation_sha256: 'ab'*32}; normalization_interpretation = {status: supported, evidence_sha256: 'cd'*32}; no enumeration, no rows, no retained source"
+  },
+  "observed": {
+    "A": {
+      "role": "external_reference_normalizer",
+      "obligations": {
+        "role_binding": "supported",
+        "population_binding": "supported",
+        "selection_binding": "supported",
+        "arithmetic": "supported",
+        "normalization_interpretation": "supported"
+      },
+      "operation": "reuse",
+      "status": "supported"
+    },
+    "B_statistics_valid_false": {
+      "role": "unresolved",
+      "operation": "abstain",
+      "status": "unresolved"
+    }
+  },
+  "expected": "abstain / unresolved: the same content without an enumeration is not a summary of the current rows and nothing retained binds it elsewhere; the reference (population_reference.assess_case) and the conventional diagnostic both abstain on the original input when the enumeration is absent, whatever labels are attached",
+  "reason": "the external branch treats a self-referential digest (the canonical digest of the case's own published statistics) plus a caller-supplied boolean as role, population and arithmetic support; _selection_supported accepts any 64-hex string as an invocation; interpretation is accepted from a status string and a digest that is never resolved against retained bytes. A decision that flips on one boolean with no observation changed is decided by a declaration.",
+  "scope": "the decision core at the named commit; no sealed scored record of the original input existed when this was recorded, so no produced record is affected yet",
+  "requested_correction": "derive external/parent support only from evidence the core can check (an enumeration that reproduces the extremes and pooled moments, or rows), verify selection and interpretation evidence against retained bytes (path + digest + symbol), and let a flag or digest be recorded as a declaration only; add a label-only regression",
+  "evaluation_side_correction_made_in_the_same_pass": "this lane's own selection check accepted a declared source path and digest without verifying them; corrected so the declared source must be retained, match its digest and contain the named symbol (population_reference.verify_selection); controls and tests updated; original-input decisions unchanged",
+  "status": "closed",
+  "resolution": {
+    "recorded_at": "2026-09-20T19:52:00+00:00",
+    "corrected_by": {
+      "commit": "19b4143",
+      "subject": "Require retained evidence for population binding",
+      "module_sha256_at_7c351da": "71961419af11d8f0bf2332d980e994052a5dc547c8f4262b491c8aa56c795d4f"
+    },
+    "verified_here": "the same reproducer (case A) on the corrected core returns abstain/unresolved with every obligation unresolved; self-consistent text without the marker and marker text without reference rows also abstain; content probes on PBC07 withdraw support when rows, published values, selection or interpretation text change and keep it when only the label changes",
+    "records": [
+      "assessment-readback-002.json",
+      "artifacts/population-binding-001/probes/codex-core-19b4143-label-only.json (private)"
+    ],
+    "store": "producer-003 (seal f78c78be\u2026) re-sealed under a new identity; producer-001 retained unchanged",
+    "residual": "digest-bound retained text establishes the bytes, not the event; shared by the reference"
+  }
+}

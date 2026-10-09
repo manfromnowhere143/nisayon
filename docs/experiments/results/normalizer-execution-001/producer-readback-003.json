@@ -1,0 +1,98 @@
+{
+  "schema": "nisayon.normalizer-execution-producer-readback.v1",
+  "case_id": "normalizer-execution-001",
+  "producer_id": "producer-003",
+  "recorded_at": "2026-09-21T05:27:49Z",
+  "source_commit": "013c553a18c4a19b0149122d4a8c79adfba1c9f7",
+  "case": {
+    "path": "docs/experiments/results/normalizer-execution-001/case.v1.json",
+    "sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2"
+  },
+  "store": {
+    "path": "artifacts/normalizer-execution-001/producer-003",
+    "seal_sha256": "f4e43ff24b90284a39ec9fac6e67ee26acede4986b3ea4edb202eb16fdb4508b",
+    "summary_sha256": "87a1225934d62e8f471b91325325c702484e12140225358ca5a0fa2fc78c3dd6",
+    "manifest_entries": 80,
+    "files_after_seal": 83,
+    "logical_bytes_after_seal": 1775824,
+    "producer_command_record_id": "c27d180b21da4bd1a90d865a206173de",
+    "inspection_command_record_id": "0e7e642a666a47b8bfdf5ef8a1da2784",
+    "integrity": "verified"
+  },
+  "real_results": {
+    "membership_rows": 43,
+    "all_rows_coverage_pass": 1406,
+    "keep": {
+      "operation": "keep_existing",
+      "status": "supported",
+      "selected_exactly_obligation": true,
+      "outer_matches_nested": false,
+      "persistence": "supported at exact output equality",
+      "run_sha256": "d2042516a9ceb1c3de29468fc7623cfe89d0d1b0366ca6d8d151ec7041ef2185"
+    },
+    "replace": {
+      "operation": "replace_with_candidate",
+      "status": "rejected",
+      "selected_exactly_obligation": false,
+      "outer_matches_nested": true,
+      "persistence": "supported at exact output equality",
+      "witness": "selected row 0 action.pitch = 0.18934905529022217 under the five-episode candidate versus 0.01967799663543701 under the parent obligation",
+      "run_sha256": "2a6c95fd60e3fabf38ae6518df8df02f20dcc2d092dfb285eab3c06a63cb4006"
+    }
+  },
+  "coverage": {
+    "outside_parent_minmax_values": 0,
+    "outside_parent_minmax_rows": 0,
+    "outside_parent_q01_q99_values": 539,
+    "state_rows_outside_q01_q99": 247,
+    "action_rows_outside_q01_q99": 240,
+    "interpretation": "The retained real rows exercise quantile tails but not parent min/max clipping. No changed numerical output is interpreted as task harm."
+  },
+  "controls": {
+    "count": 23,
+    "status_counts": {
+      "supported": 14,
+      "rejected": 2,
+      "invalid": 4,
+      "unresolved": 2,
+      "observed": 1
+    },
+    "case_v1_alignment": "complete",
+    "case_v1_1_alignment": "not exact for NX5d: producer-003 used the v1 construction with a larger row; the resulting overflow is real but cannot substitute for the evaluator's pre-output v1.1 setup",
+    "final_assessment_status": "superseded by the producer-004 amendment run"
+  },
+  "failures": [
+    {
+      "id": "producer-001",
+      "record": "producer-failure-001.json",
+      "status": "failed unsealed at the first constructed control"
+    },
+    {
+      "id": "producer-002",
+      "record": "producer-failure-002.json",
+      "status": "failed unsealed while retaining the NX5d non-finite output"
+    }
+  ],
+  "costs": {
+    "producer_outer_wall_seconds": 0.619196,
+    "producer_inner_wall_seconds_before_seal_nested_not_added": 0.17296441597864032,
+    "producer_process_cpu_seconds": 0.1245160000000003,
+    "inspection_outer_wall_seconds": 0.296977,
+    "new_source_requests": 0,
+    "new_source_body_bytes": 0,
+    "new_dependency_body_bytes": 0,
+    "active_engineering_effort": null,
+    "provider_charges": null,
+    "energy": null,
+    "peak_memory": null
+  },
+  "scope": {
+    "software_correctness": "executed and sealed for the v1 case",
+    "deployment_applicability": "unresolved; no historical training or inference selector was observed",
+    "comparative_value": "not decided from this producer; independent conventional assessment required",
+    "model_or_policy_executions": 0,
+    "simulator_or_robot_executions": 0,
+    "reserved_incidents_accessed": 0,
+    "publication_or_push": false
+  }
+}

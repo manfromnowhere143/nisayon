@@ -1,0 +1,163 @@
+{
+  "schema": "nisayon.confirmation-feasibility.spec.v1",
+  "study_id": "confirmation-feasibility-001",
+  "frozen_at": "2026-09-19T18:27:16+00:00",
+  "frozen_before": "any numerical study output of this directory; feasibility.py refuses to run if this file's digest differs from the one it records at first run",
+  "status_of_numbers": "research design assumptions for a feasibility study; not adopted product requirements; not a change to first-case-obligation-v0.2",
+  "question": "Can a deployment-change decision obtain useful, valid confirmation at materially lower complete cost than the finite condition-by-condition obligation, and under which decision contract and assumptions?",
+  "existing_contract_preserved": {
+    "name": "first-case-obligation-v0.2",
+    "form": "finite conjunction: the frozen candidate completes the registered failure after the freeze, completes every fresh condition the reference completes, and satisfies progress, constraint, timing and scope predicates on every assigned run; 32 fresh paired conditions plus 3 post-freeze reproduction runs = 67 runs per candidate",
+    "statistical_claim": "none; an acceptance covers the declared conditions only"
+  },
+  "proposed_contracts_under_study": {
+    "O1_harmful_disagreement_bound": {
+      "estimand": "p_minus = P(reference succeeds and candidate fails) on the fresh-condition distribution",
+      "hypotheses": "H0: p_minus >= q (harmful); H1: p_minus < q; accept the candidate only by rejecting H0 at level alpha",
+      "q_grid": [
+        0.05,
+        0.0893682,
+        0.1,
+        0.15
+      ],
+      "note": "q = 0.0893682 is the one-sided 95% Clopper-Pearson upper bound after 32 concordant pairs, the certification the current 32-pair zero-regression outcome already implies under i.i.d. seeds"
+    },
+    "O2_non_inferiority_of_success": {
+      "estimand": "g = p_plus - p_minus = E[S(candidate) - S(reference)] on the fresh-condition distribution",
+      "hypotheses": "H0: g <= -epsilon; H1: g > -epsilon (accept by rejecting H0); superiority variant H0: g <= 0 reported alongside",
+      "epsilon_grid": [
+        0.05,
+        0.1,
+        0.15
+      ]
+    },
+    "O3_mean_progress_superiority": {
+      "estimand": "E[R1] - E[R0] for a bounded progress metric R in [0, 1]",
+      "hypotheses": "H0: E[R1] <= E[R0]; H1: E[R1] > E[R0]",
+      "role": "the objective N-SCORE answers; included to show it is a different question from O1, O2 and the finite obligation"
+    },
+    "absolute_requirements_not_averaged": [
+      "the registered failure condition is fixed (candidate completes it)",
+      "progress, constraint, timing and scope predicates hold on every executed run",
+      "declared protected groups each satisfy O1 and O2 separately"
+    ]
+  },
+  "sampling_unit_and_pairing": {
+    "unit": "one fresh condition (seed) executed under both the reference and the candidate deployment from the same recorded initial state",
+    "pair_outcome": "X = S(candidate) - S(reference) in {-1, 0, +1}; both members of every pair are charged",
+    "within_pair_dependence": "allowed by every procedure used (paired binomial, betting martingale on X)",
+    "across_pair_assumption": "conditions are independent draws from a fixed fresh-condition distribution, candidate and reference frozen, scoring frozen; this is assumed for the statistical contracts and is not established by any digest"
+  },
+  "error_allocation": {
+    "alpha_per_candidate_decision": 0.05,
+    "O1": "one-sided binomial tail at alpha for a single comparison (m = 1)",
+    "O2": "four Clopper-Pearson tails at beta = alpha / (4 m) with m = 1, following When Validation Stops Learning (arXiv:2609.10873v1) equation 2",
+    "sequential": "one Ville threshold 1/alpha per test; no alpha re-use across attempts; a retry needs fresh data and its own allocation",
+    "attempts": "one frozen candidate per study; changing the candidate ends the test"
+  },
+  "procedures": {
+    "F0_finite_conjunction": "the existing obligation as implemented; cost 67 runs when accepted; early termination on an observed violation is evaluated separately",
+    "F1_fixed_exact_binomial_O1": "Clopper-Pearson one-sided upper bound on p_minus after n pairs; accept if the bound is < q; reject if the exact lower bound exceeds q; otherwise defer",
+    "F2_fixed_paired_binomial_O2": "equation 2 of arXiv:2609.10873v1: L = l(k_plus) - u(k_minus), U = u(k_plus) - l(k_minus); accept if L >= -epsilon; reject if U < -epsilon; else defer",
+    "S1_sequential_sprt_O1": "Wald likelihood ratio between p_minus = q and p_minus = 0 on the harmful indicator; accept when the ratio reaches 1/alpha; any harmful disagreement sets the ratio to zero (reject); exactly valid under optional stopping by Ville's inequality",
+    "S2_sequential_betting_O2": "test supermartingale X_{n+1} = X_n (1 + xi (X_pair + epsilon)) with a fixed predictable xi in a small grid, threshold 1/alpha, following the evidence-integrator form of N-SCORE (arXiv:2603.13616v1) equation 3 shifted by the margin; this is not N-SCORE's optimized xi_n and not its code",
+    "S3_sequential_betting_O3": "the same integrator on bounded progress differences without a margin; N-SCORE's stated objective; reported only for the mean-versus-obligation witness",
+    "P1_peeking_fixed_interval": "F1 applied after every pair and stopping at the first acceptance; an invalid procedure included to measure the inflation of erroneous acceptance"
+  },
+  "stopping_rules": {
+    "fixed": "decide once at n pairs; n in the grid",
+    "sequential": "stop at the first n <= n_max where the statistic crosses 1/alpha (accept) or the process reaches zero (reject); otherwise defer at n_max",
+    "n_max_grid": [
+      32,
+      64
+    ]
+  },
+  "scenario_grid": {
+    "description": "paired outcome distributions (p_plus, p_minus, p_concordant); protected groups as mixtures; every scenario retained whether or not any procedure gains",
+    "scenarios": [
+      {
+        "id": "equal_policies",
+        "p_plus": 0.0,
+        "p_minus": 0.0
+      },
+      {
+        "id": "beneficial_no_harm",
+        "p_plus": 0.1,
+        "p_minus": 0.0
+      },
+      {
+        "id": "rare_harm_only",
+        "p_plus": 0.0,
+        "p_minus": 0.02
+      },
+      {
+        "id": "net_beneficial_rare_harm",
+        "p_plus": 0.2,
+        "p_minus": 0.02
+      },
+      {
+        "id": "harmful_at_boundary_q05",
+        "p_plus": 0.0,
+        "p_minus": 0.05
+      },
+      {
+        "id": "harmful_at_boundary_q10",
+        "p_plus": 0.0,
+        "p_minus": 0.1
+      },
+      {
+        "id": "clearly_harmful",
+        "p_plus": 0.0,
+        "p_minus": 0.3
+      },
+      {
+        "id": "mean_up_group_regresses",
+        "groups": [
+          {
+            "share": 0.75,
+            "p_plus": 0.3,
+            "p_minus": 0.0
+          },
+          {
+            "share": 0.25,
+            "p_plus": 0.0,
+            "p_minus": 0.3
+          }
+        ]
+      },
+      {
+        "id": "missing_evidence",
+        "p_plus": 0.0,
+        "p_minus": 0.0,
+        "missing_pairs": 2
+      }
+    ]
+  },
+  "computation": "exact enumeration over the (n, k_plus, k_minus) lattice for every fixed-rate rule; no random trials; the group scenario is enumerated on the mixture and per group",
+  "cost_units": {
+    "runs": "one closed-loop execution; a pair is two runs; the finite obligation adds three reproduction runs per candidate",
+    "wall": "projected from the retained per-run own-trial wall of the historical comparisons; a projection, not measured end-to-end savings",
+    "not_counted": [
+      "engineering effort",
+      "provider charges",
+      "energy",
+      "unrecorded preparation"
+    ]
+  },
+  "subcaps": {
+    "cpu_minutes": 10,
+    "new_files_mib": 8,
+    "physics_executions": 0,
+    "model_calls": 0
+  },
+  "real_record_check": {
+    "role": "applicability, data quality and retrospective calculation; not fresh evidence and not independent incidents",
+    "selection": "the ten development-ablation-001 confirmations per arm that reached a confirmation (D01, D02, D03, D04, D05, D07, D09 in arms A and B), pinned by the comparison score digest b244cec83a6ed6ce7aec6ea6b4adba530f40058122334feb5968fa9abdb8b31a",
+    "quantities": "k_plus, k_minus, both-failed count, the exact retrospective certification each rule supports at n = 32, the sequential stopping index under the recorded run order, and the first violating pair index for rejected candidates"
+  },
+  "decision_criteria": {
+    "go": "a named valid procedure reaches an accept boundary for a meaningful contract at materially lower run cost than 67 at equal or stated certification, on the scenario grid and consistent with the real records",
+    "narrow": "an existing method provides the benefit; incorporate and narrow the claimed contribution",
+    "stop": "the objective, budget or assumptions prevent useful confirmation at lower cost; name the limit and the smallest change that would matter"
+  }
+}

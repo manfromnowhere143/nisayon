@@ -1,0 +1,32 @@
+{
+  "schema": "nisayon.population-source-request.v1",
+  "id": "population-binding-source-request-002",
+  "frozen_at_execution_commit": "015ffd236662f33814d8498f836fa2bdf5754677",
+  "question": "How does the pinned dataset package reach the episode reader and which metadata/statistics objects does that reader expose to its caller?",
+  "competing_predictions": [
+    "The factory and single-step dataset reach the episode loader and consume its statistics as the active dataset reference.",
+    "The episode loader exposes statistics but the caller selects a checkpoint or another reference instead.",
+    "The selected files do not establish the selection path, leaving the caller unresolved."
+  ],
+  "cheapest_allowed_check": "Retrieve the three direct files named by the pinned package listing; retain bytes privately and leave one response for the exact normalizer selected by their imports.",
+  "requests": [
+    {
+      "id": "EX02-dataset-factory",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/1a1837f20538b7d7e21f977a11a5aee14f99803c/gr00t/data/dataset/factory.py",
+      "relative_path": "groot-dataset-factory-1a1837.py",
+      "decision_changed": "Establish the actual higher-level constructor and the loader/configuration passed into it."
+    },
+    {
+      "id": "EX03-episode-loader",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/1a1837f20538b7d7e21f977a11a5aee14f99803c/gr00t/data/dataset/lerobot_episode_loader.py",
+      "relative_path": "groot-lerobot-episode-loader-1a1837.py",
+      "decision_changed": "Establish which metadata and statistics files are read and what the reader returns to callers."
+    },
+    {
+      "id": "EX04-single-step-dataset",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/1a1837f20538b7d7e21f977a11a5aee14f99803c/gr00t/data/dataset/sharded_single_step_dataset.py",
+      "relative_path": "groot-sharded-single-step-dataset-1a1837.py",
+      "decision_changed": "Establish whether the training/evaluation item path carries the reader's statistics or selects another reference."
+    }
+  ]
+}

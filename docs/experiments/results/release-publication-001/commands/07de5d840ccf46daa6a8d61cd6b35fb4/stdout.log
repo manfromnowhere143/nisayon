@@ -1,0 +1,62 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+182 files already formatted
+uv run --frozen pytest
+..........F............................................................. [ 19%]
+........................................................................ [ 38%]
+........................................................................ [ 57%]
+........................................................................ [ 76%]
+........................................................................ [ 95%]
+.................                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_aborted_assignment_cannot_be_silently_reused_as_fresh __________
+
+tmp_path = PosixPath('/Users/danielwahnich/workspace/nisayon-codex/artifacts/licensed-release-validation-001/pytest-presentation/test_aborted_assignment_cannot0')
+
+    def test_aborted_assignment_cannot_be_silently_reused_as_fresh(tmp_path):
+        write_json(tmp_path / HISTORY_PATH, {"schema": "nisayon.consumed-conditions.v1", "entries": []})
+>       reserve_fresh(tmp_path, "public-development", [100, 101], "protocol-one", "invocation-one")
+
+tests/engine/test_condition_reservations.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/Users/danielwahnich/workspace/nisayon-codex/artifacts/licensed-release-validation-001/pytest-presentation/test_aborted_assignment_cannot0')
+namespace = 'public-development', seeds = [100, 101]
+protocol_sha256 = 'protocol-one', invocation_id = 'invocation-one'
+history_required = True
+
+    def reserve_fresh(
+        root: Path,
+        namespace: str,
+        seeds: list[int],
+        protocol_sha256: str,
+        invocation_id: str,
+        *,
+        history_required: bool = True,
+    ) -> dict:
+        if len(set(seeds)) != len(seeds) or any(
+            type(seed) is not int or not 0 <= seed <= 2**32 - 1 for seed in seeds
+        ):
+            raise ValueError("Fresh conditions must be distinct uint32 integer seeds")
+        history = consumed_history(root, namespace, required=history_required)
+        consumed = sorted(set(seeds) & set(history["seeds"]))
+        if consumed:
+            raise ValueError(
+                f"Conditions already consumed in committed evidence: {consumed}; use new seeds"
+            )
+        folder = _reservation_directory(root, namespace)
+        legacy = root / ".nisayon/conditions" / digest(namespace)
+        collisions = [
+            seed
+            for seed in seeds
+            if (folder / f"seed-{seed}.json").exists() or (legacy / f"seed-{seed}.json").exists()
+        ]
+        if collisions:
+>           raise ValueError(f"Conditions already reserved or consumed: {collisions}; use new seeds")
+E           ValueError: Conditions already reserved or consumed: [100, 101]; use new seeds
+
+src/nisayon/engine/conditions.py:146: ValueError
+=========================== short test summary info ============================
+FAILED tests/engine/test_condition_reservations.py::test_aborted_assignment_cannot_be_silently_reused_as_fresh
+1 failed, 376 passed in 190.00s (0:03:10)

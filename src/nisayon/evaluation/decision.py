@@ -952,6 +952,7 @@ def _evaluate_loaded(
             "fresh_both_failed": sum(p.verdict == "both_failed" for p in fresh),
             "fresh_improved": sum(p.verdict == "improved" for p in fresh),
             "fresh_gap_or_invalid": sum(p.verdict in {"gap", "invalid"} for p in fresh),
+            "fresh_cancelled": sum(p.verdict == "cancelled" for p in fresh),
         }
         result["confirmation"]["summary"] = summary
         scope = (

@@ -1,0 +1,72 @@
+{
+  "schema": "nisayon.population-binding-decision.v1",
+  "case_id": "original-public-input",
+  "label": "libero_demo_published_statistics",
+  "label_used_as_premise": false,
+  "published_statistics_sha256": "4b6d8d76201c8ee567da54ac7b5a181ed201fc69bf57ed7e348d5e3c2ed02c70",
+  "role": "parent_population_summary",
+  "observations": {
+    "current_population": null,
+    "parent_population": {
+      "status": "supported",
+      "parent_episodes": 379,
+      "parent_frames": 101469,
+      "subset_members": 5,
+      "strict_superset": true,
+      "subset_statistics_match": true,
+      "extremes_exact": true,
+      "moments_within_tolerance": true,
+      "mean_rtol": 0.0001,
+      "std_rtol": 0.001,
+      "by_feature": {
+        "observation.state": {
+          "episodes": 379,
+          "frames": 101469,
+          "min_exact_equal_all": true,
+          "max_exact_equal_all": true,
+          "mean_all_within_tolerance": true,
+          "std_all_within_tolerance": true,
+          "mean_max_abs_difference": 7.526124222390074e-06,
+          "std_max_abs_difference": 8.439277908500742e-06,
+          "quantiles": "not_comparable_without_raw_parent_rows"
+        },
+        "action": {
+          "episodes": 379,
+          "frames": 101469,
+          "min_exact_equal_all": true,
+          "max_exact_equal_all": true,
+          "mean_all_within_tolerance": true,
+          "std_all_within_tolerance": true,
+          "mean_max_abs_difference": 2.8236465061948213e-07,
+          "std_max_abs_difference": 0.000252734450368719,
+          "quantiles": "not_comparable_without_raw_parent_rows"
+        }
+      }
+    },
+    "selection_supported": true,
+    "normalization_interpretation_supported": false
+  },
+  "obligations": {
+    "role_binding": "supported",
+    "population_binding": "supported",
+    "selection_binding": "supported",
+    "arithmetic": "supported",
+    "normalization_interpretation": "unresolved"
+  },
+  "decision": {
+    "selected_operation": "reuse",
+    "status": "supported",
+    "candidate_results": [
+      {
+        "operation": "reuse",
+        "status": "supported"
+      },
+      {
+        "operation": "recompute",
+        "status": "rejected",
+        "reason": "would replace a bound parent summary with subset moments"
+      }
+    ],
+    "missing": []
+  }
+}

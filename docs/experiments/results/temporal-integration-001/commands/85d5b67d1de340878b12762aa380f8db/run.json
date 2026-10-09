@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "85d5b67d1de340878b12762aa380f8db",
+  "label": "temporal-integration-20260920-reconciliation-input-preflight",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json, runpy; d=runpy.run_path(\"scripts/experiments/reconcile_temporal_reference.py\"); results=[]; total=0\nfor name, locator, comparison, count in d[\"POPULATIONS\"]:\n packet=d[\"RAW\"]/locator; suite=d[\"_read\"](packet/\"frozen-suite.json\"); d[\"validate_suite\"](suite); assert len(suite[\"assignments\"])==count\n for assignment in suite[\"assignments\"]: d[\"old_assessment\"](packet, comparison, assignment)\n total+=count; results.append({\"population\":name,\"historical_results_read\":count})\nprint(json.dumps({\"historical_results\":total,\"populations\":results,\"execution_performed\":False,\"reassessment_performed\":False},indent=2))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T09:12:34.633380+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "bef0cb280a46dbfa4ca3d193cd9a9801005e62b9",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 80553,
+  "returncode": 0,
+  "ended_at": "2026-09-20T09:12:34.812022+00:00",
+  "wall_seconds": 0.094557,
+  "logs": {
+    "stdout.log": {
+      "bytes": 675,
+      "sha256": "22beb1cc3b7856304835a5d1c4e9fa7b48f4f561aca9f61ee6e96441d0ee1d9f"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

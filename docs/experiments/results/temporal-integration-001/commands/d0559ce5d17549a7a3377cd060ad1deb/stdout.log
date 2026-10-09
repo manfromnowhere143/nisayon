@@ -1,0 +1,248 @@
+FFFFFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+______ test_unsupported_execution_configuration_is_rejected[time_unit-ms] ______
+
+field = 'time_unit', value = 'ms'
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("time_unit", "ms"),
+            ("aggregation", "average_all_chunks"),
+            ("control_period", True),
+            ("max_age", -1),
+            ("config_sha256", "different-from-initial-configuration"),
+        ],
+    )
+    def test_unsupported_execution_configuration_is_rejected(field, value):
+        declared = suite()
+        declared["cases"][0]["configuration"][field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:35: Failed
+_ test_unsupported_execution_configuration_is_rejected[aggregation-average_all_chunks] _
+
+field = 'aggregation', value = 'average_all_chunks'
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("time_unit", "ms"),
+            ("aggregation", "average_all_chunks"),
+            ("control_period", True),
+            ("max_age", -1),
+            ("config_sha256", "different-from-initial-configuration"),
+        ],
+    )
+    def test_unsupported_execution_configuration_is_rejected(field, value):
+        declared = suite()
+        declared["cases"][0]["configuration"][field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:35: Failed
+__ test_unsupported_execution_configuration_is_rejected[control_period-True] ___
+
+field = 'control_period', value = True
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("time_unit", "ms"),
+            ("aggregation", "average_all_chunks"),
+            ("control_period", True),
+            ("max_age", -1),
+            ("config_sha256", "different-from-initial-configuration"),
+        ],
+    )
+    def test_unsupported_execution_configuration_is_rejected(field, value):
+        declared = suite()
+        declared["cases"][0]["configuration"][field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:35: Failed
+_______ test_unsupported_execution_configuration_is_rejected[max_age--1] _______
+
+field = 'max_age', value = -1
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("time_unit", "ms"),
+            ("aggregation", "average_all_chunks"),
+            ("control_period", True),
+            ("max_age", -1),
+            ("config_sha256", "different-from-initial-configuration"),
+        ],
+    )
+    def test_unsupported_execution_configuration_is_rejected(field, value):
+        declared = suite()
+        declared["cases"][0]["configuration"][field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:35: Failed
+_ test_unsupported_execution_configuration_is_rejected[config_sha256-different-from-initial-configuration] _
+
+field = 'config_sha256', value = 'different-from-initial-configuration'
+
+    @pytest.mark.parametrize(
+        "field,value",
+        [
+            ("time_unit", "ms"),
+            ("aggregation", "average_all_chunks"),
+            ("control_period", True),
+            ("max_age", -1),
+            ("config_sha256", "different-from-initial-configuration"),
+        ],
+    )
+    def test_unsupported_execution_configuration_is_rejected(field, value):
+        declared = suite()
+        declared["cases"][0]["configuration"][field] = value
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:35: Failed
+______ test_response_step_cannot_alias_integer_queue_keys_through_boolean ______
+
+    def test_response_step_cannot_alias_integer_queue_keys_through_boolean():
+        declared = suite()
+        declared["cases"][0]["schedule"][2]["first_step"] = False
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/engine/test_temporal_input.py:42: Failed
+_______ test_duplicate_json_members_do_not_silently_select_a_frozen_plan _______
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-253/test_duplicate_json_members_do0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10518ee10>
+
+    def test_duplicate_json_members_do_not_silently_select_a_frozen_plan(tmp_path, monkeypatch):
+        from nisayon.engine import temporal_experiment
+    
+        declared = suite()
+        # The ordinary JSON decoder silently chooses the second value.
+        text = json.dumps(declared).replace('"max_age": 50000000', '"max_age": 1, "max_age": 50000000')
+        path = tmp_path / "suite.json"
+        path.write_text(text)
+        calls = []
+    
+        def source(_repo):
+            calls.append("source")
+            raise AssertionError("An ambiguous plan reached source capture")
+    
+        monkeypatch.setattr(temporal_experiment, "source_snapshot", source)
+        with pytest.raises(ValueError, match="Duplicate JSON key"):
+>           run_suite(path, tmp_path / "output", tmp_path)
+
+tests/engine/test_temporal_input.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/temporal_experiment.py:189: in run_suite
+    source, payloads = source_snapshot(repo)
+                       ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+_repo = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-253/test_duplicate_json_members_do0')
+
+    def source(_repo):
+        calls.append("source")
+>       raise AssertionError("An ambiguous plan reached source capture")
+E       AssertionError: An ambiguous plan reached source capture
+
+tests/engine/test_temporal_input.py:58: AssertionError
+_ test_later_observation_does_not_retroactively_bind_an_earlier_request[False] _
+
+fresh_request = False
+
+    @pytest.mark.parametrize("fresh_request", [False, True])
+    def test_later_observation_does_not_retroactively_bind_an_earlier_request(fresh_request):
+        declared = suite()
+        case = declared["cases"][0]
+        observe, request, response, dispatch = case["schedule"]
+        request["at_ns"], observe["at_ns"] = 0, 1_000_000
+        case["schedule"] = [request, observe]
+        if fresh_request:
+            later = copy.deepcopy(request)
+            later.update(id="fresh-request", req_id="q1", at_ns=2_000_000)
+            case["schedule"].append(later)
+        case["schedule"].append(response)
+        if fresh_request:
+            later = copy.deepcopy(response)
+            later.update(
+                id="fresh-response", req_id="q1", resp_id="r-c1", chunk_id="c1",
+                delivery_id="fresh-delivery", at_ns=11_000_000, values=[2],
+            )
+            case["schedule"].append(later)
+        case["schedule"].append(dispatch)
+        events = []
+        runtime = TemporalRuntime(case, declared["remedies"][0], events.append)
+        runtime.start()
+        for operation in case["schedule"]:
+            runtime.execute(operation)
+        values = [e["value"] for e in events if e["kind"] == "action_dispatched"]
+>       assert values == ([2] if fresh_request else []), events
+E       AssertionError: [{'kind': 'episode_start', 'at': {'value': 0, 'clock': 'controller', 'unit': 'ns'}, 'input_id': None, 'generation': 0,...e': 20000000, 'clock': 'controller', 'unit': 'ns'}, 'input_id': 'T01-healthy-input-03', 'action_id': 'c0:0', ...}, ...]
+E       assert [1] == []
+E         
+E         Left contains one more item: 1
+E         Use -v to get more diff
+
+tests/engine/test_temporal_input.py:93: AssertionError
+_ test_later_observation_does_not_retroactively_bind_an_earlier_request[True] __
+
+fresh_request = True
+
+    @pytest.mark.parametrize("fresh_request", [False, True])
+    def test_later_observation_does_not_retroactively_bind_an_earlier_request(fresh_request):
+        declared = suite()
+        case = declared["cases"][0]
+        observe, request, response, dispatch = case["schedule"]
+        request["at_ns"], observe["at_ns"] = 0, 1_000_000
+        case["schedule"] = [request, observe]
+        if fresh_request:
+            later = copy.deepcopy(request)
+            later.update(id="fresh-request", req_id="q1", at_ns=2_000_000)
+            case["schedule"].append(later)
+        case["schedule"].append(response)
+        if fresh_request:
+            later = copy.deepcopy(response)
+            later.update(
+                id="fresh-response", req_id="q1", resp_id="r-c1", chunk_id="c1",
+                delivery_id="fresh-delivery", at_ns=11_000_000, values=[2],
+            )
+            case["schedule"].append(later)
+        case["schedule"].append(dispatch)
+        events = []
+        runtime = TemporalRuntime(case, declared["remedies"][0], events.append)
+        runtime.start()
+        for operation in case["schedule"]:
+            runtime.execute(operation)
+        values = [e["value"] for e in events if e["kind"] == "action_dispatched"]
+        assert values == ([2] if fresh_request else []), events
+        old = next(e for e in events if e["kind"] == "queue_admitted" and e["chunk_id"] == "c0")
+>       assert old["admitted"] == [], events
+E       AssertionError: [{'kind': 'episode_start', 'at': {'value': 0, 'clock': 'controller', 'unit': 'ns'}, 'input_id': None, 'generation': 0,...alue': 10000000, 'clock': 'controller', 'unit': 'ns'}, 'input_id': 'T01-healthy-input-02', 'chunk_id': 'c0', ...}, ...]
+E       assert [0] == []
+E         
+E         Left contains one more item: 0
+E         Use -v to get more diff
+
+tests/engine/test_temporal_input.py:95: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_temporal_input.py::test_unsupported_execution_configuration_is_rejected[time_unit-ms]
+FAILED tests/engine/test_temporal_input.py::test_unsupported_execution_configuration_is_rejected[aggregation-average_all_chunks]
+FAILED tests/engine/test_temporal_input.py::test_unsupported_execution_configuration_is_rejected[control_period-True]
+FAILED tests/engine/test_temporal_input.py::test_unsupported_execution_configuration_is_rejected[max_age--1]
+FAILED tests/engine/test_temporal_input.py::test_unsupported_execution_configuration_is_rejected[config_sha256-different-from-initial-configuration]
+FAILED tests/engine/test_temporal_input.py::test_response_step_cannot_alias_integer_queue_keys_through_boolean
+FAILED tests/engine/test_temporal_input.py::test_duplicate_json_members_do_not_silently_select_a_frozen_plan
+FAILED tests/engine/test_temporal_input.py::test_later_observation_does_not_retroactively_bind_an_earlier_request[False]
+FAILED tests/engine/test_temporal_input.py::test_later_observation_does_not_retroactively_bind_an_earlier_request[True]

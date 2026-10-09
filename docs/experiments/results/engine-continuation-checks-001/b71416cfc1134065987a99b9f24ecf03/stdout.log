@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_killed_call_waiting_for_writer_lock_does_not_disappear_from_attempt_costs _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-209/test_killed_call_waiting_for_w0')
+
+    def test_killed_call_waiting_for_writer_lock_does_not_disappear_from_attempt_costs(tmp_path):
+        request = payload(tmp_path)
+        root = tmp_path / "receipts"
+        root.mkdir()
+        lock = os.open(root / ".writer.lock", os.O_CREAT | os.O_RDWR, 0o600)
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        context = multiprocessing.get_context("spawn")
+        parent, child = context.Pipe(duplex=False)
+        process = context.Process(
+            target=_declare_with_intent_signal, args=(str(tmp_path), request, child)
+        )
+        process.start()
+        try:
+>           assert parent.poll(3), "A queued invocation must retain intent before waiting for the lock"
+E           AssertionError: A queued invocation must retain intent before waiting for the lock
+E           assert False
+E            +  where False = poll(3)
+E            +    where poll = <multiprocessing.connection.Connection object at 0x1023e3410>.poll
+
+tests/engine/test_declarations.py:199: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_declarations.py::test_killed_call_waiting_for_writer_lock_does_not_disappear_from_attempt_costs
+1 failed in 3.09s

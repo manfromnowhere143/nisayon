@@ -1,0 +1,73 @@
+{
+  "schema": "nisayon.a1-runtime-range-fetcher-conformance.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:25:24Z",
+  "status": "single-response transport prepared and synthetically checked; no external response executed",
+  "implementation": {
+    "source_commit": "c6786ac6e5d7612b088af68ffcc176ac30c8c1cc",
+    "script": "scripts/experiments/acquire_a1_wheel_range.py",
+    "script_sha256": "986dd7497c75a360b42c1f2e856020ffa86adbc1e82457c376fe74b03e8eac17",
+    "tests": "tests/engine/test_acquire_a1_wheel_range.py",
+    "tests_sha256": "9bb237f5cfe1c296294ee7438889898a7899a7db080025c1db04637ee9000628",
+    "properties": [
+      "the only accepted URL is the exact pinned files.pythonhosted.org robosuite 1.5.1 wheel URL",
+      "one process issues exactly one HEAD or GET request with no redirect and no retry",
+      "a Range response must be 206 with one exact Content-Range, one exact Content-Length, identity encoding and the exact body length",
+      "a HEAD response must report the pinned archive length and Accept-Ranges bytes and return no body",
+      "ignored Range requests, duplicate or malformed headers, encoding changes, body overrun and interrupted bodies fail closed",
+      "a received failure response and every body prefix read are counted and retained; a pre-response transport failure counts zero HTTP responses",
+      "create-only body and receipt paths prevent silent overwrite"
+    ]
+  },
+  "validation": {
+    "committed_tests": {
+      "command_record_id": "2e0df36dc3c347fd90bbf1877b56116b",
+      "command_record_sha256": "9b75b43e3099f1981af3d9de5ca46dd66f2f3550129bbdf60cc5a83d75b13912",
+      "outer_wall_seconds": 0.535862,
+      "passed": 28,
+      "failed": 0
+    },
+    "committed_ruff": {
+      "command_record_id": "36ce034c812b43259f4d92adabfd6036",
+      "command_record_sha256": "d067e5998a8e880c56a08323c853b11a0a9af6d9c22a05e0921f63ed54ca6ce6",
+      "outer_wall_seconds": 0.045023,
+      "result": "passed"
+    },
+    "committed_format": {
+      "command_record_id": "1dbf197a5ac64d4f93ec8306351f412b",
+      "command_record_sha256": "25ecf9a1fda0100b654d03632a542b52a1d5757d8127ad21ebcd5475f666faf2",
+      "outer_wall_seconds": 0.012459,
+      "result": "six files already formatted"
+    },
+    "preserved_development_failure": {
+      "command_record_id": "9746ae79bd764a3b97b971c152402bee",
+      "command_record_sha256": "b0dd2460652b3a3edc4ee7962a0d8da2adf76c554a3d0cc6f308534ada3d4bad",
+      "outer_wall_seconds": 0.024897,
+      "result": "initial format check failed on the two new files",
+      "correction_command_record_id": "ceba44b10242471381151e73c66dad33",
+      "correction_command_record_sha256": "87b5ed0bf7f01a5a96cb900526530fea6f37da6e67f00ffc488b8e2647d7a5a4",
+      "correction_outer_wall_seconds": 0.01298
+    }
+  },
+  "contract_effect": {
+    "redirect_policy": "runtime contract v1 says redirects are followed and counted; this fetcher instead retains any redirect as a failed response and stops before a new request",
+    "required_prospective_choice": "Opus must accept the stricter stop-on-redirect rule or name and budget each permitted redirect hop before execution; the execution lane will not follow an unpinned location automatically",
+    "request_plan": "the exact HEAD and Range endpoints still depend on the corrected effective contract, Mink plan and central-directory discovery choice"
+  },
+  "operations": {
+    "external_network_attempts": 0,
+    "application_responses": 0,
+    "response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0
+  },
+  "claim_boundary": "transport conformance under injected responses only; no claim about the live server, package, rights, runtime or task follows",
+  "unknown_costs": [
+    "active engineering effort",
+    "energy"
+  ],
+  "publication": "private; no push or publication"
+}

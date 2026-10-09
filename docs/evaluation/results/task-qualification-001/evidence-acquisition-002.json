@@ -1,0 +1,67 @@
+{
+  "schema": "nisayon.task-qualification.evidence-acquisition.v2",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:30:21Z",
+  "screening": {
+    "path": "screening-002.json",
+    "sha256": "044593e21f9460cd2106cd4d0eb31fef9d6ab8f3d77d5bfaf7227d782f9bf269"
+  },
+  "result": "no qualifying executable policy task is held; the smallest acquisition that yields one is a Lift PH low-dim policy that consumes bound observation-normalization statistics",
+  "best_candidate": "CAND-01 robomimic Lift PH BC-RNN (4 of 7 criteria; C1 unresolved, C3 and C5 fail)",
+  "paths": [
+    {
+      "id": "A1",
+      "name": "train a normalization-consuming Lift PH low-dim policy locally",
+      "what_is_missing": [
+        "the public Lift PH low-dim dataset (robomimic release file lift/ph/low_dim*.hdf5; exact name, size and license to be verified by the execution lane with at most one HEAD or index request; this lane fetches nothing)",
+        "a BC-RNN training run with train.hdf5_normalize_obs true, which writes obs_normalization_stats into the checkpoint and makes policy_from_checkpoint bind them",
+        "license evidence permitting local execution for the dataset and for the checkpoint that will be executed (a checkpoint trained here inherits the dataset's terms); the held model-zoo checkpoint's weights license is unstated and cannot be assumed",
+        "an exact telemetry and checkpoint size plan that keeps durable output within the 16 MiB phase cap (a reduced telemetry profile declared before the run)"
+      ],
+      "authority_needed": [
+        "dataset acquisition by the execution lane within the 32 MiB new-dependency phase cap and the 64 MiB cumulative cap (21.5 MB used); if the file exceeds the cap the path is blocked",
+        "local CPU training, which the current assignment does not authorize; a bounded budget must be declared first"
+      ],
+      "feasibility_evidence": [
+        "the simulation stack, the executor, seeds, telemetry and the clean-reproduction recipe already run on this host (LiftExecutor, 79 s clean reproduction)",
+        "robomimic's own training entry point and BC-RNN config are installed; the model-zoo checkpoint was trained with the same config family at 1000 epochs"
+      ],
+      "resource_estimate": {
+        "dataset_bytes": "unknown until verified; expected tens of MB",
+        "training": "unknown until a one-epoch pilot is measured; a 1000-epoch BC-RNN on 200 low-dim demonstrations is expected to take hours of single-thread CPU, so a reduced epoch count with a measured success rate on frozen seeds is the realistic budget",
+        "storage": "one checkpoint of about 8 MB plus telemetry; the full telemetry profile of earlier Lift runs was about 77 MiB for 69 rollouts, so the contract's sixty rollouts need a reduced profile or a raised cap, declared before the run",
+        "compute_cost": "CPU only; no paid compute"
+      },
+      "study_shape_after_acquisition": "working deployment = the trained checkpoint with its own statistics; changed deployment = the same checkpoint with candidate statistics bound (statistics of another release, a subset, or the identity); everything else fixed; both arms decide keep/replace before fresh confirmation rollouts",
+      "exposure": "the remedy class is already known to both lanes; this is an exposed intervention study, not blinded discovery",
+      "expected_decision_change": "turns the deployment-applicability question from unresolved into one adjudicated on an executable task"
+    },
+    {
+      "id": "A2",
+      "name": "bind statistics at deployment to the held checkpoint that never used them",
+      "status": "excluded by the selection rule: the working deployment binds none, so the regression would be manufactured; listed so that no one re-derives it as a shortcut"
+    },
+    {
+      "id": "B",
+      "name": "NVIDIA GR00T N1.7 on LIBERO",
+      "what_is_missing": [
+        "policy weights (nvidia GR00T N1.7 checkpoint) and the Cosmos-Reason2-2B backbone",
+        "the LIBERO benchmark and its simulator dependencies, whose robosuite pin may conflict with the locked 1.4.1",
+        "a GPU; a 3B vision-language-action policy cannot run hundreds of closed-loop steps per trial on this CPU host in a bounded study"
+      ],
+      "authority_needed": [
+        "multi-gigabyte acquisition far above every cap",
+        "compute beyond this host (paid or other hardware)"
+      ],
+      "disposition": "not feasible under existing authority or on this machine; the numerical map is already bound (normalizer-execution-001), so the only open question there is deployment applicability, which needs the historical checkpoint statistics anyway"
+    }
+  ],
+  "recommendation": "authorize path A1 with a declared budget, or accept unresolved and stop; no metadata work changes this",
+  "next_execution_action": "execution lane: verify the Lift PH low-dim dataset file name, size and license with at most one request and record it; evaluation lane: nothing until that record exists; Daniel: decide on training authority and budget",
+  "supersedes": {
+    "path": "evidence-acquisition-001.json",
+    "sha256": "cfb09ac0ae27a025ff0046a5cbdd96045ed6b2b29864ee917ba90f0eee78b16e",
+    "correction": "screening-002 C1 correction; A1's missing material now includes license evidence for the dataset and for any checkpoint executed, and an exact telemetry and checkpoint size plan against the 16 MiB durable phase cap (earlier raw Lift telemetry for 69 runs was about 77 MiB, per the execution lane)"
+  },
+  "status": "conditional; not executable under the current assignment: dataset identity, bytes and license unknown; training unauthorized and unmeasured; no rollout of the contract has run"
+}

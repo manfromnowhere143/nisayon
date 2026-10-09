@@ -9,11 +9,20 @@ rerun alone does not tell us whether that correction deserves acceptance.
 
 Nisayon executes bounded experiments, checks the evidence and tests a frozen
 correction on fresh conditions. It keeps failed attempts and returns unresolved
-when the observations cannot support a decision. The current implementation
-runs one frozen robomimic BC-RNN Lift policy in a headless CPU robosuite/MuJoCo
-simulator. Its scope is explicit and its results are open to inspection.
+when the observations cannot support a decision. The established Lift case runs
+one frozen robomimic BC-RNN policy in a headless CPU robosuite/MuJoCo simulator.
+A separate line qualified a robosuite 1.5.1 runtime, rejected its normalized pilot
+checkpoint at 1/10 task success, and confirmed a narrowly scoped input-convention
+correction for a legacy policy at 9/10 versus 0/10 unchanged. These systems and
+their claims remain separate.
 
-[Results](#what-the-experiments-found) · [Run it](#reproduce) ·
+A separate software harness exercises action chunks, late responses, clock
+uncertainty and resets with scripted inputs. It runs queue and lifecycle code,
+including a pinned historical LeRobot reset defect and its fix. It does not run
+robot dynamics or learned inference.
+
+[Results](#what-the-experiments-found) · [Current boundary](#current-evidence-boundary) ·
+[Run it](#reproduce) ·
 [Experiment records](docs/experiments/README.md) · [Release](docs/RELEASE.md) ·
 [Apache-2.0](LICENSE)
 
@@ -47,6 +56,99 @@ and energy remain unknown. The [trace and cost analysis](docs/experiments/UNUSED
 explains why free diagnosis still cannot meet a 2× total-cost target with these
 fixed confirmation schedules. A broader three-arm screen remains a proposal in
 the [research plan](docs/RESEARCH_PLAN.md).
+
+## Current evidence boundary
+
+The A1 experiment asked whether an actively normalized policy could be
+bound to a compatible task runtime and then evaluated without confusing training,
+runtime, competence and repair claims. The bounded offline pilot completed all
+100 assigned CPU optimizer updates. Its normalization reached the learner exactly,
+its parameters changed, and its checkpoint state reloads within the measured cap.
+That establishes a training operation, not a competent policy.
+
+On 9 October, the isolated robosuite 1.5.1 runtime passed its declared compatibility
+checks. The exact checkpoint then completed **1 of 10** development tasks against
+the frozen **8 of 10** requirement. All episodes completed without an execution
+failure. The checkpoint is rejected as the working reference for repair experiments
+in this runtime. Producer mapping, recording and checkpoint-serialization failures
+remain retained alongside their tested corrections; 1,106 software tests pass.
+Full historical trajectory fidelity remains a separate limitation, and this
+assessment is single-lane and non-independent. See the
+[runtime execution record](docs/experiments/results/a1-runtime-001/README.md) and
+[current handoff](docs/SESSION_HANDOFF.md).
+
+A separate [policy-transfer experiment](docs/experiments/results/b2-semantic-transfer-001/README.md)
+found a semantic change hidden by identical observation dimensions: robosuite
+reversed the gripper/cube relative-position vector between versions. A correction
+limited to the exact legacy checkpoint's input convention completed **9/10** fresh
+paired conditions, versus **0/10** unchanged. All twenty episodes completed,
+captured initial conditions matched, and weights stayed fixed. One condition
+still failed. The result qualifies this corrected reference and a bounded repair;
+it does not establish superior diagnosis or complete engineering cost. All
+1,130 software tests pass. Execution and assessment remain single-lane.
+
+The [portable evidence reader](docs/experiments/TRANSFER_EVIDENCE.md) recomputes
+that paired result and checks the recorded network inputs from the sealed raw
+packet. It runs without the simulator stack and makes no new task-success claim.
+
+The [9 October source update](docs/RELEASE.md#source-update--9-october-2026)
+also includes a qualified clean development install and a correction to the
+condition-history receipt digest. Historical experiment outcomes remain unchanged.
+
+```mermaid
+flowchart LR
+    accTitle: A1 normalized-policy evidence ladder
+    accDescr: Dataset custody, normalized training and checkpoint recovery are supported. The runtime passes its declared qualification checks, but the A1 checkpoint succeeds in only one of ten development episodes against the required eight. That normalized checkpoint remains rejected; the separate B2 legacy-policy repair does not change this result.
+    D["Rights-qualified dataset<br/>supported"] --> T["100-update normalized training<br/>supported"]
+    T --> C["Checkpoint state recovery<br/>supported"]
+    C --> R["Robosuite 1.5.1 qualification<br/>passes declared checks"]
+    R --> K["Development competence<br/>1/10 · requires 8/10 · rejected"]
+    K --> I["Fixed-weight normalizer intervention<br/>not assigned"]
+    I --> V["Confirmed repair and comparative value<br/>unproven"]
+    F["Producer and loader failures<br/>retained with corrections"] -. "prospective amendments" .-> R
+```
+
+The later [controller-target probe](docs/experiments/results/decision-case-001/README.md)
+retained six executions across three exposed condition pairs. The observed
+differences crossed no confirmation predicate and changed no repair decision.
+Neither controller convention was selected. The report preserves the timing
+of the corrected admission rule and the limits of this small negative result.
+
+The [confirmation evidence adapter](docs/experiments/results/confirmation-engine-001/README.md)
+makes the existing cost and outcome records usable for further analysis. It
+retains all 26 assigned trials, including six that never reached confirmation,
+and all 660 scheduled pairs. D05's executed prefixes and progress failure remain
+visible. The adapter verifies the retained raw evidence, preserves measurements
+in their original units and reports missing or invalid inputs explicitly. Its
+read-only export changes no historical decision or confirmation stopping rule.
+
+The [temporal software experiment](docs/experiments/results/temporal-integration-001/README.md)
+accounts for all 230 role assignments and three separate interrupted prefixes.
+The source-bound audit verifies complete owner coverage and identical events
+and assessments on all 35 declared conventional/selected pairs. The reference
+distinguishes activation context, individual sends, exact clock arithmetic and
+the identity actually admitted to the queue. Contradictory clock declarations
+remain unresolved in either order; a refused delivery cannot overwrite a queued
+action's provenance. Both frozen usefulness criteria and later retrospective
+readings remain explicit. No advantage over the conventional remedy is
+established. The
+[combined freshness check](docs/experiments/results/temporal-integration-001/COMBINED_DEADLINE.md)
+preserves a fresh queued action when an overdue response arrives, then checks
+age again at dispatch. Both comparators receive it and tie on all six exposed
+controls. The [closeout record](docs/experiments/results/temporal-integration-001/CLOSEOUT.md)
+retains the corrected readings, original failures, known costs and supported
+scope. These software results do not establish robot task success.
+
+The [external processor decision](docs/experiments/results/external-decision-001/README.md)
+uses one public LeRobot report, pinned processor code and the retained SmolVLA
+configuration/statistics bytes. The shipped files skip both required exact-key
+transforms; suffix matching repairs only action and chooses among three datasets by
+store order. An explicit override transforms state and action and preserves legitimate
+visual identity, but its deployment binding remains unresolved because the retained
+artifact has no dataset selector and the state statistics are only a reporter
+transcription. All 18 arm executions agree with the separate reference and eight
+controls pass. The A/B tie establishes no value advantage: A's outcomes are constants
+on the same executor and witnesses used by B. No model, simulator or robot ran.
 
 ## How a correction earns acceptance
 
@@ -97,6 +199,37 @@ Those commands re-score the retained compact evidence. They do not execute
 physics or independently reconstruct every raw store. Exact historical source,
 protocol identities and reproduction limits are in the [release notes](docs/RELEASE.md).
 
+To export the complete confirmation evidence and reproduce its cost partition
+from the existing local raw stores, use a new output directory:
+
+```sh
+uv run --frozen nisayon run --label confirmation-evidence-export -- \
+  python -m nisayon.engine.confirmation_view --out artifacts/confirmation-export
+```
+
+This command executes no simulator trajectories. It needs the original raw
+stores as well as the compact records; `--raw-base` specifies their location.
+The [adapter report](docs/experiments/results/confirmation-engine-001/README.md)
+describes its pinned inputs, output manifest, deterministic pair iterator and
+recovery checks. Statistical consumption is retrospective: the exposed records
+do not establish the sampling assumptions of a new decision contract.
+
+### Exercise a late response after reset
+
+This small example runs six remedies on the same frozen software schedule and
+applies the separate temporal reference. Use a fresh output directory:
+
+```sh
+uv run --frozen python -m nisayon.engine.temporal_experiment workflow \
+  --suite docs/experiments/temporal-late-reset.example.json \
+  --out artifacts/temporal-late-reset-example
+```
+
+The output separates process completion, retained evidence, temporal predicates
+and software dispatch coverage. Robot task outcome remains unmeasured. The
+[interface](docs/experiments/TEMPORAL_INTERFACE.md) documents complete and
+interrupted inspection and the exact historical source reproduction.
+
 ### Run five simulator trajectories
 
 The example executes two references, a sign regression, a correction and action
@@ -145,6 +278,7 @@ Repeating the same known repair would add runs without answering it.
 | To inspect | Start here |
 |---|---|
 | Measurements, failures and corrections | [Experiment records](docs/experiments/README.md) |
+| Current execution boundary and exact restart gate | [Session handoff](docs/SESSION_HANDOFF.md) |
 | Implemented boundaries and proposed extensions | [Architecture](docs/ARCHITECTURE.md) |
 | Installation, tests and command records | [Development](docs/DEVELOPMENT.md) |
 | Exact historical sources and reproduction limits | [Research release](docs/RELEASE.md) |

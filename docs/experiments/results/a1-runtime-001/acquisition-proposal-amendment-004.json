@@ -1,0 +1,41 @@
+{
+  "schema": "nisayon.a1-runtime-acquisition-proposal-amendment.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:51:32Z",
+  "status": "proposal-only entity-coherence and source-binding correction; not authority to dispatch",
+  "amends": {
+    "path": "docs/experiments/results/a1-runtime-001/acquisition-proposal-001.json",
+    "prior_amendment": "docs/experiments/results/a1-runtime-001/acquisition-proposal-amendment-003.json",
+    "rule": "the two transport source fields and H1/Range entity-coherence rules below are superseded; amendments 001-003 and every response, byte, ordering, rights, redirect, stop, and unresolved dependency term otherwise stand"
+  },
+  "superseded_fields": {
+    "bound_inputs.transport_source_commit": {
+      "before": "584823614d0acf8d2b16e75758a52d588c016edd",
+      "now": "d89748bdf609b3c6f2e0fbbe3b43f4263c33279a"
+    },
+    "bound_inputs.transport_sha256": {
+      "before": "4c543edc2c2321bce4b42167308bcfff7aef5700db6805c5d855634391d0200d",
+      "now": "f70f06d788257bc9379ff86c2be6e8a4352b5ce2462e81457cb3cfa40c099f12"
+    }
+  },
+  "proposed_entity_coherence": {
+    "H1": "require exactly one syntactically valid strong ETag and retain it with the existing exact length and Accept-Ranges checks",
+    "every_range_request": "send the exact H1 strong ETag in If-Match; no weak, missing, inferred, or substituted validator is permitted",
+    "every_range_response": "require the exact same strong ETag together with the existing 206, Content-Range, Content-Length, identity-encoding, and body-length checks",
+    "stop": "any missing, malformed, weak, duplicate, or changed ETag stops the route; a later attempt needs a separate prospective reservation and does not erase the response or bytes",
+    "scope": "coherence of the partial responses under conforming HTTP semantics only; no cryptographic whole-object, origin-authenticity, rights, or task claim"
+  },
+  "reason": "a URL and stable byte length do not prove that separately acquired ranges came from one unchanged representation",
+  "evidence": "docs/experiments/results/a1-runtime-001/range-fetcher-conformance-003.json",
+  "operations": {
+    "external_network_attempts": 0,
+    "application_responses": 0,
+    "response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0
+  },
+  "publication": "private; no push or publication"
+}

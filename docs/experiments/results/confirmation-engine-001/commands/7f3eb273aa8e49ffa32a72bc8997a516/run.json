@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "7f3eb273aa8e49ffa32a72bc8997a516",
+  "label": "confirmation-engine-20260919-retain-outputs",
+  "command": [
+    "python",
+    "-c",
+    "import gzip,json,shutil\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nraw=Path('artifacts/engine-integration-001/confirmation-engine-001')\nout=Path('docs/experiments/results/confirmation-engine-001')\ncopied=[]\nfor name in ['consumption-001.json','export-audit-001.json','original-input-audit.json','finite-readback.json','D01-gripper-sign-evaluation.json','D05-recurrent-carry-evaluation.json']:\n target=out/name\n shutil.copyfile(raw/name,target)\n copied.append({'path':name,'sha256':file_digest(target)})\nfor stem,relative in [('profile-initial','profile-001/profile.json'),('profile-corrected','profile-002/profile.json'),('recovery','recovery-001/recovery.json'),('export-manifest','full-export-002/manifest.json'),('export-timing','full-export-002/timing.json'),('costs','full-export-002/costs.json')]:\n target=out/(stem+'.json')\n shutil.copyfile(raw/relative,target)\n copied.append({'path':target.name,'sha256':file_digest(target),'source_path':str(raw/relative)})\ndata=(raw/'full-export-002/view.json').read_bytes()\ntarget=out/'view.json.gz'\nwith target.open('xb') as stream:\n stream.write(gzip.compress(data,mtime=0))\ncopied.append({'path':target.name,'sha256':file_digest(target),'bytes':target.stat().st_size,'uncompressed_sha256':file_digest(raw/'full-export-002/view.json'),'uncompressed_bytes':len(data)})\nwrite_json(out/'retained-output-manifest.json',{'schema':'nisayon.confirmation-retained-output.v1','implementation_commit':'f4b1880b716c4194c3fd4392e06c9dc484315250','profiled_commit':'045cf96d65c2742409a7b41617056e08413f6084','source_commit':'14e7805643dfe32252f2b46926512807d56c0035','raw_root_locator':str(raw.resolve()),'outputs':copied,'status':'derived_views_raw_stores_required','scientific_acceptance':'none'})\nprint({'retained_files':len(copied),'view_compressed_bytes':target.stat().st_size})\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:43:29.580876+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+    "changes": [
+      "M docs/experiments/README.md",
+      " M docs/experiments/results/confirmation-engine-001/README.md"
+    ],
+    "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 18628,
+  "returncode": 0,
+  "ended_at": "2026-09-19T19:43:29.834483+00:00",
+  "wall_seconds": 0.189121,
+  "logs": {
+    "stdout.log": {
+      "bytes": 57,
+      "sha256": "2a671463819863fa85a18b25edcb170b4bd3d41f76f89057d4de7a0cd060011d"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

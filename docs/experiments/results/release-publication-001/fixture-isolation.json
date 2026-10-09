@@ -1,0 +1,46 @@
+{
+  "failed_command": "07de5d840ccf46daa6a8d61cd6b35fb4",
+  "candidate": "7b12f4f7e2c94b19ca6ceb4fa40cdaed5bfb9c2c",
+  "observed_failure": "test_aborted_assignment_cannot_be_silently_reused_as_fresh: conditions 100 and 101 already reserved",
+  "cause": "The release check put pytest basetemp inside the Git worktree. The test fixture inherited the real common Git reservation directory and encountered synthetic public-development reservations from the preceding check.",
+  "synthetic_reservation_store": "/Users/danielwahnich/workspace/nisayon/.git/nisayon/conditions/caed8950511004d8f93d8dabca9000cb91d89a2a4618b1d6a77bb82c0628bd6f",
+  "retained_synthetic_reservations": [
+    {
+      "schema": "nisayon.development-condition.v1",
+      "namespace": "public-development",
+      "seed": 100,
+      "protocol_sha256": "protocol-one",
+      "invocation_id": "invocation-one",
+      "status": "reserved_before_observation"
+    },
+    {
+      "schema": "nisayon.development-condition.v1",
+      "namespace": "public-development",
+      "seed": 101,
+      "protocol_sha256": "protocol-one",
+      "invocation_id": "invocation-one",
+      "status": "reserved_before_observation"
+    },
+    {
+      "schema": "nisayon.development-condition.v1",
+      "namespace": "public-development",
+      "seed": 102,
+      "protocol_sha256": "protocol-two",
+      "invocation_id": "invocation-two",
+      "status": "reserved_before_observation"
+    },
+    {
+      "schema": "nisayon.development-condition.v1",
+      "namespace": "public-development",
+      "seed": 103,
+      "protocol_sha256": "protocol-two",
+      "invocation_id": "invocation-two",
+      "status": "reserved_before_observation"
+    }
+  ],
+  "correction": "Run the unchanged final commit and unchanged full test suite with a fresh basetemp outside every Git worktree, matching normal pytest isolation.",
+  "fresh_base": "/private/tmp/nisayon-release-7b12f4f-001",
+  "source_or_acceptance_changed": false,
+  "original_reservations_removed": false,
+  "research_execution": "No simulator invocation or fresh scientific condition was created by these labelled software fixtures."
+}

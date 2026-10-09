@@ -1,0 +1,50 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "65aaa449827a4399be1d36abb6f71eeb",
+  "label": "temporal-integration-20260920-final-derived-retention-002",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json,shutil\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nfrom nisayon.engine.temporal_workflow import load_assessment\nfrom scripts.experiments.audit_temporal_reconciliation import archive_packet\nraw=Path(\"artifacts/engine-integration-001/temporal-integration-001\")\nresults=Path(\"docs/experiments/results/temporal-integration-001\")\nout=results/\"confirmation-revalidation-002\"\nout.mkdir(exist_ok=False)\nmembers={}\nfor p in sorted((raw/\"confirmation-readback-002\").iterdir()):\n data=p.read_bytes()\n with (out/p.name).open(\"xb\") as stream: stream.write(data)\n assert (out/p.name).read_bytes()==data\n members[p.name]={\"sha256\":file_digest(out/p.name),\"bytes\":len(data)}\nassert len(members)==7\narchive=archive_packet(raw/\"confirmation-export-002\",out/\"export.tar.gz\")\nreport={\"schema\":\"nisayon.temporal-historical-revalidation.v1\",\"application_commit\":\"04804a6f0adac00ac8e1f79d68ba8027d1abe2ad\",\"export_command\":\"2aff1806686e4983a98abcc7ac90b768\",\"export_wall_s\":172.005610,\"export_archive\":archive,\"readback_members\":members,\"assigned_trials\":26,\"pairs\":660,\"confirmation_executions\":1474,\"unscheduled_trials\":6,\"prefix_context_executions\":134,\"changed_view_fields\":[\"dependencies\"],\"numeric_measurements_and_historical_decisions_unchanged\":True,\"method_scope\":\"O1 prototype consumption remains retrospective; sampling premises unestablished, progress meters unnormalized, retain-all unchanged.\",\"new_simulator_executions\":0,\"scientific_acceptance\":\"not_granted\"}\nwrite_json(out/\"record.json\",report)\npublic=raw/\"public-closeout-001\"\nnew=json.loads((public/\"assessment/assessment.json\").read_text())\nassert len(new[\"assignments\"])==6 and new[\"complete_records\"]==6\nassert new[\"scientific_acceptance\"]==\"not_granted\" and new[\"robot_task_outcome\"]==\"unmeasured\"\ncomplete=json.loads((public/\"complete-inspection.json\").read_text())\nprefix=json.loads((public/\"prefix-inspection.json\").read_text())\nassert complete[\"integrity\"]==\"verified_complete_store\" and complete[\"process_outcome\"]==\"completed\"\nassert prefix[\"integrity\"]==\"verified_prefix\" and prefix[\"process_outcome\"]==\"unknown\"\nold_error=None\ntry: load_assessment(raw/\"complete-example-001/assessment\",raw/\"complete-example-001/execution\")\nexcept ValueError as error: old_error=str(error)\nassert old_error==\"Assessment reader, reference or interpreter changed\",old_error\npub={\"schema\":\"nisayon.temporal-public-closeout.v1\",\"application_commit\":report[\"application_commit\"],\"complete_inspect_command\":\"f3fb615c751841a085bd0bf0e5ecd73e\",\"prefix_inspect_command\":\"a201bf90cc6b42fe9697595b845e0a27\",\"assess_command\":\"2e8077e5c8c3480ca16915ceec00ab8a\",\"read_assessment_command\":\"4e0e6f78fe17405ba3c44b1d6755ae4c\",\"complete_records\":new[\"complete_records\"],\"assigned_contract_counts\":new[\"assigned_contract_counts\"],\"retrospective_counts\":new[\"retrospective_counts\"],\"prefix\":{\"process_outcome\":prefix[\"process_outcome\"],\"integrity\":prefix[\"integrity\"],\"snapshot_sha256\":prefix[\"snapshot_sha256\"]},\"old_assessment_current_reuse_error\":old_error,\"execution_or_retry_performed\":False,\"robot_task_outcome\":\"unmeasured\",\"scientific_acceptance\":\"not_granted\",\"archive\":archive_packet(public,results/\"public-closeout-001.tar.gz\")}\nwrite_json(results/\"public-closeout-001.json\",pub)\nprint(json.dumps({\"confirmation_members\":len(members),\"confirmation_archive_bytes\":archive[\"bytes\"],\"public_archive_bytes\":pub[\"archive\"][\"bytes\"],\"old_reuse\":old_error}))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T12:03:43.692837+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "04804a6f0adac00ac8e1f79d68ba8027d1abe2ad",
+    "changes": [
+      "M README.md",
+      " M docs/experiments/results/temporal-integration-001/ADMISSION_CONFORMANCE.md",
+      " M docs/experiments/results/temporal-integration-001/CLOCK_CONFORMANCE.md",
+      " M docs/experiments/results/temporal-integration-001/COMBINED_DEADLINE.md",
+      "?? docs/experiments/results/temporal-integration-001/reconciliation-audit-002.json",
+      "?? docs/experiments/results/temporal-integration-001/reference-reconciliation-002.tar.gz"
+    ],
+    "diff_stat": "README.md                                          | 25 +++++++++++-----------\n .../ADMISSION_CONFORMANCE.md                       |  7 ++++++\n .../temporal-integration-001/CLOCK_CONFORMANCE.md  |  8 +++++++\n .../temporal-integration-001/COMBINED_DEADLINE.md  |  9 +++++++-\n 4 files changed, 35 insertions(+), 14 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 67575,
+  "returncode": 1,
+  "ended_at": "2026-09-20T12:03:44.091090+00:00",
+  "wall_seconds": 0.291727,
+  "logs": {
+    "stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr.log": {
+      "bytes": 1049,
+      "sha256": "0e5f0483d4c1b34153a145d9ac6366947fec26143904557cc85443924449c21a"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

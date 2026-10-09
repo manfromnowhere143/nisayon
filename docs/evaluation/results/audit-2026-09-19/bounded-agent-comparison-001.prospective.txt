@@ -1,0 +1,47 @@
+Prospective decision-quality report: fair · suite bounded-agent-comparison-001 · declarations retrospective · ledger nisayon.comparison.v1
+Eligibility: usable study result (no blocking finding)
+Arms (N assigned · D declared acceptances = C confirmed correct + F contradicted + U unsupported + K unknown):
+  arm  N   D   C   F   U   K   abstain  refuse  unres  inval  unsup  tout  n/a  dmg  correct-ref  missed  unadj  product  blocked  prospective v1 conf/false
+  A    3   3   3   0   0   0   0        0       0      0      0      0     0    0    0            0       0      3        0        0/3         3/0
+  B    3   3   3   0   0   0   0        0       0      0      0      0     0    0    0            0       0      3        0        0/3         3/0
+Rates (undefined where the denominator is zero; intervals are exact binomial, exchangeability assumed):
+  A: D/N 1.000 · C/N 1.000 [0.292, 1.000] · F/N 0.000 [0.000, 0.708] · F/D 0.000 · coverage (C+F)/D 1.000 · upper bound if unadjudicated wrong 0.000 · F/C (supplementary) 0.000
+  B: D/N 1.000 · C/N 1.000 [0.292, 1.000] · F/N 0.000 [0.000, 0.708] · F/D 0.000 · coverage (C+F)/D 1.000 · upper bound if unadjudicated wrong 0.000 · F/C (supplementary) 0.000
+Costs (known totals over every assigned trial; per correct claim; unknown stays unknown):
+  A: cumulative resource 422.272 s (own_trial_wall (sum of disjoint phase walls; simulator wall nested)) · simulator nested 256.118 s · full elapsed 745.563 s · rollouts 210 · retries 0
+     per correct simulator_wall: 85.372652667 s
+     per correct diagnostic_wall: 26.492879889 s
+     per correct confirmation_wall: 114.264600292 s
+     per correct own_trial_wall: 140.75748018 s
+     per correct agent_tokens: 24919.666666667 tokens
+     per correct engineer_time: undefined (not measured in any trial) s
+     per correct provider_and_compute_charges: undefined (not measured in any trial) USD
+     categories not reported or unknown: preparation_and_import, proposal_validation, retries_and_failures, adjudication, human_effort, provider_and_compute_charges, energy
+  B: cumulative resource 435.158 s (own_trial_wall (sum of disjoint phase walls; simulator wall nested)) · simulator nested 259.844 s · full elapsed 832.565 s · rollouts 210 · retries 0
+     per correct simulator_wall: 86.614746333 s
+     per correct diagnostic_wall: 29.632128667 s
+     per correct confirmation_wall: 115.420390181 s
+     per correct own_trial_wall: 145.052518848 s
+     per correct agent_tokens: 24967.666666667 tokens
+     per correct engineer_time: undefined (not measured in any trial) s
+     per correct provider_and_compute_charges: undefined (not measured in any trial) USD
+     categories not reported or unknown: preparation_and_import, proposal_validation, retries_and_failures, adjudication, human_effort, provider_and_compute_charges, energy
+Costs by scope (never summed across scopes; nested walls listed, not added):
+  shared preparation: 5556.733 s recorded command wall over 103 commands (14 nested not added, 1 unmeasured); bound True; shared by both arms, not amortized
+  evaluation scoring: 3.471 s (this run; evaluation lane)
+  unknown: historical_shared_preparation: evaluation_lane_preparation_and_validation; historical_shared_preparation: human_preparation_and_review; historical_shared_preparation: agent_tokens; historical_shared_preparation: provider_and_compute_charges; historical_shared_preparation: unrecorded_engineering_commands_and_edits; historical_shared_preparation: overlapping_auxiliary_dependency_inspection; historical_trials/A: engineer_time; historical_trials/A: provider_and_compute_charges; historical_trials/B: engineer_time; historical_trials/B: provider_and_compute_charges
+Cases (declaration → reference):
+  A  E01-r01                     claim_acceptance → accepted   supported                               
+  A  E01-r02                     claim_acceptance → accepted   supported                               
+  A  E01-r03                     claim_acceptance → accepted   supported                               
+  B  E01-r01                     claim_acceptance → accepted   supported                               
+  B  E01-r02                     claim_acceptance → accepted   supported                               
+  B  E01-r03                     claim_acceptance → accepted   supported                               
+Limits:
+  - A declaration derived from a v1 ledger was written by the run that produced the decision; it cannot show a pre-reference disagreement and is labelled retrospective.
+  - Byte containment establishes local ordering and integrity, not custody.
+  - Contradicted means a verified decision rejected the claimed candidate under the frozen obligation on the simulated task and measured predicates; it is not physical truth, and the terminal evaluator and simulator are common to both arms.
+  - Unknown truth is not false truth: F/N is the observed contradicted rate, and the upper bound counts every unadjudicated claim as wrong.
+  - Exact binomial intervals treat cases as exchangeable; repeated seeds and incident families violate that, and overlapping intervals do not establish equivalence.
+  - An arm that never accepts has zero contradicted claims by construction; read C/N and D/N with F/N.
+  - Cost per correct includes the cost of every assigned trial, including failures and refusals; unknown components stay unknown.

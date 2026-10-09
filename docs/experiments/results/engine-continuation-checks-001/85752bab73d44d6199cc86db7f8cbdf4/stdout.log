@@ -1,0 +1,32 @@
+Comparison score: fair · solver agent_trial · suite bounded-agent-comparison-001
+Arms:
+  arm  kind      valid  sel       cases  conf  rej  unres  inv  unsup  tout  n/a  false  rej<exec  rollouts  sim wall
+  A    agent     False  adaptive  3      3     0    0      0    0      0     0    0      0         210       256.117958
+  B    agent     True   adaptive  3      3     0    0      0    0      0     0    0      0         210       259.844239
+Elapsed wall:
+  A diagnostic 593.862238 s · full_trial 745.563201 s · time to confirmed correction {'known_total': 603.444313, 'confirmed_trials_with_time': 3, 'mean': 201.148104}
+  B diagnostic 601.872552 s · full_trial 832.564776 s · time to confirmed correction {'known_total': 696.205507, 'confirmed_trials_with_time': 3, 'mean': 232.068502}
+Known cost per confirmed correction:
+  A simulator_wall: 85.372652667 s
+  A diagnostic_wall: 26.492879889 s
+  A confirmation_wall: 114.264600292 s
+  A own_trial_wall: 140.75748018 s
+  A agent_tokens: 24919.666666667 tokens
+  A engineer_time: undefined (not measured in any trial) s
+  A provider_and_compute_charges: undefined (not measured in any trial) USD
+  B simulator_wall: 86.614746333 s
+  B diagnostic_wall: 29.632128667 s
+  B confirmation_wall: 115.420390181 s
+  B own_trial_wall: 145.052518848 s
+  B agent_tokens: 24967.666666667 tokens
+  B engineer_time: undefined (not measured in any trial) s
+  B provider_and_compute_charges: undefined (not measured in any trial) USD
+Cases:
+  E01-r01                     repairable                          A=confirmed  B=confirmed
+  E01-r02                     repairable                          A=confirmed  B=confirmed
+  E01-r03                     repairable                          A=confirmed  B=confirmed
+Limits:
+  - The scorer computes no ratio between arms; unknown cost components stay unknown.
+  - Cost per confirmed correction is undefined when nothing is confirmed.
+  - Cumulative simulator wall and elapsed wall are different quantities.
+  - A scripted development ablation is not an agent comparison.

@@ -1,0 +1,93 @@
+{
+  "schema": "nisayon.decision-case.scorer-controls.before.v1",
+  "case_id": "DC01-controller-target-convention",
+  "scorer_sha256": "663ea45c4f468b17d90e339ca1bdb598b15fdffdcff226f097eae3ac0603c375",
+  "scorer_commit": "9842d71 (delivered at e93cdc5)",
+  "inputs": "scorer-controls-001/review-inputs (the review's synthetic inputs, digests in SHA256SUMS)",
+  "review_observation": {
+    "path": "~/.codex/reports/nisayon-dc01-review-2026-09-19-r3vwan7w/SCORER_OBSERVATION.json",
+    "sha256": "95f46026d29853c3b087e9b923cef246e297c484cda9b7788848e52fb6c15a9c",
+    "observed_at": "2026-09-19T16:28:15.600293+00:00"
+  },
+  "reproduced_at_commit": "e93cdc59e71e5de835aedbfbb0fd8c587bfe4571",
+  "agrees_with_review": true,
+  "total_wall_seconds": 2.128078,
+  "defects_shown": [
+    "(progress or 0.0) turns a null progress into zero",
+    "unknown outcome strings compare equal",
+    "no raw/compact step correspondence: one raw row against 44 compact rows reads parity",
+    "end-effector deviation above the original E1 prediction is reported but the pair still reads E1"
+  ],
+  "controls": [
+    {
+      "label": "valid_identical",
+      "command_record_id": "1fc7f2db638b476caf096ee03507a869",
+      "returncode": 0,
+      "wall_seconds": 1.113197,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 44,
+      "eef_max_deviation_m": 0.0,
+      "stderr_tail": ""
+    },
+    {
+      "label": "both_missing_progress",
+      "command_record_id": "a78ed49f45b244daa706ff89c455cae4",
+      "returncode": 0,
+      "wall_seconds": 0.154476,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 44,
+      "eef_max_deviation_m": 0.0,
+      "stderr_tail": ""
+    },
+    {
+      "label": "missing_vs_zero_progress",
+      "command_record_id": "1542ffeff54a4b0a9a2d67324897ade0",
+      "returncode": 0,
+      "wall_seconds": 0.187839,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 44,
+      "eef_max_deviation_m": 0.0,
+      "stderr_tail": ""
+    },
+    {
+      "label": "both_unknown_outcomes",
+      "command_record_id": "39ba3fbcc43045ee819141a826ddcf5d",
+      "returncode": 0,
+      "wall_seconds": 0.186767,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 44,
+      "eef_max_deviation_m": 0.0,
+      "stderr_tail": ""
+    },
+    {
+      "label": "both_nonfinite_progress",
+      "command_record_id": "8450679387e443b480dd17c21a8373fa",
+      "returncode": 1,
+      "wall_seconds": 0.187142,
+      "reading": null,
+      "common_steps": null,
+      "eef_max_deviation_m": null,
+      "stderr_tail": "nisayon.evaluation.schema.Malformed: $: non-finite JSON constant NaN"
+    },
+    {
+      "label": "eef_exceeds_plan_prediction",
+      "command_record_id": "d15193e136034cec8c89a21e8e6b3fd1",
+      "returncode": 0,
+      "wall_seconds": 0.119502,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 44,
+      "eef_max_deviation_m": 0.02,
+      "stderr_tail": ""
+    },
+    {
+      "label": "truncated_raw_trace",
+      "command_record_id": "8ef05cd2f4cb4d72a7565b30e396e06f",
+      "returncode": 0,
+      "wall_seconds": 0.179155,
+      "reading": "E1: parity on outcome, steps and progress",
+      "common_steps": 1,
+      "eef_max_deviation_m": 0.0,
+      "stderr_tail": ""
+    }
+  ]
+}

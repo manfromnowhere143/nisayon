@@ -1,0 +1,24 @@
+{
+  "schema": "nisayon.a1-runtime-contract-intake-addendum.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:39:28Z",
+  "extends": {
+    "path": "contract-intake-001.json",
+    "sha256": "f4c5781caa00072233fbd4a0cbf3067999b505cacf1950ac4e115c95baa95889",
+    "preservation": "the original intake remains unchanged; this addendum records a later offline dependency finding"
+  },
+  "finding": {
+    "id": "I7-unbound-mink-dependency",
+    "severity": "blocking_for_installation",
+    "observed": "robosuite 1.5.1 declares mink>=0.0.5. Mink is neither installed nor represented by distribution metadata in the uv archive cache, and no matching archive or distribution path was found in the declared uv-cache and Downloads roots.",
+    "evidence": "held-dependency-inventory-001.json",
+    "effect": "contract v1 does not bind Mink's exact version, archive, digest, bytes, transitive requirements or applicable rights; its one-GET-per-uncached-requirement language is not an exact dependency plan and cannot execute with zero cumulative response slots remaining",
+    "required_resolution": "the prospective evaluator amendment must either pin and budget Mink plus all newly required transitive objects, or explicitly scope it out before execution with a source-grounded import and task-path argument plus a discriminating synthetic control; Daniel must authorize every required response above the current cumulative cap"
+  },
+  "state": {
+    "additional_network_requests": 0,
+    "package_installs": 0,
+    "environment_constructions": 0,
+    "attempt_slots_consumed": 0
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "b3ce4cc6616d4b6ea47c2e6d547274d0",
+  "label": "contract-closeout-20260919-retained-output-integrity",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "from pathlib import Path\nimport json\nfrom nisayon.engine.io import file_digest, write_json\nresults=Path(\"docs/experiments/results/contract-closeout-001\")\nbase=Path(\"artifacts/engine-integration-001\")\nchecked={}\nfor stage in (\"before-001\",\"before-002\",\"after-001\",\"after-002\"):\n manifest=results/(stage+\"-files.json\")\n rows=json.loads(manifest.read_text())\n folder=base/(\"contract-closeout-\"+stage)\n for name, expected in rows.items():\n  p=folder/name\n  assert p.stat().st_size==expected[\"bytes\"], p\n  assert file_digest(p)==expected[\"sha256\"], p\n checked[stage]={\"files\":len(rows),\"manifest_sha256\":file_digest(manifest),\"bytes\":sum(v[\"bytes\"] for v in rows.values())}\noutputs={}\nfor a,b in ((\"native-001.json\",\"contract-closeout-native-001.json\"),(\"foreign-001.json\",\"contract-closeout-foreign-001.json\"),(\"input-integrity-after-workflows.json\",\"contract-closeout-input-integrity-after-workflows.json\")):\n assert (results/a).read_bytes()==(base/b).read_bytes()\n outputs[a]=file_digest(results/a)\nfor before in (\"required-fields-001.json\",\"required-fields-001-artifacts.json\",\"audit_required_fields.py\"):\n import subprocess\n path=\"docs/experiments/results/engine-integration-001/\"+before\n assert Path(path).read_bytes()==subprocess.check_output([\"git\",\"show\",\"cc1a072:\"+path])\nwrite_json(base/\"contract-closeout-retained-output-audit.json\",{\"schema\":\"nisayon.contract-retained-output-audit.v1\",\"conformance\":checked,\"workflow_outputs\":outputs,\"original_omission_evidence_unchanged\":True})\nprint(json.dumps(checked,indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T15:46:22.120453+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "2822197717840f0922f5a97d6f390d29a04d826e",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 90,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 73201,
+  "returncode": 0,
+  "ended_at": "2026-09-19T15:46:27.362892+00:00",
+  "wall_seconds": 5.144857,
+  "logs": {
+    "stdout.log": {
+      "bytes": 625,
+      "sha256": "ad07b24af1f8eb205252ae0154fa1bafff3a78b51b2531c1d3895ce7f83a939a"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

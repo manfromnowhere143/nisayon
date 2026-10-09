@@ -1,0 +1,38 @@
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_failure_consuming_terminal_evidence_retains_all_preceding_declarations __
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-205/test_failure_consuming_termina0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x102506480>
+
+    def test_failure_consuming_terminal_evidence_retains_all_preceding_declarations(
+        tmp_path, monkeypatch
+    ):
+        original = workflow._bound
+    
+        def broken(root, reference):
+            if reference["path"].endswith("confirmation/decision.json"):
+                raise ValueError("Labelled injected terminal read failure")
+            return original(root, reference)
+    
+        monkeypatch.setattr(workflow, "_bound", broken)
+        output = tmp_path / "partial"
+        with pytest.raises(ValueError, match="terminal read failure"):
+            workflow.run_demo(SOURCE, PLAN, output)
+        rows = json.loads((output / "declarations.json").read_text())["rows"]
+        assert len(rows) == 20 and not (output / "packet.json").exists()
+        recovered = [
+            inspect_declaration(
+                output / row["case_id"] / row["arm"] / "declaration", evidence_root=output
+            )
+            for row in rows
+        ]
+        assert recovered[0]["state"] == "terminal_started_outcome_unknown"
+>       assert all(r["state"] == "declared_terminal_not_started" for r in recovered[1:])
+E       assert False
+E        +  where False = all(<generator object test_failure_consuming_terminal_evidence_retains_all_preceding_declarations.<locals>.<genexpr> at 0x10250a810>)
+
+tests/engine/test_retained_declarations.py:68: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_retained_declarations.py::test_failure_consuming_terminal_evidence_retains_all_preceding_declarations
+1 failed, 2 passed in 0.59s

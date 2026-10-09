@@ -1,0 +1,45 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "1dcafe5d83e94088a0d9c1ab41f54565",
+  "label": "temporal-integration-20260920-admission-conformance-analysis-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.io import digest,file_digest,write_json\nfrom nisayon.engine.temporal_workflow import load_assessment\nfrom scripts.experiments.audit_temporal_reconciliation import archive_packet\nraw=Path(\"artifacts/engine-integration-001/temporal-integration-001/admission-conformance-001\")\nroot=Path(\"docs/experiments/results/temporal-integration-001\")\nreport=load_assessment(raw/\"assessment\",raw/\"execution\")\nrows=[]\nfor row in report[\"assignments\"]:\n d=json.loads((raw/\"assessment\"/row[\"detail\"][\"path\"]).read_bytes());trace=d[\"inspection\"][\"trace\"]\n rows.append({\"assignment\":row[\"assignment\"],\"integrity\":row[\"integrity\"],\"process_outcome\":row[\"process_outcome\"],\"trace_sha256\":digest(trace),\"admissions\":[e for e in trace[\"events\"] if e[\"kind\"]==\"queue_admitted\"],\"dispatches\":[e for e in trace[\"events\"] if e[\"kind\"]==\"action_dispatched\"],\"refusals\":[e for e in trace[\"events\"] if e[\"kind\"]==\"dispatch_refused\"],\"reference_assessment\":d[\"reference_assessment\"],\"original_execution_costs\":row[\"original_execution_costs\"]})\ncollision=next(r for r in rows if r[\"assignment\"][\"id\"]==\"Y02-rejected-conflicting-delivery--conventional\")\nassert [e[\"value\"] for e in collision[\"dispatches\"]]==[1]\nassert collision[\"admissions\"][1][\"admitted\"]==[] and collision[\"admissions\"][1][\"replaced\"]==[]\nassert collision[\"admissions\"][1][\"reason\"]==\"chunk_identity_collision\"\nassert collision[\"dispatches\"][0][\"age_guard\"][\"lower_ns\"]==20_000_000\nassert collision[\"reference_assessment\"][\"age_readings\"][0][\"interval_used\"]==[120_000_000,120_000_000]\nreplacement=next(r for r in rows if r[\"assignment\"][\"id\"]==\"Y03-stale-distinct-replacement--conventional\")\nassert replacement[\"admissions\"][1][\"replaced\"]==[\"c0:0\"] and not replacement[\"dispatches\"]\narchive=archive_packet(raw,root/\"admission-conformance-001.tar.gz\")\nresult={\"schema\":\"nisayon.temporal-admission-conformance.v1\",\"execution_source_commit\":\"601b0b8e072b4a439c09e4fc5305dbf44aaa7e46\",\"evaluation_delivery\":\"8e5465051a583823ce8bf3914846e71046fbdeee\",\"reference_module_sha256\":file_digest(Path(\"src/nisayon/evaluation/temporal.py\")),\"capture\":json.loads((raw/\"capture.json\").read_bytes()),\"frozen_suite_sha256\":file_digest(root/\"frozen-admission-conformance.v1.json\"),\"assignments\":rows,\"archive\":archive,\"findings\":[\"Y02 ordinary producer rejects the conflicting delivery and dispatches original value 1 with exact age 20 ms; the reference reads 120 ms from the refused later response. Collision invalidation versus admission-bound interpretation requires owner disposition.\",\"Y03 ordinary dispatch-only policy replaces the fresh queued action with an already stale newer-request chunk, then refuses it at dispatch. This is observed policy behavior and a possible usefulness improvement, not a violation of the frozen latest-request rule. Any new admission guard must be separately named and provided to the conventional comparator too.\"],\"new_simulator_executions\":0,\"scientific_acceptance\":\"not_granted\"}\nwrite_json(root/\"admission-conformance-001.json\",result)\nprint(json.dumps({\"records\":8,\"collision_producer_age_ns\":20_000_000,\"collision_reference_age_ns\":120_000_000,\"replacement_dispatches\":0,\"archive_bytes\":archive[\"bytes\"]}))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T10:14:55.233281+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "601b0b8e072b4a439c09e4fc5305dbf44aaa7e46",
+    "changes": [
+      "?? docs/experiments/results/temporal-integration-001/admission-conformance-execution-001/"
+    ],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 53911,
+  "returncode": 0,
+  "ended_at": "2026-09-20T10:14:55.644961+00:00",
+  "wall_seconds": 0.358208,
+  "logs": {
+    "stdout.log": {
+      "bytes": 149,
+      "sha256": "683f93298355eb06ee9682308431c45f35d5c93139c4701e6b429c5391469822"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

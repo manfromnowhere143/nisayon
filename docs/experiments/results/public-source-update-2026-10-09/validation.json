@@ -1,0 +1,127 @@
+{
+  "schema": "nisayon.public-source-validation.v1",
+  "created_at": "2026-10-09T15:34:33.666923+00:00",
+  "source_revision": "1351a4a2cffb1d0e20811e7f1804af27bc30dde0",
+  "public_parent_revision": "886710e819c218b89b61ea7a4899ef01d2f2cd24",
+  "source_scope": "Exported research source with declared public documentation overlays; no private development ancestors.",
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "python": "3.12.13",
+  "installation": [
+    "uv",
+    "sync",
+    "--frozen"
+  ],
+  "profile": "fresh base development environment; no simulation extra or private raw stores",
+  "uv_lock_sha256": "c6fc0347e44021d2648c12b9dc62176879087af9ed6d1a8a935c0b8999e04be9",
+  "tests": {
+    "passed": 1133,
+    "skipped": 29,
+    "failed": 0,
+    "boundary": "Reported skips cover four optional-module collection skips and optional-simulation/private-store tests; this is software validation, not robot-platform qualification."
+  },
+  "lint": "passed",
+  "format": "passed",
+  "documentation": {
+    "initial_status": "failed",
+    "initial_missing_private_links": 3,
+    "correction": "Replace links to excluded private lane/continuation records with explicit provenance notes; do not copy the private records.",
+    "final_status": "passed",
+    "documents": 143,
+    "errors": []
+  },
+  "commands": [
+    {
+      "id": "38aec40d85904bdfb4252ee2a368c13d",
+      "label": "public-source-check-2026-10-09",
+      "command": [
+        "make",
+        "check"
+      ],
+      "started_at": "2026-10-09T15:28:10.504403+00:00",
+      "ended_at": "2026-10-09T15:32:50.135762+00:00",
+      "process_status": "nonzero",
+      "returncode": 2,
+      "wall_seconds": 279.591122,
+      "logs": {
+        "stdout.log": {
+          "bytes": 2072,
+          "sha256": "6c9d84018769d141759d32d48d6b88788fd0d6f4dca1c343c9e143261d19a502"
+        },
+        "stderr.log": {
+          "bytes": 26,
+          "sha256": "2a28a6bdbffc7d050702973de6826fdc6069dfea95558ae198b163e75b5f1fc1"
+        }
+      },
+      "original_run_record_sha256": "e747244ef365d6d3f9708a503af3b7d853b8a62cc5a880677a9d554276feff01"
+    },
+    {
+      "id": "e16f11db380d405f84188a41612fe764",
+      "label": "public-source-docs-after-exclusion",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "started_at": "2026-10-09T15:33:42.741682+00:00",
+      "ended_at": "2026-10-09T15:33:42.999442+00:00",
+      "process_status": "completed",
+      "returncode": 0,
+      "wall_seconds": 0.207364,
+      "logs": {
+        "stdout.log": {
+          "bytes": 140,
+          "sha256": "ffc312316e236e590f1d577804acf75968acc6f034ec77922a79049ee245e025"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "original_run_record_sha256": "bb439e539ec9ab6a121993347e138f9d6c8ccfd72b6451410fbad20dd08a79d4"
+    }
+  ],
+  "publication_scope_review": {
+    "files": 4732,
+    "decoded_bytes_scanned": 1084375456,
+    "archives_inventoried": 10,
+    "forbidden_archive_members": [],
+    "unexpected_source_drift": [],
+    "credential_pattern_matches": 3,
+    "false_positive_dispositions": [
+      {
+        "path": "docs/experiments/results/task-qualification-001/finding-disposition-readback-001.json",
+        "rule": "provider_key",
+        "matches": 1,
+        "values": "withheld",
+        "disposition": "false_positive",
+        "reason": "The unanchored pattern matches sk- inside the descriptive nisayon.task-qualification-* schema name, not a provider credential.",
+        "schema": "nisayon.task-qualification-finding-disposition-readback.v1",
+        "matched_value_sha256": "7443ba1f1e44e6b782053c19b6491ba004ba70783b2fdef4c3bda660ec85ac6d"
+      },
+      {
+        "path": "docs/experiments/results/task-qualification-001/integration-finding-001.json",
+        "rule": "provider_key",
+        "matches": 1,
+        "values": "withheld",
+        "disposition": "false_positive",
+        "reason": "The unanchored pattern matches sk- inside the descriptive nisayon.task-qualification-* schema name, not a provider credential.",
+        "schema": "nisayon.task-qualification-integration-finding.v1",
+        "matched_value_sha256": "303b75d0c7fa5bea3ad3162b42b134f905ae181de75bc867de680a21a3d9370c"
+      },
+      {
+        "path": "docs/experiments/results/task-qualification-001/integration-readback-001.json",
+        "rule": "provider_key",
+        "matches": 1,
+        "values": "withheld",
+        "disposition": "false_positive",
+        "reason": "The unanchored pattern matches sk- inside the descriptive nisayon.task-qualification-* schema name, not a provider credential.",
+        "schema": "nisayon.task-qualification-integration-readback.v1",
+        "matched_value_sha256": "2fbf1b8402b7b9e2d03ba4dd9bd90824d51497df16e4f3099d624a1b89197508"
+      }
+    ],
+    "unresolved_credential_findings": 0,
+    "limits": "Pattern scan and archive-member inventory; no proof of absence of all possible sensitive data. Current/archived handoffs, memory, client settings, lanes and payload stores excluded by export."
+  },
+  "research_execution": "No new policy, simulator, training, reserved condition or hardware operation. Historical outcomes and source archives unchanged.",
+  "publication_status": "Local qualification record; remote commit and CI are verified separately."
+}

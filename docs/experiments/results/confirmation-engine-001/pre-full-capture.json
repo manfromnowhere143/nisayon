@@ -1,0 +1,1312 @@
+{
+  "schema": "nisayon.confirmation-engine-cost-capture.v1",
+  "recorded_at": "2026-09-19T19:44:06.799651+00:00",
+  "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+  "phase_started_at": "2026-09-19T18:55:33Z",
+  "original_mission_started_at": "2026-09-17T21:30:41Z",
+  "command_records": [
+    {
+      "schema": "nisayon.run.v1",
+      "id": "02a267b813ca4581aa197ff628998563",
+      "label": "confirmation-engine-20260919-method-consumption",
+      "command": [
+        "python",
+        "scripts/experiments/consume_confirmation_view.py",
+        "--export",
+        "artifacts/engine-integration-001/confirmation-engine-001/full-export-002",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/consumption-001.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:41:36.162569+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 15813,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:41:42.740211+00:00",
+      "wall_seconds": 6.504824,
+      "logs": {
+        "stdout.log": {
+          "bytes": 105,
+          "sha256": "ec97e6e8ff3ec1bbfa22b5449896df535a2314fc4a9041f8cc030376c220d9a7"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "0fab8f5395274604a7e9af826f87bb15",
+      "label": "confirmation-engine-20260919-profile-initial",
+      "command": [
+        "python",
+        "scripts/experiments/profile_confirmation_view.py",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/profile-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:26:05.533344+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "e94cd7cb2ded6998b673a474062020893fc7a72d",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 670.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 93827,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:27:39.337303+00:00",
+      "wall_seconds": 93.749609,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1284,
+          "sha256": "8eeec7ac6f980194d19cf9a48656a17e0a92ff59ee9018c78c2c0adfccd7e871"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "20474ed1565242d98f2a283c5a4bef75",
+      "label": "confirmation-engine-20260919-pre-full-lint",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "."
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:44:06.290730+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md",
+          "?? docs/experiments/results/confirmation-engine-001/D01-gripper-sign-evaluation.json",
+          "?? docs/experiments/results/confirmation-engine-001/D05-recurrent-carry-evaluation.json",
+          "?? docs/experiments/results/confirmation-engine-001/consumption-001.json",
+          "?? docs/experiments/results/confirmation-engine-001/costs.json",
+          "?? docs/experiments/results/confirmation-engine-001/export-audit-001.json",
+          "?? docs/experiments/results/confirmation-engine-001/export-manifest.json",
+          "?? docs/experiments/results/confirmation-engine-001/export-timing.json",
+          "?? docs/experiments/results/confirmation-engine-001/finite-readback.json",
+          "?? docs/experiments/results/confirmation-engine-001/original-input-audit.json",
+          "?? docs/experiments/results/confirmation-engine-001/profile-corrected.json",
+          "?? docs/experiments/results/confirmation-engine-001/profile-initial.json",
+          "?? docs/experiments/results/confirmation-engine-001/recovery.json",
+          "?? docs/experiments/results/confirmation-engine-001/retained-output-manifest.json",
+          "?? docs/experiments/results/confirmation-engine-001/view.json.gz"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 98 ++++++++++++++++++++--\n 2 files changed, 92 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 19660,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:44:06.633022+00:00",
+      "wall_seconds": 0.259576,
+      "logs": {
+        "stdout.log": {
+          "bytes": 19,
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "2f75325f49984e05bcd55509a28584b3",
+      "label": "confirmation-engine-20260919-output-controls",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "-k",
+        "changed_export or cli_cannot_write"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:37:30.319248+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "045cf96d65c2742409a7b41617056e08413f6084",
+        "changes": [
+          "M src/nisayon/engine/confirmation_pairs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          " M tests/engine/test_confirmation_view.py",
+          "?? docs/experiments/results/confirmation-engine-001/capture_phase.py",
+          "?? scripts/experiments/audit_confirmation_export.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_pairs.py |  5 +--\n src/nisayon/engine/confirmation_view.py  | 22 ++++++++++++-\n tests/engine/test_confirmation_view.py   | 55 ++++++++++++++++++++++++++++++--\n 3 files changed, 77 insertions(+), 5 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 11992,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:37:30.703579+00:00",
+      "wall_seconds": 0.276433,
+      "logs": {
+        "stdout.log": {
+          "bytes": 113,
+          "sha256": "9797777db32803d37973364e934166693520b7d5a7d7844c4907a337b11ae5f1"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "3ff59c1a68834ac8a643d76879fe1943",
+      "label": "confirmation-engine-20260919-inspect-actual",
+      "command": [
+        "python",
+        "-c",
+        "import json\nfrom pathlib import Path\nfor name in ('development-ablation-001','bounded-agent-comparison-001'):\n p=Path('docs/experiments/results')/name\n suite=json.loads((p/'frozen-suite.json').read_text()); ledger=json.loads((p/'comparison-ledger.json').read_text()); score=json.loads((p/'comparison-score.json').read_text())\n print(name, 'author',suite['cases'][0]['author_record'])\n print('ledger first',json.dumps(ledger['trials'][0])[:1100]);print('score case',json.dumps(score['cases'][0])[:1100])\n for arm in ('A','B'):\n  records=[json.loads(x.read_text()) for x in sorted(p.glob(f'*/{arm}/confirmation/confirmation-result.json'))]\n  keys=['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']\n  print(arm,len(records), {k:sum(r[k] for r in records) for k in keys}, 'runs',sum(r['costs']['physical_rollouts'] for r in records),'nestedwall',sum(r['costs']['known_run_wall_s'] for r in records))\n print('score costs',json.dumps(score['arms']['A']['costs']))\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution')\nb=json.loads((p/'bundle.json').read_text());run=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',json.dumps(b['confirmation'])[:1200]);print('run keys',list(run));print('run no trace',json.dumps({k:v for k,v in run.items() if k!='trace'})[:8500]);print('trace row',json.dumps(run['trace'][0])[:2500])\n"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:04:27.791348+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 48845,
+      "returncode": 1,
+      "ended_at": "2026-09-19T19:04:27.884040+00:00",
+      "wall_seconds": 0.02596,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1372,
+          "sha256": "2293d1e59effce21d14bf142759dcfb776e6d432f8f4bd64be34b777bd2db9bb"
+        },
+        "stderr.log": {
+          "bytes": 86,
+          "sha256": "cda0506e704b97ad6c88138611974ba7df89f484c0f2397a72721bc7fa2a3b2f"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "4471a1fd83fa4d32872c5bc9bebfd282",
+      "label": "confirmation-engine-20260919-final-export",
+      "command": [
+        "python",
+        "-m",
+        "nisayon.engine.confirmation_view",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/full-export-002"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:38:28.140049+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 13080,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:41:18.894053+00:00",
+      "wall_seconds": 170.698519,
+      "logs": {
+        "stdout.log": {
+          "bytes": 610,
+          "sha256": "7feaecf4f61f2bb4d431092f64b6243913826a4ff86186acf28790a37c168403"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "5c969478d74a4660bf9b5750b189a51e",
+      "label": "confirmation-engine-20260919-first-example",
+      "command": [
+        "python",
+        "-m",
+        "nisayon.engine.confirmation_view",
+        "--trial",
+        "development-ablation-001",
+        "D01-gripper-sign",
+        "A",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/example-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:12:51.361887+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [
+          "?? docs/experiments/results/confirmation-engine-001/",
+          "?? src/nisayon/engine/confirmation_costs.py",
+          "?? src/nisayon/engine/confirmation_pairs.py",
+          "?? src/nisayon/engine/confirmation_view.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 59291,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:12:52.368759+00:00",
+      "wall_seconds": 0.961903,
+      "logs": {
+        "stdout.log": {
+          "bytes": 607,
+          "sha256": "42ee8dd82815b552648a6d3f72cd4e03b1d0deae2bae1d2b5c2823af7715032a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "64c0642bcba947dd84a743c2b14b2d28",
+      "label": "confirmation-engine-20260919-export-audit",
+      "command": [
+        "python",
+        "scripts/experiments/audit_confirmation_export.py",
+        "--export",
+        "artifacts/engine-integration-001/confirmation-engine-001/full-export-002",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/export-audit-001.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:41:42.849600+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 15844,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:41:49.122141+00:00",
+      "wall_seconds": 6.195442,
+      "logs": {
+        "stdout.log": {
+          "bytes": 3185,
+          "sha256": "529ef5fe12819c82d36811db07d72c990a70d66a3c45d0d98c46c71c6117eb42"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "6e7a31b537364e0fbcc6c4b5cd07c68c",
+      "label": "confirmation-engine-20260919-example-corrected",
+      "command": [
+        "python",
+        "-m",
+        "nisayon.engine.confirmation_view",
+        "--trial",
+        "development-ablation-001",
+        "D01-gripper-sign",
+        "A",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/example-002"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:13:35.530083+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [
+          "?? docs/experiments/results/confirmation-engine-001/",
+          "?? src/nisayon/engine/confirmation_costs.py",
+          "?? src/nisayon/engine/confirmation_pairs.py",
+          "?? src/nisayon/engine/confirmation_view.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 63083,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:13:43.528590+00:00",
+      "wall_seconds": 7.935439,
+      "logs": {
+        "stdout.log": {
+          "bytes": 606,
+          "sha256": "ec8070350d7b535e0e9a0312164746e5335b7478b5dd9e318c33c34a75a9a4b0"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "6e9146c047484f828ac8f0dfa5ac307a",
+      "label": "confirmation-engine-20260919-full-export-initial",
+      "command": [
+        "python",
+        "-m",
+        "nisayon.engine.confirmation_view",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/full-export-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:15:32.039815+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "6ce4fb25ec06301531676721cd37b3f6302bd04c",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 66855,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:18:23.815738+00:00",
+      "wall_seconds": 171.716415,
+      "logs": {
+        "stdout.log": {
+          "bytes": 610,
+          "sha256": "befae80ae6cf88dde6b7efdbdbd0b7cedc164d5d1845f5b4c8b0357c69496595"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7606342f97c343c5be6fbdae61d7f5ba",
+      "label": "confirmation-engine-20260919-profile-corrected",
+      "command": [
+        "python",
+        "scripts/experiments/profile_confirmation_view.py",
+        "--prior-profile",
+        "artifacts/engine-integration-001/confirmation-engine-001/profile-001/profile.json",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/profile-002"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:30:20.965490+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "045cf96d65c2742409a7b41617056e08413f6084",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": 670.0,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 2796,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:31:57.512266+00:00",
+      "wall_seconds": 96.491889,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1546,
+          "sha256": "0bc2dbd9ba26e566230b4353071619b0d6b5bfda72b06366c0e6050c1c5a04c9"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "79a6e0da52eb4a35b5475c4a0d5d0f57",
+      "label": "confirmation-engine-20260919-inspect-shapes",
+      "command": [
+        "python",
+        "-c",
+        "import json\nfrom pathlib import Path\nfor name in ('development-ablation-001','bounded-agent-comparison-001'):\n p=Path('docs/experiments/results')/name\n suite=json.loads((p/'frozen-suite.json').read_text()); score=json.loads((p/'comparison-score.json').read_text())\n print(name,'suite',suite['id'],'case author',suite['cases'][0]['author_record'],'score cases type',type(score['cases']).__name__,'case value',str(score['cases'])[:1400])\n for arm in ('A','B'):\n  records=[json.loads(x.read_text()) for x in sorted(p.glob(f'*/{arm}/confirmation/confirmation-result.json'))]\n  keys=['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']\n  print(arm,len(records), {k:sum(r[k] for r in records) for k in keys}, 'runs',sum(r['costs']['physical_rollouts'] for r in records),'nestedwall',sum(r['costs']['known_run_wall_s'] for r in records))\n print('score costs',score['arms']['A']['costs'])\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution')\nb=json.loads((p/'bundle.json').read_text());run=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',str(b['confirmation'])[:1200]);print('run no trace',json.dumps({k:v for k,v in run.items() if k!='trace'})[:7800]);print('trace row',str(run['trace'][0])[:2400])\n"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:04:54.766489+00:00",
+      "process_status": "nonzero",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 50754,
+      "returncode": 1,
+      "ended_at": "2026-09-19T19:04:54.854152+00:00",
+      "wall_seconds": 0.027238,
+      "logs": {
+        "stdout.log": {
+          "bytes": 3048,
+          "sha256": "20ea56d5cc4ca345eb5a7b49da5892aa3fdf63e49e3b0a19a0805372b3539476"
+        },
+        "stderr.log": {
+          "bytes": 100,
+          "sha256": "96268255fe76173916958c73203808a8cf1f6cf69701cb928663446627593f9a"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7b5415607dca4605990f47b32e03e7d4",
+      "label": "confirmation-engine-20260919-finite-readback",
+      "command": [
+        "python",
+        "-c",
+        "from pathlib import Path\nfrom nisayon.evaluation.decision import evaluate_bundle\nfrom nisayon.engine.io import write_json\nrecords=[]\nfor case,expected in [('D01-gripper-sign','accepted'),('D05-recurrent-carry','rejected')]:\n root=Path('artifacts/development-ablation-001')/case/'A/confirmation/execution'\n result=evaluate_bundle(root/'bundle.json',artifact_root=root)\n assert result['decision']==expected, (case,result['decision'])\n write_json(Path('artifacts/engine-integration-001/confirmation-engine-001')/(case+'-evaluation.json'),result)\n records.append({'case':case,'decision':result['decision'],'reason_codes':[r['code'] for r in result['reasons']],'evaluation_wall_s':result['evaluation_wall_s']})\nwrite_json(Path('artifacts/engine-integration-001/confirmation-engine-001/finite-readback.json'),{'records':records,'new_simulator_executions':0,'scope':'Read-only current evaluator on the original actual stores; original decisions untouched'})\nprint(records)\n"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:42:07.441231+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 16544,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:42:28.349575+00:00",
+      "wall_seconds": 20.832553,
+      "logs": {
+        "stdout.log": {
+          "bytes": 230,
+          "sha256": "af7d1a3f19df3e5e369af1ab202a800470a294c3cc2ae5e012881a50d4ceac2f"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7b75f81a411e4624bc70b93ff202d013",
+      "label": "confirmation-engine-20260919-inspect-bounded",
+      "command": [
+        "python",
+        "-c",
+        "import json\nfrom pathlib import Path\np=Path('docs/experiments/results/bounded-agent-comparison-001')\nsuite=json.loads((p/'frozen-suite.json').read_text());score=json.loads((p/'comparison-score.json').read_text())\nprint('case',json.dumps({k:v for k,v in suite['cases'][0].items() if k!='frozen'}))\nfor arm in ('A','B'):\n r=[json.loads(x.read_text()) for x in p.glob(f'*/{arm}/confirmation/confirmation-result.json')]\n print(arm,{k:sum(x[k] for x in r) for k in ['preparation_wall_s','execution_and_integrity_wall_s','final_evaluation_wall_s','phase_wall_s']},'nested',sum(x['costs']['known_run_wall_s'] for x in r))\np=Path('artifacts/development-ablation-001/D05-recurrent-carry/A/confirmation/execution');b=json.loads((p/'bundle.json').read_text());r=b['runs'][1]\nprint('bundle keys',list(b));print('confirmation',str(b['confirmation'])[:1400]);print('run no trace',json.dumps({k:v for k,v in r.items() if k!='trace'})[:10000]);print('trace row',str(r['trace'][0])[:2800])\n"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:05:11.766018+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 52182,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:05:12.113820+00:00",
+      "wall_seconds": 0.279574,
+      "logs": {
+        "stdout.log": {
+          "bytes": 15129,
+          "sha256": "a9c4872230b22492267f9ba7c54ea17755edddf802832df8fef3d9c855c2ac61"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "7f3eb273aa8e49ffa32a72bc8997a516",
+      "label": "confirmation-engine-20260919-retain-outputs",
+      "command": [
+        "python",
+        "-c",
+        "import gzip,json,shutil\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest,write_json\nraw=Path('artifacts/engine-integration-001/confirmation-engine-001')\nout=Path('docs/experiments/results/confirmation-engine-001')\ncopied=[]\nfor name in ['consumption-001.json','export-audit-001.json','original-input-audit.json','finite-readback.json','D01-gripper-sign-evaluation.json','D05-recurrent-carry-evaluation.json']:\n target=out/name\n shutil.copyfile(raw/name,target)\n copied.append({'path':name,'sha256':file_digest(target)})\nfor stem,relative in [('profile-initial','profile-001/profile.json'),('profile-corrected','profile-002/profile.json'),('recovery','recovery-001/recovery.json'),('export-manifest','full-export-002/manifest.json'),('export-timing','full-export-002/timing.json'),('costs','full-export-002/costs.json')]:\n target=out/(stem+'.json')\n shutil.copyfile(raw/relative,target)\n copied.append({'path':target.name,'sha256':file_digest(target),'source_path':str(raw/relative)})\ndata=(raw/'full-export-002/view.json').read_bytes()\ntarget=out/'view.json.gz'\nwith target.open('xb') as stream:\n stream.write(gzip.compress(data,mtime=0))\ncopied.append({'path':target.name,'sha256':file_digest(target),'bytes':target.stat().st_size,'uncompressed_sha256':file_digest(raw/'full-export-002/view.json'),'uncompressed_bytes':len(data)})\nwrite_json(out/'retained-output-manifest.json',{'schema':'nisayon.confirmation-retained-output.v1','implementation_commit':'f4b1880b716c4194c3fd4392e06c9dc484315250','profiled_commit':'045cf96d65c2742409a7b41617056e08413f6084','source_commit':'14e7805643dfe32252f2b46926512807d56c0035','raw_root_locator':str(raw.resolve()),'outputs':copied,'status':'derived_views_raw_stores_required','scientific_acceptance':'none'})\nprint({'retained_files':len(copied),'view_compressed_bytes':target.stat().st_size})\n"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:43:29.580876+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 18628,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:43:29.834483+00:00",
+      "wall_seconds": 0.189121,
+      "logs": {
+        "stdout.log": {
+          "bytes": 57,
+          "sha256": "2a671463819863fa85a18b25edcb170b4bd3d41f76f89057d4de7a0cd060011d"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "84eb3b36af7b4c04969638f5829c85e4",
+      "label": "confirmation-engine-20260919-reader-controls-002",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "tests/engine/test_confirmation_view.py",
+        "tests/evaluation/test_confirmation_feasibility.py",
+        "tests/evaluation/test_evaluation_cancellation.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:21:30.080497+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "6ce4fb25ec06301531676721cd37b3f6302bd04c",
+        "changes": [
+          "M src/nisayon/engine/confirmation_costs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          "?? scripts/experiments/profile_confirmation_view.py",
+          "?? tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_costs.py | 27 +++++++++++++++++++++++\n src/nisayon/engine/confirmation_view.py  | 37 ++++++++++++++++++++++++++++++--\n 2 files changed, 62 insertions(+), 2 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 81106,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:21:45.689153+00:00",
+      "wall_seconds": 15.521484,
+      "logs": {
+        "stdout.log": {
+          "bytes": 80,
+          "sha256": "b1caae85ec31d08a00b70488af9cc30676ea609b8012c2800620e199adf3bcb2"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "88c38e55fa2d4a329979798e2b0edd37",
+      "label": "confirmation-engine-20260919-inspect",
+      "command": [
+        "python",
+        "-"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:03:58.938415+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 46504,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:03:59.014424+00:00",
+      "wall_seconds": 0.014949,
+      "logs": {
+        "stdout.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "91685046177047018432ebb0bbc611a3",
+      "label": "confirmation-engine-20260919-initial-format",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "format",
+        "src/nisayon/engine/confirmation_costs.py",
+        "src/nisayon/engine/confirmation_pairs.py",
+        "src/nisayon/engine/confirmation_view.py",
+        "docs/experiments/results/confirmation-engine-001/resource_check.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:12:50.989301+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [
+          "?? docs/experiments/results/confirmation-engine-001/",
+          "?? src/nisayon/engine/confirmation_costs.py",
+          "?? src/nisayon/engine/confirmation_pairs.py",
+          "?? src/nisayon/engine/confirmation_view.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 59281,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:12:51.292836+00:00",
+      "wall_seconds": 0.240802,
+      "logs": {
+        "stdout.log": {
+          "bytes": 43,
+          "sha256": "1dc6a19feae160e87088a6a505f8844ac8bfdaf9001c9c3cc558beceb0f6c9d9"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "9a4582fa932f4cc58d9cedfa153b2dde",
+      "label": "confirmation-engine-20260919-controls-003",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "tests/evaluation/test_confirmation_feasibility.py",
+        "tests/evaluation/test_evaluation_cancellation.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:24:43.224248+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "6ce4fb25ec06301531676721cd37b3f6302bd04c",
+        "changes": [
+          "M src/nisayon/engine/confirmation_costs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          "?? scripts/experiments/consume_confirmation_view.py",
+          "?? scripts/experiments/profile_confirmation_view.py",
+          "?? scripts/experiments/recover_confirmation_view.py",
+          "?? tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_costs.py | 27 ++++++++++++++++++++++\n src/nisayon/engine/confirmation_view.py  | 39 ++++++++++++++++++++++++++++++--\n 2 files changed, 64 insertions(+), 2 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 90688,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:24:58.820837+00:00",
+      "wall_seconds": 15.530381,
+      "logs": {
+        "stdout.log": {
+          "bytes": 100,
+          "sha256": "1850040b6f9c78312d83607cb3a7cc0b760d1120cad3ba608ee034f7ab251c09"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "ad3bc4229abc4985a8c7e8ce296eb87c",
+      "label": "confirmation-engine-20260919-document-check",
+      "command": [
+        "python",
+        "scripts/check_docs.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:37:30.776896+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "045cf96d65c2742409a7b41617056e08413f6084",
+        "changes": [
+          "M src/nisayon/engine/confirmation_pairs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          " M tests/engine/test_confirmation_view.py",
+          "?? docs/experiments/results/confirmation-engine-001/capture_phase.py",
+          "?? scripts/experiments/audit_confirmation_export.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_pairs.py |  5 +--\n src/nisayon/engine/confirmation_view.py  | 22 ++++++++++++-\n tests/engine/test_confirmation_view.py   | 55 ++++++++++++++++++++++++++++++--\n 3 files changed, 77 insertions(+), 5 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 12002,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:37:33.963790+00:00",
+      "wall_seconds": 3.135454,
+      "logs": {
+        "stdout.log": {
+          "bytes": 139,
+          "sha256": "8fd4f5e79ba87388baf6cd99926674f73d89175dca6591dd7634bb972863bdd1"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "bb4b12788bbf44e189ebb1ea03767df6",
+      "label": "confirmation-engine-20260919-reader-final-controls",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "tests/evaluation/test_confirmation_feasibility.py",
+        "tests/evaluation/test_evaluation_cancellation.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:34:54.248774+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "045cf96d65c2742409a7b41617056e08413f6084",
+        "changes": [
+          "M src/nisayon/engine/confirmation_pairs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          " M tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_pairs.py |  5 +++--\n src/nisayon/engine/confirmation_view.py  | 22 +++++++++++++++++++++-\n tests/engine/test_confirmation_view.py   | 13 ++++++++++++-\n 3 files changed, 36 insertions(+), 4 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 10462,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:35:09.906024+00:00",
+      "wall_seconds": 15.59706,
+      "logs": {
+        "stdout.log": {
+          "bytes": 100,
+          "sha256": "db8c92d55e13b51a5eee1552d59614c6c5d959d1114f70fd63f041187ebc5b22"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "e68270e34eb44cbc8f2276b164bbafb0",
+      "label": "confirmation-engine-20260919-original-input-audit",
+      "command": [
+        "python",
+        "docs/experiments/results/engine-integration-001/audit_inputs.py",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/original-input-audit.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:42:07.441155+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+        "changes": [
+          "M docs/experiments/README.md",
+          " M docs/experiments/results/confirmation-engine-001/README.md"
+        ],
+        "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 16543,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:42:08.245938+00:00",
+      "wall_seconds": 0.728917,
+      "logs": {
+        "stdout.log": {
+          "bytes": 773,
+          "sha256": "c87105f4304a5d42cf4c773e9247ca2f162d1dfef74f1c3d4a0dd27bf0c728cb"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "f957fd3bde9d4e03b8f3bab8ed952f5c",
+      "label": "confirmation-engine-20260919-order-control",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "tests/engine/test_confirmation_view.py",
+        "-k",
+        "selected_analysis_order or reused_view"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:30:04.405865+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "e94cd7cb2ded6998b673a474062020893fc7a72d",
+        "changes": [
+          "M README.md",
+          " M scripts/experiments/profile_confirmation_view.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          " M tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": "README.md                                        | 29 ++++++++++++++++++++++++\n scripts/experiments/profile_confirmation_view.py | 20 ++++++++++++++--\n src/nisayon/engine/confirmation_view.py          | 17 +++++++++-----\n tests/engine/test_confirmation_view.py           | 16 +++++++++++++\n 4 files changed, 74 insertions(+), 8 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 1741,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:30:04.912575+00:00",
+      "wall_seconds": 0.380359,
+      "logs": {
+        "stdout.log": {
+          "bytes": 113,
+          "sha256": "8483b428a04c521117fec27e11944e8b8a19426043d70143e28017112a081834"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "f9c9f29ed1ab40c2931d31a16553e391",
+      "label": "confirmation-engine-20260919-recovery",
+      "command": [
+        "python",
+        "scripts/experiments/recover_confirmation_view.py",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/recovery-001"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:33:21.240909+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "045cf96d65c2742409a7b41617056e08413f6084",
+        "changes": [
+          "M src/nisayon/engine/confirmation_pairs.py",
+          " M src/nisayon/engine/confirmation_view.py",
+          " M tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": "src/nisayon/engine/confirmation_pairs.py |  5 +++--\n src/nisayon/engine/confirmation_view.py  | 10 ++++++++++\n tests/engine/test_confirmation_view.py   | 13 ++++++++++++-\n 3 files changed, 25 insertions(+), 3 deletions(-)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 8339,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:33:38.659321+00:00",
+      "wall_seconds": 17.280584,
+      "logs": {
+        "stdout.log": {
+          "bytes": 136,
+          "sha256": "03cbebe98a38ca99017db4e7cabd189a4672ab5b2e936f119fefe948c75afcde"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "fb0ad5dd93394126b69237f514b60847",
+      "label": "confirmation-engine-20260919-interface-check",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "src/nisayon/engine/confirmation_costs.py",
+        "src/nisayon/engine/confirmation_pairs.py",
+        "src/nisayon/engine/confirmation_view.py",
+        "docs/experiments/results/confirmation-engine-001/resource_check.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:15:02.870766+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [
+          "M work/lanes/codex.md",
+          "?? docs/experiments/results/confirmation-engine-001/",
+          "?? memory/checkpoints/3fa15a58daf64afcbdfc7e8036f38516.json",
+          "?? src/nisayon/engine/confirmation_costs.py",
+          "?? src/nisayon/engine/confirmation_pairs.py",
+          "?? src/nisayon/engine/confirmation_view.py"
+        ],
+        "diff_stat": "work/lanes/codex.md | 30 ++++++++++++++++++++++++++++++\n 1 file changed, 30 insertions(+)"
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 64846,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:15:02.975791+00:00",
+      "wall_seconds": 0.053934,
+      "logs": {
+        "stdout.log": {
+          "bytes": 19,
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "fe9d477fb9e04e1e930ed6b3837b90c0",
+      "label": "confirmation-engine-20260919-resource-preflight",
+      "command": [
+        "python",
+        "docs/experiments/results/confirmation-engine-001/resource_check.py",
+        "--out",
+        "artifacts/engine-integration-001/confirmation-engine-001/resource-preflight.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:07:34.195481+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "14e7805643dfe32252f2b46926512807d56c0035",
+        "changes": [
+          "?? docs/experiments/results/confirmation-engine-001/",
+          "?? src/nisayon/engine/confirmation_costs.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 55963,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:07:39.998930+00:00",
+      "wall_seconds": 5.682486,
+      "logs": {
+        "stdout.log": {
+          "bytes": 2817,
+          "sha256": "3c0c8690989e3e177d4d9586504395c8618e66807c29d6883065bf4876a57474"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "schema": "nisayon.run.v1",
+      "id": "ff052e6a837142d5a172cd26d10137a9",
+      "label": "confirmation-engine-20260919-focused-pairs",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "pytest",
+        "-q",
+        "tests/engine/test_confirmation_view.py"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+      "started_at": "2026-09-19T19:17:41.228792+00:00",
+      "process_status": "completed",
+      "scientific_status": "not_assessed",
+      "git": {
+        "root": "/Users/danielwahnich/workspace/nisayon-codex",
+        "branch": "build/execution",
+        "head": "6ce4fb25ec06301531676721cd37b3f6302bd04c",
+        "changes": [
+          "?? tests/engine/test_confirmation_view.py"
+        ],
+        "diff_stat": ""
+      },
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "timeout_seconds": null,
+      "parent_command_record_id": null,
+      "parent_command_record_root_locator": null,
+      "pid": 69729,
+      "returncode": 0,
+      "ended_at": "2026-09-19T19:17:56.425740+00:00",
+      "wall_seconds": 15.138943,
+      "logs": {
+        "stdout.log": {
+          "bytes": 80,
+          "sha256": "c66ef7936b32d2201bf6eb901cf69cbc8e71996669c38afe1f70ad40098e04a3"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    }
+  ],
+  "new_phase": {
+    "known_command_wall_sum_s": 665.449848,
+    "summed_command_ids": [
+      "02a267b813ca4581aa197ff628998563",
+      "0fab8f5395274604a7e9af826f87bb15",
+      "20474ed1565242d98f2a283c5a4bef75",
+      "2f75325f49984e05bcd55509a28584b3",
+      "3ff59c1a68834ac8a643d76879fe1943",
+      "4471a1fd83fa4d32872c5bc9bebfd282",
+      "5c969478d74a4660bf9b5750b189a51e",
+      "64c0642bcba947dd84a743c2b14b2d28",
+      "6e7a31b537364e0fbcc6c4b5cd07c68c",
+      "6e9146c047484f828ac8f0dfa5ac307a",
+      "7606342f97c343c5be6fbdae61d7f5ba",
+      "79a6e0da52eb4a35b5475c4a0d5d0f57",
+      "7b5415607dca4605990f47b32e03e7d4",
+      "7b75f81a411e4624bc70b93ff202d013",
+      "7f3eb273aa8e49ffa32a72bc8997a516",
+      "84eb3b36af7b4c04969638f5829c85e4",
+      "88c38e55fa2d4a329979798e2b0edd37",
+      "91685046177047018432ebb0bbc611a3",
+      "9a4582fa932f4cc58d9cedfa153b2dde",
+      "ad3bc4229abc4985a8c7e8ce296eb87c",
+      "bb4b12788bbf44e189ebb1ea03767df6",
+      "e68270e34eb44cbc8f2276b164bbafb0",
+      "f957fd3bde9d4e03b8f3bab8ed952f5c",
+      "f9c9f29ed1ab40c2931d31a16553e391",
+      "fb0ad5dd93394126b69237f514b60847",
+      "fe9d477fb9e04e1e930ed6b3837b90c0",
+      "ff052e6a837142d5a172cd26d10137a9"
+    ],
+    "nested_not_added": [],
+    "unmeasured_command_ids": [],
+    "interpretation": "Sum of recorded command walls excluding measured descendants of measured commands; overlapping independent commands are resource costs, not elapsed session time. Invocation, rollout and inference walls are nested components and are not added."
+  },
+  "prior_scope_reference": {
+    "path": "docs/experiments/results/decision-case-001/final-capture.json",
+    "sha256": "f6f632d6e3eeb301741ea6ca77199e0a9d653c988c919ab5a3014d2f53ce1438"
+  },
+  "selected_prior_union_s": 8883.124601,
+  "selected_prior_plus_new_s": 9548.574449,
+  "separate_prior_closeout_readback_s": 5.831634375,
+  "evaluation_owner_reported_scopes_not_added": {
+    "delivery": "96ac31318cc5b6ba6d8c7015effd518ea45b0ba0",
+    "lane_reference": {
+      "path": "work/lanes/fable5.md",
+      "sha256": "2fdfd5bf7c2e45379a93e5f08ec6ecae7cd0089936b5eeab01bfadf12694cc08"
+    },
+    "six_research_commands_s": 22.184952,
+    "application_full_check_s": 225.763137,
+    "source_download_bytes_this_phase": 809541,
+    "cumulative_source_download_bytes": 2836848,
+    "boundary": "Reported in committed delivery, not an independently complete evaluation command ledger; unreported work stays unknown."
+  },
+  "unknown": [
+    "active engineering effort",
+    "unrecorded inspection/edit/Git/capture overhead",
+    "provider charges",
+    "energy"
+  ],
+  "cost_boundary": "Disjoint recorded execution-lane outer commands. Nested raw checks, rollout clocks, profiling stages and original preparation are not added again. This is not a whole-project economic total."
+}

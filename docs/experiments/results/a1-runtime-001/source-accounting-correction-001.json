@@ -1,0 +1,89 @@
+{
+  "schema": "nisayon.a1-runtime-source-accounting-correction.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:30:38Z",
+  "status": "authoritative cumulative counters reconciled; no further network response is authorized",
+  "supersedes_fields_only": [
+    {
+      "path": "docs/experiments/results/a1-runtime-001/capability-inventory-001.json",
+      "sha256": "3d1c474b1fe38a40043ec7c47e82372174c76264ba91e7180b58b880f798424b",
+      "fields": [
+        "resources.source_responses_used",
+        "resources.cumulative_source_download_body_bytes"
+      ],
+      "before": {
+        "source_responses_used": 6,
+        "cumulative_source_download_body_bytes": 21495048
+      }
+    },
+    {
+      "path": "docs/experiments/results/a1-runtime-001/source-reservation-001.json",
+      "sha256": "6d5f30d75601d445ddc8ba490d0e372638c7fd694f55d757952e5961d9e82d78",
+      "fields": [
+        "pre_request_accounting.source_responses_used",
+        "pre_request_accounting.cumulative_source_download_body_bytes",
+        "pre_request_accounting.maximum_after_reserved_response_count",
+        "pre_request_accounting.maximum_after_reserved_body_bytes"
+      ],
+      "before": {
+        "source_responses_used": 6,
+        "cumulative_source_download_body_bytes": 21495048
+      }
+    },
+    {
+      "path": ".nisayon/runs/628120123a8e42ca97540bf0884559c5/stdout.log",
+      "sha256": "2b293191b9d0d0975c47ec3b6e938f15345019d1957b2207e64f7f7af954bcf5",
+      "fields": [
+        "accounting_after_response.source_responses_used"
+      ],
+      "before": {
+        "source_responses_used": 7
+      },
+      "preservation": "the verifier output remains retained as before-evidence; only its cumulative-response reading is superseded"
+    }
+  ],
+  "authoritative_pre_request": {
+    "source": {
+      "path": "docs/experiments/results/a1-feasibility-001/source-ledger.v2.json",
+      "sha256": "d69a90c05543f42417a25057ea6f071f392acf2d0794dd58d4639e1939c20e86",
+      "confirming_path": "docs/experiments/results/a1-feasibility-001/post-execution-resource-v1.2.json",
+      "confirming_sha256": "50a4f0de8eb582183ae35f5894af10edc8a0b8f8b29c8fef2567031f2760e4ad"
+    },
+    "application_responses_consumed": 11,
+    "application_response_cap": 12,
+    "known_cumulative_source_body_bytes": 42669373,
+    "cumulative_source_body_cap_bytes": 67108864
+  },
+  "metadata_response": {
+    "command_record_id": "3bfd31c546434db1a84567bdd4ba77c3",
+    "command_record_sha256": "8aec5277ba00cb511b40a09a34dd101bb0d112956f4e9589e109fecd4480decb",
+    "application_responses": 1,
+    "redirects": 0,
+    "retries": 0,
+    "body_bytes": 8782,
+    "body_sha256": "f358e24c710943fc560502745f96dd62e64bc454bd812f49b98872aa4e667658"
+  },
+  "authoritative_post_request": {
+    "application_responses_consumed": 12,
+    "application_response_cap": 12,
+    "application_responses_remaining": 0,
+    "known_cumulative_source_body_bytes": 42678155,
+    "cumulative_source_body_cap_bytes": 67108864,
+    "known_cumulative_source_body_bytes_remaining": 24430709,
+    "within_limits": true,
+    "narrow_source_metadata_subledger": {
+      "body_bytes_consumed": 111686,
+      "body_cap_bytes": 2097152,
+      "note": "this narrower byte subledger remains within its cap but does not reset or replace the cumulative application-response ledger"
+    }
+  },
+  "cause": "the new inventory reused the pre-A1 normalizer-era counters instead of carrying forward source-ledger.v2 after the 21,084,088-byte A1 dataset acquisition and its two HTTP responses",
+  "impact": {
+    "past_request": "the one reserved PyPI metadata response consumed the final available response and did not exceed either byte cap",
+    "future_requests": "HEAD, Range, index, license and dependency-wheel responses are blocked unless Daniel explicitly amends the cumulative application-response cap",
+    "attempts": "no compatibility replay or development-policy attempt was assigned, started or consumed",
+    "execution": "no package archive, environment, physics step or policy action was acquired or executed"
+  },
+  "preservation": "the incorrect records and verifier output remain unchanged as before-evidence; this record supersedes only the named counters",
+  "publication": "private; no push or publication"
+}

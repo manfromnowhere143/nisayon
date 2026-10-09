@@ -14,6 +14,7 @@ nisayon = "nisayon.cli:main"
 nisayon-mcp = "nisayon.mcp_server:main"
 
 [project.optional-dependencies]
+records = ["h5py==3.16.0", "numpy==1.26.4"]
 simulation = [
     "mujoco==3.2.7",
     "numba==0.61.2",
@@ -27,7 +28,13 @@ simulation = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.4,<10", "ruff>=0.12,<1"]
+dev = [
+    "h5py==3.16.0",
+    "numpy==1.26.4",
+    "psutil==7.2.2",
+    "pytest>=8.4,<10",
+    "ruff>=0.12,<1",
+]
 
 [build-system]
 requires = ["uv_build>=0.11.28,<0.12"]
@@ -44,6 +51,7 @@ override-dependencies = ["egl-probe==1.0.2; sys_platform == 'linux'"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+tmp_path_retention_policy = "failed"
 
 [tool.ruff]
 line-length = 100

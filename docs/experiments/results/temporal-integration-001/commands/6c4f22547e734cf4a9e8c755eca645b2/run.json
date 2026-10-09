@@ -1,0 +1,45 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "6c4f22547e734cf4a9e8c755eca645b2",
+  "label": "temporal-integration-20260920-clock-conformance-analysis-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json\nfrom pathlib import Path\nfrom nisayon.engine.io import digest,file_digest,write_json\nfrom nisayon.engine.temporal_workflow import load_assessment\nfrom scripts.experiments.audit_temporal_reconciliation import archive_packet\nraw=Path(\"artifacts/engine-integration-001/temporal-integration-001/clock-conformance-001\")\nroot=Path(\"docs/experiments/results/temporal-integration-001\")\nreport=load_assessment(raw/\"assessment\",raw/\"execution\")\nrows=[];by_id={};traces={}\nfor row in report[\"assignments\"]:\n detail=json.loads((raw/\"assessment\"/row[\"detail\"][\"path\"]).read_bytes())\n identity=row[\"assignment\"][\"id\"]\n reference=detail[\"reference_assessment\"]\n trace=detail[\"inspection\"][\"trace\"]\n normalized=[{k:v for k,v in e.items() if k not in (\"input_id\",\"delivery_id\",\"dispatch_id\")} for e in trace[\"events\"]]\n entry={\"assignment\":row[\"assignment\"],\"trace_sha256\":digest(trace),\"integrity\":row[\"integrity\"],\"process_outcome\":row[\"process_outcome\"],\"reference_assessment\":reference,\"normalized_event_sha256\":digest(normalized),\"original_execution_costs\":row[\"original_execution_costs\"]}\n rows.append(entry);by_id[identity]=entry;traces[identity]=trace\npairs=[]\nfor remedy in (\"unfenced_queue_control\",\"conventional\"):\n a=\"C02-conflicting-fresh-first--\"+remedy;b=\"C03-conflicting-stale-first--\"+remedy\n mappings_a=traces[a][\"clocks\"][\"declared_mappings\"];mappings_b=traces[b][\"clocks\"][\"declared_mappings\"]\n assert mappings_a==list(reversed(mappings_b))\n assert by_id[a][\"normalized_event_sha256\"]==by_id[b][\"normalized_event_sha256\"]\n pairs.append({\"remedy\":remedy,\"fresh_first\":a,\"stale_first\":b,\"mapping_multiset_equal\":True,\"logical_events_equal_after_scoped_id_removal\":True,\"removed_identity_fields\":[\"input_id\",\"delivery_id\",\"dispatch_id\"],\"assigned_contracts\":[by_id[a][\"reference_assessment\"][\"assigned_contract\"],by_id[b][\"reference_assessment\"][\"assigned_contract\"]],\"freshness\":[by_id[a][\"reference_assessment\"][\"predicates\"][\"freshness\"][\"status\"],by_id[b][\"reference_assessment\"][\"predicates\"][\"freshness\"][\"status\"]]})\nassert pairs[0][\"assigned_contracts\"]==[\"satisfied\",\"violated\"]\nassert pairs[1][\"assigned_contracts\"]==[\"violated\",\"violated\"]\narchive=archive_packet(raw,root/\"clock-conformance-001.tar.gz\")\nresult={\"schema\":\"nisayon.temporal-clock-conformance.v1\",\"execution_source_commit\":\"7022cca5b96df4e47fa69673fd4eea6f734f3566\",\"evaluation_delivery\":\"8e5465051a583823ce8bf3914846e71046fbdeee\",\"reference_module_sha256\":file_digest(Path(\"src/nisayon/evaluation/temporal.py\")),\"capture\":json.loads((raw/\"capture.json\").read_bytes()),\"frozen_suite_sha256\":file_digest(root/\"frozen-clock-conformance.v1.json\"),\"assignments\":rows,\"permutation_pairs\":pairs,\"archive\":archive,\"conclusion\":\"Observed reference order dependence on conflicting clock declarations with no declared priority. The producer conventional guard refuses both; no robot acceptance or product advantage. Correct invalid-versus-unresolved disposition belongs to the evaluation owner.\",\"new_simulator_executions\":0,\"scientific_acceptance\":\"not_granted\"}\nwrite_json(root/\"clock-conformance-001.json\",result)\nprint(json.dumps({\"pairs\":pairs,\"archive_bytes\":archive[\"bytes\"]},indent=2))"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T10:03:32.115279+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "7022cca5b96df4e47fa69673fd4eea6f734f3566",
+    "changes": [
+      "?? docs/experiments/results/temporal-integration-001/clock-conformance-execution-001/"
+    ],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 36173,
+  "returncode": 0,
+  "ended_at": "2026-09-20T10:03:32.540988+00:00",
+  "wall_seconds": 0.367509,
+  "logs": {
+    "stdout.log": {
+      "bytes": 1141,
+      "sha256": "f661e49359f5896a56588e3c2293b25ba63b3f1f066822504b3f1004625148e6"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

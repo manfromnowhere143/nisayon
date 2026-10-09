@@ -1,0 +1,369 @@
+{
+  "schema": "nisayon.normalizer-execution.contract.v1.2",
+  "case": "normalizer-execution-001",
+  "frozen_at": "2026-09-21T05:20:00Z",
+  "frozen_before": "any scored producer output of this phase; the execution lane had published no interface or store when this was written",
+  "phase_start_utc": "2026-09-21T04:52:24Z",
+  "original_mission_clock": "2026-09-17T21:30:41Z",
+  "sources": {
+    "upstream_revision": "NVIDIA/Isaac-GR00T@1a1837f20538b7d7e21f977a11a5aee14f99803c",
+    "processing_gr00t_n1d7.py": "612558f74a2da6aab6293778a00d6c0805648bc2a8847ac525bc8263a85c901d",
+    "state_action_processor.py": "0151dd0bb6cb727fd401bf78121efc532e7184f2575e6ef25294085f629ac145",
+    "data_utils.py": "fa765b240295d9884ab62326c8a21465ae21e6f10133a4b68ac321e8101e4ab7",
+    "n1d7_listing": "53f7f1ef8768924bbde4248846c3bb8bf52db1c2a7003b8485d62e5ec6bbb392",
+    "demo_stats_json": "8283e003742e41f0a55cce468daee0c388e7d203e72b6a51d53c04765fb68110",
+    "demo_modality_json": "ecb86712195689112f8328c7952523e558d1b495dcbc3be7e2d4cd5a16a0cf6d",
+    "demo_info_json": "bed28e0687b6c4e32b10340a65beee744a130a9d31f428f7cffcaa63027b8783",
+    "episode_parquet": {
+      "groot-episode-000000.parquet": "2a593521d58a1e6b3c27d6d91641c2d4c8a12422cc4534d9bfab49b01e532e68",
+      "groot-episode-000001.parquet": "d02255b7218f7a89db07eea56477d8c283cc3c0afb996a8bf4553b2682fda75d",
+      "groot-episode-000002.parquet": "60ec6beaaf6b541d4321596758bfb69c96e2b9df8757fc2c9d70db32792790c9",
+      "groot-episode-000003.parquet": "21eed03b65778058696f14e676bf6a9d921bd7d128c6b6b2db749fdca1cea0f7",
+      "groot-episode-000004.parquet": "8e263ac6c3a1abb853a29d89c99d54c9e6a41a63d8a0acc5b31294804dd74a48"
+    },
+    "reading": "SEMANTIC_READING.md",
+    "not_retained": [
+      "gr00t/configs/data/embodiment_configs.py (ModalityConfig, ActionConfig, libero_sim configuration)",
+      "gr00t/data/embodiment_tags.py",
+      "any checkpoint processor_config.json or statistics.json",
+      "any training or inference invocation"
+    ]
+  },
+  "facets_kept_separate": [
+    "population identity and parent role (closed, imported)",
+    "selection invoked locally: constructor, set_statistics, override, mirror versus nested state",
+    "consumed mode, formula, coordinate order, dtype, effective parameters",
+    "save/load behavioral equivalence on an eligible domain",
+    "historical model or inference invocation",
+    "software validity, decision correctness, comparative value"
+  ],
+  "edge_status_expected_for_the_real_invocation": {
+    "1_configuration_selects_embodiment_modality_order_transform": "constructed (declared local modality configuration in modality.json order, min/max with clip) unless embodiment_configs.py is retained by the execution lane, then statically inferred for the pinned revision; never the historical checkpoint's configuration",
+    "2_effective_statistic_set": "observed if the sealed store records the nested statistics after the invocation and the override rule with existing/absent embodiments; the outer mirror is recorded separately",
+    "3_concrete_apply_operation": "observed if unchanged normalize_values_minmax/normalize_values_meanstd bodies and the apply_state/apply_action selectors executed on float32 rows; statically inferred otherwise",
+    "4_save_load_equivalence": "observed on the declared domain if save_pretrained's statistics writer and from_pretrained's JSON reader executed with the VLM/image construction cut and declared",
+    "5_keep_replace_follows_obligation": "graded by effective-map equivalence against the contract statistics on the declared domain",
+    "historical_deployment": "unresolved; cannot be established from retained bytes"
+  },
+  "numerical_obligation": {
+    "parameters": "per group: min,max,mean,std,q01,q99 as float64 arrays from JSON lists; dim = len(min)",
+    "mode_selector": "state: sincos if apply_sincos_state_encoding and group in state.sin_cos_embedding_keys; else meanstd if state.mean_std_embedding_keys names the group; else minmax then clip if clip_outliers. action: meanstd if action.mean_std_embedding_keys names the group else minmax; clip if clip_outliers in both branches. use_percentiles swaps min/max for q01/q99 in minmax. use_mean_std at the outer processor is inert.",
+    "minmax": "mask = ~isclose(max,min) with rtol 1e-5, atol 1e-8 measured against |min|; out = zeros_like(x); out[mask] = (x-min)/(max-min) evaluated in float64 and stored in x.dtype; out[mask] = 2*out[mask]-1 in x.dtype",
+    "meanstd": "mask = std != 0; out = zeros_like(x); out[mask] = (x-mean)/std evaluated in float64 and stored in x.dtype; out[~mask] = x",
+    "clip": "np.clip(out,-1,1) in x.dtype when selected",
+    "inverse_minmax": "(clip(y,-1,1)+1)/2*(max-min)+min, no mask, no floor",
+    "inverse_meanstd": "y*std+mean on the mask, passthrough elsewhere",
+    "coordinate_order": "groups in modality_keys order, each group sliced from the flat vector by modality.json start/end; concatenated then zero-padded to max_state_dim/max_action_dim",
+    "row_dtype_on_pinned_path": "float32 (single-step dataset astype(np.float32))",
+    "unused": "the 1e-8 floored range is discarded; no epsilon reaches the transform"
+  },
+  "tolerance_policy": {
+    "T_exact": "masks, mode selection, dims, coordinate order, clipping flags, JSON round trip of float64 statistics: exact",
+    "T_emul": "executed float32 outputs versus the reference emulation of the same IEEE elementwise operations (float64 evaluation, float32 store, float32 affine): 0 ulp expected; a difference is a finding about the emulation or the execution, reported with the coordinate and the values",
+    "T_rational": "exact rational value of the transform (fractions.Fraction) versus the executed float32 output: |diff| <= 1.5 ulp32(|out|) + ulp32(1) for minmax (two roundings), 0.5 ulp32 for meanstd (one rounding); used to explain, not to relax",
+    "T_conv": "conventional diagnostic float64 outputs versus executed float32: |diff| <= 2^-24*|out| + 2^-24, the float32 store bound",
+    "not_copied": "the population-binding float32 pooling tolerance does not apply to this transform"
+  },
+  "decision_rule": {
+    "operations": [
+      "keep",
+      "replace",
+      "abstain",
+      "invalid"
+    ],
+    "decisions": [
+      "supported",
+      "rejected",
+      "unresolved",
+      "invalid"
+    ],
+    "inputs": "contract statistics S* with evidence, existing processor statistics S0 (may be absent), candidate statistics S1, override flag, configuration, declared domain D (retained rows or declared bounds), execution record",
+    "effective": "S_eff = S0 for embodiments present in S0 when override is False, else S1",
+    "keep": "supported iff S0 present and map(S0) == map(S*) on D (effective outputs, T_emul); rejected with a witness row when map(S0) != map(S*) on D",
+    "replace": "supported iff map(S1) == map(S*) on D; rejected with a witness row otherwise",
+    "abstain": "unresolved when S* is not established by evidence, when the execution binding of the declared invocation is not established (declaration, digest or symbol only), or when the selector for a required group is missing",
+    "invalid": "missing required statistic for any group, shape mismatch, non-finite statistics or rows, empty domain, undeclared embodiment; a process failure is reported as failed, not decided",
+    "counts": [
+      "useful_acceptance",
+      "false_acceptance",
+      "false_refusal",
+      "unjustified_replacement",
+      "unjustified_reuse",
+      "unresolved",
+      "invalid"
+    ],
+    "non_authorities": [
+      "a label, role name or candidate order",
+      "a prefilled status",
+      "a source digest or symbol name without a call record",
+      "parameter equality or inequality without effective-map comparison",
+      "exit code zero",
+      "producer-evaluator agreement"
+    ]
+  },
+  "real_invocation": {
+    "embodiment": "libero (declared local tag; libero_sim projector index 2 in the retained processor)",
+    "groups": {
+      "state": [
+        "x",
+        "y",
+        "z",
+        "roll",
+        "pitch",
+        "yaw",
+        "gripper"
+      ],
+      "action": [
+        "x",
+        "y",
+        "z",
+        "roll",
+        "pitch",
+        "yaw",
+        "gripper"
+      ]
+    },
+    "slicing": "modality.json start/end on observation.state (8) and action (7)",
+    "flags_declared": {
+      "use_percentiles": false,
+      "clip_outliers": true,
+      "apply_sincos_state_encoding": false,
+      "use_relative_action": false,
+      "mean_std_embedding_keys": null
+    },
+    "contract_statistics": "the shipped stats.json 8283e003\u2026 (parent summary) sliced by modality.json",
+    "row_selector": "for each of the five episodes: frames 0, floor(n/2) and n-1; plus the first row attaining the subset minimum and maximum of each of the 15 coordinates; deduplicated; recorded as (episode_index, frame_index) membership",
+    "coverage_question": "how many of the 1,406 rows and 15 coordinates fall outside [min,max] (expected 0 by bracketing) and outside [q01,q99] (expected > 0) \u2014 one bounded all-row pass answers whether clipping is exercised by real rows under each mode",
+    "declared_operations": [
+      "keep with S0 = shipped statistics and S1 = five-file moments, override False",
+      "replace with the same inputs, override True"
+    ],
+    "expected": {
+      "keep": "supported (map(S0) == map(S*) trivially, S0 is S*)",
+      "replace": "rejected (subset extremes differ on 24 of 30 bounds; witness rows exist)",
+      "historical": "unresolved"
+    }
+  },
+  "controls": {
+    "limits": {
+      "families": 8,
+      "runs_per_lane_max": 24,
+      "runs_frozen": 23
+    },
+    "families": [
+      {
+        "id": "NX1",
+        "name": "selection precedence",
+        "runs": [
+          {
+            "id": "NX1a",
+            "setup": "S0 present for the embodiment, set_statistics(S1, override=False)",
+            "expect": "effective = S0; mirror = S1; keep decision graded against S*"
+          },
+          {
+            "id": "NX1b",
+            "setup": "S0 present, override=True",
+            "expect": "effective = S1; replace graded against the declared obligation S*: supported when S* = S1, rejected with a witness when S* = S0"
+          },
+          {
+            "id": "NX1c",
+            "setup": "embodiment absent, override=False",
+            "expect": "effective = S1 regardless of override"
+          }
+        ]
+      },
+      {
+        "id": "NX2",
+        "name": "parent reference versus subset moments",
+        "runs": [
+          {
+            "id": "NX2a",
+            "setup": "S* = S0 = shipped parent statistics; S1 = five-file moments; real rows",
+            "expect": "two statements: keep (override False) supported; replace (override True) rejected with a witness row; either may be carried by the corresponding real run"
+          },
+          {
+            "id": "NX2b",
+            "setup": "S1 differs from S* only in q01/q99 while use_percentiles is False",
+            "expect": "map(S1) == map(S*) on D: replace supported despite parameter inequality"
+          }
+        ]
+      },
+      {
+        "id": "NX3",
+        "name": "declarations versus bytes",
+        "runs": [
+          {
+            "id": "NX3a",
+            "setup": "identical statistics bytes under labels 'current', 'parent', 'training_reference'",
+            "expect": "identical decisions"
+          },
+          {
+            "id": "NX3b",
+            "setup": "one max coordinate changed by 1e-3 with the declaration unchanged",
+            "expect": "decision changes; witness row"
+          }
+        ]
+      },
+      {
+        "id": "NX4",
+        "name": "actual mode selection versus inert label",
+        "runs": [
+          {
+            "id": "NX4a",
+            "setup": "outer use_mean_std=True, no mean_std_embedding_keys",
+            "expect": "min/max executed"
+          },
+          {
+            "id": "NX4b",
+            "setup": "mean_std_embedding_keys names a state group and an action group, use_mean_std=False, rows with |z|>1",
+            "expect": "mean/std executed; state unclipped, action clipped to [-1,1]"
+          }
+        ]
+      },
+      {
+        "id": "NX5",
+        "name": "constants, near-constants, zero and tiny std, dtype",
+        "runs": [
+          {
+            "id": "NX5a",
+            "setup": "coordinate with max == min",
+            "expect": "output 0; inverse returns min"
+          },
+          {
+            "id": "NX5b",
+            "setup": "min 1000, max 1000.005, x 1000.004",
+            "expect": "isclose mask: output 0; inverse returns the midpoint 1000.0025"
+          },
+          {
+            "id": "NX5c",
+            "setup": "mean/std with std == 0 on one coordinate",
+            "expect": "raw value passes through"
+          },
+          {
+            "id": "NX5d",
+            "setup": "mean/std with std = 1e-40 on a state coordinate, float32 rows",
+            "expect": "non-finite float32 output (overflow to inf); the reference reports invalid output, not a decision; a float64 transcription stays finite"
+          }
+        ]
+      },
+      {
+        "id": "NX6",
+        "name": "clipping and domain-qualified equivalence",
+        "runs": [
+          {
+            "id": "NX6a",
+            "setup": "rows outside [min,max], clip_outliers True",
+            "expect": "outputs exactly \u00b11"
+          },
+          {
+            "id": "NX6b",
+            "setup": "same rows, clip_outliers False",
+            "expect": "outputs beyond \u00b11 by the affine map"
+          },
+          {
+            "id": "NX6c",
+            "setup": "save then load (statistics.json and processor_config.json) with float64 parameters",
+            "expect": "identical outputs on D (T_exact)"
+          },
+          {
+            "id": "NX6d",
+            "setup": "inverse on the eligible domain (x in [min,max], non-near-constant) and on ineligible rows",
+            "expect": "round trip within T_rational on the eligible domain; documented loss on clipped and near-constant coordinates"
+          }
+        ]
+      },
+      {
+        "id": "NX7",
+        "name": "missing, invalid, clean acceptance",
+        "runs": [
+          {
+            "id": "NX7a",
+            "setup": "modality_keys names a group absent from the statistics",
+            "expect": "invalid (KeyError in source)"
+          },
+          {
+            "id": "NX7b",
+            "setup": "group lacks std while min/max is selected",
+            "expect": "invalid (all four keys are read regardless of mode)"
+          },
+          {
+            "id": "NX7c",
+            "setup": "row dimension differs from dim; a NaN row",
+            "expect": "invalid; NaN propagates in the source and is reported as invalid output"
+          },
+          {
+            "id": "NX7d",
+            "setup": "S* = S0 = shipped statistics, override False, real selected rows",
+            "expect": "keep supported: useful acceptance"
+          }
+        ]
+      },
+      {
+        "id": "NX8",
+        "name": "digest-correct wrong call path",
+        "runs": [
+          {
+            "id": "NX8a",
+            "setup": "declaration names apply_state with correct source digests; the call record shows only parameter computation",
+            "expect": "abstain/unresolved: execution binding not established"
+          },
+          {
+            "id": "NX8b",
+            "setup": "outputs equal to the expected arrays with no call record",
+            "expect": "abstain/unresolved"
+          }
+        ]
+      }
+    ]
+  },
+  "producer_record_requirements": [
+    "source identities with digests",
+    "declared configuration and flags",
+    "existing/candidate/contract statistics with digests",
+    "override value and call order",
+    "the nested statistics after the invocation and the outer mirror separately",
+    "executed function names with a call record (not markers)",
+    "row membership (episode, frame) and dtype",
+    "output arrays or their digests with a retained copy",
+    "omitted initializers and substituted boundaries of a reduced import",
+    "process status separate from decision"
+  ],
+  "cost_scope": {
+    "lane_cpu_cap_seconds": 120,
+    "durable_case_artifacts_cap_bytes": 16777216,
+    "temporary_cap_bytes": 201326592,
+    "source_requests_by_this_lane": 0,
+    "all_row_pass": "one, for the coverage question, within the CPU cap"
+  },
+  "stopping_rule": "stop when the real invocation and the 23 controls are graded, the sealed store is assessed and the integration readback is verified; a missing embodiment_configs.py leaves edge 1 constructed and does not block the software closeout",
+  "amends": {
+    "path": "contract.v1.1.json",
+    "sha256": "49e842e373b9540fa7268cf432b0802ce8fa5987fb344a151595ffdafb7a7b04"
+  },
+  "amendments": [
+    {
+      "id": "A1",
+      "recorded_at": "2026-09-21T05:08:43Z",
+      "before_any_scored_producer_output": true,
+      "control": "NX5d",
+      "change": "std 1e-30 -> 1e-40 on the mean/std state coordinate",
+      "reason": "arithmetic slip in v1: (0.75 - 1.0)/1e-30 = -2.5e29 lies inside the float32 range (max about 3.4e38), so the executed float32 output is finite and the control could not show the overflow it was written to show; 1e-40 gives -2.5e39 and a float32 -inf on store, while the float64 transcription stays finite",
+      "discovered_by": "the first run of the frozen controls against the reference (26 cases): NX5d returned keep/supported instead of invalid",
+      "effect_on_other_controls": "none; no expectation other than NX5d changes",
+      "conventional_expectation_for_NX5d": "keep/supported (false acceptance on a dtype boundary), unchanged from v1"
+    },
+    {
+      "id": "A2",
+      "recorded_at": "2026-09-21T06:12:30Z",
+      "after_scored_output": true,
+      "kind": "wording clarification; no expectation, rule, tolerance or result changes",
+      "controls": [
+        "NX1b",
+        "NX2a"
+      ],
+      "change": "NX1b: the contract statistics S* are whichever set the case declares as the obligation; with S* = S1 the expected decision is replace/supported, with S* = S0 it is replace/rejected with a witness. NX2a: the run covers two statements, keep supported and replace rejected; a producer may carry them in two runs or alias each half to its real run.",
+      "reason": "the execution lane instantiated NX1b with S* = S0 and aliased NX2a to its real keep run while this lane instantiated NX1b with S* = S1 and NX2a as the real replace run; both readings satisfy v1's words, so the evaluation store adapter's fixed expectation table mislabelled two correct producer decisions as contract mismatches in assessment-readback-001.json",
+      "effect": "documentation and adapter grading only; no decision of either lane changes; assessment-readback-001.json is retained and superseded on this point by assessment-readback-002.json"
+    }
+  ]
+}

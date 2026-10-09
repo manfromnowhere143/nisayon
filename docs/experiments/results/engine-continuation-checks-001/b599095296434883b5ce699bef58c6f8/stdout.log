@@ -1,0 +1,37 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+214 files already formatted
+uv run --frozen pytest
+........................................................................ [ 16%]
+........................................................................ [ 33%]
+........................................................................ [ 49%]
+........................................................................ [ 66%]
+.................................F...................................... [ 82%]
+........................................................................ [ 99%]
+....                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_a_confirmation_decided_later_is_not_prior_consumption __________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-229/test_a_confirmation_decided_la0')
+
+    @needs_freshness
+    def test_a_confirmation_decided_later_is_not_prior_consumption(tmp_path):
+        path = place(tmp_path / "record")
+        first = evaluate_bundle(path)
+        retain(first, tmp_path / "history")
+        other = json.loads(json.dumps(first))
+        other["bundle_sha256"] = "sha256:" + "ee" * 32
+        other["bundle"] = "/elsewhere/bundle.json"
+        other["confirmation"]["protocol"]["producer_protocol_sha256"] = "ff" * 32
+        other["decided_at"] = "2026-09-19T00:00:00+00:00"  # after this record's decision
+        retain(other, tmp_path / "history", "other")
+        decision = evaluate_bundle(path, history=[tmp_path / "history"])
+>       assert "confirmation_condition_reused" not in reasons(decision)
+E       AssertionError: assert 'confirmation_condition_reused' not in {'artifact_store_unverified', 'confirmation_condition_reused', 'protocol_mismatch'}
+E        +  where {'artifact_store_unverified', 'confirmation_condition_reused', 'protocol_mismatch'} = reasons({'schema': 'nisayon.decision.v1', 'evaluator': {'name': 'nisayon.evaluation', 'version': '0.1.0', 'sources_sha256': 'f...0/record/bundle.json', 'bundle_sha256': 'sha256:0895f7661c28eec1d6d9a021f6739f23ef48d6d3871aca14ef2fa0cc8f87b0bf', ...})
+
+tests/evaluation/test_evaluation_history_self.py:116: AssertionError
+=========================== short test summary info ============================
+FAILED tests/evaluation/test_evaluation_history_self.py::test_a_confirmation_decided_later_is_not_prior_consumption
+1 failed, 435 passed in 172.43s (0:02:52)

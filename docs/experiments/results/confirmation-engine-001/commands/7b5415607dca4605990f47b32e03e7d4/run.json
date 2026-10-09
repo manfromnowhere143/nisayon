@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "7b5415607dca4605990f47b32e03e7d4",
+  "label": "confirmation-engine-20260919-finite-readback",
+  "command": [
+    "python",
+    "-c",
+    "from pathlib import Path\nfrom nisayon.evaluation.decision import evaluate_bundle\nfrom nisayon.engine.io import write_json\nrecords=[]\nfor case,expected in [('D01-gripper-sign','accepted'),('D05-recurrent-carry','rejected')]:\n root=Path('artifacts/development-ablation-001')/case/'A/confirmation/execution'\n result=evaluate_bundle(root/'bundle.json',artifact_root=root)\n assert result['decision']==expected, (case,result['decision'])\n write_json(Path('artifacts/engine-integration-001/confirmation-engine-001')/(case+'-evaluation.json'),result)\n records.append({'case':case,'decision':result['decision'],'reason_codes':[r['code'] for r in result['reasons']],'evaluation_wall_s':result['evaluation_wall_s']})\nwrite_json(Path('artifacts/engine-integration-001/confirmation-engine-001/finite-readback.json'),{'records':records,'new_simulator_executions':0,'scope':'Read-only current evaluator on the original actual stores; original decisions untouched'})\nprint(records)\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T19:42:07.441231+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "f4b1880b716c4194c3fd4392e06c9dc484315250",
+    "changes": [
+      "M docs/experiments/README.md",
+      " M docs/experiments/results/confirmation-engine-001/README.md"
+    ],
+    "diff_stat": "docs/experiments/README.md                         |  2 +\n .../results/confirmation-engine-001/README.md      | 75 +++++++++++++++++++---\n 2 files changed, 69 insertions(+), 8 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 16544,
+  "returncode": 0,
+  "ended_at": "2026-09-19T19:42:28.349575+00:00",
+  "wall_seconds": 20.832553,
+  "logs": {
+    "stdout.log": {
+      "bytes": 230,
+      "sha256": "af7d1a3f19df3e5e369af1ab202a800470a294c3cc2ae5e012881a50d4ceac2f"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

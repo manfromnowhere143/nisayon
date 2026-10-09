@@ -1,0 +1,100 @@
+{
+  "schema": "nisayon.a1-runtime-full-wheel-transport-conformance.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T14:34:11Z",
+  "status": "generic transport ready on committed source; no external request dispatched",
+  "source": {
+    "commit": "158cb9e4e30878e2c1aea54d0e4557d0fedad790",
+    "script": "scripts/experiments/acquire_a1_wheel_full.py",
+    "script_sha256": "453dc729370c94bb40302c8e6944f0e4021aa78aeeff113d022f60c5b64b1b3a",
+    "tests": "tests/engine/test_acquire_a1_wheel_full.py",
+    "tests_sha256": "ea137d3c9dbb8e240bd53a46a23507a058f607bf5f42f61e3e1eb6117241e23c"
+  },
+  "frozen_identity": {
+    "filename": "robosuite-1.5.1-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/f4/15/82093cadf23811463d0b52ec6745949356b66badf6e25bee64ec82aa8689/robosuite-1.5.1-py3-none-any.whl",
+    "bytes": 152011410,
+    "sha256": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153",
+    "publisher_record": "docs/experiments/results/a1-runtime-001/source-delivery-001.json",
+    "publisher_record_sha256": "5a4ade478dbe844b74fb1d63dd861243c790c29618a433e4e510fbb666a76a23",
+    "wheel_only_allowance_bytes": 167772160
+  },
+  "implemented_controls": [
+    "the request URL and HTTPS authority are exact constants and are rechecked before connection construction",
+    "the expected URL, filename, size and wheel digest must appear exactly once in the retained publisher record whose complete-file digest is pinned",
+    "one GET is issued with identity encoding through http.client, which provides no automatic redirect or retry behavior",
+    "only status 200 with one exact Content-Length and no Content-Range or Transfer-Encoding may reach body reading",
+    "a declared body larger than the wheel-only allowance stops before body read; a protocol body overrun is capped at that allowance",
+    "receipt and body outputs are create-only and must resolve to different paths",
+    "received bytes are hashed incrementally; the retained file is flushed, fsynced and independently re-read and hashed",
+    "wrong digest, truncation, interruption, malformed headers, output collisions and retained-file verification failures remain invalid with the available prefix retained",
+    "the receipt separates publisher-record digest, expected wheel digest, received-stream digest and retained-file digest",
+    "the receipt counts the observed application response and bytes read while leaving protocol overhead and unread response bytes unknown"
+  ],
+  "committed_validation": {
+    "command_record_id": "8c012a25313845c5b35ab64e1fcdb0a3",
+    "command_record_sha256": "3dd66385b139a76acef984ba59dfb7b61dad58e2c36bfe91c4b7969fa663f983",
+    "source_commit": "158cb9e4e30878e2c1aea54d0e4557d0fedad790",
+    "clean_worktree": true,
+    "outer_wall_seconds": 0.372114,
+    "tests_passed": 27,
+    "tests_failed": 0,
+    "ruff": "passed",
+    "format": "passed",
+    "stdout_sha256": "359e1a51d3eafb91a4320b658e1d274aaec550cfcdf4b41d92d4235e5780f69a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "preserved_failures": [
+    {
+      "command_record_id": "c2c6b0fa5c364b5a8227ef3b126d1e16",
+      "command_record_sha256": "f60eb687c0644c9f42345c83c49b2333ccd1a71007eeb513c7b48f6b48ee1643",
+      "outer_wall_seconds": 0.321202,
+      "failure": "the first receipt used one sha256 key for both the publisher record and wheel; dictionary construction overwrote the record digest",
+      "correction": "publisher_identity now has separate record_sha256 and wheel.sha256 fields; the corrected focused run f09076f40be04d0988deff51035cecbe passed"
+    },
+    {
+      "command_record_id": "6ca3328519fc4905851cca347cc2bce3",
+      "command_record_sha256": "5f99c8add8d4af8915ad1fcfb5522579464dbbfedbe3423123e599248da0d872",
+      "outer_wall_seconds": 0.048733,
+      "failure": "the first format check reported both new files needed formatting",
+      "correction": "the files were formatted mechanically and committed-source formatting passes in 8c012a25313845c5b35ab64e1fcdb0a3"
+    }
+  ],
+  "costs": {
+    "recorded_command_wall_seconds_not_summed": [
+      0.321202,
+      0.314516,
+      0.048733,
+      0.048039,
+      0.372114
+    ],
+    "network_responses": 0,
+    "network_body_bytes": 0,
+    "package_bytes": 0,
+    "charges": 0,
+    "energy": "unknown",
+    "active_engineering_effort": "unknown",
+    "note": "nested or repeated validation durations are not added into a total"
+  },
+  "authority_and_readiness": {
+    "transport_readiness": "ready for a separately reserved, authorized one-response dispatch",
+    "dispatch_authority": "not established in the execution lane for the v1.2 route: the exact 160 MiB wheel-only, cumulative-18, Range-withdrawal text remains evaluator-owned repository data",
+    "dependency_readiness": "not ready: the five-response Mink selection, transitive recursion and per-artifact rights rule remain unfrozen",
+    "assessor_readiness": "not ready: five v1.2 false-acceptance paths remain reproduced",
+    "next_before_full_wheel_response": "record the exact operator amendment directly in execution, run the current resource preflight, then commit a one-response central reservation",
+    "later_gates": "the corrected assessor is required before assessment; the exact Mink selection and rights rule is required before a Mink response or installation, not before the complete-wheel response"
+  },
+  "scientific_boundary": "Synthetic transport controls establish fail-closed request and receipt behavior only. They do not establish server behavior, acquired bytes, distribution rights, archive validity, installation, simulator compatibility, policy competence, a repair or comparative value.",
+  "operations": {
+    "new_external_network_attempts": 0,
+    "new_application_responses": 0,
+    "new_response_body_bytes": 0,
+    "package_installations": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "replay_attempts_started": 0,
+    "development_attempts_started": 0
+  },
+  "publication": "private; no push or publication"
+}

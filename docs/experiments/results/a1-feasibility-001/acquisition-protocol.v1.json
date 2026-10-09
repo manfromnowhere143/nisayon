@@ -1,0 +1,53 @@
+{
+  "schema": "nisayon.a1-acquisition-protocol.v1",
+  "case": "a1-feasibility-001",
+  "frozen_at": "2026-09-21T09:47:09Z",
+  "frozen_before": "any retained rights request, HEAD request or dataset acquisition",
+  "target": {
+    "dataset": "Lift proficient-human low-dimensional v1.4.1",
+    "pinned_url": "http://downloads.cs.stanford.edu/downloads/rt_benchmark/lift/ph/low_dim_v141.hdf5",
+    "local_path": "artifacts/assets/lift/ph/low_dim_v141.hdf5",
+    "simulator": "robosuite 1.4.1",
+    "trainer": "robomimic 0.3.0"
+  },
+  "rights_gate": {
+    "official_repository": "robomimic/robomimic_datasets on Hugging Face",
+    "required_evidence": [
+      "official dataset-card metadata declares the dataset repository's license",
+      "official history contains v1.5/lift/ph/low_dim_v141.hdf5 before its zero-content-change rename",
+      "the acquired Stanford file's SHA-256 equals the official repository artifact's LFS SHA-256"
+    ],
+    "decision": "Only exact byte equality binds the Stanford object to the official repository terms. A matching name, public link or robomimic software license is insufficient.",
+    "failure": "If the license, artifact digest or byte identity cannot be retained, stop unresolved before training."
+  },
+  "retained_network_plan": {
+    "rights_metadata_gets": 2,
+    "rights_metadata_body_cap_bytes": 1048576,
+    "stanford_head_requests": 1,
+    "dataset_get_requests": 1,
+    "dataset_redirects": 0,
+    "dataset_body_cap_bytes": 33554432,
+    "note": "Six pre-freeze interactive web-tool calls located the official sources. Their request count, response bytes and CPU cost are unavailable; they fetched no dataset body and are disclosed rather than counted as retained acquisition evidence."
+  },
+  "shared_limits": {
+    "new_dependency_bytes": 33554432,
+    "known_cumulative_source_bytes_before_dataset": 21495048,
+    "cumulative_source_bytes": 67108864,
+    "pilot_durable_output_bytes": 16777216,
+    "pilot_temporary_bytes": 201326592,
+    "shared_temporary_bytes": 536870912,
+    "minimum_free_disk_bytes": 5368709120
+  },
+  "pre_acquisition_checks": [
+    "fresh disk and temporary-root inventory",
+    "system memory pressure and physical-memory readback",
+    "all five protected historical failed files remain exact",
+    "all three worktrees remain clean"
+  ],
+  "stopping_rules": [
+    "stop before GET if Content-Length is absent, exceeds 32 MiB, or would exceed the 64 MiB cumulative known-source limit",
+    "stop after GET if the exact size or digest differs from retained official metadata",
+    "do not substitute another dataset generation or widen acquisition after a failure",
+    "do not begin training until dataset membership, environment metadata and the complete pilot contract are frozen"
+  ]
+}

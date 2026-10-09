@@ -1,0 +1,49 @@
+{
+  "schema": "nisayon.a1-pilot.control.statistics-reference.v1",
+  "synthetic_file_sha256": "11ca2e2ab924e5cc8ec4b4d5a92492fcb4f7153fc616356749d502b60e15ee36",
+  "frames": 90,
+  "witnesses": {
+    "dataset_seq_length_10_normalize": "AssertionError in get_item: shape mismatch in @normalize obs",
+    "item_equals_single_normalization": true,
+    "learner_input_at_batch_size_1": {
+      "equals_double_normalization": true,
+      "equals_single_normalization": false
+    }
+  },
+  "emulation_bitwise_equal_to_robomimic_float32": {
+    "object": true,
+    "robot0_eef_pos": true,
+    "robot0_eef_quat": true,
+    "robot0_gripper_qpos": true
+  },
+  "robomimic_versus_exact_float64": {
+    "within": true,
+    "by_key": {
+      "object": {
+        "status": "within",
+        "mean_max_rel": 2.217964521353593e-07,
+        "std_max_rel": 1.8229550998608995e-07
+      },
+      "robot0_eef_pos": {
+        "status": "within",
+        "mean_max_rel": 2.1818028484414095e-07,
+        "std_max_rel": 1.1574187868966129e-07
+      },
+      "robot0_eef_quat": {
+        "status": "within",
+        "mean_max_rel": 6.258180024539657e-07,
+        "std_max_rel": 1.4453545179641464e-07
+      },
+      "robot0_gripper_qpos": {
+        "status": "within",
+        "mean_max_rel": 3.017485141962317e-07,
+        "std_max_rel": 1.2969598174074337e-05
+      }
+    }
+  },
+  "constant_coordinate_std": 0.001000012969598174,
+  "constant_coordinate_std_equals_offset": false,
+  "normalize_reference_equals_robomimic_on_rollout_shape": true,
+  "optimizer_updates_executed": 0,
+  "simulator_created": false
+}

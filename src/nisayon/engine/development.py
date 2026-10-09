@@ -18,6 +18,7 @@ from .assets import POLICY_SHA256, prepare_policy
 from .conditions import consumed_history, reserve_fresh, verify_reservation
 from .confirmation_service import execute_confirmation, prepare_confirmation
 from .costs import command_ledger
+from .declarations import DeclarationBinding
 from .development_cases import Incident, load_suite
 from .development_diagnostics import diagnose
 from .first_case import PREDICATES, PREVIOUSLY_OBSERVED_SEEDS
@@ -175,9 +176,20 @@ def trial_record(
         result["costs"]["agent_tokens"] = (
             {"value": usage["input_tokens"] + usage["output_tokens"], "unit": "tokens"}
             if usage["complete"]
-            else _unknown("tokens", "A model call lacks complete attributable usage")
+            else {
+                **_unknown("tokens", "A model call lacks complete attributable usage"),
+                "known_part": usage["input_tokens"] + usage["output_tokens"],
+                "known_component_values": {
+                    key: usage[key]
+                    for key in ("input_tokens", "output_tokens", "cached_input_tokens")
+                },
+            }
         )
         result["agent_usage"] = usage
+    if "arm_declaration" in diagnosis:
+        result["declaration_contract"] = "nisayon.arm-declaration.v1"
+        result["arm_declaration"] = diagnosis["arm_declaration"]
+        result["arm_claimed_acceptance"] = diagnosis["arm_claimed_acceptance"]
     write_json(root / incident.id / arm / "trial.json", result)
     return result
 
@@ -196,6 +208,7 @@ def run_assigned_case(
     condition_seeds: list[int],
     suite_sha256: str,
     diagnose_fn=None,
+    study_declarations: bool = False,
 ) -> list[dict]:
     """Execute the two assigned public development arms through the shared service.
 
@@ -204,6 +217,10 @@ def run_assigned_case(
     """
     if len(order) != 2 or set(order) != {"A", "B"}:
         raise ValueError("Both matched scripted arms must be assigned exactly once")
+    if study_declarations and diagnose_fn is None:
+        raise ValueError(
+            "Study declarations require an explicit declaration-capable diagnostic provider"
+        )
     expected = shared_inputs(
         incident, condition_seeds, case["frozen"]["observations"]["shared_information"]
     )
@@ -219,6 +236,18 @@ def run_assigned_case(
     trials = []
     diagnosed = {}
     for arm in order:
+        declaration_kwargs = {}
+        if study_declarations:
+            declaration_kwargs["declaration_context"] = {
+                "root": output / incident.id / arm / "declaration",
+                "evidence_root": output,
+                "assignment": {
+                    "suite_id": suite_sha256,
+                    "case_id": incident.id,
+                    "arm": arm,
+                    "frozen_inputs_sha256": digest(case["frozen"]),
+                },
+            }
         diagnosed[arm] = (diagnose_fn or diagnose)(
             executor,
             incident,
@@ -230,6 +259,7 @@ def run_assigned_case(
             scope="scored_bounded_model_development"
             if diagnose_fn
             else "scored_deterministic_development_ablation",
+            **declaration_kwargs,
         )
     freeze_path = output / incident.id / "joint-freeze.json"
     write_json(
@@ -249,11 +279,23 @@ def run_assigned_case(
             },
             "condition_seeds": condition_seeds,
             "reservation": reservation,
+            **(
+                {
+                    "declarations": {arm: diagnosed[arm].get("arm_declaration") for arm in order},
+                    "frozen_inputs_sha256": digest(case["frozen"]),
+                }
+                if study_declarations
+                else {}
+            ),
         },
     )
     prepared = {}
     for arm in order:
         if diagnosed[arm]["candidate"] is not None:
+            if study_declarations and diagnosed[arm].get("arm_declaration") is None:
+                # Retain the diagnosis and costs without falling back to v1
+                # acceptance when an explicitly requested study receipt is absent.
+                continue
             prepared[arm] = prepare_confirmation(
                 executor,
                 incident,
@@ -269,6 +311,15 @@ def run_assigned_case(
                 ],
                 freeze_path,
                 suite_sha256=suite_sha256,
+                declaration=(
+                    DeclarationBinding(
+                        output / incident.id / arm / "declaration",
+                        output,
+                        diagnosed[arm]["arm_declaration"],
+                    )
+                    if study_declarations and diagnosed[arm].get("arm_declaration") is not None
+                    else None
+                ),
             )
     # No confirmation starts until every selected arm has an immutable protocol.
     for arm in order:

@@ -1,0 +1,55 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "67929a3b6f2645a297d8afdd959d60ac",
+  "label": "post-cleanup-evidence-binding",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json\nimport subprocess\nfrom pathlib import Path\nfrom nisayon.engine.io import file_digest\nroot=Path.cwd().resolve()\nlocation=json.loads((root/\"docs/experiments/results/retained-declarations-002/retained-location.json\").read_text())\npacket=Path(location[\"root\"])\nfor name, expected in location[\"files\"].items():\n    path=packet/name\n    assert path.stat().st_size==expected[\"bytes\"] and file_digest(path)==expected[\"sha256\"], name\nsource=root/\"artifacts/robolab-reproduced-source-001\"\nmanifest=json.loads((source/\"manifest.json\").read_text())\nfor item in manifest[\"records\"]:\n    path=source/item[\"path\"]\n    assert path.stat().st_size==item[\"bytes\"] and file_digest(path)==item[\"sha256\"], item[\"path\"]\nsummary=json.loads((root/\"docs/experiments/results/robolab-record-001/summary-distinct-frames.json\").read_text())\nassert file_digest(root/\"artifacts/robolab-import-006/external-record.json\")==summary[\"full_import\"][\"sha256\"]\ncosts=json.loads((root/\"docs/experiments/results/engine-continuation-checks-001/cost-summary.json\").read_text())\nfor item in costs[\"command_records\"]:\n    path=root/\"docs/experiments/results/engine-continuation-checks-001\"/item[\"id\"]/\"run.json\"\n    assert file_digest(path)==item[\"record_sha256\"]\n    record=json.loads(path.read_text())\n    for name, expected in record[\"logs\"].items():\n        log=path.parent/name\n        assert log.stat().st_size==expected[\"bytes\"] and file_digest(log)==expected[\"sha256\"]\npaths=[\"src\",\"tests\",\"scripts\",\"pyproject.toml\",\"uv.lock\"]\nsubprocess.run([\"git\",\"diff\",\"--exit-code\",\"54660e58078039b569d22031bbf3094ed2d80f91\",\"--\",*paths],check=True)\nprotected=[\"src/nisayon/evaluation\",\"tests/evaluation\",\"docs/evaluation\",\"work/lanes/fable5.md\",\"reproduction/sources\",\"docs/experiments/results/development-ablation-001\",\"docs/experiments/results/bounded-agent-comparison-001\"]\nsubprocess.run([\"git\",\"diff\",\"--exit-code\",\"21ed4f6a8d8c1f1acbef1036d8f7d31f83e29755\",\"--\",*protected],check=True)\nprint(json.dumps({\"native_files_unchanged_after_cleanup\":len(location[\"files\"]),\"pinned_source_files_unchanged\":len(manifest[\"records\"]),\"command_records_and_logs_verified\":len(costs[\"command_records\"]),\"current_full_import_sha256\":summary[\"full_import\"][\"sha256\"],\"source_tree_matches_tested_commit\":\"54660e58078039b569d22031bbf3094ed2d80f91\",\"historical_and_evaluation_paths\":\"unchanged from startup\",\"scope\":\"Local integrity after own-test temporary cleanup; no physical truth or custody claim\"},indent=2))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T09:23:53.980916+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "54660e58078039b569d22031bbf3094ed2d80f91",
+    "changes": [
+      "M docs/SESSION_HANDOFF.md",
+      " M docs/experiments/ENGINE_CONTINUATION.md",
+      " M docs/experiments/results/engine-continuation-checks-001/cost-summary.json",
+      " M docs/experiments/results/engine-continuation-checks-001/resource-snapshot.json",
+      " M docs/experiments/results/engine-resource-control-001/README.md",
+      " M work/continuations/engine-2026-09-19.json",
+      " M work/lanes/codex.md",
+      "?? docs/experiments/results/engine-continuation-checks-001/694cb4d0d4ac468aa8a213652b1520c3/",
+      "?? docs/experiments/results/engine-continuation-checks-001/97238adb9b834f4fbc1f43c6fd978485/",
+      "?? docs/experiments/results/engine-continuation-checks-001/ede42a2cb38143d0adbe6a1ac4e0c604/",
+      "?? docs/experiments/results/engine-continuation-checks-001/resource-snapshot-after-cleanup.json",
+      "?? docs/experiments/results/engine-resource-control-001/monitored-full-check.json",
+      "?? memory/checkpoints/e494068c58824abc9dd824d3e6a67b65.json",
+      "?? memory/notes/0069a677416c48d3a8e9e59c202270cc.json"
+    ],
+    "diff_stat": "docs/SESSION_HANDOFF.md                            |  8 ++--\n docs/experiments/ENGINE_CONTINUATION.md            | 13 +++++--\n .../cost-summary.json                              | 39 +++++++++++++++++---\n .../resource-snapshot.json                         | 27 +++++++++++---\n .../results/engine-resource-control-001/README.md  | 24 ++++++++++--\n work/continuations/engine-2026-09-19.json          | 43 +++++++++++++++++++---\n work/lanes/codex.md                                | 18 +++++++++\n 7 files changed, 145 insertions(+), 27 deletions(-)"
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 120.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 8462,
+  "returncode": 0,
+  "ended_at": "2026-09-19T09:23:54.181284+00:00",
+  "wall_seconds": 0.143043,
+  "logs": {
+    "stdout.log": {
+      "bytes": 476,
+      "sha256": "78c0ae8e3ee8d5e20f08b0b21c17d93d90c8ea03ff04d1ce7336a757a60b1ca5"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

@@ -1,0 +1,40 @@
+FF...................................................................... [ 69%]
+...............................                                          [100%]
+=================================== FAILURES ===================================
+_________ test_stale_incoming_chunk_preserves_the_fresh_queued_action __________
+
+    def test_stale_incoming_chunk_preserves_the_fresh_queued_action():
+        case, remedy = declared_case("frozen-admission-conformance.v1.json", "Y03")
+        events = execute(case, remedy)
+        incoming = next(e for e in events if e["kind"] == "queue_admitted" and e["chunk_id"] == "c1")
+        assert incoming["admitted"] == []
+        assert incoming["replaced"] == []
+>       assert incoming["reason"] == "arrival_age_beyond"
+E       AssertionError: assert 'arrival_age_overdue' == 'arrival_age_beyond'
+E         
+E         - arrival_age_beyond
+E         ?             ^ ^^^
+E         + arrival_age_overdue
+E         ?             ^^ ^ ++
+
+tests/engine/test_temporal_combined_deadline.py:36: AssertionError
+___________ test_fresh_admission_does_not_authorize_expired_dispatch ___________
+
+    def test_fresh_admission_does_not_authorize_expired_dispatch():
+        case, remedy = declared_case("frozen-suite.v2.json", "T15")
+        events = execute(case, remedy)
+        sent = [e for e in events if e["kind"] == "action_dispatched"]
+        assert [e["value"] for e in sent] == [10]
+        refused = next(e for e in events if e["kind"] == "dispatch_refused")
+>       assert refused["reason"] == "dispatch_age_beyond"
+E       AssertionError: assert 'dispatch_age_overdue' == 'dispatch_age_beyond'
+E         
+E         - dispatch_age_beyond
+E         ?              ^ ^^^
+E         + dispatch_age_overdue
+E         ?              ^^ ^ ++
+
+tests/engine/test_temporal_combined_deadline.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_temporal_combined_deadline.py::test_stale_incoming_chunk_preserves_the_fresh_queued_action
+FAILED tests/engine/test_temporal_combined_deadline.py::test_fresh_admission_does_not_authorize_expired_dispatch

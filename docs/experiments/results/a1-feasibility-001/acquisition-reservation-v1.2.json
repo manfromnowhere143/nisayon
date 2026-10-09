@@ -1,0 +1,138 @@
+{
+  "schema": "nisayon.a1-substitute-acquisition-reservation.v1",
+  "case": "a1-feasibility-001",
+  "reserved_at": "2026-09-21T10:59:24Z",
+  "reserved_before": "any network request or substitute-dataset body byte under amendment v1.2",
+  "authority": {
+    "amendment": "docs/evaluation/results/a1-pilot-001/a1-amendment.v1.2.json",
+    "amendment_sha256": "e79c857d5db7bbad895f7e1fc60710fc17cb208497e0a7723749aad2a0df1346",
+    "operator": "Daniel Wahnich",
+    "scope": "one official-object GET, local verification and custody; no retry, optimizer update, rollout, cloud, hardware, publication or push"
+  },
+  "state": {
+    "private_main": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+    "execution": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+    "evaluation": "33f0d3021720809ee3eba3235e33aa0f3ea0606f",
+    "worktrees_clean": true,
+    "substitute_dataset_get_invocations_consumed": 0,
+    "substitute_dataset_body_bytes_acquired": 0,
+    "optimizer_updates_consumed_of_100": 0,
+    "final_path_absent": true
+  },
+  "artifact": {
+    "repository": "robomimic/robomimic_datasets",
+    "revision": "74fa018461f479cd9fd15b924a16103012096203",
+    "repository_path": "v1.5/lift/ph/low_dim_v15.hdf5",
+    "url": "https://huggingface.co/datasets/robomimic/robomimic_datasets/resolve/74fa018461f479cd9fd15b924a16103012096203/v1.5/lift/ph/low_dim_v15.hdf5",
+    "expected_bytes": 21084088,
+    "expected_sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "declaration": "MIT in the retained official repository metadata at the bound revision",
+    "permission_boundary": "this declaration applies to the repository object only; Stanford-hosted object permission remains unresolved"
+  },
+  "paths": {
+    "partial": "artifacts/assets/lift/ph/low_dim_v15.hdf5.partial.a1-v1.2-001",
+    "final": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+    "headers": "artifacts/a1-feasibility-001/sources/hf-official-low-dim-v15.headers",
+    "receipt": "artifacts/a1-feasibility-001/acquisition-receipt-v1.2.json",
+    "tracked_in_git": false
+  },
+  "network_reservation": {
+    "get_invocations": 1,
+    "retries": 0,
+    "application_responses_consumed_before": 9,
+    "application_response_cap": 12,
+    "application_responses_reserved": 3,
+    "maximum_redirects": 2,
+    "initial_host": "huggingface.co",
+    "redirect_allowlist": [
+      "huggingface.co and subdomains",
+      "hf.co and subdomains"
+    ],
+    "scheme": "HTTPS only",
+    "final_content_length_rule": "must be present and equal 21084088 before the partial file is opened",
+    "body_cap_bytes": 33554432,
+    "failure": "retain headers and any labelled partial, do not retry or substitute"
+  },
+  "source_budget": {
+    "known_cumulative_body_bytes_before_a1": 21495048,
+    "retained_a1_rights_body_bytes": 90237,
+    "adjusted_before_dataset_bytes": 21585285,
+    "reserved_dataset_bytes": 21084088,
+    "projected_after_dataset_bytes": 42669373,
+    "cumulative_cap_bytes": 67108864,
+    "within": true,
+    "accounting_note": "the inherited normalizer snapshot exposes its pre-A1 hard-coded source counters; this reservation adds the committed A1 source ledger and is authoritative for the one remaining acquisition"
+  },
+  "storage_and_machine_preflight": {
+    "resource_command": "bea8eb900e4443efb522a1c6a66c4536",
+    "machine_command": "47ba1b8a5883415180f2ad8a7345aa08",
+    "retained_payload_bytes": 651376134,
+    "dataset_bytes": 21084088,
+    "maximum_pilot_durable_output_bytes": 16777216,
+    "temporary_reservation_bytes": 201326592,
+    "projected_retained_dataset_output_and_temporary_bytes": 890564030,
+    "project_cap_bytes": 1073741824,
+    "outside_monitor_bytes": 238298857,
+    "outside_plus_temporary_reservation_bytes": 439625449,
+    "shared_temporary_cap_bytes": 536870912,
+    "free_disk_bytes_resource_snapshot": 18820587520,
+    "free_disk_bytes_machine_readback": 18819620864,
+    "minimum_free_disk_bytes": 5368709120,
+    "physical_memory_bytes": 17179869184,
+    "system_memory_free_percent": 30,
+    "protected_failed_files_unchanged": 5,
+    "cleanup_performed": false,
+    "within": true
+  },
+  "acquisition_implementation": {
+    "path": "scripts/experiments/acquire_a1_substitute.py",
+    "sha256": "b05bc4c2cfca9ec650666a166581ac73fbbe94c143bccd5aa3b49286ad94287d",
+    "behavior": "one streaming GET; at most two allowlisted HTTPS redirects; inspect exact final Content-Length before opening the partial; cap, hash and retain the body; no automatic retry"
+  },
+  "independent_local_verifier": {
+    "path": "scripts/experiments/verify_a1_substitute.py",
+    "sha256": "635af27fa654705e58ab6db0d161b27a41405601e6b435c1c39d60c920a9f900",
+    "behavior": "reparse retained response headers, rehash and recount the labelled partial, refuse overwrite, then atomically rename only an exact match"
+  },
+  "checks": {
+    "passing_command": "42622c2037c04628b97fecbc6ec9f1f0",
+    "passing_tests": 9,
+    "failed_commands_retained": [
+      "3ff5dee95b3f4a1b8bb97a677ca2f2e7",
+      "e72bbf4ddd0e406cb150432648346ae4",
+      "650d9910fef641ebbb0995b5387e1971"
+    ],
+    "failures": "two formatting stops and one path-based import collection failure; none executed a network request"
+  },
+  "exact_recorder_command": [
+    ".venv/bin/nisayon",
+    "run",
+    "--label",
+    "a1-v1.2-official-dataset-get",
+    "--timeout",
+    "660",
+    "--",
+    "/usr/bin/time",
+    "-lp",
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "scripts/experiments/acquire_a1_substitute.py",
+    "--url",
+    "https://huggingface.co/datasets/robomimic/robomimic_datasets/resolve/74fa018461f479cd9fd15b924a16103012096203/v1.5/lift/ph/low_dim_v15.hdf5",
+    "--partial",
+    "artifacts/assets/lift/ph/low_dim_v15.hdf5.partial.a1-v1.2-001",
+    "--headers",
+    "artifacts/a1-feasibility-001/sources/hf-official-low-dim-v15.headers",
+    "--expected-bytes",
+    "21084088",
+    "--expected-sha256",
+    "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+    "--maximum-responses",
+    "3",
+    "--socket-timeout-seconds",
+    "60"
+  ],
+  "post_get": "run the committed independent local verifier with the generated command-record id; no dataset inspection or training begins unless the receipt accepts"
+}

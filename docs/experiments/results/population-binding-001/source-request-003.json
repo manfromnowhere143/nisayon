@@ -1,0 +1,20 @@
+{
+  "schema": "nisayon.population-source-request.v1",
+  "id": "population-binding-source-request-003",
+  "frozen_at_execution_commit": "ab10be4012f7e654568e35e53f64a0d118a38c72",
+  "question": "What does the actual pinned mixture caller do with per-dataset statistics, and how does override_pretraining_statistics affect dataset-versus-pretraining precedence?",
+  "competing_predictions": [
+    "The caller installs each dataset's loaded stats into the processor, making current dataset statistics the selected reference.",
+    "The caller preserves pretraining/checkpoint statistics unless an explicit override selects dataset statistics.",
+    "The caller exposes a configuration flag but does not bind either reference to execution, leaving precedence unresolved."
+  ],
+  "cheapest_allowed_check": "Use the fifth and final execution response to retrieve sharded_mixture_dataset.py, directly named by the already retained factory and package listing.",
+  "requests": [
+    {
+      "id": "EX05-mixture-selection-caller",
+      "url": "https://raw.githubusercontent.com/NVIDIA/Isaac-GR00T/1a1837f20538b7d7e21f977a11a5aee14f99803c/gr00t/data/dataset/sharded_mixture_dataset.py",
+      "relative_path": "groot-sharded-mixture-dataset-1a1837.py",
+      "decision_changed": "Establish observed checkpoint-versus-dataset statistics precedence in the reachable dataset construction path."
+    }
+  ]
+}

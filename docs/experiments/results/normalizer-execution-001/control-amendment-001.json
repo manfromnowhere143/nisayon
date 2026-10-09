@@ -1,0 +1,65 @@
+{
+  "schema": "nisayon.normalizer-execution-case-amendment.v1",
+  "case_id": "normalizer-execution-001",
+  "recorded_at": "2026-09-21T05:27:49Z",
+  "inherits": {
+    "path": "docs/experiments/results/normalizer-execution-001/case.v1.json",
+    "sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2"
+  },
+  "evaluation_contract": {
+    "schema": "nisayon.normalizer-execution.contract.v1.1",
+    "delivery": "a4b153d3cd4942358f9c70cb1f0d61b55ece5cf0",
+    "path": "docs/evaluation/results/normalizer-execution-001/contract.v1.1.json",
+    "sha256": "49e842e373b9540fa7268cf432b0802ce8fa5987fb344a151595ffdafb7a7b04"
+  },
+  "timing": {
+    "evaluation_amendment_recorded_at": "2026-09-21T05:08:43Z",
+    "before_any_scored_producer_output": true,
+    "execution_first_consumed_at": "2026-09-21T05:27:49Z",
+    "reason_for_late_consumption": "The separately owned evaluation delivery became visible to the execution lane after producer-003 had sealed. The predecessor stores remain retained and are not relabelled as v1.1 runs."
+  },
+  "change_scope": "one constructed control setup; no source, real row, real operation, numerical rule, tolerance or expected decision changes",
+  "control_overrides": {
+    "NX5d": {
+      "mode": "mean_std",
+      "state": {
+        "min": 0.0,
+        "max": 2.0,
+        "mean": 1.0,
+        "std": 1e-40,
+        "input": 0.75
+      },
+      "action": {
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.5,
+        "std": 0.5,
+        "input": 0.5
+      }
+    }
+  },
+  "rationale": "The original evaluator setup used std 1e-30 with a 0.75 row and would remain finite in float32. The evaluator froze std 1e-40 before producer output so the state store overflows while the same float64 transcription remains finite. This amendment consumes that exact discriminating setup and contains no expected verdict.",
+  "unchanged": [
+    "all sixteen frozen source identities and five real episode files",
+    "the 43-row deterministic membership and one 1406-row coverage pass",
+    "real-keep and real-replace invocation sequences and obligations",
+    "NX1a-NX5c and NX6a-NX8b setups",
+    "the 120-second process-CPU and 8-MiB execution-store ceilings",
+    "all scientific, deployment, publication and resource boundaries"
+  ],
+  "predecessor_outputs": [
+    {
+      "id": "producer-001",
+      "status": "failed_unsealed"
+    },
+    {
+      "id": "producer-002",
+      "status": "failed_unsealed"
+    },
+    {
+      "id": "producer-003",
+      "status": "sealed_against_v1; real results retained; not final control-parity store"
+    }
+  ],
+  "next_output_identity": "producer-004"
+}

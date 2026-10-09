@@ -25,6 +25,7 @@ PRIVATE_PREFIXES = (
     "work/continuations/",
     "work/lanes/",
     "docs/prompts/",
+    "docs/SESSION_HANDOFF_THROUGH_",
     ".nisayon/",
     "artifacts/",
     "data/",

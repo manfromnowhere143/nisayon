@@ -1,0 +1,79 @@
+{
+  "schema": "nisayon.a1-runtime-range-fetcher-conformance.v3",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T13:51:32Z",
+  "status": "proposed multi-range entity-coherence gate passes injected-response controls; no external response executed",
+  "supersedes": {
+    "path": "docs/experiments/results/a1-runtime-001/range-fetcher-conformance-002.json",
+    "scope": "executable transport source binding and HTTP entity-coherence behavior only",
+    "preservation": "v1, v2, their transport properties, validation, and development failure remain before-evidence"
+  },
+  "source": {
+    "commit": "d89748bdf609b3c6f2e0fbbe3b43f4263c33279a",
+    "script": "scripts/experiments/acquire_a1_wheel_range.py",
+    "script_sha256": "f70f06d788257bc9379ff86c2be6e8a4352b5ce2462e81457cb3cfa40c099f12",
+    "tests": "tests/engine/test_acquire_a1_wheel_range.py",
+    "tests_sha256": "4643c29ea3bad1ea0116f72fd3aff06764853c2c59608d93a14d430c684a1799",
+    "new_behavior": [
+      "H1 requires exactly one syntactically valid strong ETag in addition to the frozen length and range-support headers",
+      "every GET requires that exact H1 ETag before a connection is constructed",
+      "every GET sends the strong ETag in If-Match and requires the 206 response to repeat it exactly",
+      "missing, weak, malformed, duplicate, or changed ETags fail closed and cannot qualify a response",
+      "the retained receipt and command summary expose the validated response strong ETag"
+    ]
+  },
+  "validation": {
+    "tests": {
+      "command_record_id": "538d88691e3b48bb87f0f0878711d415",
+      "command_record_sha256": "06187d91f1514bdc14926c7115df04e54638a6eb1c40beefba87bea3416eaa22",
+      "outer_wall_seconds": 0.249948,
+      "passed": 18,
+      "failed": 0
+    },
+    "ruff": {
+      "command_record_id": "1d7205d9ba1541b4988f430b05ab3932",
+      "command_record_sha256": "0548fd7c2ec84fe64d88c65f23905276e051b07fcc5735eb1a020c2b7ecf36b4",
+      "outer_wall_seconds": 0.041943,
+      "result": "passed"
+    },
+    "format": {
+      "command_record_id": "15c3d331e1ce40a894ab2fea8fd6bcda",
+      "command_record_sha256": "eda587257c2d2b37a76de4c3abaf0fed93ea1cc5e1f99ae6619db28f38111533",
+      "outer_wall_seconds": 0.012375,
+      "result": "passed"
+    },
+    "development": [
+      {
+        "command_record_id": "da644ee38fe2450bac905c0c42d7a50c",
+        "command_record_sha256": "f6db647e306a9586c3bbddedfa9196b23f36234c730e0333c82307d826868115",
+        "outer_wall_seconds": 0.255827,
+        "result": "18 tests passed before the validated ETag was surfaced as a receipt field"
+      },
+      {
+        "command_record_id": "e33ee864ef554a81a1b2ee3920fa5196",
+        "command_record_sha256": "3a29ac67a930ee7547b9c71b7e5194234eb63255fc73ccdb60d4d3a3f3ab8770",
+        "outer_wall_seconds": 0.294943,
+        "result": "18 tests passed after the receipt field was added"
+      }
+    ]
+  },
+  "finding": {
+    "id": "I11",
+    "disposition": "prospectively correctable; not yet accepted by the evaluation owner",
+    "statement": "The prior route bound each response to one URL and length but did not bind its multiple ranges to one unchanged HTTP representation. A different same-length object could therefore be mixed into the sparse archive. Source d89748b requires strong-ETag coherence across H1 and every Range."
+  },
+  "guarantee_boundary": "A strong ETag supplies an HTTP representation-coherence witness only if the serving origin and intermediaries honor strong-validator and If-Match semantics. It is not a cryptographic content digest, publisher-authenticity proof, rights declaration, or verification of the unheld whole-wheel SHA-256.",
+  "contract_effect": "Opus must prospectively accept or replace the strong-ETag H1 and Range rules together with the still-unresolved stop-on-redirect choice before dispatch",
+  "operations": {
+    "external_network_attempts": 0,
+    "application_responses": 0,
+    "response_body_bytes": 0,
+    "package_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0
+  },
+  "claim_boundary": "transport conformance under injected responses only; live server validators and semantics remain unobserved",
+  "publication": "private; no push or publication"
+}

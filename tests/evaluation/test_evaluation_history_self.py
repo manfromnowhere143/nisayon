@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -110,14 +111,17 @@ def test_a_confirmation_decided_later_is_not_prior_consumption(tmp_path):
     other["bundle_sha256"] = "sha256:" + "ee" * 32
     other["bundle"] = "/elsewhere/bundle.json"
     other["confirmation"]["protocol"]["producer_protocol_sha256"] = "ff" * 32
-    other["decided_at"] = "2026-09-19T00:00:00+00:00"  # after this record's decision
+    # Stamps relative to this record's own decision: a fixed calendar date would flip
+    # meaning once the calendar passed it (it did on 19 September 2026).
+    decided = datetime.fromisoformat(first["decided_at"])
+    other["decided_at"] = (decided + timedelta(days=1)).isoformat()  # after this decision
     retain(other, tmp_path / "history", "other")
     decision = evaluate_bundle(path, history=[tmp_path / "history"])
     assert "confirmation_condition_reused" not in reasons(decision)
     assert "protocol_mismatch" not in reasons(decision)
     assert "history_later_records" in notes(decision)
     assert "history_absent" not in notes(decision)
-    other["decided_at"] = "2026-09-01T00:00:00+00:00"  # before this record's decision
+    other["decided_at"] = (decided - timedelta(days=18)).isoformat()  # before this decision
     retain(other, tmp_path / "history", "other")
     decision = evaluate_bundle(path, history=[tmp_path / "history"])
     assert decision["decision"] == "invalid"

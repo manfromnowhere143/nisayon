@@ -1,0 +1,395 @@
+{
+  "schema": "nisayon.temporal-cancellation-integration.v1",
+  "source": "0d630c2845ca0b100ef10c4ac0e6b3e68bf2ff5b",
+  "evaluator_source": {
+    "src/nisayon/evaluation/confirmation.py": "cc2e963aaecb82c330624f6aff831661e483ac0e750a4546a3866ad3f27b39a9",
+    "src/nisayon/evaluation/first_case.py": "db68e9ab24c5205a9461e9e941a2261ef440c33a4c96a7bc9ded92fd56a640d5",
+    "tests/evaluation/test_evaluation_cancellation.py": "293cecb7fd860a85ce098e7c51bf4df256b214709dcd4ecb35a4131cf3dd62d8"
+  },
+  "kind": "labelled synthetic metadata-conformance probes; no robot result or false bad-repair acceptance claim",
+  "questions": [
+    "Must a supplied violating run ID identify the run to which the claimed violation is attributed, beyond pair membership?",
+    "Can a present empty explicit assignment list be treated as absent when the frozen membership is nonempty?"
+  ],
+  "rows": [
+    {
+      "case": "valid_stop",
+      "decision": "rejected",
+      "reason_codes": [
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "confirmation": {
+        "id": "confirmation-8313c45914f1",
+        "protocol_id": "first-case-obligation-v0.2",
+        "protocol": {
+          "id": "first-case-obligation-v0.2",
+          "producer_protocol_sha256": "fc297a59ac9091dec61508f9f693d9b63709cfb09b0e36d8780c87ac2464d7db"
+        },
+        "candidate": {
+          "id": "correction",
+          "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+        },
+        "frozen_at": "2026-09-17T20:10:00+00:00",
+        "fresh_condition_ids": [
+          "seed-1000",
+          "seed-1001",
+          "seed-1002",
+          "seed-1003"
+        ],
+        "reproduction_condition_ids": [
+          "seed-0"
+        ],
+        "consumed_condition_ids": [
+          "seed-0"
+        ],
+        "pairs": [
+          {
+            "condition_id": "seed-0",
+            "role": "reproduction",
+            "reference_run_id": "reference-0-a",
+            "candidate_run_id": "reproduction-correction-0",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "fixed"
+          },
+          {
+            "condition_id": "seed-1000",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1000",
+            "candidate_run_id": "confirmation-correction-1000",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          },
+          {
+            "condition_id": "seed-1001",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1001",
+            "candidate_run_id": "confirmation-correction-1001",
+            "reference_outcome": "completed",
+            "candidate_outcome": "failed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "regression"
+          },
+          {
+            "condition_id": "seed-1002",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1002",
+            "candidate_run_id": "confirmation-correction-1002",
+            "reference_outcome": "unknown",
+            "candidate_outcome": "unknown",
+            "reference_measurement": "unknown",
+            "candidate_measurement": "unknown",
+            "verdict": "cancelled"
+          },
+          {
+            "condition_id": "seed-1003",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1003",
+            "candidate_run_id": "confirmation-correction-1003",
+            "reference_outcome": "unknown",
+            "candidate_outcome": "unknown",
+            "reference_measurement": "unknown",
+            "candidate_measurement": "unknown",
+            "verdict": "cancelled"
+          }
+        ],
+        "findings": [
+          {
+            "code": "regression_on_fresh_condition",
+            "severity": "rejected",
+            "detail": "condition 'seed-1001': the reference completes and the candidate fails",
+            "run_id": "confirmation-correction-1001"
+          },
+          {
+            "code": "assignment_cancelled",
+            "severity": "info",
+            "detail": "condition 'seed-1002': assignment cancelled after the violation on 'seed-1001'; retained in the denominator"
+          },
+          {
+            "code": "assignment_cancelled",
+            "severity": "info",
+            "detail": "condition 'seed-1003': assignment cancelled after the violation on 'seed-1001'; retained in the denominator"
+          },
+          {
+            "code": "identity_verified",
+            "severity": "info",
+            "detail": "all 6 assigned runs carry matching identity for ['execution_identity_sha256', 'code_git_head', 'code_sha256', 'lock_sha256', 'sources_sha256', 'policy_sha256', 'configuration_sha256[reference]', 'configuration_sha256[candidate]'] and agree with the frozen protocol"
+          }
+        ],
+        "cancellation": {
+          "status": "stopped_after_violation",
+          "violation_condition_id": "seed-1001",
+          "violation_run_id": "confirmation-correction-1001",
+          "violation_code": null,
+          "recorded_at": "2026-09-17T20:16:00+00:00",
+          "cancelled_condition_ids": [
+            "seed-1002",
+            "seed-1003"
+          ]
+        },
+        "summary": {
+          "reproduction": "fixed",
+          "fresh_declared": 4,
+          "fresh_assigned": 4,
+          "fresh_pass": 1,
+          "fresh_regression": 1,
+          "fresh_both_failed": 0,
+          "fresh_improved": 0,
+          "fresh_gap_or_invalid": 0,
+          "fresh_cancelled": 2
+        }
+      },
+      "input_sha256": "54101ce0e00ead0424653693e71ba5594c8e77cffb97c4f5f285c90819381f09"
+    },
+    {
+      "case": "violation_names_nonviolating_reference",
+      "decision": "rejected",
+      "reason_codes": [
+        "progress_lost",
+        "regression_on_fresh_condition"
+      ],
+      "confirmation": {
+        "id": "confirmation-8313c45914f1",
+        "protocol_id": "first-case-obligation-v0.2",
+        "protocol": {
+          "id": "first-case-obligation-v0.2",
+          "producer_protocol_sha256": "fc297a59ac9091dec61508f9f693d9b63709cfb09b0e36d8780c87ac2464d7db"
+        },
+        "candidate": {
+          "id": "correction",
+          "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+        },
+        "frozen_at": "2026-09-17T20:10:00+00:00",
+        "fresh_condition_ids": [
+          "seed-1000",
+          "seed-1001",
+          "seed-1002",
+          "seed-1003"
+        ],
+        "reproduction_condition_ids": [
+          "seed-0"
+        ],
+        "consumed_condition_ids": [
+          "seed-0"
+        ],
+        "pairs": [
+          {
+            "condition_id": "seed-0",
+            "role": "reproduction",
+            "reference_run_id": "reference-0-a",
+            "candidate_run_id": "reproduction-correction-0",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "fixed"
+          },
+          {
+            "condition_id": "seed-1000",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1000",
+            "candidate_run_id": "confirmation-correction-1000",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          },
+          {
+            "condition_id": "seed-1001",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1001",
+            "candidate_run_id": "confirmation-correction-1001",
+            "reference_outcome": "completed",
+            "candidate_outcome": "failed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "regression"
+          },
+          {
+            "condition_id": "seed-1002",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1002",
+            "candidate_run_id": "confirmation-correction-1002",
+            "reference_outcome": "unknown",
+            "candidate_outcome": "unknown",
+            "reference_measurement": "unknown",
+            "candidate_measurement": "unknown",
+            "verdict": "cancelled"
+          },
+          {
+            "condition_id": "seed-1003",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1003",
+            "candidate_run_id": "confirmation-correction-1003",
+            "reference_outcome": "unknown",
+            "candidate_outcome": "unknown",
+            "reference_measurement": "unknown",
+            "candidate_measurement": "unknown",
+            "verdict": "cancelled"
+          }
+        ],
+        "findings": [
+          {
+            "code": "regression_on_fresh_condition",
+            "severity": "rejected",
+            "detail": "condition 'seed-1001': the reference completes and the candidate fails",
+            "run_id": "confirmation-correction-1001"
+          },
+          {
+            "code": "assignment_cancelled",
+            "severity": "info",
+            "detail": "condition 'seed-1002': assignment cancelled after the violation on 'seed-1001'; retained in the denominator"
+          },
+          {
+            "code": "assignment_cancelled",
+            "severity": "info",
+            "detail": "condition 'seed-1003': assignment cancelled after the violation on 'seed-1001'; retained in the denominator"
+          },
+          {
+            "code": "identity_verified",
+            "severity": "info",
+            "detail": "all 6 assigned runs carry matching identity for ['execution_identity_sha256', 'code_git_head', 'code_sha256', 'lock_sha256', 'sources_sha256', 'policy_sha256', 'configuration_sha256[reference]', 'configuration_sha256[candidate]'] and agree with the frozen protocol"
+          }
+        ],
+        "cancellation": {
+          "status": "stopped_after_violation",
+          "violation_condition_id": "seed-1001",
+          "violation_run_id": "confirmation-reference-1001",
+          "violation_code": "regression_on_fresh_condition",
+          "recorded_at": "2026-09-17T20:16:00+00:00",
+          "cancelled_condition_ids": [
+            "seed-1002",
+            "seed-1003"
+          ]
+        },
+        "summary": {
+          "reproduction": "fixed",
+          "fresh_declared": 4,
+          "fresh_assigned": 4,
+          "fresh_pass": 1,
+          "fresh_regression": 1,
+          "fresh_both_failed": 0,
+          "fresh_improved": 0,
+          "fresh_gap_or_invalid": 0,
+          "fresh_cancelled": 2
+        }
+      },
+      "input_sha256": "08acc8c37ca46a313ba011fcc561e4e76fa801dff027e1b8c7b9e10ed70be50f"
+    },
+    {
+      "case": "empty_explicit_membership",
+      "decision": "accepted",
+      "reason_codes": [],
+      "confirmation": {
+        "id": "confirmation-8313c45914f1",
+        "protocol_id": "first-case-obligation-v0.2",
+        "protocol": {
+          "id": "first-case-obligation-v0.2",
+          "producer_protocol_sha256": "fc297a59ac9091dec61508f9f693d9b63709cfb09b0e36d8780c87ac2464d7db"
+        },
+        "candidate": {
+          "id": "correction",
+          "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+        },
+        "frozen_at": "2026-09-17T20:10:00+00:00",
+        "fresh_condition_ids": [
+          "seed-1000",
+          "seed-1001",
+          "seed-1002",
+          "seed-1003"
+        ],
+        "reproduction_condition_ids": [
+          "seed-0"
+        ],
+        "consumed_condition_ids": [
+          "seed-0"
+        ],
+        "pairs": [
+          {
+            "condition_id": "seed-0",
+            "role": "reproduction",
+            "reference_run_id": "reference-0-a",
+            "candidate_run_id": "reproduction-correction-0",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "fixed"
+          },
+          {
+            "condition_id": "seed-1000",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1000",
+            "candidate_run_id": "confirmation-correction-1000",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          },
+          {
+            "condition_id": "seed-1001",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1001",
+            "candidate_run_id": "confirmation-correction-1001",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          },
+          {
+            "condition_id": "seed-1002",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1002",
+            "candidate_run_id": "confirmation-correction-1002",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          },
+          {
+            "condition_id": "seed-1003",
+            "role": "fresh",
+            "reference_run_id": "confirmation-reference-1003",
+            "candidate_run_id": "confirmation-correction-1003",
+            "reference_outcome": "completed",
+            "candidate_outcome": "completed",
+            "reference_measurement": "valid",
+            "candidate_measurement": "valid",
+            "verdict": "pass"
+          }
+        ],
+        "findings": [
+          {
+            "code": "identity_verified",
+            "severity": "info",
+            "detail": "all 10 assigned runs carry matching identity for ['execution_identity_sha256', 'code_git_head', 'code_sha256', 'lock_sha256', 'sources_sha256', 'policy_sha256', 'configuration_sha256[reference]', 'configuration_sha256[candidate]'] and agree with the frozen protocol"
+          }
+        ],
+        "cancellation": null,
+        "summary": {
+          "reproduction": "fixed",
+          "fresh_declared": 4,
+          "fresh_assigned": 4,
+          "fresh_pass": 4,
+          "fresh_regression": 0,
+          "fresh_both_failed": 0,
+          "fresh_improved": 0,
+          "fresh_gap_or_invalid": 0,
+          "fresh_cancelled": 0
+        }
+      },
+      "input_sha256": "e9e62129df2ca673c4093a8b4ee4b261a1504ab068e098a9ca5893c3735c2bf0"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "schema": "nisayon.temporal-integration.producer-mutations.v1",
+  "example": "docs/experiments/results/temporal-integration-001/interface-example.json",
+  "mutations": 9,
+  "agreeing": 9,
+  "rows": [
+    {
+      "mutation": "unchanged",
+      "returncode": 0,
+      "command_wall_s": 0.061928,
+      "expected_contract": "satisfied",
+      "expected_predicates": {},
+      "observed_contract": "satisfied",
+      "observed_not_satisfied": {},
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "dispatch_without_time",
+      "returncode": 0,
+      "command_wall_s": 0.056991,
+      "expected_contract": "violated",
+      "expected_predicates": {
+        "freshness": "unresolved",
+        "useful_execution": "violated"
+      },
+      "observed_contract": "violated",
+      "observed_not_satisfied": {
+        "freshness": "unresolved",
+        "useful_execution": "violated"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "non_monotone_seq",
+      "returncode": 0,
+      "command_wall_s": 0.056386,
+      "expected_contract": "invalid",
+      "expected_predicates": {},
+      "observed_contract": "invalid",
+      "observed_not_satisfied": {},
+      "problems": [
+        "events[2] seq 1 is not increasing"
+      ],
+      "agrees": true
+    },
+    {
+      "mutation": "response_without_request",
+      "returncode": 0,
+      "command_wall_s": 0.057269,
+      "expected_contract": "unresolved",
+      "expected_predicates": {
+        "request_binding": "unresolved",
+        "freshness": "unresolved"
+      },
+      "observed_contract": "unresolved",
+      "observed_not_satisfied": {
+        "request_binding": "unresolved",
+        "freshness": "unresolved"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "acquisition_in_undeclared_clock",
+      "returncode": 0,
+      "command_wall_s": 0.056959,
+      "expected_contract": "unresolved",
+      "expected_predicates": {
+        "freshness": "unresolved"
+      },
+      "observed_contract": "unresolved",
+      "observed_not_satisfied": {
+        "freshness": "unresolved"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "dispatch_in_other_generation",
+      "returncode": 0,
+      "command_wall_s": 0.060519,
+      "expected_contract": "violated",
+      "expected_predicates": {
+        "generation_fencing": "violated"
+      },
+      "observed_contract": "violated",
+      "observed_not_satisfied": {
+        "generation_fencing": "violated",
+        "useful_execution": "violated"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "acknowledgement_dropped",
+      "returncode": 0,
+      "command_wall_s": 0.059513,
+      "expected_contract": "unresolved",
+      "expected_predicates": {
+        "acknowledgement": "unresolved"
+      },
+      "observed_contract": "unresolved",
+      "observed_not_satisfied": {
+        "acknowledgement": "unresolved"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "dispatch_failed_instead",
+      "returncode": 0,
+      "command_wall_s": 0.058537,
+      "expected_contract": "violated",
+      "expected_predicates": {
+        "acknowledgement": "violated"
+      },
+      "observed_contract": "violated",
+      "observed_not_satisfied": {
+        "acknowledgement": "violated"
+      },
+      "problems": [],
+      "agrees": true
+    },
+    {
+      "mutation": "unknown_event_kind",
+      "returncode": 0,
+      "command_wall_s": 0.058294,
+      "expected_contract": "invalid",
+      "expected_predicates": {},
+      "observed_contract": "invalid",
+      "observed_not_satisfied": {
+        "acknowledgement": "unresolved"
+      },
+      "problems": [
+        "events[6] kind 'not_an_event' is unknown"
+      ],
+      "agrees": true
+    }
+  ],
+  "scope": "the execution lane's constructed interface example, mutated one field at a time and assessed through the public command; not executed records"
+}

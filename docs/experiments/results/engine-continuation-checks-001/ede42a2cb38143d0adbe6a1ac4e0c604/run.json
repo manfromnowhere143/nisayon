@@ -1,0 +1,40 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "ede42a2cb38143d0adbe6a1ac4e0c604",
+  "label": "full-suite-with-bounded-temporary-retention",
+  "command": [
+    ".venv/bin/python",
+    "-c",
+    "import json\nimport os\nimport shutil\nimport signal\nimport subprocess\nimport tempfile\nimport time\nfrom datetime import UTC, datetime\nfrom pathlib import Path\nroot = Path.cwd().resolve()\ntemporary = Path(tempfile.mkdtemp(prefix=\"nisayon-engine-budget-check-\")).resolve()\noutput = root / \"docs/experiments/results/engine-resource-control-001/monitored-full-check.json\"\nassert not output.exists()\nlimit = 512 * 1024**2\nbaseline = 204938213\nsamples, peak, violations = [], 0, []\nstarted = datetime.now(UTC).isoformat()\nprocess = subprocess.Popen([\"make\", \"check\"], cwd=root, env={**os.environ, \"PYTEST_DEBUG_TEMPROOT\":str(temporary)})\nwhile True:\n    count, payload = 0, 0\n    for directory, _, names in os.walk(temporary):\n        for name in names:\n            path = Path(directory) / name\n            try:\n                if not path.is_symlink():\n                    payload += path.stat().st_size\n                    count += 1\n            except FileNotFoundError:\n                pass  # A passed fixture may release its directory during sampling.\n    peak = max(peak, payload)\n    free = shutil.disk_usage(root).free\n    samples.append({\"utc\":datetime.now(UTC).isoformat(),\"bytes\":payload,\"files\":count,\"free_disk_bytes\":free})\n    if payload > limit or free < 5*1024**3:\n        violations.append({\"temporary_bytes\":payload,\"free_disk_bytes\":free})\n        break\n    if process.poll() is not None:\n        break\n    time.sleep(0.25)\nresult = {\n    \"schema\":\"nisayon.monitored-test-storage.v1\",\n    \"started_at\":started,\n    \"ended_at\":datetime.now(UTC).isoformat(),\n    \"temporary_root\":str(temporary),\n    \"isolation\":\"Fresh PYTEST_DEBUG_TEMPROOT for this command; no other test root is used or cleaned\",\n    \"configured_retention\":\"failed\",\n    \"sample_interval_requested_s\":0.25,\n    \"sampled_peak_temporary_bytes\":peak,\n    \"last_sample_temporary_bytes\":samples[-1][\"bytes\"],\n    \"new_temporary_stop_limit_bytes\":limit,\n    \"baseline_retained_payload_bytes\":baseline,\n    \"baseline_measurement\":\"6df327d72fe147eeb3a05f5f93698691\",\n    \"baseline_plus_sampled_peak_bytes\":baseline+peak,\n    \"artifact_cap_bytes\":1024**3,\n    \"violations\":violations,\n    \"returncode\":process.poll(),\n    \"samples\":samples,\n    \"measurement_limit\":\"Discrete logical-size samples can miss between-sample peaks. Baseline predates small documentation/record writes; no active engineering or scientific execution time is inferred.\",\n    \"scientific_status\":\"not_assessed\",\n}\noutput.write_text(json.dumps(result,indent=2)+\"\\n\")\nprint(json.dumps({k:v for k,v in result.items() if k != \"samples\"},indent=2),flush=True)\nif violations:\n    os.killpg(os.getpgrp(), signal.SIGTERM)\nraise SystemExit(process.wait())\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-19T09:14:26.662613+00:00",
+  "process_status": "nonzero",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "54660e58078039b569d22031bbf3094ed2d80f91",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": 600.0,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 4083,
+  "returncode": 2,
+  "ended_at": "2026-09-19T09:17:18.618833+00:00",
+  "wall_seconds": 171.914724,
+  "logs": {
+    "stdout.log": {
+      "bytes": 3666,
+      "sha256": "87b0f25b286e4c17645caf16d572ad4032fe43e4d873255a0f3edbf814331b4e"
+    },
+    "stderr.log": {
+      "bytes": 250,
+      "sha256": "b44dd49c5fa60edcd3ae77cc0134aaf5d902b4b3d319eb8af9ebf825f2dc6604"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

@@ -1,0 +1,89 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+365 files already formatted
+uv run --frozen pytest
+....................................................s................... [  8%]
+.......FF............................................................... [ 16%]
+........................................................................ [ 24%]
+........................................................................ [ 33%]
+........................................................................ [ 41%]
+........................................................................ [ 49%]
+........................................................................ [ 57%]
+........................................................................ [ 66%]
+........................................................................ [ 74%]
+........................................................................ [ 82%]
+........................................................................ [ 90%]
+........................................................................ [ 99%]
+.......                                                                  [100%]
+=================================== FAILURES ===================================
+________ test_frozen_controls_follow_candidate_contents_not_identifiers ________
+
+    def test_frozen_controls_follow_candidate_contents_not_identifiers():
+        diagnostic = _module()
+        plan = diagnostic._read_json(PLAN)
+>       context = diagnostic._load_context(plan, SOURCES)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_conventional_processor_diagnostic.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/experiments/conventional_processor_diagnostic.py:313: in _load_context
+    paths, identities = _verify_sources(plan, source_root)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/experiments/conventional_processor_diagnostic.py:191: in _verify_sources
+    path = _member(source_root, declaration.get("path"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/experiments/conventional_processor_diagnostic.py:92: in _member
+    root = root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-fable5/artifacts/external-decision-001'
+rest = '', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-fable5/artifacts/external-decision-001/source-capture'
+
+<frozen posixpath>:468: FileNotFoundError
+_______ test_incident_decision_is_computed_and_binding_stays_unresolved ________
+
+    def test_incident_decision_is_computed_and_binding_stays_unresolved():
+        diagnostic = _module()
+        plan = diagnostic._read_json(PLAN)
+>       context = diagnostic._load_context(plan, SOURCES)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_conventional_processor_diagnostic.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/experiments/conventional_processor_diagnostic.py:313: in _load_context
+    paths, identities = _verify_sources(plan, source_root)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/experiments/conventional_processor_diagnostic.py:191: in _verify_sources
+    path = _member(source_root, declaration.get("path"))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+scripts/experiments/conventional_processor_diagnostic.py:92: in _member
+    root = root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-fable5/artifacts/external-decision-001'
+rest = '', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-fable5/artifacts/external-decision-001/source-capture'
+
+<frozen posixpath>:468: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/engine/test_conventional_processor_diagnostic.py::test_frozen_controls_follow_candidate_contents_not_identifiers
+FAILED tests/engine/test_conventional_processor_diagnostic.py::test_incident_decision_is_computed_and_binding_stays_unresolved
+2 failed, 868 passed, 1 skipped in 237.77s (0:03:57)

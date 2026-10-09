@@ -1,0 +1,1186 @@
+{
+  "schema": "nisayon.decision.v1",
+  "evaluator": {
+    "name": "nisayon.evaluation",
+    "version": "0.1.0",
+    "sources_sha256": "5860de1ea73410ae13677fb7aaf164975f5a1ad06c0b65d0d3fd97eb82d6dfea",
+    "protocol": "first-case-obligation-v0.2"
+  },
+  "bundle": "docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership/bundle.json",
+  "bundle_sha256": "sha256:0ed102bf1e9d7e741cc365b98b4360501f708aed6358696f409805f12384f63a",
+  "decided_at": "2026-09-20T04:18:32.884591+00:00",
+  "history": {
+    "paths": [],
+    "consumed_condition_count": 0,
+    "own_entries": [],
+    "later_entries": [],
+    "unreadable": []
+  },
+  "artifact_root": "docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership",
+  "case_id": "mini-case",
+  "evidence_origin": "synthetic_development",
+  "decision": "accepted",
+  "scope": "accepted: candidate 'correction' as a deployable repair of case 'mini-case' under first-case-obligation-v0.2; reproduction condition ['seed-0'] plus 4 of 4 declared fresh conditions; synthetic development fixture, not an experiment result",
+  "reasons": [],
+  "premises": {
+    "reference_established": true,
+    "regression_reproduced": true
+  },
+  "runs": {
+    "reference-0-a": {
+      "run_id": "reference-0-a",
+      "role": "reference",
+      "revision": "working",
+      "condition_id": "seed-0",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "reference-0-a",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "reference-0-a"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:4d2752e62248885669168037f5a3ff980dfbb5eeb1aec53d1d42fd80b29f3ff5",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "regression-0": {
+      "run_id": "regression-0",
+      "role": "regression",
+      "revision": "changed",
+      "condition_id": "seed-0",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "failed",
+        "claimed": "failed"
+      },
+      "progress": "lost",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.82,
+        "progress_gain": 0.0,
+        "progress_peak_gain": 0.0,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 4 of 4 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "regression-0",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "regression-0"
+        },
+        {
+          "code": "outcome_failed_observed",
+          "severity": "rejected",
+          "detail": "lift.cube_above_table: cube_height_m > 0.84 m does not hold (0.82 at end)",
+          "run_id": "regression-0",
+          "step": 3
+        },
+        {
+          "code": "progress_lost",
+          "severity": "rejected",
+          "detail": "lift.cube_raised: gain 0 m is below the minimum 0.01",
+          "run_id": "regression-0"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:df3ea88bf4c6f230c0a30af2fbfc550e66e43bf3182b0d04343d2f021f1c4677",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-reference-1000": {
+      "run_id": "confirmation-reference-1000",
+      "role": "reference",
+      "revision": "working",
+      "condition_id": "seed-1000",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-reference-1000",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-reference-1000"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:4f6417d81462d320599c3c583fa310c1814eae23162cf6ab9a54f7333d6aa952",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-reference-1001": {
+      "run_id": "confirmation-reference-1001",
+      "role": "reference",
+      "revision": "working",
+      "condition_id": "seed-1001",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-reference-1001",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-reference-1001"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:3279948df045056481cf6a9cee32e5683b110e80efd2bfa36a959f37031052b8",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-reference-1002": {
+      "run_id": "confirmation-reference-1002",
+      "role": "reference",
+      "revision": "working",
+      "condition_id": "seed-1002",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-reference-1002",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-reference-1002"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:672e6d219cac5ada0f8de20a58e554fe9e07fc4a604e7b727341afb51654fbc5",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-reference-1003": {
+      "run_id": "confirmation-reference-1003",
+      "role": "reference",
+      "revision": "working",
+      "condition_id": "seed-1003",
+      "candidate": null,
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-reference-1003",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-reference-1003"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:1ff1789994cc7bd19bb46352b734309112d4fc4b92b11a30988236df6c8871bf",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "correction-0": {
+      "run_id": "correction-0",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-0",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "correction-0"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "correction-0",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "correction-0"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:5c20a596305ca4cc94eba15e2a98ebf0dd5155c05a6826316c73be8f82e70a02",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "suppression-0": {
+      "run_id": "suppression-0",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-0",
+      "candidate": {
+        "id": "suppression",
+        "digest": "5f8fcf2bf63613a827fadd9702d83ba119f7947bb15827f6a26119541ecb92fa"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "failed",
+        "claimed": "failed"
+      },
+      "progress": "lost",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.82,
+        "progress_gain": 0.0,
+        "progress_peak_gain": 0.0,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "suppression from step 0, full_rerun",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 4 of 4 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "suppression-0",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "candidate_outside_repair_scope",
+          "severity": "rejected",
+          "detail": "candidate is declared not deployable",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "candidate_outside_repair_scope",
+          "severity": "rejected",
+          "detail": "path 'suppress_actions' is outside the scope",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "outcome_failed_observed",
+          "severity": "rejected",
+          "detail": "lift.cube_above_table: cube_height_m > 0.84 m does not hold (0.82 at end)",
+          "run_id": "suppression-0",
+          "step": 3
+        },
+        {
+          "code": "progress_lost",
+          "severity": "rejected",
+          "detail": "lift.cube_raised: gain 0 m is below the minimum 0.01",
+          "run_id": "suppression-0"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:f95c9cc724f7aee430494bf88e96777d64720acf6dd9a79cf3bf3e683a1b2acd",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "reproduction-correction-0": {
+      "run_id": "reproduction-correction-0",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-0",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "reproduction-correction-0"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "reproduction-correction-0",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "reproduction-correction-0"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:c84066afd6008e1c9f8f85a72e75d92877cd80d82d6fdfabb746af6305aa1eb5",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-correction-1000": {
+      "run_id": "confirmation-correction-1000",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-1000",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "confirmation-correction-1000"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-correction-1000",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-correction-1000"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:54bed33978b6d3a0e9a632eda185b5c2ee9627545c8b04faf5026279c8799f51",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-correction-1001": {
+      "run_id": "confirmation-correction-1001",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-1001",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "confirmation-correction-1001"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-correction-1001",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-correction-1001"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:31fc791e01d75e16f307ed386c4d8c67e24e9815581b034e1791c3c713dcae08",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-correction-1002": {
+      "run_id": "confirmation-correction-1002",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-1002",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "confirmation-correction-1002"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-correction-1002",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-correction-1002"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:fa9818f9e7a088bb2f452c2b332142251648d43edb012547820cf796729840dd",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    },
+    "confirmation-correction-1003": {
+      "run_id": "confirmation-correction-1003",
+      "role": "candidate",
+      "revision": "changed",
+      "condition_id": "seed-1003",
+      "candidate": {
+        "id": "correction",
+        "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+      },
+      "evidence_origin": "synthetic_development",
+      "process": "completed",
+      "measurement": "valid",
+      "outcome": {
+        "observed": "completed",
+        "claimed": "completed"
+      },
+      "progress": "preserved",
+      "constraints": "satisfied",
+      "timing": "satisfied",
+      "metrics": {
+        "outcome_final_value": 0.85,
+        "progress_gain": 0.03,
+        "progress_peak_gain": 0.03,
+        "max_step_period_s": 0.05,
+        "max_observation_age_s": 0.0
+      },
+      "findings": [
+        {
+          "code": "intervention_declared",
+          "severity": "info",
+          "detail": "correction from step 0, full_rerun",
+          "run_id": "confirmation-correction-1003"
+        },
+        {
+          "code": "intended_action_out_of_bounds",
+          "severity": "info",
+          "detail": "the policy's intended action exceeds the normalized bound at 3 of 3 steps (peak |a| = 1.0001); the adapter clips before execution",
+          "run_id": "confirmation-correction-1003",
+          "step": 0
+        },
+        {
+          "code": "artifact_store_unverified",
+          "severity": "unresolved",
+          "detail": "the run declares no raw artifacts; under the strict obligation an execution without a digest-bound raw record cannot be verified",
+          "run_id": "confirmation-correction-1003"
+        }
+      ],
+      "costs": {
+        "rollout": {
+          "value": 1.0,
+          "unit": "s"
+        }
+      },
+      "cost_parent_run_id": null,
+      "trace_digest": "sha256:920b0db05b097bf4395e7f92be7100da3497a7f79f6f5778fe566c1acbc7c7b4",
+      "identity": {
+        "invocation_id": "invocation-test",
+        "execution_identity_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+        "configuration_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+        "policy_sha256": "abababababababababababababababababababababababababababababababab",
+        "code_git_head": "test-head",
+        "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "sources_sha256": "896d0b6ccebf08cd0a9018db10473cb9187862a58c4b6f25aa46ce0857c93773",
+        "code_sha256": "f398a3d64b8d143c33bc53f260e93a950a5dbd9c540c1187abf6636fc42f2237"
+      }
+    }
+  },
+  "unparsed_records": [],
+  "confirmation": {
+    "id": "confirmation-8313c45914f1",
+    "protocol_id": "first-case-obligation-v0.2",
+    "protocol": {
+      "id": "first-case-obligation-v0.2",
+      "producer_protocol_sha256": "fc297a59ac9091dec61508f9f693d9b63709cfb09b0e36d8780c87ac2464d7db"
+    },
+    "candidate": {
+      "id": "correction",
+      "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655"
+    },
+    "frozen_at": "2026-09-17T20:10:00+00:00",
+    "fresh_condition_ids": [
+      "seed-1000",
+      "seed-1001",
+      "seed-1002",
+      "seed-1003"
+    ],
+    "reproduction_condition_ids": [
+      "seed-0"
+    ],
+    "consumed_condition_ids": [
+      "seed-0"
+    ],
+    "pairs": [
+      {
+        "condition_id": "seed-0",
+        "role": "reproduction",
+        "reference_run_id": "reference-0-a",
+        "candidate_run_id": "reproduction-correction-0",
+        "reference_outcome": "completed",
+        "candidate_outcome": "completed",
+        "reference_measurement": "valid",
+        "candidate_measurement": "valid",
+        "verdict": "fixed"
+      },
+      {
+        "condition_id": "seed-1000",
+        "role": "fresh",
+        "reference_run_id": "confirmation-reference-1000",
+        "candidate_run_id": "confirmation-correction-1000",
+        "reference_outcome": "completed",
+        "candidate_outcome": "completed",
+        "reference_measurement": "valid",
+        "candidate_measurement": "valid",
+        "verdict": "pass"
+      },
+      {
+        "condition_id": "seed-1001",
+        "role": "fresh",
+        "reference_run_id": "confirmation-reference-1001",
+        "candidate_run_id": "confirmation-correction-1001",
+        "reference_outcome": "completed",
+        "candidate_outcome": "completed",
+        "reference_measurement": "valid",
+        "candidate_measurement": "valid",
+        "verdict": "pass"
+      },
+      {
+        "condition_id": "seed-1002",
+        "role": "fresh",
+        "reference_run_id": "confirmation-reference-1002",
+        "candidate_run_id": "confirmation-correction-1002",
+        "reference_outcome": "completed",
+        "candidate_outcome": "completed",
+        "reference_measurement": "valid",
+        "candidate_measurement": "valid",
+        "verdict": "pass"
+      },
+      {
+        "condition_id": "seed-1003",
+        "role": "fresh",
+        "reference_run_id": "confirmation-reference-1003",
+        "candidate_run_id": "confirmation-correction-1003",
+        "reference_outcome": "completed",
+        "candidate_outcome": "completed",
+        "reference_measurement": "valid",
+        "candidate_measurement": "valid",
+        "verdict": "pass"
+      }
+    ],
+    "findings": [
+      {
+        "code": "identity_verified",
+        "severity": "info",
+        "detail": "all 10 assigned runs carry matching identity for ['execution_identity_sha256', 'code_git_head', 'code_sha256', 'lock_sha256', 'sources_sha256', 'policy_sha256', 'configuration_sha256[reference]', 'configuration_sha256[candidate]'] and agree with the frozen protocol"
+      }
+    ],
+    "cancellation": null,
+    "summary": {
+      "reproduction": "fixed",
+      "fresh_declared": 4,
+      "fresh_assigned": 4,
+      "fresh_pass": 4,
+      "fresh_regression": 0,
+      "fresh_both_failed": 0,
+      "fresh_improved": 0,
+      "fresh_gap_or_invalid": 0,
+      "fresh_cancelled": 0
+    }
+  },
+  "candidates": {
+    "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655": {
+      "id": "correction",
+      "digest": "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655",
+      "runs": [
+        "confirmation-correction-1000",
+        "confirmation-correction-1001",
+        "confirmation-correction-1002",
+        "confirmation-correction-1003",
+        "correction-0",
+        "reproduction-correction-0"
+      ],
+      "valid_runs": 6,
+      "invalid_or_unresolved_runs": [],
+      "obligation_failures": [],
+      "status": "accepted"
+    },
+    "5f8fcf2bf63613a827fadd9702d83ba119f7947bb15827f6a26119541ecb92fa": {
+      "id": "suppression",
+      "digest": "5f8fcf2bf63613a827fadd9702d83ba119f7947bb15827f6a26119541ecb92fa",
+      "runs": [
+        "suppression-0"
+      ],
+      "valid_runs": 1,
+      "invalid_or_unresolved_runs": [],
+      "obligation_failures": [
+        {
+          "code": "candidate_outside_repair_scope",
+          "severity": "rejected",
+          "detail": "candidate is declared not deployable",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "candidate_outside_repair_scope",
+          "severity": "rejected",
+          "detail": "path 'suppress_actions' is outside the scope",
+          "run_id": "suppression-0"
+        },
+        {
+          "code": "outcome_failed_observed",
+          "severity": "rejected",
+          "detail": "lift.cube_above_table: cube_height_m > 0.84 m does not hold (0.82 at end)",
+          "run_id": "suppression-0",
+          "step": 3
+        },
+        {
+          "code": "progress_lost",
+          "severity": "rejected",
+          "detail": "lift.cube_raised: gain 0 m is below the minimum 0.01",
+          "run_id": "suppression-0"
+        }
+      ],
+      "status": "rejected"
+    }
+  },
+  "costs": {
+    "per_item": {
+      "rollout": {
+        "unit": "s",
+        "known_total": 13.0,
+        "known_runs": 13,
+        "missing_runs": 0,
+        "missing_reasons": [],
+        "nested_known_total": 0.0,
+        "nested_runs": 0
+      }
+    },
+    "preparation": {
+      "invocation": {
+        "value": 2.0,
+        "unit": "s"
+      },
+      "human": {
+        "value": null,
+        "unit": "s",
+        "missing": "not measured"
+      }
+    },
+    "runs_counted": 13,
+    "runs_nested_in_parent": {},
+    "cost_parent_missing": {},
+    "runs_without_cost_records": [],
+    "records_unparsed": 0,
+    "note": "Unknown costs are not zero. Totals cover recorded items over every run in the bundle, including invalid and failed attempts. A run nested in a counted parent's wall is listed under nested_known_total and not added to known_total; a run whose declared parent is absent is counted on its own."
+  },
+  "limits": [
+    "Evidence origin synthetic_development: this exercises evaluator behaviour only.",
+    "The decision covers the finite declared conditions; it is not a stochastic reliability estimate.",
+    "Digest matches bind bytes, not physical truth.",
+    "Measurements come from the producer's adapter. This evaluator checks their internal consistency and the declared predicates; it does not verify the adapter or the simulator.",
+    "Freshness is checked against the declared exploration set, runs in this bundle and prior confirmations in this bundle. Custody outside the bundle is not verified.",
+    "State declared as not captured: everything; synthetic.",
+    "Intervention runs are valid under the recorded reset and provenance premises only."
+  ],
+  "notes": [
+    {
+      "code": "artifact_manifest_verified",
+      "severity": "info",
+      "detail": "manifest.json: 0 files verified under docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership"
+    },
+    {
+      "code": "qualification_repeat",
+      "severity": "info",
+      "detail": "runs 'correction-0' and 'reproduction-correction-0' repeat deployment 8313c45914f1 on seed-0 with identical recorded state, observation, recurrent-state and action sequences over 3 steps"
+    },
+    {
+      "code": "protocol_verified",
+      "severity": "info",
+      "detail": "frozen-protocol.json verified: protocol digest, candidate digest, predicates, condition IDs, freeze timestamp, execution code identity test-head agree with the confirmation"
+    },
+    {
+      "code": "history_absent",
+      "severity": "info",
+      "detail": "no retained history was supplied; consumed conditions and rewritten protocols could only be checked against this bundle's own records"
+    }
+  ],
+  "producer": {
+    "schema": "nisayon.first_case.v1",
+    "source": "docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership/bundle.json",
+    "bundle_sha256": "sha256:0ed102bf1e9d7e741cc365b98b4360501f708aed6358696f409805f12384f63a",
+    "artifact_root": "docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership",
+    "obligation": "first-case-obligation-v0.2",
+    "frozen_protocol": "docs/experiments/results/temporal-integration-001/cancellation-integration-001/empty_explicit_membership/frozen-protocol.json",
+    "manifest": "verified",
+    "cost_ledger": {
+      "path": null,
+      "known_command_wall_sum_s": null,
+      "unmeasured": []
+    },
+    "code": {
+      "git_head": "test-head",
+      "sources": {
+        "engine.py": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "lock_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    "plans": [
+      "correction",
+      "reference",
+      "regression",
+      "suppression"
+    ],
+    "known_deployments": {
+      "912cbcf8abf4cb4bd8d97516afc530d7e6e832d1832d769f53b63a08d1fee430": "reference",
+      "72fe6c492437678d32cedc26716457c2f17f9e3a99716441d551e31bd61ff8e1": "regression",
+      "8313c45914f1561d3f2e0aeefb7dc897a6e8cefc7c7f1c7a6ef720d1e31ec655": "correction",
+      "5f8fcf2bf63613a827fadd9702d83ba119f7947bb15827f6a26119541ecb92fa": "suppression"
+    },
+    "qualification": {
+      "reset": null,
+      "captured_state": null,
+      "omitted_state": [
+        "everything; synthetic"
+      ],
+      "continuation_supported": null,
+      "clocks": null,
+      "queue": "none",
+      "scope": null
+    },
+    "translation": {
+      "revision_role": "reference deployments are the working revision; every other deployment runs on the changed transport",
+      "candidate_components": {
+        "correction": [
+          {
+            "kind": "config_edit",
+            "path": "repair_gripper_sign",
+            "role": "deployable_edit",
+            "summary": "invert the gripper command before the changed transport"
+          }
+        ],
+        "suppression": [
+          {
+            "kind": "config_edit",
+            "path": "suppress_actions",
+            "role": "deployable_edit",
+            "summary": "zero every executed action"
+          }
+        ]
+      },
+      "repair_scope": "config_edit of repair_gripper_sign only, from the declared scope ['invert gripper command before changed transport']",
+      "progress_predicate": "producer",
+      "deployability": "read from the plan or run; undeclared is assumed under v0.1 and unresolved under v0.2",
+      "identity": "per-run identity from `identity`, `invocation_id`, `execution_identity_sha256`, `configuration_sha256`, `code` and `policy_sha256`; absent identity is inherited under v0.1 and unbound under v0.2",
+      "reset_evidence": "sim_state and controller_state from initial_state_sha256; policy_state from `policy_state_reset` or the step-0 recurrent digest; action_queue from the qualification; rng from the seed",
+      "timing": "observation age from the consumed observation's acquisition stamps; unmeasured without them; step period from next_sim_time_s minus action_sim_time_s",
+      "outcome": "cube_height_m at the final step > min_cube_height_m, recomputed from the trace"
+    }
+  },
+  "task": {
+    "policy_sha256": "abababababababababababababababababababababababababababababababab"
+  },
+  "evidence_origins": [
+    "synthetic_development"
+  ],
+  "evidence": {
+    "obligation": "first-case-obligation-v0.2",
+    "timing": "measured_from_acquisition_stamps",
+    "identity": "verified_per_run",
+    "artifacts": "manifest_verified",
+    "reproduction": "post_freeze_rerun",
+    "deployability": "declared",
+    "progress_predicate": "producer_frozen",
+    "custody": "producer-declared contamination status; no independent custody was verified"
+  },
+  "obligation": {
+    "version": "first-case-obligation-v0.2",
+    "strict": true,
+    "predicates_digest": "sha256:4dd7a634144e55c3eac9e61e599fb1bd0b95fc9eb69dd9d0916b5b9ccf9e7061",
+    "evaluator_added_predicates": []
+  },
+  "evaluation_wall_s": 0.005009
+}

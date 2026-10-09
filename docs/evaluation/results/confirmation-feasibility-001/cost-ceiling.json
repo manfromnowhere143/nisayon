@@ -1,0 +1,170 @@
+{
+  "schema": "nisayon.confirmation-feasibility.cost-ceiling.v1",
+  "formula": "speedup(k) = (D+F)/(D/k+F) <= (D+F)/F",
+  "assumptions": [
+    "same candidates, accepted counts, confirmation obligations and confirmation costs",
+    "only the diagnostic component is accelerated; no planner overhead",
+    "conditional bounds on recorded scopes; not measured gains; unknown engineering effort, charges and energy stay unknown"
+  ],
+  "rows": [
+    {
+      "comparison": "development-ablation-001",
+      "arm": "A",
+      "source_sha256": "b244cec83a6ed6ce7aec6ea6b4adba530f40058122334feb5968fa9abdb8b31a",
+      "diagnostic_runs": 33,
+      "confirmation_runs": 536,
+      "all_runs": 569,
+      "diagnostic_wall_s": 102.331113626,
+      "confirmation_wall_s": 779.622530044,
+      "own_trial_wall_s": 881.95364367,
+      "free_diagnosis_run_reduction": 0.05799648506151142,
+      "free_diagnosis_run_speedup": 1.0615671641791045,
+      "free_diagnosis_wall_reduction": 0.11602776898815009,
+      "free_diagnosis_wall_speedup": 1.1312572555082838,
+      "speedup_at_k": {
+        "2": 1.06158677239411,
+        "4": 1.095315237510283,
+        "10": 1.1166010564910178
+      },
+      "confirmed_repairs": 6,
+      "cases": 10
+    },
+    {
+      "comparison": "development-ablation-001",
+      "arm": "B",
+      "source_sha256": "b244cec83a6ed6ce7aec6ea6b4adba530f40058122334feb5968fa9abdb8b31a",
+      "diagnostic_runs": 33,
+      "confirmation_runs": 536,
+      "all_runs": 569,
+      "diagnostic_wall_s": 138.961592791,
+      "confirmation_wall_s": 787.235968124,
+      "own_trial_wall_s": 926.197560915,
+      "free_diagnosis_run_reduction": 0.05799648506151142,
+      "free_diagnosis_run_speedup": 1.0615671641791045,
+      "free_diagnosis_wall_reduction": 0.15003450522339792,
+      "free_diagnosis_wall_speedup": 1.1765183482687516,
+      "speedup_at_k": {
+        "2": 1.0811012452108009,
+        "4": 1.1267934199369112,
+        "10": 1.1561108701473555
+      },
+      "confirmed_repairs": 6,
+      "cases": 10
+    },
+    {
+      "comparison": "bounded-agent-comparison-001",
+      "arm": "A",
+      "source_sha256": "7152b0fcfbfdf43286c9f8b8174fd418069f929025d59ef6c91fe73ea9648607",
+      "diagnostic_runs": 9,
+      "confirmation_runs": 201,
+      "all_runs": 210,
+      "diagnostic_wall_s": 79.478639666,
+      "confirmation_wall_s": 342.793800875,
+      "own_trial_wall_s": 422.272440541,
+      "free_diagnosis_run_reduction": 0.04285714285714286,
+      "free_diagnosis_run_speedup": 1.044776119402985,
+      "free_diagnosis_wall_reduction": 0.18821649730248766,
+      "free_diagnosis_wall_speedup": 1.2318555337439778,
+      "speedup_at_k": {
+        "2": 1.1038846512413085,
+        "4": 1.1643644485700477,
+        "10": 1.2039414842023526
+      },
+      "confirmed_repairs": 3,
+      "cases": 3
+    },
+    {
+      "comparison": "bounded-agent-comparison-001",
+      "arm": "B",
+      "source_sha256": "7152b0fcfbfdf43286c9f8b8174fd418069f929025d59ef6c91fe73ea9648607",
+      "diagnostic_runs": 9,
+      "confirmation_runs": 201,
+      "all_runs": 210,
+      "diagnostic_wall_s": 88.896386,
+      "confirmation_wall_s": 346.261170543,
+      "own_trial_wall_s": 435.157556543,
+      "free_diagnosis_run_reduction": 0.04285714285714286,
+      "free_diagnosis_run_speedup": 1.044776119402985,
+      "free_diagnosis_wall_reduction": 0.20428551604668213,
+      "free_diagnosis_wall_speedup": 1.2567321824176658,
+      "speedup_at_k": {
+        "2": 1.1137628046508494,
+        "4": 1.1809361064419972,
+        "10": 1.2252754191749162
+      },
+      "confirmed_repairs": 3,
+      "cases": 3
+    }
+  ],
+  "reconciliation_65_67_134": {
+    "baseline_document_expected": "docs/evaluation/BASELINE.md: 2 + 1 + 65 = 68 rollouts; the 65 is 64 fresh-pair runs plus one post-freeze reproduction candidate run",
+    "actual_confirmation_phase_D01_A": {
+      "runs": 67,
+      "by_plan_and_role": {
+        "correction/fresh_development_confirmation": 32,
+        "correction/reproduction": 1,
+        "reference/fresh_development_confirmation": 32,
+        "reference/reproduction": 1,
+        "regression/reproduction": 1
+      }
+    },
+    "actual_confirmation_phase_D05_A": {
+      "runs": 134,
+      "by_plan_and_role": {
+        "correction/fresh_development_confirmation": 32,
+        "correction/reproduction": 1,
+        "prefix-reference/executed_prefix_context": 67,
+        "reference/fresh_development_confirmation": 32,
+        "reference/reproduction": 1,
+        "regression/reproduction": 1
+      }
+    },
+    "reading": "67 = 64 fresh-pair runs + 3 post-freeze reproduction runs (reference, regression and candidate on the registered failure); the baseline text did not count the reference and regression reruns. 134 = 67 + 67 executed prefix contexts that the carried-state candidate D05 needs for every main run. Diagnostic runs are outside both.",
+    "arm_A_confirmation_runs_development": "6 confirmed or confirmable candidates x 67 + D05 134 = 536",
+    "arm_A_confirmation_runs_bounded_agent": "3 x 67 = 201"
+  },
+  "where_a_saving_could_come_from": {
+    "diagnosis_acceleration": "bounded by (D+F)/F: at most 5.80% and 4.29% of runs, 11.60% to 20.43% of recorded own-trial wall; cannot deliver twofold",
+    "earlier_valid_rejection": {
+      "mechanism": "an observed absolute violation makes acceptance impossible for the frozen candidate; stopping there is decision-preserving for accept/reject",
+      "historical_reach": "only rejected candidates: 2 of 20 development trials and 0 of 6 bounded-agent trials",
+      "measured_on_retained_order": {
+        "D05-recurrent-carry/A": {
+          "decision": "rejected",
+          "reasons": [
+            "progress_lost"
+          ],
+          "first_violating_pair_index_in_run_order": 24,
+          "first_violating_condition": "seed-10423-prefix-10-21",
+          "violation_codes": [
+            "progress_lost"
+          ],
+          "main_runs_executed": 67,
+          "prefix_runs_executed": 67,
+          "main_runs_if_stopped_at_violation": 51,
+          "main_runs_saved_by_stopping": 16,
+          "note": "the regression reference run of the reproduction is counted with the reproduction pair; prefixes are charged as executed"
+        },
+        "D05-recurrent-carry/B": {
+          "decision": "rejected",
+          "reasons": [
+            "progress_lost"
+          ],
+          "first_violating_pair_index_in_run_order": 24,
+          "first_violating_condition": "seed-10423-prefix-10-21",
+          "violation_codes": [
+            "progress_lost"
+          ],
+          "main_runs_executed": 67,
+          "prefix_runs_executed": 67,
+          "main_runs_if_stopped_at_violation": 51,
+          "main_runs_saved_by_stopping": 16,
+          "note": "the regression reference run of the reproduction is counted with the reproduction pair; prefixes are charged as executed"
+        }
+      }
+    },
+    "changed_decision_objective": "a statistical contract certifies a population claim from fewer pairs only at a stated margin; studied in feasibility.py",
+    "execution_throughput": "cost per pair; outside the decision contract; not studied here",
+    "evidence_reuse": "requires an argument that old outcomes remain relevant under the change; not established; not studied here"
+  }
+}

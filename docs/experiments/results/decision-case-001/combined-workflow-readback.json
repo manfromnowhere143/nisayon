@@ -1,0 +1,521 @@
+{
+  "source_commit": "0abaf375a6c635efbe1b71732c6624dc546b0697",
+  "scope": "Compare the current actual CLI projections with the prior completed closeout; preserve measured cost and timestamp differences.",
+  "native": {
+    "prior_path": "docs/experiments/results/contract-closeout-001/native-001.json",
+    "prior_sha256": "3d290771fe2cd5a0d7a7289625b921182c64fd8620cbd6b9f95b0f13c1022b9c",
+    "current_path": "artifacts/engine-integration-001/decision-case-001/combined-native.json",
+    "current_sha256": "dc11b5aebcfcbeb7003eb901d60aa2ed56803f983db507de265534a97b84d8f4",
+    "all_other_fields_identical": true,
+    "changed_fields": {
+      "costs_by_scope": {
+        "prior": {
+          "historical_trials": {
+            "per_arm": {
+              "A": {
+                "simulator_wall": {
+                  "known_total": 692.568775,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "diagnostic_wall": {
+                  "known_total": 102.331113626,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "confirmation_wall": {
+                  "known_total": 779.622530044,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "own_trial_wall": {
+                  "known_total": 881.95364367,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "agent_tokens": {
+                  "known_total": null,
+                  "unit": "tokens",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "engineer_time": {
+                  "known_total": null,
+                  "unit": "s",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "provider_and_compute_charges": {
+                  "known_total": null,
+                  "unit": "USD",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                }
+              },
+              "B": {
+                "simulator_wall": {
+                  "known_total": 712.344496,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "diagnostic_wall": {
+                  "known_total": 138.961592791,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "confirmation_wall": {
+                  "known_total": 787.235968124,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "own_trial_wall": {
+                  "known_total": 926.197560915,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "agent_tokens": {
+                  "known_total": null,
+                  "unit": "tokens",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "engineer_time": {
+                  "known_total": null,
+                  "unit": "s",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "provider_and_compute_charges": {
+                  "known_total": null,
+                  "unit": "USD",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                }
+              }
+            },
+            "scope": "phase walls of the assigned trials, failures included; the simulator wall is nested in the phase walls and own_trial_wall is their disjoint sum"
+          },
+          "historical_shared_preparation": {
+            "path": "preparation-costs.json",
+            "bound": true,
+            "schema": "nisayon.execution.costs.v2",
+            "known_command_wall_sum_s": 2534.406124,
+            "summed_commands": 71,
+            "nested_not_added": 10,
+            "unmeasured_commands": 1,
+            "amortization": "None; historical preparation and product development remain visible",
+            "scope": "All retained execution-lane command records, including preparation and failures",
+            "note": "one suite-level ledger shared by both arms; not amortized and not added "
+          },
+          "new_processing": {
+            "packet_processing_wall_s": 0.40702700009569526,
+            "packet_processing_scope": "New read/receipt processing only; nested stage/writer walls are not additive",
+            "per_arm_nested": {
+              "A": {
+                "terminal_read_wall_s": 0.084864874,
+                "terminal_reads": 10,
+                "writer_attempt_wall_s": 0.060571167,
+                "writer_attempts_known": 30,
+                "writer_attempts_unknown_cost": 0,
+                "writer_attempts_incomplete": 0
+              },
+              "B": {
+                "terminal_read_wall_s": 0.083350291,
+                "terminal_reads": 10,
+                "writer_attempt_wall_s": 0.069792125,
+                "writer_attempts_known": 30,
+                "writer_attempts_unknown_cost": 0,
+                "writer_attempts_incomplete": 0
+              }
+            },
+            "new_model_calls": 0,
+            "new_simulator_executions": 0,
+            "note": "terminal reads and writer attempts are nested in the packet's outer wall and may overlap; they are listed, not added to it or to the historical trials"
+          },
+          "evaluation_scoring": {
+            "scoring_wall_s": 10.14765,
+            "scope": "this scoring run, an evaluation-lane cost; not charged to any arm or to the historical intervention"
+          },
+          "unknown": [
+            {
+              "scope": "historical_shared_preparation",
+              "category": "evaluation_lane_preparation_and_validation",
+              "unit": "s",
+              "reason": "The exchanged evaluation ledger reports partial scopes; total lane preparation and validation time remains unmeasured"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "human_preparation_and_review",
+              "unit": "s",
+              "reason": "No time tracker"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "Provider accounting unavailable"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "No invoices or power meter"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "unrecorded_engineering_commands_and_edits",
+              "unit": "s",
+              "reason": "Only commands run through the command recorder are timed in this ledger"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "overlapping_auxiliary_dependency_inspection",
+              "unit": "s",
+              "reason": "A historical duplicate dependency inspection was stopped; duration not recorded"
+            },
+            {
+              "scope": "new_processing",
+              "category": "engineer_effort_s",
+              "unit": "s",
+              "reason": "Not measured by command walls"
+            },
+            {
+              "scope": "new_processing",
+              "category": "provider_charges_usd",
+              "unit": "USD",
+              "reason": "No attributable provider invoice"
+            },
+            {
+              "scope": "new_processing",
+              "category": "energy_j",
+              "unit": "J",
+              "reason": "No energy meter"
+            },
+            {
+              "scope": "new_processing",
+              "category": "unrecorded_processing_s",
+              "unit": "s",
+              "reason": "Only retained command and stage walls are measured"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "engineer_time",
+              "unit": "s",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "engineer_time",
+              "unit": "s",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "declared unknown in every trial"
+            }
+          ],
+          "rule": "scopes are reported side by side and never summed; nested walls are listed, not added; unknown categories are not zero"
+        },
+        "current": {
+          "historical_trials": {
+            "per_arm": {
+              "A": {
+                "simulator_wall": {
+                  "known_total": 692.568775,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "diagnostic_wall": {
+                  "known_total": 102.331113626,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "confirmation_wall": {
+                  "known_total": 779.622530044,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "own_trial_wall": {
+                  "known_total": 881.95364367,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "agent_tokens": {
+                  "known_total": null,
+                  "unit": "tokens",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "engineer_time": {
+                  "known_total": null,
+                  "unit": "s",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "provider_and_compute_charges": {
+                  "known_total": null,
+                  "unit": "USD",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                }
+              },
+              "B": {
+                "simulator_wall": {
+                  "known_total": 712.344496,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "diagnostic_wall": {
+                  "known_total": 138.961592791,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "confirmation_wall": {
+                  "known_total": 787.235968124,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "own_trial_wall": {
+                  "known_total": 926.197560915,
+                  "unit": "s",
+                  "known_trials": 10,
+                  "missing_trials": 0
+                },
+                "agent_tokens": {
+                  "known_total": null,
+                  "unit": "tokens",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "engineer_time": {
+                  "known_total": null,
+                  "unit": "s",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                },
+                "provider_and_compute_charges": {
+                  "known_total": null,
+                  "unit": "USD",
+                  "known_trials": 0,
+                  "missing_trials": 10
+                }
+              }
+            },
+            "scope": "phase walls of the assigned trials, failures included; the simulator wall is nested in the phase walls and own_trial_wall is their disjoint sum"
+          },
+          "historical_shared_preparation": {
+            "path": "preparation-costs.json",
+            "bound": true,
+            "schema": "nisayon.execution.costs.v2",
+            "known_command_wall_sum_s": 2534.406124,
+            "summed_commands": 71,
+            "nested_not_added": 10,
+            "unmeasured_commands": 1,
+            "amortization": "None; historical preparation and product development remain visible",
+            "scope": "All retained execution-lane command records, including preparation and failures",
+            "note": "one suite-level ledger shared by both arms; not amortized and not added "
+          },
+          "new_processing": {
+            "packet_processing_wall_s": 0.40702700009569526,
+            "packet_processing_scope": "New read/receipt processing only; nested stage/writer walls are not additive",
+            "per_arm_nested": {
+              "A": {
+                "terminal_read_wall_s": 0.084864874,
+                "terminal_reads": 10,
+                "writer_attempt_wall_s": 0.060571167,
+                "writer_attempts_known": 30,
+                "writer_attempts_unknown_cost": 0,
+                "writer_attempts_incomplete": 0
+              },
+              "B": {
+                "terminal_read_wall_s": 0.083350291,
+                "terminal_reads": 10,
+                "writer_attempt_wall_s": 0.069792125,
+                "writer_attempts_known": 30,
+                "writer_attempts_unknown_cost": 0,
+                "writer_attempts_incomplete": 0
+              }
+            },
+            "new_model_calls": 0,
+            "new_simulator_executions": 0,
+            "note": "terminal reads and writer attempts are nested in the packet's outer wall and may overlap; they are listed, not added to it or to the historical trials"
+          },
+          "evaluation_scoring": {
+            "scoring_wall_s": 9.319191,
+            "scope": "this scoring run, an evaluation-lane cost; not charged to any arm or to the historical intervention"
+          },
+          "unknown": [
+            {
+              "scope": "historical_shared_preparation",
+              "category": "evaluation_lane_preparation_and_validation",
+              "unit": "s",
+              "reason": "The exchanged evaluation ledger reports partial scopes; total lane preparation and validation time remains unmeasured"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "human_preparation_and_review",
+              "unit": "s",
+              "reason": "No time tracker"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "Provider accounting unavailable"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "No invoices or power meter"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "unrecorded_engineering_commands_and_edits",
+              "unit": "s",
+              "reason": "Only commands run through the command recorder are timed in this ledger"
+            },
+            {
+              "scope": "historical_shared_preparation",
+              "category": "overlapping_auxiliary_dependency_inspection",
+              "unit": "s",
+              "reason": "A historical duplicate dependency inspection was stopped; duration not recorded"
+            },
+            {
+              "scope": "new_processing",
+              "category": "engineer_effort_s",
+              "unit": "s",
+              "reason": "Not measured by command walls"
+            },
+            {
+              "scope": "new_processing",
+              "category": "provider_charges_usd",
+              "unit": "USD",
+              "reason": "No attributable provider invoice"
+            },
+            {
+              "scope": "new_processing",
+              "category": "energy_j",
+              "unit": "J",
+              "reason": "No energy meter"
+            },
+            {
+              "scope": "new_processing",
+              "category": "unrecorded_processing_s",
+              "unit": "s",
+              "reason": "Only retained command and stage walls are measured"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "engineer_time",
+              "unit": "s",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "A",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "agent_tokens",
+              "unit": "tokens",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "engineer_time",
+              "unit": "s",
+              "reason": "declared unknown in every trial"
+            },
+            {
+              "scope": "historical_trials",
+              "arm": "B",
+              "category": "provider_and_compute_charges",
+              "unit": "USD",
+              "reason": "declared unknown in every trial"
+            }
+          ],
+          "rule": "scopes are reported side by side and never summed; nested walls are listed, not added; unknown categories are not zero"
+        }
+      }
+    }
+  },
+  "foreign": {
+    "prior_path": "docs/experiments/results/contract-closeout-001/foreign-001.json",
+    "prior_sha256": "4fa56a03df946a8caab11d96854a0676ea2b088593052757b4203df756899e77",
+    "current_path": "artifacts/engine-integration-001/decision-case-001/combined-foreign.json",
+    "current_sha256": "f73af7b445014a3da9dc363564f140e78a0385c2a028cdf11211eff2ef4afe6e",
+    "all_other_fields_identical": true,
+    "changed_fields": {
+      "assessed_at": {
+        "prior": "2026-09-19T15:40:40.677500+00:00",
+        "current": "2026-09-19T17:32:05.151035+00:00"
+      }
+    }
+  },
+  "controller_scope": {
+    "decision": "rejected",
+    "candidate_status": "rejected",
+    "candidate_failure_codes": [
+      "candidate_outside_repair_scope",
+      "candidate_outside_repair_scope",
+      "candidate_outside_repair_scope",
+      "candidate_outside_repair_scope"
+    ],
+    "decision_sha256": "2873ce17124093d4c9593f287ec009de39b1bec09189e5bf49e4997ba3b07d49"
+  }
+}

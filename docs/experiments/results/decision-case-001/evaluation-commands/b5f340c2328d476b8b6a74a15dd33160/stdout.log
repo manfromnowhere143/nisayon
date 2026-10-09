@@ -1,0 +1,55 @@
+F.FF                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_gripper_repair_with_smuggled_target_change_is_outside_the_declared_scope _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-245/test_gripper_repair_with_smugg0')
+
+    def test_gripper_repair_with_smuggled_target_change_is_outside_the_declared_scope(tmp_path):
+        candidate = {**deployment("correction", POLICY), "controller_target": "nominal"}
+        document = with_deployments(mini_document(), candidate)
+        path = write_with_protocol(document, candidate, tmp_path)
+>       assert component_paths(path) == ["repair_gripper_sign", "controller_target"]
+E       AssertionError: assert ['repair_gripper_sign'] == ['repair_grip...oller_target']
+E         
+E         Right contains one more item: 'controller_target'
+E         Use -v to get more diff
+
+tests/evaluation/test_evaluation_controller_target_scope.py:81: AssertionError
+__________ test_declared_target_scope_admits_a_target_only_candidate ___________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-245/test_declared_target_scope_adm0')
+
+    def test_declared_target_scope_admits_a_target_only_candidate(tmp_path):
+        """A candidate that differs from the changed deployment only in the target convention
+        carries exactly that component; a scope that names it admits the candidate."""
+        candidate = {**deployment("regression", POLICY), "mode": "correction"}
+        candidate["controller_target"] = "nominal"
+        document = with_deployments(mini_document(), candidate, scope=["controller_target"])
+        path = write_with_protocol(document, candidate, tmp_path)
+>       assert component_paths(path) == ["controller_target"]
+E       AssertionError: assert [] == ['controller_target']
+E         
+E         Right contains one more item: 'controller_target'
+E         Use -v to get more diff
+
+tests/evaluation/test_evaluation_controller_target_scope.py:107: AssertionError
+____________ test_target_only_candidate_is_outside_a_gripper_scope _____________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-245/test_target_only_candidate_is_0')
+
+    def test_target_only_candidate_is_outside_a_gripper_scope(tmp_path):
+        candidate = {**deployment("regression", POLICY), "mode": "correction"}
+        candidate["controller_target"] = "nominal"
+        document = with_deployments(mini_document(), candidate)
+        path = write_with_protocol(document, candidate, tmp_path)
+>       assert component_paths(path) == ["controller_target"]
+E       AssertionError: assert [] == ['controller_target']
+E         
+E         Right contains one more item: 'controller_target'
+E         Use -v to get more diff
+
+tests/evaluation/test_evaluation_controller_target_scope.py:120: AssertionError
+=========================== short test summary info ============================
+FAILED tests/evaluation/test_evaluation_controller_target_scope.py::test_gripper_repair_with_smuggled_target_change_is_outside_the_declared_scope
+FAILED tests/evaluation/test_evaluation_controller_target_scope.py::test_declared_target_scope_admits_a_target_only_candidate
+FAILED tests/evaluation/test_evaluation_controller_target_scope.py::test_target_only_candidate_is_outside_a_gripper_scope

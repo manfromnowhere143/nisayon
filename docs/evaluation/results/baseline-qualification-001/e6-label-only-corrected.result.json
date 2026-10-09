@@ -1,0 +1,1441 @@
+{
+  "schema": "nisayon.conventional-processor-qualification.v1",
+  "id": "baseline-qualification-001-e6-label-only",
+  "plan": {
+    "path": "docs/evaluation/results/baseline-qualification-001/plans/e6-label-only-plan.json",
+    "sha256": "e7536ec1bfd8a3772b14fd3f39b14d1351e41d889e728fd981671fa605a290d2",
+    "canonical_sha256": "0edc11ffb5f5659aec89644021a981d7a9918969cb46b6d0496588375fa5f951",
+    "frozen_before_execution": true
+  },
+  "implementation": {
+    "commit": "9092efa6b4b6c7ef36c01c405d9ab939a1cd4c09",
+    "files": {
+      "scripts/experiments/conventional_processor_diagnostic.py": "53dc34d022ab298f2dcb30624884e1e66af76ea869e0878aedb14c0ebdefd634",
+      "docs/evaluation/results/baseline-qualification-001/plans/e6-label-only-plan.json": "e7536ec1bfd8a3772b14fd3f39b14d1351e41d889e728fd981671fa605a290d2",
+      "uv.lock": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+    },
+    "imports": [
+      "__future__",
+      "argparse",
+      "ast",
+      "datetime",
+      "hashlib",
+      "json",
+      "math",
+      "os",
+      "pathlib",
+      "platform",
+      "struct",
+      "subprocess",
+      "time",
+      "typing"
+    ],
+    "forbidden_nisayon_imports": [],
+    "interpreter": {
+      "implementation": "CPython",
+      "version": "3.12.13"
+    }
+  },
+  "inputs": {
+    "preprocessor_config": {
+      "path": "model/new/policy_preprocessor.json",
+      "bytes": 1872,
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6"
+    },
+    "postprocessor_config": {
+      "path": "model/new/policy_postprocessor.json",
+      "bytes": 660,
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b"
+    },
+    "preprocessor_stats": {
+      "path": "model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8"
+    },
+    "postprocessor_stats": {
+      "path": "model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "bytes": 640,
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8"
+    },
+    "processor_source": {
+      "path": "coordinator/sources/normalize_processor.py",
+      "bytes": 25161,
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6"
+    }
+  },
+  "resolved": {
+    "processor_specs": {
+      "preprocessor": {
+        "role": "preprocessor",
+        "step_index": 5,
+        "registry_name": "normalizer_processor",
+        "features": {
+          "observation.state": {
+            "type": "STATE",
+            "shape": [
+              6
+            ]
+          },
+          "observation.image2": {
+            "type": "VISUAL",
+            "shape": [
+              3,
+              256,
+              256
+            ]
+          },
+          "observation.image": {
+            "type": "VISUAL",
+            "shape": [
+              3,
+              256,
+              256
+            ]
+          },
+          "observation.image3": {
+            "type": "VISUAL",
+            "shape": [
+              3,
+              256,
+              256
+            ]
+          },
+          "action": {
+            "type": "ACTION",
+            "shape": [
+              6
+            ]
+          }
+        },
+        "norm_map": {
+          "VISUAL": "IDENTITY",
+          "STATE": "MEAN_STD",
+          "ACTION": "MEAN_STD"
+        },
+        "eps": 9.99999993922529e-09,
+        "state_file": "policy_preprocessor_step_5_normalizer_processor.safetensors"
+      },
+      "postprocessor": {
+        "role": "postprocessor",
+        "step_index": 0,
+        "registry_name": "unnormalizer_processor",
+        "features": {
+          "action": {
+            "type": "ACTION",
+            "shape": [
+              6
+            ]
+          }
+        },
+        "norm_map": {
+          "VISUAL": "IDENTITY",
+          "STATE": "MEAN_STD",
+          "ACTION": "MEAN_STD"
+        },
+        "eps": 9.99999993922529e-09,
+        "state_file": "policy_postprocessor_step_0_unnormalizer_processor.safetensors"
+      }
+    },
+    "statistics_keys": {
+      "preprocessor": [
+        "so100-blue.buffer.action",
+        "so100-red.buffer.action",
+        "so100.buffer.action"
+      ],
+      "postprocessor": [
+        "so100-blue.buffer.action",
+        "so100-red.buffer.action",
+        "so100.buffer.action"
+      ]
+    },
+    "source_inspection": {
+      "source_sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "class_lines": [
+        40,
+        421
+      ],
+      "method_lines": {
+        "_apply_transform": [
+          302,
+          421
+        ],
+        "_normalize_action": [
+          287,
+          300
+        ],
+        "_normalize_observation": [
+          266,
+          285
+        ],
+        "load_state_dict": [
+          193,
+          243
+        ]
+      },
+      "observed_semantics": [
+        "flat_statistics_split",
+        "forward_mean_std",
+        "inverse_mean_std",
+        "missing_key_skip"
+      ],
+      "execution": "The source was parsed and bound by digest; no LeRobot or Nisayon processor executor was imported or called."
+    }
+  },
+  "incident": {
+    "candidates": [
+      {
+        "id": "C0_as_is",
+        "evaluation_name": "as_is",
+        "method": "exact_artifact",
+        "content_sha256": "018630adcc7de64a8b92df1b51ea4e7186a4cc8b6585c5750ac42a2404b23e1f",
+        "selector": null,
+        "selector_evidence": null,
+        "observations": [
+          {
+            "processor": "preprocessor",
+            "feature": "observation.state",
+            "feature_type": "STATE",
+            "direction": "forward",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "skipped_no_stats",
+            "input": [
+              0.0,
+              40.0,
+              200.0,
+              -20.0,
+              30.0,
+              -10.0
+            ],
+            "output": [
+              0.0,
+              40.0,
+              200.0,
+              -20.0,
+              30.0,
+              -10.0
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": null,
+            "changed": false,
+            "meets_obligation": false,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 9.958166629076004e-06,
+              "process_cpu_seconds": 1.0000000000003062e-05
+            }
+          },
+          {
+            "processor": "postprocessor",
+            "feature": "action",
+            "feature_type": "ACTION",
+            "direction": "inverse",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "skipped_no_stats",
+            "input": [
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "output": [
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": null,
+            "changed": false,
+            "meets_obligation": false,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 5.042180418968201e-06,
+              "process_cpu_seconds": 4.9999999999980616e-06
+            }
+          },
+          {
+            "processor": "preprocessor",
+            "feature": "observation.image2",
+            "feature_type": "VISUAL",
+            "direction": "forward",
+            "mode": "IDENTITY",
+            "status": "completed",
+            "class": "identity_mode",
+            "input": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "output": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": null,
+            "changed": false,
+            "meets_obligation": true,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 2.583954483270645e-06,
+              "process_cpu_seconds": 3.0000000000030003e-06
+            }
+          }
+        ],
+        "outcome": "rejected_candidate",
+        "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:skipped_no_stats; both:dataset_binding:not_explicit",
+        "unmet": [
+          "preprocessor:observation.state:skipped_no_stats",
+          "postprocessor:action:skipped_no_stats",
+          "both:dataset_binding:not_explicit"
+        ],
+        "deployment_applicability": "not_applicable",
+        "deployment_reason": "Candidate is not a supported correction.",
+        "cost": {
+          "wall_seconds": 5.9959013015031815e-05,
+          "process_cpu_seconds": 5.9999999999997555e-05
+        }
+      },
+      {
+        "id": "C1_suffix_match",
+        "evaluation_name": "suffix_match",
+        "method": "suffix_artifact",
+        "content_sha256": "175b4e2388bd240da189228de091a69b0968e4edb8702ffe6f655731b4503b4b",
+        "selector": null,
+        "selector_evidence": null,
+        "observations": [
+          {
+            "processor": "preprocessor",
+            "feature": "observation.state",
+            "feature_type": "STATE",
+            "direction": "forward",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "skipped_no_stats",
+            "input": [
+              0.0,
+              40.0,
+              200.0,
+              -20.0,
+              30.0,
+              -10.0
+            ],
+            "output": [
+              0.0,
+              40.0,
+              200.0,
+              -20.0,
+              30.0,
+              -10.0
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": [
+              "so100-blue.buffer.action",
+              "so100-red.buffer.action",
+              "so100.buffer.action"
+            ],
+            "changed": false,
+            "meets_obligation": false,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 8.082948625087738e-06,
+              "process_cpu_seconds": 8.000000000001062e-06
+            }
+          },
+          {
+            "processor": "postprocessor",
+            "feature": "action",
+            "feature_type": "ACTION",
+            "direction": "inverse",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "ambiguous",
+            "input": [
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "output": [
+              8.462188720703125,
+              145.43624877929688,
+              134.53834533691406,
+              75.52804565429688,
+              -87.48453521728516,
+              5.872615814208984
+            ],
+            "error": null,
+            "bound_key": "so100-blue.buffer.action",
+            "matches": [
+              "so100-blue.buffer.action",
+              "so100-red.buffer.action",
+              "so100.buffer.action"
+            ],
+            "statistics_order": [
+              "so100-blue.buffer.action",
+              "so100-red.buffer.action",
+              "so100.buffer.action"
+            ],
+            "changed": true,
+            "meets_obligation": false,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 2.1541956812143326e-05,
+              "process_cpu_seconds": 2.1000000000000185e-05
+            }
+          },
+          {
+            "processor": "postprocessor",
+            "feature": "action",
+            "feature_type": "ACTION",
+            "direction": "inverse",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "ambiguous",
+            "input": [
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "output": [
+              14.791803359985352,
+              146.14993286132812,
+              134.69668579101562,
+              75.20466613769531,
+              2.257282257080078,
+              21.522762298583984
+            ],
+            "error": null,
+            "bound_key": "so100.buffer.action",
+            "matches": [
+              "so100.buffer.action",
+              "so100-red.buffer.action",
+              "so100-blue.buffer.action"
+            ],
+            "statistics_order": [
+              "so100.buffer.action",
+              "so100-red.buffer.action",
+              "so100-blue.buffer.action"
+            ],
+            "changed": true,
+            "meets_obligation": false,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 1.5875091776251793e-05,
+              "process_cpu_seconds": 1.6000000000002124e-05
+            }
+          },
+          {
+            "processor": "preprocessor",
+            "feature": "observation.image2",
+            "feature_type": "VISUAL",
+            "direction": "forward",
+            "mode": "IDENTITY",
+            "status": "completed",
+            "class": "identity_mode",
+            "input": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "output": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": null,
+            "changed": false,
+            "meets_obligation": true,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 1.8328428268432617e-06,
+              "process_cpu_seconds": 1.000000000001e-06
+            }
+          }
+        ],
+        "outcome": "rejected_candidate",
+        "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:ambiguous; postprocessor:action:ambiguous; both:dataset_binding:not_explicit",
+        "unmet": [
+          "preprocessor:observation.state:skipped_no_stats",
+          "postprocessor:action:ambiguous",
+          "postprocessor:action:ambiguous",
+          "both:dataset_binding:not_explicit"
+        ],
+        "deployment_applicability": "not_applicable",
+        "deployment_reason": "Candidate is not a supported correction.",
+        "cost": {
+          "wall_seconds": 7.179100066423416e-05,
+          "process_cpu_seconds": 7.200000000000262e-05
+        }
+      },
+      {
+        "id": "C2_explicit_override",
+        "evaluation_name": "explicit_override",
+        "method": "explicit_override",
+        "content_sha256": "5e32f5524abbda94242f15c3034e0c5686c8edd3bded92323b581a36f3577c12",
+        "selector": "so100",
+        "selector_evidence": {
+          "status": "verified_deployment_record",
+          "detail": "LABEL ONLY: no record exists; constructed control E6"
+        },
+        "observations": [
+          {
+            "processor": "preprocessor",
+            "feature": "observation.state",
+            "feature_type": "STATE",
+            "direction": "forward",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "transformed",
+            "input": [
+              0.0,
+              40.0,
+              200.0,
+              -20.0,
+              30.0,
+              -10.0
+            ],
+            "output": [
+              -0.05965583026409149,
+              -1.4938271045684814,
+              1.8053867816925049,
+              -2.095433473587036,
+              0.9724957346916199,
+              -1.3312952518463135
+            ],
+            "error": null,
+            "bound_key": "observation.state",
+            "matches": [
+              "observation.state"
+            ],
+            "statistics_order": null,
+            "changed": true,
+            "meets_obligation": true,
+            "statistics_provenance": "verified_training_statistics",
+            "cost": {
+              "wall_seconds": 2.6124995201826096e-05,
+              "process_cpu_seconds": 2.6999999999999247e-05
+            }
+          },
+          {
+            "processor": "postprocessor",
+            "feature": "action",
+            "feature_type": "ACTION",
+            "direction": "inverse",
+            "mode": "MEAN_STD",
+            "status": "completed",
+            "class": "transformed",
+            "input": [
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5,
+              0.5
+            ],
+            "output": [
+              14.791803359985352,
+              146.14993286132812,
+              134.69668579101562,
+              75.20466613769531,
+              2.257282257080078,
+              21.522762298583984
+            ],
+            "error": null,
+            "bound_key": "action",
+            "matches": [
+              "action"
+            ],
+            "statistics_order": null,
+            "changed": true,
+            "meets_obligation": true,
+            "statistics_provenance": "verified_training_statistics",
+            "cost": {
+              "wall_seconds": 2.033286727964878e-05,
+              "process_cpu_seconds": 1.9999999999999185e-05
+            }
+          },
+          {
+            "processor": "preprocessor",
+            "feature": "observation.image2",
+            "feature_type": "VISUAL",
+            "direction": "forward",
+            "mode": "IDENTITY",
+            "status": "completed",
+            "class": "identity_mode",
+            "input": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "output": [
+              0.0,
+              0.25,
+              0.5,
+              0.75,
+              1.0,
+              -0.25
+            ],
+            "error": null,
+            "bound_key": null,
+            "matches": [],
+            "statistics_order": null,
+            "changed": false,
+            "meets_obligation": true,
+            "statistics_provenance": "artifact",
+            "cost": {
+              "wall_seconds": 1.5830155462026596e-06,
+              "process_cpu_seconds": 1.000000000001e-06
+            }
+          }
+        ],
+        "outcome": "supported_software_correction",
+        "reason": "State and action transform non-vacuously with complete explicitly selected statistics; visual IDENTITY remains unchanged.",
+        "unmet": [],
+        "deployment_applicability": "unresolved",
+        "deployment_reason": "The diagnostic can verify the software transform, but its input contract contains no independently checkable evidence of statistics interpretation or target-deployment selection; provenance and selector annotations are declarations only.",
+        "cost": {
+          "wall_seconds": 8.216686546802521e-05,
+          "process_cpu_seconds": 8.199999999999874e-05
+        }
+      }
+    ],
+    "overall": "supported_software_correction",
+    "deployment_applicability": "unresolved",
+    "robot_task_outcome": "unmeasured"
+  },
+  "constructed_controls": [
+    {
+      "id": "opaque-identifiers-and-order",
+      "purpose": "Changing opaque candidate identifiers and order while preserving contents must not change the content-derived decisions.",
+      "input_sha256": "6f77d0188426e492ae9af3286efe8d07a0d4ed59d1298c19a95d0e52fbdbb1ce",
+      "expected_outcomes": {
+        "opaque-zeta": "supported_software_correction",
+        "opaque-alpha": "rejected_candidate",
+        "opaque-mu": "rejected_candidate"
+      },
+      "observed_outcomes": {
+        "opaque-zeta": "supported_software_correction",
+        "opaque-alpha": "rejected_candidate",
+        "opaque-mu": "rejected_candidate"
+      },
+      "matches_expectation": true,
+      "candidates": [
+        {
+          "id": "opaque-zeta",
+          "evaluation_name": null,
+          "method": "explicit_override",
+          "content_sha256": "42df397fc3a5a125e6e1fb7b4e080ceb66e68576ef197c8c7392d85ab68f486e",
+          "selector": "control-dataset",
+          "selector_evidence": {
+            "status": "constructed_control",
+            "detail": "Labelled synthetic selector; no deployment claim."
+          },
+          "observations": [
+            {
+              "processor": "preprocessor",
+              "feature": "observation.state",
+              "feature_type": "STATE",
+              "direction": "forward",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "transformed",
+              "input": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "output": [
+                -5.0,
+                15.0,
+                95.0,
+                -15.0,
+                10.0,
+                -10.0
+              ],
+              "error": null,
+              "bound_key": "observation.state",
+              "matches": [
+                "observation.state"
+              ],
+              "statistics_order": null,
+              "changed": true,
+              "meets_obligation": true,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 2.304092049598694e-05,
+                "process_cpu_seconds": 2.3000000000002185e-05
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "transformed",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0
+              ],
+              "error": null,
+              "bound_key": "action",
+              "matches": [
+                "action"
+              ],
+              "statistics_order": null,
+              "changed": true,
+              "meets_obligation": true,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 1.970888115465641e-05,
+                "process_cpu_seconds": 1.8999999999998185e-05
+              }
+            },
+            {
+              "processor": "preprocessor",
+              "feature": "observation.image2",
+              "feature_type": "VISUAL",
+              "direction": "forward",
+              "mode": "IDENTITY",
+              "status": "completed",
+              "class": "identity_mode",
+              "input": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "output": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": true,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.1669471859931946e-06,
+                "process_cpu_seconds": 1.000000000001e-06
+              }
+            }
+          ],
+          "outcome": "supported_software_correction",
+          "reason": "State and action transform non-vacuously with complete explicitly selected statistics; visual IDENTITY remains unchanged.",
+          "unmet": [],
+          "deployment_applicability": "unresolved",
+          "deployment_reason": "The diagnostic can verify the software transform, but its input contract contains no independently checkable evidence of statistics interpretation or target-deployment selection; provenance and selector annotations are declarations only.",
+          "cost": {
+            "wall_seconds": 6.237509660422802e-05,
+            "process_cpu_seconds": 6.199999999999956e-05
+          }
+        },
+        {
+          "id": "opaque-alpha",
+          "evaluation_name": null,
+          "method": "suffix_artifact",
+          "content_sha256": "63ed780a951bbd28d63d6f200c9638d10cee075a4bdb9e97af8f316ca8c2ee55",
+          "selector": null,
+          "selector_evidence": null,
+          "observations": [
+            {
+              "processor": "preprocessor",
+              "feature": "observation.state",
+              "feature_type": "STATE",
+              "direction": "forward",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "skipped_no_stats",
+              "input": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "output": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": [
+                "so100-blue.buffer.action",
+                "so100-red.buffer.action",
+                "so100.buffer.action"
+              ],
+              "changed": false,
+              "meets_obligation": false,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 4.792120307683945e-06,
+                "process_cpu_seconds": 4.9999999999980616e-06
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "ambiguous",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                8.462188720703125,
+                145.43624877929688,
+                134.53834533691406,
+                75.52804565429688,
+                -87.48453521728516,
+                5.872615814208984
+              ],
+              "error": null,
+              "bound_key": "so100-blue.buffer.action",
+              "matches": [
+                "so100-blue.buffer.action",
+                "so100-red.buffer.action",
+                "so100.buffer.action"
+              ],
+              "statistics_order": [
+                "so100-blue.buffer.action",
+                "so100-red.buffer.action",
+                "so100.buffer.action"
+              ],
+              "changed": true,
+              "meets_obligation": false,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.4165882021188736e-05,
+                "process_cpu_seconds": 1.4000000000000123e-05
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "ambiguous",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                14.791803359985352,
+                146.14993286132812,
+                134.69668579101562,
+                75.20466613769531,
+                2.257282257080078,
+                21.522762298583984
+              ],
+              "error": null,
+              "bound_key": "so100.buffer.action",
+              "matches": [
+                "so100.buffer.action",
+                "so100-red.buffer.action",
+                "so100-blue.buffer.action"
+              ],
+              "statistics_order": [
+                "so100.buffer.action",
+                "so100-red.buffer.action",
+                "so100-blue.buffer.action"
+              ],
+              "changed": true,
+              "meets_obligation": false,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.2958189472556114e-05,
+                "process_cpu_seconds": 1.2999999999999123e-05
+              }
+            },
+            {
+              "processor": "preprocessor",
+              "feature": "observation.image2",
+              "feature_type": "VISUAL",
+              "direction": "forward",
+              "mode": "IDENTITY",
+              "status": "completed",
+              "class": "identity_mode",
+              "input": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "output": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": true,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 9.997747838497162e-07,
+                "process_cpu_seconds": 2.000000000002e-06
+              }
+            }
+          ],
+          "outcome": "rejected_candidate",
+          "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:ambiguous; postprocessor:action:ambiguous; both:dataset_binding:not_explicit",
+          "unmet": [
+            "preprocessor:observation.state:skipped_no_stats",
+            "postprocessor:action:ambiguous",
+            "postprocessor:action:ambiguous",
+            "both:dataset_binding:not_explicit"
+          ],
+          "deployment_applicability": "not_applicable",
+          "deployment_reason": "Candidate is not a supported correction.",
+          "cost": {
+            "wall_seconds": 4.929210990667343e-05,
+            "process_cpu_seconds": 5.000000000000143e-05
+          }
+        },
+        {
+          "id": "opaque-mu",
+          "evaluation_name": null,
+          "method": "exact_artifact",
+          "content_sha256": "16d346f3b4e9d2487cb470d8527a28163014104277060beea74318fa987de464",
+          "selector": null,
+          "selector_evidence": null,
+          "observations": [
+            {
+              "processor": "preprocessor",
+              "feature": "observation.state",
+              "feature_type": "STATE",
+              "direction": "forward",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "skipped_no_stats",
+              "input": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "output": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": false,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 2.499902620911598e-06,
+                "process_cpu_seconds": 2.000000000002e-06
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "skipped_no_stats",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": false,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 2.083834260702133e-06,
+                "process_cpu_seconds": 1.9999999999950613e-06
+              }
+            },
+            {
+              "processor": "preprocessor",
+              "feature": "observation.image2",
+              "feature_type": "VISUAL",
+              "direction": "forward",
+              "mode": "IDENTITY",
+              "status": "completed",
+              "class": "identity_mode",
+              "input": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "output": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": true,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.00000761449337e-06,
+                "process_cpu_seconds": 1.000000000001e-06
+              }
+            }
+          ],
+          "outcome": "rejected_candidate",
+          "reason": "Unmet obligation: preprocessor:observation.state:skipped_no_stats; postprocessor:action:skipped_no_stats; both:dataset_binding:not_explicit",
+          "unmet": [
+            "preprocessor:observation.state:skipped_no_stats",
+            "postprocessor:action:skipped_no_stats",
+            "both:dataset_binding:not_explicit"
+          ],
+          "deployment_applicability": "not_applicable",
+          "deployment_reason": "Candidate is not a supported correction.",
+          "cost": {
+            "wall_seconds": 1.7292099073529243e-05,
+            "process_cpu_seconds": 1.6999999999996185e-05
+          }
+        }
+      ]
+    },
+    {
+      "id": "supported-statistic-made-incomplete",
+      "purpose": "Removing the state standard deviation from the candidate previously called C2 must prevent its fixed success label from surviving.",
+      "input_sha256": "6b488dd73a5e84b14fe6c18fc604ded4b4778dc0773d8675584255cee313a2b9",
+      "expected_outcomes": {
+        "C2_explicit_override": "rejected_candidate"
+      },
+      "observed_outcomes": {
+        "C2_explicit_override": "rejected_candidate"
+      },
+      "matches_expectation": true,
+      "candidates": [
+        {
+          "id": "C2_explicit_override",
+          "evaluation_name": null,
+          "method": "explicit_override",
+          "content_sha256": "f0fef26b428bc2bf639ee8fff526b612e20baa23a75bf3ba351abda1b9d4c7cf",
+          "selector": "control-dataset",
+          "selector_evidence": {
+            "status": "constructed_control",
+            "detail": "Labelled synthetic selector; no deployment claim."
+          },
+          "observations": [
+            {
+              "processor": "preprocessor",
+              "feature": "observation.state",
+              "feature_type": "STATE",
+              "direction": "forward",
+              "mode": "MEAN_STD",
+              "status": "error",
+              "class": "incomplete_statistics",
+              "input": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "output": null,
+              "error": "MEAN_STD requires mean and std.",
+              "bound_key": "observation.state",
+              "matches": [
+                "observation.state"
+              ],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": false,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 7.416121661663055e-06,
+                "process_cpu_seconds": 7.000000000000062e-06
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "transformed",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0
+              ],
+              "error": null,
+              "bound_key": "action",
+              "matches": [
+                "action"
+              ],
+              "statistics_order": null,
+              "changed": true,
+              "meets_obligation": true,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 1.716683618724346e-05,
+                "process_cpu_seconds": 1.6999999999996185e-05
+              }
+            },
+            {
+              "processor": "preprocessor",
+              "feature": "observation.image2",
+              "feature_type": "VISUAL",
+              "direction": "forward",
+              "mode": "IDENTITY",
+              "status": "completed",
+              "class": "identity_mode",
+              "input": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "output": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": true,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.125037670135498e-06,
+                "process_cpu_seconds": 2.000000000002e-06
+              }
+            }
+          ],
+          "outcome": "rejected_candidate",
+          "reason": "Unmet obligation: preprocessor:observation.state:incomplete_statistics",
+          "unmet": [
+            "preprocessor:observation.state:incomplete_statistics"
+          ],
+          "deployment_applicability": "not_applicable",
+          "deployment_reason": "Candidate is not a supported correction.",
+          "cost": {
+            "wall_seconds": 4.333280958235264e-05,
+            "process_cpu_seconds": 4.299999999999443e-05
+          }
+        }
+      ]
+    },
+    {
+      "id": "complete-content-under-prior-failed-name",
+      "purpose": "A complete valid explicit configuration under the previously rejected C0 identifier must be supported, proving the rejection is not keyed to the name.",
+      "input_sha256": "51499493b39a5c7ef87433e08f81b582119318d971c11106bcba0878b2454d4d",
+      "expected_outcomes": {
+        "C0_as_is": "supported_software_correction"
+      },
+      "observed_outcomes": {
+        "C0_as_is": "supported_software_correction"
+      },
+      "matches_expectation": true,
+      "candidates": [
+        {
+          "id": "C0_as_is",
+          "evaluation_name": null,
+          "method": "explicit_override",
+          "content_sha256": "a778241d33dca6a871a35ee739928a34c9b5c7c79c787abafcf998244a2c78cc",
+          "selector": "control-dataset",
+          "selector_evidence": {
+            "status": "constructed_control",
+            "detail": "Labelled synthetic selector; no deployment claim."
+          },
+          "observations": [
+            {
+              "processor": "preprocessor",
+              "feature": "observation.state",
+              "feature_type": "STATE",
+              "direction": "forward",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "transformed",
+              "input": [
+                0.0,
+                40.0,
+                200.0,
+                -20.0,
+                30.0,
+                -10.0
+              ],
+              "output": [
+                -5.0,
+                15.0,
+                95.0,
+                -15.0,
+                10.0,
+                -10.0
+              ],
+              "error": null,
+              "bound_key": "observation.state",
+              "matches": [
+                "observation.state"
+              ],
+              "statistics_order": null,
+              "changed": true,
+              "meets_obligation": true,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 2.2416934370994568e-05,
+                "process_cpu_seconds": 2.2000000000001185e-05
+              }
+            },
+            {
+              "processor": "postprocessor",
+              "feature": "action",
+              "feature_type": "ACTION",
+              "direction": "inverse",
+              "mode": "MEAN_STD",
+              "status": "completed",
+              "class": "transformed",
+              "input": [
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5,
+                0.5
+              ],
+              "output": [
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0,
+                5.0
+              ],
+              "error": null,
+              "bound_key": "action",
+              "matches": [
+                "action"
+              ],
+              "statistics_order": null,
+              "changed": true,
+              "meets_obligation": true,
+              "statistics_provenance": "synthetic_control",
+              "cost": {
+                "wall_seconds": 1.837499439716339e-05,
+                "process_cpu_seconds": 1.7999999999997185e-05
+              }
+            },
+            {
+              "processor": "preprocessor",
+              "feature": "observation.image2",
+              "feature_type": "VISUAL",
+              "direction": "forward",
+              "mode": "IDENTITY",
+              "status": "completed",
+              "class": "identity_mode",
+              "input": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "output": [
+                0.0,
+                0.25,
+                0.5,
+                0.75,
+                1.0,
+                -0.25
+              ],
+              "error": null,
+              "bound_key": null,
+              "matches": [],
+              "statistics_order": null,
+              "changed": false,
+              "meets_obligation": true,
+              "statistics_provenance": "artifact",
+              "cost": {
+                "wall_seconds": 1.00000761449337e-06,
+                "process_cpu_seconds": 1.000000000001e-06
+              }
+            }
+          ],
+          "outcome": "supported_software_correction",
+          "reason": "State and action transform non-vacuously with complete explicitly selected statistics; visual IDENTITY remains unchanged.",
+          "unmet": [],
+          "deployment_applicability": "unresolved",
+          "deployment_reason": "The diagnostic can verify the software transform, but its input contract contains no independently checkable evidence of statistics interpretation or target-deployment selection; provenance and selector annotations are declarations only.",
+          "cost": {
+            "wall_seconds": 5.729193799197674e-05,
+            "process_cpu_seconds": 5.7000000000001494e-05
+          }
+        }
+      ]
+    }
+  ],
+  "qualification": {
+    "passed": true,
+    "assertions": {
+      "every_frozen_expectation_matches": true,
+      "opaque_identifiers_follow_content": true,
+      "changed_supported_statistic_loses_support": true,
+      "complete_content_under_prior_failed_name_gains_support": true,
+      "legitimate_identity_preserved": true,
+      "ambiguous_path_refused": true
+    },
+    "scientific_status": "baseline_qualified_for_future_comparison",
+    "meaning": "Comparator implementation qualification only; the old comparison remains invalid for value and no Nisayon advantage is inferred."
+  },
+  "costs": {
+    "command_wall_seconds_before_write": 0.051990624982863665,
+    "command_process_cpu_seconds_before_write": 0.016843,
+    "command_record_id": "c5ad6dee5f0c441c8cce6131fa471fa3",
+    "nested_candidate_costs": "Retained per candidate and observation; do not add to the command cost.",
+    "engineering_effort": null,
+    "provider_charges": null,
+    "energy": null,
+    "network_overhead": null,
+    "peak_memory": null
+  },
+  "limits": {
+    "physics": false,
+    "learned_inference_or_training": false,
+    "weights_accessed": false,
+    "reserved_cases_accessed": false,
+    "network_accessed": false,
+    "deployment_binding_established": false
+  },
+  "recorded_at": "2026-09-20T16:23:33.449486+00:00"
+}

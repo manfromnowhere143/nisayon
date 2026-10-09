@@ -1,0 +1,32 @@
+{
+  "schema": "nisayon.external-decision-preflight-failures.v1",
+  "failures": [
+    {
+      "observed_at": "2026-09-20T12:59:14Z",
+      "command": "uv run --frozen ruff format --check scripts/experiments/retrieve_external_decision_sources.py",
+      "returncode": 1,
+      "retention": "The combined shell preflight was not run through the Nisayon command recorder; this record preserves the exact failure and scope.",
+      "reason": "Ruff required the REPORT Path constructor on one line.",
+      "correction": "uv run --frozen ruff format scripts/experiments/retrieve_external_decision_sources.py",
+      "subsequent_checks": [
+        "uv run --frozen ruff check scripts/experiments/retrieve_external_decision_sources.py",
+        "uv run --frozen ruff format --check scripts/experiments/retrieve_external_decision_sources.py"
+      ],
+      "scientific_effect": "None. Retrieval began only after source lint passed; formatting did not change retrieval semantics."
+    },
+    {
+      "observed_at": "2026-09-20T13:03:00Z",
+      "command": "uv run --frozen ruff check scripts/experiments/observe_external_processor.py",
+      "returncode": 1,
+      "retention": "The local pre-execution lint was not run through the Nisayon command recorder; this record preserves the exact failure and scope.",
+      "reason": "UP042 required StrEnum rather than the equivalent str and Enum inheritance for the two local value types.",
+      "correction": "Replace Enum with StrEnum for FeatureType and NormalizationMode.",
+      "subsequent_checks": [
+        "uv run --frozen ruff check scripts/experiments/observe_external_processor.py",
+        "uv run --frozen ruff format --check scripts/experiments/observe_external_processor.py",
+        "uv run --frozen python -m py_compile scripts/experiments/observe_external_processor.py"
+      ],
+      "scientific_effect": "None. The observation request remained unexecuted until after the corrected script was committed."
+    }
+  ]
+}

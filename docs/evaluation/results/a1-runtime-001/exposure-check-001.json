@@ -1,0 +1,23 @@
+{
+ "schema": "nisayon.a1-runtime-exposure-check.v1",
+ "case": "a1-runtime-001",
+ "recorded_at": "2026-09-21T12:19:17Z",
+ "question": "Have development seeds 200-209 been used by any executed run in either lane before this phase?",
+ "method": "regular-expression scan of 118,429 files under docs, .nisayon, artifacts, src, tests of the evaluation, execution and private-main checkouts for '\"seed\": 20x', 'seed-20x', 'seed=20x' and 'seed(s) 20x' with x in 0-9",
+ "hits": {
+  "prose_only": [
+   "docs/evaluation/results/a1-pilot-001/pilot-acceptance.v1.json and PILOT_ACCEPTANCE.md (the predeclaration of seeds 200-209) and their retained copies inside the execution lane's packet inputs"
+  ],
+  "run_records": [],
+  "third_party": [
+   "nisayon-codex/.nisayon/clean-env/.../networkx/algorithms/tests/test_graph_hashing.py (unrelated library test)"
+  ]
+ },
+ "prior_development_seeds_on_record": [
+  "0, 10, 11 (decision-case-001 closed-loop runs)",
+  "1000-1031 and 2000-2031 (lift-v2 confirmation pairs)",
+  "51-65 and 1-50 appear only in a competitor description"
+ ],
+ "result": "seeds 200-209 are unexposed: no policy, replay or environment run has used them; their only appearances are the predeclaration",
+ "assignment": "seeds 200-209 are assigned to the ten development episodes of this phase; after execution they are exposed to checkpoint bef2eb39 and must not serve screening (0-9) or confirmation (100-109); the next development test of any later checkpoint should use 210-219 after a fresh exposure check"
+}

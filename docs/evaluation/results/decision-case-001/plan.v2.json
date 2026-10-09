@@ -1,0 +1,292 @@
+{
+  "schema": "nisayon.decision-case.plan.v2",
+  "case_id": "DC01-controller-target-convention",
+  "frozen_at": "2026-09-19T17:06:16.526021+00:00",
+  "supersedes": {
+    "path": "docs/evaluation/results/decision-case-001/plan.json",
+    "sha256": "4c86d5f96ee6bbe9d05ce34af5930d95ea009ee3df50ea816290fdad9cbcae3f",
+    "frozen_at_as_written": "2026-09-19T17:00:00+00:00",
+    "committed_at": "2026-09-19T16:16:05+00:00 (commit a520ce0)",
+    "observed_by_review_at": "2026-09-19T16:26:52+00:00",
+    "retained": "the original file is unchanged and stays in place; this record supersedes its rule text and interpretation, not its assignments"
+  },
+  "why_this_revision": [
+    "The original frozen_at (17:00 UTC) was later than the plan's own commit (16:16:05 UTC) and than the review's observation (16:26:52 UTC); the freeze time is now the observed time of this write.",
+    "The original E1 prediction said identical step counts and end-effector trajectories within 1e-3 m per step, while the executable rule and scorer used a two-step tolerance, a 0.01 m progress tolerance and an end-effector deviation that is only reported. One primary rule is now stated and the end-effector quantity is explicitly diagnostic.",
+    "The delivered scorer (sha256 663ea45c4f468b17d90e339ca1bdb598b15fdffdcff226f097eae3ac0603c375) read E1 parity with exit 0 for missing progress on both sides, missing against measured zero, equal unknown outcome strings and a raw record truncated to one row (review controls, 16:28:15 UTC; reproduced here under scorer-controls-001/before). Unavailable, invalid or incomplete measurements must not read as parity or as a difference.",
+    "The original interpretation implied that E2 selects the nominal convention and mandates immediate re-confirmation of earlier acceptances. Neither convention is inherently the deployment; the corrected interpretation is below."
+  ],
+  "execution_status_at_freeze": {
+    "runs_before_this_freeze": true,
+    "detail": "The six assignments were executed by the execution lane between 16:42:02 and 16:42:34 UTC on 19 September 2026 (store file times) and committed at 16:50:48 UTC as 1375e10886ec5f4021b2d341c3f53ea95d52e889, before this revision was written. This revision therefore does not predate the executions.",
+    "bound_before_execution": [
+      "the six assignments, seeds 0/10/11 under restored and nominal, six planned and at most eight executions (plan.json, 16:16:05 UTC; allocation.json, 16:33:29 UTC)",
+      "the primary quantities and tolerances: task outcome, step count within two, final progress gain within 0.01 m, end-effector deviation reported and not a predicate (allocation.json measurement_rule, 16:33:29 UTC; scorer 663ea45c committed 16:16:05 UTC)",
+      "complete finite data required before scoring, missing never zero (allocation.json measurement_rule)",
+      "the classes of admission and binding checks named by the review (known outcome values, finite endpoints, raw/compact correspondence, completeness per comparison, seed, two conventions, frozen source/policy/configuration, initial state and policy reset, target-only intervention), written before the executions"
+    ],
+    "written_after_execution": [
+      "the exact implementation of the admission, binding and aggregate states in score_probe_pairs.py and the finite controls in probe_pair_controls.py",
+      "the corrected interpretation text below"
+    ],
+    "evaluator_exposure_at_freeze": "Before writing this revision the evaluator saw the execution store's directory listing with file names, byte sizes and modification times, and the statistics line of commit 1375e10. It did not read any run record, raw trace, outcome, step count, height, budget, usage, audit or scorer output from that store or commit. The delivered scorer's output on the real runs (original-pair-scores.json in the execution record) was not opened.",
+    "scope_label": "post-execution correction of the validity layer under pre-execution thresholds; not a prospectively frozen rule"
+  },
+  "primary_rule": {
+    "quantities": [
+      "task_outcome",
+      "step_count",
+      "final_progress_gain_m"
+    ],
+    "known_outcomes": [
+      "completed",
+      "failed"
+    ],
+    "step_tolerance": 2,
+    "progress_tolerance_m": 0.01,
+    "comparison": "E1 (no qualifying difference) when both outcomes are known and equal, the step counts differ by at most two, and the final progress gains differ by less than 0.01 m; E2 (qualifying difference) otherwise. The progress difference is rounded to the nearest nanometre before comparison, so a difference that is 0.01 m up to floating-point representation counts as reaching the threshold.",
+    "progress_definition": "final cube_height_m minus the first cube_height_m of the compact trace; every row must carry a finite number; zero is a measurement; null is unavailable",
+    "step_count_definition": "number of compact trace rows, which must equal the number of raw step rows"
+  },
+  "diagnostics": {
+    "eef_report_tolerance_m": 0.001,
+    "quantities": [
+      "maximum end-effector position deviation over common steps, with the first step above 1 mm",
+      "maximum joint position deviation over common steps"
+    ],
+    "role": "report only; never a decision predicate; an end-effector deviation above 1 mm inside an E1 pair is reported as such and does not change the reading"
+  },
+  "admission_per_run": [
+    {
+      "check": "record_readable",
+      "fail": "invalid",
+      "note": "the shared reader rejects non-finite JSON constants and malformed JSON"
+    },
+    {
+      "check": "run_present",
+      "fail": "missing"
+    },
+    {
+      "check": "process_completed",
+      "fail": "unresolved",
+      "note": "a run that did not complete has no terminal measurement; the attempt is retained and counted"
+    },
+    {
+      "check": "measurement_observed",
+      "fail": "invalid"
+    },
+    {
+      "check": "terminal_outcome_known",
+      "fail": "invalid",
+      "note": "only 'completed' and 'failed'; equal unknown strings are not equal measurements; a null outcome is unresolved"
+    },
+    {
+      "check": "trace_nonempty",
+      "fail": "invalid"
+    },
+    {
+      "check": "progress_finite_all_rows",
+      "fail": "invalid for non-numeric or non-finite values; unresolved for null values"
+    },
+    {
+      "check": "raw_artifacts_verified",
+      "fail": "invalid on digest mismatch; unresolved when absent",
+      "machinery": "nisayon.evaluation.first_case._verify_raw_artifacts"
+    },
+    {
+      "check": "raw_trace_consistent",
+      "fail": "invalid on any raw/compact disagreement; unresolved when no raw artifact is declared",
+      "machinery": "nisayon.evaluation.first_case._verify_raw_trace"
+    },
+    {
+      "check": "raw_record_present, raw_header_present, steps_correspond",
+      "fail": "invalid when the raw step rows do not match the compact trace in count or index; unresolved when absent"
+    },
+    {
+      "check": "diagnostic_arrays_complete, controller_target_recorded",
+      "fail": "unresolved; the primary rule can still be read when only diagnostics are missing, the diagnostics are then reported unavailable"
+    }
+  ],
+  "binding_per_pair": [
+    {
+      "check": "same_seed",
+      "fail": "invalid"
+    },
+    {
+      "check": "two_conventions_declared",
+      "fail": "invalid when the declared pair is not restored+nominal; unresolved when undeclared"
+    },
+    {
+      "check": "same_policy_sha256, same_code_git_head, same_code_lock_sha256, same_code_sources_sha256, same_code_sha256, same_dependencies_sha256, frozen_policy",
+      "fail": "invalid"
+    },
+    {
+      "check": "configuration_differs_only_in_target, candidate_digest_is_deployment_digest",
+      "fail": "invalid"
+    },
+    {
+      "check": "initial_state_matched_except_target",
+      "fail": "invalid",
+      "note": "the raw reset states must be identical after removing controller.initial_joint"
+    },
+    {
+      "check": "initial_observation_matched, policy_reset_matched, policy_reset_event_matched, model_xml_matched",
+      "fail": "invalid"
+    },
+    {
+      "check": "target_only_intervention",
+      "fail": "invalid",
+      "note": "the controller_reset reading must name the declared convention, equal the raw reset header's controller.initial_joint, equal the reset qpos (restored) or the frozen Panda init_qpos (nominal) within 1e-9 rad, and carry the frozen nominal and the raw restored positions"
+    },
+    {
+      "check": "single_completed_attempt",
+      "fail": "invalid",
+      "note": "manifest mode: more than one completed record for one assignment is a search, not a retry"
+    }
+  ],
+  "states": {
+    "valid": "both runs admitted and every binding check passed; the pair is read E1 or E2",
+    "invalid": "a check ran and failed: a contradiction in the record or a metadata mismatch; the pair is not scored and is never evidence for E2",
+    "unresolved": "a check could not run because the material it needs is absent (null measurement, incomplete process, missing raw artifact, undeclared convention); the pair is not scored",
+    "missing": "an assigned run has no record; the assignment stays in the denominator",
+    "precedence": "invalid over missing over unresolved over valid"
+  },
+  "aggregate": {
+    "planned_pairs": 3,
+    "E2": "the registered contrast was observed on at least one admitted (valid) pair",
+    "E1": "all three planned pairs are admitted and none shows a qualifying difference under the tolerances; this is not equivalence over Lift or other seeds",
+    "incomplete": "at least one planned pair is not admitted and no admitted pair reads E2; no parity is inferred from absent data",
+    "allocation_nonconformance": "more records than the eight-execution maximum, or a record outside the six assignments, makes the aggregate not_scored while per-pair readings are retained",
+    "denominator": "every planned assignment and every retained attempt, including crashed or partial runs"
+  },
+  "engine_supplied_and_independently_consumed": {
+    "engine_supplies": [
+      "process_status, measurement_status, task_outcome, the compact trace and its digests, artifact digests, initial_state_sha256, identity digests, the deployment record with controller_target, the controller_reset reading, the store seal (integrity.json) and its own pair audit (input-match.json)"
+    ],
+    "evaluation_recomputes": [
+      "artifact digests against the files, raw/compact correspondence row by row, initial_state_sha256 against the raw reset state, candidate_sha256 against the deployment record, the reset-state equality except the target, the initial observation, policy reset and XML equality, the target against the raw header and the frozen restored/nominal definitions, the metric and the diagnostics"
+    ],
+    "engine_audit_role": "input-match.json is read for comparison only; agreement is reported, disagreement is reported; validity is decided by the recomputation"
+  },
+  "probe": {
+    "assignments": [
+      {
+        "id": "DC01-s0-restored",
+        "seed": 0,
+        "convention": "restored",
+        "note": "Nisayon single reset; the retained reproduction condition"
+      },
+      {
+        "id": "DC01-s0-nominal",
+        "seed": 0,
+        "convention": "nominal",
+        "note": "target = Panda init_qpos after the same start state"
+      },
+      {
+        "id": "DC01-s10-restored",
+        "seed": 10,
+        "convention": "restored",
+        "note": "development seed already observed in the calibration and reset probes"
+      },
+      {
+        "id": "DC01-s10-nominal",
+        "seed": 10,
+        "convention": "nominal"
+      },
+      {
+        "id": "DC01-s11-restored",
+        "seed": 11,
+        "convention": "restored",
+        "note": "development seed already observed"
+      },
+      {
+        "id": "DC01-s11-nominal",
+        "seed": 11,
+        "convention": "nominal"
+      }
+    ],
+    "executions_planned": 6,
+    "executions_maximum_including_retries_and_failures": 8,
+    "conditions": "seeds 0, 10 and 11 are spent development conditions; no fresh confirmation seed is reserved or consumed; no new seed",
+    "intervention": "the declared controller nullspace target only, applied by the same update_initial_joints call in both conventions (execution lane refinement, allocation.json); everything else identical per pair",
+    "retry_rule": "A technical retry is permitted only for an infrastructure or process failure (process_status other than completed, with the error retained), at most two in total, each recorded before it runs with the attempt it replaces. A valid unfavorable result is never retried. No retry may change the seed, the convention or any setting.",
+    "stop_rule": "stop after the six planned executions (eight with retries); decide by the written criterion; no additional seeds, no search for a discordant condition, no confirmation run"
+  },
+  "consumption_agreement": {
+    "joint_development_cap": 24,
+    "allocated_to_execution": 8,
+    "allocated_to_evaluation": 0,
+    "statement": "The evaluation lane agrees that the execution lane alone consumes this allocation from the inherited shared 24-execution ceiling. The evaluation lane executes no physics for this case. At the allocation (16:33:29 UTC) prior use since the allowance was zero and sixteen remained unallocated; the execution lane's usage record for the six runs is consumed during adjudication and any newer usage is reconciled there."
+  },
+  "interpretation": {
+    "E1": "No qualifying difference was detected on these three exposed conditions under the chosen tolerances. It is not equivalence of the two conventions over Lift, other seeds, other tasks or other policies. The convention difference remains real, retained and, for these conditions, without a registered task consequence.",
+    "E2": "The registered contrast was observed on at least one admitted pair: the target convention changed the task outcome, the step count by more than two, or the final progress gain by at least 0.01 m on that condition. It shows sensitivity, not which convention is correct and not an advantage of any workflow.",
+    "report_separately": [
+      "whether any existing confirmation predicate (task completion, progress minimum, step budget) actually crosses under the other convention",
+      "whether a repair decision recorded in the development ablation would change; a difference above the tolerances may still leave both repairs acceptable",
+      "whether there is any measured comparison with ordinary tools (the baseline's own playback path); none exists for this probe, which changes the target only"
+    ],
+    "no_automatic_inference": "No product-value inference follows from E1 or E2. The competent baseline receives the same source evidence and the same ordinary comparison.",
+    "convention_neutrality": "Neither 'nominal' nor 'restored' is inherently the correct deployment. E2 does not select nominal and does not mandate re-confirmation.",
+    "original_acceptances": "Acceptances recorded in the development ablation stand within their recorded execution scope (single reset, restored target). They are not reopened by this probe.",
+    "if_sensitivity_is_observed": "Request a convention-specific impact assessment (which retained acceptances and predicates the observed contrast touches) and a separately bounded confirmation plan. The existing 67-execution confirmation cannot be paid from eight runs and is not authorized here."
+  },
+  "evidence_grades": {
+    "retained_controller_state": "measured: in the selected retained set of 1,448 Nisayon runs the controller target equals the restored start state; this is one retained set of development runs across four stores, not 1,448 independent incidents; excluded are runs without a raw reset header and stores that were not present or not readable at the sweep (lead_a_retained_sweep.json names the stores and counts)",
+    "native_harness_convention": "source-based: the installed pinned robosuite 1.4.1 and robomimic 0.3.0 have the double-reset structure that leaves the nominal target after restoring the noisy state; no native playback was executed here",
+    "training_data_convention": "not established: the offline_study branch used for the proficient-human data is not pinned in this environment",
+    "upstream_status": "the installed pinned source has this reset structure; no claim is made about the current upstream default branch",
+    "probe_scope": "a target-only intervention through the same controller method; it is not the full native reset_to path and cannot attribute every native-harness difference to the target"
+  },
+  "frozen": {
+    "policy_sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+    "nominal_target_rad": [
+      0.0,
+      0.19634954084936207,
+      0.0,
+      -2.617993877991494,
+      0.0,
+      2.941592653589793,
+      0.7853981633974483
+    ],
+    "nominal_source": "robosuite 1.4.1 Panda.init_qpos = [0, pi/16, 0, -pi/2 - pi/3, 0, pi - 0.2, pi/4]; installed file digest under bindings"
+  },
+  "bindings": {
+    "evaluation_commit_at_start": "e93cdc59e71e5de835aedbfbb0fd8c587bfe4571",
+    "scorer": {
+      "path": "docs/evaluation/results/decision-case-001/score_probe_pairs.py",
+      "sha256": "aa478ab15f4c3a19e27f97f8112359f7d7af7ed8fee10f6f80b0429866890dab"
+    },
+    "controls_generator": {
+      "path": "docs/evaluation/results/decision-case-001/probe_pair_controls.py",
+      "sha256": "536244549be9307c8d6b2a5f155efa2d07c4a827bb6e97fdb20222ccef6c0752"
+    },
+    "original_plan": {
+      "path": "docs/evaluation/results/decision-case-001/plan.json",
+      "sha256": "4c86d5f96ee6bbe9d05ce34af5930d95ea009ee3df50ea816290fdad9cbcae3f"
+    },
+    "execution_commit_bound": "62bb2dab174b737a6d02573b131b2c59f1d88812",
+    "execution_lane_files_at_bound_commit": {
+      "docs/experiments/results/decision-case-001/allocation.json": "fc57a710f83d54504c4594a4d3050254751b1bb9260f02c59ac82119a3830711",
+      "src/nisayon/engine/lift.py": "e20d3dcf9d9edda71fd96a1420b75c52e9134d420265ee93d2560fe96e6561c1",
+      "src/nisayon/engine/configuration.py": "8a43db4a0e984a12982ad4a7d65ca9e18862b99e0d052353e158130e1d2f69dc",
+      "src/nisayon/engine/diagnostics.py": "551d6dad0fc740b3d9e3b5732cf51bff71f62db4c685afceb3b91748fe46daef",
+      "src/nisayon/engine/records.py": "24efc2daace5bb412e2c8a60852170dfc36b6f9e7d92c3150c1326ccb5165f96",
+      "scripts/experiments/controller_target_probe.py": "927424f1d647f8c5653abe4ee342f2575856f7c051ec97377b7606566b282698"
+    },
+    "installed_sources": {
+      "robosuite/models/robots/manipulators/panda_robot.py": "cedaeef03d4c01b6a76a56838f9cf8f68b34f85bac823cb2c76543492553c736",
+      "robosuite/controllers/osc.py": "cfa62a0e719bc53ef0c701efa66f7b3e2272d4fca2150ec73c05bb145eba85cb"
+    },
+    "evaluation_machinery": {
+      "src/nisayon/evaluation/first_case.py": "b226b518cfa7a6c85e68e76b2604ca4ef59e4838b0530b571663a4653d77baa4"
+    }
+  },
+  "not_established": [
+    "that either convention is safer or better",
+    "that any customer incident exists",
+    "held-out diagnosis",
+    "custody",
+    "physical truth of the simulator"
+  ]
+}

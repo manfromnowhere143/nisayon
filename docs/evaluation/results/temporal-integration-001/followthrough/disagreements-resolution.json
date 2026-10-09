@@ -1,0 +1,1459 @@
+{
+ "schema": "nisayon.temporal-followthrough-disagreement-resolution.v1",
+ "producer_comparison": {
+  "path": "docs/experiments/results/temporal-integration-001/reference-comparison-001/comparison.json",
+  "predicates_disagree": 59,
+  "expectations_sha256": "bcb96a1d5109fc070bbf2e15ffe5904ada1cbc8e726c78fd47a858034f95234b"
+ },
+ "rows": 59,
+ "resolutions": {
+  "legacy_unscheduled_ticks": 14,
+  "legacy_window_without_ticks": 44,
+  "legacy_threshold_over_opportunities": 1
+ },
+ "expectations_edited": false,
+ "table": [
+  {
+   "assignment_id": "T01-healthy--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T01-healthy--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T01-healthy--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T01-healthy--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T01-healthy--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T03-late-after-reset--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    },
+    "1": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T03-late-after-reset--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    },
+    "1": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T03-late-after-reset--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    },
+    "1": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T03-late-after-reset--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    },
+    "1": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T03-late-after-reset--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    },
+    "1": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T04-reordered-responses--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T04-reordered-responses--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T04-reordered-responses--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T04-reordered-responses--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T04-reordered-responses--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T06-duplicate-after-dispatch--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 2,
+    "dispatched": 2,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 2
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T06-duplicate-after-dispatch--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 2,
+    "dispatched": 2,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 2
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T07-overlapping-chunks--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 3,
+    "dispatched": 3,
+    "refused": 0,
+    "minimum": 3,
+    "valid": 3,
+    "acknowledged": 3
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T07-overlapping-chunks--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 3,
+    "dispatched": 3,
+    "refused": 0,
+    "minimum": 3,
+    "valid": 3,
+    "acknowledged": 3
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T07-overlapping-chunks--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 3,
+    "dispatched": 3,
+    "refused": 0,
+    "minimum": 3,
+    "valid": 3,
+    "acknowledged": 3
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T07-overlapping-chunks--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 3,
+    "dispatched": 3,
+    "refused": 0,
+    "minimum": 3,
+    "valid": 3,
+    "acknowledged": 3
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T07-overlapping-chunks--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 3,
+    "dispatched": 3,
+    "refused": 0,
+    "minimum": 3,
+    "valid": 3,
+    "acknowledged": 3
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T08-configuration-in-flight--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T08-configuration-in-flight--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T08-configuration-in-flight--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T08-configuration-in-flight--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T08-configuration-in-flight--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T09-unbound-response--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T09-unbound-response--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T10-response-config-mismatch--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T10-response-config-mismatch--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T11-missing-acquisition--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T11-missing-acquisition--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T12-unmapped-clock--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T12-unmapped-clock--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T13-ambiguous-clock--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T13-ambiguous-clock--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T14-deadline-equality--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T14-deadline-equality--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T14-deadline-equality--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T14-deadline-equality--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T14-deadline-equality--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T15-expiry-in-queue--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "opportunities",
+     "ticks": 2,
+     "dispatched": 1
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 2,
+    "dispatched": 1,
+    "refused": 1,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_threshold_over_opportunities",
+   "explanation": "the legacy predicate counts the producer's recorded opportunities but applies this lane's frozen 0.8 threshold; the producer froze a whole-case minimum of 1 for 2 opportunities"
+  },
+  {
+   "assignment_id": "T15-expiry-in-queue--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 2,
+    "dispatched": 2,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 2
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T15-expiry-in-queue--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "violated",
+   "legacy_v2": "violated",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 5,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 2,
+    "dispatched": 2,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 2
+   },
+   "resolution": "legacy_unscheduled_ticks",
+   "explanation": "the legacy grid counts control ticks the producer never scheduled as opportunities (for example ticks at 10 and 20 ms with a single frozen opportunity at 20 ms), or the frozen opportunity does not lie on the grid at all, so coverage falls below 0.8 although every frozen opportunity was dispatched"
+  },
+  {
+   "assignment_id": "T16-unacknowledged-dispatch--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T16-unacknowledged-dispatch--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T16-unacknowledged-dispatch--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T16-unacknowledged-dispatch--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T16-unacknowledged-dispatch--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T17-failed-dispatch--arrival_deadline_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T17-failed-dispatch--conventional",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T17-failed-dispatch--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T17-failed-dispatch--selected_intervention",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T17-failed-dispatch--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 0
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T19-cancellation-is-not-completion--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T19-cancellation-is-not-completion--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 1,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T20-inconsistent-clock--reset_only",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  },
+  {
+   "assignment_id": "T20-inconsistent-clock--unfenced_queue_control",
+   "expected_useful_execution": "satisfied",
+   "legacy_v1": "unresolved",
+   "legacy_v2": "unresolved",
+   "legacy_windows": {
+    "0": {
+     "basis": "grid",
+     "ticks": 0,
+     "dispatched": 0
+    }
+   },
+   "assigned_usefulness": "satisfied",
+   "assigned_counts": {
+    "opportunities": 1,
+    "dispatched": 1,
+    "refused": 0,
+    "minimum": 1,
+    "valid": 0,
+    "acknowledged": 1
+   },
+   "resolution": "legacy_window_without_ticks",
+   "explanation": "the legacy grid runs from the first tick at or after the first arrival to the case end; this case ends within one control period of the arrival, so the window holds no tick and the legacy predicate is unresolved, while the producer scheduled and recorded its own opportunities"
+  }
+ ],
+ "boundary": "an explanation of two frozen usefulness readings on the same software traces; the legacy predicate keeps its name, meaning and results"
+}

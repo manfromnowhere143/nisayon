@@ -88,6 +88,40 @@ def collect_index(directory: Path) -> dict:
                 },
             }
         )
+    prospective: list[dict] = []
+    for path in sorted(directory.glob("*.prospective.json")):
+        try:
+            data = json.loads(path.read_text())
+        except (OSError, ValueError) as error:
+            prospective.append({"name": path.name, "error": str(error)})
+            continue
+        if not isinstance(data, dict):
+            prospective.append({"name": path.name, "error": "not a JSON object"})
+            continue
+        arms = data.get("arms") if isinstance(data.get("arms"), dict) else {}
+        prospective.append(
+            {
+                "name": path.name.removesuffix(".prospective.json"),
+                "fair": data.get("fair"),
+                "reading": (data.get("declarations") or {}).get("reading"),
+                "findings": _codes(data.get("findings")),
+                "arms": {
+                    str(arm): {
+                        key: item.get(key)
+                        for key in (
+                            "assigned_cases",
+                            "declared_acceptances",
+                            "confirmed_correct",
+                            "contradicted",
+                            "unsupported",
+                            "unknown",
+                        )
+                    }
+                    for arm, item in arms.items()
+                    if isinstance(item, dict)
+                },
+            }
+        )
     packages: list[dict] = []
     for path in sorted(directory.glob("*.package-check.json")):
         try:
@@ -111,6 +145,7 @@ def collect_index(directory: Path) -> dict:
         "directory": str(directory),
         "decisions": decisions,
         "scores": scores,
+        "prospective": prospective,
         "packages": packages,
     }
 
@@ -152,6 +187,26 @@ def render_index(index: dict) -> str:
             fair = "yes" if item["fair"] is True else "no" if item["fair"] is False else "?"
             lines.append(
                 f"| {item['name']} | {fair} | {', '.join(item['findings']) or 'none'} | {arms} |"
+            )
+    if index.get("prospective"):
+        lines += [
+            "",
+            "| prospective report | fair | reading | findings | arms N/D/C/F/U/K |",
+            "|---|---|---|---|---|",
+        ]
+        for item in index["prospective"]:
+            if "error" in item:
+                lines.append(f"| {item['name']} | unreadable | | {item['error']} | |")
+                continue
+            arms = "; ".join(
+                f"{arm}: {v['assigned_cases']}/{v['declared_acceptances']}/{v['confirmed_correct']}/"
+                f"{v['contradicted']}/{v['unsupported']}/{v['unknown']}"
+                for arm, v in item["arms"].items()
+            )
+            fair = "yes" if item["fair"] is True else "no" if item["fair"] is False else "?"
+            lines.append(
+                f"| {item['name']} | {fair} | {item['reading'] or ''} | "
+                f"{', '.join(item['findings']) or 'none'} | {arms} |"
             )
     if index.get("packages"):
         lines += ["", "| screen package | ready | findings | frozen |", "|---|---|---|---|"]

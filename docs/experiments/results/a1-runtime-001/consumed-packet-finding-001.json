@@ -1,0 +1,102 @@
+{
+  "schema": "nisayon.a1-runtime.consumed-packet-finding.v1",
+  "recorded_at": "2026-10-09T07:44:24.828981+00:00",
+  "execution_commit": "466e50d7c900ae2402cc0c0328e46571abb46ce6",
+  "assessment_mode": "single_lane_non_independent",
+  "status": "producer_observation_binding_failure",
+  "producer_gate": {
+    "path": "artifacts/a1-runtime-001/runtime-v1.4-execution-001/producer-gate/producer-compatibility-gate-001.json",
+    "bytes": 1578,
+    "sha256": "23b9d931d55762e7095fd8f0ac310dd3b71d5590724ae1310d0a784a78599553"
+  },
+  "observed": [
+    {
+      "attempt": "R-1",
+      "arrays": {
+        "path": "artifacts/a1-runtime-001/runtime-v1.4-execution-001/replay-R-1/replay-R-1-001.npz",
+        "bytes": 28473,
+        "sha256": "b3928031cd6f188180fc94b95ca00351d47188d9da6826ea59378fd3b357ec88"
+      },
+      "differing_coordinates": 376,
+      "first_differing_row_and_coordinate": [
+        1,
+        2
+      ],
+      "consumed_object_value": 0.8214967878048899,
+      "refreshed_object_state_value": 0.8198809674629637,
+      "maximum_absolute_difference_mixed_coordinates": 0.007862303251195524,
+      "initial_frame_equal": true,
+      "first_success_post_action_index": 54,
+      "reward_sum": 5.0
+    },
+    {
+      "attempt": "R-2",
+      "arrays": {
+        "path": "artifacts/a1-runtime-001/runtime-v1.4-execution-001/replay-R-2/replay-R-2-001.npz",
+        "bytes": 28473,
+        "sha256": "b3928031cd6f188180fc94b95ca00351d47188d9da6826ea59378fd3b357ec88"
+      },
+      "differing_coordinates": 376,
+      "first_differing_row_and_coordinate": [
+        1,
+        2
+      ],
+      "consumed_object_value": 0.8214967878048899,
+      "refreshed_object_state_value": 0.8198809674629637,
+      "maximum_absolute_difference_mixed_coordinates": 0.007862303251195524,
+      "initial_frame_equal": true,
+      "first_success_post_action_index": 54,
+      "reward_sum": 5.0
+    }
+  ],
+  "mechanism": {
+    "producer": "RuntimeAdapter.step maps the raw packet returned by env.step. append_replay_frame then calls raw_observation, which forces another observable update, and stores that later object-state beside the earlier mapped object.",
+    "upstream": "robosuite 1.5.1 environments/base.py: _get_observations(force_update=True) invokes _update_observables(force=True); env.step ordinarily returns _get_observations() without that force.",
+    "scope": "Retained arrays and source establish mismatched acquisition points. The effect of removing the extra refresh on a new simulator trajectory has not been executed or measured."
+  },
+  "correction": {
+    "file": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "bytes": 48922,
+      "sha256": "16a7ef8678db65bb63554ca32397ee54f443125593fd96480cc2919ff59ce8c5"
+    },
+    "behavior": "Snapshot the raw packet at the same get_observation boundary that maps it, and record a defensive copy of that snapshot without an additional sensor refresh.",
+    "does_not_do": "No recorded arrays are altered or reconstructed; all original evidence remains unchanged.",
+    "regression_test": {
+      "path": "tests/engine/test_run_a1_runtime.py",
+      "bytes": 15473,
+      "sha256": "9061d85c096df338ac277d4f35a27ca31a283063078f50e18191b91bbf969d60"
+    },
+    "before_fix_run": "1995573e3b3c4fa8afff0cc1e8b4f334",
+    "before_fix_result": "failed as expected on consumed versus refreshed packet equality",
+    "after_fix_run": "400bf3d27d6740a3bfb8f8f6a4d9a22c",
+    "after_fix_tests_passed": 40,
+    "simulator_execution_of_correction": false
+  },
+  "accounting": {
+    "original_failed_probe_explicit_resets": 1,
+    "replacement_probe_explicit_resets": 1,
+    "reset_witness_explicit_resets": 2,
+    "replay_explicit_resets": 2,
+    "cumulative_explicit_resets": 6,
+    "qualification_control_steps": 20,
+    "replay_control_steps": 118,
+    "cumulative_control_steps": 138,
+    "contract_counted_physics_substeps": 3450,
+    "policy_actions": 0,
+    "replay_assigned_started_consumed": [
+      2,
+      2,
+      2
+    ],
+    "development_assigned_started_consumed": [
+      10,
+      0,
+      0
+    ],
+    "new_optimizer_updates": 0,
+    "new_network_responses": 0
+  },
+  "disposition": "Stop before development. The two frozen replay slots are consumed. No automatic replacement replay is authorized. Preserve the correction as software-tested and physically unvalidated pending a prospective bounded follow-up.",
+  "competence": "not_run_precondition_failed"
+}

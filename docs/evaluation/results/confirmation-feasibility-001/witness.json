@@ -1,0 +1,160 @@
+{
+  "schema": "nisayon.confirmation-feasibility.finite-witness.v1",
+  "partial_table": {
+    "small_universe": {
+      "conditions": 3,
+      "inspected": 2,
+      "predicates": [
+        "task",
+        "progress",
+        "constraints",
+        "timing"
+      ],
+      "complete_tables": 4096,
+      "tables_consistent_with_all_pass_inspection": 16,
+      "of_which_satisfy_the_obligation": 1,
+      "of_which_violate_it": 15,
+      "witness_pair": {
+        "agree_on_inspected": true,
+        "table_satisfying": [
+          {
+            "task": true,
+            "progress": true,
+            "constraints": true,
+            "timing": true
+          },
+          {
+            "task": true,
+            "progress": true,
+            "constraints": true,
+            "timing": true
+          },
+          {
+            "task": true,
+            "progress": true,
+            "constraints": true,
+            "timing": true
+          }
+        ],
+        "table_violating": [
+          {
+            "task": true,
+            "progress": true,
+            "constraints": true,
+            "timing": true
+          },
+          {
+            "task": true,
+            "progress": true,
+            "constraints": true,
+            "timing": true
+          },
+          {
+            "task": true,
+            "progress": false,
+            "constraints": true,
+            "timing": true
+          }
+        ],
+        "differs_on": "condition 2 (uninspected), predicate progress"
+      }
+    },
+    "full_size_closed_form": {
+      "conditions": 32,
+      "inspected": 31,
+      "consistent_complete_tables": 16,
+      "satisfying": 1,
+      "reading": "after inspecting 31 of 32 conditions all-pass, 16 complete tables remain consistent and exactly one satisfies the obligation; the partial table decides nothing about the conjunction"
+    },
+    "assumptions_under_which_this_holds": [
+      "black box: no declared structural relation between conditions (no monotonicity, no shared mechanism argument), so an uninspected condition's predicates are unconstrained by inspected ones",
+      "no additional proof: nothing outside the outcome table certifies the uninspected predicates",
+      "the obligation is a conjunction over all declared conditions and mandatory predicates, as first-case-obligation-v0.2 states"
+    ],
+    "when_an_observed_violation_permits_termination": "any observed violation of a mandatory predicate on an assigned run makes acceptance of the frozen candidate impossible for every completion of the table (the conjunction is already false); stopping is decision-preserving for accept/reject and saves the remaining runs; it does not create an acceptance and does not estimate anything about unseen conditions"
+  },
+  "mean_versus_obligation": {
+    "conditions": 32,
+    "reference_success": 28,
+    "candidate_success": 30,
+    "mean_difference": 0.0625,
+    "harmful_disagreements_reference_succeeds_candidate_fails": 2,
+    "finite_obligation_verdict": "rejected (regression_on_fresh_condition)",
+    "mean_superiority_verdict": "candidate better",
+    "protected_group_example": {
+      "group": "conditions 24 to 31",
+      "reference_success_in_group": 8,
+      "candidate_success_in_group": 6,
+      "group_regresses": true,
+      "overall_mean_improves": true,
+      "reading": "an average over all conditions improves while a required group regresses; a mean cannot discharge a per-group requirement"
+    },
+    "reading": "a two-condition net improvement (30 vs 28) with two harmful disagreements is rejected by the finite obligation and accepted by mean superiority; the objectives differ, neither is a mistake of the other"
+  },
+  "evaluator_truncation": {
+    "runs_per_case": {
+      "complete_all_pass": {
+        "decision": "accepted",
+        "reasons": [],
+        "reason_details": [],
+        "fresh_pairs_assigned": 4,
+        "fresh_declared": 4
+      },
+      "truncated_after_observed_regression": {
+        "decision": "invalid",
+        "reasons": [
+          "assigned_outcome_missing",
+          "condition_unassigned",
+          "malformed_record",
+          "progress_lost",
+          "regression_on_fresh_condition"
+        ],
+        "reason_details": [
+          "assigned_outcome_missing: condition 'unknown-condition-of-confirmation-reference-1002': assigned run(s) ['confirmati",
+          "assigned_outcome_missing: condition 'unknown-condition-of-confirmation-reference-1003': assigned run(s) ['confirmati",
+          "condition_unassigned: condition 'seed-1002' (fresh) has no assigned runs",
+          "condition_unassigned: condition 'seed-1003' (fresh) has no assigned runs",
+          "malformed_record: assignment for undeclared condition 'unknown-condition-of-confirmation-reference-1002'",
+          "malformed_record: assignment for undeclared condition 'unknown-condition-of-confirmation-reference-1003'",
+          "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+          "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+        ],
+        "fresh_pairs_assigned": 4,
+        "fresh_declared": 4
+      },
+      "truncated_without_violation": {
+        "decision": "invalid",
+        "reasons": [
+          "assigned_outcome_missing",
+          "condition_unassigned",
+          "malformed_record"
+        ],
+        "reason_details": [
+          "assigned_outcome_missing: condition 'unknown-condition-of-confirmation-reference-1002': assigned run(s) ['confirmati",
+          "assigned_outcome_missing: condition 'unknown-condition-of-confirmation-reference-1003': assigned run(s) ['confirmati",
+          "condition_unassigned: condition 'seed-1002' (fresh) has no assigned runs",
+          "condition_unassigned: condition 'seed-1003' (fresh) has no assigned runs",
+          "malformed_record: assignment for undeclared condition 'unknown-condition-of-confirmation-reference-1002'",
+          "malformed_record: assignment for undeclared condition 'unknown-condition-of-confirmation-reference-1003'"
+        ],
+        "fresh_pairs_assigned": 4,
+        "fresh_declared": 4
+      },
+      "complete_with_regression": {
+        "decision": "rejected",
+        "reasons": [
+          "progress_lost",
+          "regression_on_fresh_condition"
+        ],
+        "reason_details": [
+          "progress_lost: lift.cube_raised: gain 0 m is below the minimum 0.01",
+          "regression_on_fresh_condition: condition 'seed-1001': the reference completes and the candidate fails"
+        ],
+        "fresh_pairs_assigned": 4,
+        "fresh_declared": 4
+      }
+    },
+    "reading": "as implemented, a confirmation whose remaining assigned pairs never ran decides invalid, not rejected and not unresolved: the confirmation names its pairs by run id and derives each pair's condition from the run records, so an absent pair becomes an assignment for an undeclared condition (malformed_record, invalid severity), which outranks the observed regression. Terminating after an observed violation is decision-preserving in principle (the conjunction is already false) but the current record contract cannot express it: it needs the condition id carried on each confirmation assignment and a recorded cancellation status that distinguishes a deliberate stop after a named violation from a lost denominator. Without that, the existing precedence and completeness rules turn every early stop into invalid"
+  },
+  "scope": "exact enumeration and the evaluator on synthetic strict bundles; no physics; the mini document fixture is the test suite's own"
+}

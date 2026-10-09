@@ -1,0 +1,36 @@
+{
+  "schema": "nisayon.population-dependency-plan.v1",
+  "observed_at_command_record_id": "36cff1f834fb4c5993a84798642e1fc7",
+  "project_python": "3.12",
+  "available_project_imports": [
+    {"package": "numpy", "version": "1.26.4"},
+    {"package": "torch", "version": "2.5.1"},
+    {"package": "tqdm", "version": "4.70.1"}
+  ],
+  "missing_project_imports": [
+    {"package": "pandas", "required_by": ["stats.py", "lerobot_episode_loader.py", "sharded_single_step_dataset.py"]},
+    {"package": "pyarrow_or_fastparquet", "required_by": ["pandas.read_parquet in calculate_dataset_statistics"]},
+    {"package": "tyro", "required_by": ["stats.py CLI entry point"]},
+    {"package": "gr00t_internal_module_closure", "required_by": ["full stats.py, factory and dataset imports"]}
+  ],
+  "other_environment_observation": "Homebrew Python 3.14 has pandas 3.0.2 but neither pyarrow nor fastparquet; it is not the locked project Python and cannot read these Parquet files through pandas.",
+  "known_reader_alternative": {
+    "package": "duckdb",
+    "version": "1.3.2",
+    "wheel_compressed_bytes": 15538413,
+    "extracted_library_bytes": 53748899,
+    "current_retained_bytes": 0,
+    "qualification": "Previously downloaded and removed by the coordinator. It is not a pandas parquet engine, so using it would require replacing pd.read_parquet and would remain a reduced substitution."
+  },
+  "selected_installation": {
+    "packages": [],
+    "compressed_bytes": 0,
+    "extracted_bytes": 0,
+    "dependency_body_reservation_bytes": 0,
+    "reason": "The observed cache-hit route does not reach pandas.read_parquet. Installing a reader cannot change that decision, and a full GR00T import also requires an unretained internal module closure."
+  },
+  "unselected_full_import_sizes": "unmeasured because no coherent full-import dependency/source set was selected or downloaded; guessing wheel sizes would not be exact",
+  "reachable_execution": "Execute unchanged AST bodies from the pinned sources for generate_stats, metadata loading, statistics extraction and mixture propagation. Use sentinels for the unreached reader/writer and a recorder for the unavailable processor method. Label every substitution; full import, CLI and processor precedence remain unresolved.",
+  "hard_cap_new_dependency_body_bytes": 33554432,
+  "scientific_limit": "A reduced exact-body execution is not a full upstream application run or deployment invocation."
+}

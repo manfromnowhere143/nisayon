@@ -1,0 +1,1138 @@
+{
+  "schema": "nisayon.comparison.prospective-score.v2",
+  "fair": true,
+  "ledger_schema": "nisayon.comparison.v1",
+  "suite": {
+    "id": "bounded-agent-comparison-001",
+    "obligation": "first-case-obligation-v0.2",
+    "evaluator_commit": "6e112c49b152f9b475660ab18d1ad5c0459129aa",
+    "solver_kind": "bounded_model_directed_development"
+  },
+  "declarations": {
+    "origins": [
+      "derived_from_v1_arm_claimed_acceptance"
+    ],
+    "prospective_trials": 0,
+    "trials": 6,
+    "reading": "retrospective"
+  },
+  "arms": {
+    "A": {
+      "kind": "agent",
+      "validity_layer": false,
+      "selection": "adaptive",
+      "assigned_cases": 3,
+      "declared_acceptances": 3,
+      "confirmed_correct": 3,
+      "contradicted": 0,
+      "unsupported": 0,
+      "unknown": 0,
+      "claim_categories": {
+        "supported": 3,
+        "contradicted": 0,
+        "unsupported_insufficient_evidence": 0,
+        "unsupported_invalid_experiment": 0,
+        "unknown_reference_missing": 0,
+        "unknown_reference_unverifiable": 0,
+        "unknown_reference_unbound": 0,
+        "unknown_reference_candidate_mismatch": 0
+      },
+      "contradiction_codes": {},
+      "non_acceptance_states": {
+        "abstain": 0,
+        "refuse": 0,
+        "unresolved": 0,
+        "invalid_experiment": 0,
+        "unsupported_capability": 0,
+        "timeout": 0,
+        "not_attempted": 0,
+        "no_declaration": 0,
+        "declaration_unusable": 0
+      },
+      "refusals": {
+        "correct_refusal": 0,
+        "missed_correct_opportunity": 0,
+        "refusal_unadjudicated": 0
+      },
+      "product_accepted": 3,
+      "product_blocked_acceptances": 0,
+      "study_eligible_trials": 3,
+      "usable_as_study_result": true,
+      "v1_confirmed": 3,
+      "v1_false_acceptances": 0,
+      "declaration_origins": [
+        "derived_from_v1_arm_claimed_acceptance"
+      ],
+      "prospective_trials": 0,
+      "rates": {
+        "D_over_N": 1.0,
+        "C_over_N": 1.0,
+        "F_over_N": 0.0,
+        "F_over_D": 0.0,
+        "U_over_D": 0.0,
+        "K_over_D": 0.0,
+        "reference_coverage_of_claims": 1.0,
+        "F_over_C_supplementary": 0.0,
+        "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+        "F_over_N_exact_95": [
+          0.0,
+          0.707598
+        ],
+        "C_over_N_exact_95": [
+          0.292402,
+          1.0
+        ],
+        "correct_refusals_over_non_acceptances": null,
+        "missed_over_non_acceptances": null
+      },
+      "costs": {
+        "components": {
+          "simulator_wall": {
+            "unit": "s",
+            "known_total": 256.117958,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "diagnostic_wall": {
+            "unit": "s",
+            "known_total": 79.478639666,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "confirmation_wall": {
+            "unit": "s",
+            "known_total": 342.793800875,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "own_trial_wall": {
+            "unit": "s",
+            "known_total": 422.272440541,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "agent_tokens": {
+            "unit": "tokens",
+            "known_total": 74759.0,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "engineer_time": {
+            "unit": "s",
+            "known_total": 0.0,
+            "known_trials": 0,
+            "missing_trials": 3,
+            "unreported_trials": 0
+          },
+          "provider_and_compute_charges": {
+            "unit": "USD",
+            "known_total": 0.0,
+            "known_trials": 0,
+            "missing_trials": 3,
+            "unreported_trials": 0
+          }
+        },
+        "categories": [
+          {
+            "category": "preparation_and_import",
+            "status": "not_reported",
+            "components": [],
+            "note": "shared preparation ledger"
+          },
+          {
+            "category": "diagnosis",
+            "status": "reported",
+            "components": [
+              "diagnostic_wall"
+            ],
+            "note": "phase wall"
+          },
+          {
+            "category": "proposal_validation",
+            "status": "not_reported",
+            "components": [],
+            "note": "phase wall"
+          },
+          {
+            "category": "simulation_including_prefixes",
+            "status": "reported",
+            "components": [
+              "simulator_wall"
+            ],
+            "note": "nested in phase walls; never added to them"
+          },
+          {
+            "category": "confirmation",
+            "status": "reported",
+            "components": [
+              "confirmation_wall"
+            ],
+            "note": "phase wall"
+          },
+          {
+            "category": "retries_and_failures",
+            "status": "not_reported",
+            "components": [],
+            "note": "retries also counted"
+          },
+          {
+            "category": "model_calls_and_tokens",
+            "status": "reported",
+            "components": [
+              "agent_tokens"
+            ],
+            "note": "tokens; charges separate"
+          },
+          {
+            "category": "adjudication",
+            "status": "reported_by_decisions",
+            "components": [
+              "decision.evaluation_wall_s"
+            ],
+            "known_total": 64.579822,
+            "unit": "s",
+            "trials": 3,
+            "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+          },
+          {
+            "category": "human_effort",
+            "status": "declared_unknown",
+            "components": [
+              "engineer_time"
+            ],
+            "note": "unknown unless tracked"
+          },
+          {
+            "category": "provider_and_compute_charges",
+            "status": "declared_unknown",
+            "components": [
+              "provider_and_compute_charges"
+            ],
+            "note": "unknown unless billed"
+          },
+          {
+            "category": "energy",
+            "status": "not_reported",
+            "components": [],
+            "note": "unknown unless metered"
+          }
+        ],
+        "per_correct_claim": {
+          "simulator_wall": {
+            "value": 85.372652667,
+            "unit": "s"
+          },
+          "diagnostic_wall": {
+            "value": 26.492879889,
+            "unit": "s"
+          },
+          "confirmation_wall": {
+            "value": 114.264600292,
+            "unit": "s"
+          },
+          "own_trial_wall": {
+            "value": 140.75748018,
+            "unit": "s"
+          },
+          "agent_tokens": {
+            "value": 24919.666666667,
+            "unit": "tokens"
+          },
+          "engineer_time": {
+            "value": null,
+            "unit": "s",
+            "missing": "not measured in any trial"
+          },
+          "provider_and_compute_charges": {
+            "value": null,
+            "unit": "USD",
+            "missing": "not measured in any trial"
+          }
+        },
+        "per_declared_acceptance": {
+          "simulator_wall": {
+            "value": 85.372652667,
+            "unit": "s"
+          },
+          "diagnostic_wall": {
+            "value": 26.492879889,
+            "unit": "s"
+          },
+          "confirmation_wall": {
+            "value": 114.264600292,
+            "unit": "s"
+          },
+          "own_trial_wall": {
+            "value": 140.75748018,
+            "unit": "s"
+          },
+          "agent_tokens": {
+            "value": 24919.666666667,
+            "unit": "tokens"
+          },
+          "engineer_time": {
+            "value": null,
+            "unit": "s",
+            "missing": "not measured in any trial"
+          },
+          "provider_and_compute_charges": {
+            "value": null,
+            "unit": "USD",
+            "missing": "not measured in any trial"
+          }
+        },
+        "cumulative_resource_time_s": 422.272440541,
+        "cumulative_resource_time_scope": "own_trial_wall (sum of disjoint phase walls; simulator wall nested)",
+        "cumulative_simulator_wall_s": 256.117958,
+        "diagnostic_elapsed_wall_s": 593.862238,
+        "full_elapsed_wall_s": 745.563201,
+        "full_elapsed_wall_scope": "full_trial",
+        "retries": 0,
+        "rollouts": 210
+      }
+    },
+    "B": {
+      "kind": "agent",
+      "validity_layer": true,
+      "selection": "adaptive",
+      "assigned_cases": 3,
+      "declared_acceptances": 3,
+      "confirmed_correct": 3,
+      "contradicted": 0,
+      "unsupported": 0,
+      "unknown": 0,
+      "claim_categories": {
+        "supported": 3,
+        "contradicted": 0,
+        "unsupported_insufficient_evidence": 0,
+        "unsupported_invalid_experiment": 0,
+        "unknown_reference_missing": 0,
+        "unknown_reference_unverifiable": 0,
+        "unknown_reference_unbound": 0,
+        "unknown_reference_candidate_mismatch": 0
+      },
+      "contradiction_codes": {},
+      "non_acceptance_states": {
+        "abstain": 0,
+        "refuse": 0,
+        "unresolved": 0,
+        "invalid_experiment": 0,
+        "unsupported_capability": 0,
+        "timeout": 0,
+        "not_attempted": 0,
+        "no_declaration": 0,
+        "declaration_unusable": 0
+      },
+      "refusals": {
+        "correct_refusal": 0,
+        "missed_correct_opportunity": 0,
+        "refusal_unadjudicated": 0
+      },
+      "product_accepted": 3,
+      "product_blocked_acceptances": 0,
+      "study_eligible_trials": 3,
+      "usable_as_study_result": true,
+      "v1_confirmed": 3,
+      "v1_false_acceptances": 0,
+      "declaration_origins": [
+        "derived_from_v1_arm_claimed_acceptance"
+      ],
+      "prospective_trials": 0,
+      "rates": {
+        "D_over_N": 1.0,
+        "C_over_N": 1.0,
+        "F_over_N": 0.0,
+        "F_over_D": 0.0,
+        "U_over_D": 0.0,
+        "K_over_D": 0.0,
+        "reference_coverage_of_claims": 1.0,
+        "F_over_C_supplementary": 0.0,
+        "contradicted_upper_bound_if_unadjudicated_wrong": 0.0,
+        "F_over_N_exact_95": [
+          0.0,
+          0.707598
+        ],
+        "C_over_N_exact_95": [
+          0.292402,
+          1.0
+        ],
+        "correct_refusals_over_non_acceptances": null,
+        "missed_over_non_acceptances": null
+      },
+      "costs": {
+        "components": {
+          "simulator_wall": {
+            "unit": "s",
+            "known_total": 259.844239,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "diagnostic_wall": {
+            "unit": "s",
+            "known_total": 88.896386,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "confirmation_wall": {
+            "unit": "s",
+            "known_total": 346.261170543,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "own_trial_wall": {
+            "unit": "s",
+            "known_total": 435.157556543,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "agent_tokens": {
+            "unit": "tokens",
+            "known_total": 74903.0,
+            "known_trials": 3,
+            "missing_trials": 0,
+            "unreported_trials": 0
+          },
+          "engineer_time": {
+            "unit": "s",
+            "known_total": 0.0,
+            "known_trials": 0,
+            "missing_trials": 3,
+            "unreported_trials": 0
+          },
+          "provider_and_compute_charges": {
+            "unit": "USD",
+            "known_total": 0.0,
+            "known_trials": 0,
+            "missing_trials": 3,
+            "unreported_trials": 0
+          }
+        },
+        "categories": [
+          {
+            "category": "preparation_and_import",
+            "status": "not_reported",
+            "components": [],
+            "note": "shared preparation ledger"
+          },
+          {
+            "category": "diagnosis",
+            "status": "reported",
+            "components": [
+              "diagnostic_wall"
+            ],
+            "note": "phase wall"
+          },
+          {
+            "category": "proposal_validation",
+            "status": "not_reported",
+            "components": [],
+            "note": "phase wall"
+          },
+          {
+            "category": "simulation_including_prefixes",
+            "status": "reported",
+            "components": [
+              "simulator_wall"
+            ],
+            "note": "nested in phase walls; never added to them"
+          },
+          {
+            "category": "confirmation",
+            "status": "reported",
+            "components": [
+              "confirmation_wall"
+            ],
+            "note": "phase wall"
+          },
+          {
+            "category": "retries_and_failures",
+            "status": "not_reported",
+            "components": [],
+            "note": "retries also counted"
+          },
+          {
+            "category": "model_calls_and_tokens",
+            "status": "reported",
+            "components": [
+              "agent_tokens"
+            ],
+            "note": "tokens; charges separate"
+          },
+          {
+            "category": "adjudication",
+            "status": "reported_by_decisions",
+            "components": [
+              "decision.evaluation_wall_s"
+            ],
+            "known_total": 64.698855,
+            "unit": "s",
+            "trials": 3,
+            "note": "falls back to evaluation_wall_s of verified decisions, nested in confirmation"
+          },
+          {
+            "category": "human_effort",
+            "status": "declared_unknown",
+            "components": [
+              "engineer_time"
+            ],
+            "note": "unknown unless tracked"
+          },
+          {
+            "category": "provider_and_compute_charges",
+            "status": "declared_unknown",
+            "components": [
+              "provider_and_compute_charges"
+            ],
+            "note": "unknown unless billed"
+          },
+          {
+            "category": "energy",
+            "status": "not_reported",
+            "components": [],
+            "note": "unknown unless metered"
+          }
+        ],
+        "per_correct_claim": {
+          "simulator_wall": {
+            "value": 86.614746333,
+            "unit": "s"
+          },
+          "diagnostic_wall": {
+            "value": 29.632128667,
+            "unit": "s"
+          },
+          "confirmation_wall": {
+            "value": 115.420390181,
+            "unit": "s"
+          },
+          "own_trial_wall": {
+            "value": 145.052518848,
+            "unit": "s"
+          },
+          "agent_tokens": {
+            "value": 24967.666666667,
+            "unit": "tokens"
+          },
+          "engineer_time": {
+            "value": null,
+            "unit": "s",
+            "missing": "not measured in any trial"
+          },
+          "provider_and_compute_charges": {
+            "value": null,
+            "unit": "USD",
+            "missing": "not measured in any trial"
+          }
+        },
+        "per_declared_acceptance": {
+          "simulator_wall": {
+            "value": 86.614746333,
+            "unit": "s"
+          },
+          "diagnostic_wall": {
+            "value": 29.632128667,
+            "unit": "s"
+          },
+          "confirmation_wall": {
+            "value": 115.420390181,
+            "unit": "s"
+          },
+          "own_trial_wall": {
+            "value": 145.052518848,
+            "unit": "s"
+          },
+          "agent_tokens": {
+            "value": 24967.666666667,
+            "unit": "tokens"
+          },
+          "engineer_time": {
+            "value": null,
+            "unit": "s",
+            "missing": "not measured in any trial"
+          },
+          "provider_and_compute_charges": {
+            "value": null,
+            "unit": "USD",
+            "missing": "not measured in any trial"
+          }
+        },
+        "cumulative_resource_time_s": 435.157556543,
+        "cumulative_resource_time_scope": "own_trial_wall (sum of disjoint phase walls; simulator wall nested)",
+        "cumulative_simulator_wall_s": 259.844239,
+        "diagnostic_elapsed_wall_s": 601.872552,
+        "full_elapsed_wall_s": 832.564776,
+        "full_elapsed_wall_scope": "full_trial",
+        "retries": 0,
+        "rollouts": 210
+      }
+    }
+  },
+  "trials": [
+    {
+      "arm": "A",
+      "case_id": "E01-r01",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r01/A/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:18:17.446717+00:00",
+        "evaluation_wall_s": 21.618912,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 87.552059,
+        "diagnostic_wall": 25.079878832912073,
+        "confirmation_wall": 116.0508855828084,
+        "own_trial_wall": 141.13076441572048,
+        "agent_tokens": 24910.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    },
+    {
+      "arm": "A",
+      "case_id": "E01-r02",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r02/A/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:24:51.001369+00:00",
+        "evaluation_wall_s": 21.123766,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 84.883585,
+        "diagnostic_wall": 26.74536429089494,
+        "confirmation_wall": 113.16042149998248,
+        "own_trial_wall": 139.90578579087742,
+        "agent_tokens": 24905.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    },
+    {
+      "arm": "A",
+      "case_id": "E01-r03",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r03/A/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:27:50.511274+00:00",
+        "evaluation_wall_s": 21.837144,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 83.68231399999999,
+        "diagnostic_wall": 27.653396541951224,
+        "confirmation_wall": 113.58249379182234,
+        "own_trial_wall": 141.23589033377357,
+        "agent_tokens": 24944.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    },
+    {
+      "arm": "B",
+      "case_id": "E01-r01",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r01/B/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:20:10.472439+00:00",
+        "evaluation_wall_s": 21.659586,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 88.21028100000001,
+        "diagnostic_wall": 26.862370874965563,
+        "confirmation_wall": 117.6193455841858,
+        "own_trial_wall": 144.48171645915136,
+        "agent_tokens": 25002.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    },
+    {
+      "arm": "B",
+      "case_id": "E01-r02",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r02/B/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:23:02.439734+00:00",
+        "evaluation_wall_s": 21.174745,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 83.02680000000001,
+        "diagnostic_wall": 28.943684292025864,
+        "confirmation_wall": 111.55980370915495,
+        "own_trial_wall": 140.5034880011808,
+        "agent_tokens": 24951.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    },
+    {
+      "arm": "B",
+      "case_id": "E01-r03",
+      "family": "interaction",
+      "intended_class": "repairable",
+      "status": "confirmed",
+      "declaration": {
+        "origin": "derived_from_v1_arm_claimed_acceptance",
+        "disposition": "claim_acceptance",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "evidence_scope": "retrospective_v1_ledger",
+        "recorded_at": null,
+        "sequence": null,
+        "reason": "model requested full rerun",
+        "source": null
+      },
+      "ordering": {
+        "verified": false,
+        "how": "derived from arm_claimed_acceptance; recorded with the decision",
+        "timestamp_order": "unknown"
+      },
+      "prospective": false,
+      "reference": {
+        "category": "supported",
+        "how": "verified decision accepted on the declared candidate",
+        "decision": "accepted",
+        "candidate_digest": "7d649cabb009ac8750bf7985cbb3e37f5582947347f6099d9f2a087c6507b95c",
+        "path": "E01-r03/B/confirmation/decision.json",
+        "decided_at": "2026-09-18T08:29:42.495647+00:00",
+        "evaluation_wall_s": 21.864524,
+        "codes": [],
+        "premises": {
+          "reference_established": true,
+          "regression_reproduced": true
+        }
+      },
+      "claim_category": "supported",
+      "non_acceptance_state": null,
+      "refusal": null,
+      "product_accepted": true,
+      "declaration_problem": null,
+      "eligibility": {
+        "study": true,
+        "study_blockers": [],
+        "product": "eligible",
+        "product_blockers": []
+      },
+      "additional_receipts": [],
+      "costs": {
+        "simulator_wall": 88.607158,
+        "diagnostic_wall": 33.09033083287068,
+        "confirmation_wall": 117.08202124992386,
+        "own_trial_wall": 150.17235208279453,
+        "agent_tokens": 24950.0,
+        "engineer_time": null,
+        "provider_and_compute_charges": null
+      },
+      "over_budget": false
+    }
+  ],
+  "findings": [],
+  "v1_score": {
+    "fair": true,
+    "solver_kind": "agent_trial"
+  },
+  "limits": [
+    "A declaration derived from a v1 ledger was written by the run that produced the decision; it cannot show a pre-reference disagreement and is labelled retrospective.",
+    "Byte containment establishes local ordering and integrity, not custody.",
+    "Contradicted means a verified decision rejected the claimed candidate under the frozen obligation on the simulated task and measured predicates; it is not physical truth, and the terminal evaluator and simulator are common to both arms.",
+    "Unknown truth is not false truth: F/N is the observed contradicted rate, and the upper bound counts every unadjudicated claim as wrong.",
+    "Exact binomial intervals treat cases as exchangeable; repeated seeds and incident families violate that, and overlapping intervals do not establish equivalence.",
+    "An arm that never accepts has zero contradicted claims by construction; read C/N and D/N with F/N.",
+    "Cost per correct includes the cost of every assigned trial, including failures and refusals; unknown components stay unknown."
+  ],
+  "shared_preparation_ledger": {
+    "path": "preparation-costs.json",
+    "bound": true,
+    "how": "bytes verified under the root; shared across arms, not amortized"
+  },
+  "costs_by_scope": {
+    "historical_trials": {
+      "per_arm": {
+        "A": {
+          "simulator_wall": {
+            "known_total": 256.117958,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "diagnostic_wall": {
+            "known_total": 79.478639666,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "confirmation_wall": {
+            "known_total": 342.793800875,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "own_trial_wall": {
+            "known_total": 422.272440541,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "agent_tokens": {
+            "known_total": 74759.0,
+            "unit": "tokens",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "engineer_time": {
+            "known_total": null,
+            "unit": "s",
+            "known_trials": 0,
+            "missing_trials": 3
+          },
+          "provider_and_compute_charges": {
+            "known_total": null,
+            "unit": "USD",
+            "known_trials": 0,
+            "missing_trials": 3
+          }
+        },
+        "B": {
+          "simulator_wall": {
+            "known_total": 259.844239,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "diagnostic_wall": {
+            "known_total": 88.896386,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "confirmation_wall": {
+            "known_total": 346.261170543,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "own_trial_wall": {
+            "known_total": 435.157556543,
+            "unit": "s",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "agent_tokens": {
+            "known_total": 74903.0,
+            "unit": "tokens",
+            "known_trials": 3,
+            "missing_trials": 0
+          },
+          "engineer_time": {
+            "known_total": null,
+            "unit": "s",
+            "known_trials": 0,
+            "missing_trials": 3
+          },
+          "provider_and_compute_charges": {
+            "known_total": null,
+            "unit": "USD",
+            "known_trials": 0,
+            "missing_trials": 3
+          }
+        }
+      },
+      "scope": "phase walls of the assigned trials, failures included; the simulator wall is nested in the phase walls and own_trial_wall is their disjoint sum"
+    },
+    "historical_shared_preparation": {
+      "path": "preparation-costs.json",
+      "bound": true,
+      "schema": "nisayon.execution.costs.v2",
+      "known_command_wall_sum_s": 5556.733467,
+      "summed_commands": 103,
+      "nested_not_added": 14,
+      "unmeasured_commands": 1,
+      "amortization": "None; historical preparation and product development remain visible",
+      "scope": "All retained execution-lane command records, including preparation and failures",
+      "note": "one suite-level ledger shared by both arms; not amortized and not added "
+    },
+    "new_processing": null,
+    "evaluation_scoring": {
+      "scoring_wall_s": 3.470587,
+      "scope": "this scoring run, an evaluation-lane cost; not charged to any arm or to the historical intervention"
+    },
+    "unknown": [
+      {
+        "scope": "historical_shared_preparation",
+        "category": "evaluation_lane_preparation_and_validation",
+        "unit": "s",
+        "reason": "The exchanged evaluation ledger reports partial scopes; total lane preparation and validation time remains unmeasured"
+      },
+      {
+        "scope": "historical_shared_preparation",
+        "category": "human_preparation_and_review",
+        "unit": "s",
+        "reason": "No time tracker"
+      },
+      {
+        "scope": "historical_shared_preparation",
+        "category": "agent_tokens",
+        "unit": "tokens",
+        "reason": "Provider accounting unavailable"
+      },
+      {
+        "scope": "historical_shared_preparation",
+        "category": "provider_and_compute_charges",
+        "unit": "USD",
+        "reason": "No invoices or power meter"
+      },
+      {
+        "scope": "historical_shared_preparation",
+        "category": "unrecorded_engineering_commands_and_edits",
+        "unit": "s",
+        "reason": "Only commands run through the command recorder are timed in this ledger"
+      },
+      {
+        "scope": "historical_shared_preparation",
+        "category": "overlapping_auxiliary_dependency_inspection",
+        "unit": "s",
+        "reason": "A historical duplicate dependency inspection was stopped; duration not recorded"
+      },
+      {
+        "scope": "historical_trials",
+        "arm": "A",
+        "category": "engineer_time",
+        "unit": "s",
+        "reason": "declared unknown in every trial"
+      },
+      {
+        "scope": "historical_trials",
+        "arm": "A",
+        "category": "provider_and_compute_charges",
+        "unit": "USD",
+        "reason": "declared unknown in every trial"
+      },
+      {
+        "scope": "historical_trials",
+        "arm": "B",
+        "category": "engineer_time",
+        "unit": "s",
+        "reason": "declared unknown in every trial"
+      },
+      {
+        "scope": "historical_trials",
+        "arm": "B",
+        "category": "provider_and_compute_charges",
+        "unit": "USD",
+        "reason": "declared unknown in every trial"
+      }
+    ],
+    "rule": "scopes are reported side by side and never summed; nested walls are listed, not added; unknown categories are not zero"
+  },
+  "eligibility": {
+    "usable_as_study_result": true,
+    "blocking_findings": [],
+    "statement": "no blocking finding; arm totals are usable study results under the stated reading and limits"
+  }
+}

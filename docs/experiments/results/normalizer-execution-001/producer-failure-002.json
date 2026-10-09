@@ -1,0 +1,50 @@
+{
+  "schema": "nisayon.normalizer-producer-failure.v1",
+  "case_id": "normalizer-execution-001",
+  "producer_id": "producer-002",
+  "observed_at": "2026-09-21T05:24:10.594126Z",
+  "source_commit": "57032f8c269a3bdb7f57a62d575ac5a6acc03df1",
+  "case_sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2",
+  "command_record": {
+    "id": "225801813b32488db18ee0e7cea9c18e",
+    "returncode": 1,
+    "wall_seconds": 0.426316,
+    "stdout_bytes": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 5060,
+    "stderr_sha256": "703e65fd4b9381e9d8c50b2acb3565b4002cf1853d324bc0132db76425012cdd"
+  },
+  "failure": {
+    "type": "ValueError",
+    "message": "Out of range float values are not JSON compliant: inf",
+    "stage": "NX5d tiny-nonzero-standard-deviation invalid-output control",
+    "cause": "The exact source produced the expected float32 positive infinity. The call-record digest still serialized array values as JSON numbers, so strict allow_nan=false rejected the invalid output before it could be retained.",
+    "correction": "Encode NaN and signed infinities as canonical strings in evidence values while preserving dtype, shape and the SHA-256 of raw array bytes. Keep finite numeric values unchanged."
+  },
+  "partial_store": {
+    "path": "artifacts/normalizer-execution-001/producer-002",
+    "files": 47,
+    "logical_bytes": 1634684,
+    "attempt_records": 17,
+    "sealed": false,
+    "accepted_decisions": 0,
+    "frozen_case_sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2",
+    "invocation_sha256": "5e42485911f92a2f169a00f9614c70f636071982561ea38ebf07a9c385ff5d69",
+    "real_keep_unassessed_sha256": "1cbf65e101aab1bf33167304eccd55462811f39a4bef51d2377fdb57974bf23c",
+    "real_replace_unassessed_sha256": "5c16de2251a133e620a00d8ea94037423c4fbcd2117bf3239f459024fc4c503c",
+    "retention": "Preserved in place. It will not be overwritten or treated as a sealed result."
+  },
+  "scientific_status": "failed on the expected invalid-output control before a complete control set, seal or accepted decision",
+  "resource_effect": {
+    "new_source_requests": 0,
+    "new_dependency_bytes": 0,
+    "model_or_policy_executions": 0,
+    "simulator_or_robot_executions": 0,
+    "reserved_incidents_accessed": 0,
+    "process_cpu_seconds": null,
+    "provider_charges": null,
+    "energy": null,
+    "peak_memory": null
+  },
+  "next_output_identity": "producer-003"
+}

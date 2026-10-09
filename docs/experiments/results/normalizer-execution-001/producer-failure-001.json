@@ -1,0 +1,49 @@
+{
+  "schema": "nisayon.normalizer-producer-failure.v1",
+  "case_id": "normalizer-execution-001",
+  "producer_id": "producer-001",
+  "observed_at": "2026-09-21T05:23:01.152877Z",
+  "source_commit": "f1e6d3871d07e98e6720400f6935ad17db1a69d0",
+  "case_sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2",
+  "command_record": {
+    "id": "762a462564cd478d916da50a51768d8b",
+    "returncode": 1,
+    "wall_seconds": 0.440292,
+    "stdout_bytes": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 1688,
+    "stderr_sha256": "6b575d7dae60de8d3e3c0a311d4dd7a9ee6381c64627499fd4f8cabc1537e85c"
+  },
+  "failure": {
+    "type": "TypeError",
+    "message": "tuple indices must be integers or slices, not str",
+    "stage": "first constructed control after both real invocations",
+    "cause": "The control wrapper failed to unpack _numeric_run's (record, execution) return value and then indexed the tuple as a record.",
+    "correction": "Unpack and validate both values before appending the record; do not change the frozen case, numerical source, obligation or expected controls."
+  },
+  "partial_store": {
+    "path": "artifacts/normalizer-execution-001/producer-001",
+    "files": 33,
+    "logical_bytes": 1624695,
+    "sealed": false,
+    "accepted_decisions": 0,
+    "frozen_case_sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2",
+    "invocation_sha256": "3b2321c995b91e702987ba523a5754843ca3e7e42f8d4287dea41bc58d1168ef",
+    "real_keep_unassessed_sha256": "e7d64bfbe906e84a88f8165a8ac9ade08dcde250eaf3b5e2dd871a20c4542120",
+    "real_replace_unassessed_sha256": "fb6d3a62eaeb861d99e8078c0740eb6e6e3c770ed7e3a35140fa21b9804eddfb",
+    "retention": "Preserved in place. It will not be overwritten or treated as a sealed result."
+  },
+  "scientific_status": "failed before a complete control set, seal or accepted decision",
+  "resource_effect": {
+    "new_source_requests": 0,
+    "new_dependency_bytes": 0,
+    "model_or_policy_executions": 0,
+    "simulator_or_robot_executions": 0,
+    "reserved_incidents_accessed": 0,
+    "process_cpu_seconds": null,
+    "provider_charges": null,
+    "energy": null,
+    "peak_memory": null
+  },
+  "next_output_identity": "producer-002"
+}

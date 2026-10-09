@@ -1,0 +1,117 @@
+{
+  "schema": "nisayon.temporal-assessment.v1",
+  "case_id": "interface-example/dispatch_failed_instead",
+  "software_execution": "not_executed",
+  "evidence": {
+    "problems": [],
+    "unknowns": [],
+    "unbound_responses": [],
+    "unacknowledged_dispatches": [],
+    "completeness": "complete"
+  },
+  "temporal_contract": "violated",
+  "predicates": {
+    "generation_fencing": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "request_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "configuration_binding": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "queue_reset": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "duplicate_dispatch": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "dispatch_order": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "freshness": {
+      "status": "satisfied",
+      "findings": []
+    },
+    "acknowledgement": {
+      "status": "violated",
+      "findings": [
+        {
+          "predicate": "acknowledgement",
+          "status": "violated",
+          "detail": "action c0:0 failed at dispatch: constructed: actuator rejected the command",
+          "seq": 6
+        }
+      ]
+    },
+    "useful_execution": {
+      "status": "satisfied",
+      "findings": [
+        {
+          "predicate": "useful_execution",
+          "status": "satisfied",
+          "detail": "generation 0: 1 of 1 grid units carried a dispatch (coverage 1.000)"
+        }
+      ]
+    }
+  },
+  "useful_execution": {
+    "status": "satisfied",
+    "coverage_by_generation": {
+      "0": {
+        "basis": "grid",
+        "ticks": 1,
+        "dispatched": 1,
+        "coverage": 1.0,
+        "window": [
+          100000000.0,
+          100000000.0
+        ]
+      }
+    }
+  },
+  "robot_task_outcome": "unmeasured",
+  "controller_clock": "virtual_controller",
+  "useful_coverage_min": 0.8,
+  "dispatch_refusals": 0,
+  "exploratory_stale_overwrites": [],
+  "repeated_deliveries": [],
+  "exploratory_after_freeze": {
+    "queue_reset_before_first_dispatch": {
+      "0": {
+        "survivors_at_reset": [],
+        "still_queued_at_first_dispatch": []
+      }
+    },
+    "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+  },
+  "final_state": {
+    "generation": 0,
+    "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c",
+    "queued_action_ids": [],
+    "dispatched_action_ids": [
+      "c0:0"
+    ],
+    "chunks": {
+      "c0": {
+        "req_id": "q0",
+        "generation": 0,
+        "generation_source": "request",
+        "config_sha256": "6e110724269a6a696f290d0db5cd0f403a62eb7fcf9c91563ea4aac5c445328c"
+      }
+    },
+    "steps_dispatched": {
+      "0": [
+        0
+      ]
+    },
+    "unknowns": []
+  },
+  "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

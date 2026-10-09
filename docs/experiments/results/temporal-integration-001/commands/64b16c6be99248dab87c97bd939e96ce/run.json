@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "64b16c6be99248dab87c97bd939e96ce",
+  "label": "temporal-integration-20260920-admission-conformance-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json,resource,time\nfrom pathlib import Path\nfrom nisayon.engine.temporal_workflow import workflow\nfrom nisayon.engine.io import write_json\nresource.setrlimit(resource.RLIMIT_CPU,(10,11));started=time.process_time()\nroot=Path(\"artifacts/engine-integration-001/temporal-integration-001/admission-conformance-001\")\nexecution,assessment=workflow(Path(\"docs/experiments/results/temporal-integration-001/frozen-admission-conformance.v1.json\"),root,Path.cwd())\nsize=sum(p.stat().st_size for p in root.rglob(\"*\") if p.is_file())\nreport={\"assigned\":8,\"complete\":assessment[\"complete_records\"],\"legacy_contracts\":assessment[\"reference_contract_counts\"],\"assigned_contracts\":assessment[\"assigned_contract_counts\"],\"process_cpu_s_before_final_write\":time.process_time()-started,\"retained_bytes_before_final_write\":size,\"allocation_cpu_s\":10,\"allocation_bytes\":8*1024**2,\"new_simulator_executions\":0,\"boundary\":\"New exposed software queue-admission controls; original comparisons and remedies unchanged\"}\nwrite_json(root/\"capture.json\",report);print(json.dumps(report,indent=2))\nassert assessment[\"complete_records\"]==8\nassert sum(p.stat().st_size for p in root.rglob(\"*\") if p.is_file())<8*1024**2"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T10:12:47.128687+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "601b0b8e072b4a439c09e4fc5305dbf44aaa7e46",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 51425,
+  "returncode": 0,
+  "ended_at": "2026-09-20T10:12:47.974043+00:00",
+  "wall_seconds": 0.775819,
+  "logs": {
+    "stdout.log": {
+      "bytes": 445,
+      "sha256": "2e428cf6a42ab34c43021e4a3417572eb3582e40ba879f8b5c09a17072d019e6"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

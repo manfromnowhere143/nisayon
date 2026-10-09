@@ -1,0 +1,244 @@
+{
+  "schema": "nisayon.external-processor-case.v1",
+  "id": "lerobot-4415-reduced-processor-mechanism-v1",
+  "frozen_at": "2026-09-20T13:21:22Z",
+  "evaluation_method_frozen_at": "2026-09-20T13:03:24+00:00",
+  "exposure": "Public issue and proposed remedies were exposed to both lanes before this case was frozen; this is retrospective development, not blind or prospective diagnosis.",
+  "scope": "One externally authored incident reduced to a processor mechanism, plus eight constructed controls. No model, policy, robot task, or deployment outcome is executed.",
+  "evaluation": {
+    "commit": "390440928bc72c14db7be15fbc7d53269d26b53a",
+    "files": [
+      {
+        "path": "docs/evaluation/results/external-decision-001/FROZEN_PLAN.md",
+        "sha256": "7c7a0be0d0e46eb6a2d787099ed8b8db1f9ccd21d414491074b060762e8c7acf"
+      },
+      {
+        "path": "docs/evaluation/results/external-decision-001/qualification.json",
+        "sha256": "c01ae0377619fcc50e59c74c6dcfa458be947d3c62bfab274c03a4aaa3500051"
+      },
+      {
+        "path": "docs/evaluation/results/external-decision-001/QUALIFICATION.md",
+        "sha256": "ae16155def6ac8b70462d4bdacedebbcb2bb120b64f9cb0f6a730da7ae7f3171"
+      }
+    ]
+  },
+  "incident": {
+    "id": "lerobot-issue-4415",
+    "url": "https://github.com/huggingface/lerobot/issues/4415",
+    "reported_at": "2026-08-11T09:35:06Z",
+    "model_repository": "lerobot/smolvla_base",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "code_repository": "huggingface/lerobot",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "working_changed_deployment_pair": null,
+    "robot_outcome": null
+  },
+  "sources": [
+    {
+      "id": "external-report",
+      "role": "external_report",
+      "path": "coordinator/sources/issue-4415.json",
+      "sha256": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "bytes": 7419,
+      "revision": "GitHub issue API readback retained 2026-09-20",
+      "rights_scope": "User-contributed issue text retained for private local research; repository licensing is not applied to it."
+    },
+    {
+      "id": "model-config",
+      "role": "model_config",
+      "path": "model/new/config.json",
+      "sha256": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "bytes": 2299,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "Exact-revision model README omits a license; private local research retention only, redistribution unresolved."
+    },
+    {
+      "id": "preprocessor-config",
+      "role": "preprocessor_config",
+      "path": "model/new/policy_preprocessor.json",
+      "sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "bytes": 1872,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "Exact-revision model README omits a license; private local research retention only, redistribution unresolved."
+    },
+    {
+      "id": "postprocessor-config",
+      "role": "postprocessor_config",
+      "path": "model/new/policy_postprocessor.json",
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "bytes": 660,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "Exact-revision model README omits a license; private local research retention only, redistribution unresolved."
+    },
+    {
+      "id": "preprocessor-state",
+      "role": "preprocessor_state",
+      "path": "model/new/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "bytes": 640,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "Exact-revision model README omits a license; private local research retention only, redistribution unresolved."
+    },
+    {
+      "id": "postprocessor-state",
+      "role": "postprocessor_state",
+      "path": "model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "bytes": 640,
+      "revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "rights_scope": "Exact-revision model README omits a license; private local research retention only, redistribution unresolved."
+    },
+    {
+      "id": "normalize-source",
+      "role": "normalizer_implementation",
+      "path": "coordinator/sources/normalize_processor.py",
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "bytes": 25161,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source at the pinned LeRobot revision with retained license evidence."
+    },
+    {
+      "id": "factory-source",
+      "role": "factory_call_path",
+      "path": "lerobot/factory.py",
+      "sha256": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "bytes": 25858,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source at the pinned LeRobot revision with retained file header."
+    },
+    {
+      "id": "pipeline-source",
+      "role": "pipeline_loader_call_path",
+      "path": "lerobot/pipeline.py",
+      "sha256": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "bytes": 89183,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source at the pinned LeRobot revision with retained file header."
+    },
+    {
+      "id": "policy-factory-source",
+      "role": "policy_specific_factory_boundary",
+      "path": "lerobot/processor_smolvla.py",
+      "sha256": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "bytes": 2822,
+      "revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+      "rights_scope": "Apache-2.0 source at the pinned LeRobot revision with retained file header."
+    }
+  ],
+  "processors": {
+    "preprocessor": {
+      "config_source": "preprocessor-config",
+      "state_source": "preprocessor-state",
+      "step_index": 5,
+      "registry_name": "normalizer_processor"
+    },
+    "postprocessor": {
+      "config_source": "postprocessor-config",
+      "state_source": "postprocessor-state",
+      "step_index": 0,
+      "registry_name": "unnormalizer_processor"
+    }
+  },
+  "witnesses": {
+    "state": [0.0, 40.0, 200.0, -20.0, 30.0, -10.0],
+    "action": [0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+    "visual": [0.0, 0.25, 0.5, 0.75, 1.0, -0.25]
+  },
+  "candidates": [
+    {
+      "id": "C0_as_is",
+      "description": "Load the retained later-revision artifacts without a correction."
+    },
+    {
+      "id": "C1_suffix_match",
+      "description": "Bind the first statistics feature key ending in the requested feature name; this is the reporter's partial remedy and remains invalid on ambiguity."
+    },
+    {
+      "id": "C2_explicit_override",
+      "description": "Use the documented explicit override with a named dataset selector and complete state and action statistics.",
+      "selector": "so100",
+      "stats": {
+        "action": {
+          "mean": [1.5959141254425049, 119.9442367553711, 109.769775390625, 56.70551300048828, -27.422693252563477, 12.002785682678223],
+          "std": [26.39177894592285, 52.41140365600586, 49.85380554199219, 36.9983024597168, 59.35995101928711, 19.039955139160156]
+        },
+        "observation.state": {
+          "mean": [1.56, 118.65, 110.85, 56.63, -27.28, 13.95],
+          "std": [26.15, 52.65, 49.38, 36.57, 58.9, 17.99]
+        }
+      },
+      "stats_provenance": {
+        "action": "Exact float32 so100.buffer.action values decoded from both byte-identical retained state files.",
+        "observation.state": "Reporter transcription to two decimals from an earlier checkpoint that this allocation does not access; applicability is unverified."
+      }
+    },
+    {
+      "id": "C3_remigration",
+      "description": "Re-extract selector-bound state and action statistics from the earlier checkpoint; named but unavailable because weights and range extraction are out of scope."
+    }
+  ],
+  "suffix_orders": [
+    ["so100-blue.buffer.action", "so100-red.buffer.action", "so100.buffer.action"],
+    ["so100.buffer.action", "so100-red.buffer.action", "so100-blue.buffer.action"]
+  ],
+  "obligations": [
+    {
+      "id": "O1",
+      "feature": "observation.state",
+      "processor": "preprocessor",
+      "direction": "forward",
+      "requirement": "MEAN_STD statistics bound to exactly one dataset transform a non-vacuous witness."
+    },
+    {
+      "id": "O2",
+      "feature": "action",
+      "processor": "postprocessor",
+      "direction": "inverse",
+      "requirement": "MEAN_STD statistics bound to exactly one dataset transform a non-vacuous witness."
+    },
+    {
+      "id": "O3",
+      "feature": "visual",
+      "processor": "preprocessor",
+      "direction": "forward",
+      "requirement": "An explicit IDENTITY feature remains unchanged and is not refused."
+    },
+    {
+      "id": "O4",
+      "feature": "dataset binding",
+      "processor": "both",
+      "direction": "configuration",
+      "requirement": "The dataset binding is explicit and invariant to dictionary order."
+    }
+  ],
+  "assignments": [
+    "incident-C0-state",
+    "incident-C0-action",
+    "incident-C0-identity",
+    "incident-C1-state",
+    "incident-C1-action-original-order",
+    "incident-C1-action-reordered",
+    "incident-C2-state",
+    "incident-C2-action",
+    "incident-C2-identity",
+    "incident-C3-remigration-availability",
+    "control-identity-mode-visual",
+    "control-fixed-point-witness",
+    "control-prefixed-keys-exact-lookup",
+    "control-suffix-match-ambiguous",
+    "control-suffix-match-partial",
+    "control-explicit-override-complete",
+    "control-round-trip-cancels-wrong-stats",
+    "control-missing-std-error"
+  ],
+  "budget": {
+    "cpu_seconds": 60,
+    "artifact_bytes": 16777216,
+    "source_bytes": 132460,
+    "source_cap_bytes": 2097152,
+    "externally_authored_incidents": 1,
+    "constructed_controls": 8
+  },
+  "stopping_rule": "Execute each frozen assignment once in order. On interruption retain the declared attempt and resume explicitly. Do not switch incidents if the matched arm decisions tie.",
+  "unknown_costs": ["engineering_effort", "provider_charges", "energy", "network_overhead", "unsampled_peak_memory"]
+}

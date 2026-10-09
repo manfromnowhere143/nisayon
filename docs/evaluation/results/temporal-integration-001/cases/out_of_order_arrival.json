@@ -1,0 +1,309 @@
+{
+ "schema": "nisayon.temporal-trace.v1",
+ "case_id": "out_of_order_arrival",
+ "schedule_sha256": "13622ca219a0a9d66cb7266550d916b194de015ae980e46c53b55c959d976dc4",
+ "source": {
+  "kind": "constructed_control",
+  "note": "not reachable in the pinned client: one sequential receiver over one channel; constructed to exercise freshness under reordering"
+ },
+ "clocks": {
+  "names": [
+   "controller",
+   "server"
+  ],
+  "declared_mappings": []
+ },
+ "configuration": {
+  "policy_id": "scripted-double",
+  "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+  "chunk_length": 3,
+  "control_period": 1,
+  "aggregation": "latest_arrival_wins",
+  "max_age": 4,
+  "steps_per_generation": 6,
+  "useful_coverage_min": 0.8
+ },
+ "execution_status": "completed",
+ "events": [
+  {
+   "seq": 1,
+   "kind": "episode_start",
+   "generation": 0,
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 2,
+   "kind": "observation_acquired",
+   "obs_id": "o0",
+   "generation": 0,
+   "step": 0,
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 3,
+   "kind": "request_sent",
+   "req_id": "r0",
+   "obs_id": "o0",
+   "generation": 0,
+   "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+   "at": {
+    "value": 0,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 4,
+   "kind": "observation_acquired",
+   "obs_id": "o1",
+   "generation": 0,
+   "step": 1,
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 5,
+   "kind": "request_sent",
+   "req_id": "r1",
+   "obs_id": "o1",
+   "generation": 0,
+   "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+   "at": {
+    "value": 1,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 6,
+   "kind": "response_arrived",
+   "resp_id": "p1",
+   "req_id": "r1",
+   "chunk_id": "c1",
+   "first_step": 2,
+   "ordinals": 3,
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 7,
+   "kind": "queue_admitted",
+   "chunk_id": "c1",
+   "admitted": [
+    0,
+    1,
+    2
+   ],
+   "skipped": [],
+   "replaced": [],
+   "reason": "admitted",
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 8,
+   "kind": "action_dispatched",
+   "action_id": "c1:0",
+   "chunk_id": "c1",
+   "ordinal": 0,
+   "step": 2,
+   "generation": 0,
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 9,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c1:0",
+   "at": {
+    "value": 2,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 10,
+   "kind": "response_arrived",
+   "resp_id": "p0",
+   "req_id": "r0",
+   "chunk_id": "c0",
+   "first_step": 1,
+   "ordinals": 3,
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 11,
+   "kind": "queue_admitted",
+   "chunk_id": "c0",
+   "admitted": [
+    2
+   ],
+   "skipped": [
+    0,
+    1
+   ],
+   "replaced": [
+    "c1:1",
+    "c1:2"
+   ],
+   "reason": "older response replaces fresher queued actions",
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 12,
+   "kind": "action_dispatched",
+   "action_id": "c0:2",
+   "chunk_id": "c0",
+   "ordinal": 2,
+   "step": 3,
+   "generation": 0,
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 13,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c0:2",
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 14,
+   "kind": "observation_acquired",
+   "obs_id": "o2",
+   "generation": 0,
+   "step": 3,
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 15,
+   "kind": "request_sent",
+   "req_id": "r2",
+   "obs_id": "o2",
+   "generation": 0,
+   "config_sha256": "cfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgAcfgA",
+   "at": {
+    "value": 3,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 16,
+   "kind": "response_arrived",
+   "resp_id": "p2",
+   "req_id": "r2",
+   "chunk_id": "c2",
+   "first_step": 4,
+   "ordinals": 3,
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 17,
+   "kind": "queue_admitted",
+   "chunk_id": "c2",
+   "admitted": [
+    0,
+    1
+   ],
+   "skipped": [],
+   "replaced": [],
+   "reason": "admitted",
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 18,
+   "kind": "action_dispatched",
+   "action_id": "c2:0",
+   "chunk_id": "c2",
+   "ordinal": 0,
+   "step": 4,
+   "generation": 0,
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 19,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c2:0",
+   "at": {
+    "value": 4,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 20,
+   "kind": "action_dispatched",
+   "action_id": "c2:1",
+   "chunk_id": "c2",
+   "ordinal": 1,
+   "step": 5,
+   "generation": 0,
+   "at": {
+    "value": 5,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  },
+  {
+   "seq": 21,
+   "kind": "dispatch_acknowledged",
+   "action_id": "c2:1",
+   "at": {
+    "value": 5,
+    "clock": "controller",
+    "unit": "tick"
+   }
+  }
+ ]
+}

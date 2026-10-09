@@ -1,0 +1,211 @@
+{
+  "schema": "nisayon.task-qualification.screening.v1",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:22:00Z",
+  "selection_rule": {
+    "path": "selection-rule.v1.json",
+    "sha256": "b28898b3c9560f81ca5c2ee6b3901985691e0e1be5559db204c4e6680540d8ad"
+  },
+  "inventory": {
+    "command": "39bc31ff11a6474dad5d484989ea7eff",
+    "process_cpu_seconds": 1.1570610000000001,
+    "roots": {
+      "workspace": {
+        "path": "/Users/danielwahnich/workspace",
+        "exists": true,
+        "signals": 803
+      },
+      "cache": {
+        "path": "/Users/danielwahnich/.cache",
+        "exists": true,
+        "signals": 25
+      },
+      "codex_reports": {
+        "path": "/Users/danielwahnich/.codex/reports",
+        "exists": true,
+        "signals": 8
+      },
+      "local_share": {
+        "path": "/Users/danielwahnich/.local/share",
+        "exists": true,
+        "signals": 0
+      },
+      "homebrew": {
+        "path": "/opt/homebrew/lib",
+        "exists": true,
+        "signals": 0
+      }
+    },
+    "caches": {
+      "huggingface/hub": {
+        "path": "/Users/danielwahnich/.cache/huggingface/hub",
+        "exists": true,
+        "bytes": 1842242771,
+        "files": 2575,
+        "truncated": false
+      },
+      "lerobot": {
+        "path": "/Users/danielwahnich/.cache/lerobot",
+        "exists": false
+      },
+      "torch": {
+        "path": "/Users/danielwahnich/.cache/torch",
+        "exists": true,
+        "bytes": 601202759,
+        "files": 4,
+        "truncated": false
+      },
+      "robomimic": {
+        "path": "/Users/danielwahnich/.cache/robomimic",
+        "exists": false
+      },
+      "libero": {
+        "path": "/Users/danielwahnich/.cache/libero",
+        "exists": false
+      },
+      "mujoco": {
+        "path": "/Users/danielwahnich/.cache/mujoco",
+        "exists": false
+      }
+    },
+    "network_requests": 0,
+    "new_bytes": 0
+  },
+  "checkpoint_inspection": {
+    "command": "6f59c2eb26d9453593be8aadc33ec336",
+    "record": "artifacts/task-qualification-001/checkpoint-inspection-001.json (private)",
+    "algo": "bc",
+    "hdf5_normalize_obs": false,
+    "obs_normalization_stats": null,
+    "action_normalization_stats": "absent",
+    "observation_keys_in_order": [
+      "robot0_eef_pos",
+      "robot0_eef_quat",
+      "robot0_gripper_qpos",
+      "object"
+    ],
+    "shapes": {
+      "object": [
+        10
+      ],
+      "robot0_eef_pos": [
+        3
+      ],
+      "robot0_eef_quat": [
+        4
+      ],
+      "robot0_gripper_qpos": [
+        2
+      ]
+    },
+    "action_dim": 7,
+    "robomimic_version": "0.3.0"
+  },
+  "candidates": [
+    {
+      "id": "CAND-01",
+      "asset": "robomimic BC-RNN Lift PH low-dim checkpoint lift_ph_low_dim_epoch_1000_succ_100.pth (public model zoo)",
+      "held": true,
+      "bytes": 7959022,
+      "sha256": "3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+      "criteria": {
+        "C1_checkpoint": "pass: bytes held, digest recorded in src/nisayon/engine/assets.py, public download; weights license unspecified (code MIT, MuJoCo Apache-2.0)",
+        "C2_executable": "pass: robomimic 0.3.0, robosuite 1.4.1, mujoco 3.2.7, torch 2.5.1 locked in the simulation extra; LiftExecutor runs it on this host (clean reproduction 79 s)",
+        "C3_statistics_path": "FAIL: the checkpoint was trained with hdf5_normalize_obs false, carries obs_normalization_stats null and no action normalization statistics; RolloutPolicy applies normalization only when stats are bound, and policy_from_checkpoint asserts hdf5_normalize_obs before binding any",
+        "C4_task": "pass: robosuite Lift, horizon 400, success when the cube rises more than 0.04 m above the table, deterministic CPU rollout with seeds",
+        "C5_intervention": "FAIL by consequence: the working deployment binds no statistics, so a deployment differing only in bound statistics would bind statistics the policy never consumed; that is a manufactured regression, excluded by the rule",
+        "C6_custody": "pass: checkpoint digest, locked environment, retained seed-0 trajectories",
+        "C7_authority": "pass for simulation with the held checkpoint; training a replacement is new training and needs authority"
+      },
+      "score": "5 of 7",
+      "first_failed": "C3",
+      "disposition": "rejected as held; best-scored candidate for acquisition"
+    },
+    {
+      "id": "CAND-02",
+      "asset": "torch hub vision checkpoints (alexnet, fasterrcnn_resnet50_fpn x2, ssdlite320) in ~/.cache/torch/hub",
+      "held": true,
+      "bytes": 601202759,
+      "criteria": {
+        "C1_checkpoint": "pass (bytes)",
+        "C4_task": "FAIL: image classifiers and detectors, no policy, no task with a deployment outcome"
+      },
+      "score": "1 of 7",
+      "first_failed": "C4",
+      "disposition": "rejected"
+    },
+    {
+      "id": "CAND-03",
+      "asset": "Hugging Face hub cache: models--gpt2 and open-llm-leaderboard detail datasets",
+      "held": true,
+      "criteria": {
+        "C1_checkpoint": "pass (bytes)",
+        "C3_statistics_path": "FAIL: no normalizer statistics path",
+        "C4_task": "FAIL: no executable policy task"
+      },
+      "score": "1 of 7",
+      "first_failed": "C3",
+      "disposition": "rejected"
+    },
+    {
+      "id": "CAND-04",
+      "asset": "Isaac Lab RubiksCubeAndBananaTask demonstration record (artifacts/robolab-reproduced-source-001/data.hdf5, 393,616 B, one demo)",
+      "held": true,
+      "criteria": {
+        "C1_checkpoint": "FAIL: a demonstration record, no policy checkpoint",
+        "C2_executable": "FAIL: Isaac Sim/Isaac Lab not installed"
+      },
+      "score": "0 of 7",
+      "first_failed": "C1",
+      "disposition": "rejected"
+    },
+    {
+      "id": "CAND-05",
+      "asset": "NVIDIA Isaac-GR00T N1.7 policy on LIBERO (the normalizer studied in normalizer-execution-001)",
+      "held": false,
+      "criteria": {
+        "C1_checkpoint": "FAIL: no weights held (no GR00T or Cosmos entries in any cache)",
+        "C2_executable": "partial: five source files retained, package not installed",
+        "C3_statistics_path": "pass by prior phase: the nested StateActionProcessor reads bound statistics",
+        "C4_task": "FAIL: LIBERO simulator not installed; a 3B vision-language-action policy has no GPU on this host",
+        "C5_intervention": "pass by design: override the bound statistics",
+        "C7_authority": "FAIL: weights and simulator acquisition exceed the phase dependency cap and need compute beyond this host"
+      },
+      "score": "2 of 7",
+      "first_failed": "C1",
+      "disposition": "rejected; acquisition path recorded"
+    },
+    {
+      "id": "CAND-06",
+      "asset": "LeRobot lerobot/smolvla_base (external-decision-001)",
+      "held": false,
+      "criteria": {
+        "C1_checkpoint": "FAIL: only the processor normalizer statistics were retained in that phase; no weights"
+      },
+      "score": "0 of 7",
+      "first_failed": "C1",
+      "disposition": "rejected"
+    },
+    {
+      "id": "CAND-07",
+      "asset": "Docker images mcr.microsoft.com/playwright:v1.61.1-noble, ubuntu:24.04",
+      "held": true,
+      "criteria": {
+        "C1_checkpoint": "FAIL: no policy"
+      },
+      "score": "0 of 7",
+      "first_failed": "C1",
+      "disposition": "rejected"
+    }
+  ],
+  "candidates_screened": 7,
+  "qualifying": [],
+  "result": "no qualifying case among held assets: the only executable policy task held (CAND-01) consumes no normalization statistics, so an intervention differing only in bound statistics cannot be observed there without manufacturing it; every other held asset is not a policy task, and the GR00T/LIBERO candidate is not held",
+  "budget_used": {
+    "process_cpu_seconds": 4.057,
+    "roots": 5,
+    "candidates": 7,
+    "network": 0,
+    "new_bytes": 0
+  }
+}

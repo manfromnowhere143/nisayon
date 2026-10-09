@@ -1,0 +1,23 @@
+{
+  "schema": "nisayon.population-binding-case.v3",
+  "id": "population-binding-001",
+  "frozen_at": "2026-09-20T19:44:00Z",
+  "exposure": "This locator-only correction is frozen after producer-002 failed before decisions. It changes no evidence value, operation rule or expected result.",
+  "inherits": {
+    "path": "docs/experiments/results/population-binding-001/case.v2.json",
+    "sha256": "f83e21fc6672f5f13dddf17bf0092ecf422bde0367c277f56bd6f3ed81ef5b32"
+  },
+  "correction": {
+    "failed_command_record_id": "c26352a9daa4415abf699b9087482492",
+    "failed_output": "artifacts/population-binding-001/producer-002",
+    "failure": "The inherited v1 source identity correctly required the 3,253-byte pre-overrun normalizer-selection record, but its only locator named the later amended 3,417-byte document.",
+    "change": "Add the exact 3,253-byte copy already sealed in producer-001 as a locator for the unchanged b93e9c18... source identity.",
+    "scientific_effect": "none; producer-002 reached no decision"
+  },
+  "source_locator_additions": {
+    "normalizer_selection": [
+      "artifacts/population-binding-001/producer-001/inputs/sources/normalizer_selection/normalizer-selection-001.json"
+    ]
+  },
+  "stopping_rule": "Run one corrected retry under producer-003, retaining producer-001 and failed producer-002. No further source access or case expansion."
+}

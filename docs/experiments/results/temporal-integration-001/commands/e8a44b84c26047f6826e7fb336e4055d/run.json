@@ -1,0 +1,46 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "e8a44b84c26047f6826e7fb336e4055d",
+  "label": "temporal-integration-20260920-final-finite-readback-002",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json,time\nfrom pathlib import Path\nfrom nisayon.evaluation import evaluate_bundle\nfrom nisayon.engine.io import write_json,file_digest\nout=Path(\"artifacts/engine-integration-001/temporal-integration-001/confirmation-readback-002\")\nrows=[]\nfor case,expected in ((\"D01-gripper-sign\",\"accepted\"),(\"D05-recurrent-carry\",\"rejected\")):\n root=Path(\"artifacts/development-ablation-001\")/case/\"A/confirmation/execution\"\n started=time.perf_counter()\n result=evaluate_bundle(root/\"bundle.json\",artifact_root=root)\n elapsed=time.perf_counter()-started\n p=out/(case+\"-evaluation.json\")\n write_json(p,result)\n codes=sorted({r[\"code\"] for r in result[\"reasons\"]})\n assert result[\"decision\"]==expected,(case,result[\"decision\"])\n if case.startswith(\"D05\"): assert \"progress_lost\" in codes,codes\n rows.append({\"case\":case,\"decision\":result[\"decision\"],\"reason_codes\":codes,\"evaluation_wall_s\":elapsed,\"retained_evaluation_sha256\":file_digest(p)})\nreport={\"records\":rows,\"new_simulator_executions\":0,\"scope\":\"Read-only integrated evaluator on original actual stores; original decisions unchanged. Evaluation wall times are nested in the command receipt.\"}\nwrite_json(out/\"finite-readback.json\",report)\nprint(json.dumps(report))\n"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T12:00:25.182564+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "04804a6f0adac00ac8e1f79d68ba8027d1abe2ad",
+    "changes": [
+      "?? docs/experiments/results/temporal-integration-001/reconciliation-audit-002.json",
+      "?? docs/experiments/results/temporal-integration-001/reference-reconciliation-002.tar.gz"
+    ],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 65007,
+  "returncode": 0,
+  "ended_at": "2026-09-20T12:00:46.688123+00:00",
+  "wall_seconds": 21.287158,
+  "logs": {
+    "stdout.log": {
+      "bytes": 645,
+      "sha256": "e27730ed07c2dbecfdd5f578afd5cdc7df559f33a847e5cad3c39c77f48c62a9"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

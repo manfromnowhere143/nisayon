@@ -1,0 +1,95 @@
+{
+  "schema": "nisayon.a1-runtime.recorder-validation-plan.v1",
+  "status": "authorized_frozen_before_execution",
+  "frozen_at": "2026-10-09T08:09:07.698094+00:00",
+  "source_commit_before_freeze": "a081b376e4e5b446b87620ce33943056fde7f843",
+  "proposal": {
+    "path": "docs/experiments/results/a1-runtime-001/replay-correction-proposal-001.json",
+    "sha256": "c886f66a7b573c92d7ac5c170c60a0e47939ade52c0d8eb833225f4767861bb5"
+  },
+  "contract": {
+    "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.5.json",
+    "sha256": "3e1041f57662a5e484aa97a2b62cb7e7f6bf248badd2457c791a16262c0cd664"
+  },
+  "operator_message_verbatim": "you have full premssions to do eveyhting needed my dear brikbnet freind go on woth mission",
+  "source": {
+    "executor": {
+      "path": "scripts/experiments/run_a1_runtime.py",
+      "bytes": 48922,
+      "sha256": "16a7ef8678db65bb63554ca32397ee54f443125593fd96480cc2919ff59ce8c5"
+    },
+    "monitor": {
+      "path": "scripts/experiments/monitor_a1_runtime.py",
+      "sha256": "449d0cbddd2ec6f2a0b55aa1923eadde1dd2a34e8779382cd30f760057884213"
+    },
+    "assessor": {
+      "path": "src/nisayon/evaluation/a1_runtime_assessor.py",
+      "sha256": "c8d3e31852c89612089b167838037060cf0623b0cfd0008774844d82e9c4d2fa"
+    }
+  },
+  "inputs": {
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540"
+    },
+    "checkpoint": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532"
+    },
+    "pilot_statistics": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/normalization-stats.npz",
+      "sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e"
+    },
+    "runtime_install_manifest": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-manifest-002.json",
+      "sha256": "761a633a67ea2041cce28b6af3e24e51cfe3da25291fad70e361ace49c4e3cd6"
+    },
+    "runtime_install_result": {
+      "path": "docs/experiments/results/a1-runtime-001/runtime-install-result-001.json",
+      "sha256": "7f9b11f022649fb0413d4110a7a2afbf131cc9a49c4ec73da0d358e1dd9dbd4d"
+    },
+    "runtime_install_receipt": {
+      "path": "artifacts/a1-runtime-001/runtime-v1.3-001/install-receipt-001.json",
+      "sha256": "c27642d9e6f075a8b1bba06f5dd31685de858e31710a7db61172c690f34a8157"
+    }
+  },
+  "outputs": {
+    "staging_root": "artifacts/a1-runtime-001/recorder-validation-001",
+    "temporary_root": "artifacts/a1-runtime-001/recorder-validation-temporary-001",
+    "packet_root": "artifacts/a1-runtime-001/recorder-validation-packet-001",
+    "create_only": true,
+    "attempt_identity": "Global R-3 and R-4 retain local repetition IDs R-1 and R-2 required by the existing executor/assessor. Series identity and cumulative ledger must be present in every interpretation. Original R-1 and R-2 remain failed and consumed."
+  },
+  "commands_from_proposal": "Run the two listed replay commands, then producer_gate_child_command. Only a complete producer pass permits conditional_development_child_command. All children run through the existing monitor and lane-local nisayon run.",
+  "monitor_scopes": {
+    "R-3": "replay-R-1",
+    "R-4": "replay-R-2",
+    "gate": "producer-gate",
+    "development": "development"
+  },
+  "monitor_scope_explanation": "Existing resource scopes name the local repetition ID; the outer run label and output series bind global R-3/R-4.",
+  "resource_limits": {
+    "process_tree_rss_bytes": 2147483648,
+    "process_cpu_seconds_per_command": 1800,
+    "temporary_bytes_per_command": 201326592,
+    "durable_packet_bytes": 16777216,
+    "free_disk_floor_bytes": 5368709120,
+    "sample_interval_seconds": 0.1,
+    "qualification_wall_seconds": 300,
+    "replay_wall_seconds_each": 600,
+    "development_wall_seconds": 1200
+  },
+  "cumulative_ceilings": {
+    "replay_attempts": 4,
+    "qualification_explicit_resets": 4,
+    "explicit_resets": 18,
+    "control_steps": 4256,
+    "contract_counted_physics_substeps": 106400,
+    "policy_actions": 4000,
+    "development_attempts": 10
+  },
+  "assessment_mode": "single_lane_non_independent",
+  "new_optimizer_updates": 0,
+  "new_network_responses": 0,
+  "preflight": "Verify every bound input/source, both environment trees, the old packet seal and copied evidence digests, available memory, free disk, and absent create-only output paths before any construction."
+}

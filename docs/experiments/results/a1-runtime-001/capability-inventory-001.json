@@ -1,0 +1,217 @@
+{
+  "schema": "nisayon.a1-runtime-capability-inventory.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:16:54Z",
+  "phase_started_at": "2026-09-21T12:09:06Z",
+  "source_commit": "70da1194c03b2695d5b1451d8637f27ab22566af",
+  "status": "read-only feasibility inventory complete; prospective contract and exact new runtime are not yet held",
+  "authority": {
+    "fixed_action_compatibility_attempt_ceiling": 2,
+    "development_policy_attempt_ceiling": 10,
+    "assigned_fixed_action_attempts": 0,
+    "executed_fixed_action_attempts": 0,
+    "assigned_development_policy_attempts": 0,
+    "executed_development_policy_attempts": 0,
+    "optimizer_updates_authorized": 0,
+    "sixty_rollout_confirmation_contract": "unassigned",
+    "other_prohibitions": [
+      "paid compute or cloud-instance starts",
+      "hardware operation",
+      "reserved-outcome access",
+      "publication or pushes"
+    ]
+  },
+  "recorded_inventory": {
+    "command_record_id": "a88406865b9644238fd5d633a11c799b",
+    "command_record_sha256": "1df74b4d4a19c0732820fbaa9333b714270ee64cbbd470b3a5f211f9b842044b",
+    "stdout_sha256": "9ccdfd2fc407f20e5fa8738aae2012e8534fc68e99570ee5bf0ba21666ea5436",
+    "outer_wall_seconds": 0.489925,
+    "platform": "macOS-14.4-arm64-arm-64bit",
+    "python": "3.12.13",
+    "network_requests": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0
+  },
+  "held_inputs": {
+    "checkpoint": {
+      "path": "artifacts/a1-feasibility-001/pilot-v1.2-001/model.pth",
+      "bytes": 7961224,
+      "sha256": "bef2eb39bf2bdc873a03ba85e946a3e4e5383efcb870ff1a45816b76f24ef532",
+      "kind": "inference checkpoint with observation statistics; no optimizer or random-number-generator state"
+    },
+    "dataset": {
+      "path": "artifacts/assets/lift/ph/low_dim_v15.hdf5",
+      "bytes": 21084088,
+      "sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+      "env_args_raw_sha256": "e9688927f5b09e576367cc69efd1545d29009ca3d8aa716943d596f421141cd0"
+    },
+    "normalizer": {
+      "population": "all 200 demos and 9,666 frames",
+      "statistics_npz_sha256": "9dc93a21ad096b508606c22d3e7134395497f9ac0e1432d153dc9ab004c93a8e",
+      "mean_dtype": "float32",
+      "std_dtype": "float64",
+      "formula": "(x - mean) / std",
+      "inference_exactly_once": "not yet executed or established"
+    }
+  },
+  "held_historical_runtime": {
+    "preservation": "the existing .venv and robosuite 1.4.1 installation were read only and remain untouched",
+    "pyproject_sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822",
+    "uv_lock_sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a",
+    "packages": {
+      "robomimic": "0.3.0",
+      "robosuite": "1.4.1",
+      "mujoco": "3.2.7",
+      "torch": "2.5.1",
+      "numpy": "1.26.4",
+      "h5py": "3.16.0"
+    },
+    "robosuite_1_4_1": {
+      "installed_module_logical_bytes": 614910045,
+      "metadata_sha256": "47007dc72e97354a08e15f63a55dbea23881a1025ba60883c1c72b62054fffd4",
+      "record_sha256": "7f65a4a813abc23cf1976c80f0997d903d8283d0481c73ad19026b5550081283",
+      "locked_wheel_bytes": 193518002,
+      "locked_wheel_sha256": "62587cd5888d9d3d813f3ffcc7017f6f77efa618952527a0b9bb139ffd0a3741",
+      "scope": "scale evidence for the held historical version only; it is not an estimate for the new runtime"
+    },
+    "other_module_logical_bytes": {
+      "robomimic": 1930153,
+      "mujoco": 17909726,
+      "torch": 290739734,
+      "numpy": 48340461,
+      "h5py": 10682489
+    },
+    "gym": "not installed",
+    "gymnasium": "not installed",
+    "import_warning": "robosuite reported no private macro file during an unrecorded read-only module-version check; no environment was constructed"
+  },
+  "candidate_runtime": {
+    "required_family": "source-pinned isolated runtime compatible with the dataset's robosuite 1.5.1 composite-controller metadata",
+    "robosuite_1_5_cached": false,
+    "held_robosuite_cache_candidates": [
+      "/Users/danielwahnich/.cache/uv/archive-v0/RJyO-WOkYL5XLS71/robosuite-1.4.1.dist-info/METADATA"
+    ],
+    "exact_source_revision": null,
+    "license_and_provenance_binding": null,
+    "dependency_archive_bytes": null,
+    "expanded_logical_bytes": null,
+    "mujoco_compatibility": null,
+    "acquisition_required": "yes unless the frozen contract identifies another already-held exact source",
+    "feasibility": "unresolved until exact source, dependency graph, bytes and ceilings are prospectively bound"
+  },
+  "task_contract_facts": {
+    "environment": "Lift",
+    "declared_environment_version": "1.5.1",
+    "robot": "Panda",
+    "control_frequency_hz": 20,
+    "renderer": false,
+    "offscreen_renderer": false,
+    "object_observations": true,
+    "camera_observations": false,
+    "ignore_done": true,
+    "lite_physics": false,
+    "reward_shaping": false,
+    "controller": {
+      "composite_type": "BASIC",
+      "body_part": "right",
+      "type": "OSC_POSE",
+      "input_order": "six right-arm OSC_POSE coordinates followed by one gripper coordinate",
+      "input_bounds": [-1, 1],
+      "translation_output_bounds": [-0.05, 0.05],
+      "rotation_output_bounds": [-0.5, 0.5],
+      "control_delta": true,
+      "input_reference_frame": "world",
+      "gripper_type": "GRIP"
+    },
+    "policy_observation_order": [
+      "object",
+      "robot0_eef_pos",
+      "robot0_eef_quat",
+      "robot0_gripper_qpos"
+    ],
+    "policy_observation_dimensions": [10, 3, 4, 2],
+    "raw_observation_dtype": "float64",
+    "action_dimension": 7,
+    "raw_action_dtype": "float64",
+    "simulation_timestep": "not yet bound",
+    "reset_and_recurrent_state": "not yet bound",
+    "success_termination_timeout_semantics": "not yet executed or qualified"
+  },
+  "held_path_static_audit": {
+    "command_record_id": "f34bb78eeeea4889bf4c62ed9e1a94ec",
+    "command_record_sha256": "e23345ec533b35a703e6167a05684c5d65a0f45b60c34e84039f7d47e4535914",
+    "stdout_sha256": "8d80ffeee68654de60b83f3c1ff9f2540d559edd91ef6630278aa6ef80ac5f77",
+    "outer_wall_seconds": 0.04823,
+    "source_sha256": {
+      "rollout_policy": "d15dd0c501f6c715d8614887b04bc5ece9084d39d1e7cbc07de9ee9b5b93fe3e",
+      "checkpoint_loader": "0a158e2883d3c202dd7b4e14927386e1457790bc881962e22da4477112713ec5",
+      "environment_wrapper": "092934171fdb86842e3d6f19c20f21bc9dc05350910f06acfda85feaa5ad100a",
+      "normalizer": "b20278330ad8283a21886a4e79c457e31d0d1d599b5895010be1099a2c94c6e6",
+      "reference_rollout": "998dcc15cb8a47219b56685cef8bad0d9286194d5faae543fd92db48c4307846"
+    },
+    "policy_properties": [
+      "policy_from_checkpoint binds saved observation statistics into RolloutPolicy",
+      "start_episode sets evaluation mode and resets recurrent policy state",
+      "_prepare_observation calls normalize_obs when statistics are present before tensor, batch, device and float conversion",
+      "the action path calls the policy only after _prepare_observation"
+    ],
+    "environment_properties": [
+      "EnvRobosuite imports mujoco_py unconditionally",
+      "mujoco_py is absent while the official mujoco package is present",
+      "the wrapper constructs with robosuite.make but resets and captures state through the legacy self.env.sim API",
+      "the wrapper keeps done false, reads task success through _check_success and the reference loop stops on done or success"
+    ],
+    "operations": {
+      "network_requests": 0,
+      "environment_wrapper_imports": 0,
+      "environment_constructions": 0,
+      "physics_steps": 0,
+      "policy_actions": 0
+    },
+    "decision_effect": "the historical robomimic environment wrapper is not an executable held path on this environment; the prospective contract must bind either an exact compatible dependency stack or an explicit adapter and tests of its observation, reset, state, action, success and termination semantics",
+    "boundary": "static source properties do not establish that a robosuite 1.5 runtime imports, constructs, resets, steps, reproduces or executes the checkpoint"
+  },
+  "resources": {
+    "sampled_free_disk_bytes": 14206414848,
+    "minimum_free_disk_bytes": 5368709120,
+    "sampled_available_memory_bytes": 2819833856,
+    "physical_memory_bytes": 17179869184,
+    "memory_sample_percent_used": 83.6,
+    "retained_payload_bytes_at_preceding_snapshot": 652604524,
+    "project_cap_bytes": 1073741824,
+    "outside_temporary_bytes_at_preceding_snapshot": 238337959,
+    "shared_temporary_cap_bytes": 536870912,
+    "new_dependency_body_bytes": 0,
+    "new_dependency_body_cap_bytes": 33554432,
+    "cumulative_source_download_body_bytes": 21495048,
+    "cumulative_source_download_cap_bytes": 67108864,
+    "source_responses_used": 6,
+    "source_response_cap": 12,
+    "uv_cache_logical_bytes_prior_measurement": 2824937472,
+    "limits": "point samples and logical-byte counts do not bound unseen peaks or physical allocation"
+  },
+  "preserved_failure": {
+    "description": "the first ad hoc module-version inventory imported robosuite, then raised PackageNotFoundError while treating absent gym distribution metadata as mandatory",
+    "recorded_command_id": null,
+    "exact_cost": "unknown; no command recorder was used",
+    "side_effects": "no network, environment construction, physics step or policy action; the corrected checks treat gym and gymnasium absence as observed facts"
+  },
+  "readiness": {
+    "ready_to_acquire": false,
+    "ready_to_construct_environment": false,
+    "ready_to_execute_compatibility_replay": false,
+    "ready_to_execute_development_policy": false,
+    "blocking_requirements": [
+      "Opus's named prospectively frozen a1-runtime-001 contract",
+      "exact source revision and applicable software rights",
+      "exact dependency-download and expanded-storage estimates within named ceilings",
+      "an explicit resolution of robomimic 0.3's absent mujoco_py dependency and legacy simulator-state API",
+      "memory, wall-time, simulator-step and retained-output ceilings",
+      "fixed reset, fixed-action sequence, assignments, comparison tolerance and stop rules",
+      "development seeds checked against exposure records and assigned prospectively"
+    ]
+  },
+  "claim_boundary": "this inventory establishes held capability and an acquisition risk only; it does not establish simulator compatibility, reproducibility, inference normalization, policy competence, task success, repair or comparative value",
+  "publication": "private; no push or publication"
+}

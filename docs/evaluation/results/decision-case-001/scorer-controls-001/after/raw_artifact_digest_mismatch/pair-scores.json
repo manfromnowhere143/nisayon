@@ -1,0 +1,393 @@
+{
+  "schema": "nisayon.decision-case.pair-score.v2",
+  "case_id": "DC01-controller-target-convention",
+  "plan": {
+    "path": "docs/evaluation/results/decision-case-001/plan.v2.json",
+    "sha256": "993985de04c887737bb72bb8098174a7d9a0f1be52fac59840ca2d4fa482823d"
+  },
+  "scorer_sha256": "aa478ab15f4c3a19e27f97f8112359f7d7af7ed8fee10f6f80b0429866890dab",
+  "criterion": {
+    "step_tolerance": 2,
+    "progress_tolerance_m": 0.01,
+    "eef_report_tolerance_m": 0.001,
+    "known_outcomes": [
+      "completed",
+      "failed"
+    ],
+    "states": [
+      "valid",
+      "invalid",
+      "unresolved",
+      "missing"
+    ]
+  },
+  "mode": "pairs",
+  "pairs": [
+    {
+      "label": "raw_artifact_digest_mismatch",
+      "state": "invalid",
+      "reading": "not_scored",
+      "first": {
+        "run_id": "run",
+        "execution_dir": "artifacts/decision-case-001/scorer-controls-001/inputs/raw_artifact_digest_mismatch/first",
+        "task_outcome": "completed",
+        "steps": 44,
+        "initial_cube_height_m": 0.82,
+        "final_cube_height_m": 0.8442,
+        "progress_gain_m": 0.0242,
+        "declared_convention": "restored",
+        "controller_target_rad": [
+          0.021616,
+          0.192718,
+          0.028204,
+          -2.625483,
+          0.005504,
+          2.922378,
+          0.792937
+        ],
+        "primary_complete": false,
+        "diagnostic_complete": true,
+        "seed": 0,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 e494ed60e64801d3dee3e96b0bfd08312ce736bdb904792d0675dcc7cff8940a",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'run' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "44 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "44 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "fail",
+            "detail": "raw artifact run.jsonl.gz: declared ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff, actual f1a6be4474726a7e3bee90fa6878e7c69370d020dcbda98a4da292a3385fd66b",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "44 compact rows agree with the raw record run.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "run.jsonl.gz: 45 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "44 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "invalid"
+      },
+      "second": {
+        "run_id": "run",
+        "execution_dir": "artifacts/decision-case-001/scorer-controls-001/inputs/raw_artifact_digest_mismatch/second",
+        "task_outcome": "completed",
+        "steps": 44,
+        "initial_cube_height_m": 0.82,
+        "final_cube_height_m": 0.8442,
+        "progress_gain_m": 0.0242,
+        "declared_convention": "nominal",
+        "controller_target_rad": [
+          0.0,
+          0.19634954084936207,
+          0.0,
+          -2.617993877991494,
+          0.0,
+          2.941592653589793,
+          0.7853981633974483
+        ],
+        "primary_complete": true,
+        "diagnostic_complete": true,
+        "seed": 0,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "pass",
+            "detail": "bundle.json sha256 71ab2e1463c3b85e58fd0fd7d5993dec1a934ff6641953452669e71974907fe4",
+            "source": "evaluation"
+          },
+          {
+            "check": "run_present",
+            "status": "pass",
+            "detail": "run 'run' found",
+            "source": "evaluation"
+          },
+          {
+            "check": "process_completed",
+            "status": "pass",
+            "detail": "process_status completed",
+            "source": "evaluation"
+          },
+          {
+            "check": "measurement_observed",
+            "status": "pass",
+            "detail": "measurement_status observed",
+            "source": "evaluation"
+          },
+          {
+            "check": "terminal_outcome_known",
+            "status": "pass",
+            "detail": "task_outcome 'completed'",
+            "source": "evaluation"
+          },
+          {
+            "check": "trace_nonempty",
+            "status": "pass",
+            "detail": "44 compact rows",
+            "source": "evaluation"
+          },
+          {
+            "check": "progress_finite_all_rows",
+            "status": "pass",
+            "detail": "44 finite heights",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_artifacts_verified",
+            "status": "pass",
+            "detail": "2 of 2 raw artifacts verified under artifacts/decision-case-001/scorer-controls-001/inputs/raw_artifact_digest_mismatch/second",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_trace_consistent",
+            "status": "pass",
+            "detail": "44 compact rows agree with the raw record run.jsonl.gz: digests of observations, states and recurrent state, actions and acquisition stamps",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "raw_record_present",
+            "status": "pass",
+            "detail": "run.jsonl.gz: 45 lines",
+            "source": "evaluation"
+          },
+          {
+            "check": "raw_header_present",
+            "status": "pass",
+            "detail": "reset header present",
+            "source": "evaluation"
+          },
+          {
+            "check": "steps_correspond",
+            "status": "pass",
+            "detail": "44 rows correspond",
+            "source": "evaluation"
+          },
+          {
+            "check": "diagnostic_arrays_complete",
+            "status": "pass",
+            "detail": "qpos and eef finite on every row",
+            "source": "evaluation"
+          },
+          {
+            "check": "controller_target_recorded",
+            "status": "pass",
+            "detail": "reset.controller.initial_joint",
+            "source": "evaluation"
+          }
+        ],
+        "state": "valid"
+      },
+      "binding": {
+        "state": "valid",
+        "checks": [
+          {
+            "check": "same_seed",
+            "status": "pass",
+            "detail": "seed 0",
+            "source": "evaluation"
+          },
+          {
+            "check": "two_conventions_declared",
+            "status": "pass",
+            "detail": "declared ('restored', 'nominal')",
+            "source": "evaluation"
+          },
+          {
+            "check": "same_policy_sha256",
+            "status": "pass",
+            "detail": "policy_sha256 3ee222cab41f78ba27afca7ef6f70f9f21bd3cc0a37bd79c0b2351dbede51605",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_git_head",
+            "status": "pass",
+            "detail": "code_git_head 0000000000000000000000000000000000000000",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_lock_sha256",
+            "status": "pass",
+            "detail": "code_lock_sha256 2222222222222222222222222222222222222222222222222222222222222222",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sources_sha256",
+            "status": "pass",
+            "detail": "code_sources_sha256 53fe5071392bac4a5cc902002b15fc0611899eea8a9157b1a4a3a2595ab0e958",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_code_sha256",
+            "status": "pass",
+            "detail": "code_sha256 8e145ed160cc4afa54e53eadbe2a4568391db2f4590845b762af9fa262932957",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "same_dependencies_sha256",
+            "status": "pass",
+            "detail": "dependencies_sha256 3333333333333333333333333333333333333333333333333333333333333333",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "frozen_policy",
+            "status": "pass",
+            "detail": "both runs use the frozen checkpoint 3ee222cab41f",
+            "source": "evaluation"
+          },
+          {
+            "check": "configuration_differs_only_in_target",
+            "status": "pass",
+            "detail": "identical except controller_target",
+            "source": "evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of run equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "candidate_digest_is_deployment_digest",
+            "status": "pass",
+            "detail": "candidate_sha256 of run equals the digest of its deployment record",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_state_matched_except_target",
+            "status": "pass",
+            "detail": "recorded reset states identical except controller.initial_joint; digest 1e34472e5338fb225976f4130110153059fc85180f541441e929c27f76e017cc",
+            "source": "evaluation"
+          },
+          {
+            "check": "policy_reset_matched",
+            "status": "pass",
+            "detail": "raw policy reset state",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "policy_reset_event_matched",
+            "status": "pass",
+            "detail": "policy reset mode, application, entering-state digest and prefix",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "initial_observation_matched",
+            "status": "pass",
+            "detail": "first-step observation",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "model_xml_matched",
+            "status": "pass",
+            "detail": "declared model XML digest",
+            "source": "engine+evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "run: restored target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          },
+          {
+            "check": "target_only_intervention",
+            "status": "pass",
+            "detail": "run: nominal target agrees with the raw reset header and the frozen restored/nominal definition",
+            "source": "evaluation"
+          }
+        ]
+      },
+      "metric": null,
+      "diagnostic": {
+        "common_steps": 44,
+        "eef_max_deviation_m_over_common_steps": 0.0,
+        "eef_first_step_above_1mm": null,
+        "eef_exceeds_report_tolerance": false,
+        "joint_max_deviation_rad_over_common_steps": 0.0,
+        "role": "report_only; not a decision predicate"
+      },
+      "engine_audit": null
+    }
+  ],
+  "aggregate": {
+    "planned_pairs": 1,
+    "counts": {
+      "valid": 0,
+      "invalid": 1,
+      "unresolved": 0,
+      "missing": 0
+    },
+    "E1_pairs": [],
+    "E2_pairs": [],
+    "allocation": "not applicable in pair mode",
+    "allocation_conforms": true,
+    "reading": "incomplete: 1 of 1 pairs not admitted (1 invalid, 0 unresolved, 0 missing); no parity inference from absent data; no E2 observed on the admitted pairs"
+  }
+}

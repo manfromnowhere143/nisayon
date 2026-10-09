@@ -1,0 +1,3599 @@
+{
+  "schema": "nisayon.temporal-operation-accounting.v1",
+  "driver_sha256": "86d559382d9791a1f0fa026a7b9e7e5fccab874862e6be09a673253b8a702003",
+  "inputs": [
+    {
+      "path": "docs/experiments/results/temporal-integration-001/execution-audit-001.json",
+      "sha256": "fe6a59d20c34ed42d6743f2b3665bb728702012a8f35f6d64362f43898a764ff"
+    },
+    {
+      "path": "docs/experiments/results/temporal-integration-001/request-binding-execution-001/execution.json",
+      "sha256": "d21523495fdc52bbb6163fc1eb37c67a499fe894fdedcfcfe2cf941ca7478b44"
+    }
+  ],
+  "populations": [
+    {
+      "population": "original",
+      "assignment_count": 120,
+      "groups": [
+        {
+          "remedy": "unfenced_queue_control",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010149167152121663,
+              "capture_before_seal_cpu_s": 0.008577000000000001
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017204874893650413,
+              "capture_before_seal_cpu_s": 0.015792
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016688458854332566,
+              "capture_before_seal_cpu_s": 0.014653000000000027
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013938082847744226,
+              "capture_before_seal_cpu_s": 0.012255000000000016
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.012681499822065234,
+              "capture_before_seal_cpu_s": 0.011090999999999962
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013931625057011843,
+              "capture_before_seal_cpu_s": 0.012728000000000073
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 3,
+              "acknowledged": 3,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01977191586047411,
+              "capture_before_seal_cpu_s": 0.01640599999999992
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018829749897122383,
+              "capture_before_seal_cpu_s": 0.01571699999999998
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009799124905839562,
+              "capture_before_seal_cpu_s": 0.00858800000000004
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010055582970380783,
+              "capture_before_seal_cpu_s": 0.009354000000000084
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010463332990184426,
+              "capture_before_seal_cpu_s": 0.009382000000000001
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010635250015184283,
+              "capture_before_seal_cpu_s": 0.00903900000000002
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010796874994412065,
+              "capture_before_seal_cpu_s": 0.009846000000000021
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010835791938006878,
+              "capture_before_seal_cpu_s": 0.009663999999999895
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01617441698908806,
+              "capture_before_seal_cpu_s": 0.014005000000000045
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.01059112511575222,
+              "capture_before_seal_cpu_s": 0.009332000000000118
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 1,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009663082892075181,
+              "capture_before_seal_cpu_s": 0.008307999999999982
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009013208094984293,
+              "capture_before_seal_cpu_s": 0.007990999999999637
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011338667012751102,
+              "capture_before_seal_cpu_s": 0.010263000000000133
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009205291979014874,
+              "capture_before_seal_cpu_s": 0.0082040000000001
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 2,
+            "dispatch_attempts": 24,
+            "acknowledged": 22,
+            "failed": 1,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.25176712428219616,
+            "capture_before_seal_cpu_s": 0.22119500000000006
+          }
+        },
+        {
+          "remedy": "reset_only",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009802292101085186,
+              "capture_before_seal_cpu_s": 0.008804999999999993
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017881874926388264,
+              "capture_before_seal_cpu_s": 0.01619200000000004
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016083542024716735,
+              "capture_before_seal_cpu_s": 0.014519999999999977
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014285165816545486,
+              "capture_before_seal_cpu_s": 0.012831000000000037
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013982292031869292,
+              "capture_before_seal_cpu_s": 0.012614000000000125
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01337212510406971,
+              "capture_before_seal_cpu_s": 0.011557999999999957
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 3,
+              "acknowledged": 3,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.020638207904994488,
+              "capture_before_seal_cpu_s": 0.01680400000000004
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.015790084144100547,
+              "capture_before_seal_cpu_s": 0.013708000000000053
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010904707945883274,
+              "capture_before_seal_cpu_s": 0.009012999999999938
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01047674985602498,
+              "capture_before_seal_cpu_s": 0.009600000000000275
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009283040883019567,
+              "capture_before_seal_cpu_s": 0.0081380000000002
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00945233297534287,
+              "capture_before_seal_cpu_s": 0.008690000000000087
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00956104090437293,
+              "capture_before_seal_cpu_s": 0.00850699999999982
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009426333010196686,
+              "capture_before_seal_cpu_s": 0.00859299999999985
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.015957208815962076,
+              "capture_before_seal_cpu_s": 0.01445199999999991
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.010042417095974088,
+              "capture_before_seal_cpu_s": 0.008935999999999833
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 1,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009112667059525847,
+              "capture_before_seal_cpu_s": 0.008055999999999841
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008037124993279576,
+              "capture_before_seal_cpu_s": 0.0069790000000002905
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011848041787743568,
+              "capture_before_seal_cpu_s": 0.01036500000000018
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009994708932936192,
+              "capture_before_seal_cpu_s": 0.008937000000000417
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 3,
+            "dispatch_attempts": 23,
+            "acknowledged": 21,
+            "failed": 1,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.24593195831403136,
+            "capture_before_seal_cpu_s": 0.21729800000000088
+          }
+        },
+        {
+          "remedy": "arrival_deadline_only",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00957904220558703,
+              "capture_before_seal_cpu_s": 0.008419999999999997
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01840599998831749,
+              "capture_before_seal_cpu_s": 0.016478999999999966
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016687999945133924,
+              "capture_before_seal_cpu_s": 0.014982999999999969
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014726459048688412,
+              "capture_before_seal_cpu_s": 0.013259999999999939
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014163250103592873,
+              "capture_before_seal_cpu_s": 0.011908999999999947
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013177332933992147,
+              "capture_before_seal_cpu_s": 0.011921999999999988
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 3,
+              "acknowledged": 3,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.019069249974563718,
+              "capture_before_seal_cpu_s": 0.01609499999999997
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016105541959404945,
+              "capture_before_seal_cpu_s": 0.014381999999999895
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010464708087965846,
+              "capture_before_seal_cpu_s": 0.009090000000000042
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009707957971841097,
+              "capture_before_seal_cpu_s": 0.008615999999999957
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009283750085160136,
+              "capture_before_seal_cpu_s": 0.00805100000000003
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009201375069096684,
+              "capture_before_seal_cpu_s": 0.008326999999999973
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009760292014107108,
+              "capture_before_seal_cpu_s": 0.008572000000000024
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010589709039777517,
+              "capture_before_seal_cpu_s": 0.0092629999999998
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.015212415950372815,
+              "capture_before_seal_cpu_s": 0.013351999999999808
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.00967833399772644,
+              "capture_before_seal_cpu_s": 0.008617000000000097
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 1,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010693292133510113,
+              "capture_before_seal_cpu_s": 0.009309000000000012
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009781165979802608,
+              "capture_before_seal_cpu_s": 0.008293000000000106
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011589667061343789,
+              "capture_before_seal_cpu_s": 0.010089999999999932
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00945233297534287,
+              "capture_before_seal_cpu_s": 0.008437999999999946
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 11,
+            "dispatch_attempts": 15,
+            "acknowledged": 13,
+            "failed": 1,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.24732987652532756,
+            "capture_before_seal_cpu_s": 0.21746799999999938
+          }
+        },
+        {
+          "remedy": "conventional",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010294083040207624,
+              "capture_before_seal_cpu_s": 0.00894700000000001
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01971391588449478,
+              "capture_before_seal_cpu_s": 0.017372999999999972
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.015663457801565528,
+              "capture_before_seal_cpu_s": 0.013877999999999946
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013471541926264763,
+              "capture_before_seal_cpu_s": 0.012498000000000009
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013989374972879887,
+              "capture_before_seal_cpu_s": 0.012361999999999984
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.012440875172615051,
+              "capture_before_seal_cpu_s": 0.011432999999999804
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 3,
+              "acknowledged": 3,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018635875079780817,
+              "capture_before_seal_cpu_s": 0.015970999999999957
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.025073833065107465,
+              "capture_before_seal_cpu_s": 0.015222000000000069
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009863333078101277,
+              "capture_before_seal_cpu_s": 0.008840999999999877
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009313833899796009,
+              "capture_before_seal_cpu_s": 0.008579000000000114
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009094083914533257,
+              "capture_before_seal_cpu_s": 0.008197999999999706
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009652832988649607,
+              "capture_before_seal_cpu_s": 0.008402000000000243
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009698000038042665,
+              "capture_before_seal_cpu_s": 0.008628999999999998
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009589582914486527,
+              "capture_before_seal_cpu_s": 0.008380000000000276
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.015971458982676268,
+              "capture_before_seal_cpu_s": 0.014379000000000364
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.009901833022013307,
+              "capture_before_seal_cpu_s": 0.0083479999999998
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 1,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009204833069816232,
+              "capture_before_seal_cpu_s": 0.008245999999999754
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008331292076036334,
+              "capture_before_seal_cpu_s": 0.007103999999999999
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011068792082369328,
+              "capture_before_seal_cpu_s": 0.009983000000000075
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009985624812543392,
+              "capture_before_seal_cpu_s": 0.009212999999999916
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 11,
+            "dispatch_attempts": 15,
+            "acknowledged": 13,
+            "failed": 1,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.2509584578219801,
+            "capture_before_seal_cpu_s": 0.21598599999999987
+          }
+        },
+        {
+          "remedy": "selected_intervention",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009714417159557343,
+              "capture_before_seal_cpu_s": 0.00902799999999998
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017991249915212393,
+              "capture_before_seal_cpu_s": 0.016137999999999986
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01517987484112382,
+              "capture_before_seal_cpu_s": 0.013740000000000085
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016038207802921534,
+              "capture_before_seal_cpu_s": 0.013849
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.012831083033233881,
+              "capture_before_seal_cpu_s": 0.011639999999999873
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01255595893599093,
+              "capture_before_seal_cpu_s": 0.011360999999999954
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 3,
+              "acknowledged": 3,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.020185166038572788,
+              "capture_before_seal_cpu_s": 0.017264999999999864
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016424458008259535,
+              "capture_before_seal_cpu_s": 0.013448000000000127
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009033374954015017,
+              "capture_before_seal_cpu_s": 0.008140000000000036
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00926916697062552,
+              "capture_before_seal_cpu_s": 0.007932999999999968
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00890279095619917,
+              "capture_before_seal_cpu_s": 0.007927000000000017
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009214082965627313,
+              "capture_before_seal_cpu_s": 0.008258999999999794
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008906250121071935,
+              "capture_before_seal_cpu_s": 0.008020000000000138
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010805209167301655,
+              "capture_before_seal_cpu_s": 0.009532000000000096
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016359084052965045,
+              "capture_before_seal_cpu_s": 0.014406999999999837
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.0095120829064399,
+              "capture_before_seal_cpu_s": 0.008614999999999817
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 1,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009531750110909343,
+              "capture_before_seal_cpu_s": 0.008408999999999889
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008532291976734996,
+              "capture_before_seal_cpu_s": 0.00773299999999999
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011934916954487562,
+              "capture_before_seal_cpu_s": 0.009714999999999918
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009507874958217144,
+              "capture_before_seal_cpu_s": 0.008322999999999858
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 11,
+            "dispatch_attempts": 15,
+            "acknowledged": 13,
+            "failed": 1,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.24242929182946682,
+            "capture_before_seal_cpu_s": 0.21348199999999923
+          }
+        },
+        {
+          "remedy": "drop_all",
+          "assignment_count": 20,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "T01-healthy",
+                "id": "T01-healthy--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009428375167772174,
+              "capture_before_seal_cpu_s": 0.008529000000000009
+            },
+            {
+              "assignment": {
+                "case_id": "T02-queued-reset",
+                "id": "T02-queued-reset--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017808666918426752,
+              "capture_before_seal_cpu_s": 0.015766999999999975
+            },
+            {
+              "assignment": {
+                "case_id": "T03-late-after-reset",
+                "id": "T03-late-after-reset--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016458499943837523,
+              "capture_before_seal_cpu_s": 0.014786999999999995
+            },
+            {
+              "assignment": {
+                "case_id": "T04-reordered-responses",
+                "id": "T04-reordered-responses--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01301808306016028,
+              "capture_before_seal_cpu_s": 0.011781000000000041
+            },
+            {
+              "assignment": {
+                "case_id": "T05-duplicate-before-dispatch",
+                "id": "T05-duplicate-before-dispatch--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013104832964017987,
+              "capture_before_seal_cpu_s": 0.010967999999999867
+            },
+            {
+              "assignment": {
+                "case_id": "T06-duplicate-after-dispatch",
+                "id": "T06-duplicate-after-dispatch--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014986499911174178,
+              "capture_before_seal_cpu_s": 0.01182900000000009
+            },
+            {
+              "assignment": {
+                "case_id": "T07-overlapping-chunks",
+                "id": "T07-overlapping-chunks--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 3,
+              "dispatch_refusals": 3,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01721962494775653,
+              "capture_before_seal_cpu_s": 0.013741999999999921
+            },
+            {
+              "assignment": {
+                "case_id": "T08-configuration-in-flight",
+                "id": "T08-configuration-in-flight--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.016164290951564908,
+              "capture_before_seal_cpu_s": 0.01412100000000005
+            },
+            {
+              "assignment": {
+                "case_id": "T09-unbound-response",
+                "id": "T09-unbound-response--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009119292022660375,
+              "capture_before_seal_cpu_s": 0.007808000000000259
+            },
+            {
+              "assignment": {
+                "case_id": "T10-response-config-mismatch",
+                "id": "T10-response-config-mismatch--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00988879194483161,
+              "capture_before_seal_cpu_s": 0.009072000000000191
+            },
+            {
+              "assignment": {
+                "case_id": "T11-missing-acquisition",
+                "id": "T11-missing-acquisition--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009066916070878506,
+              "capture_before_seal_cpu_s": 0.007559999999999789
+            },
+            {
+              "assignment": {
+                "case_id": "T12-unmapped-clock",
+                "id": "T12-unmapped-clock--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008767874911427498,
+              "capture_before_seal_cpu_s": 0.007854000000000028
+            },
+            {
+              "assignment": {
+                "case_id": "T13-ambiguous-clock",
+                "id": "T13-ambiguous-clock--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010531000094488263,
+              "capture_before_seal_cpu_s": 0.008865000000000123
+            },
+            {
+              "assignment": {
+                "case_id": "T14-deadline-equality",
+                "id": "T14-deadline-equality--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009548333007842302,
+              "capture_before_seal_cpu_s": 0.008690000000000087
+            },
+            {
+              "assignment": {
+                "case_id": "T15-expiry-in-queue",
+                "id": "T15-expiry-in-queue--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018027707934379578,
+              "capture_before_seal_cpu_s": 0.013768000000000225
+            },
+            {
+              "assignment": {
+                "case_id": "T16-unacknowledged-dispatch",
+                "id": "T16-unacknowledged-dispatch--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00901758298277855,
+              "capture_before_seal_cpu_s": 0.007864000000000093
+            },
+            {
+              "assignment": {
+                "case_id": "T17-failed-dispatch",
+                "id": "T17-failed-dispatch--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009019125020131469,
+              "capture_before_seal_cpu_s": 0.008016000000000023
+            },
+            {
+              "assignment": {
+                "case_id": "T18-no-response-observed",
+                "id": "T18-no-response-observed--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 0,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008323791902512312,
+              "capture_before_seal_cpu_s": 0.007270999999999805
+            },
+            {
+              "assignment": {
+                "case_id": "T19-cancellation-is-not-completion",
+                "id": "T19-cancellation-is-not-completion--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010340292006731033,
+              "capture_before_seal_cpu_s": 0.008785000000000487
+            },
+            {
+              "assignment": {
+                "case_id": "T20-inconsistent-clock",
+                "id": "T20-inconsistent-clock--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009116499917581677,
+              "capture_before_seal_cpu_s": 0.008251999999999704
+            }
+          ],
+          "totals": {
+            "requests_sent": 26,
+            "responses_arrived": 27,
+            "control_opportunities": 26,
+            "dispatch_refusals": 26,
+            "dispatch_attempts": 0,
+            "acknowledged": 0,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.2389560816809535,
+            "capture_before_seal_cpu_s": 0.20532900000000076
+          }
+        }
+      ],
+      "same_opportunities_per_case": true
+    },
+    {
+      "population": "exploratory_boundaries",
+      "assignment_count": 30,
+      "groups": [
+        {
+          "remedy": "unfenced_queue_control",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010296124964952469,
+              "capture_before_seal_cpu_s": 0.00886
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01000220887362957,
+              "capture_before_seal_cpu_s": 0.008862999999999982
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.019542749971151352,
+              "capture_before_seal_cpu_s": 0.017329999999999957
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.014621666865423322,
+              "capture_before_seal_cpu_s": 0.012654000000000054
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010214041220024228,
+              "capture_before_seal_cpu_s": 0.008906999999999998
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 7,
+            "acknowledged": 6,
+            "failed": 0,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.06467679189518094,
+            "capture_before_seal_cpu_s": 0.05661399999999999
+          }
+        },
+        {
+          "remedy": "reset_only",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010418749880045652,
+              "capture_before_seal_cpu_s": 0.008687
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009396667126566172,
+              "capture_before_seal_cpu_s": 0.008521
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.022009834181517363,
+              "capture_before_seal_cpu_s": 0.017344000000000026
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.01313237496651709,
+              "capture_before_seal_cpu_s": 0.012406999999999946
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.0104523750487715,
+              "capture_before_seal_cpu_s": 0.009475000000000011
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 7,
+            "acknowledged": 6,
+            "failed": 0,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.06541000120341778,
+            "capture_before_seal_cpu_s": 0.056433999999999984
+          }
+        },
+        {
+          "remedy": "arrival_deadline_only",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009258707985281944,
+              "capture_before_seal_cpu_s": 0.008313999999999988
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010352083947509527,
+              "capture_before_seal_cpu_s": 0.009436999999999973
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.019155750051140785,
+              "capture_before_seal_cpu_s": 0.017067
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.014346833107993007,
+              "capture_before_seal_cpu_s": 0.013418999999999959
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009968292200937867,
+              "capture_before_seal_cpu_s": 0.008767999999999998
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 3,
+            "dispatch_attempts": 4,
+            "acknowledged": 3,
+            "failed": 0,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.06308166729286313,
+            "capture_before_seal_cpu_s": 0.05700499999999992
+          }
+        },
+        {
+          "remedy": "conventional",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010929832933470607,
+              "capture_before_seal_cpu_s": 0.008874999999999994
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009808500064536929,
+              "capture_before_seal_cpu_s": 0.008492999999999973
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.019388042157515883,
+              "capture_before_seal_cpu_s": 0.016919999999999935
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.012144000036641955,
+              "capture_before_seal_cpu_s": 0.011051000000000033
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009027665946632624,
+              "capture_before_seal_cpu_s": 0.007974000000000148
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 5,
+            "dispatch_attempts": 2,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.061298041138798,
+            "capture_before_seal_cpu_s": 0.05331300000000008
+          }
+        },
+        {
+          "remedy": "selected_intervention",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008747207932174206,
+              "capture_before_seal_cpu_s": 0.007978999999999986
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009060709038749337,
+              "capture_before_seal_cpu_s": 0.008172999999999986
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018918874906376004,
+              "capture_before_seal_cpu_s": 0.017181000000000002
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 1,
+              "capture_before_seal_wall_s": 0.012931209057569504,
+              "capture_before_seal_cpu_s": 0.011149999999999993
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.008591665886342525,
+              "capture_before_seal_cpu_s": 0.007902999999999993
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 5,
+            "dispatch_attempts": 2,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 1,
+            "capture_before_seal_wall_s": 0.058249666821211576,
+            "capture_before_seal_cpu_s": 0.05238599999999996
+          }
+        },
+        {
+          "remedy": "drop_all",
+          "assignment_count": 5,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X01-deadline-plus-one",
+                "id": "X01-deadline-plus-one--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011342165991663933,
+              "capture_before_seal_cpu_s": 0.008249000000000006
+            },
+            {
+              "assignment": {
+                "case_id": "X02-deadline-plus-one-shifted",
+                "id": "X02-deadline-plus-one-shifted--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010057833045721054,
+              "capture_before_seal_cpu_s": 0.00918100000000005
+            },
+            {
+              "assignment": {
+                "case_id": "X03-configuration-aba",
+                "id": "X03-configuration-aba--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01777354092337191,
+              "capture_before_seal_cpu_s": 0.016014000000000084
+            },
+            {
+              "assignment": {
+                "case_id": "X04-duplicate-with-lost-first-ack",
+                "id": "X04-duplicate-with-lost-first-ack--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013212999794632196,
+              "capture_before_seal_cpu_s": 0.011943000000000037
+            },
+            {
+              "assignment": {
+                "case_id": "X05-clock-crosses-zero",
+                "id": "X05-clock-crosses-zero--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009823583997786045,
+              "capture_before_seal_cpu_s": 0.008801000000000059
+            }
+          ],
+          "totals": {
+            "requests_sent": 6,
+            "responses_arrived": 7,
+            "control_opportunities": 7,
+            "dispatch_refusals": 7,
+            "dispatch_attempts": 0,
+            "acknowledged": 0,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.06221012375317514,
+            "capture_before_seal_cpu_s": 0.054188000000000236
+          }
+        }
+      ],
+      "same_opportunities_per_case": true
+    },
+    {
+      "population": "precision_refinement",
+      "assignment_count": 6,
+      "groups": [
+        {
+          "remedy": "unfenced_queue_control",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010370041010901332,
+              "capture_before_seal_cpu_s": 0.008994999999999996
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 1,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.010370041010901332,
+            "capture_before_seal_cpu_s": 0.008994999999999996
+          }
+        },
+        {
+          "remedy": "reset_only",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--reset_only",
+                "remedy_id": "reset_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010818332899361849,
+              "capture_before_seal_cpu_s": 0.009306999999999996
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 1,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.010818332899361849,
+            "capture_before_seal_cpu_s": 0.009306999999999996
+          }
+        },
+        {
+          "remedy": "arrival_deadline_only",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--arrival_deadline_only",
+                "remedy_id": "arrival_deadline_only"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.009448499884456396,
+              "capture_before_seal_cpu_s": 0.008499000000000007
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 1,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.009448499884456396,
+            "capture_before_seal_cpu_s": 0.008499000000000007
+          }
+        },
+        {
+          "remedy": "conventional",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.011123290983960032,
+              "capture_before_seal_cpu_s": 0.009067999999999993
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 1,
+            "dispatch_attempts": 0,
+            "acknowledged": 0,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.011123290983960032,
+            "capture_before_seal_cpu_s": 0.009067999999999993
+          }
+        },
+        {
+          "remedy": "selected_intervention",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010285041062161326,
+              "capture_before_seal_cpu_s": 0.008934999999999998
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 1,
+            "dispatch_attempts": 0,
+            "acknowledged": 0,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.010285041062161326,
+            "capture_before_seal_cpu_s": 0.008934999999999998
+          }
+        },
+        {
+          "remedy": "drop_all",
+          "assignment_count": 1,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "X06-deadline-resolution-boundary",
+                "id": "X06-deadline-resolution-boundary--drop_all",
+                "remedy_id": "drop_all"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.00953699997626245,
+              "capture_before_seal_cpu_s": 0.008551000000000003
+            }
+          ],
+          "totals": {
+            "requests_sent": 1,
+            "responses_arrived": 1,
+            "control_opportunities": 1,
+            "dispatch_refusals": 1,
+            "dispatch_attempts": 0,
+            "acknowledged": 0,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.00953699997626245,
+            "capture_before_seal_cpu_s": 0.008551000000000003
+          }
+        }
+      ],
+      "same_opportunities_per_case": true
+    },
+    {
+      "population": "counterexample_reduction",
+      "assignment_count": 22,
+      "groups": [
+        {
+          "remedy": "unfenced_queue_control",
+          "assignment_count": 11,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "R01-delete-observe",
+                "id": "R01-delete-observe--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018238957971334457,
+              "capture_before_seal_cpu_s": 0.016424
+            },
+            {
+              "assignment": {
+                "case_id": "R02-delete-request",
+                "id": "R02-delete-request--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018180042039602995,
+              "capture_before_seal_cpu_s": 0.01632
+            },
+            {
+              "assignment": {
+                "case_id": "R03-delete-configure",
+                "id": "R03-delete-configure--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018689374905079603,
+              "capture_before_seal_cpu_s": 0.016432000000000002
+            },
+            {
+              "assignment": {
+                "case_id": "R04-delete-configure",
+                "id": "R04-delete-configure--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01781979203224182,
+              "capture_before_seal_cpu_s": 0.01604
+            },
+            {
+              "assignment": {
+                "case_id": "R05-delete-response",
+                "id": "R05-delete-response--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 1,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017066832864657044,
+              "capture_before_seal_cpu_s": 0.015385000000000038
+            },
+            {
+              "assignment": {
+                "case_id": "R06-delete-dispatch",
+                "id": "R06-delete-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018705875147134066,
+              "capture_before_seal_cpu_s": 0.016100000000000003
+            },
+            {
+              "assignment": {
+                "case_id": "R07-delete-observe",
+                "id": "R07-delete-observe--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01774195791222155,
+              "capture_before_seal_cpu_s": 0.016040999999999972
+            },
+            {
+              "assignment": {
+                "case_id": "R08-delete-request",
+                "id": "R08-delete-request--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018576207803562284,
+              "capture_before_seal_cpu_s": 0.016542999999999974
+            },
+            {
+              "assignment": {
+                "case_id": "R09-delete-response",
+                "id": "R09-delete-response--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 1,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01767683308571577,
+              "capture_before_seal_cpu_s": 0.01567099999999999
+            },
+            {
+              "assignment": {
+                "case_id": "R10-delete-dispatch",
+                "id": "R10-delete-dispatch--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01777274999767542,
+              "capture_before_seal_cpu_s": 0.015867000000000075
+            },
+            {
+              "assignment": {
+                "case_id": "R11-reuse-original-observation",
+                "id": "R11-reuse-original-observation--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 2,
+              "acknowledged": 2,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018011208157986403,
+              "capture_before_seal_cpu_s": 0.01655300000000004
+            }
+          ],
+          "totals": {
+            "requests_sent": 20,
+            "responses_arrived": 20,
+            "control_opportunities": 20,
+            "dispatch_refusals": 2,
+            "dispatch_attempts": 18,
+            "acknowledged": 18,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.1984798319172114,
+            "capture_before_seal_cpu_s": 0.1773760000000001
+          }
+        },
+        {
+          "remedy": "conventional",
+          "assignment_count": 11,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "R01-delete-observe",
+                "id": "R01-delete-observe--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018618916859850287,
+              "capture_before_seal_cpu_s": 0.015999
+            },
+            {
+              "assignment": {
+                "case_id": "R02-delete-request",
+                "id": "R02-delete-request--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01911608292721212,
+              "capture_before_seal_cpu_s": 0.016546000000000005
+            },
+            {
+              "assignment": {
+                "case_id": "R03-delete-configure",
+                "id": "R03-delete-configure--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017254209145903587,
+              "capture_before_seal_cpu_s": 0.014564000000000021
+            },
+            {
+              "assignment": {
+                "case_id": "R04-delete-configure",
+                "id": "R04-delete-configure--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017539916094392538,
+              "capture_before_seal_cpu_s": 0.01588400000000001
+            },
+            {
+              "assignment": {
+                "case_id": "R05-delete-response",
+                "id": "R05-delete-response--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 1,
+              "control_opportunities": 2,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017525291070342064,
+              "capture_before_seal_cpu_s": 0.01516500000000004
+            },
+            {
+              "assignment": {
+                "case_id": "R06-delete-dispatch",
+                "id": "R06-delete-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017551874974742532,
+              "capture_before_seal_cpu_s": 0.015483000000000025
+            },
+            {
+              "assignment": {
+                "case_id": "R07-delete-observe",
+                "id": "R07-delete-observe--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01722025009803474,
+              "capture_before_seal_cpu_s": 0.015483000000000025
+            },
+            {
+              "assignment": {
+                "case_id": "R08-delete-request",
+                "id": "R08-delete-request--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01775375008583069,
+              "capture_before_seal_cpu_s": 0.01568400000000003
+            },
+            {
+              "assignment": {
+                "case_id": "R09-delete-response",
+                "id": "R09-delete-response--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 1,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.017470542108640075,
+              "capture_before_seal_cpu_s": 0.01592400000000005
+            },
+            {
+              "assignment": {
+                "case_id": "R10-delete-dispatch",
+                "id": "R10-delete-dispatch--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.018001124961301684,
+              "capture_before_seal_cpu_s": 0.016161000000000092
+            },
+            {
+              "assignment": {
+                "case_id": "R11-reuse-original-observation",
+                "id": "R11-reuse-original-observation--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 2,
+              "dispatch_refusals": 2,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01644670800305903,
+              "capture_before_seal_cpu_s": 0.01512099999999994
+            }
+          ],
+          "totals": {
+            "requests_sent": 20,
+            "responses_arrived": 20,
+            "control_opportunities": 20,
+            "dispatch_refusals": 15,
+            "dispatch_attempts": 5,
+            "acknowledged": 5,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.19449866632930934,
+            "capture_before_seal_cpu_s": 0.17201400000000022
+          }
+        }
+      ],
+      "same_opportunities_per_case": true
+    },
+    {
+      "population": "request_binding_regression",
+      "assignment_count": 6,
+      "groups": [
+        {
+          "remedy": "unfenced_queue_control",
+          "assignment_count": 2,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "Q01-request-before-observation",
+                "id": "Q01-request-before-observation--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.01227108296006918,
+              "capture_before_seal_cpu_s": 0.009683000000000004
+            },
+            {
+              "assignment": {
+                "case_id": "Q02-fresh-request-after-observation",
+                "id": "Q02-fresh-request-after-observation--unfenced_queue_control",
+                "remedy_id": "unfenced_queue_control"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014799708966165781,
+              "capture_before_seal_cpu_s": 0.013032999999999989
+            }
+          ],
+          "totals": {
+            "requests_sent": 3,
+            "responses_arrived": 3,
+            "control_opportunities": 2,
+            "dispatch_refusals": 0,
+            "dispatch_attempts": 2,
+            "acknowledged": 2,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.02707079192623496,
+            "capture_before_seal_cpu_s": 0.022715999999999993
+          }
+        },
+        {
+          "remedy": "conventional",
+          "assignment_count": 2,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "Q01-request-before-observation",
+                "id": "Q01-request-before-observation--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010565999895334244,
+              "capture_before_seal_cpu_s": 0.009305999999999995
+            },
+            {
+              "assignment": {
+                "case_id": "Q02-fresh-request-after-observation",
+                "id": "Q02-fresh-request-after-observation--conventional",
+                "remedy_id": "conventional"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.013535500038415194,
+              "capture_before_seal_cpu_s": 0.012452000000000019
+            }
+          ],
+          "totals": {
+            "requests_sent": 3,
+            "responses_arrived": 3,
+            "control_opportunities": 2,
+            "dispatch_refusals": 1,
+            "dispatch_attempts": 1,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.024101499933749437,
+            "capture_before_seal_cpu_s": 0.021758000000000013
+          }
+        },
+        {
+          "remedy": "selected_intervention",
+          "assignment_count": 2,
+          "assignments": [
+            {
+              "assignment": {
+                "case_id": "Q01-request-before-observation",
+                "id": "Q01-request-before-observation--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 1,
+              "responses_arrived": 1,
+              "control_opportunities": 1,
+              "dispatch_refusals": 1,
+              "dispatch_attempts": 0,
+              "acknowledged": 0,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.010028333170339465,
+              "capture_before_seal_cpu_s": 0.008847000000000008
+            },
+            {
+              "assignment": {
+                "case_id": "Q02-fresh-request-after-observation",
+                "id": "Q02-fresh-request-after-observation--selected_intervention",
+                "remedy_id": "selected_intervention"
+              },
+              "requests_sent": 2,
+              "responses_arrived": 2,
+              "control_opportunities": 1,
+              "dispatch_refusals": 0,
+              "dispatch_attempts": 1,
+              "acknowledged": 1,
+              "failed": 0,
+              "unacknowledged": 0,
+              "capture_before_seal_wall_s": 0.014683624962344766,
+              "capture_before_seal_cpu_s": 0.012657000000000002
+            }
+          ],
+          "totals": {
+            "requests_sent": 3,
+            "responses_arrived": 3,
+            "control_opportunities": 2,
+            "dispatch_refusals": 1,
+            "dispatch_attempts": 1,
+            "acknowledged": 1,
+            "failed": 0,
+            "unacknowledged": 0,
+            "capture_before_seal_wall_s": 0.02471195813268423,
+            "capture_before_seal_cpu_s": 0.02150400000000001
+          }
+        }
+      ],
+      "same_opportunities_per_case": true
+    }
+  ],
+  "current_read_costs_before_final_write": {
+    "wall_s": 0.0026363329961895943,
+    "cpu_s": 0.0021340000000000005
+  },
+  "boundary": "Observed local software operations, not valid actions, task success or inferred false refusals. Historical capture meters are nested in original command costs and are never added again. Populations stay separate; different refused/attempted counts do not establish a decision or economic advantage.",
+  "new_executions": 0
+}

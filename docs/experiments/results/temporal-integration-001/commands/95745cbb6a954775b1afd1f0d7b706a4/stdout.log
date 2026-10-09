@@ -1,0 +1,152 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_stale_incoming_chunk_preserves_the_fresh_queued_action __________
+
+    def test_stale_incoming_chunk_preserves_the_fresh_queued_action():
+        case, remedy = declared_case("frozen-admission-conformance.v1.json", "Y03")
+        events = execute(case, remedy)
+        incoming = next(e for e in events if e["kind"] == "queue_admitted" and e["chunk_id"] == "c1")
+>       assert incoming["admitted"] == []
+E       assert [0] == []
+E         
+E         Left contains one more item: 0
+E         Use -v to get more diff
+
+tests/engine/test_temporal_combined_deadline.py:34: AssertionError
+___________ test_fresh_admission_does_not_authorize_expired_dispatch ___________
+
+    def test_fresh_admission_does_not_authorize_expired_dispatch():
+        case, remedy = declared_case("frozen-suite.v2.json", "T15")
+        events = execute(case, remedy)
+        sent = [e for e in events if e["kind"] == "action_dispatched"]
+>       assert [e["value"] for e in sent] == [10]
+E       assert [1] == [10]
+E         
+E         At index 0 diff: 1 != 10
+E         Use -v to get more diff
+
+tests/engine/test_temporal_combined_deadline.py:46: AssertionError
+____________________ test_inclusive_deadline_remains_useful ____________________
+
+    def test_inclusive_deadline_remains_useful():
+        case, remedy = declared_case("frozen-suite.v2.json", "T14")
+        sent = [e for e in execute(case, remedy) if e["kind"] == "action_dispatched"]
+        assert [e["value"] for e in sent] == [1]
+>       assert sent[0]["age_guard"]["upper_ns"] == 50_000_000
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: 'NoneType' object is not subscriptable
+
+tests/engine/test_temporal_combined_deadline.py:57: TypeError
+_ test_absent_or_ambiguous_age_cannot_enter_the_queue[frozen-suite.v2.json-T11] _
+
+filename = 'frozen-suite.v2.json', prefix = 'T11'
+
+    @pytest.mark.parametrize(
+        "filename,prefix",
+        [("frozen-suite.v2.json", "T11"), ("frozen-clock-conformance.v1.json", "C02")],
+    )
+    def test_absent_or_ambiguous_age_cannot_enter_the_queue(filename, prefix):
+        case, remedy = declared_case(filename, prefix)
+        events = execute(case, remedy)
+>       assert not any(e["kind"] == "action_dispatched" for e in events)
+E       assert not True
+E        +  where True = any(<generator object test_absent_or_ambiguous_age_cannot_enter_the_queue.<locals>.<genexpr> at 0x10475e5a0>)
+
+tests/engine/test_temporal_combined_deadline.py:67: AssertionError
+_ test_absent_or_ambiguous_age_cannot_enter_the_queue[frozen-clock-conformance.v1.json-C02] _
+
+filename = 'frozen-clock-conformance.v1.json', prefix = 'C02'
+
+    @pytest.mark.parametrize(
+        "filename,prefix",
+        [("frozen-suite.v2.json", "T11"), ("frozen-clock-conformance.v1.json", "C02")],
+    )
+    def test_absent_or_ambiguous_age_cannot_enter_the_queue(filename, prefix):
+        case, remedy = declared_case(filename, prefix)
+        events = execute(case, remedy)
+>       assert not any(e["kind"] == "action_dispatched" for e in events)
+E       assert not True
+E        +  where True = any(<generator object test_absent_or_ambiguous_age_cannot_enter_the_queue.<locals>.<genexpr> at 0x10475e190>)
+
+tests/engine/test_temporal_combined_deadline.py:67: AssertionError
+__________ test_combined_option_is_an_explicit_validated_declaration ___________
+
+    def test_combined_option_is_an_explicit_validated_declaration():
+        case, remedy = declared_case("frozen-suite.v2.json", "T14")
+        suite = json.loads(DEFAULT_SUITE.read_bytes())
+        suite.update(
+            cases=[case],
+            remedies=[remedy],
+            assignments=[
+                {"id": case["id"] + "--" + remedy["id"], "case_id": case["id"], "remedy_id": remedy["id"]}
+            ],
+        )
+>       validate_suite(suite)
+
+tests/engine/test_temporal_combined_deadline.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+suite = {'schema': 'nisayon.temporal-suite.v1', 'id': 'temporal-integration-001', 'protocol_revision': 2, 'supersedes_before_e...cccf3fb03454fa5e64f9aab034f192e742ec6607d11381d0b9930', 'assignment_count': 120, 'attempted_assignments': 0, ...}, ...}
+
+    def validate_suite(suite: dict) -> None:
+        if not isinstance(suite, dict):
+            raise ValueError("Temporal suite must be an object")
+        if suite.get("schema") != "nisayon.temporal-suite.v1":
+            raise ValueError("Unsupported temporal suite schema")
+        cases, remedies, assignments = (
+            suite.get(name) for name in ("cases", "remedies", "assignments")
+        )
+        if any(
+            not isinstance(rows, list) or not all(isinstance(row, dict) for row in rows)
+            for rows in (cases, remedies, assignments)
+        ):
+            raise ValueError("Cases, remedies and assignments must be lists of objects")
+        if not 1 <= len(cases) <= 32 or not 1 <= len(remedies) <= 16:
+            raise ValueError("Suite exceeds the bounded implementation limits")
+        for rows, label in ((cases, "case"), (remedies, "remedy"), (assignments, "assignment")):
+            ids = [r.get("id") for r in rows]
+            if any(
+                not isinstance(v, str)
+                or not v
+                or any(
+                    c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_"
+                    for c in v
+                )
+                for v in ids
+            ) or len(ids) != len(set(ids)):
+                raise ValueError(f"Duplicate or unsafe {label} identity")
+        expected = [
+            {"id": c["id"] + "--" + r["id"], "case_id": c["id"], "remedy_id": r["id"]}
+            for c in cases
+            for r in remedies
+        ]
+        if assignments != expected:
+            raise ValueError("Every case/remedy assignment must be present in frozen order")
+        for case in cases:
+            _validate_case(case)
+        required = {
+            "reset_queue",
+            "bind_request",
+            "bind_configuration",
+            "fence_generation",
+            "deduplicate",
+            "ordered_overlap",
+            "drop_all",
+        }
+        for remedy in remedies:
+            if (
+                any(type(remedy.get(key)) is not bool for key in required)
+                or not isinstance(remedy.get("deadline_check"), str)
+                or remedy["deadline_check"] not in {"none", "arrival", "dispatch"}
+            ):
+>               raise ValueError("Unsupported remedy")
+E               ValueError: Unsupported remedy
+
+src/nisayon/engine/temporal_experiment.py:233: ValueError
+=========================== short test summary info ============================
+FAILED tests/engine/test_temporal_combined_deadline.py::test_stale_incoming_chunk_preserves_the_fresh_queued_action
+FAILED tests/engine/test_temporal_combined_deadline.py::test_fresh_admission_does_not_authorize_expired_dispatch
+FAILED tests/engine/test_temporal_combined_deadline.py::test_inclusive_deadline_remains_useful
+FAILED tests/engine/test_temporal_combined_deadline.py::test_absent_or_ambiguous_age_cannot_enter_the_queue[frozen-suite.v2.json-T11]
+FAILED tests/engine/test_temporal_combined_deadline.py::test_absent_or_ambiguous_age_cannot_enter_the_queue[frozen-clock-conformance.v1.json-C02]
+FAILED tests/engine/test_temporal_combined_deadline.py::test_combined_option_is_an_explicit_validated_declaration

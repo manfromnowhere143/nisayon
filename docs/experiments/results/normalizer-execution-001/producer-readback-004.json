@@ -1,0 +1,148 @@
+{
+  "schema": "nisayon.normalizer-execution-producer-readback.v1",
+  "case_id": "normalizer-execution-001",
+  "producer_id": "producer-004",
+  "recorded_at": "2026-09-21T05:29:08.387972Z",
+  "source_commit": "4d208a8d4519c12325ebcefcf06223b39347388d",
+  "integrated_evaluation_delivery": {
+    "delivery": "a4b153d3cd4942358f9c70cb1f0d61b55ece5cf0",
+    "merge_commit": "b3d98673111c46b2672fcf8cc5db29592659d3cb"
+  },
+  "case_chain": [
+    {
+      "schema": "nisayon.normalizer-execution-case.v1",
+      "path": "docs/experiments/results/normalizer-execution-001/case.v1.json",
+      "sha256": "88c9fed3d4159c2ff136c6098da3cf14ff33a4d10e1bb699a2e2901379c627c2"
+    },
+    {
+      "schema": "nisayon.normalizer-execution-case-amendment.v1",
+      "path": "docs/experiments/results/normalizer-execution-001/control-amendment-001.json",
+      "sha256": "e4138992a56a81fb4fde4c7b6cac651a3cb0279e5dd4197f0604643c44cf4080",
+      "contract_v1_1_sha256": "49e842e373b9540fa7268cf432b0802ce8fa5987fb344a151595ffdafb7a7b04"
+    }
+  ],
+  "store": {
+    "path": "artifacts/normalizer-execution-001/producer-004",
+    "seal_sha256": "c5c45397301a0f5c75aa4b0dfa0989a9f251b28199137564b81d1a3407b9af20",
+    "summary_sha256": "96469d6d66952f9e993f72cee33da0f6b49d7cf4f1c53f48d0ef3e9e377d7b75",
+    "manifest_entries": 81,
+    "files_after_seal": 84,
+    "logical_bytes_after_seal": 1782546,
+    "producer_command_record_id": "2bfe11d173a34edd890699d9343e811b",
+    "inspection_command_record_id": "1c35db28a77446578e30066bdacee56b",
+    "integrity": "verified"
+  },
+  "real_results": {
+    "membership_rows": 43,
+    "all_rows_coverage_pass": 1406,
+    "fresh_subset_statistics_exactly_match_prior_qualification": true,
+    "keep": {
+      "operation": "keep_existing",
+      "status": "supported",
+      "selection_procedure": "supported",
+      "effective_map_binding": "supported at 0 ulp against the producer emulation",
+      "persistence": "supported at exact output equality",
+      "selected_exactly_obligation": true,
+      "outer_matches_nested": false,
+      "run_sha256": "64faa3f1c1b4872d65fd19cf3c27cb9b38017ea24d91bc205ad7b5762f4e3b1c"
+    },
+    "replace": {
+      "operation": "replace_with_candidate",
+      "status": "rejected",
+      "selection_procedure": "supported",
+      "effective_map_binding": "rejected",
+      "persistence": "supported at exact output equality",
+      "selected_exactly_obligation": false,
+      "outer_matches_nested": true,
+      "witness": {
+        "group": "action.pitch",
+        "membership_index": 0,
+        "coordinate_index": 0,
+        "candidate_output": 0.18934905529022217,
+        "parent_obligation_output": 0.01967799663543701,
+        "dtype": "float32"
+      },
+      "run_sha256": "2ae3b60ae5b453bbea24291bb7eb6716ff2fd25dbcf61926e38099ed709280d9"
+    }
+  },
+  "coverage": {
+    "outside_parent_minmax_values": 0,
+    "outside_parent_minmax_rows": 0,
+    "outside_parent_q01_q99_values": 539,
+    "state_rows_outside_q01_q99": 247,
+    "action_rows_outside_q01_q99": 240,
+    "interpretation": "The real rows exercise quantile tails but not parent min/max clipping. The replacement changes executed preprocessing; no task harm or deployment outcome follows from that fact."
+  },
+  "controls": {
+    "count": 23,
+    "status_counts": {
+      "supported": 14,
+      "rejected": 2,
+      "invalid": 4,
+      "unresolved": 2,
+      "observed": 1
+    },
+    "v1_1_alignment": "NX5d consumes the exact amendment values and returns invalid after retaining a float32 -Infinity state output; all other setups inherit v1 unchanged",
+    "nx5d": {
+      "amendment_sha256": "e4138992a56a81fb4fde4c7b6cac651a3cb0279e5dd4197f0604643c44cf4080",
+      "state_output": "-Infinity",
+      "state_output_raw_bytes_sha256": "d9265d7acb11b75517ee713afcd928260e65557829bab071f03d67ee93edb8ea",
+      "action_output": 0.0,
+      "operation": "invalid",
+      "status": "invalid"
+    },
+    "source_counter_control": "refused before transport at 12/12",
+    "network_guard_control": "refused before transport and recorded one denied attempt"
+  },
+  "retained_predecessors": [
+    {
+      "id": "producer-001",
+      "record": "producer-failure-001.json",
+      "status": "failed_unsealed"
+    },
+    {
+      "id": "producer-002",
+      "record": "producer-failure-002.json",
+      "status": "failed_unsealed"
+    },
+    {
+      "id": "producer-003",
+      "record": "producer-readback-003.json",
+      "status": "sealed_v1_not_final_v1_1_target"
+    }
+  ],
+  "costs": {
+    "producer_outer_wall_seconds": 0.484302,
+    "producer_inner_wall_seconds_before_seal_nested_not_added": 0.16535612498410046,
+    "producer_process_cpu_seconds": 0.12406000000000006,
+    "inspection_outer_wall_seconds": 0.3242,
+    "new_source_requests": 0,
+    "new_source_body_bytes": 0,
+    "new_dependency_body_bytes": 0,
+    "active_engineering_effort": null,
+    "provider_charges": null,
+    "energy": null,
+    "peak_memory": null
+  },
+  "resources": {
+    "execution_artifact_reservation_bytes": 8388608,
+    "producer_004_logical_bytes": 1782546,
+    "producer_001_004_combined_logical_bytes": 6817749,
+    "diagnostic_process_cpu_cap_seconds": 120,
+    "producer_004_process_cpu_seconds": 0.12406000000000006,
+    "source_phase_responses": 6,
+    "source_phase_body_bytes": 102904,
+    "source_requests_remaining_unused": 6,
+    "source_body_bytes_remaining_unused": 1994248
+  },
+  "scope": {
+    "software_correctness": "executed and sealed; independent assessment pending",
+    "deployment_applicability": "unresolved; no historical training or inference selector was observed",
+    "comparative_value": "pending the separately authored conventional diagnostic on the same rows and v1.1 controls",
+    "software_correction_to_upstream": "none proposed",
+    "model_or_policy_executions": 0,
+    "simulator_or_robot_executions": 0,
+    "reserved_incidents_accessed": 0,
+    "publication_or_push": false
+  }
+}

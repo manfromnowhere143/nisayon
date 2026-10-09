@@ -1,0 +1,4003 @@
+{
+  "schema": "nisayon.temporal-admission-conformance.v1",
+  "execution_source_commit": "601b0b8e072b4a439c09e4fc5305dbf44aaa7e46",
+  "evaluation_delivery": "8e5465051a583823ce8bf3914846e71046fbdeee",
+  "reference_module_sha256": "83b7618a204d0c1aacdb9dac072c370e0084ac1ed51b9eba54def2a2d415996b",
+  "capture": {
+    "assigned": 8,
+    "complete": 8,
+    "legacy_contracts": {
+      "violated": 8
+    },
+    "assigned_contracts": {
+      "satisfied": 4,
+      "violated": 4
+    },
+    "process_cpu_s_before_final_write": 0.6539,
+    "retained_bytes_before_final_write": 3257915,
+    "allocation_cpu_s": 10,
+    "allocation_bytes": 8388608,
+    "new_simulator_executions": 0,
+    "boundary": "New exposed software queue-admission controls; original comparisons and remedies unchanged"
+  },
+  "frozen_suite_sha256": "d41a436943693af4425dbd414985b67814cb1407c5b07bf8fc3635617cc3c951",
+  "assignments": [
+    {
+      "assignment": {
+        "case_id": "Y01-fresh-queued-action",
+        "id": "Y01-fresh-queued-action--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "a59d7e844ea127f6f25f64c043f71ea56a12196b4e2d2da1fdc4b0335ba2e679",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y01-fresh-queued-action-delivery-2",
+          "input_id": "Y01-fresh-queued-action-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": null,
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y01-fresh-queued-action-input-03:send",
+          "generation": 0,
+          "input_id": "Y01-fresh-queued-action-input-03",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 5,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 1
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y01-fresh-queued-action-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "same_clock",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y01-fresh-queued-action-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y01-fresh-queued-action-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y01-fresh-queued-action",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y01-fresh-queued-action-input-03:send",
+              "dispatch_id": "Y01-fresh-queued-action-input-03:send",
+              "failures": 0,
+              "input_id": "Y01-fresh-queued-action-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.011320999999999998,
+        "capture_before_seal_wall_s": 0.013606415828689933,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 21970944,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.284290+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y01-fresh-queued-action",
+        "id": "Y01-fresh-queued-action--conventional",
+        "remedy_id": "conventional"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "3b2b6f818c690706d7bcd589cb6600cf612e83bb2b261e0f5d409130604c9dc9",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y01-fresh-queued-action-delivery-2",
+          "input_id": "Y01-fresh-queued-action-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": {
+            "lower_ns": 20000000,
+            "reason": "age_within_inclusive_deadline",
+            "status": "within",
+            "upper_ns": 20000000
+          },
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y01-fresh-queued-action-input-03:send",
+          "generation": 0,
+          "input_id": "Y01-fresh-queued-action-input-03",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 5,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 1
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y01-fresh-queued-action-input-03:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "same_clock",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y01-fresh-queued-action-input-03:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y01-fresh-queued-action-input-03",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y01-fresh-queued-action",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y01-fresh-queued-action-input-03:send",
+              "dispatch_id": "Y01-fresh-queued-action-input-03:send",
+              "failures": 0,
+              "input_id": "Y01-fresh-queued-action-input-03",
+              "outcome": "acknowledged",
+              "seq": 5,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.010643000000000014,
+        "capture_before_seal_wall_s": 0.012199708027765155,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 23789568,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.322035+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y02-rejected-conflicting-delivery",
+        "id": "Y02-rejected-conflicting-delivery--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "277864579ea16183b03908f9a116b557688219ab9b7f489484cdad7c7eb3bf9c",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-2",
+          "input_id": "Y02-rejected-conflicting-delivery-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5",
+          "input_id": "Y02-rejected-conflicting-delivery-input-05",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [
+            "c0:0"
+          ],
+          "seq": 8,
+          "skipped": []
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": null,
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y02-rejected-conflicting-delivery-input-06:send",
+          "generation": 0,
+          "input_id": "Y02-rejected-conflicting-delivery-input-06",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 9,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 99
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y02-rejected-conflicting-delivery-input-06:send",
+            "chain_lower_bound": 8000000,
+            "chronology": "same_clock",
+            "classification": "beyond",
+            "interval_used": [
+              120000000,
+              120000000
+            ],
+            "mapped_interval": [
+              120000000,
+              120000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y02-rejected-conflicting-delivery-input-06:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y02-rejected-conflicting-delivery-input-06",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": false
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y02-rejected-conflicting-delivery",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y02-rejected-conflicting-delivery-input-06:send",
+              "dispatch_id": "Y02-rejected-conflicting-delivery-input-06:send",
+              "failures": 0,
+              "input_id": "Y02-rejected-conflicting-delivery-input-06",
+              "outcome": "acknowledged",
+              "seq": 9,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": false,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q1"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [
+              {
+                "detail": "action c0:0 age [120000000, 120000000] exceeds the limit 50000000",
+                "predicate": "freshness",
+                "seq": 9,
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [
+          {
+            "chunk_id": "c0",
+            "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5",
+            "seq": 7
+          }
+        ],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.014258000000000007,
+        "capture_before_seal_wall_s": 0.01585437497124076,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 25001984,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.357300+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y02-rejected-conflicting-delivery",
+        "id": "Y02-rejected-conflicting-delivery--conventional",
+        "remedy_id": "conventional"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "1da875dd30c03a7e3e41ae00d9b3d6ae34b909e98ae9242854e52aea36949e77",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-2",
+          "input_id": "Y02-rejected-conflicting-delivery-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "skipped",
+              "ordinal": 0,
+              "reason": "chunk_identity_collision"
+            }
+          ],
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5",
+          "input_id": "Y02-rejected-conflicting-delivery-input-05",
+          "kind": "queue_admitted",
+          "reason": "chunk_identity_collision",
+          "replaced": [],
+          "seq": 8,
+          "skipped": [
+            0
+          ]
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": {
+            "lower_ns": 20000000,
+            "reason": "age_within_inclusive_deadline",
+            "status": "within",
+            "upper_ns": 20000000
+          },
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y02-rejected-conflicting-delivery-input-06:send",
+          "generation": 0,
+          "input_id": "Y02-rejected-conflicting-delivery-input-06",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 9,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 1
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y02-rejected-conflicting-delivery-input-06:send",
+            "chain_lower_bound": 8000000,
+            "chronology": "same_clock",
+            "classification": "beyond",
+            "interval_used": [
+              120000000,
+              120000000
+            ],
+            "mapped_interval": [
+              120000000,
+              120000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y02-rejected-conflicting-delivery-input-06:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y02-rejected-conflicting-delivery-input-06",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": false
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y02-rejected-conflicting-delivery",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y02-rejected-conflicting-delivery-input-06:send",
+              "dispatch_id": "Y02-rejected-conflicting-delivery-input-06:send",
+              "failures": 0,
+              "input_id": "Y02-rejected-conflicting-delivery-input-06",
+              "outcome": "acknowledged",
+              "seq": 9,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": false,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q1"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [
+              {
+                "detail": "action c0:0 age [120000000, 120000000] exceeds the limit 50000000",
+                "predicate": "freshness",
+                "seq": 9,
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [
+          {
+            "chunk_id": "c0",
+            "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5",
+            "seq": 7
+          }
+        ],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.013390999999999986,
+        "capture_before_seal_wall_s": 0.01513991691172123,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26329088,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.405219+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y03-stale-distinct-replacement",
+        "id": "Y03-stale-distinct-replacement--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "67e5a0071666244c8fbda0aae04d489459a5ae935f9cb5e8cd70287bee9c9713",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-2",
+          "input_id": "Y03-stale-distinct-replacement-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c1",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-5",
+          "input_id": "Y03-stale-distinct-replacement-input-05",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [
+            "c0:0"
+          ],
+          "seq": 8,
+          "skipped": []
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c1:0",
+          "activation": 0,
+          "age_guard": null,
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c1",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y03-stale-distinct-replacement-input-06:send",
+          "generation": 0,
+          "input_id": "Y03-stale-distinct-replacement-input-06",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 9,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 99
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c1:0",
+            "attempt": "Y03-stale-distinct-replacement-input-06:send",
+            "chain_lower_bound": 8000000,
+            "chronology": "same_clock",
+            "classification": "beyond",
+            "interval_used": [
+              120000000,
+              120000000
+            ],
+            "mapped_interval": [
+              120000000,
+              120000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y03-stale-distinct-replacement-input-06:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y03-stale-distinct-replacement-input-06",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": false
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y03-stale-distinct-replacement",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c1:0",
+              "attempt": "Y03-stale-distinct-replacement-input-06:send",
+              "dispatch_id": "Y03-stale-distinct-replacement-input-06:send",
+              "failures": 0,
+              "input_id": "Y03-stale-distinct-replacement-input-06",
+              "outcome": "acknowledged",
+              "seq": 9,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": false,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            },
+            "c1": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q1"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c1:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [
+              {
+                "detail": "action c1:0 age [120000000, 120000000] exceeds the limit 50000000",
+                "predicate": "freshness",
+                "seq": 9,
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.013689000000000007,
+        "capture_before_seal_wall_s": 0.01514016604050994,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 26984448,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.451412+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y03-stale-distinct-replacement",
+        "id": "Y03-stale-distinct-replacement--conventional",
+        "remedy_id": "conventional"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "e6eafff9612c7bcc55daaeb447ab344734b0017ade1f51ed62c67c30eb62c3ea",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-2",
+          "input_id": "Y03-stale-distinct-replacement-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c1",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-5",
+          "input_id": "Y03-stale-distinct-replacement-input-05",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [
+            "c0:0"
+          ],
+          "seq": 8,
+          "skipped": []
+        }
+      ],
+      "dispatches": [],
+      "refusals": [
+        {
+          "action_id": "c1:0",
+          "age_guard": {
+            "lower_ns": 120000000,
+            "reason": "age_exceeds_deadline",
+            "status": "overdue",
+            "upper_ns": 120000000
+          },
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c1",
+          "generation": 0,
+          "input_id": "Y03-stale-distinct-replacement-input-06",
+          "kind": "dispatch_refused",
+          "ordinal": 0,
+          "reason": "dispatch_age_overdue",
+          "seq": 9,
+          "step": 0
+        }
+      ],
+      "reference_assessment": {
+        "age_readings": [],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "violated",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 0,
+          "opportunities_dispatched": 0,
+          "opportunities_observed": 1,
+          "opportunities_refused": 1,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 0,
+          "opportunities_valid_acknowledged": 0,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 0,
+          "rows": [
+            {
+              "acknowledged": null,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [],
+              "counted": "refused",
+              "input_id": "Y03-stale-distinct-replacement-input-06",
+              "observed": [
+                "refusal"
+              ],
+              "refusal_reasons": [
+                "dispatch_age_overdue"
+              ],
+              "valid": null
+            }
+          ],
+          "scope": "whole_case",
+          "status": "violated",
+          "valid_acknowledged_status": "violated"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y03-stale-distinct-replacement",
+        "controller_clock": "controller",
+        "dispatch_refusals": 1,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {}
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            },
+            "c1": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q1"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [],
+          "generation": 0,
+          "queued_action_ids": [
+            "c1:0"
+          ],
+          "steps_dispatched": {},
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 0 of 1 opportunities units carried a dispatch (coverage 0.000 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "opportunities",
+              "coverage": 0.0,
+              "dispatched": 0,
+              "ticks": 1,
+              "window": null
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.014032000000000017,
+        "capture_before_seal_wall_s": 0.015684959013015032,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 27852800,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.497184+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y04-rejected-identical-delivery",
+        "id": "Y04-rejected-identical-delivery--unfenced_queue_control",
+        "remedy_id": "unfenced_queue_control"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "4978cea064604869548eca452ddb6b38d631dc966f7df89d83dc031bcd6b55bc",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-2",
+          "input_id": "Y04-rejected-identical-delivery-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-3",
+          "input_id": "Y04-rejected-identical-delivery-input-03",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [
+            "c0:0"
+          ],
+          "seq": 6,
+          "skipped": []
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": null,
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y04-rejected-identical-delivery-input-04:send",
+          "generation": 0,
+          "input_id": "Y04-rejected-identical-delivery-input-04",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 7,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 1
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y04-rejected-identical-delivery-input-04:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "same_clock",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y04-rejected-identical-delivery-input-04:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y04-rejected-identical-delivery-input-04",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y04-rejected-identical-delivery",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y04-rejected-identical-delivery-input-04:send",
+              "dispatch_id": "Y04-rejected-identical-delivery-input-04:send",
+              "failures": 0,
+              "input_id": "Y04-rejected-identical-delivery-input-04",
+              "outcome": "acknowledged",
+              "seq": 7,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [
+          {
+            "chunk_id": "c0",
+            "delivery_id": "Y04-rejected-identical-delivery-delivery-3",
+            "seq": 5
+          }
+        ],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.01090399999999997,
+        "capture_before_seal_wall_s": 0.012108332943171263,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 28540928,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.542543+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    },
+    {
+      "assignment": {
+        "case_id": "Y04-rejected-identical-delivery",
+        "id": "Y04-rejected-identical-delivery--conventional",
+        "remedy_id": "conventional"
+      },
+      "integrity": "verified_complete_store",
+      "process_outcome": "completed",
+      "trace_sha256": "6a15b3cb50d04116f90df383e612d9b5ddcaf1eedb5af0ec1dedad91f930fd4b",
+      "admissions": [
+        {
+          "admitted": [
+            0
+          ],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 10000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "admitted",
+              "ordinal": 0,
+              "reason": "admitted"
+            }
+          ],
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-2",
+          "input_id": "Y04-rejected-identical-delivery-input-02",
+          "kind": "queue_admitted",
+          "reason": "admitted",
+          "replaced": [],
+          "seq": 4,
+          "skipped": []
+        },
+        {
+          "admitted": [],
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 14000000
+          },
+          "chunk_id": "c0",
+          "decisions": [
+            {
+              "disposition": "skipped",
+              "ordinal": 0,
+              "reason": "duplicate_chunk"
+            }
+          ],
+          "delivery_id": "Y04-rejected-identical-delivery-delivery-3",
+          "input_id": "Y04-rejected-identical-delivery-input-03",
+          "kind": "queue_admitted",
+          "reason": "duplicate_chunk",
+          "replaced": [],
+          "seq": 6,
+          "skipped": [
+            0
+          ]
+        }
+      ],
+      "dispatches": [
+        {
+          "action_id": "c0:0",
+          "activation": 0,
+          "age_guard": {
+            "lower_ns": 20000000,
+            "reason": "age_within_inclusive_deadline",
+            "status": "within",
+            "upper_ns": 20000000
+          },
+          "at": {
+            "clock": "controller",
+            "unit": "ns",
+            "value": 20000000
+          },
+          "chunk_id": "c0",
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatch_id": "Y04-rejected-identical-delivery-input-04:send",
+          "generation": 0,
+          "input_id": "Y04-rejected-identical-delivery-input-04",
+          "kind": "action_dispatched",
+          "ordinal": 0,
+          "seq": 7,
+          "sink": "scripted_software_call",
+          "step": 0,
+          "target_step": 0,
+          "value": 1
+        }
+      ],
+      "refusals": [],
+      "reference_assessment": {
+        "age_readings": [
+          {
+            "action_id": "c0:0",
+            "attempt": "Y04-rejected-identical-delivery-input-04:send",
+            "chain_lower_bound": 20000000,
+            "chronology": "same_clock",
+            "classification": "within",
+            "interval_used": [
+              20000000,
+              20000000
+            ],
+            "mapped_interval": [
+              20000000,
+              20000000
+            ],
+            "max_age": 50000000,
+            "non_integer_inputs": false,
+            "premise": null
+          }
+        ],
+        "assessment_version": {
+          "changes": [
+            "configuration_binding follows the activation context derived from recorded configuration_changed transitions (a content hash that returns is a new context)",
+            "acknowledgement binds to the send attempt (dispatch_id), not to the action id",
+            "freshness adjudicates chronology explicitly: a mapped interval admitting negative ages is unresolved unless same-clock chain evidence bounds the age from below",
+            "age and grid arithmetic are exact (no float conversion of stamps)",
+            "assigned_usefulness reads the producer's frozen whole-case opportunity contract; useful_execution keeps the version-1 grid meaning under its original name",
+            "retrospective chunk_target_alignment and observation_context are reported outside the frozen nine-predicate contract"
+          ],
+          "retrospective": "version 2 was implemented after every retained trace of temporal-integration-001 had been executed; earlier version-1 results are kept",
+          "schema": "nisayon.temporal-assessment.v2",
+          "supersedes": "nisayon.temporal-assessment.v1"
+        },
+        "assigned_contract": "satisfied",
+        "assigned_usefulness": {
+          "basis": "frozen_case_dispatch_target",
+          "membership": "valid",
+          "membership_problems": [],
+          "minimum_dispatches": 1,
+          "opportunities": 1,
+          "opportunities_acknowledged": 1,
+          "opportunities_dispatched": 1,
+          "opportunities_observed": 1,
+          "opportunities_refused": 0,
+          "opportunities_unobserved": [],
+          "opportunities_valid": 1,
+          "opportunities_valid_acknowledged": 1,
+          "opportunities_validity_unresolved": 0,
+          "premise": "a frozen opportunity is counted as dispatched when at least one software send attempt was recorded for it; validity and acknowledgement are separate counts",
+          "raw_dispatch_attempts": 1,
+          "rows": [
+            {
+              "acknowledged": true,
+              "at": {
+                "clock": "controller",
+                "unit": "ns",
+                "value": 20000000
+              },
+              "attempts": [
+                "Y04-rejected-identical-delivery-input-04:send"
+              ],
+              "counted": "dispatched",
+              "input_id": "Y04-rejected-identical-delivery-input-04",
+              "observed": [
+                "dispatch"
+              ],
+              "refusal_reasons": [],
+              "valid": true
+            }
+          ],
+          "scope": "whole_case",
+          "status": "satisfied",
+          "valid_acknowledged_status": "satisfied"
+        },
+        "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success",
+        "case_id": "Y04-rejected-identical-delivery",
+        "controller_clock": "controller",
+        "dispatch_refusals": 0,
+        "evidence": {
+          "activation_contradictions": [],
+          "activation_transitions": [],
+          "attempts": [
+            {
+              "acknowledgements": 1,
+              "action_id": "c0:0",
+              "attempt": "Y04-rejected-identical-delivery-input-04:send",
+              "dispatch_id": "Y04-rejected-identical-delivery-input-04:send",
+              "failures": 0,
+              "input_id": "Y04-rejected-identical-delivery-input-04",
+              "outcome": "acknowledged",
+              "seq": 7,
+              "validity": {
+                "bound": true,
+                "configuration": true,
+                "first_attempt_of_action": true,
+                "freshness": true,
+                "generation": true
+              }
+            }
+          ],
+          "completeness": "complete",
+          "non_integer_stamps": false,
+          "problems": [],
+          "unacknowledged_attempts": [],
+          "unacknowledged_dispatches": [],
+          "unbound_responses": [],
+          "unknowns": [],
+          "unmatched_outcomes": []
+        },
+        "exploratory_after_freeze": {
+          "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored",
+          "queue_reset_before_first_dispatch": {
+            "0": {
+              "still_queued_at_first_dispatch": [],
+              "survivors_at_reset": []
+            }
+          }
+        },
+        "exploratory_stale_overwrites": [],
+        "final_state": {
+          "activation": 0,
+          "chunks": {
+            "c0": {
+              "activation": 0,
+              "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+              "generation": 0,
+              "generation_source": "request",
+              "req_id": "q0"
+            }
+          },
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "dispatched_action_ids": [
+            "c0:0"
+          ],
+          "generation": 0,
+          "queued_action_ids": [],
+          "steps_dispatched": {
+            "0": [
+              0
+            ]
+          },
+          "unknowns": []
+        },
+        "predicates": {
+          "acknowledgement": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "configuration_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "dispatch_order": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "duplicate_dispatch": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "freshness": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "generation_fencing": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "queue_reset": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "request_binding": {
+            "findings": [],
+            "status": "satisfied"
+          },
+          "useful_execution": {
+            "findings": [
+              {
+                "detail": "generation 0: 1 of 2 grid units carried a dispatch (coverage 0.500 < 0.8)",
+                "predicate": "useful_execution",
+                "status": "violated"
+              }
+            ],
+            "status": "violated"
+          }
+        },
+        "repeated_deliveries": [
+          {
+            "chunk_id": "c0",
+            "delivery_id": "Y04-rejected-identical-delivery-delivery-3",
+            "seq": 5
+          }
+        ],
+        "retrospective": {
+          "admissions_stricter_than_frozen_rule": [],
+          "chunk_target_alignment": {
+            "findings": [],
+            "premises": [
+              "the chunk's first_step is the step its policy targeted (suite v2: the bound observation's step)",
+              "the dispatch step is the executed local consumption counter",
+              "alignment means the action ran at the step it targeted; software indices only, no physical state"
+            ],
+            "status": "satisfied"
+          },
+          "note": "named after the retained traces were executed; not part of the frozen nine-predicate contract or of temporal_contract",
+          "observation_context": {
+            "findings": [],
+            "premise": "the frozen rule fences prior requests, not prior observations; an observation from an earlier activation is reported, not scored",
+            "status": "satisfied"
+          }
+        },
+        "robot_task_outcome": "unmeasured",
+        "schema": "nisayon.temporal-assessment.v2",
+        "software_execution": "completed",
+        "temporal_contract": "violated",
+        "useful_coverage_min": 0.8,
+        "useful_execution": {
+          "coverage_by_generation": {
+            "0": {
+              "basis": "grid",
+              "coverage": 0.5,
+              "dispatched": 1,
+              "ticks": 2,
+              "window": [
+                10000000,
+                20000000
+              ]
+            }
+          },
+          "meaning": "version-1 grid/opportunity coverage against useful_coverage_min, kept under its original name and denominator",
+          "status": "violated"
+        }
+      },
+      "original_execution_costs": {
+        "capture_before_seal_cpu_s": 0.010823000000000027,
+        "capture_before_seal_wall_s": 0.012126041110605001,
+        "charges": null,
+        "energy": null,
+        "learned_inference_calls": 0,
+        "maximum_resident_set_bytes": 28557312,
+        "memory_scope": "cumulative process peak, not incremental assignment memory",
+        "network_payload_bytes": 0,
+        "seal_and_inspection": "excluded here; included in enclosing suite command",
+        "simulator_executions": 0,
+        "started_at": "2026-09-20T10:12:47.580765+00:00",
+        "virtual_schedule_duration_ns": 20000000
+      }
+    }
+  ],
+  "archive": {
+    "path": "docs/experiments/results/temporal-integration-001/admission-conformance-001.tar.gz",
+    "sha256": "c6841d4cd8f3b6c02555c79a70fd797c698c2d00884eb1459e8f78d339739360",
+    "bytes": 868504,
+    "members": {
+      "assessment/artifact-manifest.json": {
+        "bytes": 2138,
+        "sha256": "e4f759e146397bc2e8f2114b258767cf947200f08192840bae78aa37747a4aea"
+      },
+      "assessment/assessment-inputs.json": {
+        "bytes": 61372,
+        "sha256": "8f6a6483aeccef36c0e122f4f7110f6689b33687b0ccdc704181b03a13d166f2"
+      },
+      "assessment/assessment.json": {
+        "bytes": 21678,
+        "sha256": "81fbef02e6e31e1313f44de9749b5aa7d92a6b7bcbdecf7546efcfb073d43702"
+      },
+      "assessment/records/Y01-fresh-queued-action--conventional.json": {
+        "bytes": 25791,
+        "sha256": "c3e7ef5c50b137e151939f6b846b394ee0916939db5856ef30758b503db18977"
+      },
+      "assessment/records/Y01-fresh-queued-action--unfenced_queue_control.json": {
+        "bytes": 25597,
+        "sha256": "166f42bbdce399ea4ac873134e804984889b49d9fd3223572a0f9ccd08154b92"
+      },
+      "assessment/records/Y02-rejected-conflicting-delivery--conventional.json": {
+        "bytes": 33565,
+        "sha256": "d062087c75e956f41655c8123f8ce6d391d7ef4a3a4a48a6789fa6d250976ab8"
+      },
+      "assessment/records/Y02-rejected-conflicting-delivery--unfenced_queue_control.json": {
+        "bytes": 33299,
+        "sha256": "76c99c371226b7e9fe56d22b2accebcab5b765c586925c1173cee9a8a123f8cc"
+      },
+      "assessment/records/Y03-stale-distinct-replacement--conventional.json": {
+        "bytes": 30707,
+        "sha256": "6afed337f22a3202b8bac3cd6167eed8a9964e65da8bc92a725ee27040c949d6"
+      },
+      "assessment/records/Y03-stale-distinct-replacement--unfenced_queue_control.json": {
+        "bytes": 33161,
+        "sha256": "2147824d2e39a9412d897311fca387e1beb1c92a888082ff909a7b0061673375"
+      },
+      "assessment/records/Y04-rejected-identical-delivery--conventional.json": {
+        "bytes": 29945,
+        "sha256": "e5b08c8261b038e09c75d9594f012be3cbc08a185c43d25c1e621aa15d772ef8"
+      },
+      "assessment/records/Y04-rejected-identical-delivery--unfenced_queue_control.json": {
+        "bytes": 29727,
+        "sha256": "87432afa12476accf988f28a5f8d21d919a600dc68d732d7ddb31de91e2dcdbb"
+      },
+      "assessment/seal.json": {
+        "bytes": 179,
+        "sha256": "e6039dbb456fd08f49830943c7e4921313a7a1131b2b66cfd3ba1c4100fa1e38"
+      },
+      "capture.json": {
+        "bytes": 445,
+        "sha256": "2e428cf6a42ab34c43021e4a3417572eb3582e40ba879f8b5c09a17072d019e6"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "36b2553f719459e5ca025bbe48e83885d439ff7f8ee274bc113a8c89ae5ecb4a"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/assignment.json": {
+        "bytes": 4527,
+        "sha256": "928b32e4b94e5c299e73ff3506fbd28bc391ef0739630475f3ef1ac319d8714d"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "bdc7099cbfa95245254492d2e6e5a157a1fb493f2a70e9a59798b89fc3217f89"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "ab3e4f0656fd09a680343473f2fdb293f8435720b62fb7923b005ed41655cc3e"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "c7460d8e5976bc45e64ac83af61daac696a6fd62a22c70bdd2e7901d641a1bd7"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "34538ec448516cfb3c9eea5e7790ae2a0a724bd7c50560c904e28ae5f89f0213"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "bb68bcd081c6228bf679b7060e67c3327eaf364ab4b98fc0039ec1843eab916b"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000001.json": {
+        "bytes": 485,
+        "sha256": "cf031803d5734e306f7110ff9debf6e7c41936288ad22afc1fac48a0f6dd7394"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000002.json": {
+        "bytes": 549,
+        "sha256": "e9a992db2186efe0a26ed21d36d49ba12dc6c44a273ffd561b40c0d13bff741f"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000003.json": {
+        "bytes": 673,
+        "sha256": "ae6a67b49094056ff85a9eb0efc74187a2d34b9489697e37261c86fe729cd337"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000004.json": {
+        "bytes": 566,
+        "sha256": "586594d74dd1661b14c008ccd7628381750f32573ad95c3c7da113b64c82b45d"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000005.json": {
+        "bytes": 761,
+        "sha256": "4c7be0c6e295ca76f535afe1315f7959cb2065063a2d30e5727b2c0d97cb5188"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/events/000006.json": {
+        "bytes": 444,
+        "sha256": "de5e307c92546caa28871447bebb0f6656648224a6dbb78450c2d90151f71d53"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/execution.json": {
+        "bytes": 1046,
+        "sha256": "7e36fe4f61b82fcaca639ac67b7a635b5bd207ae8fb54427f773b96199de2e6c"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/intents/000000.json": {
+        "bytes": 349,
+        "sha256": "194c1d7fc7c7d7ced60e6ee4c79d0684bc2e108f3c3ad1c373fc856c66e5dee4"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/intents/000001.json": {
+        "bytes": 360,
+        "sha256": "7d04667f83a4b3af612b2d4a412cbfc18a234105374457f60e74e96e2bb445c0"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "2ea2173249a19c19629ad96211019415c2edf1fce02725601eda1dd59665273a"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/intents/000003.json": {
+        "bytes": 334,
+        "sha256": "57fdd2a0a6d116f11b38d8befbace3ff701fcc5456d94a21f82cb3f8fe1e6e2b"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "70d9da6ea518f49c2901a3745c712f1924b5fd5d8b4a0f6a71c65a9947404dbd"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y01-fresh-queued-action--conventional/trace.json": {
+        "bytes": 5539,
+        "sha256": "5f71aaae81b95d953f7c6da3fb7db9ba49d1cc70f771df34ea550f4986233625"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 4589,
+        "sha256": "0c190fbe91142b0fed867e26b6abc6f531c89faf1c59cde57746dc69e4e7df85"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/assignment.json": {
+        "bytes": 4561,
+        "sha256": "02732a9658ac69e1bf45b2d4babfc19da51342087a6c534992ab90149f4dc809"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "e2cae3ce9e0e7eeb1d210db72a19f756f489beaa0e74c15a5a9794e8e132c774"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "ea532cb61d4fe791934763a317d241d17529e8107368056e9e352ffe6c5620be"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "01bad5ca9594c345af027427fc768dbbba57ab96f3d23d99e02873324b9e68b2"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "bfeee28bf5a49c8b87a638836195727788bcf412611dcc36ea094ed5a07134ad"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "0ee720b4e2b1ab716040e092cd6728f2db72a908fcbfbb5b5b7f0eaf3fa53f24"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000001.json": {
+        "bytes": 485,
+        "sha256": "0cbe769dd3114ae694ca3bc6b974022fe9b45bab5f54e95a84d52c3e6c100a0a"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000002.json": {
+        "bytes": 549,
+        "sha256": "42c7941b2a264b3d98d35795cb6470c4aead689af61219bbb0bb9d8b42552a4d"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000003.json": {
+        "bytes": 673,
+        "sha256": "0a6d8e4fd2e3656b8d2043055dd42c8b826af01a2f0b4467af5661017cf22017"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000004.json": {
+        "bytes": 566,
+        "sha256": "61ad5716a3ba0a37f67445666dbe8d472768334e711dbbaa90a7f2f2aa8a7e45"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000005.json": {
+        "bytes": 665,
+        "sha256": "6d10fd4789239050dfb3d8869a7b5efe39c5937f56b929c6703e7a6a22210276"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/events/000006.json": {
+        "bytes": 444,
+        "sha256": "652d0ad4e46e6d48bf15534a4acfbe746ec450fe0c8be197800ab906d05eb0ec"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "db64bd5fd684e49a4e731ca2795dae2e5d101d43a7fa10bbff3c69b4b0b6282b"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/intents/000000.json": {
+        "bytes": 349,
+        "sha256": "5a42787ed932c3d0ed1e26676a68880687019ee9a0c970ca498b6062ec83fa23"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/intents/000001.json": {
+        "bytes": 360,
+        "sha256": "5b2da9bd4df1bc2ee4394e722d65c054e514a9a2991c39fb5cc667e71d020d60"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/intents/000002.json": {
+        "bytes": 558,
+        "sha256": "e58f065b3f9178c4b6ece83a5f2a61b8d8e3a79685ae7483e7de6d127faf2bdd"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/intents/000003.json": {
+        "bytes": 334,
+        "sha256": "afa7ce3677fe14264d6f7788884c8401708cbdce3e5caab269ae800a78f6feb1"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "280ef3a60a427682dbaafa190ca53e633c96f9ca64de37dc8fd9bacfec2219d4"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y01-fresh-queued-action--unfenced_queue_control/trace.json": {
+        "bytes": 5477,
+        "sha256": "80359f1a5dcde42409f91418b683add9ccb98944e71825d738c1413d0201da00"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/artifact-manifest.json": {
+        "bytes": 5875,
+        "sha256": "577ead19f43bf552fb0b2423fe72e878ee15581e209c1a04b31ec3f21bf0e661"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/assignment.json": {
+        "bytes": 5233,
+        "sha256": "b3e5769eb4bac5527e78887156e50379bd3a483b7782c9bf8e6adebbba595ee4"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "7246e649d88e1d03f8070131441d4d757b261cb19a961b06ee7f0d07be0b440a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "9e2892beb1f352f3303ae2345b35432b4ad783ac2030276320e166c2f28ea343"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "3b0468fd5b39e5c09bd7454e539292ef3ed989b0a42c49cb30b3854b175033da"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "028e78eb47c06baf807ab73ebaf40486ed53d7728d59d9f53e3adb7beb917853"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "36f9a1fd22a9d5e15c58277f402de2ed7862c985c0fe7496aa6a938074c8126d"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000005.json": {
+        "bytes": 347,
+        "sha256": "c9826dd698475ddf0302cb1ae1fed6ddda9a4e6da8d3f117ada5cf2356d610b7"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/completions/000006.json": {
+        "bytes": 348,
+        "sha256": "34fa07977f083d8cd80c89d36a14d0d3262616e4a870affd559348464b272446"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "3dad95bd5d01e5fdb5aa7c9de897f764e2064e56f9ddfbf38faa5a665be2b928"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000001.json": {
+        "bytes": 495,
+        "sha256": "fbd93b62b20085e1eb88b75dc616864983304473a141e1c4856798978dcb3df3"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000002.json": {
+        "bytes": 559,
+        "sha256": "a3c66b0b7c0de3befa9810279d5712ae641bb2931055a38a24cbcf8db1c16d28"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000003.json": {
+        "bytes": 693,
+        "sha256": "7186f2c1a9cc2f1e83b0233977b503a4e5d433e4c75fa7b03a373bdc7bfe4314"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000004.json": {
+        "bytes": 586,
+        "sha256": "69dd83337be24dbf9409e99214e7acf4ded09d7224b9c52175cf18153bd02da5"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000005.json": {
+        "bytes": 511,
+        "sha256": "fc679e8eae9e8fc77c78bfe6b8c5b07fda3dc5496242b7725e975380ff4ee3f3"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000006.json": {
+        "bytes": 560,
+        "sha256": "8ae0c1a064902e98f781532e4e87f2a5388161fa2a2e0cd92b3ae21a6f8e8e94"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000007.json": {
+        "bytes": 696,
+        "sha256": "784299d620f9a163cfa8c4bbad34629aade58cc218237ebeb2c8d8778405eee0"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000008.json": {
+        "bytes": 617,
+        "sha256": "b55f8c1bdb8eccfbf3a1a80e60764d78599a7a69f2ce98c4e09def4b543c7247"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000009.json": {
+        "bytes": 781,
+        "sha256": "34301dd5b8b4dbeb79dcbb21131138b4a65811d44fa718b6cf181482ef981b2e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/events/000010.json": {
+        "bytes": 466,
+        "sha256": "d33d8c2122029c07d8eb7b07b31902dd032347035ff21715861040645d94f151"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/execution.json": {
+        "bytes": 1046,
+        "sha256": "c72467f408b26a90fd47ff3246d1baa38edb39c6656bd860df8bbffa31ab65e7"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000000.json": {
+        "bytes": 359,
+        "sha256": "b29c2c7b3c6961aac40e7cf91c1aeb72c7a7849483f1fdab801f64bcdcc8d006"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000001.json": {
+        "bytes": 370,
+        "sha256": "06d03c771a7ab6a1fd39629751aa8fdb31c5a13cf196bd0e23c3cbf0d5c14f2a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000002.json": {
+        "bytes": 578,
+        "sha256": "85686c3fd280a382ee8ab2c336781439df0f28a53cb663e22db0ead606d79e88"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000003.json": {
+        "bytes": 428,
+        "sha256": "0f433fef43a95fdcd7f098f126156949f1e55c79df3c827e7ef5537ff85d015c"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000004.json": {
+        "bytes": 371,
+        "sha256": "1155e3596ce08588f0bf1a51e7960aa0da24b403bcbf9626cbb164cb04f7373a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000005.json": {
+        "bytes": 582,
+        "sha256": "1e9fdef5c6024c80acfb7116930366d0d920ee9729e170903f65345778b0d360"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/intents/000006.json": {
+        "bytes": 344,
+        "sha256": "ce660c48c03375f489f1c24c4b4f2b30074386bd43869dd60a0dcfea59cae602"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "c52ab2351046a086ac5e43d0803782bcc965bc7c48e3f4a15c02e4d1679beedb"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--conventional/trace.json": {
+        "bytes": 7156,
+        "sha256": "cf00e677c4dab53e5957287847c77092c3d286b888670e53fd76ffcaecd62d97"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 5875,
+        "sha256": "1e7160607cf8cc4e9823ebeced41396a55259ccccc521a714029ec8cd27e2310"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/assignment.json": {
+        "bytes": 5267,
+        "sha256": "a4ef2bce0242632e84f9a155ccfdf2b64d195dba68abb0a1c646d218f4337f75"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "b8ef105c242280fe082a9729a79f1776c64796dbfd7cc628696d025088acae3b"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "b907c9d6dab70f596a96767792a1ae8498ff47f7b0a1a89b58655e9bf6f552f8"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "35b1e549ad3ab40310c56e212f70f65d890c54ad7e150134c3f18b01f1cd5e8c"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "0662a768376c64f810adf65951c38133a3b53fd873eb67ce7569511079ec4e22"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "ab1873f3a849f79e42a9d7573cda1e3c780793d78a8c754058fed6b318dd32d7"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000005.json": {
+        "bytes": 347,
+        "sha256": "3e872f159642149acd3df087ffab7b98bcd72376941400cfb1fb5311f58f2045"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/completions/000006.json": {
+        "bytes": 348,
+        "sha256": "3b6c92f9a0c5ea95b7b0ce674bed81c0635223943ff4d3d4a88958fa7076042c"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "98cae6dbb0da53d486bd3433e090ce5b3510d534ff11988f153157843ae66f94"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000001.json": {
+        "bytes": 495,
+        "sha256": "0209be56b15ca9e1759000a2f02910d2ad750433238af028d640b8681ec1d459"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000002.json": {
+        "bytes": 559,
+        "sha256": "cc74b1a966cdca250e456b70b15bec9dac5ac5d8cb1ab02d66f5f66316f19a31"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000003.json": {
+        "bytes": 693,
+        "sha256": "e409410e75a105349ba67f12b243c3f6e5e561923f11ee87108747b57b3c4491"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000004.json": {
+        "bytes": 586,
+        "sha256": "1c9c68d48776e1ab3b7253eb039a0f2980d19ab6ac6f86a4f23abcb649ff9b8e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000005.json": {
+        "bytes": 511,
+        "sha256": "94039218cbc519061e34d0f742b954edd715d7a20b1007e26a830842b168bd3a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000006.json": {
+        "bytes": 560,
+        "sha256": "5426357026d15965d54d81feea25e78bfe3d5edbeadc53ff0a3ccc444fdeb6d7"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000007.json": {
+        "bytes": 696,
+        "sha256": "e2850760d9c4b2b51268fff1646223a147b48d316752ededacabeab672a57875"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000008.json": {
+        "bytes": 592,
+        "sha256": "77c429598184326c8b43132bdd3f7721b4e68c9b196e89837cc4fa479f63b021"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000009.json": {
+        "bytes": 686,
+        "sha256": "f6d4ffbf58fb6b03ed73de3fdaa689cdc0c04ac169f131506273bc445833854d"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/events/000010.json": {
+        "bytes": 466,
+        "sha256": "99fc004a2723a3f77a31ca7679da799f9ab1dd62ad7660fd0379fed94ec7856b"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "812f062a23a5e453e729521e85c64e95bc1da892b259348a2f3bed1b7958d524"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000000.json": {
+        "bytes": 359,
+        "sha256": "a1871fb3b6777cb8ce762b56cd11587bd01c0fbcd8533eb7059a3e5e941b35b8"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000001.json": {
+        "bytes": 370,
+        "sha256": "32b4d089da3af8c80544d5929353680be51a200f8e0390209dff8c458737ff0c"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000002.json": {
+        "bytes": 578,
+        "sha256": "62f5d0865af61cf5430f02fac948a5f9497d39e91c95e4c0f5b56be1eff50148"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000003.json": {
+        "bytes": 428,
+        "sha256": "523abbbb25c604cb619193c83f651508a75c4aff656104a768835fafc9bb0a92"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000004.json": {
+        "bytes": 371,
+        "sha256": "afc41587704fb32ea76e35c63875aee282ea07bb7e0995dfcce77628f89ea402"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000005.json": {
+        "bytes": 582,
+        "sha256": "979205d463a6fb2d1ed8e03bed3d0f0a5a1c55b4300b7b7cb15606a2708d6e5c"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/intents/000006.json": {
+        "bytes": 344,
+        "sha256": "3db27991b238ab1535686812580df61038555591e6e228f280fbb5e64a5e897f"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "4dff7d088c29f3f3b0042496355af8f0c88e504bdc98a23e7d1e453d94daa4a8"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y02-rejected-conflicting-delivery--unfenced_queue_control/trace.json": {
+        "bytes": 7070,
+        "sha256": "58e0158bbfafecd0525b146c676f76156b720a4e69f74c3eef3abe9b45379cf1"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/artifact-manifest.json": {
+        "bytes": 5750,
+        "sha256": "42ad1e179f504dfd9c25974e5337afdb32486e19cf1107b23a39784035f8f5cd"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/assignment.json": {
+        "bytes": 5199,
+        "sha256": "df210ef8772e87677cd1fae3184d3159d9e08ff413f7c4e75d4d9fd5bc103ef9"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "d4688b742b79b4c31f55f9ede1fb61f5aed2d9906c0892297fcd912f1e79292c"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "f69aecbb6b060b4f11efe728a92367d4640d0718b2d55978c558799fbff77e63"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "7de8ec480eedb9001d15ed722f90c514b694ae24e407384df5f2ccc6dbd1fe57"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "8da35fa8325bfb271dfb6fb6d8e7df35b14f1ccc519784ed07ec2799b4779672"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "cc3016ec8f8ef3c6edbbd4b68b984810723c111711ef74df49e8e6affff739da"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000005.json": {
+        "bytes": 347,
+        "sha256": "7b153daca976c56fb3cb75ece15980298817badcda0df203bf06b8d556b5e559"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/completions/000006.json": {
+        "bytes": 348,
+        "sha256": "8e9953cdbd46b59e37929891b25ff181be04e745ca04309262df6847d1e43eec"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "5c7840b0bfd1e259d76b7c0da12db3abab23c1cea94cad4c446960f78b0a9b18"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000001.json": {
+        "bytes": 492,
+        "sha256": "38be7f27640665882000e02cdcca2991c52793f7bb6d9253e63c58252260e6d0"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000002.json": {
+        "bytes": 556,
+        "sha256": "59e619c3558ae9a508fcfaa382d088942522eca677aebfc88cebbf73013ed398"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000003.json": {
+        "bytes": 687,
+        "sha256": "d28ca1c20f8e9e3f2da7b48c3a984729b57ad30d589d60befb24e8b7bc2d8689"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000004.json": {
+        "bytes": 580,
+        "sha256": "3139ce7a7bb4e80a6d28b10a46c808c9f7c71bf7276d5670f89fb41d33ff6614"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000005.json": {
+        "bytes": 508,
+        "sha256": "e546b7f8a8ea6683da64cb0494207fae976406f1930c82a915d2cab9cbca337c"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000006.json": {
+        "bytes": 557,
+        "sha256": "fc352519a8ccbe1b36fa8429cb25f148a240ece50828215b8324775cd0ffda46"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000007.json": {
+        "bytes": 690,
+        "sha256": "528db9293f087a54d3a32bd305f2c41fb00c9903fd438ccd7295fcd66270b79c"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000008.json": {
+        "bytes": 586,
+        "sha256": "e0ee4e6b457c11f8dfb719691c43633b7496eab11fd314ab43c16c55afa170da"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/events/000009.json": {
+        "bytes": 583,
+        "sha256": "3b1b1a320ab7b3b9787e6bec93fc206132b431b5e226ef8f33f43fee149ecd91"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/execution.json": {
+        "bytes": 1020,
+        "sha256": "e532c554dd478c17c93e87b0501d26ffec317818e93e0abefd340d503497c8c5"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000000.json": {
+        "bytes": 356,
+        "sha256": "52337ac0d1799ffacdd8c63279a1b465d681b887caf840072fd594603dbe5ab1"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000001.json": {
+        "bytes": 367,
+        "sha256": "6d9dceafe94be6a6f749e74828b8cac9b0f47593df043973451c3015fe0d3e00"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000002.json": {
+        "bytes": 572,
+        "sha256": "ae6c155e6e4cea6bddcca7eb3b0217dfb2426950abc4bd03cfc1b31699c7de98"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000003.json": {
+        "bytes": 425,
+        "sha256": "8ba3898bfc66a0c2f6df4b8f96c2cc17c356b677a825e16c3f23f0d6a9d0ebe9"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000004.json": {
+        "bytes": 368,
+        "sha256": "4ee3623cd55d30830610c8f9a4e9e95fd638a617d04fc480035b55e6a459035a"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000005.json": {
+        "bytes": 576,
+        "sha256": "10dcdfdb8105399e0d8d05026fbcab76a1c315a6cbcaa3c034a587016e5eae4e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/intents/000006.json": {
+        "bytes": 341,
+        "sha256": "0b15f3e7592824f05580495ac414c5425a8de2f7f1db51f5270cd6f11c60f103"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "f347f185dc8ece94f976335718f554afe79219d6efc1ebccd23d4112c8730921"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--conventional/trace.json": {
+        "bytes": 6647,
+        "sha256": "2ff870f740e0ac718046716b27a55ac95576aee98e0af973725258f2028db028"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 5875,
+        "sha256": "077ced677db5e1d6af94706081669d1b878ace34e0145e5a6951d2f24c3db21e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/assignment.json": {
+        "bytes": 5233,
+        "sha256": "3e9bc4086e592d5f40eb90ed1729f1b12db117a332dcc470b14bbd1494e59851"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "980ff66c50eaaab53ec691b81d55ee2c19554018d26b0ef713f37f2e19fbd82d"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "901008651a45e5a63087657d019230a932d73409e1e4c1fd5f9ccb8019f30d6d"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "527940a4b92c41f4895e741a45d117be17fdaa58be62b9b5be06f2f57dcf4cdb"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "7b88aa65b86ed8609092974d7edbeda0820129f385ae63f1f327b4d4ab5ac861"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "b1824b87e4d23d331c12a76cb951534bb5b1fe367bb336f6fd2c4b2802ef9db1"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000005.json": {
+        "bytes": 347,
+        "sha256": "f2296e5639b247f2d2cfa66faf901532b1fd7329c7da361f911312244c8e0f9a"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/completions/000006.json": {
+        "bytes": 348,
+        "sha256": "27c5ad12a7ba58e76c9fa0257e54cd09d1d50d4a93a2531371ab3ac1709289f6"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "b3579ed6e55657bbb5eb040a21d0814c765f633aa9f776344e6b3991231e1931"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000001.json": {
+        "bytes": 492,
+        "sha256": "e171256722efb745040a598c7f6fd7f9ba4d0e3a440f06606ca309ae9d5e1336"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000002.json": {
+        "bytes": 556,
+        "sha256": "10452306d7a5587baf4d1ce2746199e47c0e12575c5fc38bd442a4f94819ae56"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000003.json": {
+        "bytes": 687,
+        "sha256": "9122eddd6d61b90efe84e270887d3ecda199a288cfb013d6916ebb7bc45fe1d9"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000004.json": {
+        "bytes": 580,
+        "sha256": "e52fddf529fd703793950d6250ca689bd97e31edeb340ec703e1e05238f5a363"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000005.json": {
+        "bytes": 508,
+        "sha256": "27ed38008d9c88e36859f5875a2648c67ce99f9665f6df57044a1afb00482150"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000006.json": {
+        "bytes": 557,
+        "sha256": "ddf06239417b4383df3166c5e913083172776c146ba18ad277e72115d540b567"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000007.json": {
+        "bytes": 690,
+        "sha256": "0593442ac2fe774c36d61efa04dfbf72227ac444dabf837d72db7fe2b08f2675"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000008.json": {
+        "bytes": 586,
+        "sha256": "543d603a52aba894ecf3b8fb9d56850c10b3420521246d4898e718d67a366ed6"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000009.json": {
+        "bytes": 680,
+        "sha256": "ea39daf74416d0df4b4f374ce255bcc2fee5b9bd22a7f8ca98c63b40e72e733f"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/events/000010.json": {
+        "bytes": 460,
+        "sha256": "cce2577f89258ded0f66a419e5e68c2a9da451dd8057dbffda176e203e84605e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/execution.json": {
+        "bytes": 1046,
+        "sha256": "d83fbe2d73d8a385ab31a71a8f3c2640577d909a2510604f8b9161c0ba0d2625"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000000.json": {
+        "bytes": 356,
+        "sha256": "e06123c19dcf2cb3b62663e1854211243f9ee16f742a6d3a36a93bfe9290de01"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000001.json": {
+        "bytes": 367,
+        "sha256": "210fbf7e8656573e8c272ca1ae3c8d66012b23bec5731221ac82193b74743bb1"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000002.json": {
+        "bytes": 572,
+        "sha256": "29d2b980459336331aaea654a87015f047dcdefa9792e38255da3b10f86d7b7b"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000003.json": {
+        "bytes": 425,
+        "sha256": "0d00dcd6982b347a58170143693bf7a23c260133088455104f98c1291017db9c"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000004.json": {
+        "bytes": 368,
+        "sha256": "a6776941bd42bd04b81c75d48f81cfdf37efe3e237fabff4bc9a25e3a86ad85f"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000005.json": {
+        "bytes": 576,
+        "sha256": "64db888b23675436c097cd43fda8649da57624346c1c2f1ad92e981baecb1ecf"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/intents/000006.json": {
+        "bytes": 341,
+        "sha256": "57367d1c48856aefa776d13d08836eae440cd4463e3247cdf8feb36bc9f06f13"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "bece6605ee53a03ea73dfa7c2be063746cf0f1d8b1780a2ed18c38b6cc0cb11f"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y03-stale-distinct-replacement--unfenced_queue_control/trace.json": {
+        "bytes": 7010,
+        "sha256": "49ad9f23fa879c8d1ccd280608f498237cd84670a81cfde24a4c9005c440fc76"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/artifact-manifest.json": {
+        "bytes": 5101,
+        "sha256": "d2364301a9ed2edf4d16a5afa9eef476f048393cd077d0a4d1bcaab12375f6f6"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/assignment.json": {
+        "bytes": 4914,
+        "sha256": "0e334ff057f333887964fe77c4570714244133e4735ee8a9c78b8e4e0f6981d6"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "dd6d129ee3ab1a339f8c07e2a158c587051c5c6d01bd74b7a5cf0c474418d445"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "530dcb97418fcc77b5de201ce64af5e17c81b7c4810f53a0ea5eec28ca9870f3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "f21d17c266cc819408a54a88b2273215d905dce7b0c68bac4066a378202be853"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "aa30d35a3010584c34dcdb6463d1a70e28094de9ff4281f7d0c3535c7a7f11b2"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "c692495337c971b71bfe96de029f780ccdc64302f7a6dc3c2b32d787b9ccb4ce"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000000.json": {
+        "bytes": 294,
+        "sha256": "828b9a35caeb737844dd3d0012ffb6b06bd4c0a459f6dec8b3def41c9e2734b1"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000001.json": {
+        "bytes": 493,
+        "sha256": "2df50b4a7bb53afebd35726ddcb12609ff958e2a45d786d1ef594df9bd28d513"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000002.json": {
+        "bytes": 557,
+        "sha256": "467f0f6c2262720c01de25b9ae893b3b7fb53c7d076b99ac2c990aa557316400"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000003.json": {
+        "bytes": 689,
+        "sha256": "a2dd48568c054c0185a21b1284dd19d08c676a49159fc211fa16c41b9edb48b1"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000004.json": {
+        "bytes": 582,
+        "sha256": "dcd33f6333450bd633f6961a06a551cdf5245451d5643fd2eb5765e4c4225b3e"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000005.json": {
+        "bytes": 689,
+        "sha256": "2536a87f216d5698cb51b3ac08381c3fe874fd64f6f639e302923787cd4072f5"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000006.json": {
+        "bytes": 595,
+        "sha256": "ffdbfd2236ca2670aacfd3294593c3047f1bd69e02928b1ab94115173edd0c18"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000007.json": {
+        "bytes": 777,
+        "sha256": "bafe09c66586c5c2f728bfd6b97f29272b25258037b468486abe80aad945ab87"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/events/000008.json": {
+        "bytes": 460,
+        "sha256": "44930adb8477e631e8ce121150f7e3fffce6ffcd9482db9bdf390e878361231a"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/execution.json": {
+        "bytes": 1046,
+        "sha256": "ef0b88aa3730656774c1f23f50c4040fa5d4c80bff9e956b4641433a91861c7f"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/intents/000000.json": {
+        "bytes": 357,
+        "sha256": "00f1ab17ddcbe284d369e61c066dafc297edeabc2346af0b3bf1c2fdb47f87c5"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/intents/000001.json": {
+        "bytes": 368,
+        "sha256": "7a479cc3ed2efb6b7cbf9a54f16e845a7661181bc5000633d7fa1ad4f94e9b91"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/intents/000002.json": {
+        "bytes": 574,
+        "sha256": "82b0b98e9139abfb52a0291f744be8723cb65738c709837186348c5e33d37799"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/intents/000003.json": {
+        "bytes": 574,
+        "sha256": "61b8c0efd0223d4dd396d0681dc117139f0c501a081b71514dd7caf78add7867"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/intents/000004.json": {
+        "bytes": 342,
+        "sha256": "dcb37267369136c7c0e04a75d668137cb519d1d36b8f5f717e3f0bbd37c97ca1"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/seal.json": {
+        "bytes": 255,
+        "sha256": "5ae7b42c72915d04014f36e987c390c64f48dc418fbc4092a774031e73949a78"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--conventional/trace.json": {
+        "bytes": 6481,
+        "sha256": "3434df77586bb3b57c0907a6fe9dc115a6f291e9c28cbc0e02b52df933d2c123"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/artifact-manifest.json": {
+        "bytes": 5101,
+        "sha256": "cf983ef38d4c930bf7a5bc9e5da1e5ada521caaa14c1c8993545052c522fab6d"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/assignment.json": {
+        "bytes": 4948,
+        "sha256": "c0ff3437cca58681bb1745ec7e64779552715f4edf14415526469f219737dd4b"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/completions/000000.json": {
+        "bytes": 347,
+        "sha256": "761229921caed94232637ba7e44f2db3d1adc7b977328948f5619ecfc264c761"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/completions/000001.json": {
+        "bytes": 347,
+        "sha256": "ff97f92c39fae88f040f4af4d5a31e010bce9db9be18b4ee566d1334a1eec006"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/completions/000002.json": {
+        "bytes": 347,
+        "sha256": "bbaf269f0217b050cbf22d9602eb7803a7e6ad3b63d356ec53b9c65f606e8f93"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/completions/000003.json": {
+        "bytes": 347,
+        "sha256": "29848d8bbb6b0aa12a65f830455f0890f31cead45d6674685d37930c07a01dd1"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/completions/000004.json": {
+        "bytes": 347,
+        "sha256": "b466c7a7fa736845fefad3cbd140a7fda82a0b05c95bdc12c102c68b324850e3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000000.json": {
+        "bytes": 294,
+        "sha256": "ec6223cceea0306a22eeab691dd79a014ed1ad06067549c443d35d564dfdb201"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000001.json": {
+        "bytes": 493,
+        "sha256": "4baf83605484b19457551078bf4570f78ee39e57dce5dda8001fbf5ae82c5a01"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000002.json": {
+        "bytes": 557,
+        "sha256": "69c3592c964c7aca862207a385ddea15e070f0ecfaf019892d81a9b15a0b28b6"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000003.json": {
+        "bytes": 689,
+        "sha256": "8d849a53b8cd1e5ff973af6ffc8a71a7f2e3d950f4f18413dc2440450c128688"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000004.json": {
+        "bytes": 582,
+        "sha256": "f73bee52159dc524e301573cfde7512d94e9ef8ae4c45eb40cc5a4505d0b30d3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000005.json": {
+        "bytes": 689,
+        "sha256": "91f4587f1dc1f49d4ea3ebffdd4d39a6063af5e1940117f4986ec80bd1471204"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000006.json": {
+        "bytes": 588,
+        "sha256": "769a131d73f332b515602e21cbfe26c90d4a44d596965087fe60797e65a15641"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000007.json": {
+        "bytes": 681,
+        "sha256": "2d806f15b41de9cd64ce3abbb37ff7970a163ac0adea3fcc6323a1e4aff74f83"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/events/000008.json": {
+        "bytes": 460,
+        "sha256": "8a2380553b307b0add786a4a1bb9cfbc2e7c3a6672bdde6888ee23d0a899bcc5"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/execution.json": {
+        "bytes": 1045,
+        "sha256": "7285a0069e1d81fb9dfdb748861cd5f9fc2775788128f9edb50466196d46cdd3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/intents/000000.json": {
+        "bytes": 357,
+        "sha256": "0ab490a875f725f19854a108e2682c707e3ff2166d5fe5485a711fa11a07e26a"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/intents/000001.json": {
+        "bytes": 368,
+        "sha256": "470c5461793430c1068f381df7f0bcce18b99d3fc0f1a18811fcf4c74227df91"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/intents/000002.json": {
+        "bytes": 574,
+        "sha256": "4bacf122577ef6d2461854c9fe490e60d3a20b1b639e2c1615be6c6711f43335"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/intents/000003.json": {
+        "bytes": 574,
+        "sha256": "03698f6964542ee9fe6aa451bb5f3dc1d948d35904f4cf96561c91d8b32eb82f"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/intents/000004.json": {
+        "bytes": 342,
+        "sha256": "83a5b352c227f8ee9579e1f1c1006a0312adf21bbc9bc4b36d67ef1287e9e630"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/seal.json": {
+        "bytes": 255,
+        "sha256": "ff3a53237da6cb1d51b73d0c88fcfd103af94a970c5470e83005b63a338079ba"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/pyproject.toml": {
+        "bytes": 1353,
+        "sha256": "dc746b3c5e562d28f9417091869073c9ad34e272ec29b2eca719c627dc7ba822"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/__init__.py": {
+        "bytes": 106,
+        "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/__init__.py": {
+        "bytes": 69,
+        "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/declarations.py": {
+        "bytes": 25253,
+        "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/io.py": {
+        "bytes": 869,
+        "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/store.py": {
+        "bytes": 17899,
+        "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/telemetry.py": {
+        "bytes": 1656,
+        "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_clocks.py": {
+        "bytes": 3177,
+        "sha256": "6b53538cc1fa7c615761d6e2b1323d47abab88eddf987c9e672d98964d2d72fc"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_experiment.py": {
+        "bytes": 20118,
+        "sha256": "1a8c4a9d9cac9e1a8df17d29046e132f24a5c9e7a2c394299282b5842ee92ee0"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_runtime.py": {
+        "bytes": 14925,
+        "sha256": "9ad309276de36a8db228cf03c850522eba98de5a2be0b4926fc06ebcf718092d"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_store.py": {
+        "bytes": 23034,
+        "sha256": "5b21090bdbe9c36a9fdf12bdbf7c447b1a921040f0f1d2a95550f2f78be2abb0"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/src/nisayon/engine/temporal_workflow.py": {
+        "bytes": 16652,
+        "sha256": "ae41819a5716fc00178f87177901a205b0d171e254d7343480feb6d159df20c3"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/sources/uv.lock": {
+        "bytes": 209060,
+        "sha256": "3dd8bfcfda6fbbc0db02fe89bd16b4afc6f5db441e2a480d7544444ef6e0b14a"
+      },
+      "execution/assignments/Y04-rejected-identical-delivery--unfenced_queue_control/trace.json": {
+        "bytes": 6412,
+        "sha256": "de0cd40092392b79cf6db985ff66aafc372185bf77d7a09778e0494e0c4a34cd"
+      },
+      "execution/frozen-suite.json": {
+        "bytes": 13255,
+        "sha256": "47ae273cd86287a01c6969be6ff08d6a03001cfb2b68e0ad5109c65bc09697eb"
+      },
+      "execution/invocation.json": {
+        "bytes": 2289,
+        "sha256": "263ac8164406bd1b9dcd6336d60e59e181e2b42213b7437010201c96cae95d28"
+      },
+      "execution/readbacks/Y01-fresh-queued-action--conventional.json": {
+        "bytes": 1062,
+        "sha256": "b42cb4cdb386f4efd65cb9df1aa94a9163917f75cd9249d67d8d83166249660e"
+      },
+      "execution/readbacks/Y01-fresh-queued-action--unfenced_queue_control.json": {
+        "bytes": 1092,
+        "sha256": "8642f6618be3b931ed2a02846cfe3dd6512c95d383b35f2a35fc51c012891769"
+      },
+      "execution/readbacks/Y02-rejected-conflicting-delivery--conventional.json": {
+        "bytes": 1091,
+        "sha256": "b8ed004ae669f9f2db59de68f99736ca9c4bf33f41ff4dfe83fb1189a17a5f21"
+      },
+      "execution/readbacks/Y02-rejected-conflicting-delivery--unfenced_queue_control.json": {
+        "bytes": 1121,
+        "sha256": "cb0989d8fbba49d8f1abbfe3f80294f1e24ba8707ffb70da76d2d4ce73f70386"
+      },
+      "execution/readbacks/Y03-stale-distinct-replacement--conventional.json": {
+        "bytes": 1056,
+        "sha256": "c5e368cf2460ce34146803f977289bf184b1e1ef659389a3e3717ce15f846361"
+      },
+      "execution/readbacks/Y03-stale-distinct-replacement--unfenced_queue_control.json": {
+        "bytes": 1112,
+        "sha256": "9f9a1d86cc8e05db60d3cfb66552f53b3e39eb66898b522420694547a2012350"
+      },
+      "execution/readbacks/Y04-rejected-identical-delivery--conventional.json": {
+        "bytes": 1086,
+        "sha256": "349b9868fea78d936f938700d371f7020e42bfe7407e293a5117df554b1c758e"
+      },
+      "execution/readbacks/Y04-rejected-identical-delivery--unfenced_queue_control.json": {
+        "bytes": 1115,
+        "sha256": "10739ce173beeb8d9efbb96bad6ab9d1a13093ef69b07fec1e5c1cb8b419e11f"
+      },
+      "execution/summary.json": {
+        "bytes": 10991,
+        "sha256": "e8655464155c43981e3e77e030f48238dee3544397ff4940fbf00c584910b1fd"
+      }
+    },
+    "verified_by_readback": true
+  },
+  "findings": [
+    "Y02 ordinary producer rejects the conflicting delivery and dispatches original value 1 with exact age 20 ms; the reference reads 120 ms from the refused later response. Collision invalidation versus admission-bound interpretation requires owner disposition.",
+    "Y03 ordinary dispatch-only policy replaces the fresh queued action with an already stale newer-request chunk, then refuses it at dispatch. This is observed policy behavior and a possible usefulness improvement, not a violation of the frozen latest-request rule. Any new admission guard must be separately named and provided to the conventional comparator too."
+  ],
+  "new_simulator_executions": 0,
+  "scientific_acceptance": "not_granted"
+}

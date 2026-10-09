@@ -1,0 +1,92 @@
+{
+ "schema": "nisayon.a1-runtime-gate-outcome.v1",
+ "case": "a1-runtime-001",
+ "recorded_at": "2026-09-21T12:36:55Z",
+ "status": "stopped before any package byte, environment construction, replay, policy action or episode; disposition G0 at the network layer; nothing assigned or consumed",
+ "supersedes": {
+  "claim": "runtime-contract.v1.json frozen_before: 'any dependency request'",
+  "correction": "the execution lane's single reserved PyPI metadata GET (command 3bfd31c5, started 2026-09-21T12:24:29.5Z) preceded the freeze at 12:25:27Z by 57.46 s; the contract was frozen before any package byte, runtime construction, replay, policy action or task outcome, and its pin (wheel sha256 39810a9e...) came from the 17 September index cache, not from that response; the contract file is unchanged and this note governs the timing claim"
+ },
+ "execution_lane_evidence": {
+  "source_delivery": "docs/experiments/results/a1-runtime-001/source-delivery-001.json",
+  "accounting_correction": "docs/experiments/results/a1-runtime-001/source-accounting-correction-001.json",
+  "tested_source": "6c434ac",
+  "integrated_into_execution": "c856f12"
+ },
+ "measured": {
+  "wheel_bytes": 152011410,
+  "wheel_sha256": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153",
+  "sdist_bytes": 150852523,
+  "excess_over_phase_dependency_cap_bytes": 118456978,
+  "excess_over_contract_ceiling_bytes": 127571919,
+  "requirements": [
+   "numpy>=1.13.3",
+   "numba>=0.49.1",
+   "scipy>=1.2.3",
+   "mujoco>=3.2.3",
+   "mink>=0.0.5",
+   "Pillow",
+   "opencv-python",
+   "pynput",
+   "termcolor",
+   "pytest",
+   "tqdm"
+  ],
+  "requirements_not_held": [
+   "mink>=0.0.5 and its own requirements (small wheels; exact sizes unknown offline)"
+  ],
+  "requirements_held": {
+   "numpy": "1.26.4",
+   "numba": "0.61.2",
+   "scipy": "1.13.1",
+   "mujoco": "3.2.7 (satisfies >=3.2.3)",
+   "pillow": "12.3.0",
+   "opencv-python": "4.10.0.84",
+   "pynput": "1.8.2",
+   "termcolor": "3.3.0",
+   "pytest": "held by the project",
+   "tqdm": "4.70.1"
+  },
+  "rights": "PyPI returned no license expression, text or classifier for 1.5.1; applicable release rights are unresolved by that response; the repository's LICENSE at tag v1.5.1 or the wheel's LICENSE member would bind them and each needs one response",
+  "application_responses": {
+   "cap": 12,
+   "used": 12,
+   "remaining": 0
+  },
+  "cumulative_body_bytes": {
+   "cap": 67108864,
+   "used": 42678155,
+   "remaining": 24430709
+  }
+ },
+ "why_stopped": "the authoritative A1 v1.2 ledger caps application responses at 12; the twelfth was the metadata GET; under the operator rule that all attempts stay inside existing limits, no HEAD, Range, license, index or wheel response is available, so neither route A (full wheel, also over every byte cap) nor route B (Range-fetched Lift/Panda members, inside the byte ceiling) can start",
+ "decision_for_daniel": {
+  "R_partial_members_recommended": {
+   "amend": "application responses for this phase: at most 40 more (1 HEAD, 1 central-directory Range, at most 30 member Range requests, at most 5 wheel GETs for mink and its requirements, 1 GET of the repository LICENSE at tag v1.5.1, at most 2 supplementary responses); body bytes stay inside the existing remaining 24,430,709 B",
+   "expected_bytes": "about 11-15 MB for the Lift/Panda members plus about 1 MB for mink and its requirements",
+   "identity": "URL, central-directory digest and per-member CRC32 and sha256; whole-wheel digest declared but unverified",
+   "scope": "Lift/Panda-only runtime, declared as an explicit adaptation",
+   "risk": "a missing member found at construction needs the supplementary responses; engineering is heavier than a plain install"
+  },
+  "W_full_wheel": {
+   "amend": "a dependency allowance of 152,011,410 B for the pinned wheel only (outside the 64 MiB research-source cap) plus at most 8 responses (HEAD, wheel GET, mink and requirement GETs, LICENSE GET)",
+   "identity": "whole-wheel sha256 verified",
+   "scope": "complete robosuite 1.5.1",
+   "risk": "none beyond disk: about 620 MB unpacked in the isolated environment, inside the 1.5 GiB environment ceiling and the 5 GiB free-disk minimum (14.2 GB free)"
+  },
+  "S_stop": "end the A1 line here; the executed pilot's claims A-E stand, F-I remain untested or unproven"
+ },
+ "what_does_not_change": "the frozen questions, criteria, thresholds, assignments, seeds, ceilings other than the amended network counts, and the prohibition on optimizer updates, paid compute, hardware, reserved outcomes, publication and pushes",
+ "attempts": {
+  "replay": {
+   "assigned": 2,
+   "started": 0,
+   "consumed": 0
+  },
+  "development": {
+   "assigned": 10,
+   "started": 0,
+   "consumed": 0
+  }
+ }
+}

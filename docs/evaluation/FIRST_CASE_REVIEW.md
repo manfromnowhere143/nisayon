@@ -399,6 +399,21 @@ Command `2ffe33ac`: 120.160 s outer, 92.011 s execution.
     await indexing). No total is hardcoded; the old 96 unexecuted D06, D08
     and D10 assignments stay distinguishable from observations.
 
+28. **Reset evidence without telemetry: a decision-changing probe, no cost
+    opportunity.** From the retained unresolved incident D10, the evaluation
+    lane specified and pinned a case in which the recurrent state cannot be
+    observed and the reset obligation blocks every repair
+    ([CASE_RESET_WITHOUT_TELEMETRY.md](CASE_RESET_WITHOUT_TELEMETRY.md)).
+    Thirteen executions on the committed runner (command `517e99af`, 15.2 s)
+    confirmed every pinned prediction: episode-reset runs are prefix-invariant
+    and row-for-row equal to the retained full-telemetry reference, carried
+    runs are prefix-sensitive, every-action runs are invariant among
+    themselves. The probe separates the explanations without telemetry, but
+    its reading is not admissible under the frozen rule and the one-candidate
+    protocol charges nothing for a wrong decision, so the case cannot test the
+    efficiency thesis. Retained as a capability demonstration for a
+    prospective evidence rule; no seed spent, no model call.
+
 ## Translation assumptions the reader should know
 
 The adapter treats every non-reference deployment as running on the changed

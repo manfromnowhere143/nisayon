@@ -11,8 +11,9 @@ import time
 from dataclasses import replace
 from datetime import UTC, datetime
 
-from .bounded_agent import decide
+from .bounded_agent import EFFORT, MODEL, decide
 from .budgets import BudgetExceeded, DiagnosticBudget
+from .declarations import DISPOSITIONS, declare
 from .development_diagnostics import diagnostic_header, measured_run_costs
 from .diagnostics import REPAIR_FIELDS, ordinary_checks
 from .execution_store import ExecutionStore
@@ -39,7 +40,7 @@ PROMPT = (
 )
 
 
-def response_schema(arm: str) -> dict:
+def response_schema(arm: str, *, study_declarations: bool = False) -> dict:
     repair = {
         "type": "object",
         "additionalProperties": False,
@@ -57,7 +58,7 @@ def response_schema(arm: str) -> dict:
         },
         "required": list(REPAIR_FIELDS),
     }
-    return {
+    schema = {
         "type": "object",
         "additionalProperties": False,
         "properties": {
@@ -72,6 +73,14 @@ def response_schema(arm: str) -> dict:
         },
         "required": ["action", "repair", "run_id", "freeze_if_valid", "reason"],
     }
+    if study_declarations:
+        schema["properties"]["action"]["enum"].append("declare")
+        schema["properties"]["declaration_disposition"] = {
+            "type": ["string", "null"],
+            "enum": ["claim_acceptance", "abstain", "refuse", "unresolved", None],
+        }
+        schema["required"].append("declaration_disposition")
+    return schema
 
 
 def checked_repair(incident, fields: dict):
@@ -111,11 +120,26 @@ def public_run(run: dict) -> dict:
     }
 
 
-def diagnose(executor, incident, asset, arm, directory, limits, preparation_costs, *, scope):
+def diagnose(
+    executor,
+    incident,
+    asset,
+    arm,
+    directory,
+    limits,
+    preparation_costs,
+    *,
+    scope,
+    declaration_context=None,
+):
     from nisayon.evaluation import evaluate_bundle
 
     if incident.prefix or incident.id.startswith("D"):
         raise ValueError("This bounded experiment requires an anonymous, non-prefix assignment")
+    if declaration_context is not None:
+        assignment = declaration_context["assignment"]
+        if assignment["case_id"] != incident.id or assignment["arm"] != arm:
+            raise ValueError("Study declaration context belongs to another assignment")
     started_at, start = datetime.now(UTC).isoformat(), time.perf_counter()
     budget = DiagnosticBudget(limits)
     store = ExecutionStore(
@@ -137,6 +161,7 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
     proposals, calls, audits, observations, history = [], [], [], [], []
     candidates = {}
     candidate, reason, status = None, None, "unresolved"
+    arm_statement = None
     usage = {
         "input_tokens": 0,
         "output_tokens": 0,
@@ -201,11 +226,32 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
                 "limits": "Known development task; no cause or remedy label, no confirmation conditions or outcomes. Raw traces and ordinary summaries are equally available. Host clocks are measurements, not real-time safety guarantees.",
             }
             write_json(public / "packet.json", packet)
+            schema = response_schema(arm, study_declarations=declaration_context is not None)
+            prompt = PROMPT
+            if declaration_context is not None:
+                packet["available_actions"]["declare"] = (
+                    "Record your study judgment before terminal reference evidence: claim_acceptance, "
+                    "abstain, refuse or unresolved. A claim must name an executed run_id. "
+                    "The original declaration remains even if the final service vetoes it. "
+                    "It never grants product acceptance."
+                )
+                # The initial packet is already immutable; retain the explicit extension separately.
+                write_json(
+                    public / "declaration-interface.json", packet["available_actions"]["declare"]
+                )
+                prompt += (
+                    " This call uses study declaration interface v2. Read declaration-interface.json. "
+                    "Use action=declare with declaration_disposition and run_id for an executed candidate, "
+                    "or action=declare with disposition abstain/refuse/unresolved and null run_id. "
+                    "An execute-and-freeze request "
+                    "may carry an explicit declaration_disposition; no acceptance claim is inferred "
+                    "from selecting a candidate alone. Your statement is retained before terminal checking."
+                )
             call = decide(
                 public,
                 directory / "calls" / f"{step:02d}",
-                response_schema(arm),
-                PROMPT,
+                schema,
+                prompt,
                 timeout=CALL_TIMEOUT,
             )
             calls.append(
@@ -215,26 +261,56 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
                 }
             )
             usage["calls"] += 1
+            for event in call["usage_events"]:
+                for key in ("input_tokens", "output_tokens", "cached_input_tokens"):
+                    value = event.get(key)
+                    if type(value) is int and value >= 0:
+                        usage[key] += value
             if not call["usage_complete"] or call["response_error"]:
                 usage["complete"] = False
                 raise ValueError("Incomplete decision call or attributable usage")
-            for event in call["usage_events"]:
-                for key in ("input_tokens", "output_tokens", "cached_input_tokens"):
-                    usage[key] += event.get(key, 0)
-            budget.check_time()
-            if usage["input_tokens"] + usage["output_tokens"] > MAX_TOKENS:
-                raise BudgetExceeded(
-                    "Token budget exceeded; the entire call is retained and charged"
-                )
             request = call["response"]
             if not isinstance(request, dict):
                 raise ValueError("No structured decision request")
             entry = {"request": request, "call": calls[-1]}
             history.append(entry)
             action = request.get("action")
+            if declaration_context is not None and (
+                not isinstance(request.get("reason"), str) or not request["reason"].strip()
+            ):
+                raise ValueError("Study response needs an explicit nonempty reason")
             if action == "abstain":
                 reason = request.get("reason")
+                if declaration_context is not None:
+                    arm_statement = {"disposition": "abstain", "candidate": None, "reason": reason}
                 break
+            if action == "declare" and declaration_context is not None:
+                disposition = request.get("declaration_disposition")
+                if disposition not in DISPOSITIONS:
+                    raise ValueError("Study declaration needs an explicit disposition")
+                selected_run = request.get("run_id")
+                if selected_run is not None and selected_run not in candidates:
+                    raise ValueError("Declaration may name only an actually executed candidate")
+                if disposition == "claim_acceptance" and selected_run is None:
+                    raise ValueError("An arm claim must name an executed candidate")
+                candidate = candidates[selected_run][0].record() if selected_run else None
+                arm_statement = {
+                    "disposition": disposition,
+                    "candidate": candidate,
+                    "reason": request.get("reason"),
+                }
+                if disposition == "claim_acceptance":
+                    budget.select_final_candidate()
+                    status = "candidate_ready_for_freeze"
+                else:
+                    candidate = None
+                reason = request.get("reason")
+                break
+            budget.check_time()
+            if usage["input_tokens"] + usage["output_tokens"] > MAX_TOKENS:
+                raise BudgetExceeded(
+                    "Token budget exceeded; the entire call is retained and charged"
+                )
             if action == "audit":
                 if arm != "B":
                     raise ValueError("Action unavailable to the declared arm")
@@ -316,9 +392,29 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
             if run_id not in candidates or not candidates[run_id][1]["meets_measured_obligations"]:
                 entry["rejected"] = "Only a retained successful exploration candidate may freeze"
                 continue
-            budget.select_final_candidate()
+            if (
+                declaration_context is not None
+                and request.get("declaration_disposition") not in DISPOSITIONS
+            ):
+                entry["rejected"] = (
+                    "Study interface requires an explicit declaration before freezing"
+                )
+                continue
             candidate = candidates[run_id][0].record()
             status = "candidate_ready_for_freeze"
+            if (
+                declaration_context is not None
+                and request.get("declaration_disposition") is not None
+            ):
+                arm_statement = {
+                    "disposition": request["declaration_disposition"],
+                    "candidate": candidate,
+                    "reason": request.get("reason"),
+                }
+                if arm_statement["disposition"] != "claim_acceptance":
+                    candidate, status = None, "unresolved"
+            if candidate is not None:
+                budget.select_final_candidate()
             break
         else:
             reason, status = "Decision-call budget exhausted", "timeout"
@@ -337,6 +433,38 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
             "history": history,
         },
     )
+    declaration_reference = None
+    if arm_statement is not None:
+        evidence_root = declaration_context["evidence_root"].resolve(strict=True)
+        selected = arm_statement["candidate"]
+        evidence = [store.root / "selection.json"]
+        evidence += [directory / call["path"] for call in calls]
+        declaration_reference = declare(
+            declaration_context["root"],
+            {
+                "assignment": declaration_context["assignment"],
+                "candidate": {"configuration": selected, "configuration_sha256": digest(selected)}
+                if selected is not None
+                else None,
+                "disposition": arm_statement["disposition"],
+                "reason": arm_statement["reason"],
+                "evidence": [
+                    {"path": str(path.relative_to(evidence_root)), "sha256": file_digest(path)}
+                    for path in evidence
+                ],
+                "source": executor.identity["code"],
+                "settings": {
+                    "interface": "nisayon.study-response.v2",
+                    "declaration_origin": "explicit_arm_response",
+                    "model": MODEL,
+                    "reasoning_effort": EFFORT,
+                    "response_schema_sha256": digest(schema),
+                    "prompt_sha256": digest(prompt),
+                },
+                "evidence_scope": "prospective_execution",
+            },
+            evidence_root=evidence_root,
+        )
     path, integrity = store.seal()
     check_start = time.perf_counter()
     assessment = evaluate_bundle(path, artifact_root=store.root)
@@ -344,12 +472,16 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
     final_check = time.perf_counter() - check_start
     try:
         budget.check_time()
+        if usage["input_tokens"] + usage["output_tokens"] > MAX_TOKENS:
+            raise BudgetExceeded("Token budget exceeded; original declaration retained")
     except BudgetExceeded as error:
         candidate, status, reason = None, "timeout", str(error)
     if integrity["status"] != "verified":
         candidate, status, reason = None, "unresolved", "Execution integrity failed"
     result = {
-        "schema": "nisayon.development-diagnosis.v1",
+        "schema": "nisayon.development-diagnosis.v2"
+        if declaration_context
+        else "nisayon.development-diagnosis.v1",
         "case_id": incident.id,
         "arm": arm,
         "scope": scope,
@@ -377,8 +509,17 @@ def diagnose(executor, incident, asset, arm, directory, limits, preparation_cost
             "sha256": file_digest(directory / "diagnostic-decision.json"),
             "decision": assessment["decision"],
         },
-        "arm_claimed_acceptance": False,
+        "arm_claimed_acceptance": bool(
+            arm_statement and arm_statement["disposition"] == "claim_acceptance"
+        ),
         "interpretation": "Model requests do not establish execution or acceptance. Confirmation is separate; failed and unmeasured calls remain charged.",
     }
+    if declaration_context is not None:
+        result["arm_declaration"] = declaration_reference
+        result["declaration_missing_reason"] = (
+            None
+            if declaration_reference
+            else "No explicit arm declaration was returned; execution failure/timeout is not an invented abstention"
+        )
     write_json(directory / "diagnosis.json", result)
     return result

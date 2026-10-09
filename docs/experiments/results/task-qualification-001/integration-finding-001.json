@@ -1,0 +1,26 @@
+{
+  "schema": "nisayon.task-qualification-integration-finding.v1",
+  "case": "task-qualification-001",
+  "recorded_at": "2026-09-21T06:33:00Z",
+  "evaluation_delivery": "da36b9d427b3956e65ceb9ff0ada3889701a17f7",
+  "evaluation_merge": "ee9fa153192db87ec7d7e8ddb4111065d868fc19",
+  "code": "checkpoint_license_not_established",
+  "reproduction": {
+    "frozen_criterion": "C1 requires a learned policy checkpoint's bytes, revision and digest under a license that permits local execution.",
+    "screening_statement": "CAND-01 marks C1 pass while stating that the checkpoint weights license is unspecified.",
+    "sources": [
+      "docs/evaluation/results/task-qualification-001/selection-rule.v1.json",
+      "docs/evaluation/results/task-qualification-001/screening-001.json",
+      "docs/experiments/ASSETS.md"
+    ]
+  },
+  "disposition": {
+    "c1": "unresolved, not pass: a public download and code licenses do not establish a license for the checkpoint bytes",
+    "candidate_score": "at most 4 of 7 rather than 5 of 7 under the frozen rule",
+    "overall_qualification": "unchanged: zero candidates qualify because CAND-01 also fails C3 and C5 and every other candidate is rejected",
+    "future_a1": "a newly trained checkpoint must bind its dataset and resulting-weight use to verified license terms; the unspecified held checkpoint license need not govern a from-scratch checkpoint unless its weights are used"
+  },
+  "severity": "record correction required; no consequential outcome changes",
+  "execution_effect": "none; no policy, simulator, acquisition or training is authorized or executed",
+  "independent_disposition": "requested from the evaluation owner before closeout"
+}

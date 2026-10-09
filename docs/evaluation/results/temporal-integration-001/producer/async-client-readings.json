@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.temporal-integration.async-client-readings.v1",
+  "file": "/Users/danielwahnich/.codex/reports/nisayon-joint-temporal-mission-2026-09-20-1c_oer7k/sources/lerobot-current-client.py",
+  "facts": {
+    "file_sha256": {
+      "expected": "804f850e87d444b49f5b182d794ef1e9af2f059e0e95369f633fe8d15d5db5fb",
+      "actual": "804f850e87d444b49f5b182d794ef1e9af2f059e0e95369f633fe8d15d5db5fb",
+      "holds": true
+    },
+    "1_start_calls_Ready_before_SendPolicyInstructions": {
+      "holds": true,
+      "calls": [
+        "self.stub.Ready",
+        "self.stub.SendPolicyInstructions"
+      ]
+    },
+    "2_latest_action_assigned_only_in_init_and_control_loop_action": {
+      "holds": true,
+      "assignments": {
+        "__init__": 1,
+        "control_loop_action": 1
+      }
+    },
+    "3_aggregation_rebuilds_the_queue_from_incoming_actions_only": {
+      "holds": true,
+      "loop_iterables": [
+        "incoming_actions"
+      ]
+    },
+    "4_single_sequential_receiver": {
+      "holds": true,
+      "GetActions_calls": 1
+    },
+    "5_observation_identity_is_wall_stamp_and_step": {
+      "holds": true
+    },
+    "6_control_loop_has_no_reset_path": {
+      "holds": true
+    }
+  },
+  "all_hold": true,
+  "scope": "structural facts parsed from the pinned bytes; nothing executed; they support the reachability readings in qualification.json and prove nothing about behavior under other callers"
+}

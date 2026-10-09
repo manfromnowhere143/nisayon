@@ -27,6 +27,14 @@ from .schema import (
 
 CONFIRMATION_SCHEMA = "nisayon.confirmation.v1"
 CONDITION_ROLES = {"reproduction", "fresh"}
+CANCELLATIONS = {"stopped_after_violation"}
+CANCELLING_CODES = {
+    codes.REGRESSION_ON_FRESH_CONDITION,
+    codes.REPRODUCTION_NOT_FIXED,
+    codes.PROGRESS_LOST,
+    codes.CONSTRAINT_VIOLATED,
+    codes.TIMING_OBLIGATION_VIOLATED,
+}
 # Keys that must agree across every assigned run and with the frozen protocol.
 BOUND_IDENTITY_KEYS = (
     "execution_identity_sha256",
@@ -70,6 +78,7 @@ class ConfirmationAssessment:
     assigned_candidate_run_ids: list[str] = field(default_factory=list)
     frozen_identity: dict = field(default_factory=dict)
     producer_protocol_digest: str | None = None
+    cancellation: dict | None = None
 
     def add(
         self, code: str, detail: str, *, run_id: str | None = None, path: str | None = None
@@ -91,6 +100,14 @@ class ConfirmationAssessment:
             "consumed_condition_ids": self.consumed_condition_ids,
             "pairs": [pair.to_dict() for pair in self.pairs],
             "findings": [f.to_dict() for f in self.findings],
+            "cancellation": None
+            if self.cancellation is None
+            else {
+                **self.cancellation,
+                "recorded_at": self.cancellation["recorded_at"].isoformat()
+                if self.cancellation.get("recorded_at") is not None
+                else None,
+            },
         }
 
 
@@ -186,6 +203,26 @@ def assess_confirmation(
         declared = optional_string(contamination, "declared", f"{path}.contamination")
         if declared is not None and declared != "none":
             c.add(codes.CONTAMINATION_DECLARED, f"producer declared contamination: {declared}")
+        if data.get("cancellation") is not None:
+            # A deliberate stop after an observed violation: the producer names the
+            # violating run and condition and the assignments it did not run. Checked
+            # below against the observed findings; a cancellation nothing supports is invalid.
+            cdata = mapping(data["cancellation"], f"{path}.cancellation")
+            vpath = f"{path}.cancellation.violation"
+            violation = mapping(require(cdata, "violation", f"{path}.cancellation"), vpath)
+            recorded = cdata.get("recorded_at")
+            c.cancellation = {
+                "status": string(cdata, "status", f"{path}.cancellation", allowed=CANCELLATIONS),
+                "violation_condition_id": string(violation, "condition_id", vpath),
+                "violation_run_id": optional_string(violation, "run_id", vpath),
+                "violation_code": optional_string(violation, "code", vpath),
+                "recorded_at": parse_wall_time(recorded, f"{path}.cancellation.recorded_at")
+                if recorded is not None
+                else None,
+                "cancelled_condition_ids": string_list(
+                    cdata, "cancelled_condition_ids", f"{path}.cancellation"
+                ),
+            }
         assignments = []
         for index, item in enumerate(
             sequence(require(data, "assignments", path), f"{path}.assignments")
@@ -303,11 +340,35 @@ def assess_confirmation(
         c.assigned_candidate_run_ids.append(candidate_id)
         missing = [rid for rid in (reference_id, candidate_id) if rid not in assessments]
         if missing:
-            c.add(
-                codes.ASSIGNED_OUTCOME_MISSING,
-                f"condition {condition_id!r}: assigned run(s) {missing} are not in the bundle",
+            cancelled = (
+                c.cancellation is not None
+                and condition_id in c.cancellation["cancelled_condition_ids"]
             )
+            if cancelled and len(missing) == 2:
+                pair.verdict = "cancelled"
+                c.add(
+                    codes.ASSIGNMENT_CANCELLED,
+                    f"condition {condition_id!r}: assignment cancelled after the violation on "
+                    f"{c.cancellation['violation_condition_id']!r}; retained in the denominator",
+                )
+            else:
+                if cancelled:
+                    c.add(
+                        codes.CANCELLATION_UNSUPPORTED,
+                        f"condition {condition_id!r} is declared cancelled but an assigned run was "
+                        "attempted; a cancellation cannot hide an attempted run or its cost",
+                    )
+                c.add(
+                    codes.ASSIGNED_OUTCOME_MISSING,
+                    f"condition {condition_id!r}: assigned run(s) {missing} are not in the bundle",
+                )
             continue
+        if c.cancellation is not None and condition_id in c.cancellation["cancelled_condition_ids"]:
+            c.add(
+                codes.CANCELLATION_UNSUPPORTED,
+                f"condition {condition_id!r} is declared cancelled but both assigned runs are in "
+                "the bundle",
+            )
         reference, candidate = assessments[reference_id], assessments[candidate_id]
         pair.reference_measurement, pair.candidate_measurement = (
             reference.measurement,
@@ -443,16 +504,111 @@ def assess_confirmation(
                 run_id=candidate_id,
             )
     _check_identity_binding(c, case, assessments)
+    _check_cancellation(c, assessments)
     if (
         c.pairs
         and informative == 0
-        and not any(f.code == codes.ASSIGNED_OUTCOME_MISSING for f in c.findings)
+        and not any(
+            f.code in (codes.ASSIGNED_OUTCOME_MISSING, codes.ASSIGNMENT_CANCELLED)
+            for f in c.findings
+        )
     ):
         c.add(
             codes.CONFIRMATION_UNINFORMATIVE,
             "the reference completes none of the fresh conditions; they do not exercise the task",
         )
     return c
+
+
+def _check_cancellation(c: ConfirmationAssessment, assessments: dict[str, RunAssessment]) -> None:
+    """A cancellation is supported only by an observed violation of the obligation on the
+    named condition: a regression or an unfixed reproduction on that pair, or an absolute
+    predicate failure on that pair's candidate run. Its membership, run identity, code and
+    time must agree with the record. Otherwise the stop is a lost denominator and the
+    cancelled assignments stay gaps."""
+    if c.cancellation is None:
+        return
+    problems: list[str] = []
+    condition_id = c.cancellation["violation_condition_id"]
+    pair = next((p for p in c.pairs if p.condition_id == condition_id), None)
+    assigned_conditions = {p.condition_id for p in c.pairs}
+    cancelled = c.cancellation["cancelled_condition_ids"]
+    if len(set(cancelled)) != len(cancelled):
+        problems.append("cancelled_condition_ids repeats a condition")
+    unknown = [cid for cid in cancelled if cid not in assigned_conditions]
+    if unknown:
+        problems.append(f"cancelled conditions {unknown} are not assigned conditions")
+    if condition_id in cancelled:
+        problems.append("the violating condition is itself declared cancelled")
+    if pair is None:
+        problems.append(f"condition {condition_id!r} is not an assigned condition")
+    observed: dict[str, set[str]] = {}  # rejecting code -> the run ids it is attributed to
+    if pair is not None:
+        for f in c.findings:
+            if (
+                f.code in CANCELLING_CODES
+                and f.severity == codes.REJECTED
+                and f.run_id in (pair.candidate_run_id, pair.reference_run_id)
+            ):
+                observed.setdefault(f.code, set()).add(f.run_id)
+        candidate = assessments.get(pair.candidate_run_id)
+        if candidate is not None:
+            for f in candidate.findings:
+                if f.code in CANCELLING_CODES and f.severity == codes.REJECTED:
+                    observed.setdefault(f.code, set()).add(pair.candidate_run_id)
+        attributed = {run for runs in observed.values() for run in runs}
+        run_id = c.cancellation["violation_run_id"]
+        if run_id is not None and run_id not in attributed:
+            # Pair membership is not enough: the named run must be the one an observed
+            # rejecting finding is attributed to; the reference run of a regression is
+            # the run that completed, not the violating one.
+            problems.append(
+                f"violation run {run_id!r} is not the run a rejecting violation is attributed "
+                f"to on condition {condition_id!r} (attributed: {sorted(attributed)})"
+            )
+        code = c.cancellation["violation_code"]
+        if code is not None and code not in observed:
+            problems.append(
+                f"violation code {code!r} is not observed on condition {condition_id!r}"
+            )
+        elif code is not None and run_id is not None and run_id not in observed.get(code, set()):
+            problems.append(
+                f"violation code {code!r} is not attributed to run {run_id!r} on condition "
+                f"{condition_id!r}"
+            )
+        recorded = c.cancellation["recorded_at"]
+        if recorded is not None:
+            if c.frozen_at is not None and recorded < c.frozen_at:
+                problems.append("the cancellation is recorded before the candidate was frozen")
+            started = candidate.started_at if candidate is not None else None
+            if started is not None and recorded < started:
+                problems.append("the cancellation is recorded before the violating run started")
+    if not observed:
+        problems.append(
+            f"no rejecting violation of the obligation is observed on condition {condition_id!r}"
+        )
+    if not problems:
+        return
+    c.add(
+        codes.CANCELLATION_UNSUPPORTED,
+        "the cancellation is not supported by the record: "
+        + "; ".join(problems)
+        + "; the missing assignments stay a gap",
+    )
+    c.findings = [
+        Finding(
+            codes.ASSIGNED_OUTCOME_MISSING,
+            f.detail.replace("assignment cancelled", "assignment not run"),
+            run_id=f.run_id,
+            path=f.path,
+        )
+        if f.code == codes.ASSIGNMENT_CANCELLED
+        else f
+        for f in c.findings
+    ]
+    for item in c.pairs:
+        if item.verdict == "cancelled":
+            item.verdict = "gap"
 
 
 def _check_identity_binding(

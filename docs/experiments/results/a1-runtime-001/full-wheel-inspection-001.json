@@ -1,0 +1,160 @@
+{
+  "schema": "nisayon.a1-runtime-full-wheel-inspection.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T16:53:21Z",
+  "status": "supported_with_declared_scope",
+  "source": {
+    "commit": "f79afffda53ebd4a6149f35997c7aa6ad8c80ae0",
+    "script": {
+      "path": "scripts/experiments/inspect_a1_wheel_full.py",
+      "sha256": "46b9e3f79b1a4a519baa3bb3c796f6e259164e0e4725d0b2a49b3414c49681d4"
+    },
+    "tests": {
+      "path": "tests/engine/test_inspect_a1_wheel_full.py",
+      "sha256": "bd3a5bb45fe58599bcdcc935b23ffa9ad4f96501d4d3eb33bd3d6cee4e5e8d96",
+      "passed": 8
+    }
+  },
+  "input": {
+    "wheel": {
+      "path": "artifacts/a1-runtime-001/sources/robosuite-1.5.1-py3-none-any.whl.partial.full-001",
+      "bytes": 152011410,
+      "sha256": "39810a9e9f193455fcb13a9b4846424abef77481ac3091892c2077c88dcdc153"
+    },
+    "publisher_record": {
+      "path": "docs/experiments/results/a1-runtime-001/source-delivery-001.json",
+      "sha256": "5a4ade478dbe844b74fb1d63dd861243c790c29618a433e4e510fbb666a76a23"
+    },
+    "contract": {
+      "path": "docs/evaluation/results/a1-runtime-001/runtime-contract.v1.3.json",
+      "sha256": "cf91eb9232f4b3768fdbbbc521686da309a87728a5fed5a11f18e5dc2ad4e347"
+    }
+  },
+  "attempts": [
+    {
+      "ordinal": 1,
+      "source_commit": "41fd7dedc8bdc27850624c7aa117a4d4e8776aaa",
+      "run_id": "4290233f0a0340fe9004097639dff0f6",
+      "run_record_sha256": "299b9deb0e5a57807813c4d2a2448633356c3cf272a00ea0c8a19779a7f9b795",
+      "receipt": "artifacts/a1-runtime-001/offline-wheel-inspection-001/acquisition-receipt-001.json",
+      "receipt_sha256": "519d2335a424cd6c57a80a80deef8d7478b1f356a4ccc2b19fefbe3e0a718105",
+      "outcome": "failed_closed",
+      "failure": "the token classifier left Mink reachability unresolved after RECORD and rights passed",
+      "outer_wall_seconds": 1.170144,
+      "command_real_seconds": 1.13,
+      "command_user_seconds": 0.98,
+      "command_sys_seconds": 0.13,
+      "maximum_rss_bytes": 152453120
+    },
+    {
+      "ordinal": 2,
+      "source_commit": "a8b4172084dcd80112569934143baf9685b6fe93",
+      "run_id": "07a05f29a3544693852e0086207499e3",
+      "run_record_sha256": "248d74b210b366740b6c8b166ce1c3400a13e440248a13356d1bccfc139e40f1",
+      "receipt": "artifacts/a1-runtime-001/offline-wheel-inspection-002/acquisition-receipt-002.json",
+      "receipt_sha256": "a9e81a9b06494d1daf70173fa40aec9e0e32027b666d42e2826af39a7b4717f8",
+      "outcome": "failed_closed",
+      "failure": "the AST classifier treated a Mink-named missing local import below an __main__ guard as reachable",
+      "outer_wall_seconds": 1.150976,
+      "command_real_seconds": 1.14,
+      "command_user_seconds": 0.97,
+      "command_sys_seconds": 0.14,
+      "maximum_rss_bytes": 154517504
+    },
+    {
+      "ordinal": 3,
+      "source_commit": "f79afffda53ebd4a6149f35997c7aa6ad8c80ae0",
+      "run_id": "061eb154560d417e98e53f44e9a6958a",
+      "run_record_sha256": "9df846739d2c1cafc269c8800e6311c3e9e7c7900590aad754e171dfd44eac2f",
+      "receipt": "artifacts/a1-runtime-001/offline-wheel-inspection-003/acquisition-receipt-003.json",
+      "receipt_sha256": "49fded9310cc226cbe97f4879c28c48c03f3d99493525d58c6c323e243f0af2f",
+      "outcome": "passed",
+      "outer_wall_seconds": 1.155885,
+      "command_real_seconds": 1.13,
+      "command_user_seconds": 0.97,
+      "command_sys_seconds": 0.14,
+      "maximum_rss_bytes": 158023680
+    }
+  ],
+  "custody": {
+    "publisher_size_and_sha256_match": true,
+    "record_member_rows": 1120,
+    "record_members_hashed": 1119,
+    "record_bad": 0,
+    "archive_members_missing_from_record": 0,
+    "record_members_missing_from_archive": 0,
+    "record_sha256": "b3a59673606f84fc1e26f4c2743b156980b1f7d053573d9cd7a7a831c3fbf3a4",
+    "metadata_sha256": "caa69d068fd2873fb2b24235dade6eec078bc6c00e622e0f029f74a09e9a51ca"
+  },
+  "rights": {
+    "status": "supported",
+    "declaration": "MIT",
+    "member": "robosuite-1.5.1.dist-info/LICENSE",
+    "sha256": "177978cbece0a4c454c2aaec5b3f145b39270814874c43109da9e829c39d9cba",
+    "declared_by_metadata": true,
+    "covers_distribution": true
+  },
+  "archive": {
+    "members": 1120,
+    "python_members_parsed": 198,
+    "python_source_bytes": 1540121,
+    "compressed_member_bytes": 151787498,
+    "uncompressed_member_bytes": 535405036,
+    "container_overhead_bytes": 223912,
+    "archive_and_expansion_bytes": 687416446
+  },
+  "mink": {
+    "decision": "recorded_adaptation",
+    "reachable_from_import_lift_osc_grip_path": false,
+    "external_distribution_imports": 0,
+    "token_hits": 4,
+    "caught_missing_local_imports": 1,
+    "main_guard_imports": 1,
+    "detail": "The wheel contains Mink-named text. robosuite/__init__.py line 37 imports an absent internal robosuite Mink controller inside a caught import-failure boundary. collect_human_demonstrations.py line 257 imports the same absent internal module only below an __main__ guard. Neither reaches the external Mink distribution on import, Lift construction or OSC_POSE/GRIP execution.",
+    "runtime_witness_still_required": [
+      "mink absent from sys.modules after environment construction",
+      "mink absent from sys.modules after the last development episode"
+    ],
+    "network_consequence": "No Mink metadata or artifact response is permitted or required on the frozen branch; five application responses remain unused."
+  },
+  "retained_dist_info": {
+    "directory": "artifacts/a1-runtime-001/offline-wheel-inspection-003/dist-info",
+    "members": 7
+  },
+  "resource_guard": {
+    "free_bytes": 13712924672,
+    "projected_free_bytes": 12052996754,
+    "minimum_free_disk_bytes": 5368709120,
+    "isolated_environment_and_cache_cap_bytes": 1610612736,
+    "remaining_isolated_reservation_bytes": 1458601326,
+    "temporary_reservation_bytes": 201326592,
+    "passed": true
+  },
+  "operations": {
+    "network_responses": 0,
+    "package_installations": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "replay_attempts_started": 0,
+    "development_episodes_started": 0
+  },
+  "claims": {
+    "supported": [
+      "the retained wheel matches its retained publisher size and digest",
+      "every hashed RECORD member verifies and the archive is RECORD-complete",
+      "the retained distribution declares MIT permission",
+      "Mink is not statically reachable on the frozen import, Lift and OSC_POSE/GRIP path"
+    ],
+    "not_established": [
+      "installation correctness",
+      "runtime importability",
+      "environment construction",
+      "simulator compatibility",
+      "checkpoint competence",
+      "confirmed repair",
+      "comparative value"
+    ]
+  },
+  "publication": "private; no push or publication"
+}

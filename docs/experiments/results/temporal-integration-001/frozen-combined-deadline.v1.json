@@ -1,0 +1,831 @@
+{
+  "schema": "nisayon.temporal-suite.v1",
+  "id": "combined-deadline-001",
+  "frozen_at": "2026-09-20T10:26:20.327088+00:00",
+  "role": "exposed_policy_followup_after_admission_conformance",
+  "hypothesis": "Checking the existing age rule before replacement and at dispatch can preserve the old fresh action in Y03 while refusing the expired action in T15. The same combined option is supplied to the conventional and selected comparators; parity is the intended fair comparison, not a superiority claim.",
+  "exposure": "All six cases were already executed and inspected; new combined-mode unit controls were written before this freeze. This is an exposed engineering comparison, not fresh confirmation or an independent incident.",
+  "case_origins": [
+    {
+      "case_id": "Y03-stale-distinct-replacement",
+      "case_sha256": "d71c2e9d0f6c8cba67eafa37b365bb08556bbd7d8472e07f6417915b00b9de12",
+      "file": "frozen-admission-conformance.v1.json",
+      "file_sha256": "d41a436943693af4425dbd414985b67814cb1407c5b07bf8fc3635617cc3c951"
+    },
+    {
+      "case_id": "T15-expiry-in-queue",
+      "case_sha256": "9ca56f64e0e3df95e57b6156ac30ec557e0534459d030f2c8f1efea02807fc98",
+      "file": "frozen-suite.v2.json",
+      "file_sha256": "b6d5a7da7555b0d743e4be7ae2a616df84cb7dac328d7175a4805ac06112fa08"
+    },
+    {
+      "case_id": "T14-deadline-equality",
+      "case_sha256": "2ce688e6202807b48c28e26d2d19d3eabca2464e46e413bcc3e7068116a53fa4",
+      "file": "frozen-suite.v2.json",
+      "file_sha256": "b6d5a7da7555b0d743e4be7ae2a616df84cb7dac328d7175a4805ac06112fa08"
+    },
+    {
+      "case_id": "T11-missing-acquisition",
+      "case_sha256": "3cf8637e73926cc246e5b87ac22ae821475637bdb6ba00402375625f84d89008",
+      "file": "frozen-suite.v2.json",
+      "file_sha256": "b6d5a7da7555b0d743e4be7ae2a616df84cb7dac328d7175a4805ac06112fa08"
+    },
+    {
+      "case_id": "C02-conflicting-fresh-first",
+      "case_sha256": "0dac70de2e5211df59e467bb8a85f933b9444bf53d26fdb8dbe4207df8057ffd",
+      "file": "frozen-clock-conformance.v1.json",
+      "file_sha256": "975ee284679ceaebde6bbcb86c426f39db25977fc899f66f457cf1b388991af0"
+    },
+    {
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "case_sha256": "c275b57a01aa5e06dcc32555f007a35d35b552444bc87b5f58413f5654e5dff2",
+      "file": "frozen-admission-conformance.v1.json",
+      "file_sha256": "d41a436943693af4425dbd414985b67814cb1407c5b07bf8fc3635617cc3c951"
+    }
+  ],
+  "cases": [
+    {
+      "id": "Y03-stale-distinct-replacement",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y03-stale-distinct-replacement-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y03-stale-distinct-replacement-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y03-stale-distinct-replacement-input-02",
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-2"
+        },
+        {
+          "at_ns": 12000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "Y03-stale-distinct-replacement-input-03",
+          "stamp": {
+            "value": -100000000,
+            "clock": "controller",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 13000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "Y03-stale-distinct-replacement-input-04"
+        },
+        {
+          "at_ns": 14000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-later",
+          "chunk_id": "c1",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            99
+          ],
+          "id": "Y03-stale-distinct-replacement-input-05",
+          "delivery_id": "Y03-stale-distinct-replacement-delivery-5"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y03-stale-distinct-replacement-input-06"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "replacement"
+    },
+    {
+      "id": "T15-expiry-in-queue",
+      "source_kind": "constructed_control",
+      "question": "An action can age past its deadline while queued; a fresh replacement remains useful.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "T15-expiry-in-queue-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "T15-expiry-in-queue-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "T15-expiry-in-queue-input-02",
+          "delivery_id": "T15-expiry-in-queue-delivery-02"
+        },
+        {
+          "at_ns": 51000000,
+          "operation": "dispatch",
+          "id": "T15-expiry-in-queue-input-03"
+        },
+        {
+          "at_ns": 52000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "T15-expiry-in-queue-input-04"
+        },
+        {
+          "at_ns": 53000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "T15-expiry-in-queue-input-05"
+        },
+        {
+          "at_ns": 54000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-c1",
+          "chunk_id": "c1",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            10
+          ],
+          "id": "T15-expiry-in-queue-input-06",
+          "delivery_id": "T15-expiry-in-queue-delivery-06"
+        },
+        {
+          "at_ns": 55000000,
+          "operation": "dispatch",
+          "id": "T15-expiry-in-queue-input-07"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "T14-deadline-equality",
+      "source_kind": "constructed_control",
+      "question": "The frozen inclusive age deadline permits exact equality.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "T14-deadline-equality-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "T14-deadline-equality-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "T14-deadline-equality-input-02",
+          "delivery_id": "T14-deadline-equality-delivery-02"
+        },
+        {
+          "at_ns": 50000000,
+          "operation": "dispatch",
+          "id": "T14-deadline-equality-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "T11-missing-acquisition",
+      "source_kind": "constructed_control",
+      "question": "Arrival time must not replace a missing acquisition time.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "stamp": null,
+          "id": "T11-missing-acquisition-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "T11-missing-acquisition-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "T11-missing-acquisition-input-02",
+          "delivery_id": "T11-missing-acquisition-delivery-02"
+        },
+        {
+          "at_ns": 3000000,
+          "operation": "dispatch",
+          "id": "T11-missing-acquisition-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "C02-conflicting-fresh-first",
+      "source_kind": "constructed_control",
+      "question": "Exploratory clock-declaration conformance: mapping order must not select a calibration without an explicit selection premise.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "C02-conflicting-fresh-first-input-00",
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "C02-conflicting-fresh-first-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "C02-conflicting-fresh-first-input-02",
+          "delivery_id": "C02-conflicting-fresh-first-delivery"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "C02-conflicting-fresh-first-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": 0,
+            "uncertainty": 0,
+            "unit": "ns"
+          },
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": -100000000,
+            "uncertainty": 0,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "Each listed mapping purports to relate the same two unit-rate clocks over this case. No priority, validity interval or choice between conflicting calibrations is declared. Conflicts are deliberate diagnostic inputs, not established physical calibration."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty."
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery",
+      "source_kind": "constructed_control",
+      "question": "Exploratory admission attribution: a rejected response is not an admitted replacement; keep the frozen latest-request overlap and dispatch-age policy visible.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "Y02-rejected-conflicting-delivery-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "Y02-rejected-conflicting-delivery-input-01"
+        },
+        {
+          "at_ns": 10000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "Y02-rejected-conflicting-delivery-input-02",
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-2"
+        },
+        {
+          "at_ns": 12000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "Y02-rejected-conflicting-delivery-input-03",
+          "stamp": {
+            "value": -100000000,
+            "clock": "controller",
+            "unit": "ns"
+          }
+        },
+        {
+          "at_ns": 13000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "Y02-rejected-conflicting-delivery-input-04"
+        },
+        {
+          "at_ns": 14000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-later",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            99
+          ],
+          "id": "Y02-rejected-conflicting-delivery-input-05",
+          "delivery_id": "Y02-rejected-conflicting-delivery-delivery-5"
+        },
+        {
+          "at_ns": 20000000,
+          "operation": "dispatch",
+          "id": "Y02-rejected-conflicting-delivery-input-06"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "probe_mode": "collision"
+    }
+  ],
+  "remedies": [
+    {
+      "id": "arrival_deadline_only",
+      "role": "constructed_incomplete_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "arrival",
+      "drop_all": false
+    },
+    {
+      "id": "conventional",
+      "role": "competent_ordinary_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": false
+    },
+    {
+      "id": "conventional_combined_deadline",
+      "role": "competent_ordinary_combined_deadline_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "arrival_and_dispatch",
+      "drop_all": false
+    },
+    {
+      "id": "selected_combined_deadline",
+      "role": "same_combined_remedy_through_intervention_interface",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "arrival_and_dispatch",
+      "drop_all": false
+    }
+  ],
+  "assignments": [
+    {
+      "id": "Y03-stale-distinct-replacement--arrival_deadline_only",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement--conventional",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement--conventional_combined_deadline",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "Y03-stale-distinct-replacement--selected_combined_deadline",
+      "case_id": "Y03-stale-distinct-replacement",
+      "remedy_id": "selected_combined_deadline"
+    },
+    {
+      "id": "T15-expiry-in-queue--arrival_deadline_only",
+      "case_id": "T15-expiry-in-queue",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "T15-expiry-in-queue--conventional",
+      "case_id": "T15-expiry-in-queue",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "T15-expiry-in-queue--conventional_combined_deadline",
+      "case_id": "T15-expiry-in-queue",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "T15-expiry-in-queue--selected_combined_deadline",
+      "case_id": "T15-expiry-in-queue",
+      "remedy_id": "selected_combined_deadline"
+    },
+    {
+      "id": "T14-deadline-equality--arrival_deadline_only",
+      "case_id": "T14-deadline-equality",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "T14-deadline-equality--conventional",
+      "case_id": "T14-deadline-equality",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "T14-deadline-equality--conventional_combined_deadline",
+      "case_id": "T14-deadline-equality",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "T14-deadline-equality--selected_combined_deadline",
+      "case_id": "T14-deadline-equality",
+      "remedy_id": "selected_combined_deadline"
+    },
+    {
+      "id": "T11-missing-acquisition--arrival_deadline_only",
+      "case_id": "T11-missing-acquisition",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "T11-missing-acquisition--conventional",
+      "case_id": "T11-missing-acquisition",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "T11-missing-acquisition--conventional_combined_deadline",
+      "case_id": "T11-missing-acquisition",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "T11-missing-acquisition--selected_combined_deadline",
+      "case_id": "T11-missing-acquisition",
+      "remedy_id": "selected_combined_deadline"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--arrival_deadline_only",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--conventional",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--conventional_combined_deadline",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "C02-conflicting-fresh-first--selected_combined_deadline",
+      "case_id": "C02-conflicting-fresh-first",
+      "remedy_id": "selected_combined_deadline"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--arrival_deadline_only",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--conventional",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--conventional_combined_deadline",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "conventional_combined_deadline"
+    },
+    {
+      "id": "Y02-rejected-conflicting-delivery--selected_combined_deadline",
+      "case_id": "Y02-rejected-conflicting-delivery",
+      "remedy_id": "selected_combined_deadline"
+    }
+  ],
+  "analysis": [
+    "Retain every assigned raw store and assessment, including refusal, invalidity, unresolved evidence and process failure.",
+    "Report sent values, admitted/replaced/skipped ordinals and refusal reasons separately from both reference contracts and valid acknowledged dispatch counts.",
+    "Compare full logical event lists for the two new combined arms; only remedy identity and source/cost provenance may differ outside those events.",
+    "Retain C02 and Y02 reference readings with their pending owner dispositions. Producer age assertions do not resolve reference correctness.",
+    "Preserve all old plans/results. Do not pool these repeated exposed cases into the original success denominator or infer robot task progress."
+  ],
+  "evaluation_delivery_under_review": "8e5465051a583823ce8bf3914846e71046fbdeee",
+  "cpu_suballocation_s": 20,
+  "output_suballocation_bytes": 16777216,
+  "allocation_boundary": "Within the original 600 CPU-second software experiment allowance; not a new allowance. Required tests are separate. Zero physics, learned calls, hardware or reserved access.",
+  "usefulness_boundary": "Original case requirements remain unchanged. Sending an older but contract-fresh action does not establish physical task utility."
+}

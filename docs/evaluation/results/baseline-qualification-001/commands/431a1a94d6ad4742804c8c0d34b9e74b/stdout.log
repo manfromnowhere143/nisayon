@@ -1,0 +1,26 @@
+processor reference · rule external-decision-001/v2 · arm A
+reference decision: supported_software_correction
+  as_is             rejected_candidate              unmet obligation: postprocessor:action:inverse: skipped_no_stats; preprocessor:observation.state:forward: skipped_no_stats
+  suffix_match      rejected_candidate              unmet obligation: postprocessor:action:inverse: ambiguous among ['so100-blue.buffer.action', 'so100-red.buffer.action', 'so100.buffer.action']; postprocessor:action:inverse: ambiguous among ['so100.buffer.action', 'so100-red.buffer.action', 'so100-blue.buffer.action']; preprocessor:observation.state:forward: skipped_no_stats
+  explicit_override supported_software_correction   every repair obligation transformed with one bound key and a non-vacuous witness
+                    deployment binding: unresolved (numeric established, bytes not_established, interpretation not_carried_by_contract, selection not_carried_by_contract)
+                      action: declared verified_training_statistics, established matches_artifact_set [so100.buffer.action]
+                      observation.state: declared verified_training_statistics, established not_established
+executions:
+  independent-C0_as_is-0            as_is             preprocessor  observation.state   forward  skipped_no_stats  agrees
+  independent-C0_as_is-1            as_is             postprocessor action              inverse  skipped_no_stats  agrees
+  independent-C0_as_is-2            as_is             preprocessor  observation.image2  forward  identity_mode     agrees
+  independent-C1_suffix_match-0     suffix_match      preprocessor  observation.state   forward  skipped_no_stats  agrees
+  independent-C1_suffix_match-1     suffix_match      postprocessor action              inverse  ambiguous         agrees max 0.50 ulp ORDER-DEPENDENT
+  independent-C1_suffix_match-2     suffix_match      postprocessor action              inverse  ambiguous         agrees max 0.50 ulp ORDER-DEPENDENT
+  independent-C1_suffix_match-3     suffix_match      preprocessor  observation.image2  forward  identity_mode     agrees
+  independent-C2_explicit_override-0explicit_override preprocessor  observation.state   forward  transformed       agrees max 0.69 ulp
+  independent-C2_explicit_override-1explicit_override postprocessor action              inverse  transformed       agrees max 0.50 ulp
+  independent-C2_explicit_override-2explicit_override preprocessor  observation.image2  forward  identity_mode     agrees
+producer decision: agrees on every candidate; declares a supported deployment binding the evidence does not establish
+  [rejected] identity_unbound: 3 statistics keys match; different keys give different outputs; binding by store order is not a selection
+  [rejected] identity_unbound: 3 statistics keys match; different keys give different outputs; binding by store order is not a selection
+  [unresolved] provenance_declared_not_established: explicit_override: observation.state: declared 'verified_training_statistics', established not_established only
+  [unresolved] provenance_declared_not_established: explicit_override: action: declared 'verified_training_statistics', established matches_artifact_set only
+  [unresolved] provenance_declared_not_established: producer declares deployment binding supported; no candidate's binding evidence establishes interpretation or selection
+software mechanism only: a supported correction of the processor step is not a recovered robot task; declared provenance is reported, never assumed, and the deployment binding stays unresolved until interpretation and selection evidence exist outside this contract

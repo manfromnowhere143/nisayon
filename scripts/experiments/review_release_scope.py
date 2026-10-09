@@ -34,6 +34,7 @@ PRIVATE_PREFIXES = (
     "work/continuations/",
     "work/lanes/",
     "docs/prompts/",
+    "docs/SESSION_HANDOFF_THROUGH_",
 )
 PRIVATE_FILES = {".mcp.json", "docs/SESSION_HANDOFF.md", "docs/ENVIRONMENT.md"}
 FORBIDDEN_PAYLOAD_SUFFIXES = {

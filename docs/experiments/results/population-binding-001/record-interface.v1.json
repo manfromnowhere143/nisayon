@@ -1,0 +1,70 @@
+{
+  "schema": "nisayon.population-binding-record-interface.v1",
+  "status": "proposed_pending_evaluation_contract",
+  "purpose": "Neutral producer record for population-role, arithmetic, selection and operation observations. Reference expectations are not producer inputs.",
+  "required_top_level_fields": [
+    "schema",
+    "case_id",
+    "record_id",
+    "created_at",
+    "producer_identity",
+    "input",
+    "observations",
+    "obligations",
+    "decision",
+    "process",
+    "costs",
+    "limits"
+  ],
+  "input": {
+    "source_revision": "Repository and immutable revision.",
+    "files": "Ordered entries with relative path, byte length, SHA-256, declared membership and observed rows.",
+    "feature": "Exact feature name, coordinate order, shape and units; unknown units remain explicit.",
+    "population_declaration": "Declared role, membership, transform, dtype and aggregation convention, each with evidence references.",
+    "reference_selection": "Selected statistics identity and exact observed invocation/configuration evidence; a label alone is insufficient.",
+    "normalization": "Formula, direction, epsilon and constant-coordinate behavior with source evidence."
+  },
+  "observations": {
+    "membership": "Expected/observed file and row counts, order checks and missing/extra entries.",
+    "validity": "Distinct empty, missing, malformed, non_finite, unsupported and unmeasured findings.",
+    "published_statistics": "Exact retained values and source digest without interpretation promotion.",
+    "float32_recomputation": "Mean, population std, minimum, maximum and quantiles from exact float32 inputs.",
+    "higher_precision_crosscheck": "Independent float64 accumulation over the same float32 values.",
+    "comparison": "Per-statistic vector agreement, maximum absolute difference, tolerances and differing coordinates.",
+    "cache_behavior": "Reached caller, validation predicate, cache decision and recomputation/write observations, with substitutions if reduced.",
+    "normalization_witness": "Optional deterministic software transformation; never a model or robot result."
+  },
+  "obligations": {
+    "role_binding": ["supported", "rejected", "unresolved", "invalid"],
+    "population_binding": ["supported", "rejected", "unresolved", "invalid"],
+    "selection_binding": ["supported", "rejected", "unresolved", "invalid"],
+    "arithmetic": ["supported", "rejected", "unresolved", "invalid"],
+    "normalization_interpretation": ["supported", "rejected", "unresolved", "invalid"]
+  },
+  "decision": {
+    "selected_operation": ["reuse", "recompute", "abstain", "invalid"],
+    "status": ["supported", "rejected", "unresolved", "invalid"],
+    "premises": "Evidence-derived obligation IDs used by the operation rule.",
+    "missing": "Exact evidence needed for an unresolved decision.",
+    "candidate_results": "Every candidate operation and rejection/support reason; useful acceptance and refusal retained."
+  },
+  "process": {
+    "status": ["completed", "failed", "interrupted"],
+    "exit_code": "Execution outcome only; never scientific acceptance.",
+    "command_record_id": "Nisayon command record identifier.",
+    "executed_source_commit": "Exact producer source commit."
+  },
+  "costs": {
+    "outer_wall_seconds": "Measured outer command wall.",
+    "outer_process_cpu_seconds": "Measured producer process CPU.",
+    "nested_measurements": "Reported separately and not added twice.",
+    "written_logical_bytes": "Retained output bytes.",
+    "unknown": "Unmeasured costs named explicitly."
+  },
+  "separation_rules": [
+    "The producer never reads expected decisions, evaluator outputs or candidate identifiers as verdict premises.",
+    "Declared role, digest identity, observed selection, population membership and arithmetic agreement remain separate fields.",
+    "The reference scorer and conventional diagnostic do not import producer decision functions.",
+    "A constructed external-reference fixture cannot establish a historical training or deployment selection."
+  ]
+}

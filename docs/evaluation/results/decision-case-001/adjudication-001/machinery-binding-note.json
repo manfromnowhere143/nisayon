@@ -1,0 +1,19 @@
+{
+  "schema": "nisayon.decision-case.binding-note.v1",
+  "case_id": "DC01-controller-target-convention",
+  "recorded_after_commit": "4b0ad20 (controller-target scope visibility)",
+  "what_changed": "src/nisayon/evaluation/first_case.py: DEPLOYMENT_FIELDS and DEPLOYMENT_DEFAULTS gained controller_target; deployment_components compares with defaults when a field is omitted on one side",
+  "plan_v2_binding": {
+    "path": "src/nisayon/evaluation/first_case.py",
+    "sha256_at_freeze": "b226b518cfa7a6c85e68e76b2604ca4ef59e4838b0530b571663a4653d77baa4",
+    "sha256_after_change": "5036701d0090206b37da24d0e8312fefc850ae91cd6f86929fc58075ae48182b"
+  },
+  "functions_the_scorer_imports": ["_verify_raw_artifacts", "_verify_raw_trace", "producer_digest", "read_document"],
+  "functions_ast_identical_to_freeze": true,
+  "rescore_at_changed_source": {
+    "command": "39170543",
+    "wall_seconds": 1.146275,
+    "pair_scores_byte_identical_to_adjudication": true
+  },
+  "reading": "The frozen plan binds the whole file; the later change touches deployment-field bookkeeping that the pair scorer never calls. The adjudication output reproduces byte for byte at the changed source. The plan is not re-frozen; this note records the divergence and its checked consequence."
+}

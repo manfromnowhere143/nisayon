@@ -1,0 +1,519 @@
+{
+  "schema": "nisayon.temporal-integration.cases-summary.v1",
+  "spec_sha256": "98028e2b7022e6714bb13ce943498e16473892e94e39adb99bfd78c72c59c814",
+  "spec_frozen_at": "2026-09-20T04:13:11+00:00",
+  "reference_module_sha256": "336c2d5ed0810849cb0bf0643cf0327cf2a7c86b8f328adc8b8be7d90afeb1c9",
+  "cases": 13,
+  "agreeing": 12,
+  "checker_cpu_seconds": 0.009931,
+  "rows": [
+    {
+      "case_id": "healthy_execution",
+      "source": "constructed_control",
+      "events": 19,
+      "trace_sha256": "d1056905f2aa885dda588e324ed41787a464909d7124d4b37892fc5073fb05c3",
+      "temporal_contract": "satisfied",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "early_reset_affected",
+      "source": "upstream_source_bound",
+      "events": 24,
+      "trace_sha256": "c52c3047faafa5080b8a60ac5f0744a2bd7457fe7a3a7c348e7fb14616277d0f",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 2,
+            "dispatched": 2,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              2.0
+            ]
+          },
+          "1": {
+            "basis": "grid",
+            "ticks": 3,
+            "dispatched": 3,
+            "coverage": 1.0,
+            "window": [
+              5.0,
+              7.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "violated",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "violated",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "early_reset_upstream_fix",
+      "source": "upstream_source_bound",
+      "events": 31,
+      "trace_sha256": "d289add510271ad4ec9a826bf02a78b4ad5a59abcba33ba12db91b7075b5254b",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 2,
+            "dispatched": 2,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              2.0
+            ]
+          },
+          "1": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              4.0,
+              8.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "violated",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {
+        "queue_reset": [
+          "satisfied",
+          "violated"
+        ]
+      },
+      "agrees": false
+    },
+    {
+      "case_id": "late_response_after_reset",
+      "source": "constructed_control",
+      "events": 20,
+      "trace_sha256": "264b6a3d3fed182e2cab3dcc017e79af739627943571fbcf2c8075e7e152ed1b",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "unresolved",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 0,
+            "dispatched": 0,
+            "coverage": null,
+            "window": null
+          },
+          "1": {
+            "basis": "grid",
+            "ticks": 4,
+            "dispatched": 4,
+            "coverage": 1.0,
+            "window": [
+              3.0,
+              6.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "violated",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "unresolved"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "late_response_fenced",
+      "source": "constructed_control",
+      "events": 26,
+      "trace_sha256": "fc4dfda1291bc1a7cb3479e3561f605420d054c7baa1f7685fa6f45245f0a982",
+      "temporal_contract": "unresolved",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "unresolved",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 0,
+            "dispatched": 0,
+            "coverage": null,
+            "window": null
+          },
+          "1": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              3.0,
+              7.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "unresolved"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "duplicate_response",
+      "source": "constructed_control",
+      "events": 15,
+      "trace_sha256": "5e92443f4898bf09936148ce39a647330b62eaf9d11d905c7fd90731566c268e",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 4,
+            "dispatched": 4,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              4.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "violated",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "out_of_order_arrival",
+      "source": "constructed_control",
+      "events": 21,
+      "trace_sha256": "13622ca219a0a9d66cb7266550d916b194de015ae980e46c53b55c959d976dc4",
+      "temporal_contract": "satisfied",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 4,
+            "dispatched": 4,
+            "coverage": 1.0,
+            "window": [
+              2.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "overlapping_chunks_aggregated",
+      "source": "upstream_source_bound",
+      "events": 19,
+      "trace_sha256": "60ecaa0cd8d099a8ab7318efef40145d61b9fb73e03beb221bf02aad2c9b44f7",
+      "temporal_contract": "satisfied",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "configuration_change",
+      "source": "constructed_control",
+      "events": 20,
+      "trace_sha256": "d789d4b49ed5b07287fa8d6743b513a766c0b1e3f1405702ae9404ac44895b18",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "violated",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "ambiguous_clock_mapping",
+      "source": "constructed_control",
+      "events": 21,
+      "trace_sha256": "7ecc684f2777837d08261a440946da796b4977b72346608deae29a17a7897b6a",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 7,
+            "dispatched": 6,
+            "coverage": 0.8571428571428571,
+            "window": [
+              1.0,
+              7.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "violated",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "lost_dispatch_acknowledgement",
+      "source": "constructed_control",
+      "events": 18,
+      "trace_sha256": "368c8e99f630cff9bcdb698f4d804ddacdb548a988c0e23794cde5d16f2aebd5",
+      "temporal_contract": "unresolved",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "unresolved",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "incomplete_raw_evidence",
+      "source": "constructed_control",
+      "events": 20,
+      "trace_sha256": "2484e2b8655e9d4a2ca3b705345821d0d94737ea968cb5fed513e816f880ce58",
+      "temporal_contract": "unresolved",
+      "evidence": "incomplete",
+      "useful_execution": {
+        "status": "satisfied",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 5,
+            "dispatched": 5,
+            "coverage": 1.0,
+            "window": [
+              1.0,
+              5.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "unresolved",
+        "request_binding": "unresolved",
+        "configuration_binding": "unresolved",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "unresolved",
+        "acknowledgement": "satisfied",
+        "useful_execution": "satisfied"
+      },
+      "disagreements": {},
+      "agrees": true
+    },
+    {
+      "case_id": "stop_drop_all",
+      "source": "constructed_control",
+      "events": 9,
+      "trace_sha256": "650454abdb4359f84d5ff35bb05aac7a2215ce38e5dc7a0780b0dca603d63ef9",
+      "temporal_contract": "violated",
+      "evidence": "complete",
+      "useful_execution": {
+        "status": "violated",
+        "coverage_by_generation": {
+          "0": {
+            "basis": "grid",
+            "ticks": 3,
+            "dispatched": 0,
+            "coverage": 0.0,
+            "window": [
+              1.0,
+              3.0
+            ]
+          }
+        }
+      },
+      "observed": {
+        "generation_fencing": "satisfied",
+        "request_binding": "satisfied",
+        "configuration_binding": "satisfied",
+        "queue_reset": "satisfied",
+        "duplicate_dispatch": "satisfied",
+        "dispatch_order": "satisfied",
+        "freshness": "satisfied",
+        "acknowledgement": "satisfied",
+        "useful_execution": "violated"
+      },
+      "disagreements": {},
+      "agrees": true
+    }
+  ],
+  "scope": "hand-written constructed traces assessed by the reference model; expectations were written before the run; no executor, no physics"
+}

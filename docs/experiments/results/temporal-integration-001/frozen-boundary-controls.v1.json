@@ -1,0 +1,759 @@
+{
+  "schema": "nisayon.temporal-suite.v1",
+  "id": "temporal-reference-boundary-001",
+  "protocol_revision": 1,
+  "frozen_at": "2026-09-20T05:05:38.629873+00:00",
+  "case_origin": "exploratory constructed controls after first 120-assignment batch",
+  "parent_suite": {
+    "path": "docs/experiments/results/temporal-integration-001/frozen-suite.v2.json",
+    "sha256": "424119e7e27ccfc45235f91baca1acc108d3a2ffccc9856625c2c0fccfe3c649"
+  },
+  "cases": [
+    {
+      "id": "X01-deadline-plus-one",
+      "source_kind": "constructed_control",
+      "question": "An exact 50000001 ns age exceeds the inclusive 50000000 ns deadline; a common epoch translation must not change this fact.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "X01-deadline-plus-one-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "X01-deadline-plus-one-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X01-deadline-plus-one-input-02",
+          "delivery_id": "X01-deadline-plus-one-delivery-02"
+        },
+        {
+          "at_ns": 50000001,
+          "operation": "dispatch",
+          "id": "X01-deadline-plus-one-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "exact_clock_translation_ns": 0,
+      "evidence_role": "exploratory_integration_counterexample"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted",
+      "source_kind": "constructed_control",
+      "question": "An exact 50000001 ns age exceeds the inclusive 50000000 ns deadline; a common epoch translation must not change this fact.",
+      "schedule": [
+        {
+          "at_ns": 1152921504606846976,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "X02-deadline-plus-one-shifted-input-00"
+        },
+        {
+          "at_ns": 1152921504607846976,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "X02-deadline-plus-one-shifted-input-01"
+        },
+        {
+          "at_ns": 1152921504608846976,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X02-deadline-plus-one-shifted-input-02",
+          "delivery_id": "X02-deadline-plus-one-shifted-delivery-02"
+        },
+        {
+          "at_ns": 1152921504656846977,
+          "operation": "dispatch",
+          "id": "X02-deadline-plus-one-shifted-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "exact_clock_translation_ns": 1152921504606846976,
+      "evidence_role": "exploratory_integration_counterexample"
+    },
+    {
+      "id": "X03-configuration-aba",
+      "source_kind": "constructed_control",
+      "question": "An old request remains obsolete after configuration A to B to A; same content does not recover the old activation context.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "X03-configuration-aba-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "X03-configuration-aba-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "configure",
+          "config_sha256": "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f",
+          "id": "X03-configuration-aba-input-02"
+        },
+        {
+          "operation": "configure",
+          "at_ns": 3000000,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "id": "X03-configuration-aba-input-03"
+        },
+        {
+          "at_ns": 4000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X03-configuration-aba-input-04",
+          "delivery_id": "X03-configuration-aba-delivery-04"
+        },
+        {
+          "at_ns": 5000000,
+          "operation": "dispatch",
+          "id": "X03-configuration-aba-input-05"
+        },
+        {
+          "at_ns": 6000000,
+          "operation": "observe",
+          "obs_id": "o1",
+          "step": 0,
+          "id": "X03-configuration-aba-input-06"
+        },
+        {
+          "at_ns": 7000000,
+          "operation": "request",
+          "req_id": "q1",
+          "obs_id": "o1",
+          "id": "X03-configuration-aba-input-07"
+        },
+        {
+          "at_ns": 8000000,
+          "operation": "response",
+          "req_id": "q1",
+          "resp_id": "r-c1",
+          "chunk_id": "c1",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            10
+          ],
+          "id": "X03-configuration-aba-input-08",
+          "delivery_id": "X03-configuration-aba-delivery-08"
+        },
+        {
+          "at_ns": 9000000,
+          "operation": "dispatch",
+          "id": "X03-configuration-aba-input-09"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "evidence_role": "exploratory_integration_counterexample"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack",
+      "source_kind": "constructed_control",
+      "question": "A second send of the same action ID cannot acknowledge the first attempt whose acknowledgement is missing.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "id": "X04-duplicate-with-lost-first-ack-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "X04-duplicate-with-lost-first-ack-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X04-duplicate-with-lost-first-ack-input-02",
+          "delivery_id": "X04-duplicate-with-lost-first-ack-delivery-02"
+        },
+        {
+          "at_ns": 3000000,
+          "operation": "dispatch",
+          "id": "X04-duplicate-with-lost-first-ack-input-03",
+          "sink_outcome": "ack_missing"
+        },
+        {
+          "at_ns": 4000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X04-duplicate-with-lost-first-ack-input-04",
+          "delivery_id": "X04-duplicate-with-lost-first-ack-delivery-04"
+        },
+        {
+          "at_ns": 5000000,
+          "operation": "dispatch",
+          "id": "X04-duplicate-with-lost-first-ack-input-05"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "evidence_role": "exploratory_integration_counterexample"
+    },
+    {
+      "id": "X05-clock-crosses-zero",
+      "source_kind": "constructed_control",
+      "question": "The declared age interval is [-7000000,13000000] ns: it crosses the chronology boundary and does not establish nonnegative age.",
+      "schedule": [
+        {
+          "at_ns": 0,
+          "operation": "observe",
+          "obs_id": "o0",
+          "step": 0,
+          "stamp": {
+            "value": 0,
+            "clock": "sensor",
+            "unit": "ns"
+          },
+          "id": "X05-clock-crosses-zero-input-00"
+        },
+        {
+          "at_ns": 1000000,
+          "operation": "request",
+          "req_id": "q0",
+          "obs_id": "o0",
+          "id": "X05-clock-crosses-zero-input-01"
+        },
+        {
+          "at_ns": 2000000,
+          "operation": "response",
+          "req_id": "q0",
+          "resp_id": "r-c0",
+          "chunk_id": "c0",
+          "generation": 0,
+          "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+          "first_step": 0,
+          "values": [
+            1
+          ],
+          "id": "X05-clock-crosses-zero-input-02",
+          "delivery_id": "X05-clock-crosses-zero-delivery-02"
+        },
+        {
+          "at_ns": 3000000,
+          "operation": "dispatch",
+          "id": "X05-clock-crosses-zero-input-03"
+        }
+      ],
+      "initial_generation": 0,
+      "initial_configuration": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+      "configuration_catalog": {
+        "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "x": "state"
+          }
+        },
+        "7bc9430a5d79f3e343eeab0bc28f1bb8f10b08a8086aeca723fdf425c646ff4f": {
+          "policy_id": "scripted-policy-a",
+          "device": "scripted-cpu",
+          "rename_map": {
+            "y": "state"
+          }
+        }
+      },
+      "configuration": {
+        "policy_id": "scripted-policy-a",
+        "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+        "chunk_length": 3,
+        "control_period": 10000000,
+        "aggregation": "latest_request_wins_same_step",
+        "max_age": 50000000,
+        "time_unit": "ns"
+      },
+      "clocks": {
+        "names": [
+          "controller",
+          "sensor"
+        ],
+        "declared_mappings": [
+          {
+            "from": "sensor",
+            "to": "controller",
+            "offset": 0,
+            "uncertainty": 10000000,
+            "unit": "ns"
+          }
+        ],
+        "mapping_premise": "A declared mapping has unit rate and constant offset over this case horizon; drift is unsupported."
+      },
+      "minimum_dispatches": 1,
+      "usefulness_boundary": "Frozen software dispatch target; admission validity and acknowledgement are assessed separately. Robot task progress is unmeasured.",
+      "timestamp_boundary": "Schedule times are constructed driver inputs. They are not substituted for absent operational acquisition timestamps or clock calibration. Missing-clock controls deliberately project the evidence available to both methods; they do not hide the author-known construction or establish physical uncertainty.",
+      "evidence_role": "exploratory_integration_counterexample"
+    }
+  ],
+  "remedies": [
+    {
+      "id": "unfenced_queue_control",
+      "role": "constructed_failure_control",
+      "reset_queue": false,
+      "bind_request": false,
+      "bind_configuration": false,
+      "fence_generation": false,
+      "deduplicate": false,
+      "ordered_overlap": false,
+      "deadline_check": "none",
+      "drop_all": false
+    },
+    {
+      "id": "reset_only",
+      "role": "constructed_incomplete_remedy",
+      "reset_queue": true,
+      "bind_request": false,
+      "bind_configuration": false,
+      "fence_generation": false,
+      "deduplicate": false,
+      "ordered_overlap": false,
+      "deadline_check": "none",
+      "drop_all": false
+    },
+    {
+      "id": "arrival_deadline_only",
+      "role": "constructed_incomplete_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "arrival",
+      "drop_all": false
+    },
+    {
+      "id": "conventional",
+      "role": "competent_ordinary_remedy",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": false
+    },
+    {
+      "id": "selected_intervention",
+      "role": "same_conventional_remedy_through_intervention_interface",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": false
+    },
+    {
+      "id": "drop_all",
+      "role": "usefulness_failure_control",
+      "reset_queue": true,
+      "bind_request": true,
+      "bind_configuration": true,
+      "fence_generation": true,
+      "deduplicate": true,
+      "ordered_overlap": true,
+      "deadline_check": "dispatch",
+      "drop_all": true
+    }
+  ],
+  "assignments": [
+    {
+      "id": "X01-deadline-plus-one--unfenced_queue_control",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "X01-deadline-plus-one--reset_only",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "reset_only"
+    },
+    {
+      "id": "X01-deadline-plus-one--arrival_deadline_only",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "X01-deadline-plus-one--conventional",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "X01-deadline-plus-one--selected_intervention",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "id": "X01-deadline-plus-one--drop_all",
+      "case_id": "X01-deadline-plus-one",
+      "remedy_id": "drop_all"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--unfenced_queue_control",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--reset_only",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "reset_only"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--arrival_deadline_only",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--conventional",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--selected_intervention",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "id": "X02-deadline-plus-one-shifted--drop_all",
+      "case_id": "X02-deadline-plus-one-shifted",
+      "remedy_id": "drop_all"
+    },
+    {
+      "id": "X03-configuration-aba--unfenced_queue_control",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "X03-configuration-aba--reset_only",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "reset_only"
+    },
+    {
+      "id": "X03-configuration-aba--arrival_deadline_only",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "X03-configuration-aba--conventional",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "X03-configuration-aba--selected_intervention",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "id": "X03-configuration-aba--drop_all",
+      "case_id": "X03-configuration-aba",
+      "remedy_id": "drop_all"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--unfenced_queue_control",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--reset_only",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "reset_only"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--arrival_deadline_only",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--conventional",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--selected_intervention",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "id": "X04-duplicate-with-lost-first-ack--drop_all",
+      "case_id": "X04-duplicate-with-lost-first-ack",
+      "remedy_id": "drop_all"
+    },
+    {
+      "id": "X05-clock-crosses-zero--unfenced_queue_control",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "unfenced_queue_control"
+    },
+    {
+      "id": "X05-clock-crosses-zero--reset_only",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "reset_only"
+    },
+    {
+      "id": "X05-clock-crosses-zero--arrival_deadline_only",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "arrival_deadline_only"
+    },
+    {
+      "id": "X05-clock-crosses-zero--conventional",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "conventional"
+    },
+    {
+      "id": "X05-clock-crosses-zero--selected_intervention",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "selected_intervention"
+    },
+    {
+      "id": "X05-clock-crosses-zero--drop_all",
+      "case_id": "X05-clock-crosses-zero",
+      "remedy_id": "drop_all"
+    }
+  ],
+  "limits": {
+    "cases": 32,
+    "inputs_per_case": 128,
+    "actions_per_chunk": 16,
+    "new_simulator_executions": 0,
+    "learned_inference_calls": 0,
+    "initial_research_cpu_s": 600
+  },
+  "comparison": {
+    "response_alignment": "A response's first_step equals its bound observation's step; no alignment is inferred when the request or observation is absent.",
+    "clock_mapping": "t_to lies in [t_from + offset - uncertainty, t_from + offset + uncertainty], under the declared unit-rate and constant-offset premise.",
+    "configuration_activation": "Every configure operation creates a new local activation context and fences prior requests even if content later returns to an earlier hash. This does not attest remote cancellation.",
+    "cancellation_request": "The operation asks remote computation to stop; no completion or local action revocation is inferred from this request alone. Reset and configuration changes separately revoke local admission.",
+    "ordering": "listed case order, then listed remedy order; equal virtual times retain input order",
+    "baseline": "conventional",
+    "selected": "selected_intervention",
+    "parity_premise": "The selected intervention deliberately applies the same ordinary remedy. No differentiated decision algorithm or advantage is assumed; this compares the implemented evidence/regression path and retains failure controls.",
+    "metrics": [
+      "wrong admissions",
+      "false refusals",
+      "unresolved evidence",
+      "valid software dispatch coverage",
+      "acknowledgement status",
+      "deterministic software-operation counts",
+      "measured local CPU/wall and bytes"
+    ],
+    "robot_task_outcome": "unmeasured",
+    "full_engineering_cost": "unknown",
+    "historical_lift_acceptance": "unchanged; these software controls do not enter its denominator",
+    "later_discoveries": "retain as exploratory additions without changing this frozen suite"
+  },
+  "analysis_plan": {
+    "clock_translation": "Compare exact integer timestamp differences on X01 and X02. Common offsets do not change elapsed duration or deadline predicates.",
+    "configuration_activation": "Evaluate the old request against the retained intervening configuration activations, not content hash equality alone.",
+    "acknowledgement": "Bind outcomes to dispatch_id; retain the first missing acknowledgement even if a later duplicate send is acknowledged.",
+    "chronology": "Record whether a clock interval crossing zero establishes the declared nonnegative-age premise; do not silently assume the premise.",
+    "population": "Report all 30 exploratory assignments separately from the original 120. These are integration counterexamples, not new independent or robot incidents."
+  }
+}

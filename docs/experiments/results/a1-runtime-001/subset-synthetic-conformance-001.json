@@ -1,0 +1,108 @@
+{
+  "schema": "nisayon.a1-runtime-subset-synthetic-conformance.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:47:15Z",
+  "tested_source": "0965b770f0adb1a7ec300a0430ff0c8037a3a049",
+  "implementation": {
+    "path": "scripts/experiments/a1_wheel_subset.py",
+    "sha256": "9791f6f8f6adc562c89898e7c8d412bc5a5150774ade8ba9f09f795021e3c2b1",
+    "test_path": "tests/engine/test_a1_wheel_subset.py",
+    "test_sha256": "dfb165fe2747fbf0ad65403452d0acb1c366398431413f5d245a3db1755cc401",
+    "scope": "network-free classic-ZIP parsing, scoped member selection, deterministic range coalescing, pre-fetch byte refusal, sparse reconstruction, create-only extraction and per-member CRC/SHA verification"
+  },
+  "controls": [
+    "reject split, multi-disk and ZIP64 archives outside the frozen parser scope",
+    "reject absolute, traversal, backslash, duplicate, encrypted, symbolic-link and unsupported-compression members",
+    "bind the member table to the exact central-directory bytes",
+    "require named METADATA and rights members before a member-fetch plan is accepted",
+    "require every referenced asset to exist in the directory",
+    "merge the smallest range gaps deterministically and count all fetched gap bytes",
+    "refuse when prior plus planned response bodies exceed the supplied immutable ceiling",
+    "mark a publisher whole-wheel digest declared and unverified for a partial archive",
+    "retain the sparse archive and partial extraction when compressed data is corrupt"
+  ],
+  "focused_validation": {
+    "ruff": {
+      "command_record_id": "583eea83807646c8a81c7ede2d8f68c3",
+      "command_record_sha256": "dff7cc34267b46ca5b290ccfd86d19dae83e9955f9b177888e655fce34ca3109",
+      "outer_wall_seconds": 0.086212,
+      "returncode": 0,
+      "result": "passed"
+    },
+    "format": {
+      "command_record_id": "685bfc0d9fea492db4b6f97f9d9d3d2f",
+      "command_record_sha256": "46144251862cd147227d0140edb109eea3d3aab2222789543a325033d21b72e8",
+      "outer_wall_seconds": 0.044039,
+      "returncode": 0,
+      "result": "2 files already formatted"
+    },
+    "tests": {
+      "command_record_id": "ad7d804fb02d484abc2f7d5fb6b2e55f",
+      "command_record_sha256": "27834b5de84cd1e91b0c290f28fa87a17f0078ac82b1f4211212c14c93a1fa4a",
+      "stdout_sha256": "c6ce8518a2cc113cc5560b3731e234ed6d559e746221ae903ce01599dfe7e797",
+      "outer_wall_seconds": 0.308038,
+      "returncode": 0,
+      "passed": 25,
+      "failed": 0,
+      "scope": [
+        "new wheel-subset synthetic controls",
+        "existing A1 acquisition accounting",
+        "existing full-object acquisition",
+        "existing full-object verification"
+      ]
+    },
+    "separate_command_wall_seconds_total": 0.438289,
+    "cost_rule": "the three commands are disjoint and may be summed; no nested time is added"
+  },
+  "preserved_development_failures": [
+    {
+      "sequence": 1,
+      "stage": "test collection",
+      "outcome": "failed before tests",
+      "cause": "the dynamic loader had not inserted the dataclass module into sys.modules",
+      "correction": "register the synthetic test module before exec_module",
+      "command_record": null,
+      "cost": "command-recorder wall, CPU and memory unknown; the interactive tool returned after approximately 0.7 seconds"
+    },
+    {
+      "sequence": 2,
+      "stage": "corrupt-compressed-member control",
+      "outcome": "9 passed, 1 failed",
+      "cause": "zipfile surfaced corrupt deflate data as zlib.error outside the wrapper's retained SubsetError boundary",
+      "correction": "convert zlib.error to SubsetError without deleting the sparse archive or partial extraction",
+      "command_record": null,
+      "cost": "command-recorder wall, CPU and memory unknown; the interactive tool returned after approximately 0.6 seconds"
+    },
+    {
+      "sequence": 3,
+      "stage": "first combined style and test check",
+      "outcome": "ruff found one UP035 import error; formatter identified two files; 10 tests passed",
+      "cause": "Iterable came from typing and the new files had not received the repository formatter",
+      "correction": "use collections.abc and apply ruff format",
+      "command_record": null,
+      "receipt_warning": "the shell invocation continued to the passing pytest command, so its final process status alone would not prove the earlier checks passed",
+      "cost": "command-recorder wall, CPU and memory unknown; the interactive tool returned after approximately 1.0 second"
+    }
+  ],
+  "scientific_boundary": {
+    "synthetic_only": true,
+    "real_robosuite_wheel_inspected": false,
+    "publisher_whole_digest_verified": false,
+    "applicable_rights_established": false,
+    "network_requests": 0,
+    "package_bytes_acquired": 0,
+    "runtime_imports": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0,
+    "attempt_slots_consumed": 0,
+    "claim": "the generic planner fails closed on the tested synthetic failure modes; it does not establish that route B fits, imports, constructs, reproduces the task or executes the checkpoint"
+  },
+  "unknown_costs": [
+    "CPU and memory for the three unrecorded development failures",
+    "active engineering effort",
+    "energy"
+  ],
+  "next": "wait for the prospectively corrected evaluator contract and explicit response-cap authority; only then may a rights-first central-directory/member acquisition use this planner against real bytes",
+  "publication": "private; no push or publication"
+}

@@ -1,0 +1,89 @@
+Prospective decision-quality report: fair · suite development-ablation-001 · declarations development_demonstration · ledger nisayon.comparison.v2
+Eligibility: usable study result (no blocking finding)
+Findings:
+  - decision_binding_unverified: arm 'A': the decision named for 'D08-old-future-replay' is not bound to the execution the trial names: the decision was made on a different bundle than the one the trial names
+  - decision_binding_unverified: arm 'B': the decision named for 'D08-old-future-replay' is not bound to the execution the trial names: the decision was made on a different bundle than the one the trial names
+  - declaration_timestamp_after_reference: arm 'A', case 'D01-gripper-sign': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D02-cartesian-axis': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D03-observation-backlog': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D04-observation-hold': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D05-recurrent-carry': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D06-stateless-inference': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D07-sign-and-backlog': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D08-old-future-replay': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D09-action-suppression': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'A', case 'D10-opaque-policy-state': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D01-gripper-sign': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D02-cartesian-axis': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D03-observation-backlog': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D04-observation-hold': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D05-recurrent-carry': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D06-stateless-inference': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D07-sign-and-backlog': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D08-old-future-replay': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D09-action-suppression': the receipt's recorded_at is not before the decision's decided_at
+  - declaration_timestamp_after_reference: arm 'B', case 'D10-opaque-policy-state': the receipt's recorded_at is not before the decision's decided_at
+  - claim_contradicted: arm 'A' claimed acceptance on 'D05-recurrent-carry'; verified decision rejected: progress_lost
+  - claim_contradicted: arm 'B' claimed acceptance on 'D05-recurrent-carry'; verified decision rejected: progress_lost
+Arms (N assigned · D declared acceptances = C confirmed correct + F contradicted + U unsupported + K unknown):
+  arm  N   D   C   F   U   K   abstain  refuse  unres  inval  unsup  tout  n/a  dmg  correct-ref  missed  unadj  product  blocked  prospective v1 conf/false
+  A    10  7   6   1   0   0   0        0       1      1      1      0     0    0    2            0       1      6        0        0/10        6/0
+  B    10  7   6   1   0   0   0        0       1      1      1      0     0    0    2            0       1      6        0        0/10        6/0
+Rates (undefined where the denominator is zero; intervals are exact binomial, exchangeability assumed):
+  A: D/N 0.700 · C/N 0.600 [0.262, 0.878] · F/N 0.100 [0.003, 0.445] · F/D 0.143 · coverage (C+F)/D 1.000 · upper bound if unadjudicated wrong 0.100 · F/C (supplementary) 0.167
+     contradiction codes: {'progress_lost': 1}
+  B: D/N 0.700 · C/N 0.600 [0.262, 0.878] · F/N 0.100 [0.003, 0.445] · F/D 0.143 · coverage (C+F)/D 1.000 · upper bound if unadjudicated wrong 0.100 · F/C (supplementary) 0.167
+     contradiction codes: {'progress_lost': 1}
+Costs (known totals over every assigned trial; per correct claim; unknown stays unknown):
+  A: cumulative resource 881.954 s (own_trial_wall (sum of disjoint phase walls; simulator wall nested)) · simulator nested 692.569 s · full elapsed 1808.937 s · rollouts 569 · retries 0
+     per correct simulator_wall: 115.428129167 s
+     per correct diagnostic_wall: 17.055185604 s
+     per correct confirmation_wall: 129.937088341 s
+     per correct own_trial_wall: 146.992273945 s
+     per correct agent_tokens: undefined (not measured in any trial) tokens
+     per correct engineer_time: undefined (not measured in any trial) s
+     per correct provider_and_compute_charges: undefined (not measured in any trial) USD
+     categories not reported or unknown: preparation_and_import, proposal_validation, retries_and_failures, model_calls_and_tokens, adjudication, human_effort, provider_and_compute_charges, energy
+  B: cumulative resource 926.198 s (own_trial_wall (sum of disjoint phase walls; simulator wall nested)) · simulator nested 712.344 s · full elapsed 1793.613 s · rollouts 569 · retries 0
+     per correct simulator_wall: 118.724082667 s
+     per correct diagnostic_wall: 23.160265465 s
+     per correct confirmation_wall: 131.205994687 s
+     per correct own_trial_wall: 154.366260153 s
+     per correct agent_tokens: undefined (not measured in any trial) tokens
+     per correct engineer_time: undefined (not measured in any trial) s
+     per correct provider_and_compute_charges: undefined (not measured in any trial) USD
+     categories not reported or unknown: preparation_and_import, proposal_validation, retries_and_failures, model_calls_and_tokens, adjudication, human_effort, provider_and_compute_charges, energy
+Costs by scope (never summed across scopes; nested walls listed, not added):
+  shared preparation: 2534.406 s recorded command wall over 71 commands (10 nested not added, 1 unmeasured); bound True; shared by both arms, not amortized
+  new processing: packet outer wall 0.407 s; A: terminal reads 0.084864874 s over 10, writer attempts 0.060571167 s over 30 (unknown cost 0, incomplete 0); B: terminal reads 0.083350291 s over 10, writer attempts 0.069792125 s over 30 (unknown cost 0, incomplete 0); model calls 0, simulator executions 0
+  evaluation scoring: 9.319 s (this run; evaluation lane)
+  unknown: historical_shared_preparation: evaluation_lane_preparation_and_validation; historical_shared_preparation: human_preparation_and_review; historical_shared_preparation: agent_tokens; historical_shared_preparation: provider_and_compute_charges; historical_shared_preparation: unrecorded_engineering_commands_and_edits; historical_shared_preparation: overlapping_auxiliary_dependency_inspection; new_processing: engineer_effort_s; new_processing: provider_charges_usd; new_processing: energy_j; new_processing: unrecorded_processing_s; historical_trials/A: agent_tokens; historical_trials/A: engineer_time; historical_trials/A: provider_and_compute_charges; historical_trials/B: agent_tokens; historical_trials/B: engineer_time; historical_trials/B: provider_and_compute_charges
+Cases (declaration → reference):
+  A  D01-gripper-sign            claim_acceptance → accepted   supported                               
+  A  D02-cartesian-axis          claim_acceptance → accepted   supported                               
+  A  D03-observation-backlog     claim_acceptance → accepted   supported                               
+  A  D04-observation-hold        claim_acceptance → accepted   supported                               
+  A  D05-recurrent-carry         claim_acceptance → rejected   contradicted                            
+  A  D06-stateless-inference     refuse           → unresolved unsupported_capability                  correct_refusal
+  A  D07-sign-and-backlog        claim_acceptance → accepted   supported                               
+  A  D08-old-future-replay       refuse           → unresolved invalid_experiment                      correct_refusal
+  A  D09-action-suppression      claim_acceptance → accepted   supported                               
+  A  D10-opaque-policy-state     unresolved       → unresolved unresolved                              refusal_unadjudicated
+  B  D01-gripper-sign            claim_acceptance → accepted   supported                               
+  B  D02-cartesian-axis          claim_acceptance → accepted   supported                               
+  B  D03-observation-backlog     claim_acceptance → accepted   supported                               
+  B  D04-observation-hold        claim_acceptance → accepted   supported                               
+  B  D05-recurrent-carry         claim_acceptance → rejected   contradicted                            
+  B  D06-stateless-inference     refuse           → unresolved unsupported_capability                  correct_refusal
+  B  D07-sign-and-backlog        claim_acceptance → accepted   supported                               
+  B  D08-old-future-replay       refuse           → unresolved invalid_experiment                      correct_refusal
+  B  D09-action-suppression      claim_acceptance → accepted   supported                               
+  B  D10-opaque-policy-state     unresolved       → unresolved unresolved                              refusal_unadjudicated
+Limits:
+  - A declaration derived from a v1 ledger was written by the run that produced the decision; it cannot show a pre-reference disagreement and is labelled retrospective.
+  - Byte containment establishes local ordering and integrity, not custody.
+  - Contradicted means a verified decision rejected the claimed candidate under the frozen obligation on the simulated task and measured predicates; it is not physical truth, and the terminal evaluator and simulator are common to both arms.
+  - Unknown truth is not false truth: F/N is the observed contradicted rate, and the upper bound counts every unadjudicated claim as wrong.
+  - Exact binomial intervals treat cases as exchangeable; repeated seeds and incident families violate that, and overlapping intervals do not establish equivalence.
+  - An arm that never accepts has zero contradicted claims by construction; read C/N and D/N with F/N.
+  - Cost per correct includes the cost of every assigned trial, including failures and refusals; unknown components stay unknown.

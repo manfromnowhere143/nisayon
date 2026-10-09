@@ -1,0 +1,179 @@
+{
+  "schema": "nisayon.a1-pilot.amendment.v1",
+  "case": "a1-pilot-001",
+  "frozen_at": "2026-09-21T10:21:14Z",
+  "frozen_before": "any acquisition of the substitute artifact, any training command and any pilot output under this amendment; the execution lane's stopped pilot and its sealed packet stay retained under their original protocol",
+  "authority": "Daniel's continuation of 21 September: prepare and freeze a prospective amendment substituting a rights-qualified public Lift PH artifact for the unresolved Stanford artifact within the existing bounded pilot; at most 100 optimizer updates in total including smoke tests and retries; all existing source, acquisition, wall, memory, temporary and durable limits preserved, including 16 MiB durable; no additional training, rollouts, hardware, paid compute, reserved access, publication or push; consumed budgets are not reset by a phase name",
+  "acquisition_decision": {
+    "retained_sources_first": "no concrete official terms source for the Stanford artifact is identified in any retained record (the execution lane's protocol, ledger, delivery and readiness records name only the repository declaration), so no targeted lookup is requested and the explicit alternative is adopted",
+    "substitute_artifact": {
+      "repository": "robomimic/robomimic_datasets",
+      "revision": "74fa018461f479cd9fd15b924a16103012096203",
+      "path": "v1.5/lift/ph/low_dim_v15.hdf5",
+      "publisher_reported_size": 21084088,
+      "publisher_reported_lfs_sha256": "2067777cb8b532e9263dd09fd6448c41cc31224bb27be4a3b734010ae13eb540",
+      "declaration": "MIT on the repository card at that revision",
+      "retained_evidence": "the execution lane's hf-dataset-metadata.json (76b153c4\u2026) and its headers, which this lane parsed independently (gate-reproduction-001.json); these values are publisher metadata, not an acquisition receipt",
+      "binding": "the applicable declaration, revision, path and publisher metadata are bound here; the acquired payload's actual size and digest must be verified by the execution lane after the download and must equal the publisher values, otherwise the artifact is not the declared object and the run stops"
+    },
+    "stanford_artifact": "permission stays unresolved; it is neither acquired nor used",
+    "request_rule": "one GET by the execution lane through the repository's resolve endpoint at the exact revision and path; Content-Length checked before the body; no redirect beyond the repository's own LFS storage counts as a second request unless it leaves the publisher; no retry without a new committed reservation; the response counts against the phase and cumulative source caps",
+    "budget_check": {
+      "dataset_bytes": 21084088,
+      "new_dependency_cap_bytes": 33554432,
+      "cumulative_known_source_bytes_before": 21585285,
+      "cumulative_after": 42669373,
+      "cumulative_cap_bytes": 67108864,
+      "within": true
+    }
+  },
+  "training_path_finding": {
+    "reference": "pilot-verdict-003.json finding-001 and normalization-batch-control-001.json",
+    "required_correction": "before any optimizer update, the execution lane declares and digest-binds a training-only override of ObsUtils.normalize_obs that broadcasts mean and std of shape (1, D) over leading batch and time dimensions and computes (x - mean) / std elementwise; the dataset-side statistics computation (SequenceDataset.normalize_obs) and the inference path (RolloutPolicy) stay unchanged; the override is a substituted boundary and is named as such in the packet",
+    "control_required_before_the_run": "the override equals the elementwise formula on shapes (D,), (1, D), (B, D) and (B, T, D) against an independent numpy computation, and equals the unchanged function on (D,) and (1, D) bit for bit; recorded with a command id",
+    "offline_learning_without_a_simulator": "the pinned entry point creates environments only when experiment.rollout.enabled is true and reads env and shape metadata from the HDF5 file; with rollouts disabled no simulator is created or stepped; the run must show no environment construction in its log"
+  },
+  "pilot_contract": {
+    "workload": {
+      "optimizer_updates_total": 100,
+      "definition": "num_epochs 1 with epoch_every_n_steps 100 in the pinned entry point; one epoch is exactly 100 batches and 100 Adam updates; smoke tests and retries count against the same 100",
+      "stop": "stop after update 100 or at the first numerical failure (non-finite loss or gradient) with the partial log retained; a stop before 100 yields no checkpoint claim and no retry beyond the remaining updates"
+    },
+    "family": {
+      "algorithm": "robomimic bc with rnn enabled (BC_RNN_GMM)",
+      "rnn": "LSTM, 2 layers, hidden 400, horizon 10, not bidirectional, not open loop",
+      "gmm": "5 modes, defaults",
+      "actor_layer_dims": [],
+      "observation_keys_in_order": [
+        "object",
+        "robot0_eef_pos",
+        "robot0_eef_quat",
+        "robot0_gripper_qpos"
+      ],
+      "expected_dims": [
+        10,
+        3,
+        4,
+        2
+      ],
+      "action_dim": 7,
+      "batch_size": 100,
+      "seq_length": 10,
+      "pad_seq_length": true,
+      "optimizer": "Adam through BCConfig defaults",
+      "learning_rate": 0.0001,
+      "L2": 0.0,
+      "seed": 1,
+      "device": "cpu",
+      "torch_threads": "2, set unconditionally by the pinned train.py",
+      "num_data_workers": 0,
+      "hdf5_cache_mode": "all"
+    },
+    "membership": {
+      "rule": "hdf5_filter_key null: every demo under the file's data group is the training population and the statistics population; if the file carries mask/train and mask/valid keys they are recorded but not used; validation disabled",
+      "record": "demo keys, per-demo frame counts, total frames and total sequence starts, as read from the acquired file before training"
+    },
+    "normalization": {
+      "hdf5_normalize_obs": true,
+      "statistics": "computed by the unchanged SequenceDataset.normalize_obs over the training population: float32 per-trajectory mean and squared deviations merged by the parallel variance formula, std = sqrt(M2/n) + 1e-3; constant coordinates therefore divide by 1e-3 and map an exact constant to 0",
+      "applied": "from the first batch through the declared training-time override; the statistics are saved into the checkpoint by save_model"
+    },
+    "disabled": {
+      "rollouts": false,
+      "validate": false,
+      "render": false,
+      "render_video": false,
+      "log_tb": false,
+      "log_wandb": false,
+      "gpu": false
+    },
+    "checkpoint": {
+      "selection_rule": "exactly one checkpoint, saved after epoch 1 (experiment.save.epochs [1], every_n_epochs null, every_n_seconds null); no selection by loss or by rollout",
+      "kind": "inference checkpoint from TrainUtils.save_model: model state, config, shape and environment metadata, observation statistics",
+      "omitted": "optimizer state and random-number-generator state; the checkpoint is not a resumable training checkpoint and exact resumption must not be claimed",
+      "footprint_estimate": "about 1.99 million float32 parameters (LSTM 673,600 + 1,283,200; GMM head 30,075; matching the held zoo checkpoint's 7,959,022 B), so about 8.0 MB plus a few kilobytes of JSON",
+      "retention": "checkpoint plus telemetry within the 16 MiB durable cap; the 21.1 MB dataset is a source body retained under artifacts/assets and counted against the source caps, not the durable output cap; if any component would exceed a cap the run stops and names it"
+    },
+    "measured_phases": [
+      "process start to config load",
+      "dataset load to memory",
+      "statistics computation",
+      "per-update wall times for all 100 updates (min, median, max kept, not only the fastest)",
+      "checkpoint save",
+      "total outer wall and process CPU (user and system), disk bytes written, sampled temporary peak if sampled"
+    ],
+    "interrupted_runs": "retain the log and the partial telemetry, declare the executed update count, produce no checkpoint claim, and do not restart unless updates remain within the 100 total"
+  },
+  "acceptance_checks_frozen": [
+    {
+      "id": "Q1",
+      "claim": "A permission and custody",
+      "check": "acquired file size and sha256 equal the publisher metadata at the bound revision and path; the repository card at that revision declares MIT; the download receipt is retained"
+    },
+    {
+      "id": "Q2",
+      "claim": "B data and implementation compatibility",
+      "check": "observation keys, dims, ordering and dtype, action dim and range, episode membership and frame counts read from the acquired file equal the contract's expectations or the deviation is recorded; the training-time override control passed before the run; no environment construction appears in the log"
+    },
+    {
+      "id": "Q3",
+      "claim": "C effective normalized training",
+      "check": "the checkpoint's obs_normalization_stats equal this lane's independent recomputation from the acquired rows within float32 tolerance (rtol 1e-5 on mean, 1e-4 on std); a harness hook records the first training batch's sampled indices or raw tensors and its post-normalization per-key mean and std, and this lane recomputes the normalized batch from the raw values and the statistics within float32 tolerance; an enabled flag alone is a declaration"
+    },
+    {
+      "id": "Q4",
+      "claim": "C executed workload",
+      "check": "100 recorded per-update losses and timestamps, finite throughout; the parameter state before the first update and after the last differ (digest and L2 norm of the difference recorded); the update count equals 100 or the shortfall is recorded"
+    },
+    {
+      "id": "Q5",
+      "claim": "D checkpoint reloadability",
+      "check": "the checkpoint loads through policy_from_checkpoint with hdf5_normalize_obs true and binds the statistics into RolloutPolicy; loaded parameters equal the saved ones; no rollout"
+    },
+    {
+      "id": "Q6",
+      "claim": "E measured resource feasibility",
+      "check": "the measured phases and totals are reported in distinct scopes and never added across nesting; the continuation estimate for a declared epoch budget uses the median and maximum per-update times plus load, statistics and save costs, with uncertainty, never the fastest update"
+    },
+    {
+      "id": "Q7",
+      "claim": "process",
+      "check": "every failed attempt, resource-guard event and pre-freeze web call is retained or disclosed; the two failures of the stopped pilot and its unaccounted calls remain in the record"
+    }
+  ],
+  "can_answer": [
+    "A for the substitute artifact",
+    "B for the acquired file and the corrected training path",
+    "C, D, E if the run completes"
+  ],
+  "cannot_answer": [
+    "F simulator compatibility (no rollout)",
+    "G policy competence",
+    "H task intervention or confirmed repair",
+    "I comparative value",
+    "the original external-incident objective"
+  ],
+  "handoff_to_execution": {
+    "named_inputs": [
+      "this amendment by commit and digest",
+      "pilot-verdict-003.json finding-001 and normalization-batch-control-001.json",
+      "the retained hf-dataset-metadata.json (76b153c4\u2026)"
+    ],
+    "sequence": [
+      "commit a reservation for the single GET before dispatch",
+      "acquire, verify size and digest, record membership and metadata from the file",
+      "implement and control the training-time normalization override; commit its digest",
+      "freeze the immutable training configuration digest",
+      "run the 100 updates with the harness hook and measured phases",
+      "save the single checkpoint; load it through policy_from_checkpoint without a rollout",
+      "seal the packet with the dataset retained as a source body outside Git"
+    ],
+    "stop_rules": [
+      "size or digest mismatch",
+      "override control failure",
+      "non-finite loss",
+      "any cap exceeded, naming the component",
+      "any environment construction"
+    ]
+  }
+}

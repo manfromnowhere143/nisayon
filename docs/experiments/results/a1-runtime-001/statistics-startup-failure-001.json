@@ -1,0 +1,57 @@
+{
+  "schema": "nisayon.a1-runtime.statistics-startup-failure.v1",
+  "recorded_at": "2026-10-09T08:20:24.474529+00:00",
+  "source_commit": "a808b9b8d17610690fd8af9fa37f50d51d27fd03",
+  "run": "d4ca7bf675e847d59d984f140d0a1784",
+  "failure": {
+    "path": "artifacts/a1-runtime-001/recorder-validation-001/development/failure-command-development-001.json",
+    "bytes": 947,
+    "sha256": "fc475bd93750c490657a25779e2cdc53a8e530bf3d84cd91a73d881e12e51913"
+  },
+  "mechanism": "Upstream save_model calls TensorUtils.to_list, losing array dtype. policy_from_checkpoint recreates the list with numpy.array and gives every mean float64. Values match the float32 pilot means exactly; the earlier runtime predicate nevertheless requires equal dtype. The frozen evaluator also used dtype-strict comparison against that default reconstruction, so it would reject every packet from this serialized checkpoint.",
+  "prior_pilot_limit": "The earlier checkpoint reload used numpy.array_equal, which checks values and shape but not dtype. Its loaded_statistics_bitwise_equal label was too broad; it established value equality, not retained array dtype. The original record remains unchanged.",
+  "operations_of_failed_startup": {
+    "simulator_constructions": 0,
+    "explicit_resets": 0,
+    "control_steps": 0,
+    "policy_actions": 0,
+    "development_attempts_started": 0,
+    "optimizer_updates": 0
+  },
+  "accounting_before_continuation": {
+    "qualification_explicit_resets": 4,
+    "replay_attempts_assigned_started_consumed": [
+      4,
+      4,
+      4
+    ],
+    "development_attempts_assigned_started_consumed": [
+      10,
+      0,
+      0
+    ],
+    "explicit_resets": 8,
+    "control_steps": 256,
+    "contract_counted_physics_substeps": 6400,
+    "policy_actions": 0
+  },
+  "correction": "Restore only dtype-less lists to the frozen mean float32 / std float64 layout and reject any non-lossless round trip. Preserve explicitly typed arrays. Bind the restored statistics exactly to the pilot before constructing the policy. The assessor opts into the same decoding semantics only under the new prospective amendment.",
+  "read_only_validation": {
+    "path": "docs/experiments/results/a1-runtime-001/statistics-restoration-readback-001.json",
+    "bytes": 1755,
+    "sha256": "2f839f35d7ee328ff6e92e9a0a473b04f986e9f719ea684c3319474a8163ac47"
+  },
+  "regression_before_fix_run": "7596e4cd184f45bbae50abd4942d7efb",
+  "focused_after_fix_run": "f03fc3850be34facb9c4004f49b529e1",
+  "focused_tests_passed": 45,
+  "reused_qualification_functions_ast_unchanged": [
+    "RuntimeAdapter",
+    "run_probe",
+    "run_reset_sample",
+    "aggregate_reset_samples",
+    "run_replay",
+    "evaluate_producer_compatibility",
+    "append_replay_frame"
+  ],
+  "claim_boundary": "No policy task outcome has been observed. Statistics values, weights, seeds, success rule, tolerances and all budgets remain unchanged; serialization semantics are explicitly amended before episode execution."
+}

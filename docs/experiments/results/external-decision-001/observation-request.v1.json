@@ -1,0 +1,93 @@
+{
+  "schema": "nisayon.external-processor-observation-request.v1",
+  "incident": {
+    "id": "lerobot-4415",
+    "report_url": "https://github.com/huggingface/lerobot/issues/4415",
+    "reported_at": "2026-08-11T09:35:06Z",
+    "exposure": "retrospective_public_issue_and_remedy_exposed",
+    "code_revision": "5aa74557f84c54d4b458f8b9643c5aa2982acfed",
+    "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+    "earlier_model_revision": "3326b100334ffc0a0bd1ec27e3afb1cfa2a6000c"
+  },
+  "capture_root": "artifacts/external-decision-001/source-capture",
+  "inputs": [
+    {
+      "role": "external_report",
+      "path": "coordinator/sources/issue-4415.json",
+      "sha256": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93"
+    },
+    {
+      "role": "pipeline_config",
+      "path": "model/new/policy_postprocessor.json",
+      "sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b"
+    },
+    {
+      "role": "processor_state",
+      "path": "model/new/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8"
+    },
+    {
+      "role": "normalizer_implementation",
+      "path": "coordinator/sources/normalize_processor.py",
+      "sha256": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6"
+    },
+    {
+      "role": "factory_call_path",
+      "path": "lerobot/factory.py",
+      "sha256": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c"
+    },
+    {
+      "role": "pipeline_loader_call_path",
+      "path": "lerobot/pipeline.py",
+      "sha256": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73"
+    },
+    {
+      "role": "policy_specific_factory_boundary",
+      "path": "lerobot/processor_smolvla.py",
+      "sha256": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec"
+    }
+  ],
+  "operation": {
+    "pipeline": "policy_postprocessor",
+    "step_index": 0,
+    "registry_name": "unnormalizer_processor",
+    "requested_feature_key": "action",
+    "feature_type": "ACTION",
+    "normalization_mode": "MEAN_STD",
+    "inverse": true,
+    "witness": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "witness_provenance": "The public report's reproduction value; exposed development input, not an independently authored confirmation condition."
+  },
+  "execution_method": {
+    "kind": "reviewed_upstream_class_extraction",
+    "class": "_NormalizationMixin",
+    "callable": "_normalize_action -> _apply_transform",
+    "state_loading": "Parse the exact F32 safetensors bytes, then invoke the exact upstream load_state_dict method.",
+    "imports_replaced": [
+      "LeRobot enums and PolicyFeature value types",
+      "LeRobot recursive tensor conversion helpers",
+      "LeRobot ACTION constant"
+    ],
+    "omitted_boundaries": [
+      "Hub client and cache",
+      "full PolicyProcessorPipeline construction and converters",
+      "device processor",
+      "policy and model weights",
+      "environment and robot task"
+    ]
+  },
+  "allocation": {
+    "process_cpu_seconds": 10,
+    "output_bytes": 1048576
+  },
+  "semantic_expectation": null,
+  "expectation_owner": "build/evaluation",
+  "status": "development_observation_frozen_before_execution"
+}

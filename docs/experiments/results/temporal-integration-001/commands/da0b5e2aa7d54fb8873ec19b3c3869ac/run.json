@@ -1,0 +1,43 @@
+{
+  "schema": "nisayon.run.v1",
+  "id": "da0b5e2aa7d54fb8873ec19b3c3869ac",
+  "label": "temporal-integration-20260920-clock-conformance-001",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "python",
+    "-c",
+    "import json,resource,time\nfrom pathlib import Path\nfrom nisayon.engine.temporal_workflow import workflow\nfrom nisayon.engine.io import write_json\nresource.setrlimit(resource.RLIMIT_CPU,(10,11))\nstarted=time.process_time()\nroot=Path(\"artifacts/engine-integration-001/temporal-integration-001/clock-conformance-001\")\nexecution,assessment=workflow(Path(\"docs/experiments/results/temporal-integration-001/frozen-clock-conformance.v1.json\"),root,Path.cwd())\nsize=sum(p.stat().st_size for p in root.rglob(\"*\") if p.is_file())\nreport={\"assigned\":8,\"complete\":assessment[\"complete_records\"],\"legacy_contracts\":assessment[\"reference_contract_counts\"],\"assigned_contracts\":assessment[\"assigned_contract_counts\"],\"process_cpu_s_before_final_write\":time.process_time()-started,\"retained_bytes_before_final_write\":size,\"allocation_cpu_s\":10,\"allocation_bytes\":8*1024**2,\"new_simulator_executions\":0,\"boundary\":\"New exposed software clock-conformance controls, not original comparisons or robot outcomes\"}\nwrite_json(root/\"capture.json\",report)\nprint(json.dumps(report,indent=2))\nassert assessment[\"complete_records\"]==8\nassert sum(p.stat().st_size for p in root.rglob(\"*\") if p.is_file())<8*1024**2"
+  ],
+  "cwd": "/Users/danielwahnich/workspace/nisayon-codex",
+  "started_at": "2026-09-20T10:02:00.869891+00:00",
+  "process_status": "completed",
+  "scientific_status": "not_assessed",
+  "git": {
+    "root": "/Users/danielwahnich/workspace/nisayon-codex",
+    "branch": "build/execution",
+    "head": "7022cca5b96df4e47fa69673fd4eea6f734f3566",
+    "changes": [],
+    "diff_stat": ""
+  },
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "timeout_seconds": null,
+  "parent_command_record_id": null,
+  "parent_command_record_root_locator": null,
+  "pid": 31980,
+  "returncode": 0,
+  "ended_at": "2026-09-20T10:02:01.587209+00:00",
+  "wall_seconds": 0.663236,
+  "logs": {
+    "stdout.log": {
+      "bytes": 447,
+      "sha256": "eef435cd6bc69e179cf14eaf0d94adf8137f6b6945c170efaff2eda96742e868"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+}

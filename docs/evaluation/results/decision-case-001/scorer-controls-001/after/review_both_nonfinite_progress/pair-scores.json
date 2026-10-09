@@ -1,0 +1,107 @@
+{
+  "schema": "nisayon.decision-case.pair-score.v2",
+  "case_id": "DC01-controller-target-convention",
+  "plan": {
+    "path": "docs/evaluation/results/decision-case-001/plan.v2.json",
+    "sha256": "993985de04c887737bb72bb8098174a7d9a0f1be52fac59840ca2d4fa482823d"
+  },
+  "scorer_sha256": "aa478ab15f4c3a19e27f97f8112359f7d7af7ed8fee10f6f80b0429866890dab",
+  "criterion": {
+    "step_tolerance": 2,
+    "progress_tolerance_m": 0.01,
+    "eef_report_tolerance_m": 0.001,
+    "known_outcomes": [
+      "completed",
+      "failed"
+    ],
+    "states": [
+      "valid",
+      "invalid",
+      "unresolved",
+      "missing"
+    ]
+  },
+  "mode": "pairs",
+  "pairs": [
+    {
+      "label": "both_nonfinite_progress",
+      "state": "invalid",
+      "reading": "not_scored",
+      "first": {
+        "run_id": "control",
+        "execution_dir": "docs/evaluation/results/decision-case-001/scorer-controls-001/review-inputs/both_nonfinite_progress/first",
+        "task_outcome": null,
+        "steps": null,
+        "initial_cube_height_m": null,
+        "final_cube_height_m": null,
+        "progress_gain_m": null,
+        "declared_convention": null,
+        "controller_target_rad": null,
+        "primary_complete": false,
+        "diagnostic_complete": false,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "fail",
+            "detail": "shared reader rejected bundle.json: $: non-finite JSON constant NaN",
+            "source": "evaluation"
+          }
+        ],
+        "state": "invalid"
+      },
+      "second": {
+        "run_id": "control",
+        "execution_dir": "docs/evaluation/results/decision-case-001/scorer-controls-001/review-inputs/both_nonfinite_progress/second",
+        "task_outcome": null,
+        "steps": null,
+        "initial_cube_height_m": null,
+        "final_cube_height_m": null,
+        "progress_gain_m": null,
+        "declared_convention": null,
+        "controller_target_rad": null,
+        "primary_complete": false,
+        "diagnostic_complete": false,
+        "checks": [
+          {
+            "check": "record_readable",
+            "status": "fail",
+            "detail": "shared reader rejected bundle.json: $: non-finite JSON constant NaN",
+            "source": "evaluation"
+          }
+        ],
+        "state": "invalid"
+      },
+      "binding": {
+        "state": "unresolved",
+        "checks": [
+          {
+            "check": "pair_records_present",
+            "status": "unavailable",
+            "detail": "a run record is absent",
+            "source": "evaluation"
+          }
+        ]
+      },
+      "metric": null,
+      "diagnostic": {
+        "role": "report_only",
+        "status": "unavailable: diagnostic arrays incomplete"
+      },
+      "engine_audit": null
+    }
+  ],
+  "aggregate": {
+    "planned_pairs": 1,
+    "counts": {
+      "valid": 0,
+      "invalid": 1,
+      "unresolved": 0,
+      "missing": 0
+    },
+    "E1_pairs": [],
+    "E2_pairs": [],
+    "allocation": "not applicable in pair mode",
+    "allocation_conforms": true,
+    "reading": "incomplete: 1 of 1 pairs not admitted (1 invalid, 0 unresolved, 0 missing); no parity inference from absent data; no E2 observed on the admitted pairs"
+  }
+}

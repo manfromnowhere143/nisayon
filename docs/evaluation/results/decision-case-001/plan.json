@@ -1,0 +1,53 @@
+{
+  "schema": "nisayon.decision-case.plan.v1",
+  "case_id": "DC01-controller-target-convention",
+  "frozen_at": "2026-09-19T17:00:00+00:00",
+  "frozen_before": "any new simulator execution; none has run for this case",
+  "evidence_scope": "retained_development_demonstration",
+  "exposure": "the mechanism was found by reading pinned upstream and engine source; both development sessions know it; nothing here is held out",
+  "decision": {
+    "engineer_question": "The frozen Lift checkpoint runs in Nisayon's harness with the OSC nullspace target equal to the noisy start state; its native robosuite/robomimic harness runs it with the target at the nominal joint configuration. If outcomes or accepted repairs differ between the two, which harness is the deployment, and do earlier acceptances stand?",
+    "explanations": {
+      "E1": "physics/contact variation or policy sensitivity: the two conventions are equivalent for the task and any difference is ordinary run variation",
+      "E2": "the reset convention changes the joint-space posture the OSC controller holds in its nullspace, which changes the arm's configuration and can change contact, reach or progress on some conditions"
+    },
+    "remedies": {
+      "E1": "repair the measurement: none needed; keep Nisayon's single-reset convention and document it",
+      "E2": "repair the deployment: align Nisayon's adapter to the native convention (nullspace target = nominal after a deterministic reset, or update_initial_joints(nominal)), declare the convention in the deployment record, and re-confirm previously accepted candidates under it"
+    },
+    "cheapest_conventional_check": "run the same checkpoint from the same recorded initial state through robomimic's run_trained_agent (its reset_to performs the native double reset) and through Nisayon's adapter; compare outcomes and eef trajectories. The published robomimic double-reset hack is the baseline's own tool; no upstream fix exists for the convention difference (robosuite PR 688 touches episode metadata only).",
+    "nisayon_addition": "per-step retention of the controller state (goal, gains, initial_joint) and a reset-consistency reading that names the convention difference as a measured quantity (initial_joint minus restored qpos, initial_joint minus nominal) at record time, before any confirmation is paid",
+    "can_it_change_the_action": "only if the discriminating probe shows different task outcomes or a progress difference at or above the frozen predicate resolution between conventions on at least one assigned condition; otherwise both procedures reach parity on Lift and the case is rejected as value-discriminating while retained as a documented deployment difference"
+  },
+  "probe": {
+    "assignments": [
+      {"id": "DC01-s0-restored", "seed": 0, "convention": "restored", "note": "Nisayon single reset; the retained reproduction condition"},
+      {"id": "DC01-s0-nominal", "seed": 0, "convention": "nominal", "note": "target = Panda init_qpos after the same start state"},
+      {"id": "DC01-s10-restored", "seed": 10, "convention": "restored", "note": "development seed already observed in the calibration and reset probes"},
+      {"id": "DC01-s10-nominal", "seed": 10, "convention": "nominal"},
+      {"id": "DC01-s11-restored", "seed": 11, "convention": "restored", "note": "development seed already observed"},
+      {"id": "DC01-s11-nominal", "seed": 11, "convention": "nominal"}
+    ],
+    "identical_inputs": "same frozen policy bytes, same working deployment, same seed and initial state per pair; only the controller nullspace target differs (restored start qpos versus nominal init_qpos); full closed-loop rerun; no replay",
+    "executions_planned": 6,
+    "executions_maximum_including_retries_and_failures": 8,
+    "allocation": "requested from the joint 24-execution authoring cap, to be recorded by the execution lane before any run; none allocated at freeze",
+    "conditions": "seeds 0, 10 and 11 are spent development conditions; no fresh confirmation seed is reserved or consumed",
+    "exclusions": "none after the first run; a crashed or interrupted run counts toward the maximum and is retained as a failed attempt",
+    "measurements_per_run": ["task outcome (completed/failed) and step count", "cube_height_m trajectory and final progress gain", "eef position trajectory", "joint position trajectory", "controller.initial_joint at step 0", "run wall and simulator wall"],
+    "predictions": {
+      "if_E1": "each pair has identical task outcome and step count, final progress gain difference below 0.01 m (the frozen progress minimum), eef trajectories within 1e-3 m per step; joint trajectories differ (the nullspace posture), which is expected and not a decision-relevant difference",
+      "if_E2": "at least one pair differs in task outcome, or in step count by more than 2 steps, or in final progress gain by 0.01 m or more"
+    },
+    "refutation_of_the_opportunity": "the E1 pattern on all three pairs refutes the value opportunity for Lift: the difference is real, retained and inconsequential, and no repair decision changes",
+    "stop_rule": "stop after the six planned executions (eight with retries); decide by the written criterion; no additional seeds, no search for a discordant condition, no confirmation run"
+  },
+  "costs": {
+    "avoidable_if_E2": "a confirmation (67 executions) paid under a convention that does not match the deployment, and a wrong acceptance or rejection under it; unknown until measured",
+    "unavoidable": "the full frozen confirmation obligation for any candidate under whichever convention is declared; probe executions; the engine change that makes the convention declarable",
+    "known": "each retained Lift execution costs about 1.1 to 1.6 s of simulator wall on this CPU stack (retained records); six to eight executions; the retained-record sweep cost 4.038149 s",
+    "unknown": ["engineering effort", "provider charges", "energy", "any field consequence of a mismatched convention (no incident is known)"]
+  },
+  "smallest_missing_engine_capability": "a declared controller_target convention in the Lift deployment record ('restored' or 'nominal') applied by the adapter after reset (update_initial_joints(robot.init_qpos) for 'nominal'), retained in the run's controller state and covered by the evaluator's identity digest; execution-owned",
+  "not_established": ["that either convention is safer or better", "that any customer incident exists", "held-out diagnosis", "custody"]
+}

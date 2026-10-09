@@ -1,0 +1,56 @@
+{
+  "schema": "nisayon.a1-pilot.verdict.v3",
+  "case": "a1-pilot-001",
+  "recorded_at": "2026-09-21T10:19:48Z",
+  "supersedes": {
+    "paths": [
+      "pilot-verdict-001.json",
+      "pilot-verdict-002.json"
+    ],
+    "sha256": [
+      "880b796632482e2a30aab5eff728588ac449be890a8c9eeb687d83d3512e0e91",
+      "7d4dcfe0bda497371ab67c67092cbc762e8a07d04f08d65e6c39e3bb654b3340"
+    ],
+    "on": "wording of the identity claim and the scope of infeasibility; the result under the original contract is retained unchanged: unresolved custody, nothing executed"
+  },
+  "scope_correction": {
+    "identity": "the verified Content-Length of the pinned Stanford object (21,693,920 B) and the publisher-reported size of the official object (21,084,088 B) differ, so the two byte sequences are not identical; no payload was downloaded and no digest of the Stanford object was computed or compared; the earlier phrase 'unequal lengths make SHA-256 identity impossible' is withdrawn: what is established is non-identity of the sequences, not a statement about hash collisions",
+    "permission": "the MIT declaration of the robomimic_datasets repository card at revision 74fa0184 covers that repository's objects; it is not extended to the Stanford-hosted object; permission for the Stanford object is unresolved, not refused: an applicable rights-holder declaration covering that release could establish it without making the releases identical",
+    "infeasibility": "only the specific route of binding the repository declaration to the Stanford object by byte identity is closed; no other lawful route was tested",
+    "five_distinctions": {
+      "artifact_identity": "established as non-identical",
+      "applicable_permission_and_provenance": "unresolved for the Stanford object; declared MIT for the repository object",
+      "offline_training_compatibility": "not tested by the stopped pilot; see the batched-normalization control below",
+      "simulator_compatibility": "untested",
+      "measured_resource_feasibility": "untested; available dependencies and headroom do not establish it"
+    }
+  },
+  "claim_ladder_for_the_stopped_pilot": {
+    "A_permission_and_custody": "unresolved",
+    "B_data_implementation_compatibility": "untested by the pilot; a separate control (below) shows the pinned implementation cannot apply observation normalization to batched training inputs",
+    "C_effective_normalized_training": "not executed",
+    "D_checkpoint_reloadability": "not executed",
+    "E_measured_resource_feasibility": "not executed",
+    "F_simulator_compatibility": "untested",
+    "G_policy_competence": "untested",
+    "H_task_intervention_and_confirmed_repair": "untested",
+    "I_comparative_value": "unproven"
+  },
+  "new_finding": {
+    "id": "a1-pilot-001/finding-001",
+    "code": "training_normalization_rejects_batched_inputs",
+    "control": "normalization-batch-control-001.json (command 9037c020, no dataset, no simulator, zero optimizer updates)",
+    "observed": "robomimic 0.3.0 ObsUtils.normalize_obs asserts len(mean.shape) - len(obs.shape) in [0, 1] and mean.shape[diff:] == obs.shape; postprocess_batch_for_training therefore raises 'shape length mismatch in @normalize_obs' for every BC-RNN sequence batch (batch sizes 100, 2 and 1) and 'shape mismatch' for any non-sequence batch larger than one; the rollout-shaped inputs (D,) and (1, D) pass",
+    "consequence": "with the held implementation, hdf5_normalize_obs true cannot train the BC-RNN family: the first optimizer update would fail in postprocessing; a normalized inference checkpoint cannot be produced without a declared correction of the training-time normalization function",
+    "smallest_concrete_amendment": "a harness-level override of ObsUtils.normalize_obs used only during training that computes (x - mean) / std with mean and std of shape (1, D) broadcast over any leading batch and time dimensions, elementwise identical on the shapes (D,) and (1, D) that the unchanged rollout path uses; declared as a substituted boundary, digest-bound, and checked by a four-shape equality control before the run; the dataset-side statistics computation and the inference path stay unchanged",
+    "not_chosen": [
+      "a robomimic upgrade (new dependency bodies and a changed held stack)",
+      "batch size one with a non-sequence architecture (silently changes the family)"
+    ]
+  },
+  "clock": {
+    "original_mission_clock": "2026-09-17T21:30:41Z",
+    "recorded_at": "2026-09-21T10:19:48Z",
+    "active_effort": "unmeasured"
+  }
+}

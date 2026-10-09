@@ -1,0 +1,45 @@
+{
+  "schema": "nisayon.task-qualification.selection-rule.v1",
+  "case": "task-qualification-001",
+  "frozen_at": "2026-09-21T06:14:56Z",
+  "frozen_before": "any inventory or screening command of this phase",
+  "phase_start_utc": "2026-09-21T06:12:30Z",
+  "original_mission_clock": "2026-09-17T21:30:41Z",
+  "question": "Is there, among assets already held on this machine, one executable policy task on which a working and a changed deployment can differ only in the bound normalizer statistics, with an observable task outcome, so that a prospective keep/replace decision can be adjudicated and confirmed?",
+  "population": "assets already present on this machine at the phase start: installed Python environments and packages, model caches, dataset caches, sibling workspaces, retained evidence packets; nothing acquired during screening",
+  "roots": [
+    "/Users/danielwahnich/workspace (depth 3)",
+    "/Users/danielwahnich/.cache (huggingface, lerobot, torch, pip, uv)",
+    "/Users/danielwahnich/.codex/reports (retained packets, read-only)",
+    "/Users/danielwahnich/.local/share, /opt/homebrew (installed simulators or robotics packages)",
+    "the Nisayon uv environment (uv.lock) and any conda/venv environments found under the roots",
+    "Docker images if a daemon is reachable without starting one"
+  ],
+  "criteria_all_required": {
+    "C1_checkpoint": "a learned policy checkpoint's bytes are held locally with a recorded revision and digest, under a license that permits local execution",
+    "C2_executable": "the policy's executable source revision is held (repository or installed package) and imports on this machine (darwin arm64) without new dependency bodies beyond the phase cap",
+    "C3_statistics_path": "the policy's preprocessing reads normalization statistics through an inspectable path that can be bound to a statistics artifact whose bytes are held",
+    "C4_task": "an executable task environment with an observable, measurable outcome runs on this machine without paid compute, hardware or a GPU requirement the machine cannot meet, within the temporary and artifact caps",
+    "C5_intervention": "a working and a changed deployment can be constructed that differ only in the bound statistics, with model, task, controller, observations, execution settings and randomness held fixed",
+    "C6_custody": "every required input is reproducible from retained bytes with digests; no reserved incident data",
+    "C7_authority": "execution needs no authority beyond the existing one (no training, paid compute, hardware, reserved data, publication)"
+  },
+  "screening_order": "inventory first; each candidate is scored on C1-C7 from evidence on disk; a candidate is rejected at the first failed criterion but every criterion is still recorded when cheaply observable",
+  "budget": {
+    "network_requests_by_this_lane": 0,
+    "new_dependency_bytes": 0,
+    "new_source_bytes": 0,
+    "process_cpu_seconds_for_inventory_and_screening": 60,
+    "filesystem_roots": 6,
+    "maximum_candidates_screened": 12,
+    "wall_clock_is_not_effort": true
+  },
+  "stopping_rule": "stop when the roots are scanned and every candidate found is scored, or when the CPU budget is reached; if no candidate satisfies C1-C7 the result is an evidence-acquisition result naming the exact assets, sizes, sources, licenses, compute needs and cap conflicts for the best-scored candidate, with no incident manufactured and no toy substituted",
+  "non_authorities": [
+    "a package name or repository name without executable bytes",
+    "a dataset without a policy",
+    "a policy without a task outcome",
+    "a candidate the coordinator or either lane would prefer"
+  ],
+  "exposure": "the remedy class (keep the parent statistics versus replace with subset moments) is already known to both lanes from normalizer-execution-001; any study on a GR00T/LIBERO candidate is exposed, not a blinded repair discovery, and is labelled so"
+}

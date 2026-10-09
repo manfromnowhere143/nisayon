@@ -1,0 +1,64 @@
+{
+  "schema": "nisayon.a1-runtime-source-reservation.v1",
+  "case": "a1-runtime-001",
+  "recorded_at": "2026-09-21T12:23:24Z",
+  "status": "reserved; request not dispatched",
+  "purpose": "obtain authoritative PyPI release metadata for robosuite 1.5.1 so the prospective contract can bind exact archives, hashes, sizes, dependencies and declared rights before selecting or acquiring a runtime",
+  "authority": "Daniel Wahnich's authorized simulator-qualification feasibility phase; metadata acquisition only within existing source limits",
+  "request": {
+    "method": "GET",
+    "url": "https://pypi.org/pypi/robosuite/1.5.1/json",
+    "allowed_scheme": "https",
+    "allowed_host": "pypi.org",
+    "redirects_allowed": 0,
+    "application_response_ceiling": 1,
+    "body_byte_ceiling": 524288,
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 20,
+    "retry_ceiling": 0,
+    "user_agent": "Nisayon-private-research/0.1"
+  },
+  "retention": {
+    "body": "artifacts/a1-runtime-001/sources/pypi-robosuite-1.5.1.json.partial",
+    "headers": "artifacts/a1-runtime-001/sources/pypi-robosuite-1.5.1.headers",
+    "command_record": ".nisayon/runs/<assigned-on-dispatch>",
+    "preserve_non_200_response": true,
+    "preserve_partial_body": true
+  },
+  "pre_request_accounting": {
+    "source_responses_used": 6,
+    "source_response_cap": 12,
+    "source_body_bytes_used": 102904,
+    "source_body_cap_bytes": 2097152,
+    "maximum_after_reserved_response_count": 7,
+    "maximum_after_reserved_body_bytes": 627192,
+    "new_dependency_body_bytes": 0,
+    "new_dependency_body_cap_bytes": 33554432,
+    "cumulative_source_download_body_bytes": 21495048,
+    "cumulative_source_download_cap_bytes": 67108864,
+    "sampled_free_disk_bytes": 14206414848,
+    "minimum_free_disk_bytes": 5368709120
+  },
+  "acceptance": [
+    "exactly one HTTP response is observed",
+    "the effective URL retains https and host pypi.org",
+    "status is 200 and body size is at most 524,288 bytes",
+    "the body parses as JSON with info.name robosuite and info.version 1.5.1",
+    "every published archive retains filename, packagetype, python_version, size, URL and SHA-256",
+    "declared license, classifiers, project URLs and requires_dist are retained without extending them beyond this release"
+  ],
+  "stop_rules": [
+    "any redirect, second response, timeout, TLS failure, body limit, non-200 status or malformed required field stops this source route",
+    "no alternate endpoint or retry is authorized by this reservation",
+    "no archive or dependency byte is downloaded under this reservation"
+  ],
+  "scientific_boundary": "publisher metadata can establish candidate identity, declared terms and a resource estimate; it cannot establish installation, import, simulator compatibility or execution",
+  "operations_before_commit": {
+    "network_requests": 0,
+    "dependency_download_bytes": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0,
+    "policy_actions": 0
+  },
+  "publication": "private; no push or publication"
+}

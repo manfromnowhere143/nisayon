@@ -1,0 +1,107 @@
+{
+ "schema": "nisayon.temporal-assessment.v1",
+ "case_id": "X05-clock-crosses-zero",
+ "software_execution": "completed",
+ "evidence": {
+  "problems": [],
+  "unknowns": [],
+  "unbound_responses": [],
+  "unacknowledged_dispatches": [],
+  "completeness": "complete"
+ },
+ "temporal_contract": "unresolved",
+ "predicates": {
+  "generation_fencing": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "request_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "configuration_binding": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "queue_reset": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "duplicate_dispatch": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "dispatch_order": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "freshness": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "acknowledgement": {
+   "status": "satisfied",
+   "findings": []
+  },
+  "useful_execution": {
+   "status": "unresolved",
+   "findings": [
+    {
+     "predicate": "useful_execution",
+     "status": "unresolved",
+     "detail": "generation 0: no response arrived and no control opportunity was recorded, so dispatch coverage cannot be judged"
+    }
+   ]
+  }
+ },
+ "useful_execution": {
+  "status": "unresolved",
+  "coverage_by_generation": {
+   "0": {
+    "basis": "grid",
+    "ticks": 0,
+    "dispatched": 0,
+    "coverage": null,
+    "window": null
+   }
+  }
+ },
+ "robot_task_outcome": "unmeasured",
+ "controller_clock": "controller",
+ "useful_coverage_min": 0.8,
+ "dispatch_refusals": 0,
+ "exploratory_stale_overwrites": [],
+ "repeated_deliveries": [],
+ "exploratory_after_freeze": {
+  "queue_reset_before_first_dispatch": {
+   "0": {
+    "survivors_at_reset": [],
+    "still_queued_at_first_dispatch": []
+   }
+  },
+  "note": "added after the frozen cases ran: the upstream fix clears the queue at the next control-loop start, after reset_completed, so it violates the frozen reset-time predicate while no stale action is dispatched; reported, not scored"
+ },
+ "final_state": {
+  "generation": 0,
+  "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c",
+  "queued_action_ids": [],
+  "dispatched_action_ids": [
+   "c0:0"
+  ],
+  "chunks": {
+   "c0": {
+    "req_id": "q0",
+    "generation": 0,
+    "generation_source": "request",
+    "config_sha256": "18c49d0ea9f8035895308a4c33f39e263f8a8676982bd8a91d9edc2e9970d40c"
+   }
+  },
+  "steps_dispatched": {
+   "0": [
+    0
+   ]
+  },
+  "unknowns": []
+ },
+ "boundary": "software dispatch and recorded identities only; not physical actuation, not policy quality, not task success"
+}

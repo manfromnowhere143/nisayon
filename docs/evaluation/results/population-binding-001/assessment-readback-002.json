@@ -1,0 +1,711 @@
+{
+  "schema": "nisayon.evaluation.population-assessment-readback.v1",
+  "recorded_at": "2026-09-20T19:52:00+00:00",
+  "supersedes": "assessment-readback-001.json (producer-001 remains retained and assessed; this record covers the re-sealed store)",
+  "producer_store": {
+    "path": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/population-binding-001/producer-003",
+    "case_commit": "7c351da",
+    "case_chain_sha256": [
+      "f83e21fc6672f5f13dddf17bf0092ecf422bde0367c277f56bd6f3ed81ef5b32",
+      "fd267218fee9d62f88a4f058e7d666c8e711a39d9a6f4824366fd9276d15a087",
+      "64330340fbaff01210027660c15e3d1b590eb9ffb70211777c0e118aef11ba5e"
+    ],
+    "core_commit_in_store": "7c351daeaec8bb05cd719f4f2b41e4e19c407bcd",
+    "core_module_sha256": "71961419af11d8f0bf2332d980e994052a5dc547c8f4262b491c8aa56c795d4f",
+    "core_module_sha256_verified_from_git_show_7c351da": "71961419af11d8f0bf2332d980e994052a5dc547c8f4262b491c8aa56c795d4f",
+    "seal_sha256": "f78c78be339e9be01555de938fe8da56866e7740a42e8f38b2ec843ab96d53c4",
+    "summary_sha256": "3c39aba1813596bfd9f1a803069d3cca47a061acb4fcf4ac566bbb8bc3f39cd3",
+    "seal_checks": {
+      "summary_matches_seal": true,
+      "manifest_matches_seal": true,
+      "frozen_case_matches_seal": true,
+      "manifest_entries": 26,
+      "manifest_entries_with_bad_digest_or_missing": 0,
+      "original_decision_matches_summary": true
+    },
+    "original_decision_sha256": "bbfa10e4e1b178f8b183dccc1f3ad36d355b9c20e6d057950d5ae1525df7a2da",
+    "sealed_at": "2026-09-20T19:43:14.854597+00:00",
+    "requested_by": "execution lane record at f870ad1 (assess the original decision against the verified original case; inspect PBC07 and PBC08 against finding 002; name any false acceptance, refusal, unjustified reuse/recompute or remaining declaration-derived premise)"
+  },
+  "original_input": {
+    "producer": {
+      "role": "parent_population_summary",
+      "obligations": {
+        "role_binding": "supported",
+        "population_binding": "supported",
+        "selection_binding": "supported",
+        "arithmetic": "supported",
+        "normalization_interpretation": "unresolved"
+      },
+      "operation": "reuse",
+      "status": "supported",
+      "candidate_results": [
+        {
+          "operation": "reuse",
+          "status": "supported"
+        },
+        {
+          "operation": "recompute",
+          "status": "rejected",
+          "reason": "would replace a bound parent summary with subset moments"
+        }
+      ],
+      "label_used_as_premise": false
+    },
+    "reference": {
+      "role": "parent_population_summary",
+      "operation": "reuse",
+      "decision": "supported",
+      "selection": "supported_for_scoped_invocation",
+      "selection_detail": "observed invocation check_stats_validity in groot-test-pipeline-1a1837.py (554fad11f347) at 1a1837f20538b7d7e21f977a11a5aee14f99803c",
+      "interpretation": "unresolved",
+      "missing": [
+        "interpretation: the consuming normalizer formula with a verified source (does not block the scoped invocation)"
+      ]
+    },
+    "comparison": {
+      "status": "compared",
+      "producer": {
+        "operation": "reuse",
+        "status": "supported"
+      },
+      "reference": {
+        "operation": "reuse",
+        "decision": "supported"
+      },
+      "agrees": true,
+      "false_acceptance": false,
+      "false_refusal": false,
+      "unjustified_recomputation": false,
+      "unjustified_reuse": false
+    },
+    "independent_arithmetic": {
+      "note": "both lanes pool the 379 enumerated per-episode statistics with their own code; extremes exact in both; the largest absolute mean and std differences from the published values agree to the printed digits for means and to about 1e-14 for stds (summation order)",
+      "by_feature": {
+        "observation.state": {
+          "reference_mean_max_abs_diff": 7.526124222390074e-06,
+          "producer_mean_max_abs_diff": 7.526124222390074e-06,
+          "reference_std_max_abs_diff": 8.439277908278697e-06,
+          "producer_std_max_abs_diff": 8.439277908500742e-06,
+          "reference_extremes_exact": true,
+          "producer_extremes_exact": true,
+          "episodes": [
+            379,
+            379
+          ],
+          "frames": [
+            101469,
+            101469
+          ],
+          "role": {
+            "direct": {
+              "mean": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 0.30568361282348633
+              },
+              "std": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 0.1619657278060913
+              },
+              "min": {
+                "policy": "T2",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 1.0924081802368164
+              },
+              "max": {
+                "policy": "T2",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 3.2199316322803497
+              },
+              "q01": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 0.4529649114608767
+              },
+              "q99": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ],
+                "max_abs": 2.416907385885708
+              },
+              "all_match": false
+            },
+            "subset_relation": {
+              "brackets_subset": true,
+              "min_strictly_below_subset": [
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true
+              ],
+              "max_strictly_above_subset": [
+                true,
+                true,
+                true,
+                false,
+                true,
+                true,
+                true,
+                true
+              ],
+              "coordinates_outside_subset": 15,
+              "reading": "the published extremes lie outside the subset, so the published statistics were computed over values not in the subset"
+            },
+            "pooled": {
+              "min": {
+                "policy": "T2",
+                "status": "matches",
+                "differing_coordinates": []
+              },
+              "max": {
+                "policy": "T2",
+                "status": "matches",
+                "differing_coordinates": []
+              },
+              "mean": {
+                "policy": "T3",
+                "status": "matches",
+                "max_rel": 4.508545134386551e-05,
+                "rtol": 0.0001
+              },
+              "std": {
+                "policy": "T3",
+                "status": "matches",
+                "max_rel": 1.2517408214369687e-05,
+                "rtol": 0.001
+              },
+              "quantiles": "not_comparable_from_per_episode_statistics",
+              "extremes_exact": true,
+              "moments_within_t3": true
+            },
+            "role": "parent_population_summary",
+            "population_binding": "supported",
+            "reason": "the published extremes equal the union of 379 enumerated episodes exactly and the moments agree within T3; the current directory is a subset"
+          }
+        },
+        "action": {
+          "reference_mean_max_abs_diff": 2.8236465061948213e-07,
+          "producer_mean_max_abs_diff": 2.8236465061948213e-07,
+          "reference_std_max_abs_diff": 0.00025273445036849695,
+          "producer_std_max_abs_diff": 0.000252734450368719,
+          "reference_extremes_exact": true,
+          "producer_extremes_exact": true,
+          "episodes": [
+            379,
+            379
+          ],
+          "frames": [
+            101469,
+            101469
+          ],
+          "role": {
+            "direct": {
+              "mean": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "max_abs": 0.05521327257156372
+              },
+              "std": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "max_abs": 0.08012750744819641
+              },
+              "min": {
+                "policy": "T2",
+                "status": "differs",
+                "differing_coordinates": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "max_abs": 0.20892858505249023
+              },
+              "max": {
+                "policy": "T2",
+                "status": "differs",
+                "differing_coordinates": [
+                  1,
+                  2,
+                  3,
+                  4
+                ],
+                "max_abs": 0.14678572118282318
+              },
+              "q01": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "max_abs": 0.2489732533693314
+              },
+              "q99": {
+                "policy": "T1",
+                "status": "differs",
+                "differing_coordinates": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "max_abs": 0.2450892627239215
+              },
+              "all_match": false
+            },
+            "subset_relation": {
+              "brackets_subset": true,
+              "min_strictly_below_subset": [
+                false,
+                true,
+                true,
+                true,
+                true,
+                true,
+                false
+              ],
+              "max_strictly_above_subset": [
+                false,
+                true,
+                true,
+                true,
+                true,
+                false,
+                false
+              ],
+              "coordinates_outside_subset": 9,
+              "reading": "the published extremes lie outside the subset, so the published statistics were computed over values not in the subset"
+            },
+            "pooled": {
+              "min": {
+                "policy": "T2",
+                "status": "matches",
+                "differing_coordinates": []
+              },
+              "max": {
+                "policy": "T2",
+                "status": "matches",
+                "differing_coordinates": []
+              },
+              "mean": {
+                "policy": "T3",
+                "status": "matches",
+                "max_rel": 5.049117656101915e-06,
+                "rtol": 0.0001
+              },
+              "std": {
+                "policy": "T3",
+                "status": "matches",
+                "max_rel": 0.0005076012511930869,
+                "rtol": 0.001
+              },
+              "quantiles": "not_comparable_from_per_episode_statistics",
+              "extremes_exact": true,
+              "moments_within_t3": true
+            },
+            "role": "parent_population_summary",
+            "population_binding": "supported",
+            "reason": "the published extremes equal the union of 379 enumerated episodes exactly and the moments agree within T3; the current directory is a subset"
+          }
+        }
+      }
+    },
+    "command": {
+      "id": "9ca12eda99514ea5b1037023c1ff5948",
+      "started_at": "2026-09-20T19:45:33.165329+00:00",
+      "wall_seconds": 0.293989,
+      "process_status": "completed",
+      "returncode": 0
+    },
+    "assessment": "assessments/codex-producer-003-original.reference.json",
+    "assessed_decision_copy": "assessments/codex-producer-003-original.decision.json"
+  },
+  "selection_premise": {
+    "producer": "selection bound to the retained upstream-path-observation record (879c8960\u2026, 19,040 B) by exact text digest and field markers; the runner additionally requires cache_valid true, zero calculate_dataset_statistics and writer calls, and before/after statistics digests equal to the published file (8283e003\u2026); the observation cites pinned bodies stats.py 54fffdaa\u2026, lerobot_episode_loader.py 10eb986f\u2026, sharded_mixture_dataset.py f452072c\u2026, all retained in the execution ledger with matching digests",
+    "reference": "selection bound to the retained pinned test file groot-test-pipeline-1a1837.py (554fad11\u2026) by digest and the symbol check_stats_validity",
+    "reading": "two different retained witnesses for the same scoped software invocation (cache acceptance and reuse of the shipped file on the demo directory); neither is a training-run or inference-time selector; the producer's witness is a Nisayon-executed reduction of unchanged pinned bodies with declared substitutions, so its authority is the execution record plus the source digests, not the upstream application itself",
+    "declaration_derived_premise_remaining": "none found: labels change nothing (probe), the role is verified from the enumeration, selection and interpretation evidence are checked against retained text by digest and content, and the interpretation stays unresolved"
+  },
+  "controls": {
+    "producer_statuses": {
+      "PBC01-intact-current-population": "supported",
+      "PBC02-current-population-mismatch": "rejected",
+      "PBC03-bound-parent-reference": "supported",
+      "PBC04-parent-without-selection": "unresolved",
+      "PBC04-without-population-evidence": "unresolved",
+      "PBC05-intact-labelled-external": "supported",
+      "PBC05-changed-content-labelled-external": "rejected",
+      "PBC06-empty-population": "invalid",
+      "PBC06-non-finite-row": "invalid",
+      "PBC06-wrong-coordinate-count": "invalid",
+      "PBC06-malformed-statistics": "invalid",
+      "PBC06-non-finite-statistics": "invalid",
+      "PBC07-bound-external-reference-with-retained-rows": "supported",
+      "PBC08-label-digest-and-boolean-only": "unresolved"
+    },
+    "producer_operations": {
+      "PBC01-intact-current-population": "reuse",
+      "PBC02-current-population-mismatch": "recompute",
+      "PBC03-bound-parent-reference": "reuse",
+      "PBC04-parent-without-selection": "abstain",
+      "PBC04-without-population-evidence": "abstain",
+      "PBC05-intact-labelled-external": "reuse",
+      "PBC05-changed-content-labelled-external": "recompute",
+      "PBC06-empty-population": "invalid",
+      "PBC06-non-finite-row": "invalid",
+      "PBC06-wrong-coordinate-count": "invalid",
+      "PBC06-malformed-statistics": "invalid",
+      "PBC06-non-finite-statistics": "invalid",
+      "PBC07-bound-external-reference-with-retained-rows": "reuse",
+      "PBC08-label-digest-and-boolean-only": "abstain"
+    },
+    "expected_under_contract": {
+      "PBC01-intact-current-population": "supported",
+      "PBC02-current-population-mismatch": "rejected",
+      "PBC03-bound-parent-reference": "supported",
+      "PBC04-parent-without-selection": "unresolved",
+      "PBC04-without-population-evidence": "unresolved",
+      "PBC05-intact-labelled-external": "supported",
+      "PBC05-changed-content-labelled-external": "rejected",
+      "PBC06-empty-population": "invalid",
+      "PBC06-non-finite-row": "invalid",
+      "PBC06-wrong-coordinate-count": "invalid",
+      "PBC06-malformed-statistics": "invalid",
+      "PBC06-non-finite-statistics": "invalid",
+      "PBC07-bound-external-reference-with-retained-rows": "supported",
+      "PBC08-label-digest-and-boolean-only": "unresolved"
+    },
+    "all_match": true,
+    "pbc07_pbc08_expectation_basis": "PBC07 and PBC08 are the execution lane's additions after finding 002; the expected statuses are derived from the contract's rule (reuse only for a population identified from rows or an enumeration with a selection bound to verified retained text; labels, digests and booleans are non-authorities), not from a frozen contract entry",
+    "note": "the producer's controls are its own fixtures; PBC07 and PBC08 were re-materialized here from the frozen v2 definitions and re-decided with the core copied from git show 7c351da; the sealed decisions were reproduced"
+  },
+  "finding_002": {
+    "status": "closed for the core at 19b4143 (unchanged at 7c351da, module 71961419\u2026) and for producer-003",
+    "reproducer_on_corrected_core": {
+      "case_A_declaration_only": {
+        "selected_operation": "abstain",
+        "status": "unresolved",
+        "candidate_results": [
+          {
+            "operation": "reuse",
+            "status": "unresolved"
+          },
+          {
+            "operation": "recompute",
+            "status": "unresolved"
+          }
+        ],
+        "missing": [
+          "external reference rows do not cover every published feature"
+        ]
+      },
+      "case_A2_self_consistent_text_without_marker": {
+        "selected_operation": "abstain",
+        "status": "unresolved",
+        "candidate_results": [
+          {
+            "operation": "reuse",
+            "status": "unresolved"
+          },
+          {
+            "operation": "recompute",
+            "status": "unresolved"
+          }
+        ],
+        "missing": [
+          "external reference rows do not cover every published feature"
+        ]
+      },
+      "case_A3_marker_present_no_reference_rows": {
+        "selected_operation": "abstain",
+        "status": "unresolved",
+        "candidate_results": [
+          {
+            "operation": "reuse",
+            "status": "unresolved"
+          },
+          {
+            "operation": "recompute",
+            "status": "unresolved"
+          }
+        ],
+        "missing": [
+          "external reference rows do not cover every published feature"
+        ]
+      }
+    },
+    "external_branch_content_probes": {
+      "PBC07 as materialized": {
+        "role": "external_reference_normalizer",
+        "operation": "reuse",
+        "status": "supported",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "supported",
+          "arithmetic": "supported",
+          "normalization_interpretation": "supported"
+        },
+        "missing": []
+      },
+      "PBC07 rows changed (max 21)": {
+        "role": "unresolved",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "unresolved",
+          "population_binding": "unresolved",
+          "selection_binding": "supported",
+          "arithmetic": "unresolved",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "published statistics differ from the retained external reference rows"
+        ]
+      },
+      "PBC07 rows changed (extra 15; same extremes/mean)": {
+        "role": "unresolved",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "unresolved",
+          "population_binding": "unresolved",
+          "selection_binding": "supported",
+          "arithmetic": "unresolved",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "published statistics differ from the retained external reference rows"
+        ]
+      },
+      "PBC07 selection digest mismatched": {
+        "role": "external_reference_normalizer",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "unresolved",
+          "arithmetic": "supported",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "observed external-reference selection"
+        ]
+      },
+      "PBC07 selection text lacks markers": {
+        "role": "external_reference_normalizer",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "unresolved",
+          "arithmetic": "supported",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "observed external-reference selection"
+        ]
+      },
+      "PBC07 without selection": {
+        "role": "external_reference_normalizer",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "unresolved",
+          "arithmetic": "supported",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "observed external-reference selection"
+        ]
+      },
+      "PBC07 interpretation formula absent from text": {
+        "role": "external_reference_normalizer",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "supported",
+          "arithmetic": "supported",
+          "normalization_interpretation": "unresolved"
+        },
+        "missing": [
+          "supported normalization interpretation"
+        ]
+      },
+      "PBC07 label changed only": {
+        "role": "external_reference_normalizer",
+        "operation": "reuse",
+        "status": "supported",
+        "obligations": {
+          "role_binding": "supported",
+          "population_binding": "supported",
+          "selection_binding": "supported",
+          "arithmetic": "supported",
+          "normalization_interpretation": "supported"
+        },
+        "missing": []
+      },
+      "PBC07 published std changed (rows unchanged)": {
+        "role": "unresolved",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "unresolved",
+          "population_binding": "unresolved",
+          "selection_binding": "unresolved",
+          "arithmetic": "unresolved",
+          "normalization_interpretation": "supported"
+        },
+        "missing": [
+          "published statistics differ from the retained external reference rows"
+        ]
+      },
+      "PBC08 as materialized": {
+        "role": "unresolved",
+        "operation": "abstain",
+        "status": "unresolved",
+        "obligations": {
+          "role_binding": "unresolved",
+          "population_binding": "unresolved",
+          "selection_binding": "unresolved",
+          "arithmetic": "unresolved",
+          "normalization_interpretation": "unresolved"
+        },
+        "missing": [
+          "retained external reference rows",
+          "selection source bytes",
+          "normalization formula source bytes",
+          "external reference rows do not cover every published feature"
+        ]
+      }
+    },
+    "reading": "the external branch now decides from content: changing the reference rows, the published values, the selection digest, the selection text or the interpretation text each withdraws support with the missing item named; changing only the label changes nothing; the declaration-only regression PBC08 abstains",
+    "residual_limit_shared_by_both_lanes": "digest-matched retained text proves the record is the bytes named, not that the invocation happened outside the retained execution; constructed controls use synthetic self-digested text and test the mechanism only"
+  },
+  "counts": {
+    "false_acceptance": 0,
+    "false_refusal": 0,
+    "unjustified_recomputation": 0,
+    "unjustified_reuse": 0,
+    "agreements": 1,
+    "unresolved_named": [
+      "normalizer formula and epsilon/constant rule",
+      "override=False semantics against checkpoint statistics",
+      "inference-time precedence",
+      "author intent for the subset"
+    ]
+  },
+  "source_ledger_reconciliation": {
+    "execution_responses": 7,
+    "execution_bytes": 84799,
+    "execution_retained_digests_verified": 7,
+    "evaluation_responses": 7,
+    "evaluation_bytes": 962486,
+    "combined_responses": 14,
+    "combined_bytes": 1047285,
+    "response_cap": 12,
+    "byte_cap": 2097152,
+    "agrees_with": [
+      "docs/experiments/results/population-binding-001/source-overrun-consumption-001.json",
+      "docs/evaluation/results/population-binding-001/source-overrun-001.json"
+    ],
+    "status": "overrun retained by both lanes; no further acquisition"
+  },
+  "parity": "the producer, the reference and the conventional diagnostic reach reuse/supported on the original input and the same statuses on every control; no decision-quality difference is observed; no cost advantage is inferred from sub-second commands"
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "nisayon.a1-runtime.single-lane-assessment-readback.v1",
+  "recorded_at": "2026-10-09T07:59:46.187778+00:00",
+  "assessment_mode": "single_lane_non_independent",
+  "assessment": {
+    "path": "docs/experiments/results/a1-runtime-001/runtime-v1.4-assessment-001.json",
+    "bytes": 39368,
+    "sha256": "efbce2b46bfdbe13987d60021780d9844b49f0fafd42dee673a1f19d6beaed67"
+  },
+  "assessment_manifest": {
+    "path": "artifacts/a1-runtime-001/runtime-v1.4-assessment-001/artifact-manifest.json",
+    "bytes": 3139,
+    "sha256": "5886a88c3c45276ec3dc2356bc879405201c4976f0bab2de3e6f2b1ff9b3b340"
+  },
+  "verified_assessment_members": 16,
+  "verdicts": {
+    "Q-C_compatibility": "incompatible",
+    "Q-K_competence": "not_run",
+    "criteria": {
+      "C1": "fail",
+      "C2": "pass",
+      "C3": "pass",
+      "C3b": "pass",
+      "C4": "fail",
+      "C5": "pass",
+      "C6": "pass",
+      "C7": "pass",
+      "C8": "pass",
+      "C9": "unresolved"
+    },
+    "gate": "within",
+    "permission_and_custody": "pass",
+    "replay_reproducibility": "agree"
+  },
+  "disposition": "D1_runtime_incompatible",
+  "interpretation": {
+    "C4": "Producer logged different observation acquisition points; the fixed recorder has not executed in the simulator.",
+    "C1": "Every identity subcheck except Mink passed. The post-policy-episode witness is absent because no policy episode started, so the unchanged assessor returns fail. No missing witness is promoted to pass.",
+    "C9": "No inference/statistics application witness exists because no policy episode started.",
+    "competence": "Not run, not a measured checkpoint failure.",
+    "replay_fidelity": "Both complete 59-step replays matched each other bitwise and their first dataset frame exactly; their trajectories diverged from historical observations after the initial frame. Full historical fidelity is graded separately and is not a prerequisite under the frozen contract."
+  },
+  "closeout_overhead": [
+    {
+      "id": "d89070d95de1496394ae3a311edb5065",
+      "returncode": 0,
+      "wall_seconds": 0.676742
+    },
+    {
+      "id": "3e14720a20e7455e920ddcd4eb9ac651",
+      "returncode": 1,
+      "wall_seconds": 0.085734
+    },
+    {
+      "id": "81bbd188ca1e4dc68ecd4470e3d8dad2",
+      "returncode": 70,
+      "wall_seconds": 0.087447
+    },
+    {
+      "id": "1e2c32089cc443e5ad211b2d098db727",
+      "returncode": 0,
+      "wall_seconds": 2.835009
+    }
+  ],
+  "wrapper_failures": {
+    "ids": [
+      "3e14720a20e7455e920ddcd4eb9ac651",
+      "81bbd188ca1e4dc68ecd4470e3d8dad2"
+    ],
+    "reason": "One call passed argv to a no-argument monitor main; the next omitted the required durable directory. Both stopped before any assessor or simulator child. Corrected invocation retained separately.",
+    "additional_simulator_operations": 0
+  },
+  "resources": {
+    "peak_process_tree_rss_bytes": 329039872,
+    "maximum_observed_process_tree_cpu_seconds": 2.132000193,
+    "peak_temporary_bytes": 0,
+    "minimum_free_disk_bytes_observed": 16996229120,
+    "violations": []
+  },
+  "next_action": "Only a prospectively authorized two-replay follow-up may validate the correction; the original two slots remain consumed."
+}

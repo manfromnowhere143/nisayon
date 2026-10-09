@@ -1,0 +1,185 @@
+{
+  "schema": "nisayon.baseline-qualification-validation.v2",
+  "recorded_at": "2026-09-20T16:36:43Z",
+  "checkpoint_id": "b4381380817f4a1888aa4874ad7cd635",
+  "supersedes": "validation-001.json",
+  "supersession_reason": "The evaluation lane added a label-only deployment-binding control, the execution lane corrected the exposed premise and checkout-local test fixture, and the integrated delivery received a new clean monitored check.",
+  "tested_commit": "2c520b305e74cdfa3afca660c6b7d347b9aef209",
+  "application_commits": {
+    "frozen_plan": "a7a412dbb3461fe2a114db68b11d6b0f95dd71cb",
+    "standalone_diagnostic": "833e986120df35dc87d1519b45b8e5a9df1da07a",
+    "identity_provenance_correction": "e66f478fd5eb6813645a6e0cf0c2fca3e12d3c63",
+    "deployment_binding_correction": "f69727ac51531811e47f8b530b87c19c70055f26",
+    "checkout_independent_test_fixture": "fe8c0d622987ebcb2c0b01c53d223e9e01a7c14d",
+    "execution_exchange": "044652f34164d6d44f8b3adbe2c318a0565bb1aa",
+    "evaluation_delivery": "2c520b305e74cdfa3afca660c6b7d347b9aef209"
+  },
+  "focused_validation": [
+    {
+      "command_id": "470c21d8f9264cd5a69745a9fd4f64b0",
+      "result": "23 passed",
+      "wall_seconds": 1.991018,
+      "purpose": "deployment declaration label regression plus processor controls"
+    },
+    {
+      "command_id": "c12b8fa4e616456f93882f6dcc1d2a5f",
+      "result": "23 passed",
+      "wall_seconds": 2.016595,
+      "purpose": "same focused checks with a generated checkout-independent upstream fixture"
+    }
+  ],
+  "evaluation_validation": {
+    "retained_failure": {
+      "command_id": "4ef636307ebe4441a21b035e697bb78a",
+      "tested_commit": "2ed2a31913e72d9e87fe4ae7d204bb80bb5e9e3c",
+      "wall_seconds": 238.986944,
+      "result": "lint and 365-file formatting passed; pytest had 868 passed, 1 skipped and 2 failed; make stopped before docs",
+      "cause": "Two execution tests required a gitignored source-capture directory absent from the evaluation checkout.",
+      "disposition": "Preserved. Commit fe8c0d6 replaced the dependency with a generated fixture."
+    },
+    "supplements": {
+      "documents": {
+        "command_id": "4f0342021e074d5dbcb1f391c1ca2f97",
+        "result": "117 documents passed",
+        "wall_seconds": 0.474729
+      },
+      "evaluation_owned_tests": {
+        "command_id": "024e37cec26042f4bf4a97b72dbb0040",
+        "result": "passed",
+        "wall_seconds": 215.469817
+      }
+    },
+    "corrected_combined_check": {
+      "command_id": "e64243b7f8c5480e8f0b708acd586c52",
+      "tested_commit": "2888fbee6ece6d715d9a929121520b250f17b192",
+      "wall_seconds": 240.161656,
+      "result": "871 passed, 1 skipped, lint, 365 formatting checks and 117 documents"
+    }
+  },
+  "integrated_monitored_check": {
+    "command_id": "5fb3585f08ab4805ac85bdfd0a289023",
+    "outer_wall_seconds": 267.308818,
+    "monitor_started_at": "2026-09-20T16:30:10.597112+00:00",
+    "monitor_ended_at": "2026-09-20T16:34:27.536807+00:00",
+    "receipt": {
+      "path": "artifacts/baseline-qualification-001/full-check-002.json",
+      "bytes": 151123,
+      "sha256": "3a54684a2decff203f77f86f28dfdd117edb67556464f726fdcc16a9c38dbd33"
+    },
+    "returncode": 0,
+    "tests": {
+      "passed": 872,
+      "failed": 0,
+      "nested_wall_seconds": 246.5
+    },
+    "lint": "passed",
+    "format": {
+      "status": "passed",
+      "files": 365
+    },
+    "documents": {
+      "status": "passed",
+      "files": 117,
+      "mermaid_blocks": 3,
+      "errors": []
+    },
+    "parent_nested_rule": "The outer recorder wall and pytest nested wall are reported separately and are not added. Combined-check process CPU is unmeasured."
+  },
+  "record_only_closeout": {
+    "command_id": "6b831faf764a4a69b6529ddde7ac8e93",
+    "wall_seconds": 2.179056,
+    "documents": 117,
+    "mermaid_blocks": 3,
+    "errors": [],
+    "json_parse": "passed",
+    "git_diff_check": "passed"
+  },
+  "resources": {
+    "integrated_precheck_command_id": "707e02331de64948a447dd6c7c2b8434",
+    "integrated_precheck_receipt": {
+      "path": "artifacts/baseline-qualification-001/precheck-resource-002.json",
+      "bytes": 81568,
+      "sha256": "c58207711e8d00a07ea313ed36f839c5e6d98d81bf2c4d8a0b57a62911132603"
+    },
+    "closeout_snapshot": {
+      "command_id": "7cd5715f096c4dbd8d960e4b64355155",
+      "recorded_at": "2026-09-20T16:40:06.494182+00:00",
+      "path": "artifacts/baseline-qualification-001/resource-closeout-003.json",
+      "bytes": 82180,
+      "sha256": "f41725c5b0a151d76d2d35e64319efefa08a042777bb76ca8b148f55ff011a79",
+      "retained_payload_bytes_including_closeout_reserve": 630550241,
+      "phase_retained_bytes": 2370225,
+      "free_disk_bytes": 24168206336,
+      "visible_outside_monitor_temporary_bytes": 237628634,
+      "visible_temporary_git_checkouts": 0,
+      "prior_failed_check_files": 5,
+      "closeout_record_reserve_bytes": 1048576,
+      "interpretation": "The snapshot includes the dirty closeout records and a 1 MiB reserve. Its own 82,180-byte receipt and later record-only edits fit inside that reserve."
+    },
+    "retained_payload_bytes_before_check": 630295729,
+    "phase_retained_bytes_at_precheck": 1967676,
+    "phase_retained_cap_bytes": 16777216,
+    "sampled_peak_test_temporary_bytes": 155090028,
+    "retained_test_temporary_bytes": 0,
+    "retained_plus_sampled_peak_bytes": 785385757,
+    "artifact_cap_bytes": 1073741824,
+    "visible_outside_monitor_temporary_bytes": 237628634,
+    "outside_monitor_plus_sampled_peak_bytes": 392718662,
+    "shared_temporary_cap_bytes": 536870912,
+    "outside_monitor_temporary_unchanged": true,
+    "visible_temporary_git_checkouts": 0,
+    "free_disk_bytes_before_check": 24168939520,
+    "minimum_sampled_free_disk_bytes": 24007249920,
+    "minimum_free_disk_bytes": 5368709120,
+    "samples": 964,
+    "prior_failed_check_files_unchanged": 5,
+    "new_external_source_bytes": 11421,
+    "new_external_source_cap_bytes": 262144,
+    "cumulative_external_source_bytes": 4385895,
+    "cumulative_external_source_cap_bytes": 67108864,
+    "violations": [],
+    "reservation": "released",
+    "measurement_limit": "The test-root peak was sampled every 250 ms. Logical point reads and sampling do not bound unseen temporary, allocation or memory peaks."
+  },
+  "known_research_execution": {
+    "execution_diagnostic_process_cpu_seconds": 0.051157,
+    "execution_allocation_seconds": 120,
+    "corrected_E6_diagnostic_process_cpu_seconds": 0.016843,
+    "evaluation_coordinator_probe_child_cpu_seconds": 0.168669,
+    "parent_nested_rule": "Nested candidate and observation meters are retained but not added to command costs; lane allocations are reported separately.",
+    "unmeasured": [
+      "process CPU for tests, inspection, assessment and retrieval",
+      "active engineering effort",
+      "provider charges",
+      "energy",
+      "network overhead",
+      "unsampled peak memory"
+    ]
+  },
+  "time": {
+    "original_mission_started_at": "2026-09-17T21:30:41Z",
+    "phase_started_at": "2026-09-20T15:51:10.626540+00:00",
+    "integrated_validation_ended_at": "2026-09-20T16:34:32.750475+00:00",
+    "phase_clock_interval_through_validation_seconds": 2602.123935,
+    "active_effort": "unmeasured",
+    "five_useful_hours_claimed": false,
+    "interpretation": "Clock time includes reading, authoring, process waits and overhead; it is not active-effort evidence. The preceding 4274.93-second block remains separate and unclaimed."
+  },
+  "scientific_readback": {
+    "baseline_software_status": "qualified_for_future_comparison",
+    "binding_conclusion_status": "qualified_to_return_unresolved",
+    "computed_independently_of_nisayon_decision_machinery": true,
+    "frozen_discriminating_controls_passed": true,
+    "label_only_binding_control_passed_after_retained_failure_and_correction": true,
+    "independent_reference_agrees": true,
+    "false_acceptance": [],
+    "false_refusal": [],
+    "false_binding_acceptance_after_correction": false,
+    "old_comparison_status": "preserved_uninformative_by_construction",
+    "deployment_binding": "unresolved",
+    "robot_task_outcome": "unmeasured",
+    "comparative_advantage": "not_established"
+  },
+  "boundaries": "No physics, learned inference or training, weights or ranges, paid or cloud compute, hardware, reserved access, outreach, publication or push occurred.",
+  "effect": "The corrected conventional diagnostic is qualified for a future independently frozen comparison and is qualified to refuse unsupported deployment binding. No product-value, deployment or robot claim follows."
+}

@@ -1,8 +1,25 @@
 # The first experiment
 
-**Proposed comparison protocol · 17 September 2026.** The
-[first execution case](experiments/LIFT_FIRST_CASE.md) has measured development
-outcomes; its evaluator integration and the three-arm comparison remain pending.
+**Proposed comparison protocol · 17 September 2026; status updated 9 October
+2026.** The [first execution case](experiments/LIFT_PROTOCOL_V3.md) and two bounded
+development comparisons are complete. Both comparisons reached parity with the
+competent conventional arm; the reserved three-arm screen remains unrun. The
+current A1 line has completed its bounded qualification: normalized offline
+training and the declared runtime checks are supported, but the checkpoint
+achieves 1/10 development successes against the required 8/10. It cannot serve
+as the working reference for the next repair experiment. Full historical runtime
+fidelity remains a separate limitation; the result does not isolate training
+quality as the cause. See the [current handoff](SESSION_HANDOFF.md).
+
+The subsequent [B2 semantic-transfer test](experiments/results/b2-semantic-transfer-001/README.md)
+qualifies a different, unnormalized public checkpoint with an explicit observation
+convention adapter: 9/10 corrected versus 0/10 unchanged fresh paired tasks,
+no execution failures and unchanged weights. It supplies a bounded working
+reference and a measured integration repair. The ordinary source comparison
+also supplies the remedy to a competent baseline. The next value test therefore
+still needs a separately selected ambiguous incident, equal information and
+measurable avoidable cost; repeating this known sign correction cannot establish
+a diagnostic advantage.
 
 The company question is whether Nisayon helps an engineer obtain an equally
 well-confirmed correction with materially less total work. The first experiment
