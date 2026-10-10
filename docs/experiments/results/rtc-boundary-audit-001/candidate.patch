@@ -1,0 +1,37 @@
+--- a/src/lerobot/rollout/inference/rtc.py
++++ b/src/lerobot/rollout/inference/rtc.py
+@@ -461,8 +461,7 @@
+                 if queue.qsize() <= self._rtc_queue_threshold:
+                     try:
+                         current_time = time.perf_counter()
+-                        idx_before = queue.get_action_index()
+-                        prev_actions = queue.get_left_over()
++                        idx_before, prev_actions, prev_abs = queue.get_inference_snapshot()
+                         has_previous_actions = prev_actions is not None and prev_actions.numel() > 0
+ 
+                         policy_config = getattr(self._policy, "config", None)
+@@ -504,7 +503,6 @@
+                             # the training-time coordinate frame.
+                             raw_state = self._relative_step.get_cached_state()
+                             if raw_state is not None:
+-                                prev_abs = queue.get_processed_left_over()
+                                 if prev_abs is not None and prev_abs.numel() > 0:
+                                     prev_actions = reanchor_relative_rtc_prefix(
+                                         prev_actions_absolute=prev_abs,
+--- a/src/lerobot/policies/rtc/action_queue.py
++++ b/src/lerobot/policies/rtc/action_queue.py
+@@ -135,6 +135,14 @@
+         with self.lock:
+             return self.last_index
+ 
++    def get_inference_snapshot(self) -> tuple[int, Tensor | None, Tensor | None]:
++        """Copy the index and both remaining action arrays under one queue lock."""
++        with self.lock:
++            index = self.last_index
++            original = None if self.original_queue is None else self.original_queue[index:].clone()
++            processed = None if self.queue is None else self.queue[index:].clone()
++            return index, original, processed
++
+     def get_left_over(self) -> Tensor | None:
+         """Get leftover original actions for RTC prev_chunk_left_over.
+ 

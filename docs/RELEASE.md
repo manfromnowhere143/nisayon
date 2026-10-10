@@ -1,5 +1,22 @@
 # Research source and releases
 
+## RTC queue audit · 10 October 2026
+
+The [pinned-source reproducer](experiments/TEMPORAL_INTERFACE.md#rtc-queue-snapshot-audit--10-october-2026)
+executes selected LeRobot worker and queue definitions with real CPU tensors and
+controlled thread interleavings. Four assigned cases show that separate index and
+prefix reads can skip the expected next scripted action. A conventional atomic
+snapshot passes all seven controls, including the existing reset guard. Source
+revision `5dc348b` retains the exact source, upstream license, local candidate,
+research review and 61 passing focused checks. See the
+[validation record](experiments/results/rtc-boundary-audit-001/validation.json).
+
+Policy, observation and latency are scripted. This is a software regression
+packet; robot performance, other RTC modes, GPU behavior and comparative costs
+remain unmeasured. The candidate has not been submitted upstream. This source
+update leaves the production API, historical experiment outcomes and `v0.1.0`
+tag unchanged.
+
 ## Evidence decoding correction · 10 October 2026
 
 Native execution verification now rejects conflicting JSON declarations,

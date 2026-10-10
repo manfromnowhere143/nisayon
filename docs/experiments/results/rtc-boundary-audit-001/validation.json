@@ -1,0 +1,120 @@
+{
+  "schema": "nisayon.rtc-audit-validation.v1",
+  "observed_at": "2026-10-10T13:11:36.915640+00:00",
+  "checks": {
+    "focused-tests": {
+      "at": "2026-10-10T13:08:30.421310+00:00",
+      "argv": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/engine/test_rtc_snapshot_probe.py",
+        "tests/engine/test_temporal_source.py",
+        "tests/engine/test_temporal_runtime.py",
+        "--junitxml=artifacts/rtc-boundary-audit-001/focused-tests.xml",
+        "-p",
+        "no:cacheprovider",
+        "-ra"
+      ],
+      "returncode": 0,
+      "wall_seconds": 2.401456416992005,
+      "logs": [
+        {
+          "path": "artifacts/rtc-boundary-audit-001/focused-tests.stdout.txt",
+          "sha256": "1c296f620adc850f9ed88d75c847738d725f60f1de7a89002059c40eff811d9a"
+        },
+        {
+          "path": "artifacts/rtc-boundary-audit-001/focused-tests.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "counts": {
+        "tests": 61,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "93449a981e76e1aaefe4e441f863309440e56f2199ad06de913c97ae8b801fed"
+    },
+    "lint": {
+      "at": "2026-10-10T13:11:03.484306+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.1037093330087373,
+      "logs": [
+        {
+          "path": "artifacts/rtc-boundary-audit-001/lint.stdout.txt",
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "path": "artifacts/rtc-boundary-audit-001/lint.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "format": {
+      "at": "2026-10-10T13:11:03.486653+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.10558904199569952,
+      "logs": [
+        {
+          "path": "artifacts/rtc-boundary-audit-001/format.stdout.txt",
+          "sha256": "d54facde27329930e1c1f779444880b90949e696aa48be6c6e9e9f6d2edcf005"
+        },
+        {
+          "path": "artifacts/rtc-boundary-audit-001/format.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "docs": {
+      "at": "2026-10-10T13:11:08.356569+00:00",
+      "argv": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.973116082997876,
+      "logs": [
+        {
+          "path": "artifacts/rtc-boundary-audit-001/docs.stdout.txt",
+          "sha256": "e9cbef7112a4369c2b8436206874b93a33059e3969886daaf48078f925ef820e"
+        },
+        {
+          "path": "artifacts/rtc-boundary-audit-001/docs.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  },
+  "patch_application": {
+    "status": "passed",
+    "patch_sha256": "61bdae432124169068bcce2c081cd4534b9b34eabf5ec62ef7518b423e137f43",
+    "applied_file_sha256": {
+      "src/lerobot/rollout/inference/rtc.py": "a82e905d2f442bc91a9e10c91315bd27bb0a0f91c9646add305adafc0094ea32",
+      "src/lerobot/policies/rtc/action_queue.py": "c83903f9d3c8d60f62f48669fe9181fe5743e028f07f19ab6145bd84191be06b",
+      "src/lerobot/policies/rtc/latency_tracker.py": "3581e080edb215141ba145a2ee412bf27603a907c3cfd551d8137fc1cce18eaf",
+      "LICENSE": "9e108af26a7ae92a6d2cb0273856a4a0a84da8819c2cffee8b2657cc4f905718"
+    },
+    "method": "git apply --check and git apply in isolated temporary source tree; exact candidate bytes and unchanged other files compared"
+  },
+  "claims_boundary": "Focused software regression checks, not a fresh full-suite or clean-clone qualification; no robot, learned inference or economic comparison.",
+  "diff_whitespace_check": {
+    "status": "passed_for_non_patch_files",
+    "excluded_path": "docs/experiments/results/rtc-boundary-audit-001/candidate.patch",
+    "reason": "Unified-diff context encodes an unchanged blank line as one space and can end on that line; the patch is verified by application and exact byte comparison instead. The initial unfiltered whitespace check reported those three context lines."
+  }
+}

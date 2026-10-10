@@ -1,5 +1,62 @@
 # Temporal software evidence
 
+## RTC queue snapshot audit · 10 October 2026
+
+The [source-bound worker probe](../../scripts/experiments/probe_rtc_snapshot.py)
+executes LeRobot's selected RTC worker, queue and reset definitions at
+[`b9cb121`](https://github.com/huggingface/lerobot/blob/b9cb121cb7d4e3e26ec5c906d08dda68d151ba52/src/lerobot/rollout/inference/rtc.py).
+Its separate index and leftover reads allow a consumer tick between them. In a
+scripted echo control, the queue consumes processed action `100`; the policy
+receives original actions starting at `1`, whose processed value is `101`.
+The later merge discards another entry and queues `102`.
+The next coherent echo would have been `101`. These numbers identify constructed
+software actions; they are not measured robot commands.
+
+The [retained result](results/rtc-boundary-audit-001/result.json) contains four
+interleavings that reproduce the mismatch, two no-race controls and one reset
+control. The [local candidate patch](results/rtc-boundary-audit-001/candidate.patch)
+copies the index, original actions and processed actions under one queue lock.
+It preserves the expected next queued action in all four mismatch controls,
+retains useful queued actions, and leaves the two no-race and reset controls
+passing. The existing upstream reset-epoch guard already rejects pre-reset
+work. Open [issue #3747](https://github.com/huggingface/lerobot/issues/3747) alone
+does not describe all protections present in current code.
+
+The worker uses real CPU tensors, threads and locks, with deterministic barriers.
+Policy output, processors, observation, task channel and latency are scripted.
+The scope is guided RTC with non-relative actions and compilation disabled.
+The candidate also captures the processed prefix for the relative-action path,
+but that path has not been qualified by this experiment. Hardware outcomes,
+trained RTC, GPU concurrency and comparative engineering cost remain unmeasured.
+The candidate has not been submitted upstream. Original source bytes, hashes
+and the upstream license are [retained](results/rtc-boundary-audit-001/sources/manifest.json).
+The [validation record](results/rtc-boundary-audit-001/validation.json) retains
+61 passing focused checks, including 19 new cases, and an isolated patch-application
+check. The source probe needs PyTorch; base CI reports those cases as explicit skips.
+
+In a [separate development environment](../DEVELOPMENT.md#local-setup) with the
+locked PyTorch extra, use a new output path:
+
+```bash
+python scripts/experiments/probe_rtc_snapshot.py \
+  --out artifacts/rtc-snapshot-readback.json \
+  --candidate-patch artifacts/rtc-snapshot-candidate.patch
+```
+
+Recent research makes the executed prefix a useful boundary to inspect:
+[REMAC v1](https://arxiv.org/html/2601.20130v1) adapts policies to partially
+executed chunks and preserves a prefix during sampling;
+[FutureRTC v1](https://arxiv.org/html/2607.24008v1) predicts execution-time
+state and visual context, with acknowledged limits in externally changing scenes;
+[SplineWAM v1](https://arxiv.org/html/2609.39873v1) constrains decoded actions
+across variable-length spline windows. These are the authors' methods, not
+replications here. Our engineering inference is to establish the actual consumed
+prefix and observation context before choosing retraining or a latency adapter.
+The [review record](results/rtc-boundary-audit-001/review.json) retains the source
+retrievals and separates the executed queue finding from those research proposals.
+
+## Original producer interface
+
 **Implemented producer interface v1 · 20 September 2026; semantic reconciliation
 in progress.** This slice executes scripted queue
 and lifecycle behavior. It does not execute robot dynamics or learned inference.

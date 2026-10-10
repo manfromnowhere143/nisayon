@@ -1,0 +1,127 @@
+{
+  "schema": "nisayon.rtc-boundary-review.v1",
+  "reviewed_on": "2026-10-10",
+  "status": "exploratory_source_audit_with_reproduced_software_mismatch",
+  "research_question": "Does a changed action prefix reflect a policy limitation or an incoherent execution snapshot?",
+  "sources": [
+    {
+      "name": "futurertc-v1",
+      "url": "https://arxiv.org/html/2607.24008v1",
+      "retrieved_at": "2026-10-10T13:06:33.987471+00:00",
+      "bytes": 398803,
+      "sha256": "3591ebed89c594179d054c929ce08f06822e0818007482eb3652c67725d2122e",
+      "local_file": "artifacts/rtc-boundary-audit-001/futurertc-v1.html"
+    },
+    {
+      "name": "issue-3747-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3747/comments",
+      "retrieved_at": "2026-10-10T13:06:33.904609+00:00",
+      "bytes": 5277,
+      "sha256": "162d2f6670e7d43cca0f287c609e038094957b091a05799577c9e758ab35607a",
+      "local_file": "artifacts/rtc-boundary-audit-001/issue-3747-comments.json"
+    },
+    {
+      "name": "issue-3747",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3747",
+      "retrieved_at": "2026-10-10T13:06:33.943156+00:00",
+      "bytes": 5543,
+      "sha256": "b233e346fb3f6b367fbd8ffad61247d266a6d9498907095df3b441f0a43b77ce",
+      "local_file": "artifacts/rtc-boundary-audit-001/issue-3747.json"
+    },
+    {
+      "name": "pull-4398",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4398",
+      "retrieved_at": "2026-10-10T13:06:34.599118+00:00",
+      "bytes": 18948,
+      "sha256": "29e8e25a1665fef3684f6cdf07807a72a793cc5469b300cc02f6f147e714dc4d",
+      "local_file": "artifacts/rtc-boundary-audit-001/pull-4398.json"
+    },
+    {
+      "name": "pull-4638",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4638",
+      "retrieved_at": "2026-10-10T13:06:34.587675+00:00",
+      "bytes": 21202,
+      "sha256": "6e586ca92f64e6b2ee5527dd443158799625859efaf127fdbd5694b71d049467",
+      "local_file": "artifacts/rtc-boundary-audit-001/pull-4638.json"
+    },
+    {
+      "name": "remac-v1",
+      "url": "https://arxiv.org/html/2601.20130v1",
+      "retrieved_at": "2026-10-10T13:06:33.875853+00:00",
+      "bytes": 278865,
+      "sha256": "2a2c5d5ce21e4f85d3dbfb1fca026e527c96b579476b7d67ce63eb8746fdf7f5",
+      "local_file": "artifacts/rtc-boundary-audit-001/remac-v1.html"
+    },
+    {
+      "name": "splinewam-v1",
+      "url": "https://arxiv.org/html/2609.39873v1",
+      "retrieved_at": "2026-10-10T13:06:33.959991+00:00",
+      "bytes": 385370,
+      "sha256": "4caf3b57775d271b913223125d5ad587aab62bf04b7fd0d71ef69f57728894dd",
+      "local_file": "artifacts/rtc-boundary-audit-001/splinewam-v1.html"
+    }
+  ],
+  "upstream_source_manifest": "sources/manifest.json",
+  "reviewed_research": [
+    {
+      "source": "https://arxiv.org/html/2601.20130v1",
+      "title": "Real-Time Robot Execution with Masked Action Chunking",
+      "version": "v1",
+      "published": "2026-01-27",
+      "finding": "REMAC adapts policy behavior to partially executed action chunks and uses prefix-preserving sampling. The evaluated method includes training-time adaptation; it is not an evidence-free replacement for source-level inspection.",
+      "status": "authors_method_not_replicated"
+    },
+    {
+      "source": "https://arxiv.org/html/2607.24008v1",
+      "title": "FutureRTC: Real-Time Robot Execution with Anticipatory-Conditioned Action Chunking",
+      "version": "v1",
+      "published": "2026-07-27",
+      "finding": "Predicts execution-time proprioceptive and visual context through learned correction and observation modules. The paper identifies limitations when independent external agents dominate visual changes.",
+      "status": "authors_method_not_replicated"
+    },
+    {
+      "source": "https://arxiv.org/html/2609.39873v1",
+      "title": "SplineWAM: Adaptive Action Horizons for World Action Models via B-Spline Representations",
+      "version": "v1",
+      "published": "2026-09-30",
+      "finding": "Applies continuity guidance after decoding variable-length spline actions, because a prefix of parameter rows need not span the committed control steps. The paper retains precision/contact and latency limits.",
+      "status": "authors_method_not_replicated"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis": "Current LeRobot retains a stale observation and admits pre-reset inference after hand-back.",
+      "disposition": "unsupported_as_a_current_source_claim",
+      "evidence": "Pinned current reset clears the observation and increments an epoch under the same lock used for merge admission. The executed reset control rejects pre-reset chunks in both variants. The originally reported hardware sequence was not replayed."
+    },
+    {
+      "hypothesis": "Separate queue index and leftover reads can assemble incompatible positions under a consumer interleaving.",
+      "disposition": "reproduced_in_selected_source_bodies",
+      "evidence": "Four assigned echo controls in result.json queue a later action than the coherent-prefix oracle. The no-race and reset controls pass. The two offsets and two consumer counts are designed controls, not an estimated incident frequency."
+    },
+    {
+      "hypothesis": "A conventional atomic queue snapshot removes this specific mismatch without suppressing useful action progress.",
+      "disposition": "supported_within_constructed_controls",
+      "evidence": "The local candidate passes all seven assigned worker controls, including the four mismatch schedules, and retains nonempty output except after reset. It does not synchronize camera acquisition, physical command execution or every policy-state transition."
+    }
+  ],
+  "related_work_in_progress": {
+    "url": "https://github.com/huggingface/lerobot/pull/4638",
+    "state_at_retrieval": "open_unmerged",
+    "scope": "Observation histories at policy ticks, per-modality offsets, padding and DAgger hand-back limitations are already being addressed upstream. They must be treated as existing work, not Nisayon novelty."
+  },
+  "next_decision": "Keep this source-bound regression and conventional candidate available. A real deployment claim needs the matching installed source/settings and a task trace; a Nisayon value comparison additionally needs a live unresolved owner decision and equal-information measured baselines.",
+  "not_executed": [
+    "robot or simulator tasks",
+    "learned inference or training",
+    "reserved experiment conditions",
+    "GPU execution",
+    "new upstream correspondence or PR"
+  ],
+  "initial_probe": {
+    "path": "artifacts/rtc-boundary-audit-001/worker-probe-initial.json",
+    "status": "exploratory_passed_before_import_sorting_and_formatting",
+    "sha256": "44bb53160b42c8b3ec750e57ce683f0da1cb605d8bcebbc7a8afa90647f8a6f2",
+    "note": "Final result.json binds the formatted driver. These repeated software controls are not fresh robot confirmation or independent replication."
+  }
+}

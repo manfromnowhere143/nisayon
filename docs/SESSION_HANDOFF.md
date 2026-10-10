@@ -11,6 +11,14 @@ profile reports optional simulation and private-store skips explicitly. Install
 that extra only in a separate development environment; do not resynchronize a
 retained experimental runtime.
 
+The [RTC queue audit](experiments/TEMPORAL_INTERFACE.md#rtc-queue-snapshot-audit--10-october-2026)
+reproduces four index/prefix mismatches in selected current LeRobot worker
+definitions. A local atomic-snapshot candidate passes all seven assigned controls,
+including no-race and reset cases; 61 focused research checks pass. The source,
+patch and upstream license are retained. These CPU controls use a scripted policy
+and virtual latency; no robot result, comparative advantage or upstream acceptance
+follows. The optional PyTorch cases are explicit skips in the base profile.
+
 The [native evidence correction](experiments/results/native-record-decoding-001/result.json)
 rejects conflicting JSON keys, non-finite numbers and records changed after the
 initial hash scan. Fifteen rejection controls fail before and pass after; all
