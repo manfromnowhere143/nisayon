@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import io
 import json
+import math
 from pathlib import Path, PurePosixPath
 from zipfile import BadZipFile, ZipFile
 
@@ -60,7 +61,14 @@ def _json(data: bytes) -> dict:
     def reject(value):
         raise ValueError(f"non-finite JSON number: {value}")
 
-    result = json.loads(data, object_pairs_hook=_object, parse_constant=reject)
+    # Keep decoding in this self-contained verifier so verifier_sha256 binds it.
+    def finite(value):
+        number = float(value)
+        if not math.isfinite(number):
+            reject(value)
+        return number
+
+    result = json.loads(data, object_pairs_hook=_object, parse_constant=reject, parse_float=finite)
     _require(isinstance(result, dict), "expected a JSON object")
     return result
 

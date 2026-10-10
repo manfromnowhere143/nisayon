@@ -14,7 +14,7 @@ from pathlib import Path
 from .confirmation_costs import reconcile, trial_costs
 from .confirmation_pairs import assigned_pairs, iter_pairs
 from .development_diagnostics import measured_run_costs
-from .io import canonical_bytes, digest, file_digest, write_json
+from .io import canonical_bytes, decode_json, digest, file_digest, write_json
 from .recovery import inspect_execution
 from .store import resolve_member, verify_execution, verify_manifest
 
@@ -22,15 +22,7 @@ INPUTS = "docs/experiments/results/confirmation-engine-001/inputs.json"
 
 
 def _json(data: bytes) -> dict:
-    def unique(pairs):
-        result = {}
-        for key, value in pairs:
-            if key in result:
-                raise ValueError(f"Duplicate JSON key: {key}")
-            result[key] = value
-        return result
-
-    result = json.loads(data, object_pairs_hook=unique)
+    result = decode_json(data)
     if not isinstance(result, dict):
         raise ValueError("Expected a JSON object")
     return result

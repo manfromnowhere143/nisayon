@@ -1,6 +1,6 @@
 # Continue Nisayon
 
-**Public source snapshot · 9 October 2026.** Read the [source update and release
+**Public source snapshot · 10 October 2026.** Read the [source update and release
 boundary](RELEASE.md), [voice and authorship rule](VOICE.md), and
 [development setup](DEVELOPMENT.md#local-setup). Private client settings, session
 memory, lane records and development Git ancestors are not distributed here.
@@ -10,6 +10,13 @@ In a fresh checkout, run `uv sync --frozen`, `make check`, and
 profile reports optional simulation and private-store skips explicitly. Install
 that extra only in a separate development environment; do not resynchronize a
 retained experimental runtime.
+
+The [native evidence correction](experiments/results/native-record-decoding-001/result.json)
+rejects conflicting JSON keys, non-finite numbers and records changed after the
+initial hash scan. Fifteen rejection controls fail before and pass after; all
+1,210 research-environment tests pass. The native and B2 retained readbacks keep
+their outcomes. This establishes software integrity behavior, not scientific
+acceptance or physical truth. See the [current platform checks](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml).
 
 The two original comparisons still show equal accepted-repair counts and greater
 measured trial wall time for the additional-checks arm. A1 completed runtime

@@ -1,5 +1,22 @@
 # Research source and releases
 
+## Evidence decoding correction · 10 October 2026
+
+Native execution verification now rejects conflicting JSON declarations,
+non-finite measurements and consumed files that changed after the initial
+manifest scan. The [correction record](experiments/results/native-record-decoding-001/result.json)
+retains 15 before-failing rejection controls, the intact failed-task control,
+1,210 passing research-environment tests and unchanged native and B2 readbacks.
+The public worktree passes 110 focused tests with one explicit private-store
+skip; its shared host is not a clean-clone qualification. GitHub's
+[platform checks](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml)
+provide the separate Linux/macOS result.
+
+This source correction leaves the recorded experiment outcomes, valid-record
+serialization and `v0.1.0` tag unchanged. Integrity verification does not decide
+scientific acceptance. The release manifest records the exact updated source
+files and public documentation overlays without adding private Git ancestors.
+
 ## Source update · 9 October 2026
 
 This update brings the implemented experiment interfaces, portable Lift evidence

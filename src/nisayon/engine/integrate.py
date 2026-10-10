@@ -12,7 +12,7 @@ from nisayon.evaluation.first_case import replay_control, translate_predicates, 
 
 from .first_case import PREDICATES
 from .history import verify_history
-from .io import file_digest, write_json
+from .io import decode_json, file_digest, write_json
 from .store import verify_execution
 
 
@@ -69,7 +69,7 @@ def integrate(bundle_path: Path, artifact_root: Path, output: Path) -> dict:
     artifact_root = artifact_root.resolve(strict=True)
     output = output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    bundle = json.loads(bundle_path.read_text())
+    bundle = decode_json(bundle_path.read_bytes())
     history = verify_history(artifact_root, bundle.get("history", []))
     try:
         integrity = verify_execution(bundle, artifact_root)

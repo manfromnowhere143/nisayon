@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import gzip
-import json
+import hashlib
+import io
 from datetime import datetime
 from pathlib import Path, PurePosixPath
 
-from .io import digest, file_digest, write_json
+from .io import decode_json, digest, file_digest, write_json
 from .telemetry import MISSING_REASON, policy_digest
 from .telemetry import configuration as telemetry_configuration
 
@@ -50,20 +51,40 @@ def create_manifest(root: Path, names: list[str], *, name: str = "artifact-manif
     return {"path": name, "sha256": file_digest(root / name)}
 
 
+def _document(data: str | bytes, name: str) -> dict:
+    try:
+        value = decode_json(data)
+    except ValueError as error:
+        raise ValueError(f"{name}: {error}") from error
+    if not isinstance(value, dict):
+        raise ValueError(f"{name}: execution evidence must be a JSON object")
+    return value
+
+
+def _verified_bytes(root: Path, name: str, members: dict[str, dict]) -> bytes:
+    """Bind the consumed snapshot, even if a member changed after the manifest scan."""
+    expected = members[name]
+    size = expected.get("bytes")
+    if size is not None and (type(size) is not int or size < 0):
+        raise ValueError(f"Invalid artifact byte count: {name}")
+    with resolve_member(root, name).open("rb") as stream:
+        data = stream.read(size + 1) if size is not None else stream.read()
+    if (size is not None and len(data) != size) or hashlib.sha256(data).hexdigest() != expected[
+        "sha256"
+    ]:
+        raise ValueError(f"Artifact bytes mismatch at decode: {name}")
+    return data
+
+
+def _verified_document(root: Path, name: str, members: dict[str, dict]) -> dict:
+    return _document(_verified_bytes(root, name, members), name)
+
+
 def verify_manifest(root: Path, reference: dict) -> dict[str, dict]:
-    manifest = resolve_member(root, reference["path"])
-    if file_digest(manifest) != reference["sha256"]:
+    manifest = resolve_member(root, reference["path"]).read_bytes()
+    if hashlib.sha256(manifest).hexdigest() != reference["sha256"]:
         raise ValueError("Artifact manifest digest mismatch")
-
-    def no_duplicate_keys(pairs):
-        value = {}
-        for key, item in pairs:
-            if key in value:
-                raise ValueError(f"Duplicate JSON manifest key: {key}")
-            value[key] = item
-        return value
-
-    document = json.loads(manifest.read_text(), object_pairs_hook=no_duplicate_keys)
+    document = _document(manifest, reference["path"])
     if document.get("schema") == "nisayon.execution.artifacts.v1":
         # Previously frozen producer shape is retained and still verified.
         entries = document["files"]
@@ -102,7 +123,7 @@ def verify_execution(bundle: dict, root: Path) -> dict:
     _require_equal(
         members[invocation_ref["path"]]["sha256"], invocation_ref["sha256"], "invocation bytes"
     )
-    invocation = json.loads(resolve_member(root, invocation_ref["path"]).read_text())
+    invocation = _verified_document(root, invocation_ref["path"], members)
     identity = invocation["execution_identity"]
     identity_hash = digest(identity)
     _require_equal(identity_hash, invocation["execution_identity_sha256"], "invocation identity")
@@ -115,9 +136,9 @@ def verify_execution(bundle: dict, root: Path) -> dict:
         )
     confirmation = bundle.get("confirmation")
     if confirmation is not None:
-        frozen = json.loads(resolve_member(root, "frozen-protocol.json").read_text())
         if "frozen-protocol.json" not in members:
             raise ValueError("Frozen protocol absent from artifact manifest")
+        frozen = _verified_document(root, "frozen-protocol.json", members)
         _require_equal(digest(frozen), confirmation["protocol_sha256"], "frozen protocol")
         _require_equal(frozen["code"], identity["code"], "frozen code")
         _require_equal(identity["code"]["source_changes"], [], "committed scored source")
@@ -182,7 +203,7 @@ def verify_execution(bundle: dict, root: Path) -> dict:
             attempt_path = f"attempts/{run_id}.json"
             if attempt_path not in members:
                 raise ValueError(f"Missing pre-execution attempt record: {run_id}")
-            attempt = json.loads(resolve_member(root, attempt_path).read_text())
+            attempt = _verified_document(root, attempt_path, members)
             _require_equal(attempt["assignment"], assignment, f"{run_id} attempt assignment")
             _require_equal(
                 attempt["configuration"], run["configuration"], f"{run_id} attempt configuration"
@@ -229,9 +250,7 @@ def verify_execution(bundle: dict, root: Path) -> dict:
         run_path = f"{run_id}.run.json"
         if run_path not in members:
             raise ValueError(f"Missing run record from manifest: {run_id}")
-        _require_equal(
-            json.loads(resolve_member(root, run_path).read_text()), run, f"{run_id} run record"
-        )
+        _require_equal(_verified_document(root, run_path, members), run, f"{run_id} run record")
         for artifact in run["artifacts"]:
             _require_equal(
                 members[artifact["path"]]["sha256"], artifact["sha256"], f"{run_id} artifact"
@@ -243,10 +262,15 @@ def verify_execution(bundle: dict, root: Path) -> dict:
             if run["trace"]:
                 raise ValueError(f"Inline trace without raw trace: {run_id}")
             continue
-        with gzip.open(resolve_member(root, raw_artifacts[0]["path"]), "rt") as stream:
-            initial = json.loads(next(stream))
+        trace_path = raw_artifacts[0]["path"]
+        trace_bytes = _verified_bytes(root, trace_path, members)
+        with gzip.open(io.BytesIO(trace_bytes), "rt", encoding="utf-8") as stream:
+            initial = _document(next(stream), f"{trace_path}:1")
             _require_equal(digest(initial["reset"]), run["initial_state_sha256"], f"{run_id} reset")
-            raw_rows = [json.loads(line) for line in stream]
+            raw_rows = [
+                _document(line, f"{trace_path}:{number}")
+                for number, line in enumerate(stream, start=2)
+            ]
         _require_equal(len(raw_rows), len(run["trace"]), f"{run_id} trace length")
         if "policy_reset" in run:
             reset = run["policy_reset"]

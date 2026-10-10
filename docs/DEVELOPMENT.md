@@ -200,6 +200,26 @@ collisions; they do not resolve conflicting scientific interpretations.
 
 `make check` runs Ruff, formatting verification, tests, and documentation checks.
 
+Native execution verification rejects duplicate JSON keys and non-finite numbers,
+including exponent overflow such as `1e999`. Two conflicting invocation IDs cannot
+be reduced silently to the last one. Each decoded invocation, frozen protocol,
+attempt, run and compressed trace is checked against its manifest's bytes and
+digest at consumption, after the initial manifest scan. The manifest itself is
+decoded from the bytes whose digest was checked. Confirmation metadata uses the
+same decoder; the B2 reader keeps its equivalent decoder within the single file
+identified by `verifier_sha256`. Serialization and valid-record digests are unchanged.
+
+The [record-boundary controls](../tests/engine/test_native_record_decoding.py)
+exercise conflicting keys, non-finite metadata and changes between the manifest
+scan and decoding. These are constructed software controls, separate from robot
+outcomes. Verified bytes still do not establish authenticity or scientific acceptance.
+The parser hooks follow the [Python JSON interface](https://docs.python.org/3.12/library/json.html#json.loads);
+duplicate-name interoperability and numeric limits are discussed in
+[RFC 8259](https://www.rfc-editor.org/rfc/rfc8259.html#section-4).
+The [correction record](experiments/results/native-record-decoding-001/result.json)
+retains the 15 before-failing rejection controls, full checks, unchanged native
+and B2 readbacks, and the corrected readback-harness failure.
+
 Pytest removes each passing test body's `tmp_path` after its fixture finishes.
 Failed test bodies keep their temporary files under the configured retention
 count; command records keep the complete output for every check. This avoids

@@ -15,6 +15,7 @@ from nisayon.engine.confirmation_pairs import assigned_pairs, iter_pairs, run_ob
 from nisayon.engine.confirmation_view import (
     INPUTS,
     PinnedInputs,
+    _json,
     build_view,
     load_export,
     main,
@@ -24,6 +25,12 @@ from nisayon.engine.io import digest, file_digest
 
 ROOT = Path(__file__).resolve().parents[2]
 COMPARISON = "development-ablation-001"
+
+
+@pytest.mark.parametrize("number", ["NaN", "Infinity", "-Infinity", "1e999", "-1e999"])
+def test_confirmation_metadata_cannot_decode_nonfinite_numbers(number):
+    with pytest.raises(ValueError, match="Non-finite"):
+        _json(('{"measurement": [' + number + "]}").encode())
 
 
 @pytest.fixture

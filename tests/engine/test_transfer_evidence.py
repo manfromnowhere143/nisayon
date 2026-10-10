@@ -306,6 +306,12 @@ def test_duplicate_json_and_object_arrays_are_rejected():
         evidence._arrays(buffer.getvalue())
 
 
+@pytest.mark.parametrize("number", ["NaN", "Infinity", "-Infinity", "1e999", "-1e999"])
+def test_transfer_metadata_cannot_decode_nonfinite_numbers(number):
+    with pytest.raises(ValueError, match="[Nn]on-finite"):
+        evidence._json(('{"measurement": [' + number + "]}").encode())
+
+
 def test_cli_works_outside_repository_and_does_not_import_execution_stack(tmp_path):
     code = """
 import importlib.abc

@@ -1,0 +1,256 @@
+{
+  "schema": "nisayon.native-record-decoding-correction.v1",
+  "status": "supported_software_correction",
+  "recorded_at": "2026-10-10T12:24:55.686404+00:00",
+  "problem": "Native execution integrity could report verified after discarding conflicting JSON declarations, admitting non-finite metadata, or decoding bytes changed after the manifest scan.",
+  "before_source_revision": "194227abb508487f1b0aef3046ae1aac30067741",
+  "equivalent_public_before_revision": "d41e2997f7149b77705d93fc841e6f3955a3de0d",
+  "public_baseline_check": "All five modified production modules and three existing modified tests matched the private pre-correction revision byte for byte in the public snapshot. The new regression fixture was absent in both.",
+  "source_sha256": {
+    "src/nisayon/engine/io.py": "ec4fcfcdb8acaad384ae0aa7feb0e1ab6bbf90d8781bcbcabe06f0064fa3632d",
+    "src/nisayon/engine/store.py": "eadb4c3ddaeb04884cfe18ef60b795fcc94d40ff297e9637b41238b2337d2df6",
+    "src/nisayon/engine/confirmation_view.py": "c5eb0483bf2b20cca0c1f9e349b8add9cfdb43ba20f628507b743069b1beb426",
+    "src/nisayon/engine/transfer_evidence.py": "cf3829a5acaa81e010239dcc7f0018a51856fc933cb3fc91c8eeda5a8bc8eba9",
+    "src/nisayon/engine/integrate.py": "3efa581aefe56abc314ebc46aeca2a6d03ff2763be4ae42f469e141b30655a0b"
+  },
+  "test_sha256": {
+    "tests/engine/test_native_record_decoding.py": "dd6517ba497f18ab1ff278525f182fe70f55bc7749097a430c2bc713bd978237",
+    "tests/engine/test_evidence_io.py": "e18077c0b493e23f168ef537969d31b27e5cb21924b77c216bf469c0caf02657",
+    "tests/engine/test_transfer_evidence.py": "82c902820294e661c614ab86200e3e658fbcaafac7ada75513cccea4f1d304a6",
+    "tests/engine/test_confirmation_view.py": "b66d4a590c60f699d07026c1afd8dd9f39a1629a18d6c8a9910121d287715de8"
+  },
+  "mechanism": [
+    "Reject duplicate names at every decoded object depth, including equivalent escaped names; reject NaN, infinities and finite-token exponent overflow.",
+    "Decode the manifest from the same bytes whose digest was checked; hash and size-check each consumed invocation, protocol, attempt, run and compressed trace snapshot before decoding.",
+    "Use the strict decoder for native bundle and confirmation metadata; keep equivalent B2 decoding self-contained in the module identified by verifier_sha256.",
+    "Preserve serialization, valid-record digests, explicit nulls and the distinction between integrity and scientific acceptance."
+  ],
+  "constructed_regression": {
+    "before_returncode": 1,
+    "before_wall_seconds": 1.1700362499977928,
+    "before": {
+      "failed_rejection_controls": 15,
+      "passing_intact_control": 1
+    },
+    "after": {
+      "passing_rejection_controls": 15,
+      "passing_intact_control": 1
+    },
+    "groups": {
+      "conflicting_record_keys": 6,
+      "nonfinite_invocation_metadata": 4,
+      "change_after_manifest_scan": 5
+    },
+    "before_failed_test_ids": [
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[invocation.json-id-None]",
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[frozen-protocol.json-frozen_at-None]",
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[attempts/control.json-invocation_id-None]",
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[control.run.json-task_outcome-None]",
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[control.jsonl.gz-reset-0]",
+      "tests/engine/test_native_record_decoding.py::test_conflicting_record_keys_fail_even_when_all_file_hashes_match[control.jsonl.gz-executed_action-1]",
+      "tests/engine/test_native_record_decoding.py::test_nonfinite_metadata_cannot_hide_in_a_verified_invocation[NaN]",
+      "tests/engine/test_native_record_decoding.py::test_nonfinite_metadata_cannot_hide_in_a_verified_invocation[Infinity]",
+      "tests/engine/test_native_record_decoding.py::test_nonfinite_metadata_cannot_hide_in_a_verified_invocation[-Infinity]",
+      "tests/engine/test_native_record_decoding.py::test_nonfinite_metadata_cannot_hide_in_a_verified_invocation[1e999]",
+      "tests/engine/test_native_record_decoding.py::test_decoded_bytes_must_match_the_manifest_after_initial_scan[invocation.json]",
+      "tests/engine/test_native_record_decoding.py::test_decoded_bytes_must_match_the_manifest_after_initial_scan[frozen-protocol.json]",
+      "tests/engine/test_native_record_decoding.py::test_decoded_bytes_must_match_the_manifest_after_initial_scan[attempts/control.json]",
+      "tests/engine/test_native_record_decoding.py::test_decoded_bytes_must_match_the_manifest_after_initial_scan[control.run.json]",
+      "tests/engine/test_native_record_decoding.py::test_decoded_bytes_must_match_the_manifest_after_initial_scan[control.jsonl.gz]"
+    ],
+    "positive_control": "One completed software process records a failed task; verified integrity must not promote task outcome or scientific acceptance.",
+    "reproduce": [
+      "uv run --frozen pytest -q tests/engine/test_native_record_decoding.py",
+      "uv run --frozen pytest -q tests/engine/test_evidence_io.py tests/engine/test_portable_store.py tests/engine/test_transfer_evidence.py tests/engine/test_confirmation_view.py"
+    ],
+    "scope": "Constructed software records only; no policy, simulator or private answer data."
+  },
+  "validation": {
+    "new_test_cases": 35,
+    "initial_focused": {
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 111,
+      "wall_seconds": 22.397148750009364,
+      "limit": "Preceded the final self-contained B2 callback adjustment; the full suite checks the final source."
+    },
+    "full_research_environment": {
+      "tests": 1210,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1210,
+      "command": "make check",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "UV_NO_SYNC": "1",
+        "PYTEST_ADDOPTS": "-ra --junitxml=artifacts/native-record-decoding-001/full-tests.xml -p no:cacheprovider"
+      },
+      "wall_seconds": 315.6418242919899,
+      "ruff": "passed",
+      "formatted_python_files": 483,
+      "documentation_files": 153,
+      "documentation_errors": 0
+    },
+    "public_worktree_focused": {
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "passed": 110,
+      "wall_seconds": 10.339349292000406,
+      "skip_reason": "Original raw store is local evidence, not a copied test fixture",
+      "scope": "Public snapshot worktree using its own installed package and base dependencies; related Git objects and retained host files still exist, so not a clean-clone qualification."
+    }
+  },
+  "retained_readback": {
+    "at": "2026-10-10T12:18:29.971679+00:00",
+    "before_source": "194227abb508487f1b0aef3046ae1aac30067741",
+    "scope": "Read-only compatibility checks of already exposed retained records; no simulator or policy execution",
+    "native_execution": {
+      "bundle_sha256": "de1ee377a44049cf82c7a54c3e74b606ff4927596b8e822c3707477c5e802695",
+      "manifest": {
+        "path": "artifact-manifest.json",
+        "sha256": "6b2d31343161f4d91036856429c2444ac39842e8c5de6a475882967cfda965a3"
+      },
+      "before_store_sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "after_store_sha256": "eadb4c3ddaeb04884cfe18ef60b795fcc94d40ff297e9637b41238b2337d2df6",
+      "result": {
+        "status": "verified",
+        "artifact_files": 310,
+        "simulator_runs": 67,
+        "trace_rows": 3260,
+        "declared_measurement_gaps": [],
+        "scientific_acceptance": "not_decided_by_integrity_checks"
+      },
+      "results_equal": true,
+      "before_wall_seconds": 10.522412916994654,
+      "after_wall_seconds": 11.018384957991657
+    },
+    "b2_transfer": {
+      "before_reader_sha256": "12c13f142e8bfab928abbf5e3a34665f0f2e4be977a23bb0351b4ff246550a45",
+      "after_reader_sha256": "cf3829a5acaa81e010239dcc7f0018a51856fc933cb3fc91c8eeda5a8bc8eba9",
+      "result_sha256": "e17b7302c316692ec275df43fdacfbe9348df449e3ef09a90f645f40abf782c2",
+      "integrity": "verified",
+      "decision": "supported_under_frozen_development_obligation",
+      "verdict": {
+        "paired_conditions": 10,
+        "unchanged_successes": 0,
+        "corrected_successes": 9,
+        "paired_repairs": 9,
+        "paired_regressions": 0,
+        "execution_failures": 0,
+        "all_captured_initial_conditions_equal": true,
+        "required_paired_repairs": 8,
+        "supported": true
+      },
+      "verified_members": 114,
+      "results_equal_except_verifier_sha256": true,
+      "before_wall_seconds": 0.1892764160002116,
+      "after_wall_seconds": 0.0887927080038935
+    },
+    "timing_limit": "One sequential warm/cache-affected read per version, not a performance comparison"
+  },
+  "retained_probe_failure": {
+    "status": "failed_probe_harness",
+    "error": "NameError: name '__file__' is not defined",
+    "stage": "Old B2 verifier loaded as a dynamic module without __file__; failed while identifying its own source",
+    "effect": "No completed retained-readback result was saved; no evidence packet was modified",
+    "correction": "Load each prior module from a retained source copy and assign __file__; compare results separately from expected verifier provenance changes"
+  },
+  "local_command_records": {
+    "before-tests.json": {
+      "sha256": "db6c7f8910da0acf9ad661a9187125c6e454aba737dc1eec7808988e5ccf9a07",
+      "bytes": 477
+    },
+    "before-tests.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "before-tests.stdout.txt": {
+      "sha256": "087b97c7261de24b19d23fbbb8eca9abe2fccb19f32a694c3cf7a1055644abf7",
+      "bytes": 7807
+    },
+    "focused-tests.json": {
+      "sha256": "ef0353d55107a80ac0cadd2e4cbccc6a01dc8fe3adbe418b059bce45fa82d58d",
+      "bytes": 566
+    },
+    "focused-tests.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "focused-tests.stdout.txt": {
+      "sha256": "e9e93bf6ce99e361311c2f70ba62d9ecf3e7ce0c72664f23da96aebf4f90392e",
+      "bytes": 160
+    },
+    "focused-tests.xml": {
+      "sha256": "85309e613a5ea0c9d766cd09ee22215f0c1aef2996c1c4651c9897c81458f44f",
+      "bytes": 17186
+    },
+    "full-check.json": {
+      "sha256": "01e61722f99d039bc7f098a85b2fdadc7e62829c3cde35ef3285ff919d320ab7",
+      "bytes": 338
+    },
+    "full-check.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "full-check.stdout.txt": {
+      "sha256": "306f252fc2ef3b8e61ed94f362e23bed60b5f20c6e79501eee4ef8e869d1ae47",
+      "bytes": 1715
+    },
+    "full-tests.xml": {
+      "sha256": "85a2c6ee7e9202325ef89be308d830355fff3e1979d1a8187a77e74e194df289",
+      "bytes": 178837
+    },
+    "public-focused-tests.json": {
+      "sha256": "bfd6b6c1d36497fb0178ca38549a87a26e6d70a32e0d09b4c0e169c56cac89b9",
+      "bytes": 851
+    },
+    "public-focused-tests.stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "public-focused-tests.stdout.txt": {
+      "sha256": "6ec89679f52cb621906f3d9fb388c75e0e16d3191a380da781e9ec0ab4b63b0e",
+      "bytes": 361
+    },
+    "public-focused-tests.xml": {
+      "sha256": "d000c389c837afd1037aa62de262ec5ae8228a26164c13c15bfd849a229a3e35",
+      "bytes": 17492
+    },
+    "retained-native-readback.json": {
+      "sha256": "46bafc90ee9e9b902471e25b5d0828a015c545f46af4769212051dbb4ece8a33",
+      "bytes": 751
+    },
+    "retained-readback-attempt-001.json": {
+      "sha256": "7d73322bff546b6628459b8c4c1b5d659681853a0712d67a0d4bca69d02c6a63",
+      "bytes": 465
+    },
+    "retained-readback.json": {
+      "sha256": "3b2c951282da739959b0692df1ffee55247883e069a6e05c4ce2ccb8a90268bd",
+      "bytes": 2030
+    }
+  },
+  "limits": [
+    "Software integrity controls and readback of already exposed records; not independent replication, a new robot result, diagnostic advantage or a performance comparison.",
+    "Hashes bind the consumed bytes, not provenance truth or physical correctness; this does not establish an atomic snapshot of the whole filesystem.",
+    "This does not provide a general untrusted-input resource sandbox or complete record-schema validation.",
+    "No new experiment conditions or spent B2 episodes were executed; no dependency or serialization change.",
+    "Raw command logs and retained packets remain local; the source regression fixture is public and repeatable. GitHub CI is not attested by this pre-publication record."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://docs.python.org/3.12/library/json.html#json.loads",
+      "accessed": "2026-10-10",
+      "use": "object_pairs_hook, parse_constant and parse_float behavior"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8259.html#section-4",
+      "accessed": "2026-10-10",
+      "use": "Unique-name interoperability and numeric-range considerations"
+    }
+  ]
+}
