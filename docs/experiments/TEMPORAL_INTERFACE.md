@@ -1,5 +1,68 @@
 # Temporal software evidence
 
+## RTC follow-through · 10 October 2026
+
+The queue diagnosis and a paired observation/queue snapshot were already proposed
+by [1brahim-Khan on 23 September](https://github.com/huggingface/lerobot/issues/3832#issuecomment-5788016896)
+under LeRobot's RUN-05 roadmap item. The initial audit below did not find that
+discussion. This follow-through credits the prior work and adds executable
+controls for the relative-action path and the broader snapshot boundary.
+
+The [new probe](../../scripts/experiments/probe_rtc_followthrough.py) executes
+selected original relative conversion, cached-state, normalization and worker
+bodies at the same `b9cb121` source pin. The fixture changes the coordinate
+anchor, applies non-identity observation and action statistics, and keeps the
+gripper absolute. A separate arithmetic oracle checks both the model-space
+prefix and the next queued absolute action. The echo policy, observation/task
+adapters, object construction and latency remain scripted.
+
+| Variant | Queue/processor interleavings: correct next action | No-race and reset controls | Observation/queue pair coexisted |
+|---|---:|---:|---:|
+| Pinned upstream | 0/8 | 3/3 | 0/1 |
+| Earlier queue-only candidate | 8/8 | 3/3 | 0/1 |
+| Paired observation/queue candidate | 8/8 | 3/3 | 1/1 |
+
+These are different obligations on assigned software schedules, not incident
+frequencies or robot success rates. In the final column, the control thread
+publishes observation `1` before consuming an action. The earlier candidates
+can pair old observation `0` with queue index `1`, although those two values
+never coexisted in the assigned memory history. The
+[new candidate](results/rtc-followthrough-001/candidate.patch) re-reads the
+observation and reset epoch while taking the queue snapshot under the existing
+`_obs_lock` then `queue.lock` ordering. It preserves useful queued actions and
+the reset guard across the declared controls. It has not been submitted upstream.
+
+The [36-execution result](results/rtc-followthrough-001/result.json),
+[source manifest](results/rtc-followthrough-001/sources/manifest.json) and
+[review](results/rtc-followthrough-001/review.json) retain the evidence and
+the two corrected harness failures. One failure involved a constant dependency;
+the reset control exposed a selected-method namespace collision. Neither was an
+upstream defect. The original probe, patch and result remain unchanged.
+The [validation record](results/rtc-followthrough-001/validation.json) retains
+100 passing focused tests, including 39 new cases, and exact patch application.
+
+Scope remains CPU guided RTC with selected MEAN_STD processor bodies. The
+published observation payload stays stable in this fixture; capturing its
+reference does not protect against later buffer mutation. Full pipeline
+construction, other normalization modes, trained RTC, GPU behavior, physical
+sensor timing, controller outcomes and comparative cost remain unqualified.
+
+Recent methods reinforce the need for exact execution accounting.
+[SmoothRL v1](https://arxiv.org/html/2608.29768v1) separates committed, executed
+and discarded actions when assigning learning updates, under a fixed latency
+budget. The [WAM deployment study v1](https://arxiv.org/html/2608.01880v1)
+reports precision/smoothness trade-offs across six methods with five trials per
+method/task. These findings motivate checking the deployed boundary; they do
+not select a universal timing or training method for an unseen incident.
+
+In the separate development environment described below, use new output paths:
+
+```bash
+python scripts/experiments/probe_rtc_followthrough.py \
+  --out artifacts/rtc-followthrough-readback.json \
+  --candidate-patch artifacts/rtc-followthrough-candidate.patch
+```
+
 ## RTC queue snapshot audit · 10 October 2026
 
 The [source-bound worker probe](../../scripts/experiments/probe_rtc_snapshot.py)
@@ -26,7 +89,8 @@ The worker uses real CPU tensors, threads and locks, with deterministic barriers
 Policy output, processors, observation, task channel and latency are scripted.
 The scope is guided RTC with non-relative actions and compilation disabled.
 The candidate also captures the processed prefix for the relative-action path,
-but that path has not been qualified by this experiment. Hardware outcomes,
+but that path was not qualified by this initial experiment. The follow-through
+above adds selected relative-path controls. Hardware outcomes,
 trained RTC, GPU concurrency and comparative engineering cost remain unmeasured.
 The candidate has not been submitted upstream. Original source bytes, hashes
 and the upstream license are [retained](results/rtc-boundary-audit-001/sources/manifest.json).

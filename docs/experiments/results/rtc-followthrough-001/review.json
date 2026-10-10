@@ -1,0 +1,131 @@
+{
+  "schema": "nisayon.rtc-followthrough-review.v1",
+  "reviewed_at": "2026-10-10T15:25:35.098775+00:00",
+  "status": "bounded_source_qualification",
+  "prior_work": {
+    "author": "1brahim-Khan",
+    "url": "https://github.com/huggingface/lerobot/issues/3832#issuecomment-5788016896",
+    "created_at": "2026-09-23T02:39:51Z",
+    "finding": "The same separate queue-read race and a joint observation/queue snapshot direction were described before this audit. The 10 October initial review did not find that comment. Credit this as existing upstream work; the local evidence adds source-bound controls, not a novelty or collaboration claim."
+  },
+  "sources": [
+    {
+      "path": "artifacts/rtc-followthrough-001/roadmap-3832.json",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3832",
+      "retrieved_at": "2026-10-10T15:13:15.525365+00:00",
+      "sha256": "0653107d08cdb550c1736e246c129b8c14d68c92f249e69b8fa3151c5d5faea3",
+      "bytes": 31423
+    },
+    {
+      "path": "artifacts/rtc-followthrough-001/roadmap-comments.json",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3832/comments?per_page=100",
+      "retrieved_at": "2026-10-10T15:13:15.514810+00:00",
+      "sha256": "7e8ff677af994bcebf0407316038d21badc034d9c0d2f74db971129aebf64bcd",
+      "bytes": 21433
+    },
+    {
+      "path": "artifacts/rtc-followthrough-001/current-main.json",
+      "url": "https://api.github.com/repos/huggingface/lerobot/commits/main",
+      "retrieved_at": "2026-10-10T15:13:15.557775+00:00",
+      "sha256": "334a04a9f4e348b13ad992e2f0a31c9035b08d58f4dc8abba841ce28a26e03b4",
+      "bytes": 241178
+    },
+    {
+      "url": "https://arxiv.org/html/2608.29768v1",
+      "retrieved_at": "2026-10-10T15:19:03.238970+00:00",
+      "path": "artifacts/rtc-followthrough-001/smoothrl-v1.html",
+      "sha256": "95af10723cc83eeebf3e16228ab442fa1f4d20561c4e074a69a313749ce24e30",
+      "bytes": 276369
+    },
+    {
+      "url": "https://arxiv.org/html/2608.01880v1",
+      "retrieved_at": "2026-10-10T15:19:03.260454+00:00",
+      "path": "artifacts/rtc-followthrough-001/wam-async-v1.html",
+      "sha256": "7f5f796602cfd1a876c6254902c481044b32cc64ff693a13acd9fea059516573",
+      "bytes": 117178
+    }
+  ],
+  "source_revision": "b9cb121cb7d4e3e26ec5c906d08dda68d151ba52",
+  "research": [
+    {
+      "url": "https://arxiv.org/html/2608.29768v1",
+      "version": "v1",
+      "title": "SmoothRL: Online Reinforcement Learning During Asynchronous Execution",
+      "finding": "The learning objective distinguishes committed, executed and discarded chunk regions. Its current scheduler requires a fixed inference budget, and its bounded residual corrections cannot arbitrarily repair a deficient base policy.",
+      "status": "authors_method_not_replicated"
+    },
+    {
+      "url": "https://arxiv.org/html/2608.01880v1",
+      "version": "v1",
+      "title": "World Action Models in Real Time: An Empirical Study of Smooth Execution via Asynchronous Deployment",
+      "finding": "Six methods are compared on a 10 Hz bimanual platform; five trials per method/task and milestone completion scores limit extrapolation. Blending, continuity and precision are distinct concerns.",
+      "status": "authors_results_not_replicated"
+    }
+  ],
+  "engineering_decision": "Qualify the relative-action path already touched by the candidate, then test the prior joint-snapshot proposal against an observation/queue interleaving. Keep production APIs and physical experiments unchanged.",
+  "hypotheses": [
+    {
+      "claim": "The queue-only candidate preserves the selected relative-action and MEAN_STD transformation under consumer interleavings.",
+      "status": "supported_within_eight_assigned_interleavings"
+    },
+    {
+      "claim": "The queue-only candidate also establishes a coherent observation/queue memory cut.",
+      "status": "contradicted_in_assigned_observation_publication_control"
+    },
+    {
+      "claim": "Re-reading observation/epoch and the queue snapshot under the established lock order removes that memory-cut mismatch.",
+      "status": "supported_within_assigned_control_with_stable_published_payloads"
+    }
+  ],
+  "harness_failures": {
+    "executions": [
+      {
+        "at": "2026-10-10T15:18:42.504126+00:00",
+        "argv": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/experiments/probe_rtc_followthrough.py",
+          "--out",
+          "artifacts/rtc-followthrough-001/probe-initial.json"
+        ],
+        "returncode": 1,
+        "wall_seconds": 4.107773124997038,
+        "stderr": {
+          "path": "artifacts/rtc-followthrough-001/probe-initial.stderr.txt",
+          "sha256": "c6ca9e33726b536bc9afdc6440fe87ef2de459054691f691d98ddb189011dff2"
+        }
+      },
+      {
+        "at": "2026-10-10T15:19:36.734897+00:00",
+        "argv": [
+          ".venv/bin/python",
+          "-B",
+          "scripts/experiments/probe_rtc_followthrough.py",
+          "--out",
+          "artifacts/rtc-followthrough-001/probe-corrected.json"
+        ],
+        "returncode": 1,
+        "wall_seconds": 2.250300666986732,
+        "stderr": {
+          "path": "artifacts/rtc-followthrough-001/probe-corrected.stderr.txt",
+          "sha256": "f91f5dad975e69c54ca3b9f7c430beddd5983e0909a4a24000986730ed7dba9f"
+        }
+      }
+    ],
+    "interpretation": [
+      "Initial constant extraction incorrectly treated OBS_STATE as an isolated literal; source assignment depends on OBS_STR. No worker ran before that failure.",
+      "Selected processor reset shadowed the engine reset in the harness namespace. The reset control exposed it; method extraction now restores outer bindings. This was a harness defect, not an upstream reset failure."
+    ],
+    "retained_reset_failure_source": {
+      "path": "artifacts/rtc-followthrough-001/probe-at-reset-harness-failure.py",
+      "sha256": "03b4c91cc712237a0ea3622b61d027cb2e86310f2fc33ceaa36824b9a13462eb"
+    }
+  },
+  "limits": [
+    "Constructed source-body controls, scripted object setup, adapters and echo policy; no learned inference, full-runtime integration or robot confirmation.",
+    "Stable observation payloads are a fixture premise. Mutation/ownership of published buffers is not qualified.",
+    "No GPU, other normalization modes or trained-RTC guarantee.",
+    "No new upstream message, contribution acceptance, customer relationship or comparative-value evidence."
+  ],
+  "next_action": "Keep the concrete reproducer and candidate available. Bind a real incident to installed source/settings and a live owner decision before choosing a broader experiment or production interface expansion."
+}

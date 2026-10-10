@@ -1,0 +1,109 @@
+{
+  "schema": "nisayon.rtc-followthrough-validation.v1",
+  "observed_at": "2026-10-10T15:28:37.001433+00:00",
+  "checks": {
+    "focused-tests": {
+      "counts": {
+        "tests": 100,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_path": "artifacts/rtc-followthrough-001/focused-tests.xml",
+      "junit_sha256": "923de323ff30a3ee1ab7649d55715d558b695bdd8a68ddac50d167fc03052940",
+      "timestamp": "2026-10-10T18:23:43.133850+03:00",
+      "wall_seconds": 3.234,
+      "test_files": [
+        "tests/engine/test_rtc_followthrough_probe.py",
+        "tests/engine/test_rtc_snapshot_probe.py",
+        "tests/engine/test_temporal_source.py",
+        "tests/engine/test_temporal_runtime.py"
+      ],
+      "scope": "100 focused tests, including 39 new controls. The final probe changes only a limits string after this run; all 36 source schedules execute successfully again in result.json."
+    },
+    "lint": {
+      "at": "2026-10-10T15:28:46.546511+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.10978858300950378,
+      "logs": [
+        {
+          "path": "artifacts/rtc-followthrough-001/lint.stdout.txt",
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "path": "artifacts/rtc-followthrough-001/lint.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "format": {
+      "at": "2026-10-10T15:28:46.546677+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.10948450001887977,
+      "logs": [
+        {
+          "path": "artifacts/rtc-followthrough-001/format.stdout.txt",
+          "sha256": "99fe59237fb0c7784181b7344ed6ede7e95477c8c6ca0bbbd0dc24893e0e9039"
+        },
+        {
+          "path": "artifacts/rtc-followthrough-001/format.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "docs": {
+      "at": "2026-10-10T15:28:46.546494+00:00",
+      "argv": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.748581709020073,
+      "logs": [
+        {
+          "path": "artifacts/rtc-followthrough-001/docs.stdout.txt",
+          "sha256": "e9cbef7112a4369c2b8436206874b93a33059e3969886daaf48078f925ef820e"
+        },
+        {
+          "path": "artifacts/rtc-followthrough-001/docs.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  },
+  "patch_application": {
+    "status": "passed",
+    "patch_sha256": "59e9c1020450dcfd345d81f4045238a17dd3e2bc85ffb039366651606df1466d",
+    "applied_file_sha256": {
+      "src/lerobot/rollout/inference/rtc.py": "4201aae980d03eb111b6baa09983969dd0af559d706441836b691812cac6063f",
+      "src/lerobot/policies/rtc/action_queue.py": "c83903f9d3c8d60f62f48669fe9181fe5743e028f07f19ab6145bd84191be06b",
+      "src/lerobot/policies/rtc/latency_tracker.py": "3581e080edb215141ba145a2ee412bf27603a907c3cfd551d8137fc1cce18eaf",
+      "LICENSE": "9e108af26a7ae92a6d2cb0273856a4a0a84da8819c2cffee8b2657cc4f905718"
+    },
+    "method": "git apply --check and git apply in an isolated temporary source tree; compare exact candidate bytes and unchanged other files",
+    "initial_check_failure": "The check runner first attempted to retrieve LICENSE.txt from the executable-source dictionary and raised KeyError before applying the patch. The corrected runner reads the manifest files directly, checks each digest, and keeps the license unchanged."
+  },
+  "result_binding": {
+    "sha256": "a9684be308a67524dafc682d3a12aa848cf6b3accf6d9076ef696a810d0901fc",
+    "probe_sha256": "d70dc4f1c2956ad2f2f8a08237949ecd3e7a8a9e09e1419d931bbad50ddf5252",
+    "runs": 36
+  },
+  "claims_boundary": "Focused source-body software controls; no new full research suite, physical experiment, learned inference or economic comparison.",
+  "diff_whitespace_check": {
+    "status": "passed_for_non_patch_files",
+    "excluded_path": "docs/experiments/results/rtc-followthrough-001/candidate.patch",
+    "reason": "Unified-diff context encodes unchanged blank lines as spaces; application and exact byte comparison validate this patch separately."
+  }
+}

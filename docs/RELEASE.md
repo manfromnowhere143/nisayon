@@ -1,5 +1,25 @@
 # Research source and releases
 
+## RTC snapshot follow-through · 10 October 2026
+
+The [follow-through](experiments/TEMPORAL_INTERFACE.md#rtc-follow-through--10-october-2026)
+qualifies selected relative-action and MEAN_STD processor bodies at the same
+LeRobot source pin. It credits [1brahim-Khan's 23 September proposal](https://github.com/huggingface/lerobot/issues/3832#issuecomment-5788016896),
+which already described the queue race and paired observation/queue snapshot.
+The initial audit had missed that discussion.
+
+Across 36 assigned executions, the queue-only candidate preserves the eight
+relative-action interleavings but fails the observation/queue coherence control.
+The paired candidate passes all twelve controls, including no-race and reset
+cases. Source `c46effa` retains the [result](experiments/results/rtc-followthrough-001/result.json),
+candidate patch, source/license references, failed harness records and
+[100 passing focused tests](experiments/results/rtc-followthrough-001/validation.json).
+These CPU source-body controls assume stable published observation payloads;
+full runtime construction, learned inference, GPU behavior and physical timing
+remain unqualified. No upstream acceptance or comparative value is established.
+This snapshot descends from public `5329639`; the original audit, production API,
+historical robot results and `v0.1.0` remain unchanged.
+
 ## RTC queue audit · 10 October 2026
 
 The [pinned-source reproducer](experiments/TEMPORAL_INTERFACE.md#rtc-queue-snapshot-audit--10-october-2026)

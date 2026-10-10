@@ -11,6 +11,16 @@ profile reports optional simulation and private-store skips explicitly. Install
 that extra only in a separate development environment; do not resynchronize a
 retained experimental runtime.
 
+The [RTC follow-through](experiments/TEMPORAL_INTERFACE.md#rtc-follow-through--10-october-2026)
+adds selected relative-action and normalization controls and an observation/queue
+memory-coherence case. The paired candidate passes all twelve controls, across
+36 executions of three variants; 100 focused research tests pass. The diagnosis
+and design were already proposed by 1brahim-Khan in September and are credited.
+Stable published observation payloads and scripted CPU execution bound these
+results; full runtime, learned policy and physical synchronization remain
+unqualified. The original audit below remains intact. Tensor-dependent tests
+are explicit skips in the base profile.
+
 The [RTC queue audit](experiments/TEMPORAL_INTERFACE.md#rtc-queue-snapshot-audit--10-october-2026)
 reproduces four index/prefix mismatches in selected current LeRobot worker
 definitions. A local atomic-snapshot candidate passes all seven assigned controls,
