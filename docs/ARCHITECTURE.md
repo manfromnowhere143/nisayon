@@ -214,6 +214,22 @@ solver, or a universal causal identification procedure. The near-term research
 question is whether this discipline changes the cost and quality of a real
 engineering decision. [Source map](SOURCES.md)
 
+A correction may restore a software invariant while changing a convention learned
+by existing weights. Bind the checkpoint's training-time processors, masks and
+policy context to their deployment counterparts before accepting such a remedy.
+For example, the open [GR00T padding-mask proposal](https://github.com/NVIDIA/Isaac-GR00T/pull/741)
+keeps strict masking opt-in for released-checkpoint compatibility. Its structural
+controls do not determine the task effect of changing that setting on fixed
+weights. A serving-only change, fine-tuning under new semantics and training from
+scratch are distinct interventions with different costs and confirmation needs.
+
+Likewise, a proxy can preserve overall policy ordering without resolving the
+specific deployment choice. The [rank readback](experiments/results/proxy-ranking-readback-001/result.json)
+illustrates that distinction. Qualify the proxy against the decision it will
+support; model-ranking evidence alone does not validate a repair-ranking rule.
+These are experiment-design requirements, not implemented GR00T execution or
+sim-to-real transfer guarantees.
+
 ## Trust and evaluation
 
 The trusted scope includes parsers, adapter semantics, task predicates, state

@@ -25,6 +25,31 @@ The company question is whether Nisayon helps an engineer obtain an equally
 well-confirmed correction with materially less total work. The first experiment
 must be capable of answering no.
 
+## Decision-specific validation · 11 October 2026
+
+The [published-rank readback](experiments/results/proxy-ranking-readback-001/result.json)
+recomputes 14 Spearman cells from Tables 1–2 of the
+[9 June sim-and-real study, v1](https://arxiv.org/html/2606.10366v1).
+On the three shared perturbation dimensions, mean correlations are 0.6, 0.4 and
+0.7 for VLA-Arena, SIMPLER and REALM; all three select the reported physical
+top-ranked policy in two of those three dimensions. Correlation and agreement
+on the deployment choice therefore remain separate measurements.
+
+These are reported aggregate ranks, with no raw trials or uncertainty estimate;
+missing behavior data stay unavailable. This arithmetic is not a robot replication
+or evidence about the effect of a repair. Reproduce it with the standard library:
+
+```sh
+mkdir -p artifacts
+python scripts/experiments/analyze_proxy_rankings.py --out artifacts/proxy-rank-readback.json
+```
+
+For the next incident, name the decision before choosing a proxy metric. Bind
+training and deployment semantics, reconstruct what actually executed, and
+confirm the selected intervention on fresh matched conditions. Keep an unchanged
+checkpoint arm when testing a serving change. Compare decision quality and full
+cost with the same information and conventional remedies available to the baseline.
+
 ## Start with one failure
 
 Pin a CPU MuJoCo/robosuite environment and a compatible frozen robomimic policy.

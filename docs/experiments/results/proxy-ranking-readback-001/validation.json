@@ -1,0 +1,96 @@
+{
+  "schema": "nisayon.proxy-ranking-validation.v1",
+  "observed_at": "2026-10-11T04:44:55.231936+00:00",
+  "result_sha256": "0de55fac805e8a0c6be9fff9e26939b789087943b455422c77dc9b583d8bd4af",
+  "input_sha256": "844e577ab3077ad5ab0a4e5b6cddc91bd1712803c4b1d0c723da16ef6129b159",
+  "analysis_sha256": "87293d0603e9a39a31ed39b8bec45eb1cc505c1f1743f342dea0d57e8f462000",
+  "numeric_checks": {
+    "published_spearman_cells": 14,
+    "covariance_crosschecks": 11,
+    "missing_dimensions_preserved": 1,
+    "common_dimension_denominators": [
+      3,
+      3,
+      3
+    ],
+    "changed_input_rejected": true,
+    "existing_output_preserved": true
+  },
+  "checks": {
+    "lint": {
+      "at": "2026-10-11T04:44:23.444476+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.10173195900279097,
+      "logs": [
+        {
+          "path": "artifacts/incident-selection-2026-10-11/lint.stdout.txt",
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "path": "artifacts/incident-selection-2026-10-11/lint.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "format": {
+      "at": "2026-10-11T04:44:23.444419+00:00",
+      "argv": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.10060658300062642,
+      "logs": [
+        {
+          "path": "artifacts/incident-selection-2026-10-11/format.stdout.txt",
+          "sha256": "c6a2e5296766dc37aca7e89213cc5959acecbbc713e87d9534cc057ecc34442c"
+        },
+        {
+          "path": "artifacts/incident-selection-2026-10-11/format.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "docs": {
+      "at": "2026-10-11T04:44:23.444592+00:00",
+      "argv": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.196262791985646,
+      "logs": [
+        {
+          "path": "artifacts/incident-selection-2026-10-11/docs.stdout.txt",
+          "sha256": "e9cbef7112a4369c2b8436206874b93a33059e3969886daaf48078f925ef820e"
+        },
+        {
+          "path": "artifacts/incident-selection-2026-10-11/docs.stderr.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  },
+  "expected_rejection": {
+    "argv": [
+      ".venv/bin/python",
+      "-B",
+      "scripts/experiments/analyze_proxy_rankings.py",
+      "--out",
+      "docs/experiments/results/proxy-ranking-readback-001/result.json"
+    ],
+    "returncode": 1,
+    "reason": "Create-only output protects the retained result.",
+    "stderr_path": "artifacts/incident-selection-2026-10-11/create-only-check.stderr.txt",
+    "stderr_sha256": "01f445479ccbe43dd6b8516c17655ee7b6325ef8ebac09e075da41640519cded"
+  },
+  "scope": "Arithmetic readback and local software safeguards only. No new test-suite or robot-performance claim; no raw episode records or inferential confidence interval."
+}

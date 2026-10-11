@@ -1,6 +1,6 @@
 # Continue Nisayon
 
-**Public source snapshot · 10 October 2026.** Read the [source update and release
+**Public source snapshot · 11 October 2026.** Read the [source update and release
 boundary](RELEASE.md), [voice and authorship rule](VOICE.md), and
 [development setup](DEVELOPMENT.md#local-setup). Private client settings, session
 memory, lane records and development Git ancestors are not distributed here.
@@ -10,6 +10,15 @@ In a fresh checkout, run `uv sync --frozen`, `make check`, and
 profile reports optional simulation and private-store skips explicitly. Install
 that extra only in a separate development environment; do not resynchronize a
 retained experimental runtime.
+
+The [decision-specific research update](RESEARCH_PLAN.md#decision-specific-validation--11-october-2026)
+adds a standard-library readback of published aggregate ranks. Its 14 correlation
+checks pass, while the deployment-choice metric remains a separate obligation.
+The [architecture](ARCHITECTURE.md#what-the-decision-means) now makes the
+checkpoint's learned conventions explicit when proposing a serving change.
+The [incident review](experiments/results/incident-selection-2026-10-11/review.json)
+credits existing GR00T compatibility work and retains current alternatives.
+This update adds no robot run, production adapter or comparative-value result.
 
 The [RTC follow-through](experiments/TEMPORAL_INTERFACE.md#rtc-follow-through--10-october-2026)
 adds selected relative-action and normalization controls and an observation/queue
@@ -52,10 +61,11 @@ validate an invalid experiment.
 
 The next value investigation requires an executable external incident, a live
 unresolved decision and a competent conventional workflow with equal information
-and measured costs. An [existing OpenPI request](https://github.com/Physical-Intelligence/openpi/issues/1060#issuecomment-6082970232)
-asks for configurations and short traces; a request is not incident evidence.
-Start with ordinary CPU reconstruction if the owner supplies those artifacts.
-Do not duplicate the request or reuse consumed conditions.
+and measured costs. The incident review tracks four existing requests: OpenPI
+#906 and #1060, GR00T #785 and RoboRecover #2. The 11 October readback found no
+new reply. OpenPI #906 had been omitted from the short continuation and is now
+restored. Start with ordinary CPU reconstruction if an owner supplies matching
+source/settings and records. Do not duplicate requests or reuse consumed conditions.
 
 Re-score the retained compact records through the [README](../README.md).
 Its five-trajectory example is exposed exploration, not fresh confirmation.

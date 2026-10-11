@@ -1,5 +1,21 @@
 # Research source and releases
 
+## Deployment decision research · 11 October 2026
+
+Source `f7557dc` adds a [standard-library rank readback](RESEARCH_PLAN.md#decision-specific-validation--11-october-2026)
+and clarifies the relationship between learned training conventions and serving
+changes in the [architecture](ARCHITECTURE.md#what-the-decision-means).
+All 14 published Spearman cells reproduce; missing data and matched comparison
+denominators remain explicit. The [validation record](experiments/results/proxy-ranking-readback-001/validation.json)
+also checks source identity and preservation of existing output.
+
+The [incident review](experiments/results/incident-selection-2026-10-11/review.json)
+retains the prior GR00T padding proposal, relevant evaluation/recovery research,
+and all four pending owner requests. Source review and aggregate arithmetic do
+not establish a robot result, a new default for trained weights, or a comparative
+Nisayon advantage. The snapshot descends from public `d52b122`; private history,
+production interfaces, historical experiments and the release tag remain unchanged.
+
 ## RTC snapshot follow-through · 10 October 2026
 
 The [follow-through](experiments/TEMPORAL_INTERFACE.md#rtc-follow-through--10-october-2026)
