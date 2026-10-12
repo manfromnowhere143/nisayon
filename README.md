@@ -26,6 +26,21 @@ robot dynamics or learned inference.
 [Experiment records](docs/experiments/README.md) · [Release](docs/RELEASE.md) ·
 [Apache-2.0](LICENSE)
 
+## Adopted evaluation correction · 12 October 2026
+
+A finding from Nisayon's evaluation work was adopted in **arisole-eval 0.1.3**.
+A constructed case had 30 seed-matched episode pairs but only one fully labelled
+pair. The old gate counted all 30 toward its evidence threshold and returned
+`REVIEW`/0. The maintainer reproduced the issue and shipped a correction; the
+published release returns `INSUFFICIENT_DATA`/2 under defaults and passes all
+12 retained controls.
+
+The [case note](docs/contributions/arisole-label-coverage.md) links the executable
+reproducer, proposed patch, maintainer response and release verification,
+including three upstream tests left unqualified by missing configurations.
+This is external adoption of a bounded software correction; robot performance
+and comparative cost remain separate, unproved claims.
+
 ## What the experiments found
 
 **No decision or efficiency advantage has been demonstrated.** Both comparisons

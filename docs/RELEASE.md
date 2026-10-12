@@ -1,5 +1,18 @@
 # Research source and releases
 
+## Adopted evaluation correction · 12 October 2026
+
+The [Arisole case note](contributions/arisole-label-coverage.md) records a finding
+from Nisayon's evaluation work that the maintainer reproduced and adopted in
+`arisole-eval==0.1.3`. The original constructed case changes from `REVIEW`/0 to
+`INSUFFICIENT_DATA`/2 under defaults. The released wheel passes all 12 retained
+controls; its original sdist tests produce 29 passes and three failures caused
+by omitted configurations. The linked verification retains those limits.
+
+This documentation update adds the case note and a README entry. Nisayon's
+runtime, dependency lock, historical evidence and `v0.1.0` tag are unchanged.
+It establishes no new policy run, performance result or comparative advantage.
+
 ## Deployment decision research · 11 October 2026
 
 Source `f7557dc` adds a [standard-library rank readback](RESEARCH_PLAN.md#decision-specific-validation--11-october-2026)
