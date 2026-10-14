@@ -91,13 +91,23 @@ def render_text(decision: dict) -> str:
             f"Producer: {producer.get('schema')} · execution code {producer['code'].get('git_head')}"
         )
     costs = decision.get("costs", {})
+    if costs.get("status"):
+        lines.append(f"Cost status: {costs['status']} (declared run items; preparation separate)")
     if costs.get("per_item"):
         lines.append("Costs (known totals; unknown costs are not zero):")
         for name, item in costs["per_item"].items():
+            total = "unavailable" if item["known_total"] is None else item["known_total"]
+            unit = item["unit"] or "(unit unresolved)"
             lines.append(
-                f"  {name}: {item['known_total']} {item['unit']} over {item['known_runs']} runs; "
+                f"  {name}: {total} {unit} over {item['known_runs']} runs; "
                 f"missing in {item['missing_runs']} runs"
                 + (f" ({'; '.join(item['missing_reasons'])})" if item["missing_reasons"] else "")
+                + (f"; status {item['status']}" if item.get("status") else "")
+                + (
+                    f"; invalid: {', '.join(item['invalid_reasons'])}"
+                    if item.get("invalid_reasons")
+                    else ""
+                )
             )
     if decision.get("unparsed_records"):
         lines.append("Unparsed records:")

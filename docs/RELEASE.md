@@ -11,7 +11,8 @@ retains its costs and task outcomes. A constructed interrupted copy restores
 Cost reports now expose `recorded`, `partial` and `invalid` states, with null
 totals for invalid units, ancestry, values, containment or overflow. Consumers
 must read those fields; cost validity remains separate from task acceptance.
-Twenty-one portable regression cases accompany the correction. The release
+The default text report also exposes cost status and invalid reasons. Twenty-two
+portable regression cases accompany these changes. The release
 manifest binds the source copied from `934f554`, public-parent comparison and
 documentation changes. No dependencies, policy runs or historical source
 archives change, and the `v0.1.0` tag remains unchanged. Full economic cost and

@@ -8,6 +8,7 @@ from nisayon.evaluation import evaluate_bundle
 from nisayon.evaluation.checks import RunAssessment
 from nisayon.evaluation.costs import aggregate_costs
 from nisayon.evaluation.fixtures import SCENARIOS, write_bundle
+from nisayon.evaluation.report import render_text
 from nisayon.evaluation.schema import Quantity
 
 
@@ -149,6 +150,33 @@ def test_public_evaluator_reports_cost_validity_separately_from_task_acceptance(
     assert decision["costs"]["status"] == status
     assert decision["costs"]["per_item"]["wall"]["known_total"] == expected
     assert decision["runs"][inner["id"]]["costs"]["wall"]["value"] == 2
+    rendered = render_text(decision)
+    assert "Decision: ACCEPTED" in rendered
+    assert f"Cost status: {status}" in rendered
+    if parent == "cycle":
+        assert "wall: unavailable s" in rendered
+        assert "invalid: cyclic_cost_ancestry" in rendered
+    else:
+        assert f"wall: {float(expected)} s" in rendered
+
+
+def test_text_report_preserves_legacy_cost_records_without_inventing_status(tmp_path):
+    data = next(item for item in SCENARIOS if item.name == "strict_positive_control").build()
+    decision = evaluate_bundle(write_bundle(data, tmp_path / "fixture"))
+    decision["costs"] = {
+        "per_item": {
+            "wall": {
+                "known_total": 2,
+                "unit": "s",
+                "known_runs": 1,
+                "missing_runs": 0,
+                "missing_reasons": [],
+            }
+        }
+    }
+    rendered = render_text(decision)
+    assert "wall: 2 s over 1 runs; missing in 0 runs" in rendered
+    assert "Cost status:" not in rendered
 
 
 def test_unparsed_or_absent_records_prevent_a_recorded_cost_status():

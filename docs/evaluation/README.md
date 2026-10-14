@@ -80,7 +80,8 @@ Per-item `included_run_ids` and `included_by_run_id` expose the accounting;
 `runs_nested_in_parent` records the declared hierarchy only. Cycles, incompatible
 units, negative values, inconsistent containment or sum overflow give a null
 total and explicit reasons. Per-run quantities remain available. Preparation
-costs are reported separately. See the [public correction](../experiments/results/cost-retention-public-001/README.md).
+costs are reported separately. Default text output also shows the cost status
+and invalid reasons. See the [public correction](../experiments/results/cost-retention-public-001/README.md).
 
 ## What was decided on the real records
 

@@ -9,8 +9,10 @@ The identical [15 exposed controls](probe.py), in both input orders, pass
 **7/15 before and 15/15 after**. The [before](before.json) and [after](after.json)
 records include inputs, outputs and evaluator source hashes. Both were run
 against public parent `cd07dd5`; the after run includes the three copied source
-and test files identified in the release manifest. This is a public export of
-the already-tested correction from source `934f554`, not a second discovery.
+and test files identified in the release manifest. This exports the already-tested accounting correction from source `934f554`.
+A subsequent rendering correction from `1703079` also exposes cost validity
+and invalid reasons in default text output. It does not change accounting
+or task acceptance.
 
 | Input | Before | After |
 |---|---:|---:|
@@ -32,8 +34,10 @@ Invalid ancestry, incompatible units, negative values, contradictory containment
 and sum overflow produce explicit reasons and null totals. Consumers must handle
 those nulls and statuses rather than assume every subtotal is usable.
 
-Twenty-one portable regression cases cover the accounting and its public
-evaluator integration. Task acceptance remains separate from cost validity.
+Twenty-two portable regression cases cover the accounting, public evaluator
+and text output, including old reports without a cost-status field. The updated
+tests against the earlier text renderer produce 19 passes and three failures;
+the three failures are missing cost-status lines. Task acceptance remains separate from cost validity.
 Inclusive nesting is producer-declared; these checks cannot establish that
 timers are truthful or all engineering and economic costs were measured.
 This correction establishes no robot-performance or comparative-cost advantage.
