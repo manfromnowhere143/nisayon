@@ -1,0 +1,223 @@
+{
+  "schema": "nisayon.public-cost-validation.v1",
+  "tested_source": "b2154564f8ad63c8cc0568afe25921ee027a49ea",
+  "public_parent": "cd07dd55becff097bd1eabcf627f909db9f7ae30",
+  "clone": {
+    "method": "git clone --no-local --single-branch, then fast-forward to final source",
+    "private_commit_objects_available": false,
+    "object_alternates": false,
+    "scope": "Independent Git object store on the same host; not isolation from private host files. Hosted CI provides a separate environment.",
+    "all_commit_objects_equal_public_ancestry": true,
+    "commit_objects": 13
+  },
+  "environment": {
+    "python": "3.12.13",
+    "platform": "macOS-14.4-arm64-arm-64bit",
+    "packages": [
+      {
+        "name": "annotated-types",
+        "version": "0.8.0"
+      },
+      {
+        "name": "anyio",
+        "version": "4.15.1"
+      },
+      {
+        "name": "attrs",
+        "version": "26.1.0"
+      },
+      {
+        "name": "cffi",
+        "version": "2.1.1"
+      },
+      {
+        "name": "click",
+        "version": "8.5.0"
+      },
+      {
+        "name": "cryptography",
+        "version": "50.0.1"
+      },
+      {
+        "name": "h11",
+        "version": "0.16.0"
+      },
+      {
+        "name": "h5py",
+        "version": "3.16.0"
+      },
+      {
+        "name": "httpcore2",
+        "version": "2.13.0"
+      },
+      {
+        "name": "httpx2",
+        "version": "2.13.0"
+      },
+      {
+        "name": "idna",
+        "version": "3.20"
+      },
+      {
+        "name": "iniconfig",
+        "version": "2.3.0"
+      },
+      {
+        "name": "jsonschema",
+        "version": "4.26.0"
+      },
+      {
+        "name": "jsonschema-specifications",
+        "version": "2025.9.1"
+      },
+      {
+        "name": "mcp",
+        "version": "2.2.0"
+      },
+      {
+        "name": "mcp-types",
+        "version": "2.2.0"
+      },
+      {
+        "name": "nisayon-workspace",
+        "version": "0.1.0"
+      },
+      {
+        "name": "numpy",
+        "version": "1.26.4"
+      },
+      {
+        "name": "opentelemetry-api",
+        "version": "1.44.0"
+      },
+      {
+        "name": "packaging",
+        "version": "26.3"
+      },
+      {
+        "name": "pluggy",
+        "version": "1.6.0"
+      },
+      {
+        "name": "psutil",
+        "version": "7.2.2"
+      },
+      {
+        "name": "pycparser",
+        "version": "3.0"
+      },
+      {
+        "name": "pydantic",
+        "version": "2.13.5"
+      },
+      {
+        "name": "pydantic_core",
+        "version": "2.46.5"
+      },
+      {
+        "name": "Pygments",
+        "version": "2.21.0"
+      },
+      {
+        "name": "PyJWT",
+        "version": "2.14.0"
+      },
+      {
+        "name": "pytest",
+        "version": "9.1.1"
+      },
+      {
+        "name": "python-multipart",
+        "version": "0.0.32"
+      },
+      {
+        "name": "referencing",
+        "version": "0.37.0"
+      },
+      {
+        "name": "rpds-py",
+        "version": "2026.6.3"
+      },
+      {
+        "name": "ruff",
+        "version": "0.16.8"
+      },
+      {
+        "name": "sse-starlette",
+        "version": "3.4.11"
+      },
+      {
+        "name": "starlette",
+        "version": "1.6.0"
+      },
+      {
+        "name": "truststore",
+        "version": "0.10.4"
+      },
+      {
+        "name": "typing-inspection",
+        "version": "0.4.4"
+      },
+      {
+        "name": "typing_extensions",
+        "version": "4.16.0"
+      },
+      {
+        "name": "uvicorn",
+        "version": "0.53.0"
+      }
+    ]
+  },
+  "commands": [
+    "uv sync --frozen",
+    "UV_NO_SYNC=1 PYTEST_ADDOPTS=\"-ra --junitxml=../clean-tests-final.xml\" make check",
+    "python docs/experiments/results/cost-retention-public-001/probe.py --out ../clean-reproduction-final.json"
+  ],
+  "full_check": {
+    "tests": 1279,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 80,
+    "passed": 1199,
+    "pytest_seconds": 285.688,
+    "command_wall_seconds": 287.127174,
+    "lint": "passed",
+    "format_files": 482,
+    "documents": 145,
+    "mermaid_blocks": 5,
+    "documentation_scope": "Local links and code fences; Mermaid rendering not assessed."
+  },
+  "cost_regressions": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "prior_renderer_same_tests": {
+      "passed": 19,
+      "failed": 3,
+      "reason": "Cost status omitted from default text output."
+    }
+  },
+  "public_reproduction": {
+    "passed": 15,
+    "total": 15,
+    "both_orders": true,
+    "controls_and_d05_outputs_equal_after_json": true,
+    "source_hash_changes_since_after_json": [
+      "src/nisayon/evaluation/report.py"
+    ],
+    "report_source_sha256": "57e6e28a50a0bf19c0129e831ae52ad61e3ce8db56b7cc5daa66ff1a88a6bbca"
+  },
+  "initial_clean_check": {
+    "source": "b758528c632b187711be77db1a11485279c279fe",
+    "passed": 1198,
+    "skipped": 80,
+    "failures": 0,
+    "reason_for_repeat": "Added text status/reason rendering and one legacy-record regression."
+  },
+  "corrected_attempts": [
+    "Initial new text assertion expected an integer-formatted total; the unchanged numeric report formats it as a float. Two fixture assertions were corrected; numeric and status predicates were unchanged.",
+    "One baseline invocation resolved the venv Python symlink to the base interpreter, which lacked pytest. The corrected invocation kept the venv path; the invalid attempt supplied no test evidence."
+  ],
+  "scope": "Exposed software controls and historical readback, not physical execution, hidden-case validation, complete economic accounting or competitive advantage.",
+  "github_ci": "Local record made before publication; consult GitHub Actions on the published commit for Linux/macOS checks."
+}

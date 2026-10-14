@@ -40,7 +40,16 @@ tests against the earlier text renderer produce 19 passes and three failures;
 the three failures are missing cost-status lines. Task acceptance remains separate from cost validity.
 Inclusive nesting is producer-declared; these checks cannot establish that
 timers are truthful or all engineering and economic costs were measured.
+The [installed CLI readback](cli-readback.json) preserves an accepted fixture
+task with partial or invalid costs. Its exit code remains 0; a cost comparison
+must inspect cost validity separately from the task verdict.
 This correction establishes no robot-performance or comparative-cost advantage.
+
+The final [clean-clone check](validation.json) passes **1,199 tests**,
+with **80 explicit skips**, lint, 482 formatting checks and 145 documents.
+All 22 cost regressions run without skips. This local clone has a separate Git
+object store but shares the host; hosted platform checks are reported in
+[GitHub Actions](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml).
 
 From a fresh public checkout:
 
