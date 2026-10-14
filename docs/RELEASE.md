@@ -1,5 +1,22 @@
 # Research source and releases
 
+## Preserve measured prefix costs · 14 October 2026
+
+The evaluator now retains measured prefix work when an inclusive parent's cost
+measurement is missing. The same [15 exposed accounting controls](experiments/results/cost-retention-public-001/README.md)
+pass 7/15 before and 15/15 after, in both input orders. The unchanged D05 readback
+retains its costs and task outcomes. A constructed interrupted copy restores
+0.709904042 seconds that the prior evaluator omitted.
+
+Cost reports now expose `recorded`, `partial` and `invalid` states, with null
+totals for invalid units, ancestry, values, containment or overflow. Consumers
+must read those fields; cost validity remains separate from task acceptance.
+Twenty-one portable regression cases accompany the correction. The release
+manifest binds the source copied from `934f554`, public-parent comparison and
+documentation changes. No dependencies, policy runs or historical source
+archives change, and the `v0.1.0` tag remains unchanged. Full economic cost and
+comparative advantage remain unestablished.
+
 ## Adopted evaluation correction · 12 October 2026
 
 The [Arisole case note](contributions/arisole-label-coverage.md) records a finding

@@ -72,6 +72,16 @@ scope, with reasons keyed by the codes in `src/nisayon/evaluation/codes.py`,
 one assessment per run, the paired confirmation table, a verdict per candidate,
 known and missing costs, and the premises under `limits`.
 
+Cost status is separate from the task decision. `costs.status` describes declared
+run-cost items: `recorded`, `partial` or `invalid`; it does not establish complete
+economic cost. A measured prefix is excluded only when a measured inclusive
+ancestor covers the same item and unit. Unknown parent costs remain explicit.
+Per-item `included_run_ids` and `included_by_run_id` expose the accounting;
+`runs_nested_in_parent` records the declared hierarchy only. Cycles, incompatible
+units, negative values, inconsistent containment or sum overflow give a null
+total and explicit reasons. Per-run quantities remain available. Preparation
+costs are reported separately. See the [public correction](../experiments/results/cost-retention-public-001/README.md).
+
 ## What was decided on the real records
 
 Inputs are the execution lane's committed files at named commits; raw

@@ -1,6 +1,13 @@
 # Continue Nisayon
 
-**Public source snapshot · 11 October 2026.** Read the [source update and release
+**Public source snapshot · 14 October 2026.** The latest
+[evaluator correction](experiments/results/cost-retention-public-001/README.md)
+retains measured prefix costs beneath unmeasured parents and exposes partial
+and invalid totals. Its 15-control comparison and exposed D05 readback are
+reproducible without private records. The research summaries below retain their
+original dates; no new robot performance or comparative advantage is established.
+
+Read the [source update and release
 boundary](RELEASE.md), [voice and authorship rule](VOICE.md), and
 [development setup](DEVELOPMENT.md#local-setup). Private client settings, session
 memory, lane records and development Git ancestors are not distributed here.

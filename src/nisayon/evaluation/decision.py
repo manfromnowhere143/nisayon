@@ -13,7 +13,8 @@ from .bundle import Bundle, load_bundle
 from .case import Case, parse_case
 from .checks import MEASUREMENT_CODES, Finding, RunAssessment, TraceStore, assess_run
 from .confirmation import ConfirmationAssessment, assess_confirmation
-from .schema import Malformed, canonical_json, digest_of, load_json, parse_quantity, sha256_bytes
+from .costs import aggregate_costs
+from .schema import Malformed, canonical_json, digest_of, load_json, sha256_bytes
 
 DECISION_SCHEMA = "nisayon.decision.v1"
 PROTOCOL_ID = "first-case-obligation-v0.1"
@@ -40,74 +41,6 @@ def evaluator_sources_sha256() -> str | None:
     except OSError:
         return None
     return digest.hexdigest()
-
-
-def aggregate_costs(
-    assessments: dict[str, RunAssessment], case: Case | None, unparsed: int
-) -> dict:
-    # A run whose cost_parent_run_id names another run in the bundle (an executed prefix
-    # inside its main run's measured wall) is listed under that parent, not added again.
-    nested = {
-        a.run_id: a.cost_parent
-        for a in assessments.values()
-        if a.cost_parent and a.cost_parent in assessments and a.cost_parent != a.run_id
-    }
-    parent_missing = {
-        a.run_id: a.cost_parent
-        for a in assessments.values()
-        if a.cost_parent and a.cost_parent not in assessments
-    }
-    items: dict[str, dict] = {}
-    for a in assessments.values():
-        for name, quantity in a.costs.items():
-            item = items.setdefault(
-                name,
-                {
-                    "unit": quantity.unit,
-                    "known_total": 0.0,
-                    "known_runs": 0,
-                    "missing_runs": 0,
-                    "missing_reasons": [],
-                    "nested_known_total": 0.0,
-                    "nested_runs": 0,
-                },
-            )
-            if item["unit"] != quantity.unit:
-                item["unit_conflict"] = True
-            if a.run_id in nested:
-                item["nested_runs"] += 1
-                if quantity.value is not None:
-                    item["nested_known_total"] = round(
-                        item["nested_known_total"] + quantity.value, 9
-                    )
-            elif quantity.value is None:
-                item["missing_runs"] += 1
-                if quantity.missing not in item["missing_reasons"]:
-                    item["missing_reasons"].append(quantity.missing)
-            else:
-                item["known_total"] = round(item["known_total"] + quantity.value, 9)
-                item["known_runs"] += 1
-    preparation: dict = {}
-    if case is not None:
-        for name, raw in case.preparation_costs.items():
-            try:
-                preparation[name] = parse_quantity(raw, f"case.preparation_costs.{name}").to_dict()
-            except Malformed as error:
-                preparation[name] = {"error": str(error)}
-    runs_without_costs = [a.run_id for a in assessments.values() if not a.costs]
-    return {
-        "per_item": items,
-        "preparation": preparation,
-        "runs_counted": len(assessments),
-        "runs_nested_in_parent": nested,
-        "cost_parent_missing": parent_missing,
-        "runs_without_cost_records": runs_without_costs,
-        "records_unparsed": unparsed,
-        "note": "Unknown costs are not zero. Totals cover recorded items over every run in the bundle, "
-        "including invalid and failed attempts. A run nested in a counted parent's wall is "
-        "listed under nested_known_total and not added to known_total; a run whose declared "
-        "parent is absent is counted on its own.",
-    }
 
 
 def _limits(case: Case | None, origin: str, assessments: dict[str, RunAssessment]) -> list[str]:
