@@ -1,0 +1,39 @@
+Comparison score: fair · solver scripted_development_ablation · suite development-ablation-001
+Arms:
+  arm  kind      valid  sel       cases  conf  rej  unres  inv  unsup  tout  n/a  false  rej<exec  rollouts  sim wall
+  A    scripted  False  fixed     10     6     1    1      1    1      0     0    0      1         569       692.568775
+  B    scripted  True   fixed     10     6     1    1      1    1      0     0    0      1         569       712.344496
+Elapsed wall:
+  A diagnostic 1808.937448 s · full_trial 1808.937448 s · time to confirmed correction {'known_total': 966.668407, 'confirmed_trials_with_time': 6, 'mean': 161.111401}
+  B diagnostic 1793.613081 s · full_trial 1793.613081 s · time to confirmed correction {'known_total': 1113.747001, 'confirmed_trials_with_time': 6, 'mean': 185.6245}
+Known cost per confirmed correction:
+  A simulator_wall: 115.428129167 s
+  A diagnostic_wall: 17.055185604 s
+  A confirmation_wall: 129.937088341 s
+  A own_trial_wall: 146.992273945 s
+  A agent_tokens: undefined (not measured in any trial) tokens
+  A engineer_time: undefined (not measured in any trial) s
+  A provider_and_compute_charges: undefined (not measured in any trial) USD
+  B simulator_wall: 118.724082667 s
+  B diagnostic_wall: 23.160265465 s
+  B confirmation_wall: 131.205994687 s
+  B own_trial_wall: 154.366260153 s
+  B agent_tokens: undefined (not measured in any trial) tokens
+  B engineer_time: undefined (not measured in any trial) s
+  B provider_and_compute_charges: undefined (not measured in any trial) USD
+Cases:
+  D01-gripper-sign            repairable                          A=confirmed  B=confirmed
+  D02-cartesian-axis          repairable                          A=confirmed  B=confirmed
+  D03-observation-backlog     repairable_timing                   A=confirmed  B=confirmed
+  D04-observation-hold        repairable_timing                   A=confirmed  B=confirmed
+  D05-recurrent-carry         repairable                          A=rejected  B=rejected
+  D06-stateless-inference     fault_injection_may_be_unsupported  A=unsupported  B=unsupported
+  D07-sign-and-backlog        repairable                          A=confirmed  B=confirmed
+  D08-old-future-replay       invalid                             A=invalid  B=invalid
+  D09-action-suppression      repairable_with_invalid_proposed_fixA=confirmed  B=confirmed
+  D10-opaque-policy-state     unresolved                          A=unresolved  B=unresolved
+Limits:
+  - The scorer computes no ratio between arms; unknown cost components stay unknown.
+  - Cost per confirmed correction is undefined when nothing is confirmed.
+  - Cumulative simulator wall and elapsed wall are different quantities.
+  - A scripted development ablation is not an agent comparison.

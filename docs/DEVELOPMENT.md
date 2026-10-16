@@ -27,6 +27,11 @@ make check
 uv run nisayon doctor
 ```
 
+`doctor` also checks local client configuration. A public source checkout omits
+those private settings, so it reports them as missing until local client setup
+is configured. That result is separate from `make check` and does not mean the
+base package or retained-score reproduction failed.
+
 Python is pinned in `.python-version`; direct and transitive dependencies are
 locked in `uv.lock`. The development group includes NumPy, h5py and psutil for
 record, array and resource-monitor tests. The workspace package still declares

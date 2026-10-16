@@ -115,10 +115,12 @@ def main() -> None:
     args = parser.parse_args()
     if args.out.exists():
         parser.error("output must not already exist")
+    args.out.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     result = run()
     result["elapsed_seconds"] = time.monotonic() - started
-    args.out.write_text(json.dumps(result, indent=2) + "\n")
+    with args.out.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(result, indent=2) + "\n")
     print(
         json.dumps(
             {

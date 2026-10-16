@@ -104,12 +104,13 @@ have distinct scopes.
 | What makes a correction acceptable? | [Fresh-confirmation obligation](docs/evaluation/CONFIRMATION_OBLIGATION.md), [assessment code](src/nisayon/evaluation/confirmation.py) and [failure paths](tests/evaluation/). |
 | What did the comparisons actually show? | [Results below](#what-the-experiments-found), [complete experiment index](docs/experiments/README.md), and each result's protocol, retained failures and reproduction commands. |
 | Can this checkout reproduce the software checks? | [Development setup](docs/DEVELOPMENT.md), [locked dependencies](uv.lock) and [Linux/macOS checks](.github/workflows/ci.yml). Optional-stack and private-store skips remain explicit. |
+| What did the current repository review verify? | [Clean-clone checks, reproduction correction and diagram review](docs/experiments/results/main-refresh-2026-10-16/README.md), with the initial failure retained. |
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
 
-*Retained work through 16 October 2026, N045. These are working-branch results;
-the [release notes](docs/RELEASE.md) identify the separately published snapshots.*
+*Research through 16 October 2026, N045; repository review and integration in
+N046. The [release notes](docs/RELEASE.md) identify the public source snapshots.*
 
 The latest research sharpens the question: which experiment could change the
 correction we choose? Full cause identification can demand observations that

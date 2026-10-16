@@ -10,6 +10,12 @@ implemented data flow from the proposed compiler, selector and execution bridge.
 Eight Mermaid diagrams expose those boundaries; the prediction-audit cost figure
 shows when a promising construction ceases to save work.
 
+The [repository review](experiments/results/main-refresh-2026-10-16/README.md)
+retains clean-clone installation and checks, exact reproduction commands and the
+output-directory failure found in the README example. The correction creates
+missing parent directories and refuses to overwrite an existing result. The
+software calculations and scientific acceptance rules are unchanged.
+
 The bounded decision module preserves every consistent caller-supplied hypothesis
 and returns an exact minimum-cost separating subset within its declared limits.
 It executes no interventions and grants no task confirmation. Native software

@@ -1,7 +1,11 @@
 """Decision sufficiency must not erase uncertain causes or grant acceptance."""
 
 import itertools
+import json
 import math
+import subprocess
+import sys
+from pathlib import Path
 
 import pytest
 
@@ -10,6 +14,20 @@ from nisayon.engine.identifiability import (
     minimum_decision_probe_plan,
     minimum_probe_plan,
 )
+
+
+def test_example_cli_creates_output_parents_and_preserves_existing_results(tmp_path):
+    script = Path(__file__).resolve().parents[2] / "scripts/experiments/probe_decisions.py"
+    output = tmp_path / "new" / "nested" / "result.json"
+    command = [sys.executable, "-B", "-S", str(script), "--out", str(output)]
+    first = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True)
+    assert first.returncode == 0, first.stderr
+    original = output.read_bytes()
+    assert json.loads(original)["status"] == "supported_constructed_software_controls"
+    repeated = subprocess.run(command, cwd=tmp_path, capture_output=True, text=True)
+    assert repeated.returncode != 0
+    assert "output must not already exist" in repeated.stderr
+    assert output.read_bytes() == original
 
 
 def probe(name, values, cost=1):
