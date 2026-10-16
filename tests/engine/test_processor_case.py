@@ -6,9 +6,10 @@ from pathlib import Path
 
 import pytest
 
+from nisayon import cli
 from nisayon.cli import parser
 from nisayon.engine import processor_case
-from nisayon.engine.io import file_digest, write_json
+from nisayon.engine.io import digest, file_digest, write_json
 
 
 @dataclass
@@ -394,3 +395,90 @@ def test_public_command_parses_run_and_saved_readback():
     assert run.external_command == "run"
     inspect = parser().parse_args(["external-decision", "inspect", "result"])
     assert inspect.external_command == "inspect"
+
+
+def _unsealed_store(tmp_path, completed):
+    """Construct record ordering only; no numeric processor or upstream code runs."""
+    case_path, sources, case = _build_case(tmp_path)
+    store = tmp_path / "store"
+    invocation = processor_case._initialize_store(
+        store, case_path, case, sources, {"kind": "constructed_readback_control"}
+    )
+    for assignment in case["assignments"][:completed]:
+        intent = processor_case._publish_intent(store, assignment, case, invocation)
+        write_json(
+            store / "executions" / f"{assignment}.json",
+            {
+                "schema": processor_case.EXECUTION_SCHEMA,
+                "assignment_id": assignment,
+                "case_sha256": digest(case),
+                "attempt": intent["attempt"],
+                "invocation_id": invocation["id"],
+                "scope": "constructed record; no operation executed",
+            },
+        )
+    return store
+
+
+@pytest.mark.parametrize("completed", [0, 1, len(processor_case.ASSIGNMENT_IDS)])
+def test_all_assignment_records_without_finalization_remain_a_prefix(tmp_path, completed):
+    store = _unsealed_store(tmp_path, completed)
+    before = {p.relative_to(store): file_digest(p) for p in store.rglob("*") if p.is_file()}
+    result = processor_case.inspect_store(store)
+    assert result["integrity"] == "verified_prefix"
+    assert result["completed_assignments"] == completed
+    assert result["summary"] is None
+    assert result["execution_performed"] is False
+    assert result["retry_performed"] is False
+    assert {p.relative_to(store): file_digest(p) for p in store.rglob("*") if p.is_file()} == before
+
+
+@pytest.mark.parametrize("member", ["summary.json", "seal.json", "artifact-manifest.json"])
+def test_partial_finalization_is_invalid_even_with_all_records(tmp_path, member):
+    store = _unsealed_store(tmp_path, len(processor_case.ASSIGNMENT_IDS))
+    write_json(store / member, {})
+    result = processor_case.inspect_store(store)
+    assert result["integrity"] == "invalid"
+    assert "partial_seal" in result["errors"]
+    before = {p.relative_to(store): file_digest(p) for p in store.rglob("*") if p.is_file()}
+    with pytest.raises(ValueError, match="partially sealed result cannot be resumed"):
+        processor_case.run_case(
+            tmp_path / "case.json",
+            tmp_path / "sources",
+            store,
+            resume=True,
+            source_identity={"kind": "constructed_readback_control"},
+        )
+    assert {p.relative_to(store): file_digest(p) for p in store.rglob("*") if p.is_file()} == before
+
+
+def test_readback_outside_workspace_preserves_prefix_and_output_boundary(
+    tmp_path, monkeypatch, capsys
+):
+    store = _unsealed_store(tmp_path, len(processor_case.ASSIGNMENT_IDS))
+    monkeypatch.chdir(tmp_path)
+
+    def forbidden():
+        raise AssertionError("Readback must not discover or initialize a workspace")
+
+    monkeypatch.setattr(cli.workspace, "project_root", forbidden)
+    output = tmp_path / "inspection.json"
+    monkeypatch.setattr(
+        "sys.argv", ["nisayon", "external-decision", "inspect", str(store), "--out", str(output)]
+    )
+    with pytest.raises(SystemExit) as exited:
+        cli.main()
+    assert exited.value.code == 0  # A successful inspection can report incomplete evidence.
+    result = json.loads(capsys.readouterr().out)
+    assert result["integrity"] == "verified_prefix"
+    assert json.loads(output.read_text()) == result
+
+    monkeypatch.setattr(
+        "sys.argv",
+        ["nisayon", "external-decision", "inspect", str(store), "--out", str(store / "new.json")],
+    )
+    with pytest.raises(SystemExit) as exited:
+        cli.main()
+    assert exited.value.code == 2
+    assert "outside the raw store" in capsys.readouterr().err
+    assert not (store / "new.json").exists()

@@ -6,6 +6,12 @@ the work of finding and confirming a repair. Two comparisons have now tested
 that question at a bounded development scope. Both tied on accepted repairs;
 the arm with additional checks took more measured trial time.
 
+Work through N045 on 16 October adds native software corrections, finite probes
+for causes or declared decisions, current research, and a bounded qualification
+of prediction audits against complete confirmation cost.
+The independently owned comparison and separate reuse case remain open. The
+tables below connect the full trajectory to its retained evidence.
+
 ## Results and what changed
 
 | Question | Observed result | Read the evidence |
@@ -31,6 +37,30 @@ historical source versions. Fresh random conditions do not make a known fault un
 
 ## Inspect or reproduce a result
 
+Later work examines native deployment and evaluation boundaries. These results
+extend the evidence base without changing the negative comparative results above.
+
+| Boundary or decision | Latest retained evidence |
+|---|---|
+| External adoption and release verification | [Arisole 0.1.3](results/reporter-followthrough-001/README.md), [0.1.4 and Windows follow-through](results/github-followthrough-2026-10-13/README.md) |
+| Terminal observations and actions | [LeRobot submission](results/terminal-observation-followthrough-001/README.md), [reported Thor reproduction and its limits](results/terminal-observation-thor-001/README.md), [EXPO-FT dispatch](results/terminal-dispatch-001/README.md) |
+| Recorded identity and execution time | [Retriever native replay](results/replay-identity-001/README.md) |
+| Correct accounting and public delivery | [Measured-prefix correction](results/cost-retention-001/README.md), [public delivery](results/cost-publication-001/README.md) |
+| Sequential confirmation | [N-SCORE finite null counterexample, correction and submission](results/sequential-confirmation-001/README.md) |
+| Competent native baseline | [Current LeRobot controls](results/frontier-baseline-001/README.md), [frontier decision](../FRONTIER_DECISION_2026-10-14.md) |
+| Whole-system reassessment and release identity | [N038 system review](results/n038-system-review-2026-10-15/README.md), [Arisole 0.1.5 identity inference](results/identity-inference-001/README.md): 34/56 controls become 56/56 with a local correction; 38 native tests pass; adoption unproved |
+| Ambiguity and distinguishing observations | [N039 finite identification](results/identifiability-001/README.md): six constructed mechanisms identified; competent conventional selection ties at six observations |
+| Current research and decision-relevant proxies | [N041 primary-source review and CureWM scalar readback](results/n041-decision-value-2026-10-15/README.md): 20 native checks, 11 separate controls and all 12 published cells matched; no fresh robot result |
+| Declared correction choices | [N042 decision probes](results/decision-probes-001/README.md): 45 controls pass; declared cost one versus four for full identification, with conventional decision grouping also one; no task acceptance |
+| Async client identity | [N044 native routing](results/native-routing-001/README.md): 3/5 transport controls become 5/5 with length framing; six unchanged queue tests pass; report sent upstream; no owner task result |
+| Confirmation acquisitions and cost | [N045 prediction audits](results/prediction-audit-001/README.md): exact valid-null controls, misleading-prediction failures and stronger conventional stopping. Perfect-proxy construction uses 22.105 acquisitions versus 26.840; extra work can erase the saving. No owner or robot advantage established |
+| Real deployment value | [Orin owner intake](results/owner-decision-intake-001/README.md) and two later researched invitations; participation, existing deployed artifacts and a live choice remain missing at the retained 16 October readback |
+
+Upstream adoption, contributor reports, local software results and fresh task
+outcomes have different scopes. The [README](../../README.md#external-corrections-and-open-decisions)
+records dated contribution states; the [research plan](../RESEARCH_PLAN.md#current-roadmap)
+sets the owner-value and repeat-use criteria.
+
 - [Portable Lift transfer readback](TRANSFER_EVIDENCE.md) recomputes B2's paired
   outcomes and actual network-input bindings without simulator or policy loading.
 - [Release commands and source archives](../RELEASE.md) reproduce both original
@@ -54,6 +84,10 @@ historical source versions. Fresh random conditions do not make a known fault un
 | Interruption and complete accounting | [Execution recovery](EXECUTION_RECOVERY.md), [matched comparison costs](MATCHED_COMPARISON.md#measured-costs), [model comparison costs](BOUNDED_AGENT_COMPARISON.md#identity-retention-and-cost-boundary) |
 | Frozen methods and unexecuted proposals | [Development ablation](DEVELOPMENT_ABLATION.md), [screen interface and its limits](SCREEN_EXECUTION.md) |
 | Normalizer population, execution and task binding | [Population binding](results/population-binding-001/README.md), [normalizer execution](results/normalizer-execution-001/README.md), [task qualification](results/task-qualification-001/README.md), [A1 training](results/a1-feasibility-001/README.md), [runtime qualification](results/a1-runtime-001/README.md) |
+| Temporal queues and reset semantics | [Temporal integration](results/temporal-integration-001/README.md), [combined deadline control](results/temporal-integration-001/COMBINED_DEADLINE.md), [closeout](results/temporal-integration-001/CLOSEOUT.md) |
+| Processor identity and deployment binding | [External processor decision](results/external-decision-001/README.md), [N020 portable readback](results/n020-system-review-2026-10-11/readback.json) |
+| Native processor and pose contracts | [Copy-graph audit](results/eval-copy-graph-001/README.md), [native copy follow-through](results/eval-copy-native-001/README.md), [pose qualification](results/pose-contract-001/README.md) |
+| Endpoint, sampling and recovery choices | [Endpoint and sampling readback](results/decision-endpoint-001/README.md), [performance-path decision](results/performance-path-001/DECISION.md) |
 
 No assignment is removed because its injection was unsupported or its diagnosis
 remained unresolved. Failed measurements, invalid controls and unsuccessful

@@ -1,0 +1,233 @@
+{
+  "schema": "nisayon.reporter-gate.validation.v1",
+  "recorded_at": "2026-10-12T14:29:16.955410+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "patch-application",
+      "command": [
+        "patch",
+        "-p1",
+        "-d",
+        "artifacts/engine-mission-2026-10-12/patch-application-check",
+        "-i",
+        "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/reporter-gate-001/labelled-pair-gate.patch"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.004986208979971707,
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/patch-application.stdout.txt",
+        "sha256": "f1c5fdc25066d1e657d34e177c429f4d0b7d3a83fc403ae4fea74f308be0bac6",
+        "bytes": 37
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/patch-application.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "ruff-check",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.059840166999492794,
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/ruff-check.stdout.txt",
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "bytes": 19
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/ruff-check.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "ruff-format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.0250646669883281,
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/ruff-format.stdout.txt",
+        "sha256": "295d3c321e8910e248840498db4b2990f6993aeed430f930aa13837d2585c3c0",
+        "bytes": 28
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/ruff-format.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "docs-check",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 5.506712916016113,
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/docs-check.stdout.txt",
+        "sha256": "7f8a51c4be5418d0ee0603703d8bdd3ee076054973bb4988961447ca489c1fa9",
+        "bytes": 140
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/docs-check.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.021306124981492758,
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/diff-check.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/diff-check.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "staged-diff-check-unfiltered",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "returncode": 2,
+      "expected_returncode": 2,
+      "wall_seconds": null,
+      "timing_missing_reason": "Validation wrapper raised before persisting per-command times; existing outputs retained without repeating the checks.",
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/staged-diff-check-unfiltered.stdout.txt",
+        "sha256": "598dd5cb16626fe346696b8d4adfde7d7dc6379d347f58753d9c45375ddd40da",
+        "bytes": 365
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/staged-diff-check-unfiltered.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "staged-diff-check-source",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)docs/experiments/results/reporter-gate-001/labelled-pair-gate.patch",
+        ":(exclude)docs/experiments/results/reporter-gate-001/review-body.txt"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "wall_seconds": null,
+      "timing_missing_reason": "Validation wrapper raised before persisting per-command times; existing outputs retained without repeating the checks.",
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/staged-diff-check-source.stdout.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/staged-diff-check-source.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "final-docs-check",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "wall_seconds": null,
+      "timing_missing_reason": "Validation wrapper raised before persisting per-command times; existing outputs retained without repeating the checks.",
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/final-docs-check.stdout.txt",
+        "sha256": "7f8a51c4be5418d0ee0603703d8bdd3ee076054973bb4988961447ca489c1fa9",
+        "bytes": 140
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/final-docs-check.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "name": "startup-readback",
+      "command": [
+        ".venv/bin/nisayon",
+        "start"
+      ],
+      "returncode": 0,
+      "expected_returncode": 0,
+      "wall_seconds": null,
+      "timing_missing_reason": "Validation wrapper raised before persisting per-command times; existing outputs retained without repeating the checks.",
+      "stdout": {
+        "path": "artifacts/engine-mission-2026-10-12/startup-readback.stdout.txt",
+        "sha256": "2e17dd20812c7fffd9377da2f25761ad94e218a91211188fb2eb76aba8266a2b",
+        "bytes": 10521
+      },
+      "stderr": {
+        "path": "artifacts/engine-mission-2026-10-12/startup-readback.stderr.txt",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "retained_raw_file_hashes_verified": 270,
+  "protocol_and_executed_probe_unchanged": true,
+  "patch_reproduces_tested_candidate_bytes": true,
+  "same_runtime_module_set": true,
+  "handoff_characters": 5935,
+  "earlier_check_failure": {
+    "check": "ruff format --check .",
+    "result": "1 captured review message would be formatted, 511 files formatted",
+    "resolution": "Preserved the exact already-delivered message as review-body.txt. Its contents and wire-body hash are unchanged; no external message edit."
+  },
+  "test_scope": "12 frozen CLI controls in each isolated variant, 23 original sdist tests in each variant (20 passed, three missing-config failures), and the exact posted miniature in both. No Nisayon production source changed, so its previously passing full engine suite was not repeated. No policy/physics/robot allocation was used.",
+  "patch_whitespace": {
+    "raw_context_lines": {
+      "docs/experiments/results/reporter-gate-001/labelled-pair-gate.patch": [
+        6,
+        38
+      ],
+      "docs/experiments/results/reporter-gate-001/review-body.txt": [
+        58,
+        90
+      ]
+    },
+    "interpretation": "Four required unified-diff empty context lines contain one space. Preserve the tested patch and exact delivered body. All other staged files pass the normal whitespace check; no source whitespace rule changed."
+  },
+  "startup_wrapper_failure": {
+    "result": "JSONDecodeError when the wrapper attempted to parse the successful text-format nisayon start output as JSON.",
+    "resolution": "Read the same retained text output; verified the complete current handoff and new checkpoint are present. No engine change or command rerun."
+  },
+  "full_handoff_returned_by_start": true
+}

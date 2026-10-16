@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-10-11T18:16:06.018652+00:00",
+  "reason": "Close the remaining eval_one substitution gap using the full native rollout stack.",
+  "controls": [
+    "fresh sequential",
+    "cached sequential",
+    "fresh parallel",
+    "cached parallel"
+  ],
+  "implementation": "Scripted PreTrainedPolicy subclass, four native Gym SyncVectorEnv tasks, two episodes each, three state-dependent steps per episode. Next observation derives from the applied action. No native evaluator/processor/Gym function is replaced.",
+  "expected_baseline": "Two sequential passes; fresh parallel missing-state error; cached parallel incorrect absolute actions.",
+  "candidate_required": "All four pass with the existing single-copy patch only.",
+  "scope": "CPU software regression. No physics simulator, learned model, hardware, policy benchmark, or performance inference."
+}

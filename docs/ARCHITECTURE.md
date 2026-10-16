@@ -1,6 +1,7 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026 · product architecture proposed.**
+**Design v0.1 · 17 September 2026; implementation status updated 16 October
+2026.** The general product architecture remains proposed.
 
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
 bounded model-request interface, fresh-confirmation service and integrated
@@ -12,7 +13,8 @@ incidents in each arm without a demonstrated cost advantage. The
 [bounded model comparison](experiments/BOUNDED_AGENT_COMPARISON.md) also tied
 on three paired repetitions of one known incident. A general intervention
 compiler, adaptive experiment selector and reserved screen remain targets.
-The diagrams below describe that proposed architecture; the
+The diagrams below distinguish that proposed architecture from the implemented
+finite decision mechanism. The
 [README's experiment path](../README.md#how-a-correction-earns-acceptance)
 describes the implemented workflow.
 
@@ -43,6 +45,108 @@ recomputes B2's recorded obligations with NumPy. It provides a reproducible
 evidence readback for this exact sealed case; generic correction dispatch and
 the five-field agent repair interface are unchanged.
 
+The [11 October system review](FRONTIER_REVIEW_2026-10-10.md#n020-verdict--11-october-2026)
+narrows the next product test to deployment-change qualification alongside an
+owner's conventional tools. The general architecture below remains proposed.
+The [12 October reassessment](FRONTIER_REVIEW_2026-10-10.md#n022-system-and-frontier-assessment--12-october-2026)
+retains that direction after source/evidence reconciliation and comparison with
+current policy models, integration systems and learned evaluators. It identifies
+change-specific decision quality and complete cost as the comparison to earn.
+The existing processor packet can now also be inspected outside a workspace;
+complete readback requires a verified summary, manifest and seal. This does not
+provide a generic record importer or qualify deployment behavior.
+
+The [native episode-boundary check](experiments/results/async-eval-qualification-001/README.md)
+adds a specific obligation for retained evidence: a terminal observation belongs
+to the episode that produced it, even when a vector environment immediately
+returns the next episode's reset observation. Live control and recorded
+successor observations can therefore need different values. The source-bound
+correction passes 41 CPU software checks with the existing upstream metric fix;
+this adds regression coverage, with comparative economics still unmeasured.
+
+That N023 result is historical. The later
+[LeRobot submission](experiments/results/terminal-observation-followthrough-001/README.md)
+passes 48 native CPU checks, including the eight controls that fail on its base.
+The [EXPO-FT dispatch](experiments/results/terminal-dispatch-001/README.md) and
+[Retriever replay](experiments/results/replay-identity-001/README.md) corrections
+extend source-specific qualification to terminal actions and recorded clocks.
+They are upstream patches with retained controls, not general Nisayon adapters.
+The [N-SCORE qualification](experiments/results/sequential-confirmation-001/README.md)
+corrects a released binary sequential test before any runtime integration.
+Its finite null counterexample does not qualify a robot sampling process.
+
+The [accounting correction](experiments/results/cost-retention-001/README.md)
+preserves measured prefixes when parent measurements are unavailable and keeps
+invalid totals explicit. Complete engineering costs remain unmeasured. The
+[current research decision](FRONTIER_DECISION_2026-10-14.md) calls for an owner's
+real deployment choice using existing native tools, followed by fresh task
+confirmation and a complete-cost comparison. N015 is awaiting existing deployed
+records and a live owner choice. The Orin request and two later invitations
+remain pending at the retained 16 October readback. N038's reassessment is
+complete; its native identity qualification does not establish an economic advantage.
+
+[N039](experiments/results/identifiability-001/README.md) adds a bounded offline
+identifying mechanism: retain every declared hypothesis that fits the trace,
+then choose a minimum-cost nonadaptive set from supplied probe predictions, or
+report the pairs that remain indistinguishable. Three constructed families and
+20 unit controls pass; a competent conventional probe choice ties its cost.
+This module executes no probes and does not discover the hypothesis set. A
+general planner and a measured reuse advantage remain unestablished.
+
+[N042](experiments/results/decision-probes-001/README.md) extends that finite
+calculation to declared correction choices. It can leave causes unresolved when
+they imply the same supplied correction and confirmation requirements. All 25
+new and 20 existing controls pass. This remains an offline Python API and
+example, with no execution or acceptance integration. The
+[N041 research and proxy readback](experiments/results/n041-decision-value-2026-10-15/README.md)
+supports qualifying each observation by the decision it changes; it does not
+qualify a proxy as a replacement for fresh task confirmation.
+
+[N044](experiments/results/native-routing-001/README.md) qualifies a native
+binary client-identity correction in vla.cpp; it adds no transport backend to
+Nisayon. [N045](experiments/results/prediction-audit-001/README.md) qualifies a
+published prediction-audit formula and its acquisition costs in constructed
+probability models. It leaves the implemented finite confirmation obligation
+unchanged. An owner's pre-execution signal, sampling process and complete costs
+would need their own qualification before this research option could be used.
+
+## Implemented code and data flow
+
+These components exist in the current Python package. The workspace CLI starts
+commands and retains engineering records; MCP provides context and navigation.
+Both are separate from the experiment and assessment interfaces. Entry points bind
+their own case, assets and execution budget. There is no general dispatch layer
+connecting the offline probe planner to a robot.
+
+```mermaid
+flowchart TB
+    accTitle: Current implementation and its execution boundaries
+    accDescr: Workspace CLI commands and MCP navigation share development context and records. Bounded experiment entry points use configuration and condition identities, an execution store and the Lift adapter. The confirmation service prepares fresh paired assignments. Evaluation reads retained records and produces scoped decisions and costs. The separate tools in the table below do not add a general execution or acceptance connection.
+    W["CLI commands · MCP navigation<br/>workspace context and records"]
+    W -. "explicit experiment command" .-> B["Bounded experiment entry points"]
+    B --> I["configuration.py · conditions.py<br/>deployment and condition identities"]
+    I --> X["execution_store.py · lift.py<br/>bounded closed-loop execution"]
+    C["confirmation_service.py<br/>frozen correction · fresh paired assignments"] --> X
+    X --> R["Retained records<br/>history · manifest · measurements"]
+    R --> E["evaluation/confirmation.py<br/>identity · freshness · task obligations"]
+    R --> K["evaluation/costs.py<br/>nested measurements · explicit unknowns"]
+    E --> O["Scoped assessment and report"]
+    K --> O
+```
+
+| Inspect | Implementation | Verification and limit |
+|---|---|---|
+| Workspace entry points | [CLI](../src/nisayon/cli.py), [MCP](../src/nisayon/mcp_server.py), [workspace](../src/nisayon/workspace.py) | [Workspace tests](../tests/test_workspace.py); developer permissions do not isolate evaluation answers. |
+| Closed-loop execution and retention | [Execution store](../src/nisayon/engine/execution_store.py), [Lift adapter](../src/nisayon/engine/lift.py), [history](../src/nisayon/engine/history.py) | [Execution tests](../tests/engine/); the measured physical model is the pinned simulator, not a hardware guarantee. |
+| Fresh task confirmation | [Producer service](../src/nisayon/engine/confirmation_service.py), [assessment](../src/nisayon/evaluation/confirmation.py) | [Frozen obligation](evaluation/CONFIRMATION_OBLIGATION.md); source identity and task progress must both hold. |
+| Cost accounting | [Reconciliation](../src/nisayon/evaluation/costs.py), [regressions](../tests/evaluation/test_evaluation_costs.py) | Nested measurements count once; invalid or unmeasured cost remains explicit. |
+| Bounded integration cases | [Temporal runtime](../src/nisayon/engine/temporal_runtime.py), [processor cases](../src/nisayon/engine/processor_case.py) | [Temporal interface](experiments/TEMPORAL_INTERFACE.md); constructed software execution and retained readback, with no robot-performance inference. |
+| Declared decision probes | [Finite API](../src/nisayon/engine/identifiability.py), [controls](../tests/engine/test_decision_probes.py) | Exact bounded enumeration; supplied models and labels are premises. |
+| Confirmation research | [Prediction-audit qualification](../scripts/experiments/qualify_prediction_audit.py), [cost challenge](../scripts/experiments/challenge_prediction_audit_cost.py) | Exposed finite arithmetic, separate from the production confirmation service. |
+
+The proposed architecture below describes what further components would need to
+do. Its compiler and general selector are not additional implemented services.
+
 ## The problem we intend to own
 
 A learned policy works in one deployment and fails after a change. Its engineer
@@ -65,10 +169,10 @@ the observation needed to distinguish incompatible explanations.
 ```mermaid
 flowchart TB
     accTitle: Proposed Nisayon architecture
-    accDescr: A proposed compiler checks interventions before a worker executes them. A separate confirmation evaluator assesses frozen corrections. Attempts, outcomes and unresolved questions enter case history. Some components remain proposed.
+    accDescr: The general architecture is proposed. Existing bounded adapters, confirmation and case records provide its foundation. A proposed general compiler checks intervention dependencies before a worker executes them. Every result includes uncertainty and cost; an owner comparison and separate repeat-use case must justify expansion.
     I[Versioned case<br/>Working and changed deployments] --> A[Engineer or agent<br/>Hypotheses and candidate corrections]
     Q[Qualified backend capabilities<br/>State, reset, clocks and replay] --> C
-    A --> C[Experiment compiler<br/>Intervention and dependency checks]
+    A --> C[Proposed general compiler<br/>Intervention and dependency checks]
     C --> W[Backend worker<br/>Execute valid plan in closed loop]
     C --> U[Unresolved<br/>Required observation or capability]
     W -->|observed outcome and cost| A
@@ -77,6 +181,8 @@ flowchart TB
     W --> H[Case history<br/>Attempts, evidence and regressions]
     R --> H
     U --> H
+    H -. "value still unproved" .-> V[Owner comparison<br/>Matched quality and complete cost]
+    V -. "then qualify reuse" .-> N[Separate untouched incident]
 ```
 
 ## Component boundaries
@@ -91,6 +197,7 @@ deployment requires it.
 | Backend adapter | Reset, snapshot, execute and report actual actions | Explicit capabilities; unsupported operations remain unsupported |
 | Experiment compiler | Resolve intervention effects and dependencies | Executable plan or a named validity rejection |
 | Selector | Choose the next useful experiment within budget | Start with competent conventional selection; evaluate adaptive planning separately |
+| Finite probe calculation, implemented offline | Separate supplied hypotheses or declared correction choices | Exact nonadaptive subsets within 12 hypotheses/16 probes; caller supplies predictions, error bound, costs and decision labels; no execution |
 | Worker | Execute a plan and measure its outcome | Trace, process state, measurement state and cost stay separate |
 | Confirmation evaluator | Assess a frozen correction on fresh conditions | Scoped result under a frozen obligation |
 | Case history | Preserve outcomes, explanations, patches and regressions | Reuse requires a new applicability check |
@@ -120,6 +227,26 @@ A `Run` can finish successfully as a process and still contain an invalid
 experiment. A valid experiment can leave the decision unresolved. Avoid a
 single `success` boolean across these layers.
 
+Runtime transformations also have to preserve relationships among components.
+The [parallel-evaluation source audit](experiments/results/eval-copy-graph-001/README.md)
+shows why. Copying processors separately can isolate each worker yet disconnect
+the postprocessor from the state its preprocessor updates. The retained control
+then produces target `101` where the sequential reference produces `11`.
+The [native follow-through](experiments/results/eval-copy-native-001/README.md)
+reproduces the same defect through installed pipelines and the complete evaluator
+with scripted CPU policy/Gym fixtures. The connected copy passes all thirteen
+controls; this does not qualify arbitrary learned policies or devices.
+
+For a worker-context change, check three separate obligations: required
+references remain connected within the worker; mutable state is separated
+between workers; and the declared input/action trace agrees with the sequential
+reference under matched state and randomness. Source-specific ownership rules
+must distinguish deliberate sharing from forbidden sharing. A single connected
+copy satisfies the inspected processor controls, not every possible policy or
+runtime. Nisayon does not yet infer these contracts or verify them generically.
+This is a concrete requirement for a future qualification adapter, grounded in
+an existing upstream decision.
+
 ## Evidence ladder
 
 Each transition requires its own executed evidence. A later success cannot repair
@@ -129,19 +256,22 @@ a task outcome.
 ```mermaid
 flowchart TD
     accTitle: Evidence required for a deployment decision
-    accDescr: Inputs and rights lead to an executable numeric operation, then runtime behavior, task competence, a fixed intervention, fresh confirmation and finally a matched value comparison. A failure or unknown at any layer stops stronger claims while preserving earlier supported results.
+    accDescr: Inputs and rights lead to an executable numeric operation, then runtime behavior, task competence, a fixed intervention, fresh confirmation, a matched value comparison and separate repeat use. A failure or unknown at any layer stops stronger claims while preserving earlier supported results. Comparative value and repeat use remain unproved.
     A["Inputs, rights and provenance"] --> B["Bound numeric operation"]
     B --> C["Qualified runtime semantics"]
     C --> D["Development task competence"]
     D --> E["Fixed intervention<br/>weights held constant"]
     E --> F["Fresh confirmed task outcome"]
     F --> G["Matched conventional comparison<br/>decision quality and complete cost"]
+    G --> H["Separate untouched incident<br/>repeat use before expansion"]
     X["Invalid · failed · unresolved"] -. "stop stronger claim; retain evidence" .-> A
     X -.-> B
     X -.-> C
     X -.-> D
     X -.-> E
     X -.-> F
+    X -.-> G
+    X -.-> H
 ```
 
 ## Intervention validity
@@ -196,6 +326,16 @@ prove a complete model of reality.
 
 ## What the decision means
 
+Bind the owner's outcome predicate, time window and stopping/continuation
+behavior before choosing a correction. Bind the target population, sampling
+unit and physical initial-state pairing before interpreting an interval. The
+[recorded endpoint comparison](experiments/results/decision-endpoint-001/README.md)
+reproduces opposite PushCube pipeline rankings for first-hit and deadline
+success on the same trajectories. More precision cannot settle an unspecified
+objective. Rescoring a fixed trajectory is valid for an alternative measurement;
+changing when the robot stops changes the execution and requires a new run.
+These are intake requirements, not an implemented general ranking backend.
+
 Let `H` be retained evidence and `M(H)` the explicitly declared models consistent
 with it. Let `A(m)` be the corrections satisfying the task under model `m`.
 The robust decision asks for one common correction:
@@ -213,6 +353,44 @@ experimental design. We have not established a new theorem, an efficient general
 solver, or a universal causal identification procedure. The near-term research
 question is whether this discipline changes the cost and quality of a real
 engineering decision. [Source map](SOURCES.md)
+
+### Implemented finite decision mechanism
+
+The [bounded API](../src/nisayon/engine/identifiability.py) implements a narrower
+case of that question. `assess_decision` retains all hypotheses consistent with
+the supplied observation and error bound, then reports whether their labels
+agree. A label covers both the correction and its confirmation requirements;
+the caller must justify and freeze that equivalence before outcomes. The code
+checks complete, nonblank labels but cannot validate their physical meaning.
+
+`minimum_decision_probe_plan` separates differently labelled pairs. For each
+such pair, at least one selected prediction coordinate must differ by strictly
+more than twice the common absolute error bound. Touching error balls remain
+ambiguous. Exact nonadaptive subset enumeration minimizes positive integer
+observation costs, then probe count and lexical identifiers. The bound is
+12 supplied hypotheses and 16 probes; these costs are not measured owner effort.
+
+```mermaid
+flowchart TB
+    accTitle: Implemented offline decision assessment and probe planning
+    accDescr: Caller-supplied predictions, error bounds and labels determine a finite set of consistent hypotheses. No survivors means model mismatch. Agreement on one label can coexist with several possible causes. Different labels motivate a finite separating-probe calculation, which returns a plan or unresolved pairs. No branch executes probes or grants task confirmation.
+    I["Declared models and observation<br/>error bound · correction/confirmation labels"] --> H["Retain every consistent hypothesis"]
+    H -->|none| M["Model mismatch<br/>no decision label"]
+    H -->|one label| A["Declared decision agrees<br/>cause may remain uncertain"]
+    H -->|different labels| D["Decision unresolved"]
+    D --> P["Supplied probe pool and costs<br/>minimum separating subset"]
+    P -->|separable| S["Proposed probes and witnesses<br/>execution remains separate"]
+    P -->|not separable| U["Unresolved within the pool<br/>retain indistinguishable pairs"]
+    A -. "candidate only" .-> F["Fresh task confirmation still required<br/>not assessed by this module"]
+    S -. "after separately valid execution" .-> F
+```
+
+When all supplied hypotheses share one label, the plan can require zero probes.
+No matching hypothesis instead yields model mismatch and no label. The API
+always reports `task_confirmation: not_assessed`, and the original full-cause
+assessment remains separate. The constructed example costs one for the declared
+decision and four for full identification; competent conventional grouping also
+costs one. It establishes neither validated decision equivalence nor a saving.
 
 A correction may restore a software invariant while changing a convention learned
 by existing weights. Bind the checkpoint's training-time processors, masks and
@@ -274,8 +452,19 @@ Keep simulator-specific state and timing semantics at the adapter boundary.
    competence rejected at 1/10. B2's exact semantic adapter qualifies its separate
    legacy-policy reference at 9/10 fresh paired conditions.**
 3. One integration regression, full rerun, and invalid-replay control.
+   **Implemented in bounded cases.**
 4. Explicit intervention checks and fresh correction confirmation.
-5. The three-arm experiment with complete cost accounting.
-6. Adaptive selection, reuse and another backend only where evidence supports them.
+   **Implemented for declared adapters and finite obligations; general compilation
+   and population guarantees remain unproved.**
+5. The historical three-arm experiment. **Two development comparisons reached
+   parity; the reserved screen remains unrun and unallocated.**
+6. Finite offline cause and decision probes. **Implemented in N039/N042;
+   competent conventional calculations tie. No execution bridge or owner value
+   established.**
+7. An independently owned deployment decision, fresh confirmation and complete
+   comparative costs. **Current value milestone; Orin and two later invitations
+   remain unqualified.**
+8. A separate untouched repeat-use case, then adaptive selection, reusable
+   qualification or another backend only where measured evidence supports them.
 
 [Next experiment](RESEARCH_PLAN.md) · [Development](DEVELOPMENT.md) · [README](../README.md)

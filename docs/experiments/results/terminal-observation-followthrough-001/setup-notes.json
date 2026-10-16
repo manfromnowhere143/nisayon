@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-10-12T18:21:43.273597+00:00",
+  "attempts": [
+    {
+      "stage": "checkout",
+      "status": "failed_before_tests",
+      "reason": "git-lfs unavailable; checkout incomplete",
+      "receipt": "acquisition.json"
+    },
+    {
+      "stage": "checkout_readback",
+      "status": "failed_before_tests",
+      "reason": "checkout recovered with per-command LFS overrides; following git status retried configured unavailable filter",
+      "receipt": "checkout-recovery.json"
+    },
+    {
+      "stage": "manifest_reader",
+      "status": "invalid_before_tests",
+      "reason": "reader followed CLAUDE.md symlink rather than hashing its Git link target; corrected reader now verifies all committed bytes"
+    },
+    {
+      "stage": "environment_metadata_reader",
+      "status": "failed_before_control_execution",
+      "reason": "Path.resolve followed the venv interpreter symlink to the base interpreter, which lacks einops. The actual pytest command used the venv path correctly. The corrected metadata reader also preserves the venv path.",
+      "receipt": "environment-before.stderr"
+    },
+    {
+      "stage": "patch_reconstruction",
+      "status": "invalid_reader_before_publication",
+      "reason": "git apply was initially run from a subdirectory of the enclosing Nisayon repository and skipped paths outside that prefix. Exact byte comparison rejected the no-op. Initializing the reconstruction directory as its own empty Git repository made path resolution explicit; the patch then reconstructs both tested files exactly."
+    }
+  ],
+  "correction": "Local checkout-only LFS filters retain Git pointer bytes. No model/dataset payload is needed. Symlinks are bound to their link target bytes."
+}

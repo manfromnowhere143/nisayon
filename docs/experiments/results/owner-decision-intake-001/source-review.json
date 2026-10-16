@@ -1,0 +1,180 @@
+{
+  "scope": "Pinned upstream source inspection; no policy, GPU, robot, numeric parity or model-loading execution.",
+  "lerobot_revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+  "findings": [
+    {
+      "claim": "The record loop reads robot observations then processors and predict_action; this inspected path does not read dataset video frames. Custom scripts and camera capture remain unbound.",
+      "file": "source/lerobot_record.py",
+      "lines": [
+        299,
+        317
+      ],
+      "status": "observed_source"
+    },
+    {
+      "claim": "use_amp controls entry into the local CUDA autocast context; the utility does not cast policy parameters to float32. Outer contexts and device-specific kernels are not qualified.",
+      "file": "source/control_utils.py",
+      "lines": [
+        100,
+        115
+      ],
+      "status": "observed_source"
+    },
+    {
+      "claim": "When load_vlm_weights is true, VLM from_pretrained explicitly requests bfloat16. Its false branch constructs from config; no universal dtype claim is made.",
+      "file": "source/smolvlm_with_expert.py",
+      "lines": [
+        76,
+        88
+      ],
+      "status": "observed_source"
+    },
+    {
+      "claim": "SmolVLAConfig defaults load_vlm_weights to false. The deployed checkpoint/config is missing, so the actual branch and parameter dtypes are unknown.",
+      "file": "source/smolvla-config-v042.txt",
+      "lines": [
+        88,
+        88
+      ],
+      "status": "observed_source_and_unknown_deployment"
+    },
+    {
+      "claim": "Torch 2.5 Module.float casts floating-point parameters and buffers in place. It cannot restore precision previously lost when loading/casting weights. This is not proof that an entire deployment executes every operation in strict FP32.",
+      "file": "source/torch-module-v250.txt",
+      "lines": [
+        1134,
+        1144
+      ],
+      "status": "observed_source_and_cast_semantics"
+    },
+    {
+      "claim": "v0.4.2 predict_action_chunk accepts explicit noise; a fixed-noise comparison is available in this source. Its history/queues still need reset binding for the actual policy.",
+      "file": "source/modeling_smolvla.py",
+      "lines": [
+        309,
+        319
+      ],
+      "status": "observed_source"
+    }
+  ],
+  "declared_dependency_readback": {
+    "torch_2_5_0_in_declared_range": true,
+    "torchvision_0_20_0_in_declared_range": false,
+    "torchvision_0_21_0_in_declared_range": true,
+    "torchcodec_required_linux_aarch64": false,
+    "torchcodec_required_linux_x86_64": true,
+    "limit": "Declared ranges/markers are not a tested JetPack compatibility matrix or a diagnosis."
+  },
+  "source_integrity": {
+    "files_checked": 13,
+    "sha256_and_git_blob_sha1_match": true
+  },
+  "sources": [
+    {
+      "path": "pyproject.toml",
+      "local": "source/pyproject.toml",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "0b53457a170a6c8905a20b619bfb23a3fdb2acf1",
+      "sha256": "50ed6b72ce1ec6983dddcbbef44626f6005639997b6562624029dab53a0759e7",
+      "bytes": 11710,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/pyproject.toml"
+    },
+    {
+      "path": "src/lerobot/scripts/lerobot_record.py",
+      "local": "source/lerobot_record.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "600a73022f0705e0d52c9687f9d1305e8c42f662",
+      "sha256": "8dd7736050dd6ed7fa6f72d634cfec29dbf6f7954d4eb21f1ee1ec91f4f3af3a",
+      "bytes": 21071,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/scripts/lerobot_record.py"
+    },
+    {
+      "path": "src/lerobot/policies/smolvla/modeling_smolvla.py",
+      "local": "source/modeling_smolvla.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "e442b14d5a5b0b73116d1b40d2cb2eb1d85f6fa1",
+      "sha256": "95c23c690d4c1ffce6377405db71b841b3d6ba19ccf8b4b2214daa0fd7845c03",
+      "bytes": 34288,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/policies/smolvla/modeling_smolvla.py"
+    },
+    {
+      "path": "src/lerobot/policies/smolvla/smolvlm_with_expert.py",
+      "local": "source/smolvlm_with_expert.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "555c407739ee2b9ca6f2218d6004a267492e464d",
+      "sha256": "ce728a4becd56951db2cb75bfca5e8822a280e7616b1d1f95d4b86ae62ea84a8",
+      "bytes": 23003,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/policies/smolvla/smolvlm_with_expert.py"
+    },
+    {
+      "path": "src/lerobot/policies/pretrained.py",
+      "local": "source/pretrained.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "3f5d89ec54a718a4195ae69d6d95b49569a2b484",
+      "sha256": "4d5a42bd475c7beca2ec899b7fcf7a0d890edc4234d143e4397c9999edafc39e",
+      "bytes": 10339,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/policies/pretrained.py"
+    },
+    {
+      "path": "src/lerobot/policies/factory.py",
+      "local": "source/factory.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "eb6266757d235f59fa854478460b2a031471f46c",
+      "sha256": "cd7ea65567c975488a5860e41357f4fd70f1d02e45f4bacccc5a08759f1c914f",
+      "bytes": 17452,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/policies/factory.py"
+    },
+    {
+      "path": "src/lerobot/utils/control_utils.py",
+      "local": "source/control_utils.py",
+      "revision": "58f70b6bd370864139a3795ac3497a9eae8c42d5",
+      "git_blob_sha": "7cfe177ef8453fc1c76f535a97da0de79aa845d1",
+      "sha256": "14b499c81fa30aa41044611e46b914e78cbc2df609917a32658c2378c01c3019",
+      "bytes": 9383,
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/utils/control_utils.py"
+    },
+    {
+      "local": "source/lerobot-ai-policy.txt",
+      "git_blob_sha": "de5c979bff801ff77bdd9bb1e6dd6019e81db16c",
+      "sha256": "c6870dba9c13e0345c7d9bc9fd94a2dcec065321a5e7e094d00b78fa0fedde38",
+      "url": "https://github.com/huggingface/lerobot/blob/main/AI_POLICY.md"
+    },
+    {
+      "local": "source/lerobot-contributing.txt",
+      "git_blob_sha": "71aed1dffd12168b35e22899939b2e4a718e35ff",
+      "sha256": "8757b392fe5260d48caa0bb00bfce54770f38ab6810046555efd556b38346b8f",
+      "url": "https://github.com/huggingface/lerobot/blob/main/CONTRIBUTING.md"
+    },
+    {
+      "local": "source/torch-module-v250.txt",
+      "git_blob_sha": "f4796e50e415a193f566dc0f078455c155c6b19a",
+      "sha256": "d125e6e19b4495e65758dc4c4d8fbdc3e30758c27eded646427971f0098eb117",
+      "url": "https://github.com/pytorch/pytorch/blob/v2.5.0/torch/nn/modules/module.py"
+    },
+    {
+      "local": "source/smolvla-config-v042.txt",
+      "git_blob_sha": "c32c8a60ec2808edf0da4e7226801d416a0ee0fe",
+      "sha256": "84a01987bc83e677ac06beefdc5e48644bf6155a83c49c2caaa3513d6c9b35a3",
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/src/lerobot/policies/smolvla/configuration_smolvla.py"
+    },
+    {
+      "local": "source/lerobot-license.txt",
+      "git_blob_sha": "a603343cdda0228e53d8d9cdeb355f342f1e8f2c",
+      "sha256": "0583375a0ec642ec79c447781f34322b0cfa66baff31258214d040f1f6d86d7c",
+      "url": "https://github.com/huggingface/lerobot/blob/58f70b6bd370864139a3795ac3497a9eae8c42d5/LICENSE"
+    },
+    {
+      "local": "source/torch-license.txt",
+      "git_blob_sha": "9315c4efb68a2a419904031f9657845f7f979baa",
+      "sha256": "47a26beb94e3f6b333a3677fc85d546f1fdfd2f0b3686c26d2fb5b10e0134165",
+      "url": "https://github.com/pytorch/pytorch/blob/v2.5.0/LICENSE"
+    }
+  ],
+  "not_established": [
+    "Owner decision still live",
+    "Actual deployed source/config/checkpoint",
+    "Cause or correction of the Orin failure",
+    "Fresh task benefit",
+    "Complete comparative cost advantage"
+  ]
+}

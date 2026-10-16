@@ -1,0 +1,149 @@
+"""Safe run identity inference from LeRobot artifacts.
+
+Never invents task, environment, checkpoint, or episode identity.
+Only copies fields present in run_meta.json / eval_info.json, or unanimous
+observed ``per_task[].task_group`` values.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+from .parse import LeRobotEvalInfo
+
+
+def _unanimous_task_groups(info: LeRobotEvalInfo) -> str | None:
+    """Return task_group when every multi-task entry shares the same observed group."""
+    groups: list[str] = []
+    per_task = info.raw.get("per_task")
+    if isinstance(per_task, list):
+        for entry in per_task:
+            if not isinstance(entry, dict):
+                continue
+            group = entry.get("task_group")
+            if group is None:
+                continue
+            groups.append(str(group))
+    if not groups:
+        return None
+    unique = set(groups)
+    if len(unique) != 1:
+        return None
+    return next(iter(unique))
+
+
+def _explicit_from_eval_info(raw: dict[str, Any], key: str) -> Any:
+    if key in raw and raw[key] not in (None, ""):
+        return raw[key]
+    for nest in ("cfg", "config", "meta", "eval"):
+        blob = raw.get(nest)
+        if isinstance(blob, dict) and blob.get(key) not in (None, ""):
+            return blob[key]
+    return None
+
+
+def infer_run_identity(
+    info: LeRobotEvalInfo,
+    *,
+    meta: dict[str, Any] | None = None,
+    overrides: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Merge run_meta, eval_info fields, safe inferences, and CLI overrides.
+
+    Precedence (highest last): empty → inference → eval_info/run_meta → overrides.
+    """
+    meta = dict(meta or {})
+    overrides = {k: v for k, v in (overrides or {}).items() if v is not None and v != ""}
+    out: dict[str, Any] = dict(meta)
+    sources: dict[str, str] = {}
+
+    # Explicit fields already on run_meta win over inference.
+    for key in (
+        "task",
+        "environment",
+        "environment_version",
+        "embodiment",
+        "checkpoint_id",
+        "policy_family",
+        "evaluation_seed",
+    ):
+        if out.get(key) not in (None, ""):
+            sources[key] = "run_meta.json"
+
+    # Explicit eval_info fields (never invent).
+    field_map = (
+        ("task", "task"),
+        ("environment", "environment"),
+        ("env", "environment"),
+        ("embodiment", "embodiment"),
+        ("checkpoint_id", "checkpoint_id"),
+        ("policy_family", "policy_family"),
+    )
+    for src_key, dest in field_map:
+        value = _explicit_from_eval_info(info.raw, src_key)
+        if value not in (None, "") and out.get(dest) in (None, ""):
+            out[dest] = value
+            sources[dest] = f"eval_info.json:{src_key}"
+
+    # Unanimous multi-task task_group is observed suite identity (e.g. pusht, libero_10).
+    # Prefer this over per-episode "group/id" composites built during parse.
+    group = _unanimous_task_groups(info)
+    if group is not None:
+        if out.get("task") in (None, ""):
+            out["task"] = group
+            sources["task"] = "eval_info.per_task[].task_group"
+        # Only fill environment from the same observed suite name when still missing.
+        if out.get("environment") in (None, ""):
+            out["environment"] = group
+            sources["environment"] = "eval_info.per_task[].task_group"
+
+    # Episode-level task when unanimous and still missing (single-task layouts).
+    if out.get("task") in (None, ""):
+        ep_tasks = [
+            ep.raw.get("task")
+            for ep in info.episodes
+            if isinstance(ep.raw, dict) and ep.raw.get("task")
+        ]
+        if ep_tasks and len(set(map(str, ep_tasks))) == 1:
+            out["task"] = str(ep_tasks[0])
+            sources["task"] = "eval_info.per_episode[].task"
+
+    # CLI / programmatic overrides always win and are attributed.
+    for key, value in overrides.items():
+        out[key] = value
+        sources[key] = "cli_override"
+
+    out["_identity_sources"] = sources
+    return out
+
+
+def missing_identity_fields(meta: dict[str, Any]) -> list[str]:
+    missing: list[str] = []
+    if meta.get("task") in (None, ""):
+        missing.append("task")
+    if meta.get("environment") in (None, ""):
+        missing.append("environment")
+    return missing
+
+
+def format_missing_identity_help(
+    *,
+    baseline_dir: Path | str,
+    candidate_dir: Path | str,
+    baseline_missing: list[str],
+    candidate_missing: list[str],
+) -> str:
+    lines = [
+        "Cannot compare runs: required identity fields are missing and could not be "
+        "inferred from eval_info.json without inventing values.",
+        f"  baseline ({baseline_dir}): missing {', '.join(baseline_missing) or '(none)'}",
+        f"  candidate ({candidate_dir}): missing {', '.join(candidate_missing) or '(none)'}",
+        "Provide a run_meta.json beside each eval_info.json, or pass explicit flags, e.g.:",
+        "  arisole evaluate --baseline A --candidate B \\",
+        "    --task <suite_or_task> --environment <env_name> \\",
+        "    --baseline-checkpoint <id> --candidate-checkpoint <id>",
+        "Checkpoint IDs are optional for local compare; task and environment are required "
+        "for a valid match. Episode pairing still requires shared per-episode seeds.",
+    ]
+    return "\n".join(lines)

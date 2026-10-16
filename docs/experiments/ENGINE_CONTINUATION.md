@@ -133,8 +133,7 @@ the earlier overrun or measure historical peak use.
 The last resolved evaluation revision is
 `6f294891bb9b5bf7a4167aad68c50ba637a1dcec`. Execution supplied the committed
 [interface](DECLARATION_INTERFACE.md) and exact real input paths in
-its private lane record (`work/lanes/codex.md`, excluded from this snapshot).
-The required report must classify confirmed,
+its private historical lane record. The required report must classify confirmed,
 contradicted, unsupported and unknown claims while exposing all assignments,
 decision coverage, correct resolution, refusals, invalid/unresolved cases and
 complete known/missing costs. A method that always abstains cannot earn success

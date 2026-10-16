@@ -1,0 +1,632 @@
+{
+  "schema": "nisayon.eval-copy-graph.v1",
+  "source_commit": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+  "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+  "torch": "2.5.1",
+  "variants": {
+    "separate_copies": {
+      "cases": [
+        {
+          "case": "fresh",
+          "passed": false,
+          "checks": {
+            "correct_action": false,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": false
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912808784,
+              "preprocessor_id": 4912823952,
+              "postprocessor_id": 4912824144
+            }
+          ]
+        },
+        {
+          "case": "warm",
+          "passed": false,
+          "checks": {
+            "correct_action": false,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": false
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  101.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4357370224,
+              "preprocessor_id": 4912823952,
+              "postprocessor_id": 4912824144
+            }
+          ]
+        },
+        {
+          "case": "disabled",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  1.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912823952,
+              "preprocessor_id": 4912820016,
+              "postprocessor_id": 4912819968
+            }
+          ]
+        },
+        {
+          "case": "same_worker_reuse",
+          "passed": false,
+          "checks": {
+            "correct_action": false,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": false
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912820016,
+              "preprocessor_id": 4912811424,
+              "postprocessor_id": 4912820880
+            },
+            {
+              "state": 20.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912820016,
+              "preprocessor_id": 4912811424,
+              "postprocessor_id": 4912820880
+            },
+            {
+              "state": 30.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912820016,
+              "preprocessor_id": 4912811424,
+              "postprocessor_id": 4912820880
+            }
+          ]
+        },
+        {
+          "case": "two_workers_reuse",
+          "passed": false,
+          "checks": {
+            "correct_action": false,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": false,
+            "two_workers_executed": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 13079605248,
+              "policy_id": 4912821264,
+              "preprocessor_id": 4912821360,
+              "postprocessor_id": 4912821744
+            },
+            {
+              "state": 11.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 13096431616,
+              "policy_id": 4912815168,
+              "preprocessor_id": 4912815840,
+              "postprocessor_id": 4912816368
+            },
+            {
+              "state": 20.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 13096431616,
+              "policy_id": 4912815168,
+              "preprocessor_id": 4912815840,
+              "postprocessor_id": 4912816368
+            },
+            {
+              "state": 21.0,
+              "action": null,
+              "error": "AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor.",
+              "linked_steps": false,
+              "task_token_preserved": true,
+              "thread": 13079605248,
+              "policy_id": 4912821264,
+              "preprocessor_id": 4912821360,
+              "postprocessor_id": 4912821744
+            }
+          ]
+        },
+        {
+          "case": "uncopyable_rejected",
+          "passed": true
+        }
+      ],
+      "selected_definitions": [
+        {
+          "file": "pr4450-types.txt",
+          "symbol": "TransitionKey",
+          "lines": [
+            26,
+            36
+          ]
+        },
+        {
+          "file": "pr4450-constants.txt",
+          "symbol": "OBS_STR",
+          "lines": [
+            20,
+            20
+          ]
+        },
+        {
+          "file": "pr4450-constants.txt",
+          "symbol": "OBS_STATE",
+          "lines": [
+            23,
+            23
+          ]
+        },
+        {
+          "file": "pr4450-pipeline.txt",
+          "symbol": "ProcessorStepRegistry",
+          "lines": [
+            66,
+            147
+          ]
+        },
+        {
+          "file": "pr4450-pipeline.txt",
+          "symbol": "ProcessorStep",
+          "lines": [
+            150,
+            238
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "to_relative_actions",
+          "lines": [
+            40,
+            59
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "to_absolute_actions",
+          "lines": [
+            62,
+            81
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "RelativeActionsProcessorStep",
+          "lines": [
+            86,
+            159
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "AbsoluteActionsProcessorStep",
+          "lines": [
+            164,
+            211
+          ]
+        },
+        {
+          "file": "pr4450-eval.py",
+          "symbol": "_make_threaded_task_runner",
+          "lines": [
+            948,
+            1008
+          ]
+        }
+      ]
+    },
+    "connected_copy": {
+      "cases": [
+        {
+          "case": "fresh",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  11.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912818576,
+              "preprocessor_id": 4912814640,
+              "postprocessor_id": 4912818624
+            }
+          ]
+        },
+        {
+          "case": "warm",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  11.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912815024,
+              "preprocessor_id": 4912819008,
+              "postprocessor_id": 4912817088
+            }
+          ]
+        },
+        {
+          "case": "disabled",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  1.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912815264,
+              "preprocessor_id": 4912811040,
+              "postprocessor_id": 4912814880
+            }
+          ]
+        },
+        {
+          "case": "same_worker_reuse",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  11.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912818576,
+              "preprocessor_id": 4912814928,
+              "postprocessor_id": 4912816368
+            },
+            {
+              "state": 20.0,
+              "action": [
+                [
+                  21.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912818576,
+              "preprocessor_id": 4912814928,
+              "postprocessor_id": 4912816368
+            },
+            {
+              "state": 30.0,
+              "action": [
+                [
+                  31.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 8308456128,
+              "policy_id": 4912818576,
+              "preprocessor_id": 4912814928,
+              "postprocessor_id": 4912816368
+            }
+          ]
+        },
+        {
+          "case": "two_workers_reuse",
+          "passed": true,
+          "checks": {
+            "correct_action": true,
+            "worker_tokens_separate": true,
+            "one_context_per_thread": true,
+            "distinct_contexts_between_threads": true,
+            "original_unchanged": true,
+            "required_link_preserved": true,
+            "two_workers_executed": true
+          },
+          "records": [
+            {
+              "state": 10.0,
+              "action": [
+                [
+                  11.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 13079605248,
+              "policy_id": 4912816944,
+              "preprocessor_id": 4912818288,
+              "postprocessor_id": 4912818144
+            },
+            {
+              "state": 11.0,
+              "action": [
+                [
+                  12.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 13096431616,
+              "policy_id": 4912820064,
+              "preprocessor_id": 4912820256,
+              "postprocessor_id": 4912820112
+            },
+            {
+              "state": 20.0,
+              "action": [
+                [
+                  21.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 13079605248,
+              "policy_id": 4912816944,
+              "preprocessor_id": 4912818288,
+              "postprocessor_id": 4912818144
+            },
+            {
+              "state": 21.0,
+              "action": [
+                [
+                  22.0,
+                  0.25
+                ]
+              ],
+              "error": null,
+              "linked_steps": true,
+              "task_token_preserved": true,
+              "thread": 13096431616,
+              "policy_id": 4912820064,
+              "preprocessor_id": 4912820256,
+              "postprocessor_id": 4912820112
+            }
+          ]
+        },
+        {
+          "case": "uncopyable_rejected",
+          "passed": true
+        }
+      ],
+      "selected_definitions": [
+        {
+          "file": "pr4450-types.txt",
+          "symbol": "TransitionKey",
+          "lines": [
+            26,
+            36
+          ]
+        },
+        {
+          "file": "pr4450-constants.txt",
+          "symbol": "OBS_STR",
+          "lines": [
+            20,
+            20
+          ]
+        },
+        {
+          "file": "pr4450-constants.txt",
+          "symbol": "OBS_STATE",
+          "lines": [
+            23,
+            23
+          ]
+        },
+        {
+          "file": "pr4450-pipeline.txt",
+          "symbol": "ProcessorStepRegistry",
+          "lines": [
+            66,
+            147
+          ]
+        },
+        {
+          "file": "pr4450-pipeline.txt",
+          "symbol": "ProcessorStep",
+          "lines": [
+            150,
+            238
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "to_relative_actions",
+          "lines": [
+            40,
+            59
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "to_absolute_actions",
+          "lines": [
+            62,
+            81
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "RelativeActionsProcessorStep",
+          "lines": [
+            86,
+            159
+          ]
+        },
+        {
+          "file": "pr4450-relative.py",
+          "symbol": "AbsoluteActionsProcessorStep",
+          "lines": [
+            164,
+            211
+          ]
+        },
+        {
+          "file": "pr4450-eval.py",
+          "symbol": "_make_threaded_task_runner",
+          "lines": [
+            948,
+            1005
+          ]
+        }
+      ]
+    }
+  },
+  "sequential_reference": {
+    "state": 10.0,
+    "action": [
+      [
+        11.0,
+        0.25
+      ]
+    ],
+    "error": null,
+    "linked_steps": true,
+    "task_token_preserved": true,
+    "thread": 8308456128,
+    "policy_id": 4907448224,
+    "preprocessor_id": 4909602848,
+    "postprocessor_id": 4909544368
+  },
+  "wall_seconds": 0.05323929199948907,
+  "limits": [
+    "Selected unchanged source definitions; task callback and policy are scripted.",
+    "Processor steps run directly; full pipeline conversion and eval_policy_all are not executed.",
+    "No learned inference, environment stepping, GPU or robot task outcome.",
+    "One connected deepcopy preserves this reference; arbitrary custom copying and closures are unqualified.",
+    "No measured customer savings, general detector or novel copying algorithm."
+  ]
+}

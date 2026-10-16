@@ -1481,7 +1481,10 @@ def run_case(
     current_source = source_identity or source_snapshot(repo)
     if resume:
         root = output.resolve(strict=True)
-        if (root / "summary.json").exists() or (root / "seal.json").exists():
+        if any(
+            (root / member).exists()
+            for member in ("summary.json", "artifact-manifest.json", "seal.json")
+        ):
             raise ValueError("A sealed or partially sealed result cannot be resumed")
         initial_invocation = _read(resolve_member(root, "invocation.json"))
         if initial_invocation.get("case_sha256") != digest(case):
@@ -1682,6 +1685,7 @@ def _validate_summary(
 
 
 def inspect_store(root: Path) -> dict:
+    """Inspect a retained prefix; completeness also requires verified finalization."""
     root = root.resolve(strict=True)
     errors = []
     try:
@@ -1707,7 +1711,10 @@ def inspect_store(root: Path) -> dict:
         complete = len(records) == len(case["assignments"])
         summary = None
         manifest_members = None
-        if (root / "summary.json").exists() or (root / "seal.json").exists():
+        if any(
+            (root / member).exists()
+            for member in ("summary.json", "artifact-manifest.json", "seal.json")
+        ):
             if (
                 not complete
                 or not (root / "summary.json").exists()
@@ -1737,8 +1744,11 @@ def inspect_store(root: Path) -> dict:
                     }
                     if actual != expected:
                         errors.append("unmanifested_or_missing_file")
+        sealed_complete = complete and summary is not None and manifest_members is not None
         integrity = (
-            "invalid" if errors else ("verified_complete_store" if complete else "verified_prefix")
+            "invalid"
+            if errors
+            else ("verified_complete_store" if sealed_complete else "verified_prefix")
         )
         return {
             "schema": "nisayon.external-processor-inspection.v1",

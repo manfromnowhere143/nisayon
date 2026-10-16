@@ -1,0 +1,43 @@
+{
+  "checked_at": "2026-10-14T13:10:42.150875+00:00",
+  "url": "https://github.com/dasnyder5/nscore/pull/5",
+  "number": 5,
+  "state": "open",
+  "merged": false,
+  "head": "43d6104068ed00a06967b249ef635bb78d1bf551",
+  "parent": "68c0a3453248d16da0c3f0b96f229fb9daf9fe78",
+  "author": {
+    "name": "Daniel Wahnich",
+    "email": "cogitoergosum143@gmail.com",
+    "date": "2026-10-14T13:09:06Z"
+  },
+  "committer": {
+    "name": "Daniel Wahnich",
+    "email": "cogitoergosum143@gmail.com",
+    "date": "2026-10-14T13:09:06Z"
+  },
+  "commit_message": "Fix reverse Bernoulli comparison betting parameter\n\nUse a symmetric discordance denominator in both comparison directions.\nAdd evidence-range, stream-swap and exact finite-null regressions. Update\ntwo reversed stopping-time expectations against the unchanged forward\ntest with swapped streams.\n\nValidation: original suite 91 passed; corrected suite 95 passed. Three\nof the four new controls fail against the original implementation.",
+  "body_exact_match": true,
+  "body": "`BernoulliNsmTest` can leave the valid betting range when the alternative is `P0MoreThanP1`. In `nscore==0.1.2`, the pairs `(1, 0)` followed by `(0, 1)` produce a bet of `4.0`, then wealth `-6.0` and a reported p-value of `-1/6`.\n\nI checked the published package against `68c0a345`: `nscore/nsm.py` is byte-identical.\n\n```python\nimport numpy as np\nfrom nscore.nsm import BernoulliNsmTest\nfrom statistical_comparison_core import Hypothesis\n\ntest = BernoulliNsmTest(\n    alternative=Hypothesis.P0MoreThanP1, alpha=0.05, c=np.arange(2)\n)\ntest.step(1, 0)\nprint(test.lambda_parameter)  # 4.0 before this correction\nprint(test.step(0, 1).info)   # negative P-Value before this correction\n```\n\nThe denominator currently substitutes the signed improvement into an expression derived for the forward direction. This patch uses the symmetric discordance probability, `p0*(1-p1) + p1*(1-p0)`, in both directions. With the existing positive Beta pseudocounts, a positive improvement gives a bet strictly between zero and one. The forward formula is algebraically unchanged.\n\nThe error affects decisions as well as the reported p-value. Under the exact null of two independent IID Bernoulli(1/2) streams, I enumerated all `4**6` equally likely six-pair sequences and counted first rejection by pair six at `alpha=0.05`:\n\n| Direction | Published implementation | Correction |\n| --- | ---: | ---: |\n| `P0LessThanP1` | 4/4096 | 4/4096 |\n| `P0MoreThanP1` | 284/4096 (6.9336%) | 4/4096 |\n\nThe added regression checks the reverse result through the public `run_on_sequence` API. These are exact finite-horizon probabilities for this constructed null, not a general calibration study. The corrected forward paths agree with the original within `1e-12`; corrected reverse paths match the forward test with streams swapped across the same exhaustive screen.\n\nValidation in an isolated Python 3.12 environment with `statistical-comparison-core==0.2.1`:\n\n- Original full suite: **91 passed**.\n- Four new regression cases against the original: **1 passed, 3 failed**.\n- Corrected full suite: **95 passed**, no skips. Both full runs emitted a pytest cache-location warning from using `/dev/null` as the configuration file.\n\nTwo existing reverse stopping-time expectations change: `ClearKitchenCounter` from 38 to 25, and `SetUpBreakfastTable` from 5 to 17. I retained the initial two failures and checked both new values against the **unchanged forward implementation on swapped streams** before updating them. The recorded input arrays are unchanged.\n\nThis was found during AI-assisted source qualification for Nisayon. The finding concerns the binary implementation and its direction symmetry. It does not establish an error in the continuous implementation, reproduce the paper's robot experiments, or demonstrate evaluation-cost savings.\n",
+  "files": [
+    {
+      "path": "nscore/nsm.py",
+      "sha256": "d82c8980690a39a6599dfc950d5ca13f9d8df3e68dbb93a1ff034b7f68d3bdf2",
+      "bytes": 27071,
+      "exact_match": true
+    },
+    {
+      "path": "tests/methods/test_binary_nsm.py",
+      "sha256": "78a4d5aa5ab7908c280b0c4a81405c18de0bc66b4c8ddaeff65c77ea6194a252",
+      "bytes": 5706,
+      "exact_match": true
+    },
+    {
+      "path": "tests/methods/test_binary_nsm_direction.py",
+      "sha256": "0ddb5c8dff6a146ceb1b7e0099bfcb5ef8acd631c1b8582057096f689c3432b8",
+      "bytes": 2147,
+      "exact_match": true
+    }
+  ],
+  "maintainer_adoption": false
+}

@@ -1,0 +1,431 @@
+{
+  "schema": "nisayon.n020.validation.v1",
+  "status": "passed",
+  "process_receipts": [
+    {
+      "id": "3d19525ff51145ed93aad4784cb2243c",
+      "label": "n020-processor-readback-before",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_processor_readback.py",
+        "--store",
+        "artifacts/external-decision-001/workflows/nisayon-b-v1",
+        "--out",
+        "artifacts/n020-system-review-2026-10-11/processor-before"
+      ],
+      "started_at": "2026-10-11T05:18:18.251679+00:00",
+      "ended_at": "2026-10-11T05:18:18.612800+00:00",
+      "wall_seconds": 0.289203,
+      "process_status": "nonzero",
+      "returncode": 1,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1918,
+          "sha256": "b8c20940f8e8ba93779eaf2277f45d8ad813add9a2a45c86e73da833e78080ac"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "bcdee2073cd9eb773c4945d3e9eff8af124c240d78d6a5173ac4925ce3c01329"
+    },
+    {
+      "id": "d41ae6516542473ea59fb84af6757977",
+      "label": "n020-regressions-before",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_processor_case.py",
+        "-k",
+        "finalization or readback_outside_workspace"
+      ],
+      "started_at": "2026-10-11T05:18:45.605518+00:00",
+      "ended_at": "2026-10-11T05:18:46.124753+00:00",
+      "wall_seconds": 0.450097,
+      "process_status": "nonzero",
+      "returncode": 1,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 3250,
+          "sha256": "bb1ce2af80a053650284ae7516f76c50ad3b0d12fbd411ddcdd5723b820cfb67"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "7574b797a3abc1df90d4492d0041c5e760b80e0673d65f2b5d4204ddbcfc3642"
+    },
+    {
+      "id": "97ce73a3614940a4a34bbd5c669f1813",
+      "label": "n020-processor-readback-after",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_processor_readback.py",
+        "--store",
+        "artifacts/external-decision-001/workflows/nisayon-b-v1",
+        "--out",
+        "artifacts/n020-system-review-2026-10-11/processor-after"
+      ],
+      "started_at": "2026-10-11T05:19:04.105382+00:00",
+      "ended_at": "2026-10-11T05:19:04.525441+00:00",
+      "wall_seconds": 0.345246,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1906,
+          "sha256": "eb3d9a120ff186d9eafd4e41e138513cee5ed054542ac41e2b0dd53426ddf9f2"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "bd773751ce9f3aa00dbddce41cf9981488e2ac85aadea79c33dfb267930dc669"
+    },
+    {
+      "id": "7f6505a351b34241b948ebc4ed980bd6",
+      "label": "n020-focused-tests",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_processor_case.py",
+        "tests/test_workspace.py",
+        "tests/test_runs.py",
+        "tests/test_records.py",
+        "tests/test_mcp.py",
+        "tests/engine/test_transfer_evidence.py"
+      ],
+      "started_at": "2026-10-11T05:19:17.054017+00:00",
+      "ended_at": "2026-10-11T05:19:23.353848+00:00",
+      "wall_seconds": 6.226677,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 120.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 99,
+          "sha256": "89406fad7438588d2b5b50655a004e04e16c14074929cb5d6ffbce5112efe543"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "09e02b9d177ee9b822a3d71d2e86163542172e645e6bdded790dd707015f62f3"
+    },
+    {
+      "id": "286c8562d947484592e2875b65ad07f0",
+      "label": "n020-full-check",
+      "command": [
+        "make",
+        "check"
+      ],
+      "started_at": "2026-10-11T05:21:26.920973+00:00",
+      "ended_at": "2026-10-11T05:26:02.449210+00:00",
+      "wall_seconds": 275.456234,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 900.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1795,
+          "sha256": "1addff54cf529d0b93a8af952cd842657aa91ed49c439c656bd11619e940395a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "de9807be104a0a8b1b20258a404ada8c35edc930e08ef45f85a8c1f437587186"
+    },
+    {
+      "id": "74a552f7f53d49019965cf8ac3d8c23d",
+      "label": "n020-orphan-manifest-before",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_processor_case.py",
+        "-k",
+        "partial_finalization"
+      ],
+      "started_at": "2026-10-11T05:31:12.501208+00:00",
+      "ended_at": "2026-10-11T05:31:13.054591+00:00",
+      "wall_seconds": 0.425553,
+      "process_status": "nonzero",
+      "returncode": 1,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1260,
+          "sha256": "94dda17b6d2aa55b1828eb406b768261a25424e8a18cef6229f81a428734367a"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "77ffdf11f6eda8b25ead2ef848650b84a185c0454602790910ab3019b48eb567"
+    },
+    {
+      "id": "664fd70fffc742f3a9e773e029d264d2",
+      "label": "n020-final-readback",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_processor_readback.py",
+        "--store",
+        "artifacts/external-decision-001/workflows/nisayon-b-v1",
+        "--out",
+        "artifacts/n020-system-review-2026-10-11/processor-final"
+      ],
+      "started_at": "2026-10-11T05:31:19.923245+00:00",
+      "ended_at": "2026-10-11T05:31:20.381835+00:00",
+      "wall_seconds": 0.37271,
+      "process_status": "nonzero",
+      "returncode": 1,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 2217,
+          "sha256": "5c2cf81a68658dde0f484fe64a2e9b71711b10bc901bb951aa293dd27485271d"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "9787e71d654bbda00f142185371632fa3c198ed158a66a38f0570d6147bf33f6"
+    },
+    {
+      "id": "26dbbb4b46c441efba7232bec7934019",
+      "label": "n020-final-focused-tests",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_processor_case.py",
+        "tests/test_workspace.py",
+        "tests/test_runs.py",
+        "tests/test_records.py",
+        "tests/test_mcp.py",
+        "tests/engine/test_transfer_evidence.py"
+      ],
+      "started_at": "2026-10-11T05:31:18.655607+00:00",
+      "ended_at": "2026-10-11T05:31:25.173278+00:00",
+      "wall_seconds": 6.444454,
+      "process_status": "nonzero",
+      "returncode": 1,
+      "timeout_seconds": 120.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 1247,
+          "sha256": "6c4eba3ce2e18400c3cae995afd1950b6571719934298619257ae22948b1abfb"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "6aa972d92b4fe04e0d3e9c88f6003c6662542c70e11b63944c80986f62565b6e"
+    },
+    {
+      "id": "643d494aa3fb4202b65a9879cf4d19dc",
+      "label": "n020-qualified-readback",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_processor_readback.py",
+        "--store",
+        "artifacts/external-decision-001/workflows/nisayon-b-v1",
+        "--out",
+        "artifacts/n020-system-review-2026-10-11/processor-qualified"
+      ],
+      "started_at": "2026-10-11T05:31:48.844528+00:00",
+      "ended_at": "2026-10-11T05:31:49.369804+00:00",
+      "wall_seconds": 0.382876,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 2207,
+          "sha256": "3cd20e545ad9dcc9f68dfc636508efe61131fdbe347317309ed1774f4e722fdd"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "3f26a47df8536afb19d497cd7526e769f3ee2abdd5502692094761d95e7f9da5"
+    },
+    {
+      "id": "e5e6bace14974af1899a9dda58ef84a2",
+      "label": "n020-qualified-focused-tests",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/engine/test_processor_case.py",
+        "tests/test_workspace.py",
+        "tests/test_runs.py",
+        "tests/test_records.py",
+        "tests/test_mcp.py",
+        "tests/engine/test_transfer_evidence.py"
+      ],
+      "started_at": "2026-10-11T05:31:48.844529+00:00",
+      "ended_at": "2026-10-11T05:31:55.525939+00:00",
+      "wall_seconds": 6.53897,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 120.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 99,
+          "sha256": "4deac3ba39630fc5b5f44400f164f26281434076e7660642758493fba8537e65"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "b92e1f01f753dd706bd74e12dc60f888e8f0cdbda43d7a50ee8e12b8d1e2938a"
+    },
+    {
+      "id": "b1eba48cb05c48e4ab6d3234d6be8585",
+      "label": "n020-final-static-checks",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "-c",
+        "import subprocess,sys; commands=[[\".venv/bin/ruff\",\"check\",\".\"],[\".venv/bin/ruff\",\"format\",\"--check\",\".\"],[sys.executable,\"-B\",\"scripts/check_docs.py\"]]; [subprocess.run(command,check=True) for command in commands]"
+      ],
+      "started_at": "2026-10-11T05:38:15.061707+00:00",
+      "ended_at": "2026-10-11T05:38:20.590157+00:00",
+      "wall_seconds": 5.353695,
+      "process_status": "completed",
+      "returncode": 0,
+      "timeout_seconds": 60.0,
+      "logs": {
+        "stdout.log": {
+          "bytes": 187,
+          "sha256": "d69b72a203fe12f36a4ffd7a7376f909a56b49585cf7e80ed52671c81ec1e2f0"
+        },
+        "stderr.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured",
+      "baseline_head": "306a1097b4d408eea1d5f8329b4eb7c05131a80e",
+      "raw_record_sha256": "a8b3f9025db411f121a44b504109de486e8cc71442523ce85f3357c1b678874d"
+    }
+  ],
+  "completed_checks": {
+    "before_regressions": "2 failed, 4 passed, 4 deselected; failures exercise false complete-store status and workspace gating",
+    "after_focused": "69 passed in 5.67 s",
+    "before_probe": "4/5 integrity controls and 0/1 portable CLI checks pass",
+    "after_probe": "5/5 integrity controls and 1/1 portable CLI checks pass; original inputs and sealed inspection unchanged",
+    "full_check": "1274 passed in 269.54 s; lint passes, 491 formatted files and 155 documents checked. This precedes the final lone-manifest amendment.",
+    "final_focused": "70 passed in 5.95 s after the final lone-manifest inspection/resume guards",
+    "final_probe": "6/6 integrity controls and 1/1 portable CLI checks pass; original inputs and sealed readback unchanged",
+    "final_static": "Lint passed; 491 files formatted; 155 documents, five Mermaid blocks, zero link/fence errors",
+    "startup": "All 5966 handoff characters returned verbatim by lane-local nisayon start"
+  },
+  "other_attempts": [
+    {
+      "command": "ruff check changed source/tests/probe; ruff format --check same files",
+      "outcome": "lint passed; probe needed formatting at two expressions",
+      "correction": "ruff format applied to probe only; full make check uses final formatting",
+      "wall_seconds": null
+    },
+    {
+      "source": "groot-action",
+      "outcome": "HTTP 404 for obsolete source path",
+      "correction": "Pinned tree located gr00t_n1d7; corrected path fetched successfully"
+    },
+    {
+      "command": "n020-orphan-manifest-before",
+      "outcome": "1 failed, 2 passed; orphan manifest classified as a prefix",
+      "correction": "Include manifest presence in finalization guard"
+    },
+    {
+      "command": "n020-final-focused-tests and n020-final-readback",
+      "outcome": "First manifest amendment changed the resume guard but missed inspection; 1/70 focused cases and 1/7 probe checks failed",
+      "correction": "Applied inspector guard too; verified resume refusal preserves bytes; qualified-focused-tests and qualified-readback passed"
+    },
+    {
+      "command": "handoff length preflight",
+      "outcome": "Draft 6210 characters exceeded the 6000-character startup limit; assertion prevented writing",
+      "correction": "Shortened handoff to 5966 characters before writing"
+    },
+    {
+      "command": "startup readback parser",
+      "outcome": "Attempted JSON decoding of the default plain-text CLI response; decoder rejected it",
+      "correction": "Verified the full handoff occurs verbatim in the plain-text response; no product change needed"
+    },
+    {
+      "command": "git diff --cached --check",
+      "outcome": "Flags trailing whitespace in three byte-preserved pytest failure logs",
+      "resolution": "Preserve evidence bytes and hashes; check source/docs diff with the retained log paths excluded. No production-code or prose whitespace error."
+    }
+  ],
+  "costs": {
+    "recorded_completed_command_wall_seconds_sum": 302.285715,
+    "sum_is_elapsed_session_time": false,
+    "source_payload_bytes": 3080200,
+    "source_request_wall_seconds_sum": 25.879645667911973,
+    "source_requests_overlap": true,
+    "downloaded_model_weight_bytes": 0,
+    "dependency_installations": 0,
+    "cloud_resources_created": 0,
+    "new_scored_robot_or_reserved_experiments": 0,
+    "human_engineering_hours": null,
+    "agent_session_tokens": null,
+    "provider_charges": null,
+    "energy": null,
+    "peak_session_memory": null,
+    "customer_integration_or_maintenance_cost": null
+  },
+  "limits": [
+    "Software tests and exposed-record copies are not independent incidents or new robot confirmation.",
+    "Wall costs exclude unrecorded source review, writing and developer time; unknowns are not zero.",
+    "Twofold speedup bounds concern old retained schedules only, not the new portability change."
+  ],
+  "final_verification_scope": "Full suite covered the initial completion/portability correction. After the last three-member finalization guard, all 70 affected module/CLI/workspace/readback tests passed. Final lint, formatting and documentation checked separately."
+}

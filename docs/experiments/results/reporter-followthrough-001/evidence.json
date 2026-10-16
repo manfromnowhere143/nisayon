@@ -1,0 +1,184 @@
+{
+  "schema": "nisayon.reporter-followthrough.evidence.v1",
+  "recorded_at": "2026-10-12T15:55:48.476852+00:00",
+  "protocol_sha256": "3c096144f1a4efc1fc87855e63ce9a287a941027ca311ab0fc7e8ee6cbbb6491",
+  "decision_packet_sha256": "79b024d8b09e1b5ba853f2e875c967786c88b787eb5233280ec064b272c4de47",
+  "verdict": "supported_bounded_release_verification",
+  "adoption": "Maintainer explicitly reports adoption; published 0.1.3 implements the corrected behavior on all 12 exposed controls.",
+  "controls": {
+    "passed": 12,
+    "failed_or_invalid": 0,
+    "coverage_counts_passed": 12,
+    "independent_confirmation": false
+  },
+  "upstream_tests": {
+    "passed": 29,
+    "failed_missing_config": 3,
+    "unqualified_names": [
+      "test_synthetic_pass_to_fail_blocks_under_smoke_thresholds",
+      "test_closefridge_weak_n_is_insufficient",
+      "test_cli_gate_writes_artifacts"
+    ],
+    "new_tests_passed": 9,
+    "configs_not_fabricated": true
+  },
+  "native": {
+    "dataset_revision": "f25f8a7603fcca023d16694dd01b9cb8280741b8",
+    "bundle_revision": "37d070977909a93dca409b1d88ad918c6246e6de",
+    "baseline_successes": 219,
+    "candidate_successes": 214,
+    "episodes_per_run": 500,
+    "comparison_mode": "unpaired",
+    "paired_rows": 0,
+    "default_gate": "INSUFFICIENT_DATA",
+    "default_exit_code": 2,
+    "versions_checked": [
+      "0.1.2",
+      "0.1.3"
+    ],
+    "new_policy_trials": 0,
+    "uncertainty_calibration_checked": false
+  },
+  "commands": [
+    {
+      "id": "9aaa70b583e94ed4a9ad127be8ab2274",
+      "label": "reporter-followthrough-lock",
+      "command": [
+        "uv",
+        "pip",
+        "compile",
+        "docs/experiments/results/reporter-followthrough-001/requirements.in",
+        "--python",
+        "artifacts/reporter-followthrough-001/venv/bin/python",
+        "--generate-hashes",
+        "--output-file",
+        "docs/experiments/results/reporter-followthrough-001/requirements.lock"
+      ],
+      "started_at": "2026-10-12T15:46:21.055578+00:00",
+      "ended_at": "2026-10-12T15:46:22.751613+00:00",
+      "returncode": 0,
+      "wall_seconds": 1.517579,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "0dc518ac8e644eb5ac5a0a9e8a678cd7",
+      "label": "reporter-followthrough-install",
+      "command": [
+        "uv",
+        "pip",
+        "sync",
+        "docs/experiments/results/reporter-followthrough-001/requirements.lock",
+        "--python",
+        "artifacts/reporter-followthrough-001/venv/bin/python",
+        "--require-hashes",
+        "--link-mode",
+        "copy"
+      ],
+      "started_at": "2026-10-12T15:47:32.278419+00:00",
+      "ended_at": "2026-10-12T15:47:33.188843+00:00",
+      "returncode": 0,
+      "wall_seconds": 0.826675,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "078de9495884420b800074ca58514f3a",
+      "label": "reporter-followthrough-controls",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_reporter_gate.py",
+        "--python",
+        "artifacts/reporter-followthrough-001/venv/bin/python",
+        "--protocol",
+        "docs/experiments/results/reporter-followthrough-001/protocol.json",
+        "--out",
+        "artifacts/reporter-followthrough-001/controls"
+      ],
+      "started_at": "2026-10-12T15:48:34.639166+00:00",
+      "ended_at": "2026-10-12T15:48:47.891202+00:00",
+      "returncode": 0,
+      "wall_seconds": 13.059146,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "c5ad486dcfe84fd8a56a0f6aa48babc1",
+      "label": "reporter-followthrough-upstream-tests",
+      "command": [
+        "artifacts/reporter-followthrough-001/venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-c",
+        "/dev/null",
+        "--import-mode=importlib",
+        "-p",
+        "no:cacheprovider",
+        "artifacts/reporter-followthrough-001/source/arisole_eval-0.1.3/tests",
+        "-q",
+        "--tb=short",
+        "--junitxml=artifacts/reporter-followthrough-001/upstream-tests.xml"
+      ],
+      "started_at": "2026-10-12T15:48:34.639181+00:00",
+      "ended_at": "2026-10-12T15:48:41.100171+00:00",
+      "returncode": 1,
+      "wall_seconds": 6.268122,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "6b60d1df0ce4478296dad0749c734e1e",
+      "label": "reporter-followthrough-native-0.1.2",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/verify_reporter_native.py",
+        "--python",
+        "artifacts/engine-mission-2026-10-12/venv/bin/python",
+        "--version",
+        "0.1.2",
+        "--source",
+        "artifacts/reporter-followthrough-001/native-source",
+        "--manifest",
+        "artifacts/reporter-followthrough-001/leboard-bundle/manifest.json",
+        "--out",
+        "artifacts/reporter-followthrough-001/native-0.1.2"
+      ],
+      "started_at": "2026-10-12T15:53:23.199546+00:00",
+      "ended_at": "2026-10-12T15:53:25.084421+00:00",
+      "returncode": 0,
+      "wall_seconds": 1.792739,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "ce97099c903c49659f727ebc5310c7e2",
+      "label": "reporter-followthrough-native-0.1.3",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/experiments/verify_reporter_native.py",
+        "--python",
+        "artifacts/reporter-followthrough-001/venv/bin/python",
+        "--version",
+        "0.1.3",
+        "--source",
+        "artifacts/reporter-followthrough-001/native-source",
+        "--manifest",
+        "artifacts/reporter-followthrough-001/leboard-bundle/manifest.json",
+        "--out",
+        "artifacts/reporter-followthrough-001/native-0.1.3"
+      ],
+      "started_at": "2026-10-12T15:53:23.199552+00:00",
+      "ended_at": "2026-10-12T15:53:24.940767+00:00",
+      "returncode": 0,
+      "wall_seconds": 1.649092,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    }
+  ],
+  "command_wall_seconds_sum": 25.113353,
+  "cost_boundary": "Sum of recorded command durations, including two overlapping native checks. Excludes downloads, source reading, review preparation, human/customer time and maintenance; not elapsed session time or complete comparative cost.",
+  "unresolved": [
+    "N015 owner decision and complete-cost comparator",
+    "Three original package tests need omitted external configurations",
+    "Unknown episodic identity; no policy result replication or paired effect",
+    "No product adoption, customer commitment or demonstrated economic advantage"
+  ]
+}

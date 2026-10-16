@@ -1,0 +1,563 @@
+{
+  "schema": "nisayon.n020.readback.v1",
+  "classification": "Constructed interruption and portability controls using exposed retained software evidence",
+  "expectations": "Written in probe before production correction; same controls used before and after; no independent preregistration",
+  "source_packet": "artifacts/external-decision-001/workflows/nisayon-b-v1",
+  "before": {
+    "schema": "nisayon.processor-readback-probe.v1",
+    "scope": "Constructed interruption copies of exposed software evidence; no new execution or task result",
+    "input_files": {
+      "artifact-manifest.json": "282b6079db75b22a8ac051367ecf801028691b9d291e41fa75e296c1e358f2c5",
+      "attempts/control-explicit-override-complete/0001.json": "38f0055550dd7f832172d27cc8575fdf2cc5031285e43df0c70c346d5155094c",
+      "attempts/control-fixed-point-witness/0001.json": "810e1c5b43f04150b5b102365d9bafe1785235099d895e6b298ed699cd58868b",
+      "attempts/control-identity-mode-visual/0001.json": "e3a9eb534ad5d592b50c2104c1509fe6139078d20f10723817720023018f691f",
+      "attempts/control-missing-std-error/0001.json": "30ed4c8ba3539a79a7b217356d136c2a29395e52803756e6953de0edca681158",
+      "attempts/control-prefixed-keys-exact-lookup/0001.json": "bd2ba431e089337849e169a76705cf9cd72815594bc7b7947fa5d63ba94a45b7",
+      "attempts/control-round-trip-cancels-wrong-stats/0001.json": "7e8dd8de5d2f53069772ce3b5785725e2ae91f40b030f12142f760403358aa66",
+      "attempts/control-suffix-match-ambiguous/0001.json": "ef5b2cd4eb2e76442e08879cb1da1cd11adce23598226230f16b98010a1f4c24",
+      "attempts/control-suffix-match-partial/0001.json": "3829b0f7d69674b14c460cc450a9f896660a7fd9eccd39bb5e9f4f32c332ae47",
+      "attempts/incident-C0-action/0001.json": "bb1b0f48c90e603927e7fb2698e53bf3f3845ee017361e3ebea36d04d55e07da",
+      "attempts/incident-C0-identity/0001.json": "f5de2a91d0477741ebb3393e46fd083fe4763bd3407957943ad095df7b8fdd20",
+      "attempts/incident-C0-state/0001.json": "2766850fb7ab4c90aeb8c3c43e45444cebfdf1e756f5c0259bbbda8907233aac",
+      "attempts/incident-C1-action-original-order/0001.json": "6cd6bfb35de66c4b86fbee51c0ed2286bbf24a96e4296abf31f4d4f7dc1488d1",
+      "attempts/incident-C1-action-reordered/0001.json": "18ad616308bba0267a5d35cfdbda056bf2bdb1bffd2145b2b30982d09d54e474",
+      "attempts/incident-C1-state/0001.json": "6c720cac8bd79e794ce80ae89c8cf2666d2fca1abfcaa80ef5bb618a02cb6c82",
+      "attempts/incident-C2-action/0001.json": "5d593af24add7fbbca79e177637d9a8c37bf31c85fa18366b19b1ee1b0a9dfff",
+      "attempts/incident-C2-identity/0001.json": "3807078c7ce7af9b0253ca2f81b8178fc6240ee1d469d533ddd19181a4af17ca",
+      "attempts/incident-C2-state/0001.json": "04a7e0fb987a87926fcd9a20c39beee8ac40d72da999499317d0e9cff20f21cf",
+      "attempts/incident-C3-remigration-availability/0001.json": "0a9944872fce3e92d7b78b64275308093bae8b406c370afb726420e3f8b52a78",
+      "executions/control-explicit-override-complete.json": "f93f08123547aafc7d30fecca7eda1f586adae05b8a1e177fe46f62f68769d64",
+      "executions/control-fixed-point-witness.json": "7a58834eabb35e7296808c1cae892a384c73e2ad73536f171573e4e61b243ddb",
+      "executions/control-identity-mode-visual.json": "3072bd2f3dde8dd9af204a3d03e214f8fd63263d36eb80b0cfe3ea42d7d2c81b",
+      "executions/control-missing-std-error.json": "15e5d5fda59c34f9fb90fa6aaa675eeb67b6e465199c6b1351acf65f8fc38d7b",
+      "executions/control-prefixed-keys-exact-lookup.json": "7df6e8ee45f24db1026b86b4317e98f702bcd158e6d1524fa2eee78e9da78555",
+      "executions/control-round-trip-cancels-wrong-stats.json": "3620f8d515a6ae4d352211c9a18dd5b265f1bca217707ce5a1840cbdb900a8a1",
+      "executions/control-suffix-match-ambiguous.json": "ea5399b355e82a024c0d18949868c9c16e470ffe7062aceaa819b23c29e47b98",
+      "executions/control-suffix-match-partial.json": "17d829b9eb0791555ff14ff35cf354bf9fedb646e00647f3656ea55af319ac0e",
+      "executions/incident-C0-action.json": "7868a49857cc55e1b572d23b296406034b3f122a9cef369cbc6ae63b16442097",
+      "executions/incident-C0-identity.json": "6a03524a8f25e38e24a1a9fbba2a0bb32a6e857771de06c0fd5a1f4e1edeb195",
+      "executions/incident-C0-state.json": "db5f789ac8003598e55b38656bc9d07821a0e9c79afd82f220aaf8a735b532b8",
+      "executions/incident-C1-action-original-order.json": "6702149678a939c1ebaf06ab3584bd00fc22f99060288c79464497a38513b929",
+      "executions/incident-C1-action-reordered.json": "9248b74415b990406fb5bcd2477e6d0ad47efb59b8ef02540a0fc09e38fbf046",
+      "executions/incident-C1-state.json": "e1dae31fbbf6f7784ed52b50d2968ce5366887371b9489800244865b4340a4c3",
+      "executions/incident-C2-action.json": "5e049663c904fa27975c7aaa3fd03dec0d9ef30ad93a808324f8c6a22239323a",
+      "executions/incident-C2-identity.json": "0c3317f66ae1d4e0fc973942812e4d4e06c14fa72ce856347eeee2e642a3cc96",
+      "executions/incident-C2-state.json": "d79d81de66c3b2f4375ab83ea6f07e1737e8102e7ee425a3b34f0ec50d0dfde2",
+      "executions/incident-C3-remigration-availability.json": "adbfa154a5426029f8fc7f1ddc0f3692c562328ed7282ee669fc15c958df9156",
+      "inputs/frozen-case.json": "78cbc5a3a6530b1388698fe93ef0c07c4a14587fdf10a33df569287c88124a23",
+      "inputs/source-index.json": "aa07f31d514b8bec2d0611cd50fc7ab096b1ca4a69cc15e0cf30df3b2a9241f6",
+      "invocation.json": "818b4fc6febf4a57e38b681a5f396e3bbdf67ce49c5a2533daf83af4e555a96f",
+      "seal.json": "54b8ca0b0cf79d3323a666a1f606c2795a148a2ac8557d0b91fae2654c981a0f",
+      "sources/external-report/issue-4415.json": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "sources/factory-source/factory.py": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "sources/model-config/config.json": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "sources/normalize-source/normalize_processor.py": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "sources/pipeline-source/pipeline.py": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "sources/policy-factory-source/processor_smolvla.py": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "sources/postprocessor-config/policy_postprocessor.json": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "sources/postprocessor-state/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "sources/preprocessor-config/policy_preprocessor.json": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "sources/preprocessor-state/policy_preprocessor_step_5_normalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "summary.json": "581665e434017f4852ed0e15070050992b1a7bf1a11cd48a588f9fc48804a13d"
+    },
+    "source_unchanged": true,
+    "controls": [
+      {
+        "control": "sealed",
+        "removed_from_copy": [],
+        "expected": "verified_complete_store",
+        "observed": "verified_complete_store",
+        "completed_assignments": 18,
+        "summary_present": true,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-summary",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "verified_prefix",
+        "observed": "verified_complete_store",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": false
+      },
+      {
+        "control": "before-manifest",
+        "removed_from_copy": [
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-seal",
+        "removed_from_copy": [
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "missing-summary",
+        "removed_from_copy": [
+          "summary.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      }
+    ],
+    "portable_cli": {
+      "returncode": 2,
+      "passes": false
+    },
+    "passes": false,
+    "wall_seconds": 0.21756441702018492,
+    "new_policy_calls": 0,
+    "new_simulator_runs": 0,
+    "new_upstream_executions": 0
+  },
+  "after": {
+    "schema": "nisayon.processor-readback-probe.v1",
+    "scope": "Constructed interruption copies of exposed software evidence; no new execution or task result",
+    "input_files": {
+      "artifact-manifest.json": "282b6079db75b22a8ac051367ecf801028691b9d291e41fa75e296c1e358f2c5",
+      "attempts/control-explicit-override-complete/0001.json": "38f0055550dd7f832172d27cc8575fdf2cc5031285e43df0c70c346d5155094c",
+      "attempts/control-fixed-point-witness/0001.json": "810e1c5b43f04150b5b102365d9bafe1785235099d895e6b298ed699cd58868b",
+      "attempts/control-identity-mode-visual/0001.json": "e3a9eb534ad5d592b50c2104c1509fe6139078d20f10723817720023018f691f",
+      "attempts/control-missing-std-error/0001.json": "30ed4c8ba3539a79a7b217356d136c2a29395e52803756e6953de0edca681158",
+      "attempts/control-prefixed-keys-exact-lookup/0001.json": "bd2ba431e089337849e169a76705cf9cd72815594bc7b7947fa5d63ba94a45b7",
+      "attempts/control-round-trip-cancels-wrong-stats/0001.json": "7e8dd8de5d2f53069772ce3b5785725e2ae91f40b030f12142f760403358aa66",
+      "attempts/control-suffix-match-ambiguous/0001.json": "ef5b2cd4eb2e76442e08879cb1da1cd11adce23598226230f16b98010a1f4c24",
+      "attempts/control-suffix-match-partial/0001.json": "3829b0f7d69674b14c460cc450a9f896660a7fd9eccd39bb5e9f4f32c332ae47",
+      "attempts/incident-C0-action/0001.json": "bb1b0f48c90e603927e7fb2698e53bf3f3845ee017361e3ebea36d04d55e07da",
+      "attempts/incident-C0-identity/0001.json": "f5de2a91d0477741ebb3393e46fd083fe4763bd3407957943ad095df7b8fdd20",
+      "attempts/incident-C0-state/0001.json": "2766850fb7ab4c90aeb8c3c43e45444cebfdf1e756f5c0259bbbda8907233aac",
+      "attempts/incident-C1-action-original-order/0001.json": "6cd6bfb35de66c4b86fbee51c0ed2286bbf24a96e4296abf31f4d4f7dc1488d1",
+      "attempts/incident-C1-action-reordered/0001.json": "18ad616308bba0267a5d35cfdbda056bf2bdb1bffd2145b2b30982d09d54e474",
+      "attempts/incident-C1-state/0001.json": "6c720cac8bd79e794ce80ae89c8cf2666d2fca1abfcaa80ef5bb618a02cb6c82",
+      "attempts/incident-C2-action/0001.json": "5d593af24add7fbbca79e177637d9a8c37bf31c85fa18366b19b1ee1b0a9dfff",
+      "attempts/incident-C2-identity/0001.json": "3807078c7ce7af9b0253ca2f81b8178fc6240ee1d469d533ddd19181a4af17ca",
+      "attempts/incident-C2-state/0001.json": "04a7e0fb987a87926fcd9a20c39beee8ac40d72da999499317d0e9cff20f21cf",
+      "attempts/incident-C3-remigration-availability/0001.json": "0a9944872fce3e92d7b78b64275308093bae8b406c370afb726420e3f8b52a78",
+      "executions/control-explicit-override-complete.json": "f93f08123547aafc7d30fecca7eda1f586adae05b8a1e177fe46f62f68769d64",
+      "executions/control-fixed-point-witness.json": "7a58834eabb35e7296808c1cae892a384c73e2ad73536f171573e4e61b243ddb",
+      "executions/control-identity-mode-visual.json": "3072bd2f3dde8dd9af204a3d03e214f8fd63263d36eb80b0cfe3ea42d7d2c81b",
+      "executions/control-missing-std-error.json": "15e5d5fda59c34f9fb90fa6aaa675eeb67b6e465199c6b1351acf65f8fc38d7b",
+      "executions/control-prefixed-keys-exact-lookup.json": "7df6e8ee45f24db1026b86b4317e98f702bcd158e6d1524fa2eee78e9da78555",
+      "executions/control-round-trip-cancels-wrong-stats.json": "3620f8d515a6ae4d352211c9a18dd5b265f1bca217707ce5a1840cbdb900a8a1",
+      "executions/control-suffix-match-ambiguous.json": "ea5399b355e82a024c0d18949868c9c16e470ffe7062aceaa819b23c29e47b98",
+      "executions/control-suffix-match-partial.json": "17d829b9eb0791555ff14ff35cf354bf9fedb646e00647f3656ea55af319ac0e",
+      "executions/incident-C0-action.json": "7868a49857cc55e1b572d23b296406034b3f122a9cef369cbc6ae63b16442097",
+      "executions/incident-C0-identity.json": "6a03524a8f25e38e24a1a9fbba2a0bb32a6e857771de06c0fd5a1f4e1edeb195",
+      "executions/incident-C0-state.json": "db5f789ac8003598e55b38656bc9d07821a0e9c79afd82f220aaf8a735b532b8",
+      "executions/incident-C1-action-original-order.json": "6702149678a939c1ebaf06ab3584bd00fc22f99060288c79464497a38513b929",
+      "executions/incident-C1-action-reordered.json": "9248b74415b990406fb5bcd2477e6d0ad47efb59b8ef02540a0fc09e38fbf046",
+      "executions/incident-C1-state.json": "e1dae31fbbf6f7784ed52b50d2968ce5366887371b9489800244865b4340a4c3",
+      "executions/incident-C2-action.json": "5e049663c904fa27975c7aaa3fd03dec0d9ef30ad93a808324f8c6a22239323a",
+      "executions/incident-C2-identity.json": "0c3317f66ae1d4e0fc973942812e4d4e06c14fa72ce856347eeee2e642a3cc96",
+      "executions/incident-C2-state.json": "d79d81de66c3b2f4375ab83ea6f07e1737e8102e7ee425a3b34f0ec50d0dfde2",
+      "executions/incident-C3-remigration-availability.json": "adbfa154a5426029f8fc7f1ddc0f3692c562328ed7282ee669fc15c958df9156",
+      "inputs/frozen-case.json": "78cbc5a3a6530b1388698fe93ef0c07c4a14587fdf10a33df569287c88124a23",
+      "inputs/source-index.json": "aa07f31d514b8bec2d0611cd50fc7ab096b1ca4a69cc15e0cf30df3b2a9241f6",
+      "invocation.json": "818b4fc6febf4a57e38b681a5f396e3bbdf67ce49c5a2533daf83af4e555a96f",
+      "seal.json": "54b8ca0b0cf79d3323a666a1f606c2795a148a2ac8557d0b91fae2654c981a0f",
+      "sources/external-report/issue-4415.json": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "sources/factory-source/factory.py": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "sources/model-config/config.json": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "sources/normalize-source/normalize_processor.py": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "sources/pipeline-source/pipeline.py": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "sources/policy-factory-source/processor_smolvla.py": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "sources/postprocessor-config/policy_postprocessor.json": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "sources/postprocessor-state/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "sources/preprocessor-config/policy_preprocessor.json": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "sources/preprocessor-state/policy_preprocessor_step_5_normalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "summary.json": "581665e434017f4852ed0e15070050992b1a7bf1a11cd48a588f9fc48804a13d"
+    },
+    "source_unchanged": true,
+    "controls": [
+      {
+        "control": "sealed",
+        "removed_from_copy": [],
+        "expected": "verified_complete_store",
+        "observed": "verified_complete_store",
+        "completed_assignments": 18,
+        "summary_present": true,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-summary",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "verified_prefix",
+        "observed": "verified_prefix",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-manifest",
+        "removed_from_copy": [
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-seal",
+        "removed_from_copy": [
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "missing-summary",
+        "removed_from_copy": [
+          "summary.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      }
+    ],
+    "portable_cli": {
+      "returncode": 0,
+      "passes": true
+    },
+    "passes": true,
+    "wall_seconds": 0.2507808750087861,
+    "new_policy_calls": 0,
+    "new_simulator_runs": 0,
+    "new_upstream_executions": 0
+  },
+  "original_source_inventory_equal": true,
+  "sealed_inspection_bytes_unchanged": true,
+  "sealed_inspection_sha256": "7625ddec46d259a8c472107bb401d7ef7f3f685d690742f970f7dc0c3a6f6983",
+  "cost_interpretation": "Includes copying and inspecting controls; no performance comparison or customer saving measured",
+  "new_robot_or_policy_runs": 0,
+  "intermediate_manifest_attempt": {
+    "schema": "nisayon.processor-readback-probe.v1",
+    "scope": "Constructed interruption copies of exposed software evidence; no new execution or task result",
+    "input_files": {
+      "artifact-manifest.json": "282b6079db75b22a8ac051367ecf801028691b9d291e41fa75e296c1e358f2c5",
+      "attempts/control-explicit-override-complete/0001.json": "38f0055550dd7f832172d27cc8575fdf2cc5031285e43df0c70c346d5155094c",
+      "attempts/control-fixed-point-witness/0001.json": "810e1c5b43f04150b5b102365d9bafe1785235099d895e6b298ed699cd58868b",
+      "attempts/control-identity-mode-visual/0001.json": "e3a9eb534ad5d592b50c2104c1509fe6139078d20f10723817720023018f691f",
+      "attempts/control-missing-std-error/0001.json": "30ed4c8ba3539a79a7b217356d136c2a29395e52803756e6953de0edca681158",
+      "attempts/control-prefixed-keys-exact-lookup/0001.json": "bd2ba431e089337849e169a76705cf9cd72815594bc7b7947fa5d63ba94a45b7",
+      "attempts/control-round-trip-cancels-wrong-stats/0001.json": "7e8dd8de5d2f53069772ce3b5785725e2ae91f40b030f12142f760403358aa66",
+      "attempts/control-suffix-match-ambiguous/0001.json": "ef5b2cd4eb2e76442e08879cb1da1cd11adce23598226230f16b98010a1f4c24",
+      "attempts/control-suffix-match-partial/0001.json": "3829b0f7d69674b14c460cc450a9f896660a7fd9eccd39bb5e9f4f32c332ae47",
+      "attempts/incident-C0-action/0001.json": "bb1b0f48c90e603927e7fb2698e53bf3f3845ee017361e3ebea36d04d55e07da",
+      "attempts/incident-C0-identity/0001.json": "f5de2a91d0477741ebb3393e46fd083fe4763bd3407957943ad095df7b8fdd20",
+      "attempts/incident-C0-state/0001.json": "2766850fb7ab4c90aeb8c3c43e45444cebfdf1e756f5c0259bbbda8907233aac",
+      "attempts/incident-C1-action-original-order/0001.json": "6cd6bfb35de66c4b86fbee51c0ed2286bbf24a96e4296abf31f4d4f7dc1488d1",
+      "attempts/incident-C1-action-reordered/0001.json": "18ad616308bba0267a5d35cfdbda056bf2bdb1bffd2145b2b30982d09d54e474",
+      "attempts/incident-C1-state/0001.json": "6c720cac8bd79e794ce80ae89c8cf2666d2fca1abfcaa80ef5bb618a02cb6c82",
+      "attempts/incident-C2-action/0001.json": "5d593af24add7fbbca79e177637d9a8c37bf31c85fa18366b19b1ee1b0a9dfff",
+      "attempts/incident-C2-identity/0001.json": "3807078c7ce7af9b0253ca2f81b8178fc6240ee1d469d533ddd19181a4af17ca",
+      "attempts/incident-C2-state/0001.json": "04a7e0fb987a87926fcd9a20c39beee8ac40d72da999499317d0e9cff20f21cf",
+      "attempts/incident-C3-remigration-availability/0001.json": "0a9944872fce3e92d7b78b64275308093bae8b406c370afb726420e3f8b52a78",
+      "executions/control-explicit-override-complete.json": "f93f08123547aafc7d30fecca7eda1f586adae05b8a1e177fe46f62f68769d64",
+      "executions/control-fixed-point-witness.json": "7a58834eabb35e7296808c1cae892a384c73e2ad73536f171573e4e61b243ddb",
+      "executions/control-identity-mode-visual.json": "3072bd2f3dde8dd9af204a3d03e214f8fd63263d36eb80b0cfe3ea42d7d2c81b",
+      "executions/control-missing-std-error.json": "15e5d5fda59c34f9fb90fa6aaa675eeb67b6e465199c6b1351acf65f8fc38d7b",
+      "executions/control-prefixed-keys-exact-lookup.json": "7df6e8ee45f24db1026b86b4317e98f702bcd158e6d1524fa2eee78e9da78555",
+      "executions/control-round-trip-cancels-wrong-stats.json": "3620f8d515a6ae4d352211c9a18dd5b265f1bca217707ce5a1840cbdb900a8a1",
+      "executions/control-suffix-match-ambiguous.json": "ea5399b355e82a024c0d18949868c9c16e470ffe7062aceaa819b23c29e47b98",
+      "executions/control-suffix-match-partial.json": "17d829b9eb0791555ff14ff35cf354bf9fedb646e00647f3656ea55af319ac0e",
+      "executions/incident-C0-action.json": "7868a49857cc55e1b572d23b296406034b3f122a9cef369cbc6ae63b16442097",
+      "executions/incident-C0-identity.json": "6a03524a8f25e38e24a1a9fbba2a0bb32a6e857771de06c0fd5a1f4e1edeb195",
+      "executions/incident-C0-state.json": "db5f789ac8003598e55b38656bc9d07821a0e9c79afd82f220aaf8a735b532b8",
+      "executions/incident-C1-action-original-order.json": "6702149678a939c1ebaf06ab3584bd00fc22f99060288c79464497a38513b929",
+      "executions/incident-C1-action-reordered.json": "9248b74415b990406fb5bcd2477e6d0ad47efb59b8ef02540a0fc09e38fbf046",
+      "executions/incident-C1-state.json": "e1dae31fbbf6f7784ed52b50d2968ce5366887371b9489800244865b4340a4c3",
+      "executions/incident-C2-action.json": "5e049663c904fa27975c7aaa3fd03dec0d9ef30ad93a808324f8c6a22239323a",
+      "executions/incident-C2-identity.json": "0c3317f66ae1d4e0fc973942812e4d4e06c14fa72ce856347eeee2e642a3cc96",
+      "executions/incident-C2-state.json": "d79d81de66c3b2f4375ab83ea6f07e1737e8102e7ee425a3b34f0ec50d0dfde2",
+      "executions/incident-C3-remigration-availability.json": "adbfa154a5426029f8fc7f1ddc0f3692c562328ed7282ee669fc15c958df9156",
+      "inputs/frozen-case.json": "78cbc5a3a6530b1388698fe93ef0c07c4a14587fdf10a33df569287c88124a23",
+      "inputs/source-index.json": "aa07f31d514b8bec2d0611cd50fc7ab096b1ca4a69cc15e0cf30df3b2a9241f6",
+      "invocation.json": "818b4fc6febf4a57e38b681a5f396e3bbdf67ce49c5a2533daf83af4e555a96f",
+      "seal.json": "54b8ca0b0cf79d3323a666a1f606c2795a148a2ac8557d0b91fae2654c981a0f",
+      "sources/external-report/issue-4415.json": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "sources/factory-source/factory.py": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "sources/model-config/config.json": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "sources/normalize-source/normalize_processor.py": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "sources/pipeline-source/pipeline.py": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "sources/policy-factory-source/processor_smolvla.py": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "sources/postprocessor-config/policy_postprocessor.json": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "sources/postprocessor-state/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "sources/preprocessor-config/policy_preprocessor.json": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "sources/preprocessor-state/policy_preprocessor_step_5_normalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "summary.json": "581665e434017f4852ed0e15070050992b1a7bf1a11cd48a588f9fc48804a13d"
+    },
+    "source_unchanged": true,
+    "controls": [
+      {
+        "control": "sealed",
+        "removed_from_copy": [],
+        "expected": "verified_complete_store",
+        "observed": "verified_complete_store",
+        "completed_assignments": 18,
+        "summary_present": true,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-summary",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "verified_prefix",
+        "observed": "verified_prefix",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-manifest",
+        "removed_from_copy": [
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-seal",
+        "removed_from_copy": [
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "missing-summary",
+        "removed_from_copy": [
+          "summary.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "manifest-only",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "verified_prefix",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": false
+      }
+    ],
+    "portable_cli": {
+      "returncode": 0,
+      "passes": true
+    },
+    "passes": false,
+    "wall_seconds": 0.30945333300041966,
+    "new_policy_calls": 0,
+    "new_simulator_runs": 0,
+    "new_upstream_executions": 0
+  },
+  "final": {
+    "schema": "nisayon.processor-readback-probe.v1",
+    "scope": "Constructed interruption copies of exposed software evidence; no new execution or task result",
+    "input_files": {
+      "artifact-manifest.json": "282b6079db75b22a8ac051367ecf801028691b9d291e41fa75e296c1e358f2c5",
+      "attempts/control-explicit-override-complete/0001.json": "38f0055550dd7f832172d27cc8575fdf2cc5031285e43df0c70c346d5155094c",
+      "attempts/control-fixed-point-witness/0001.json": "810e1c5b43f04150b5b102365d9bafe1785235099d895e6b298ed699cd58868b",
+      "attempts/control-identity-mode-visual/0001.json": "e3a9eb534ad5d592b50c2104c1509fe6139078d20f10723817720023018f691f",
+      "attempts/control-missing-std-error/0001.json": "30ed4c8ba3539a79a7b217356d136c2a29395e52803756e6953de0edca681158",
+      "attempts/control-prefixed-keys-exact-lookup/0001.json": "bd2ba431e089337849e169a76705cf9cd72815594bc7b7947fa5d63ba94a45b7",
+      "attempts/control-round-trip-cancels-wrong-stats/0001.json": "7e8dd8de5d2f53069772ce3b5785725e2ae91f40b030f12142f760403358aa66",
+      "attempts/control-suffix-match-ambiguous/0001.json": "ef5b2cd4eb2e76442e08879cb1da1cd11adce23598226230f16b98010a1f4c24",
+      "attempts/control-suffix-match-partial/0001.json": "3829b0f7d69674b14c460cc450a9f896660a7fd9eccd39bb5e9f4f32c332ae47",
+      "attempts/incident-C0-action/0001.json": "bb1b0f48c90e603927e7fb2698e53bf3f3845ee017361e3ebea36d04d55e07da",
+      "attempts/incident-C0-identity/0001.json": "f5de2a91d0477741ebb3393e46fd083fe4763bd3407957943ad095df7b8fdd20",
+      "attempts/incident-C0-state/0001.json": "2766850fb7ab4c90aeb8c3c43e45444cebfdf1e756f5c0259bbbda8907233aac",
+      "attempts/incident-C1-action-original-order/0001.json": "6cd6bfb35de66c4b86fbee51c0ed2286bbf24a96e4296abf31f4d4f7dc1488d1",
+      "attempts/incident-C1-action-reordered/0001.json": "18ad616308bba0267a5d35cfdbda056bf2bdb1bffd2145b2b30982d09d54e474",
+      "attempts/incident-C1-state/0001.json": "6c720cac8bd79e794ce80ae89c8cf2666d2fca1abfcaa80ef5bb618a02cb6c82",
+      "attempts/incident-C2-action/0001.json": "5d593af24add7fbbca79e177637d9a8c37bf31c85fa18366b19b1ee1b0a9dfff",
+      "attempts/incident-C2-identity/0001.json": "3807078c7ce7af9b0253ca2f81b8178fc6240ee1d469d533ddd19181a4af17ca",
+      "attempts/incident-C2-state/0001.json": "04a7e0fb987a87926fcd9a20c39beee8ac40d72da999499317d0e9cff20f21cf",
+      "attempts/incident-C3-remigration-availability/0001.json": "0a9944872fce3e92d7b78b64275308093bae8b406c370afb726420e3f8b52a78",
+      "executions/control-explicit-override-complete.json": "f93f08123547aafc7d30fecca7eda1f586adae05b8a1e177fe46f62f68769d64",
+      "executions/control-fixed-point-witness.json": "7a58834eabb35e7296808c1cae892a384c73e2ad73536f171573e4e61b243ddb",
+      "executions/control-identity-mode-visual.json": "3072bd2f3dde8dd9af204a3d03e214f8fd63263d36eb80b0cfe3ea42d7d2c81b",
+      "executions/control-missing-std-error.json": "15e5d5fda59c34f9fb90fa6aaa675eeb67b6e465199c6b1351acf65f8fc38d7b",
+      "executions/control-prefixed-keys-exact-lookup.json": "7df6e8ee45f24db1026b86b4317e98f702bcd158e6d1524fa2eee78e9da78555",
+      "executions/control-round-trip-cancels-wrong-stats.json": "3620f8d515a6ae4d352211c9a18dd5b265f1bca217707ce5a1840cbdb900a8a1",
+      "executions/control-suffix-match-ambiguous.json": "ea5399b355e82a024c0d18949868c9c16e470ffe7062aceaa819b23c29e47b98",
+      "executions/control-suffix-match-partial.json": "17d829b9eb0791555ff14ff35cf354bf9fedb646e00647f3656ea55af319ac0e",
+      "executions/incident-C0-action.json": "7868a49857cc55e1b572d23b296406034b3f122a9cef369cbc6ae63b16442097",
+      "executions/incident-C0-identity.json": "6a03524a8f25e38e24a1a9fbba2a0bb32a6e857771de06c0fd5a1f4e1edeb195",
+      "executions/incident-C0-state.json": "db5f789ac8003598e55b38656bc9d07821a0e9c79afd82f220aaf8a735b532b8",
+      "executions/incident-C1-action-original-order.json": "6702149678a939c1ebaf06ab3584bd00fc22f99060288c79464497a38513b929",
+      "executions/incident-C1-action-reordered.json": "9248b74415b990406fb5bcd2477e6d0ad47efb59b8ef02540a0fc09e38fbf046",
+      "executions/incident-C1-state.json": "e1dae31fbbf6f7784ed52b50d2968ce5366887371b9489800244865b4340a4c3",
+      "executions/incident-C2-action.json": "5e049663c904fa27975c7aaa3fd03dec0d9ef30ad93a808324f8c6a22239323a",
+      "executions/incident-C2-identity.json": "0c3317f66ae1d4e0fc973942812e4d4e06c14fa72ce856347eeee2e642a3cc96",
+      "executions/incident-C2-state.json": "d79d81de66c3b2f4375ab83ea6f07e1737e8102e7ee425a3b34f0ec50d0dfde2",
+      "executions/incident-C3-remigration-availability.json": "adbfa154a5426029f8fc7f1ddc0f3692c562328ed7282ee669fc15c958df9156",
+      "inputs/frozen-case.json": "78cbc5a3a6530b1388698fe93ef0c07c4a14587fdf10a33df569287c88124a23",
+      "inputs/source-index.json": "aa07f31d514b8bec2d0611cd50fc7ab096b1ca4a69cc15e0cf30df3b2a9241f6",
+      "invocation.json": "818b4fc6febf4a57e38b681a5f396e3bbdf67ce49c5a2533daf83af4e555a96f",
+      "seal.json": "54b8ca0b0cf79d3323a666a1f606c2795a148a2ac8557d0b91fae2654c981a0f",
+      "sources/external-report/issue-4415.json": "f272d4a92cc9e91168063a7b4f92153e2bd43c363e3a8cea59732db4d05daf93",
+      "sources/factory-source/factory.py": "d736f12a7dd54de3002e8bc2dc51f1b369e16d0de933889f642596a12f43a49c",
+      "sources/model-config/config.json": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "sources/normalize-source/normalize_processor.py": "f0cd88bec4c954a93ba1cc90300473b96eb177762789c1780cf07801fc1af9d6",
+      "sources/pipeline-source/pipeline.py": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "sources/policy-factory-source/processor_smolvla.py": "b28e31c7b97c564edc6ad1aabe451fb59931b406ff7a6ed1fdff9d1af365d7ec",
+      "sources/postprocessor-config/policy_postprocessor.json": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "sources/postprocessor-state/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "sources/preprocessor-config/policy_preprocessor.json": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "sources/preprocessor-state/policy_preprocessor_step_5_normalizer_processor.safetensors": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "summary.json": "581665e434017f4852ed0e15070050992b1a7bf1a11cd48a588f9fc48804a13d"
+    },
+    "source_unchanged": true,
+    "controls": [
+      {
+        "control": "sealed",
+        "removed_from_copy": [],
+        "expected": "verified_complete_store",
+        "observed": "verified_complete_store",
+        "completed_assignments": 18,
+        "summary_present": true,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-summary",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "verified_prefix",
+        "observed": "verified_prefix",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-manifest",
+        "removed_from_copy": [
+          "seal.json",
+          "artifact-manifest.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "before-seal",
+        "removed_from_copy": [
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "missing-summary",
+        "removed_from_copy": [
+          "summary.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      },
+      {
+        "control": "manifest-only",
+        "removed_from_copy": [
+          "summary.json",
+          "seal.json"
+        ],
+        "expected": "invalid",
+        "observed": "invalid",
+        "completed_assignments": 18,
+        "summary_present": false,
+        "read_only": true,
+        "passes": true
+      }
+    ],
+    "portable_cli": {
+      "returncode": 0,
+      "passes": true
+    },
+    "passes": true,
+    "wall_seconds": 0.30391520902048796,
+    "new_policy_calls": 0,
+    "new_simulator_runs": 0,
+    "new_upstream_executions": 0
+  },
+  "final_sealed_inspection_bytes_unchanged": true,
+  "final_source_inventory_equal": true
+}

@@ -1,0 +1,196 @@
+"""Check a pinned release prerequisite without installing or running policies."""
+
+import argparse
+import hashlib
+import io
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tarfile
+import time
+import tomllib
+import urllib.request
+from pathlib import Path, PurePosixPath
+
+REVISION = "0aae0757ca63895daf95dd60acfd3a562fd097a0"
+REPOSITORY = "wenxichen2746/DREAM-Chunk-Kinetix"
+MAX_BYTES = 32 * 1024 * 1024
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--artifacts", type=Path, required=True)
+    args = parser.parse_args()
+    root = args.artifacts.resolve()
+    tree_bytes = (root / "dream-tree.json").read_bytes()
+    tree = json.loads(tree_bytes)
+    commit = json.loads((root / "dream-commit.json").read_bytes())
+    assert commit["sha"] == REVISION
+    assert not tree["truncated"]
+    # Reconstruct tree identities; the API's top-level sha can echo the query.
+    directories = {"": commit["commit"]["tree"]["sha"]}
+    directories.update(
+        {item["path"]: item["sha"] for item in tree["tree"] if item["type"] == "tree"}
+    )
+    for directory, expected_hash in directories.items():
+        children = [
+            item
+            for item in tree["tree"]
+            if str(PurePosixPath(item["path"]).parent) == (directory or ".")
+        ]
+        children.sort(
+            key=lambda item: (
+                PurePosixPath(item["path"]).name + ("/" if item["type"] == "tree" else "")
+            ).encode()
+        )
+        payload = b"".join(
+            item["mode"].lstrip("0").encode()
+            + b" "
+            + PurePosixPath(item["path"]).name.encode()
+            + b"\0"
+            + bytes.fromhex(item["sha"])
+            for item in children
+        )
+        assert (
+            hashlib.sha1(b"tree " + str(len(payload)).encode() + b"\0" + payload).hexdigest()
+            == expected_hash
+        )
+    expected = {item["path"]: item for item in tree["tree"] if item["type"] == "blob"}
+    checkout = root / "pinned-release"
+    checkout.mkdir(exist_ok=False)
+    sources = []
+
+    def fetch(url, name):
+        started = time.time()
+        request = urllib.request.Request(url, headers={"User-Agent": "Nisayon-research"})
+        with urllib.request.urlopen(request, timeout=15) as response:
+            data = response.read(MAX_BYTES + 1)
+        assert len(data) <= MAX_BYTES
+        (root / name).write_bytes(data)
+        sources.append(
+            {
+                "url": url,
+                "path": name,
+                "sha256": hashlib.sha256(data).hexdigest(),
+                "bytes": len(data),
+                "started_unix": started,
+                "wall_seconds": time.time() - started,
+            }
+        )
+        return data
+
+    archive = fetch(
+        f"https://codeload.github.com/{REPOSITORY}/tar.gz/{REVISION}",
+        "dream-release.tar.gz",
+    )
+    observed = {}
+    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as tar:
+        members = tar.getmembers()
+        assert sum(member.size for member in members) <= MAX_BYTES
+        prefix = f"DREAM-Chunk-Kinetix-{REVISION}"
+        for member in members:
+            path = PurePosixPath(member.name)
+            assert path.parts[0] == prefix and ".." not in path.parts
+            if member.isdir():
+                continue
+            assert member.isfile()
+            relative = str(PurePosixPath(*path.parts[1:]))
+            assert relative in expected and relative not in observed
+            stream = tar.extractfile(member)
+            assert stream is not None
+            data = stream.read()
+            blob = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+            assert blob == expected[relative]["sha"]
+            target = checkout / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+            observed[relative] = {"sha256": hashlib.sha256(data).hexdigest(), "git_blob": blob}
+    assert set(observed) == set(expected)
+    source = tomllib.loads((checkout / "pyproject.toml").read_text())["tool"]["uv"]["sources"][
+        "kinetix"
+    ]
+    dependency_path = checkout / source["path"]
+    assert source == {"path": "third_party/kinetix", "editable": True}
+    assert not dependency_path.exists()
+    assert not any(item["mode"] == "160000" for item in tree["tree"])
+    uv = shutil.which("uv")
+    assert uv
+    command = [
+        uv,
+        "lock",
+        "--offline",
+        "--no-build",
+        "--no-python-downloads",
+        "--python",
+        sys.executable,
+        "--cache-dir",
+        str(root / "uv-cache"),
+    ]
+    environment = {key: value for key, value in os.environ.items() if not key.startswith("UV_")}
+    environment.pop("VIRTUAL_ENV", None)
+    started = time.time()
+    result = subprocess.run(
+        command, cwd=checkout, env=environment, capture_output=True, text=True, timeout=30
+    )
+    elapsed = time.time() - started
+    (root / "resolver.stdout.txt").write_text(result.stdout)
+    (root / "resolver.stderr.txt").write_text(result.stderr)
+    missing_path_supported = (
+        result.returncode != 0
+        and "third_party/kinetix" in result.stderr
+        and "No such file or directory" in result.stderr
+    )
+    metadata = {}
+    for endpoint in ("releases", "issues"):
+        suffix = "?state=all&per_page=100" if endpoint == "issues" else "?per_page=100"
+        metadata[endpoint] = json.loads(
+            fetch(
+                f"https://api.github.com/repos/{REPOSITORY}/{endpoint}{suffix}",
+                f"dream-{endpoint}-before.json",
+            )
+        )
+    report = {
+        "schema": "nisayon.release_readiness.v1",
+        "revision": REVISION,
+        "git_tree_sha256": hashlib.sha256(tree_bytes).hexdigest(),
+        "archive_files_verified": len(observed),
+        "files": observed,
+        "sources": sources,
+        "dependency": source,
+        "dependency_path_exists": dependency_path.exists(),
+        "uv_version": subprocess.check_output([uv, "--version"], text=True).strip(),
+        "python": sys.version,
+        "command": command,
+        "cwd": str(checkout),
+        "resolver_exit_code": result.returncode,
+        "resolver_wall_seconds": elapsed,
+        "missing_path_explanation_supported": missing_path_supported,
+        "github_release_count_first_page": len(metadata["releases"]),
+        "github_issue_count_first_page": len(metadata["issues"]),
+        "policy_executions": 0,
+        "limits": "Release prerequisite only; no policy, training, physics or installation qualification.",
+    }
+    (root / "release-readiness.json").write_text(json.dumps(report, indent=2) + "\n")
+    print(
+        json.dumps(
+            {
+                key: report[key]
+                for key in (
+                    "revision",
+                    "archive_files_verified",
+                    "resolver_exit_code",
+                    "missing_path_explanation_supported",
+                    "policy_executions",
+                )
+            },
+            indent=2,
+        )
+    )
+    if not missing_path_supported:
+        raise SystemExit("The declared missing-path explanation was not reproduced.")
+
+
+if __name__ == "__main__":
+    main()

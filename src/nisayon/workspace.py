@@ -98,13 +98,31 @@ def project_map(root: Path) -> dict:
             "sources": "docs/SOURCES.md",
             "voice": "docs/VOICE.md",
             "memory": "memory/INDEX.md",
-            "queue": "work/queue.json",
+            **({"queue": "work/queue.json"} if (root / "work/queue.json").is_file() else {}),
             "tools": "src/nisayon/",
             "tests": "tests/",
             "launchers": "scripts/",
         },
-        "implemented": ["workspace_tools", "shared_memory", "command_run_records", "session_hooks"],
-        "not_implemented": ["robot_adapter", "intervention_compiler", "repair_confirmation"],
+        "implemented": [
+            "workspace_tools",
+            "shared_memory",
+            "command_run_records",
+            "session_hooks",
+            "bounded_cpu_lift_adapter",
+            "finite_development_diagnostics",
+            "fresh_development_confirmation",
+            "temporal_software_harness",
+            "bounded_external_processor_checks",
+            "portable_lift_transfer_readback",
+            "bounded_offline_cause_and_decision_probes",
+        ],
+        "not_implemented": [
+            "general_intervention_compiler",
+            "adaptive_experiment_selector",
+            "general_robot_deployment_adapter",
+            "independently_isolated_reserved_screen",
+        ],
+        "evidence_scope": "Bounded development results; no comparative economic advantage established",
     }
 
 
@@ -173,5 +191,5 @@ def doctor(root: Path) -> dict:
         "mcp_sdk": importlib.metadata.version("mcp"),
         "clients": {name: shutil.which(name) for name in ("codex", "claude")},
         "launchers": {name: shutil.which(name) for name in ("nisayoncodes", "nisayonclaudes")},
-        "product_experiments": "not_yet_measured",
+        "product_experiments": "bounded_development_measured_no_efficiency_advantage",
     }

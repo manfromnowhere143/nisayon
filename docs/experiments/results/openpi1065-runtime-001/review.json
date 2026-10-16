@@ -1,0 +1,581 @@
+{
+  "schema": "nisayon.runtime-and-frontier-followthrough.v1",
+  "recorded_at_local_utc": "2026-10-11T12:45:58.552885+00:00",
+  "task": "N015",
+  "trigger": "Daniel requested continued autonomous work and a fundamental investigation of frontier-company problems while waiting for comments.",
+  "verdict": "Retain N020 deployment-change qualification as an unproven product hypothesis. The useful current work is source-recoverable inspection that can prevent an unsupported intervention. The OpenPI lock audit identifies a concrete compatibility lead, not the reporter root cause or a qualified customer value case.",
+  "reply_check": [
+    {
+      "thread": "openpi906",
+      "url": "https://github.com/Physical-Intelligence/openpi/issues/906",
+      "state": "open",
+      "comments": 5,
+      "api_comment_count": 5,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "openpi1060",
+      "url": "https://github.com/Physical-Intelligence/openpi/issues/1060",
+      "state": "open",
+      "comments": 4,
+      "api_comment_count": 4,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "groot785",
+      "url": "https://github.com/NVIDIA/Isaac-GR00T/issues/785",
+      "state": "open",
+      "comments": 2,
+      "api_comment_count": 2,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "roborecover2",
+      "url": "https://github.com/RUCKBReasoning/RoboRecover/issues/2",
+      "state": "open",
+      "comments": 0,
+      "api_comment_count": 0,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "openpi799",
+      "url": "https://github.com/Physical-Intelligence/openpi/issues/799",
+      "state": "open",
+      "comments": 5,
+      "api_comment_count": 5,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "lerobot4633",
+      "url": "https://github.com/huggingface/lerobot/issues/4633",
+      "state": "open",
+      "comments": 4,
+      "api_comment_count": 4,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "groot712",
+      "url": "https://github.com/NVIDIA/Isaac-GR00T/issues/712",
+      "state": "open",
+      "comments": 1,
+      "api_comment_count": 1,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "suresim1",
+      "url": "https://github.com/irom-princeton/rapid-policy-evaluation/issues/1",
+      "state": "open",
+      "comments": 0,
+      "api_comment_count": 0,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    },
+    {
+      "thread": "openpi1065",
+      "url": "https://github.com/Physical-Intelligence/openpi/issues/1065",
+      "state": "open",
+      "comments": 9,
+      "api_comment_count": 9,
+      "issue_body_unchanged": true,
+      "changed_comments": [],
+      "deleted_comments": []
+    }
+  ],
+  "reply_check_scope": "Nine issue bodies and full comment streams were unchanged at the 12:36 UTC local capture. Immediately before editing the existing OpenPI1065 comment, the issue remained open and its nine comments remained unchanged. No new comment or outreach target was added.",
+  "static_audit": {
+    "script": "docs/experiments/results/openpi1065-runtime-001/audit.py",
+    "result": "docs/experiments/results/openpi1065-runtime-001/result.json",
+    "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python docs/experiments/results/openpi1065-runtime-001/audit.py --captures artifacts/n015-runtime-followthrough-2026-10-11 --out docs/experiments/results/openpi1065-runtime-001/result.json",
+    "source_commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+    "source_binding": "Fetched upstream source, not the reporter revision. Package constraints and markers are inspected without a dependency installation or runtime import.",
+    "finding": "Under the inspected Linux x86_64 branch, the OpenPI lock selects CUDA runtime 12.6.77 and cuDNN 9.5.1.17. Torch 2.7.1 from the selected PyPI distribution requires that exact cuDNN version; JAX CUDA-plugin 0.5.3 permits it through a broader range. Linux aarch64 selects different versions.",
+    "vendor_context": "NVIDIA cuDNN 9.5.1 support matrix does not list compute capability 12.0. The inspected 9.7.1 and 9.8.0 matrices do list it in their CUDA12.8 rows. This is a documented-support gap for the inspected x86 stack, not proof that a particular observed crash has that cause.",
+    "rejected_action": "Do not upgrade only cuDNN while retaining the incompatible exact Torch dependency. Do not infer installed/loaded library identity from upstream main or jaxlib version alone.",
+    "alternate_build": "The official PyTorch index expose a Torch 2.7.1 CUDA 12.8 build, including a Python 3.11 manylinux_2_28 x86_64 wheel. Its separate metadata request returned 403, so no alternate dependency compatibility result is retained. No wheel was downloaded; no replacement environment is recommended or installed.",
+    "script_sha256": "55f17e300ab79b6c541f84588e1294e7c3207156fb0531d72f8cbbcc55c065b3",
+    "result_sha256": "c1b4c238aaed41a1cb472e7abeca9b197663c549fdd66843eb80d28ed463ffd5"
+  },
+  "public_update": {
+    "url": "https://github.com/Physical-Intelligence/openpi/issues/1065#issuecomment-6108983867",
+    "id": 6108983867,
+    "author": "manfromnowhere143",
+    "created_at_github": "2026-10-11T12:23:54Z",
+    "updated_at_github": "2026-10-11T12:43:41Z",
+    "body": "@zkailinzhang, one compatibility detail to correct before choosing an environment change: NVIDIA lists the RTX 5090 as compute capability 12.0 (`sm_120`); 10.0 (`sm_100`) is the B200/GB200 family. [NVIDIA's table](https://developer.nvidia.com/cuda/gpus) distinguishes them.\n\nThe 15:00 excerpt reports CUDA out-of-memory through NCCL. The 15:41 excerpt reaches `CUDNN_STATUS_EXECUTION_FAILED`, then reports illegal addresses during module cleanup. Keeping those attempts separate matters: the posted excerpts do not yet establish a particular cuDNN-version defect.\n\nIf this still blocks your training, could you share the following from the failing environment?\n\n- The OpenPI commit and launch command, including batch/FSDP settings and any XLA, NCCL or GPU-memory flags you changed between attempts.\n- The installed JAX, jaxlib, CUDA-plugin, cuDNN and NCCL package versions, plus the NVIDIA driver version and container image digest, if available. Existing package records are sufficient; please omit credentials and private paths.\n- Whether your immediate choice is to repair this environment or move the run to another software stack/device.\n\nI've only inspected the posted logs so far. Those records would let us check compatibility before recommending a reinstall or another full training run.\n\nUpdate after checking the dependency graph: [OpenPI's lock at `215abfb`](https://github.com/Physical-Intelligence/openpi/blob/215abfb217dbac7d5f1273282331b9b1866c0479/uv.lock#L1744) selects `nvidia-cudnn-cu12==9.5.1.17` and `nvidia-cuda-runtime-cu12==12.6.77` on Linux x86_64. [NVIDIA's 9.5.1 support matrix](https://docs.nvidia.com/deeplearning/cudnn/backend/v9.5.1/reference/support-matrix.html) does not list compute capability 12.0; [9.7.1's matrix](https://docs.nvidia.com/deeplearning/cudnn/backend/v9.7.1/reference/support-matrix.html) does, with CUDA 12.8.\n\nThere is also a dependency constraint: the pinned `torch==2.7.1` requires cuDNN 9.5.1.17 on this platform. Upgrading cuDNN alone would violate that requirement. If your environment follows this lock, we should resolve the JAX/PyTorch/CUDA stack together. This is a source-level compatibility lead; it does not establish which libraries your failed process loaded or demonstrate a repair.",
+    "body_sha256": "be9b71e00b7a2fe259c7aab2b906e0f2128b617e42ea5da52b4518a61f91b9bd",
+    "verification": "Exact author, id and complete body read back after PATCH. Original comment retained as prefix; appended a conditional source finding.",
+    "authorization": "Daniel's standing explicit targeted outreach and technical follow-through authorization from 11 October; reaffirmed autonomous direction.",
+    "prior_record": "docs/experiments/results/incident-selection-2026-10-11/n015-runtime-outreach.json"
+  },
+  "company_research": {
+    "scope": "Representative public primary material from four active robotics organizations, not an exhaustive ranking or private capability audit. Company performance statements remain author-reported.",
+    "review": "docs/FRONTIER_REVIEW_2026-10-10.md#what-the-frontier-implies-for-nisayon",
+    "sources": [
+      {
+        "organization": "Physical Intelligence",
+        "url": "https://arxiv.org/html/2604.23073v2",
+        "version": "arXiv 2604.23073v2, 30 April 2026",
+        "read_scope": "Method, complete system, experiments, conclusion and appendices; no figure-number reproduction. v1 abstract identified the later v2.",
+        "focus": "Precision adaptation through a small RL policy using VLA representations; human feedback and phase selection remain part of the reported system."
+      },
+      {
+        "organization": "Google DeepMind",
+        "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+        "date": "2026-07-30",
+        "read_scope": "Article body on whole-body control, progress tracking, on-device adaptation and safety evaluation; no plotted metric reproduction.",
+        "focus": "Transfer and coordination across embodiments and operating contexts, with reasoning, monitoring and intervention."
+      },
+      {
+        "organization": "Figure",
+        "url": "https://www.figure.ai/news/ramping-figure-03-production",
+        "date": "2026-04-29",
+        "read_scope": "Article body, especially robot operations; no fleet-level independent validation.",
+        "focus": "Fleet-scale diagnostics, recovery, service feedback and long-tail failures are already described as internal work."
+      },
+      {
+        "organization": "NVIDIA",
+        "url": "https://developer.nvidia.com/blog/simplify-generalist-robot-policy-evaluation-in-simulation-with-nvidia-isaac-lab-arena/",
+        "date": "2026-01-05",
+        "read_scope": "Authored overview, evaluation interfaces and integration workflow; no execution or speedup replication. Did not use the generated summary as independent evidence.",
+        "focus": "Reusable task composition, variation and scalable policy evaluation already have a substantial incumbent implementation."
+      }
+    ],
+    "availability_limits": "PI pi07 and RLT blog direct fetches returned403 through the web tool and429 through direct HTTP. Search-index excerpts supplied discovery only; the RLT substantive assessment uses the accessible versioned arXiv paper. No claim to a complete pi07 review. JAX issue queries returned8 and12 hits, including false-positive issue numbers; only titles and selected body excerpts were inspected, so no matched upstream bug or exhaustive absence is claimed.",
+    "decision": "The candidate opportunity is to make a specific change decision trustworthy at lower complete cost across existing stacks. That opportunity is an inference to test, not something these organizations have demonstrated they need to buy. Do not build a new planner, benchmark platform, learned reward model or online-RL system on this survey."
+  },
+  "captures": [
+    {
+      "name": "openpi906-issue",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/906",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi906-issue.json",
+      "sha256": "73935d9f1ba74674ce5d7cd1cadafc73280d201b97cdf5722319d1ebc8e1a5bd",
+      "bytes": 5571,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.429269+00:00",
+      "wall_seconds": 0.7236720829969272
+    },
+    {
+      "name": "openpi906-comments",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/906/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi906-comments.json",
+      "sha256": "6357656867194acdbd4e4a90c13d558002bcfa138f93b8019c5c1c34305f2c0f",
+      "bytes": 12667,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.419233+00:00",
+      "wall_seconds": 0.7134907919971738
+    },
+    {
+      "name": "openpi1060-issue",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1060",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1060-issue.json",
+      "sha256": "ea825f05cb632f9d1d093525bed35ca1aac5ac6eece2166ef073fbbc5e45cf15",
+      "bytes": 8216,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.404032+00:00",
+      "wall_seconds": 0.6981967919855379
+    },
+    {
+      "name": "openpi1060-comments",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1060/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1060-comments.json",
+      "sha256": "42a1b7933aa621bf56ead713cad8e7889fa1cdfb2882f79ae42be2c6ef8ea8cc",
+      "bytes": 11010,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.391413+00:00",
+      "wall_seconds": 0.6848656660004053
+    },
+    {
+      "name": "groot785-issue",
+      "url": "https://api.github.com/repos/NVIDIA/Isaac-GR00T/issues/785",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/groot785-issue.json",
+      "sha256": "c65f5392adb2ba9b09453bd0c0e489e893d6dac984b2a4bb925c78d3dbc7adb8",
+      "bytes": 4694,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.888059+00:00",
+      "wall_seconds": 0.49642304101143964
+    },
+    {
+      "name": "groot785-comments",
+      "url": "https://api.github.com/repos/NVIDIA/Isaac-GR00T/issues/785/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/groot785-comments.json",
+      "sha256": "2d75fb607e52ecbf8c4bdcaadd96354788046f897d22ace61a33d80b7b5d17cd",
+      "bytes": 6705,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.029443+00:00",
+      "wall_seconds": 0.6253744590212591
+    },
+    {
+      "name": "roborecover2-issue",
+      "url": "https://api.github.com/repos/RUCKBReasoning/RoboRecover/issues/2",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/roborecover2-issue.json",
+      "sha256": "16caf6965f9c961dee7479eef50fd5501d262626ce3583ec100aabf5471d8364",
+      "bytes": 9780,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.912377+00:00",
+      "wall_seconds": 0.49311958299949765
+    },
+    {
+      "name": "roborecover2-comments",
+      "url": "https://api.github.com/repos/RUCKBReasoning/RoboRecover/issues/2/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/roborecover2-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at_local_utc": "2026-10-11T12:36:02.816266+00:00",
+      "wall_seconds": 0.3869598750025034
+    },
+    {
+      "name": "openpi799-issue",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/799",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi799-issue.json",
+      "sha256": "2bf3babe3c10fef6cd9d77f0a89744b93c5292c572ec632aa4c2d7d1be605199",
+      "bytes": 5190,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.432438+00:00",
+      "wall_seconds": 0.6161419580166694
+    },
+    {
+      "name": "openpi799-comments",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/799/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi799-comments.json",
+      "sha256": "ba7f3c0a0c17779e73519f972355e6e35f60f1f28534a8ef606a8c7e0e073c67",
+      "bytes": 11093,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.441833+00:00",
+      "wall_seconds": 0.5537383749906439
+    },
+    {
+      "name": "lerobot4633-issue",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4633",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/lerobot4633-issue.json",
+      "sha256": "925339091a6a7a2b93d87861e252206f7fa394d61b492dedca61ee2394d50a05",
+      "bytes": 5949,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.471868+00:00",
+      "wall_seconds": 0.5594704579852987
+    },
+    {
+      "name": "lerobot4633-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4633/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/lerobot4633-comments.json",
+      "sha256": "f29f8a588157103b8adaab55a83df376d6548fd36226ad1e41d5c1e89438433d",
+      "bytes": 11543,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.517029+00:00",
+      "wall_seconds": 0.48752929200418293
+    },
+    {
+      "name": "groot712-issue",
+      "url": "https://api.github.com/repos/NVIDIA/Isaac-GR00T/issues/712",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/groot712-issue.json",
+      "sha256": "853dbd596e097dd3e4dc16b5e8c4b3f850ec1097e319fdb959589700b8d66f7b",
+      "bytes": 3747,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.991942+00:00",
+      "wall_seconds": 0.5594695830077399
+    },
+    {
+      "name": "groot712-comments",
+      "url": "https://api.github.com/repos/NVIDIA/Isaac-GR00T/issues/712/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/groot712-comments.json",
+      "sha256": "3b6f6d6de4c834e62267d0cd1b4bbfa91fa0de742685811540c14d5327b60389",
+      "bytes": 2841,
+      "retrieved_at_local_utc": "2026-10-11T12:36:04.112605+00:00",
+      "wall_seconds": 0.6707426669890992
+    },
+    {
+      "name": "suresim1-issue",
+      "url": "https://api.github.com/repos/irom-princeton/rapid-policy-evaluation/issues/1",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/suresim1-issue.json",
+      "sha256": "18e4a2a0acb1bc9bc71f999a795fe8bc4b3a04febb0eb1a82b2c54043555f7e7",
+      "bytes": 4531,
+      "retrieved_at_local_utc": "2026-10-11T12:36:04.116065+00:00",
+      "wall_seconds": 0.6441570830065757
+    },
+    {
+      "name": "suresim1-comments",
+      "url": "https://api.github.com/repos/irom-princeton/rapid-policy-evaluation/issues/1/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/suresim1-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at_local_utc": "2026-10-11T12:36:03.926220+00:00",
+      "wall_seconds": 0.40915566598414443
+    },
+    {
+      "name": "openpi1065-issue",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1065",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-issue.json",
+      "sha256": "40c2206e309480e5ab300a78ad5a9ed4800e3381199b14ab29e994a474019724",
+      "bytes": 6545,
+      "retrieved_at_local_utc": "2026-10-11T12:36:04.447599+00:00",
+      "wall_seconds": 0.5213459999940824
+    },
+    {
+      "name": "openpi1065-comments",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1065/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-comments.json",
+      "sha256": "af03375a215674646d92cc3d3932480774e6eb38f1da108e7a9a11c0e673ba5c",
+      "bytes": 40674,
+      "retrieved_at_local_utc": "2026-10-11T12:36:04.426692+00:00",
+      "wall_seconds": 0.43471000000135973
+    },
+    {
+      "name": "jax053-pypi",
+      "url": "https://pypi.org/pypi/jax/0.5.3/json",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/jax053-pypi.json",
+      "sha256": "858432d3d7ba3e8974aad6a48f2dd42e75db62351501ac6d409c6f085add3d1b",
+      "bytes": 25202,
+      "retrieved_at_local_utc": "2026-10-11T12:36:25.872601+00:00",
+      "wall_seconds": 0.4319139170111157
+    },
+    {
+      "name": "jaxlib053-pypi",
+      "url": "https://pypi.org/pypi/jaxlib/0.5.3/json",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/jaxlib053-pypi.json",
+      "sha256": "0b0b52e5a6311eace2dd4ad7bd033cca8996c2e2a5aa63a375f590b195ef1e75",
+      "bytes": 16391,
+      "retrieved_at_local_utc": "2026-10-11T12:36:25.849764+00:00",
+      "wall_seconds": 0.40899991602054797
+    },
+    {
+      "name": "cuda-plugin053-pypi",
+      "url": "https://pypi.org/pypi/jax-cuda12-plugin/0.5.3/json",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/cuda-plugin053-pypi.json",
+      "sha256": "3029921105d6424f729753b2a56ec966eaea8d7754582675d8760e7a8d32577e",
+      "bytes": 10780,
+      "retrieved_at_local_utc": "2026-10-11T12:36:25.853501+00:00",
+      "wall_seconds": 0.4126637919980567
+    },
+    {
+      "name": "openpi-pyproject",
+      "url": "https://raw.githubusercontent.com/Physical-Intelligence/openpi/215abfb217dbac7d5f1273282331b9b1866c0479/pyproject.toml",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi-pyproject.toml",
+      "sha256": "e1f457bd81622a47a4c4de17b92815977ac5fcd40116bec92398eb400bf76483",
+      "bytes": 3110,
+      "retrieved_at_local_utc": "2026-10-11T12:36:25.866381+00:00",
+      "wall_seconds": 0.4254915830097161
+    },
+    {
+      "name": "openpi-uv-lock",
+      "url": "https://raw.githubusercontent.com/Physical-Intelligence/openpi/215abfb217dbac7d5f1273282331b9b1866c0479/uv.lock",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi-uv-lock.toml",
+      "sha256": "793488b5a55bb87200db90a61fd0af51922b686d94e1da4f4c587ab119b37d74",
+      "bytes": 795910,
+      "retrieved_at_local_utc": "2026-10-11T12:36:26.206938+00:00",
+      "wall_seconds": 0.7659876669931691
+    },
+    {
+      "name": "jax5090-cudnn-search",
+      "query": "repo:jax-ml/jax \"5090\" \"cuDNN\"",
+      "url": "https://api.github.com/search/issues?q=repo%3Ajax-ml%2Fjax+%225090%22+%22cuDNN%22&per_page=20",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/jax5090-cudnn-search.json",
+      "sha256": "37d7c71d1b7490645dd0fb6367d7a305e8a5837fba4809df06b801c36a1558a2",
+      "bytes": 72358,
+      "retrieved_at_local_utc": "2026-10-11T12:36:45.310981+00:00",
+      "wall_seconds": 0.7177762920036912
+    },
+    {
+      "name": "jax-sm120-search",
+      "query": "repo:jax-ml/jax \"sm_120\"",
+      "url": "https://api.github.com/search/issues?q=repo%3Ajax-ml%2Fjax+%22sm_120%22&per_page=20",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/jax-sm120-search.json",
+      "sha256": "73c700ad8bb758e21d76487d1dc056661accc88a5cda912b88244457b67e67e4",
+      "bytes": 67805,
+      "retrieved_at_local_utc": "2026-10-11T12:36:45.329345+00:00",
+      "wall_seconds": 0.7358066250162665
+    },
+    {
+      "name": "cudnn951-matrix",
+      "url": "https://docs.nvidia.com/deeplearning/cudnn/backend/v9.5.1/reference/support-matrix.html",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/cudnn951-matrix.html",
+      "bytes": 34373,
+      "sha256": "964ba6b7a9766ce290ef9b82ce43218d9036a01524144953a94e0593e1fcc3ef",
+      "retrieved_at_local_utc": "2026-10-11T12:37:34.623507+00:00",
+      "wall_seconds": 0.8919201249955222
+    },
+    {
+      "name": "cudnn971-matrix",
+      "url": "https://docs.nvidia.com/deeplearning/cudnn/backend/v9.7.1/reference/support-matrix.html",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/cudnn971-matrix.html",
+      "bytes": 35123,
+      "sha256": "4545a7b33c267605b042dfb92b6267301cfe13d91a6a04246a4bbab98c9509e5",
+      "retrieved_at_local_utc": "2026-10-11T12:37:34.640820+00:00",
+      "wall_seconds": 0.9091225000156555
+    },
+    {
+      "name": "cudnn980-matrix",
+      "url": "https://docs.nvidia.com/deeplearning/cudnn/backend/v9.8.0/reference/support-matrix.html",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/cudnn980-matrix.html",
+      "bytes": 35371,
+      "sha256": "23342a0e51c73865ef63c4d29ed2def1f05a55b0b603dff5e46c36f9649bf6a2",
+      "retrieved_at_local_utc": "2026-10-11T12:37:34.643023+00:00",
+      "wall_seconds": 0.9111579169984907
+    },
+    {
+      "name": "openpi-readme",
+      "url": "https://raw.githubusercontent.com/Physical-Intelligence/openpi/215abfb217dbac7d5f1273282331b9b1866c0479/README.md",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi-readme.md",
+      "bytes": 23254,
+      "sha256": "567fc57766bd736664f50126cab8145af4071ca16cc5e238f2b11e369169c3b5",
+      "retrieved_at_local_utc": "2026-10-11T12:37:34.155816+00:00",
+      "wall_seconds": 0.4238929169951007
+    },
+    {
+      "name": "torch271-pypi",
+      "url": "https://pypi.org/pypi/torch/2.7.1/json",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/torch271-pypi.json",
+      "bytes": 55768,
+      "sha256": "3380d159a9c522f299a24cd09f325f304a9c0ea92fb8965b30be7392f935403c",
+      "retrieved_at_local_utc": "2026-10-11T12:39:50.956868+00:00",
+      "wall_seconds": 0.39169562500319444
+    },
+    {
+      "name": "figure-fleet",
+      "url": "https://www.figure.ai/news/ramping-figure-03-production",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/figure-fleet.html",
+      "bytes": 54942,
+      "sha256": "c053602d1f0535323e638e9921cbc55d7347dd18ed8c227cde243e1120c4a124",
+      "retrieved_at_local_utc": "2026-10-11T12:39:51.972270+00:00",
+      "wall_seconds": 1.4070190839993302
+    },
+    {
+      "name": "deepmind-robotics2",
+      "url": "https://deepmind.google/blog/gemini-robotics-2-brings-whole-body-intelligence-to-robots/",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/deepmind-robotics2.html",
+      "bytes": 180157,
+      "sha256": "0b231ab21e17e7e7455c65a5233f7dd8832d34effb0672571d6e98b73a372d22",
+      "retrieved_at_local_utc": "2026-10-11T12:39:51.543629+00:00",
+      "wall_seconds": 0.978307625016896
+    },
+    {
+      "name": "nvidia-arena",
+      "url": "https://developer.nvidia.com/blog/simplify-generalist-robot-policy-evaluation-in-simulation-with-nvidia-isaac-lab-arena/",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/nvidia-arena.html",
+      "bytes": 296823,
+      "sha256": "d92bfe827e84c917f7dbbe0be94eb2350a57201fab7938063ddcb2c9bbb59189",
+      "retrieved_at_local_utc": "2026-10-11T12:39:53.170415+00:00",
+      "wall_seconds": 2.6050444170250557
+    },
+    {
+      "name": "pi07-blog",
+      "url": "https://www.pi.website/blog/pi07",
+      "error": "HTTP Error 429: Too Many Requests",
+      "retrieved_at_local_utc": "2026-10-11T12:39:51.433676+00:00",
+      "wall_seconds": 0.47678220801753923
+    },
+    {
+      "name": "pi-rlt-blog",
+      "url": "https://www.pi.website/research/rlt",
+      "error": "HTTP Error 429: Too Many Requests",
+      "retrieved_at_local_utc": "2026-10-11T12:39:51.681620+00:00",
+      "wall_seconds": 0.24780079198535532
+    },
+    {
+      "name": "rlt-v2",
+      "url": "https://arxiv.org/html/2604.23073v2",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/rlt-v2.html",
+      "bytes": 234342,
+      "sha256": "71a3c6e482c692762d58d567ef84e83347faab648fa6995eda0258977aaf8f42",
+      "retrieved_at_local_utc": "2026-10-11T12:40:36.377322+00:00",
+      "wall_seconds": 0.6655221249966417
+    },
+    {
+      "name": "openpi1065-preupdate-comments",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1065/comments?per_page=100",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-preupdate-comments.json",
+      "bytes": 40674,
+      "sha256": "af03375a215674646d92cc3d3932480774e6eb38f1da108e7a9a11c0e673ba5c",
+      "retrieved_at_local_utc": "2026-10-11T12:42:18.685428+00:00",
+      "wall_seconds": 0.5924968750041444
+    },
+    {
+      "name": "openpi1065-preupdate-issue",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/1065",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-preupdate-issue.json",
+      "bytes": 6545,
+      "sha256": "40c2206e309480e5ab300a78ad5a9ed4800e3381199b14ab29e994a474019724",
+      "retrieved_at_local_utc": "2026-10-11T12:42:18.727276+00:00",
+      "wall_seconds": 0.63423304099706
+    },
+    {
+      "name": "preupdate-identity",
+      "url": "https://api.github.com/user",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/preupdate-identity.json",
+      "bytes": 1431,
+      "sha256": "252e342fac682b45791441522ad25f7236f3d63b2ba010de05153f66d671eeb7",
+      "retrieved_at_local_utc": "2026-10-11T12:42:18.613778+00:00",
+      "wall_seconds": 0.5209062089852523
+    },
+    {
+      "name": "openpi1065-update-response",
+      "method": "PATCH",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/comments/6108983867",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-update-response.json",
+      "bytes": 4019,
+      "sha256": "6da06c588c51a814372e3627d8039bcbad0e2345781ce385bd630c976ac7b7e1",
+      "completed_at_local_utc": "2026-10-11T12:42:28.453671+00:00",
+      "wall_seconds": 1.1069755829812493,
+      "returncode": 0
+    },
+    {
+      "name": "openpi1065-update-readback",
+      "url": "https://api.github.com/repos/Physical-Intelligence/openpi/issues/comments/6108983867",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/openpi1065-update-readback.json",
+      "bytes": 4062,
+      "sha256": "7b85559ed1a85d72639ebb026606dbe88f6de89c0c15054fa2ec007032491f2f",
+      "retrieved_at_local_utc": "2026-10-11T12:42:29.275421+00:00",
+      "wall_seconds": 0.8211262919940054
+    },
+    {
+      "name": "torch-cu128-index",
+      "url": "https://download.pytorch.org/whl/cu128/torch/",
+      "path": "artifacts/n015-runtime-followthrough-2026-10-11/torch-cu128-index.html",
+      "bytes": 89396,
+      "sha256": "f7d11d6813d38a2c31600d44d9c1db88bd0388991ca7592a760d7365a88d1f5a",
+      "retrieved_at_local_utc": "2026-10-11T12:44:21.119883+00:00",
+      "wall_seconds": 1.349655708996579
+    },
+    {
+      "name": "torch271-cu128-metadata",
+      "url": "https://download-r2.pytorch.org/whl/cu128/torch-2.7.1%2Bcu128-cp311-cp311-manylinux_2_28_x86_64.whl.metadata",
+      "error": "HTTP 403; no wheel metadata payload retrieved and no candidate compatibility check executed.",
+      "recorded_at_local_utc": "2026-10-11T12:45:58.544930+00:00",
+      "wall_seconds": null
+    }
+  ],
+  "cost_and_scope": {
+    "retained_payloads": 40,
+    "retained_payload_bytes": 2238596,
+    "failed_direct_fetches": 3,
+    "new_messages": 0,
+    "existing_comment_updates": 1,
+    "new_dependencies": 0,
+    "wheel_or_model_downloads": 0,
+    "gpu_or_robot_runs": 0,
+    "policy_or_training_runs": 0,
+    "cloud_resources": 0,
+    "production_code_changes": 0,
+    "cost_limit": "Some download sizes and request times and static audit wall time are retained. Full engineering, review and agent/provider costs are unmeasured; no efficiency gain follows. Local UTC and GitHub timestamps are different clock domains; do not subtract them for latency."
+  },
+  "next": "Read source-matched runtime records if the owner provides them. Compare their actual stack to the conditional lock finding before selecting an intervention. Keep the first value case tied to a live consequential decision; a public source finding by itself establishes neither saved customer work nor a repeat-use product.",
+  "validation": {
+    "source_hashes_and_sizes_verified": true,
+    "exact_comment_update_readback_verified": true,
+    "static_checks_passed": 4,
+    "initial_lint_failure": "I001 import ordering; fixed before final execution.",
+    "documentation_check": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check_docs.py",
+      "documents": 157,
+      "errors": [],
+      "exit_code": 0
+    },
+    "lint": "ruff check passed",
+    "format": "ruff format --check passed",
+    "diff_check": "git diff --check passed",
+    "startup_handoff_characters": 5995,
+    "startup_handoff_returned_in_full": true,
+    "test_scope": "One static dependency inspection with four controls, source and communication readback, and documentation. No production tests, learned-policy experiments or hardware tests."
+  }
+}

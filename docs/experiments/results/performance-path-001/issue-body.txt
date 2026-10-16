@@ -1,0 +1,22 @@
+I'm trying to reproduce one Kinetix comparison with the released evaluator before considering any extensions.
+
+At commit `0aae0757ca63895daf95dd60acfd3a562fd097a0`, `pyproject.toml` declares:
+
+```toml
+[tool.uv.sources]
+kinetix = { path = "third_party/kinetix", editable = true }
+```
+
+The pinned archive and Git tree contain neither that directory nor `.gitmodules`. In a separate copy, with uv 0.11.28 and Python 3.12.13 on macOS arm64, this prerequisite check:
+
+```sh
+uv lock --offline --no-build --no-python-downloads --python /path/to/python --cache-dir /path/to/separate-cache
+```
+
+exits 2 with `error: Distribution not found at: file:///…/third_party/kinetix`. No dependencies were installed, and no policies or training were run. This only checks the missing local source; I have not qualified the remaining environment or results.
+
+Could you point to the intended Kinetix repository and revision, including any local modifications?
+
+Also, is a minimal frozen evaluation bundle available for one level: the flow-policy and RSSM checkpoints, matching configuration, and an expected native baseline result? The README describes generating and training them. An existing bundle would let me check the evaluator without introducing a different training run.
+
+Thank you for releasing the implementation.

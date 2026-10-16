@@ -292,5 +292,4 @@ execution lane's 186,994). Zero simulator executions, zero learned-inference cal
 weights, no hardware, no reserved access. Elapsed wall clock is recorded in the lane
 record and is not active effort. Engineering effort, provider charges and energy unknown.
 
-Interface requirements were recorded in `work/lanes/fable5.md`, a private lane
-record excluded from this snapshot. See the [evaluator overview](../../README.md).
+Interface requirements (private historical lane record) · [Evaluator overview](../../README.md)

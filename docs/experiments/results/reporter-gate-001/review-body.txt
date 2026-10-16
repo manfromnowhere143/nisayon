@@ -1,0 +1,120 @@
+@stealthg0dd I checked the published `arisole-eval==0.1.2` wheel behind this example. There is a missing-label case worth resolving before using its default exit code as a CI gate.
+
+With 30 shared seeds but only one fully labeled pair, `evaluate` retains 29 `INCOMPARABLE` pairs. `gate` still uses `summary.paired_episodes == 30` for the evidence threshold and regression denominator. The result is `REVIEW`, exit **0**, despite the default minimum of 20 comparable episodes. This is not an overall `PASS`; the missing trajectory metric produces `REVIEW`, which does not fail CI by default.
+
+The reproduction below uses constructed metadata, with no robot or policy execution. Run it in an environment containing the published 0.1.2 package:
+
+```python
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from tempfile import TemporaryDirectory
+
+env = {**os.environ, "ARISOLE_TELEMETRY": "0"}
+with TemporaryDirectory() as temporary:
+    root = Path(temporary)
+    for arm in ("baseline", "candidate"):
+        run = root / arm
+        run.mkdir()
+        (run / "eval_info.json").write_text(json.dumps({
+            "per_episode": [
+                {"episode_ix": i, "seed": 100 + i,
+                 "success": True if i == 0 else None}
+                for i in range(30)
+            ],
+            "aggregated": {"n_episodes": 30},
+        }))
+        (run / "run_meta.json").write_text(json.dumps({
+            "task": "constructed-label-coverage-control",
+            "environment": "software-fixture", "embodiment": "none",
+        }))
+    prefix = [sys.executable, "-m", "arisole_eval"]
+    subprocess.run(prefix + ["evaluate", "--baseline", str(root / "baseline"),
+        "--candidate", str(root / "candidate"), "--out", str(root / "comparison.json")],
+        check=True, env=env, capture_output=True)
+    process = subprocess.run(prefix + ["gate", str(root / "comparison.json"),
+        "--out-json", str(root / "gate.json"), "--out-md", str(root / "gate.md")],
+        env=env, capture_output=True)
+    comparison = json.loads((root / "comparison.json").read_text())
+    gate = json.loads((root / "gate.json").read_text())["gate"]
+    print(comparison["summary"])
+    print(gate["outcome"], process.returncode)
+```
+
+Counting only fully labeled transitions for the gate, while retaining every row in the comparison, changes this to `INSUFFICIENT_DATA`, exit **2**. Missing labels also need an explicit insufficient-data reason when enough other labels exist: 6 regressions among 30 observed pairs and 30 unknown pairs should report **6/30**, not **6/60**. That fraction describes observed pairs; missingness still prevents affirmative acceptance.
+
+I froze 12 CLI controls before execution. The release passes four; the small correction below passes all 12. Complete-data controls retain their outcomes, and comparison rows and metrics remain unchanged. Both variants pass 20 original sdist tests. The other three fail because the archive lacks `.arisole/reliability.yml` and `.arisole/reliability.ci-smoke.yml`; I have not counted those as qualified.
+
+This finding concerns the external package, not LeRobot's evaluator. The proposed correction follows; it is bounded to the default paired-label gate and does not validate seed identity or establish policy reliability.
+
+```diff
+--- a/arisole_eval/gate.py
++++ b/arisole_eval/gate.py
+@@ -139,8 +139,35 @@
+             )
+         return _finalize(reasons, cfg, result)
+ 
+-    paired = int(summary.get("paired_episodes") or 0)
+-    p2f = int(summary.get("pass_to_fail") or 0)
++    matched = int(summary.get("paired_episodes") or 0)
++    # Seed matching does not establish that either outcome was observed.
++    # Keep all matched rows in the comparison, but only labelled transitions
++    # can contribute to evidence thresholds and observed regression rates.
++    observed_transitions = {
++        "PASS_TO_PASS", "PASS_TO_FAIL", "FAIL_TO_PASS", "FAIL_TO_FAIL"
++    }
++    labelled = [
++        pair for pair in result.get("episodes", [])
++        if pair.get("transition") in observed_transitions
++    ]
++    paired = len(labelled)
++    missing = max(matched - paired, 0)
++    p2f = sum(pair["transition"] == "PASS_TO_FAIL" for pair in labelled)
++
++    if cfg.require_task_success_labels and missing:
++        reasons.append(
++            {
++                "rule": "require_paired_success_labels",
++                "outcome": "INSUFFICIENT_DATA",
++                "message": (
++                    f"{missing} of {matched} seed-matched pairs lack an observed outcome; "
++                    "retain them as unknown, not as observed non-regressions."
++                ),
++                "observed": paired,
++                "matched": matched,
++                "missing": missing,
++            }
++        )
+ 
+     if cfg.require_task_success_labels:
+         baseline_metric = metrics.get("task_success_rate_baseline") or {}
+@@ -160,7 +187,7 @@
+                 "rule": "min_comparable_episodes",
+                 "outcome": "INSUFFICIENT_DATA",
+                 "message": (
+-                    f"paired_episodes={paired} < min_comparable_episodes={cfg.min_comparable_episodes}; "
++                    f"labelled_paired_episodes={paired} < min_comparable_episodes={cfg.min_comparable_episodes}; "
+                     "statistically weak comparison cannot produce PASS/BLOCK."
+                 ),
+                 "observed": paired,
+@@ -174,7 +201,7 @@
+         {
+             "rule": "pass_to_fail_rate",
+             "outcome": "PASS",
+-            "message": f"pass_to_fail_rate={p2f_rate:.3f} over {paired} paired episodes",
++            "message": f"pass_to_fail_rate={p2f_rate:.3f} over {paired} labelled paired episodes",
+             "observed": p2f_rate,
+         }
+     )
+@@ -194,7 +221,7 @@
+                 "rule": "min_episodes_for_strong_claim",
+                 "outcome": "REVIEW",
+                 "message": (
+-                    f"pass_to_fail_rate is low but paired_episodes={paired} "
++                    f"pass_to_fail_rate is low but labelled_paired_episodes={paired} "
+                     f"< min_episodes_for_strong_claim={cfg.min_episodes_for_strong_claim}"
+                 ),
+                 "observed": paired,
+```

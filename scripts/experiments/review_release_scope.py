@@ -36,7 +36,12 @@ PRIVATE_PREFIXES = (
     "docs/prompts/",
     "docs/SESSION_HANDOFF_THROUGH_",
 )
-PRIVATE_FILES = {".mcp.json", "docs/SESSION_HANDOFF.md", "docs/ENVIRONMENT.md"}
+PRIVATE_FILES = {
+    ".mcp.json",
+    "docs/SESSION_HANDOFF.md",
+    "docs/ENVIRONMENT.md",
+    "work/queue.json",
+}
 FORBIDDEN_PAYLOAD_SUFFIXES = {
     ".pth",
     ".pt",

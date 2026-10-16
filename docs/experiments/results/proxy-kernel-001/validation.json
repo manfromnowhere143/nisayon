@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "rows_reduced_independently": 6000,
+  "intervals_reduced_independently": 18000,
+  "declared_boundary_controls_passed": 10,
+  "replay": [
+    {
+      "model": "informative_biased",
+      "n": 60,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    },
+    {
+      "model": "informative_biased",
+      "n": 120,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    },
+    {
+      "model": "uninformative",
+      "n": 60,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    },
+    {
+      "model": "uninformative",
+      "n": 120,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    },
+    {
+      "model": "anticorrelated",
+      "n": 60,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    },
+    {
+      "model": "anticorrelated",
+      "n": 120,
+      "replicate": 0,
+      "all_three_intervals_exact": true
+    }
+  ],
+  "mutated_source_rejected_before_execution": true,
+  "independent_binomial_tail_absolute_error": 4.571898415406395e-13,
+  "readback_wall_seconds": 1.1507587910164148,
+  "failed_development_checks": [
+    {
+      "check": "initial Ruff lint",
+      "cause": "unused sys import",
+      "corrected_before_execution": true
+    }
+  ],
+  "scientific_probe_attempts": 1,
+  "limits": "Exact replay is software verification of exposed statistical trials, not fresh scientific confirmation.",
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "docs/experiments/results/proxy-kernel-001/probe.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.046670750016346574,
+      "output_path": "artifacts/proxy-followthrough-2026-10-11/validation-1.txt",
+      "output_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "docs/experiments/results/proxy-kernel-001/probe.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.010036791005404666,
+      "output_path": "artifacts/proxy-followthrough-2026-10-11/validation-2.txt",
+      "output_sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_docs.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.8087245839997195,
+      "output_path": "artifacts/proxy-followthrough-2026-10-11/validation-3.txt",
+      "output_sha256": "ac92b9875c575e8c2e6c0f7bd35f6ef2ca224d26f4040e5141c2091575ca8817"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.034809458011295646,
+      "output_path": "artifacts/proxy-followthrough-2026-10-11/validation-4.txt",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        ".venv/bin/nisayon",
+        "start",
+        "--json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.19347091700183228,
+      "output_path": "artifacts/proxy-followthrough-2026-10-11/validation-5.txt",
+      "output_sha256": "136166950fdfd5392069d978bb8acd317afe5a8f03d054c4f2b61f5fcb3ca58f"
+    }
+  ],
+  "full_handoff_returned": 5866,
+  "source_receipts_verified": 15,
+  "source_spec_and_result_hashes": "verified"
+}

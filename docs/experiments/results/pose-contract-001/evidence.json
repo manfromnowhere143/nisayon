@@ -1,0 +1,216 @@
+{
+  "schema": "nisayon.pose-contract.evidence.v1",
+  "recorded_at": "2026-10-12T16:25:02.032364+00:00",
+  "verdict": "supported_bounded_helper_correction",
+  "source_repository": "https://github.com/XPolicyLab/XPolicyLab",
+  "source_revision": "f6e309e8ece20bfa33c0e5d7b05a5f3287522757",
+  "protocol_sha256": "71090df025829a8a505281793346a59e9d8a076508e2da260bce2d06a953bacc",
+  "decision_sha256": "ae9ee223d5543882bf30fb4403b33378b85cb0ca1e3272edb1e66bdc7785d526",
+  "executed_probe_sha256": "0d703579e717ea490e569a89582ecdeb42d47a42b452077b88a15ee850e86b29",
+  "baseline": {
+    "passed": 9,
+    "failed": 13,
+    "valid_cartesian_rejected": 9,
+    "malformed_cartesian_accepted": 4,
+    "joint_controls_passed": 6,
+    "seven_joint_cartesian_controls_passed": 3,
+    "executed_controls": 22
+  },
+  "candidate": {
+    "passed": 22,
+    "failed": 0,
+    "joint_output_hashes_unchanged": 6,
+    "executed_controls": 22
+  },
+  "scope": "Normally imported unchanged/one-module-patched XPolicyLab helpers, unmodified native pose validator, constructed CPU arrays; no policy or physics execution.",
+  "oracle": "Published seven-value schema, unchanged native debug validator, direct expected nonzero coordinates and order, pack/unpack equality. Shared source lineage; not an independent audit or fresh held-out confirmation.",
+  "source_and_array_inputs_preserved": true,
+  "environment": {
+    "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+    "platform": "macOS-14.4-arm64-arm-64bit",
+    "packages": {
+      "opencv-python-headless": "4.11.0.86",
+      "numpy": "1.26.4",
+      "PyYAML": "6.0.3",
+      "h5py": "3.15.1"
+    },
+    "new_isolated_environment": true,
+    "same_environment_both_variants": true,
+    "requirements_lock_sha256": "e5648704cf2a37224921f66d35751a79244c8e44def473e4a33ac5e1e1e92c72"
+  },
+  "setup_invalid": {
+    "count": 1,
+    "run_id": "e3b8ceffb179445f837502616aa2df32",
+    "executed_cases": 0,
+    "reason": "Selected source download omitted tcp/model_server.py, needed by an unchanged native import. Unchanged file fetched from the same revision; case protocol was not altered.",
+    "retained_pre_failure_probe": "probe-at-import-failure.py.txt",
+    "pre_failure_probe_sha256": "2dc5c3e077624bda463032b588d8bbe7cdf951853776ba518b553a0c75094185",
+    "supplement": "import-supplement.json"
+  },
+  "public_reproduction": {
+    "original_expected_failure": true,
+    "candidate_passed": true,
+    "sha256": "883d7ec28fb2ba403a3ef97e4dd3ba1f179e942868d70349b552aaf87478932d"
+  },
+  "commands": [
+    {
+      "id": "2e34f3134c7a4448a9a4c6c5933c5bc9",
+      "label": "pose-contract-lock",
+      "command": [
+        "uv",
+        "pip",
+        "compile",
+        "docs/experiments/results/pose-contract-001/requirements.in",
+        "--python",
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "--generate-hashes",
+        "--output-file",
+        "docs/experiments/results/pose-contract-001/requirements.lock"
+      ],
+      "started_at": "2026-10-12T16:10:48.687004+00:00",
+      "ended_at": "2026-10-12T16:10:49.901304+00:00",
+      "returncode": 0,
+      "wall_seconds": 1.044014,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "c3c852dbdf214b039e1e62b6af6bbc16",
+      "label": "pose-contract-install",
+      "command": [
+        "uv",
+        "pip",
+        "sync",
+        "--python",
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "--require-hashes",
+        "--link-mode",
+        "copy",
+        "docs/experiments/results/pose-contract-001/requirements.lock"
+      ],
+      "started_at": "2026-10-12T16:10:49.958866+00:00",
+      "ended_at": "2026-10-12T16:10:53.844144+00:00",
+      "returncode": 0,
+      "wall_seconds": 3.815002,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "e3b8ceffb179445f837502616aa2df32",
+      "label": "pose-contract-baseline",
+      "command": [
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_pose_contract.py",
+        "--source",
+        "artifacts/frontier-advantage-2026-10-12/xpolicylab",
+        "--protocol",
+        "docs/experiments/results/pose-contract-001/protocol.json",
+        "--variant",
+        "baseline",
+        "--out",
+        "artifacts/frontier-advantage-2026-10-12/pose-baseline"
+      ],
+      "started_at": "2026-10-12T16:12:37.468021+00:00",
+      "ended_at": "2026-10-12T16:13:02.439844+00:00",
+      "returncode": 1,
+      "wall_seconds": 24.898304,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "df6bb01f29fd43bcaed79aaf06b60bff",
+      "label": "pose-contract-baseline-native",
+      "command": [
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_pose_contract.py",
+        "--source",
+        "artifacts/frontier-advantage-2026-10-12/xpolicylab",
+        "--protocol",
+        "docs/experiments/results/pose-contract-001/protocol.json",
+        "--import-supplement",
+        "docs/experiments/results/pose-contract-001/import-supplement.json",
+        "--variant",
+        "baseline",
+        "--out",
+        "artifacts/frontier-advantage-2026-10-12/pose-baseline-valid"
+      ],
+      "started_at": "2026-10-12T16:14:04.351887+00:00",
+      "ended_at": "2026-10-12T16:14:04.971580+00:00",
+      "returncode": 1,
+      "wall_seconds": 0.546819,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "d5f1d93fe16445e5a21cd16dac61ac96",
+      "label": "pose-contract-candidate-native",
+      "command": [
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "-B",
+        "scripts/experiments/probe_pose_contract.py",
+        "--source",
+        "artifacts/frontier-advantage-2026-10-12/xpolicylab-candidate",
+        "--protocol",
+        "docs/experiments/results/pose-contract-001/protocol.json",
+        "--import-supplement",
+        "docs/experiments/results/pose-contract-001/import-supplement.json",
+        "--variant",
+        "candidate",
+        "--out",
+        "artifacts/frontier-advantage-2026-10-12/pose-candidate"
+      ],
+      "started_at": "2026-10-12T16:14:38.040079+00:00",
+      "ended_at": "2026-10-12T16:14:38.890412+00:00",
+      "returncode": 0,
+      "wall_seconds": 0.766373,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "4d7012ac664e4bd7ba8f6d141b52ad97",
+      "label": "pose-public-repro-baseline",
+      "command": [
+        "/usr/bin/env",
+        "PYTHONPATH=/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab",
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "-B",
+        "docs/experiments/results/pose-contract-001/reproduce.py"
+      ],
+      "started_at": "2026-10-12T16:18:06.549149+00:00",
+      "ended_at": "2026-10-12T16:18:07.461853+00:00",
+      "returncode": 1,
+      "wall_seconds": 0.719253,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    },
+    {
+      "id": "6924a4d72dd74964b8ac7cad7c21066e",
+      "label": "pose-public-repro-candidate",
+      "command": [
+        "/usr/bin/env",
+        "PYTHONPATH=/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab-candidate",
+        "artifacts/frontier-advantage-2026-10-12/venv/bin/python",
+        "-B",
+        "docs/experiments/results/pose-contract-001/reproduce.py"
+      ],
+      "started_at": "2026-10-12T16:18:06.549141+00:00",
+      "ended_at": "2026-10-12T16:18:07.521809+00:00",
+      "returncode": 0,
+      "wall_seconds": 0.779204,
+      "cost_boundary": "wall time for this command; human time and external costs unmeasured"
+    }
+  ],
+  "sum_recorded_command_seconds": 32.568969,
+  "cost_limits": "Includes the failed import and both compact reproduction runs. Some executions overlap; sum is command-seconds, not elapsed engineering time. Source acquisition, environment creation, source inspection, research, human/agent labor, review, adoption and maintenance are not completely measured. No matched cost comparison.",
+  "engineering_allocation": "One incident, four-hour maximum; first retained intake at 16:03 UTC, protocol frozen at 16:10 UTC. No model, training, GPU, hardware or reserved evaluation.",
+  "patch": "cartesian-width.patch",
+  "patch_identity": "patch-identity.json",
+  "delivery": {
+    "url": "https://github.com/XPolicyLab/XPolicyLab/issues/167",
+    "receipt": "issue.json",
+    "maintainer_adoption": "unknown"
+  },
+  "limits": [
+    "Exposed source-derived controls, not a blinded diagnostic comparison.",
+    "Existing native validator already expresses the correct width; ordinary source inspection or an appropriate native audit can find the mismatch.",
+    "Full upstream adapter audit, debug rollout and learned-policy stack not executed.",
+    "Separate single-arm joint-key discrepancy and other action-dimension callers remain unallocated.",
+    "No general checker, novel metamorphic-testing method, customer commitment, robot improvement or economic advantage established."
+  ]
+}

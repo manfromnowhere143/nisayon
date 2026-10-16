@@ -1,0 +1,37 @@
+{
+  "schema": "nisayon.cost-publication-protocol.v1",
+  "created_at": "2026-10-14T10:56:35.159877+00:00",
+  "task": "N036",
+  "decision": "Ship the already-corrected public evaluator cost defect before expanding the experiment stack.",
+  "authorization": "Standing Daniel authorization for implementation and reviewed GitHub publication; continued mission instruction on 14 October 2026.",
+  "public_parent": "cd07dd55becff097bd1eabcf627f909db9f7ae30",
+  "private_source": "934f554e508c20976338b0b34eeef72fb8a1c94c",
+  "source_files": [
+    "src/nisayon/evaluation/costs.py",
+    "src/nisayon/evaluation/decision.py",
+    "tests/evaluation/test_evaluation_costs.py"
+  ],
+  "probe_source": "docs/experiments/results/cost-retention-001/probe.py",
+  "probe_sha256": "a0c094be157c49880b7a3fcabbfd109d4430690468f00dd319bcdf4ac10c0f1b",
+  "experiment": "Run the identical retained 15-control probe and existing exposed D05 readback on public parent, then the minimal copied correction. Preserve both orders, input bytes, unchanged D05 outcomes, partial/invalid statuses and all failures.",
+  "acceptance": [
+    "15/15 identical exposed controls in both orders",
+    "unchanged D05 known costs and run measurements",
+    "same constructed interruption restores the measured prefix while keeping unknown costs explicit",
+    "21 portable cost regressions pass",
+    "full required checks from an independent clone containing only public history and a fresh frozen base environment",
+    "review exact outgoing paths, hashes, authorship and sole public parent; no private history or reserved payloads",
+    "push one public-main descendant; verify remote bytes, unchanged v0.1.0 tag, Linux/macOS CI"
+  ],
+  "failure_rule": "Do not publish a candidate with unexplained test failures, altered control inputs or acceptance predicates, missing provenance, private ancestry or unreviewed files. Preserve failures and correct genuine portability issues before publication.",
+  "scope": "CPU software accounting and public packaging only. No new robot or simulator execution, scientific acceptance rule, dependency, compute purchase or comparative-value claim.",
+  "amendments": [
+    {
+      "at": "2026-10-14T11:05:45.515562+00:00",
+      "trigger": "Export review: render_text omitted new cost status/reasons and printed invalid totals as None. The first clean-clone check passed, but did not cover that presentation obligation.",
+      "change": "Expose declared cost status, invalid reasons and unavailable/unit-unresolved labels in default text output. Preserve legacy reports without inventing a status. Extend the three existing evaluator integration controls and add one historical-record compatibility check.",
+      "unchanged": "Accounting algorithm, all 15 original probe inputs/expected totals, task acceptance and historical outcomes.",
+      "validation": "Retain the first successful clean-clone check, run extended cost tests, then repeat required clean-clone checks on the new source; inspect actual CLI output."
+    }
+  ]
+}

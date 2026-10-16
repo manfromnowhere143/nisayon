@@ -1,0 +1,50 @@
+At `f6e309e8ece20bfa33c0e5d7b05a5f3287522757`, the shared Cartesian helpers disagree with the documented pose schema.
+
+The [README](https://github.com/XPolicyLab/XPolicyLab/blob/f6e309e8ece20bfa33c0e5d7b05a5f3287522757/README.md#L344) specifies `[x, y, z, qw, qx, qy, qz]`, and `validate_robot_state_dict` accepts seven-value `ee_pose` fields. But `_validate_config` passes joint counts into both `pack_robot_state` and `unpack_robot_state`, including when `action_type="ee"`.
+
+With `arm_dim=[6]` and `ee_dim=[1]`, a valid seven-value pose is rejected: `expected 6, got 7`. Conversely, a malformed six-value pose passes both helpers. A helper-only round trip therefore misses the schema disagreement. Seven-joint arms conceal it because the two widths happen to match.
+
+I checked 22 declared controls through the normally imported source: 12 valid Cartesian cases across single/dual/mixed joint counts and vector/chunk/dataset layouts, six joint-space controls, and four malformed-pose cases. Original: **9 pass, 13 fail**. The correction below: **22 pass**. All six joint-space packed outputs remain byte-identical; the native validator is unchanged.
+
+A minimal correction in `_validate_config`, after validating the robot dimensions and before its return:
+
+```python
+# Cartesian poses use [x, y, z, qw, qx, qy, qz], independent of joint DOF.
+if action_type == "ee":
+    arm_dims = [7] * len(arm_dims)
+```
+
+This changes the local pose-field widths without changing the robot configuration or the joint-space branch.
+
+**Reproduction:** save the following as `reproduce.py` and run `PYTHONPATH=. python reproduce.py` from that checkout. It fails on the original helper and passes with the correction. Environment: Python 3.12.13, NumPy 1.26.4, OpenCV headless 4.11.0.86, h5py 3.15.1, PyYAML 6.0.3.
+
+```python
+"""Run from a pinned XPolicyLab checkout with PYTHONPATH=. python reproduce.py."""
+
+import numpy as np
+from XPolicyLab.utils.debug_env_client import validate_robot_state_dict
+from XPolicyLab.utils.process_data import pack_robot_state, unpack_robot_state
+
+dims = {"arm_dim": [6], "ee_dim": [1]}
+valid = {
+    "ee_pose": np.array([0.2, 0.3, 0.4, 1, 0, 0, 0], dtype=np.float32),
+    "ee_joint_state": np.array([0.25], dtype=np.float32),
+}
+validate_robot_state_dict(valid, dims)  # The existing schema accepts seven values.
+packed = pack_robot_state({"state": valid}, "ee", dims)
+assert packed.shape == (8,)
+restored = unpack_robot_state(packed, "ee", dims)
+for key in valid:
+    np.testing.assert_array_equal(restored[key], valid[key])
+
+bad = {**valid, "ee_pose": valid["ee_pose"][:6]}
+try:
+    pack_robot_state({"state": bad}, "ee", dims)
+except ValueError:
+    pass
+else:
+    raise AssertionError("Malformed six-value pose was accepted")
+print("Seven-value pose preserved; six-value pose rejected.")
+```
+
+Scope: CPU conversion and validation of constructed arrays. This does not establish an effect on a learned policy or a physical robot, and it does not qualify the rest of the adapter stack.

@@ -170,8 +170,10 @@ def _rate(numerator: int, denominator: int) -> float | None:
 def clopper_pearson(successes: int, trials: int, alpha: float = 0.05) -> tuple[float, float] | None:
     """Exact binomial interval by bisection on the binomial tails; None when ``trials`` is 0.
 
-    It treats the trials as exchangeable, which repeated seeds and incident families
-    violate; the report says so beside every interval.
+    Coverage assumes a fixed sample size and independent Bernoulli trials with a
+    common success probability. Exchangeability alone is insufficient. These
+    premises are not established for repeated seeds or clustered incidents; the
+    report labels the intervals nominal and does not grant population coverage.
     """
     if trials <= 0 or not 0 <= successes <= trials:
         return None
@@ -1001,8 +1003,11 @@ def score_prospective(
             "truth, and the terminal evaluator and simulator are common to both arms.",
             "Unknown truth is not false truth: F/N is the observed contradicted rate, and the "
             "upper bound counts every unadjudicated claim as wrong.",
-            "Exact binomial intervals treat cases as exchangeable; repeated seeds and incident "
-            "families violate that, and overlapping intervals do not establish equivalence.",
+            "Nominal exact binomial intervals assume a fixed sample size and independent "
+            "Bernoulli trials with a common success probability. Exchangeability alone is "
+            "insufficient; these premises are not established for repeated seeds or clustered "
+            "incidents. No population coverage or validity under optional stopping is established, "
+            "and overlapping intervals do not establish equivalence.",
             "An arm that never accepts has zero contradicted claims by construction; read C/N "
             "and D/N with F/N.",
             "Cost per correct includes the cost of every assigned trial, including failures and "
@@ -1912,7 +1917,8 @@ def render_prospective(report: dict) -> str:
                 f"{arm['v1_confirmed']}/{arm['v1_false_acceptances']}"
             )
         lines.append(
-            "Rates (undefined where the denominator is zero; intervals are exact binomial, exchangeability assumed):"
+            "Rates (undefined at zero denominator; nominal exact binomial intervals assume "
+            "fixed-n independent Bernoulli trials with a common rate; premises not established):"
         )
         for arm_id, arm in report["arms"].items():
             rates = arm["rates"]

@@ -58,6 +58,41 @@ the `records` extra. Its installed CLI can inspect a relocated raw B2 packet
 outside Git. Use a separate environment for that recipe; do not synchronize
 either retained experiment environment. It does not execute a policy or simulator.
 
+### Inspect a retained processor packet
+
+The installed base package can read an existing bounded processor store without
+a Nisayon workspace or the numeric/robot dependencies used to produce it:
+
+```sh
+nisayon external-decision inspect /absolute/path/to/processor-store
+```
+
+This checks the existing processor-case format; it is not an importer for any
+checkpoint or robot log. `verified_complete_store` requires all assignments and
+a verified summary, manifest and seal. An unsealed valid prefix remains
+`verified_prefix`, even with all assignment records present. Partial finalization
+is invalid. Neither integrity state grants scientific acceptance.
+
+Inspection never executes or retries assignments. Exit 0 means inspection
+succeeded and can include an incomplete prefix; consumers must read `integrity`
+and the scoped summary. Invalid stores return 1; invocation/output errors return
+2. Optional `--out` must be outside the raw store and refuses an existing file.
+`external-decision run` still requires a Nisayon workspace and its execution
+dependencies.
+
+The [N020 probe](experiments/results/n020-system-review-2026-10-11/readback.json)
+retains the original failure and corrected readback. In the execution worktree,
+repeat its software controls against copies of the existing exposed store:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B scripts/experiments/probe_processor_readback.py \
+  --store artifacts/external-decision-001/workflows/nisayon-b-v1 \
+  --out artifacts/processor-readback-reproduction
+```
+
+Choose a new output directory. The probe preserves every input file and blocks
+numeric/robot execution imports during its CLI check outside Git.
+
 `uv run python scripts/install_local.py` installs four symlinks in
 `~/.local/bin`: `nisayon`, `nisayon-mcp`, `nisayoncodes`, and `nisayonclaudes`.
 It adds scoped project trust for both clients, local approval for Nisayon's MCP

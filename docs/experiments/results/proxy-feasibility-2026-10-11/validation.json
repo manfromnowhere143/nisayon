@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "commands": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "docs/experiments/results/proxy-feasibility-2026-10-11/audit.py",
+        "--sources",
+        "artifacts/confirmation-frontier-2026-10-11"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.04343299998436123,
+      "result_sha256": "741fe3d5ae572caf994beb84a62590e0f8884e6e451ea5416ddcaf637a149a7e"
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "docs/experiments/results/proxy-feasibility-2026-10-11/audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.05718112498288974,
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/validation-1.txt",
+      "output_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "docs/experiments/results/proxy-feasibility-2026-10-11/audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.009892292000586167,
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/validation-2.txt",
+      "output_sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_docs.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.124589709012071,
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/validation-3.txt",
+      "output_sha256": "b6e101b0c50c8bf49d07e23712d2886b69f6029837925793b4250dc13d49d27a"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.024390790989855304,
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/validation-4.txt",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "audit.py on temporary copies with one appended TSV newline",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "wall_seconds": 0.03295541598345153,
+      "result": "rejected changed bytes before producing an analysis",
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/mutated-input-rejection.txt"
+    },
+    {
+      "command": [
+        ".venv/bin/nisayon",
+        "start",
+        "--json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.17151341697899625,
+      "output_path": "artifacts/confirmation-frontier-2026-10-11/startup-final.json",
+      "output_sha256": "45ed3b6de66e0a5af4b00802cd203e7d119bf5dc04276f44a047851ad2c490b8"
+    }
+  ],
+  "failed_attempts": [
+    {
+      "operation": "ruff format --check audit.py before formatting",
+      "reason": "one long line required wrapping",
+      "corrected": true,
+      "individual_wall_seconds": null
+    },
+    {
+      "operation": "handoff completeness assertion after first edit",
+      "reason": "6467 characters exceeded startup 6000-character limit",
+      "corrected": true,
+      "final_characters": 5874,
+      "individual_wall_seconds": null
+    }
+  ],
+  "readback_assertions": "630 rows, 126 objects, three named unknown scores, score sum, table absence, bias arithmetic and cost threshold match",
+  "remaining_checks": [],
+  "source_and_outreach_integrity": "36 captures and all three posted/edited body readbacks match retained hashes and identity",
+  "handoff_complete": true,
+  "handoff_characters": 5874,
+  "final_diff_review": "Scoped tracked diff reviewed; new report, script, source and outreach records checked. Production code unchanged."
+}

@@ -1,0 +1,15 @@
+@stealthg0dd Verified the published **0.1.3 wheel** in a fresh Python 3.12.13 environment, with the same dependency versions used for 0.1.2. The bounded correction behaves as expected.
+
+All **12 retained CLI controls pass**, and the new matched/comparable/incomparable counts agree with the input labels in every case. In particular:
+
+- 30 matches, one labelled pair and 29 unknown pairs: `INSUFFICIENT_DATA`, exit **2**.
+- Six observed regressions among 30 labelled pairs, plus 30 unknown pairs: the reported fraction is **6/30**, with `INSUFFICIENT_DATA`/2 under defaults.
+- The complete-data regression control still returns `BLOCK`/1. These are reused software controls, not independent confirmation.
+
+I also checked `clean-c0-h264-s0` against `clean-c0-h264-s1` from your public LeBoard bundle, using dataset revision `f25f8a7603fcca023d16694dd01b9cb8280741b8` and verifying its four source-file hashes. Direct counts from the Boolean outcomes are **219/500 (43.8%)** and **214/500 (42.8%)**. Both 0.1.2 and 0.1.3 reproduce those counts, retain an unpaired comparison with zero paired transitions, and return `INSUFFICIENT_DATA`/2 under defaults. This checks existing records; it does not rerun the policies or validate uncertainty calibration.
+
+One release-reproduction limitation remains: running the original 0.1.3 sdist tests against the installed wheel gives **29 passed, 3 failed**. The same three tests as in 0.1.2 require `.arisole/reliability.yml` or `.arisole/reliability.ci-smoke.yml` outside the archive. All nine new label-coverage tests pass. Including those configurations and locating them within the test fixtures would make the full suite reproducible from the sdist.
+
+Wheel SHA-256: `188a794498eeeabbad78f876cdf16b8bed0d4eef5e97a27d59f17af41bb31317`.
+
+Thank you for reproducing the finding and shipping the correction.

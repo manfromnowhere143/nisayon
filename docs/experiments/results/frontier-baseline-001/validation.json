@@ -1,0 +1,87 @@
+{
+  "created_at": "2026-10-14T07:48:15.825819+00:00",
+  "native_tests": {
+    "tests": 44,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "first_attempt": {
+    "passed": 28,
+    "skipped_modules": 2,
+    "reason": "msgpack missing; DEVICE key ignored by upstream device selector."
+  },
+  "package_delta": {
+    "added": [
+      [
+        "msgpack",
+        "1.2.2"
+      ]
+    ],
+    "removed": []
+  },
+  "source_unchanged": true,
+  "test_hashes_unchanged": true,
+  "native_run_ids": [
+    "3dae5d0f9b7c40fd8f80e86c1e9da1ce",
+    "43c9d63b3ddf41149fc9b46bf739e049"
+  ],
+  "scope": "Selected exposed native CPU fixtures, not robot performance or complete cost; no Nisayon or upstream production-code change.",
+  "repository_checks": [
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "567 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_docs.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"documents\": 205,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "archive_file_readback": {
+    "checked_regular_files": 1233,
+    "mismatches": [],
+    "verified_at": "2026-10-14T07:48:46.913572+00:00"
+  },
+  "initial_document_check": {
+    "documents": 205,
+    "mermaid_blocks": 5,
+    "exit_code": 1,
+    "errors": [
+      "README linked manifest.json before the manifest was written. Completed manifest before the successful rerun."
+    ]
+  },
+  "handoff_characters": 5827,
+  "startup_handoff_complete": true
+}

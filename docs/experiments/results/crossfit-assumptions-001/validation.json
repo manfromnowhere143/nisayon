@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "initial_attempts": [
+    {
+      "check": "ruff check audit.py",
+      "exit_code": 0
+    },
+    {
+      "check": "ruff format --check audit.py",
+      "exit_code": 1,
+      "result": "Six formatting hunks; formatting corrected without syntax-tree changes. Original source retained."
+    },
+    {
+      "check": "exact enumeration, initial source",
+      "exit_code": 0,
+      "source": {
+        "path": "artifacts/n015-resume-2026-10-11/audit-initial.py",
+        "bytes": 5525,
+        "sha256": "70b7f4612d49a03330575a183a84ad1d62d89e27d81204eb44f140c5aa3d1788"
+      },
+      "result": {
+        "path": "artifacts/n015-resume-2026-10-11/crossfit-audit.json",
+        "bytes": 9432,
+        "sha256": "a784e8d88a8bc5a0b7fd1bc51e23ad0169d19c92914249f927548c7d2f0663bd"
+      }
+    },
+    {
+      "check": "exact enumeration, formatted readback",
+      "exit_code": 0,
+      "result": {
+        "path": "artifacts/n015-resume-2026-10-11/crossfit-formatted-readback.json",
+        "bytes": 9421,
+        "sha256": "16deae02eb70783eabad441854cb82b771b7096347751ac25bec38a901951ab4"
+      },
+      "limits": "Identical cases and symbolic results; repetition is a format-only readback, not new evidence."
+    }
+  ],
+  "independent_algebra_check": {
+    "independent_check": "binomial multiplicities and closed-form parity algebra; no imports from audit.py",
+    "all_exact_moments_match": true,
+    "conditional_groups_checked": 16,
+    "initial_and_formatted_syntax_trees_equal": true,
+    "initial_and_formatted_results_equal": true,
+    "conditional_mean_mismatch_groups": 15,
+    "conditional_variance_mismatch_groups": 15,
+    "moments": {
+      "mean": "1/2",
+      "variance": "21/64",
+      "mean_formula_10_rhs": "9/64",
+      "mean_formula_12_plugin_variance": "5/64"
+    },
+    "initial_wall_seconds": 0.04637862500385381,
+    "formatted_readback_wall_seconds": 0.04739424999570474
+  },
+  "scope": "No production changes; focused rational-arithmetic, source integrity, formatting, documentation and continuity checks. Full production test suite not rerun.",
+  "final_checks": [
+    {
+      "name": "lint",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "docs/experiments/results/crossfit-assumptions-001/audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.06420991601771675,
+      "log": "artifacts/n015-resume-2026-10-11/validation-lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "docs/experiments/results/crossfit-assumptions-001/audit.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.051051124988589436,
+      "log": "artifacts/n015-resume-2026-10-11/validation-format.txt",
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "name": "documents",
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_docs.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 5.16003837500466,
+      "log": "artifacts/n015-resume-2026-10-11/validation-documents.txt",
+      "sha256": "ac92b9875c575e8c2e6c0f7bd35f6ef2ca224d26f4040e5141c2091575ca8817"
+    },
+    {
+      "name": "diff",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.021855083003174514,
+      "log": "artifacts/n015-resume-2026-10-11/validation-diff.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "startup",
+      "command": [
+        ".venv/bin/nisayon",
+        "start",
+        "--json"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.2600150410144124,
+      "log": "artifacts/n015-resume-2026-10-11/validation-startup.txt",
+      "sha256": "a99f186eb7a9f6c0333ee5f9f69ef07d9f7ee959d7fed312c81ec331b7ec7df0"
+    }
+  ],
+  "documentation_summary": {
+    "documents": 157,
+    "mermaid_blocks": 5,
+    "errors": [],
+    "scope": "local file links and code fences; Mermaid rendering is separate"
+  },
+  "full_startup_handoff_characters": 5860,
+  "source_captures_verified": 24,
+  "result_script_hash_verified": true
+}

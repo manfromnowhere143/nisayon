@@ -1,0 +1,13 @@
+--- a/utils/process_data.py
++++ b/utils/process_data.py
+@@ -51,6 +51,10 @@
+ 
+     if any(d <= 0 for d in arm_dims) or any(d <= 0 for d in ee_dims):
+         raise ValueError("All dimensions in 'arm_dim' and 'ee_dim' must be positive.")
++
++    # Cartesian poses use [x, y, z, qw, qx, qy, qz], independent of joint DOF.
++    if action_type == "ee":
++        arm_dims = [7] * len(arm_dims)
+ 
+     return list(arm_dims), list(ee_dims), len(arm_dims)
+ 

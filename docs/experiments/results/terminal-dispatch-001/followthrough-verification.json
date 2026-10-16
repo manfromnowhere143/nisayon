@@ -1,0 +1,143 @@
+{
+  "recorded_at": "2026-10-13T18:07:08.208942+00:00",
+  "base": "21fe3d3b7d913c80836496817965932f49e0aedf",
+  "original_protocol_sha256": "4bc2036ad94ed449f07bd7ee3cda888b486895ff2164fa7ae47d0b47c07884c8",
+  "extension_sha256": "85f6a4324beae2a0b42d94a28896f824b3f4086b74a8f3e3159da4c0603d10d9",
+  "unchanged_outside_loop": {
+    "train_pi_robo.py": true,
+    "train_pi_robo_async.py": true
+  },
+  "source_files": {
+    "train_pi_robo.py": "5fc6ffa36343d872662ec61df48367bd5b9904bd3a09adee016ac638322f9542",
+    "train_pi_robo_async.py": "00dae1d76430cf7bb470a9b87089c0f535cd1f53486d9c1e92e16b44accd59a2",
+    "tests/terminal_dispatch_fixture.py": "2e8dcac8f7f0e99ad2d1fa30dad84cb0d0752c2acb7330632f478869c0cbb998",
+    "tests/test_terminal_dispatch.py": "6d7cd5c587c00ab20227294958ae191ee93db46fe3972abde93b171f3d1e99ff",
+    "expo_ft/utils/loop_utils.py": "e8406c305784a80c1c4c0119c199270458885cdabafb08c5be855669486948db",
+    "expo_ft/utils/log_utils.py": "ebcf2206360c31ef80fd83f65cb8be095d4a95a63412f641ae37ab1aad591469",
+    "expo_ft/utils/timer.py": "793ef9480569f597e460198780372f9deb7d46358efd7bf0138d17c58716bc23"
+  },
+  "runs": [
+    {
+      "id": "3ce3ffbcaa204b2c84c3351e46e0bff3",
+      "label": "terminal-dispatch-candidate",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "docs/experiments/results/terminal-dispatch-001/reproduce.py",
+        "--source",
+        "artifacts/terminal-dispatch-followthrough-001/upstream",
+        "--out",
+        "artifacts/terminal-dispatch-followthrough-001/candidate.json",
+        "--baseline",
+        "docs/experiments/results/terminal-dispatch-001/original.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.430691
+    },
+    {
+      "id": "fcd3ffddf5db4d058d1d78067d5d6ef9",
+      "label": "terminal-dispatch-native-sampler",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "docs/experiments/results/terminal-dispatch-001/native_sampler_probe.py",
+        "--source",
+        "artifacts/terminal-dispatch-followthrough-001/upstream",
+        "--out",
+        "artifacts/terminal-dispatch-followthrough-001/native-sampler.json"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.367852
+    },
+    {
+      "id": "eb766a9502914d56b9ff7e6ef20bbc03",
+      "label": "terminal-dispatch-reward-mutation",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "docs/experiments/results/terminal-dispatch-001/reproduce.py",
+        "--source",
+        "artifacts/terminal-dispatch-followthrough-001/drop-terminal-reward",
+        "--out",
+        "artifacts/terminal-dispatch-followthrough-001/reward-mutation.json",
+        "--baseline",
+        "docs/experiments/results/terminal-dispatch-001/original.json"
+      ],
+      "returncode": 1,
+      "wall_seconds": 0.433481
+    },
+    {
+      "id": "117c9f8c02164c60ab8c07713531b46c",
+      "label": "terminal-dispatch-public-tests-base",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/terminal-dispatch-followthrough-001/upstream/tests/test_terminal_dispatch.py",
+        "--source",
+        "artifacts/realtime-transition-2026-10-12/source",
+        "-v"
+      ],
+      "returncode": 1,
+      "wall_seconds": 0.542246
+    },
+    {
+      "id": "12f767f69add408eb66dd3eb6bfffbb7",
+      "label": "terminal-dispatch-public-tests-candidate",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "artifacts/terminal-dispatch-followthrough-001/upstream/tests/test_terminal_dispatch.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.542142
+    }
+  ],
+  "new_recorded_command_seconds": 2.316412,
+  "results": {
+    "original_frozen": {
+      "passed": 8,
+      "total": 16
+    },
+    "candidate_frozen": {
+      "passed": 16,
+      "total": 16,
+      "unchanged_continuing_observables": 8
+    },
+    "native_sampler": {
+      "passed": 8,
+      "total": 8
+    },
+    "rejected_reward_mutation": {
+      "passed": 12,
+      "failed": 4,
+      "only_failure": "terminal_return_preserved"
+    },
+    "public_same_fixture_base": {
+      "passed": 8,
+      "failed": 16,
+      "errors": 0,
+      "skips": 0
+    },
+    "public_same_fixture_candidate": {
+      "passed": 24,
+      "failed": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  },
+  "limits": "Exposed constructed CPU controls, native sampler threads with explicit agent/JAX/environment doubles. No full-module initialization, learner-update concurrency, timing/physical safety, model or robot performance, external reproduction, adoption or complete-cost advantage.",
+  "reader_and_preflight_notes": [
+    "One exploratory rg used expo_ft/envs rather than the actual client/envs path; corrected without executing a case.",
+    "Web reader could not open RAPolicy project; direct retrieval succeeded.",
+    "Initial local probe import sorting lint stopped the chained candidate command before execution; fixed before the first candidate run.",
+    "Public fixture import sorting corrected before its first run. No invalid scientific runs occurred.",
+    "First proposed handoff exceeded the 6000-character bound and was rejected before writing; the shortened handoff was then written and read back exactly."
+  ],
+  "original_packet_unchanged": true,
+  "execution_environment_unchanged": true,
+  "environment_sha256": "a86f868208011a63f939dc945b25b8182457bce9c5b36d02dd77327bb6e1ef97",
+  "handoff_full_readback_characters": 5983,
+  "native_sampler_cleanup_already_passes_original": true,
+  "original_native_case_failures": "All eight fail only original_obligations_pass: the loop-level terminal contract. Native sampler cleanup checks pass unchanged."
+}

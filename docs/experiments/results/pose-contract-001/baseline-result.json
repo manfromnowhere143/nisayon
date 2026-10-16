@@ -1,0 +1,594 @@
+{
+  "schema": "nisayon.pose-contract.probe.v1",
+  "started_at": "2026-10-12T16:14:04.863878+00:00",
+  "variant": "baseline",
+  "source_revision": "f6e309e8ece20bfa33c0e5d7b05a5f3287522757",
+  "source_sha256": {
+    "model_template.py": "4f8d1eeb8073aa7ae6093abf0f395cd5fef70ff4a4bd1fa6b2d83b356a90754a",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "setup_policy_server.py": "de2f4a0d53f17bab7ee653ef8ceace207a0a963930097023d6186197fcf673cb",
+    "pyproject.toml": "d6034472711926f9375e66a7e3827bc866f5f0f787ac570fc6631ec167168ab3",
+    "README.md": "870dc9bc3abc08c0408aec9b2c316e542c781c4facb3915403f785dd7eb4505b",
+    "CONTRIBUTING.md": "9665ec1af775244f028885b1d35d36878bfbae285c301a1c694bcc0ae6d64239",
+    "XPolicyLab.py": "a3909558697b73479f8baee03e15b4d74060a7c9ac2f31fcbc6cd659e7364862",
+    "client_server/__init__.py": "4717f99f5db6d3e0496032f1678005efc829d071037db6433bc9dac7f5ae680e",
+    "utils/debug_env_client.py": "005dab63b8bdc2e2cf0562cbb749326086769796552c1b1d1c2054cedf612805",
+    "utils/process_data.py": "e044e627eb2677907e9227eda8458c857208913bd484c5e922b53025010eef0b",
+    "utils/load_file.py": "488590d76084f419a36c2fb3e658eeb240ae554678899e9f2ce0cc10da5c4b57",
+    "client_server/tcp/model_client.py": "1a6d01729ff85c5bf3a6a4a8ad871e2d200d2bcb9d0ddec6f37761e6ca54832c",
+    "client_server/tcp/__init__.py": "4e9d378daad5b7b16d35aee5cec44ad6bfb536f0c6d38584cfadc0a599170ef7",
+    "client_server/tcp/utils.py": "944b347cc222c2f698ad6535b7faf006b259c0b24ddc130c9aed462862efc2ff",
+    "client_server/ws/model_server.py": "4988823b436cd05e6a4d8b13012cc30c7ffd57711b72497b1223a6b10dc0c043",
+    "client_server/ws/model_client.py": "4d6e225ae5f577d862366350dca8742e91dd9527d6e76b8b2a6d48c991212d67",
+    "client_server/ws/__init__.py": "79905987a12ebf318dc0b2b9ec6f375d9b4561bac29d6c27d04e318d8f6e00b3",
+    "client_server/ws/__main__.py": "ee1c5807dcdf1c8f6721c5447463eb51babdb0f9ffbd91d1e7343834ca4aa19a",
+    "client_server/ws/protocol/client.py": "b309f58b1bddd99e56578026b61a15e6cfdc07e843e8a082bfd291d0e853ce5a",
+    "client_server/ws/protocol/keepalive.py": "7f6b9e636eefcd6c80a4b62e404a6f89e2f7e1a3b6008500312a972d6990a21d",
+    "client_server/ws/protocol/__init__.py": "19aeae375e94e58d437d789d0aff07b232c13f375235384d784984631d25d5d9",
+    "client_server/ws/protocol/schemas.py": "f1ca82eafa8dcad6d968508adb51c25342b291f7b1c553fff305c381a6098bd0",
+    "client_server/ws/protocol/messages.py": "d05c8cbc20e0cbe1502551864907f25897035993f920748c9290c944c959eab7",
+    "client_server/ws/protocol/exceptions.py": "73161f4cdcc7ffc8a87cec94f5459bfcb9113076be272d6cb2a3ff8d69e0c6ce",
+    "client_server/ws/protocol/codec.py": "8a97ef7e102fd954c266352d81eaceef0f1b0f5504571c03037683efe387865a",
+    ".agents/skills/xpolicylab-adapter-check/SKILL.md": "5c00dff58806d4f069f48fc2cfb9be955fad817e23dd9ab8b47a8db40ce65110",
+    "client_server/tcp/model_server.py": "0b2e91a377c88cbf28e4d56f7ad9c490be1bdf562d20bde5a42a44c1252376b7"
+  },
+  "protocol_sha256": "71090df025829a8a505281793346a59e9d8a076508e2da260bce2d06a953bacc",
+  "import_supplement_sha256": "303e991fff34c8dc57752646f27b4de86a6b9c3269eaf04fcda692cf4fba6e8c",
+  "script_sha256": "0d703579e717ea490e569a89582ecdeb42d47a42b452077b88a15ee850e86b29",
+  "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "packages": {
+    "opencv-python-headless": "4.11.0.86",
+    "numpy": "1.26.4",
+    "PyYAML": "6.0.3",
+    "h5py": "3.15.1"
+  },
+  "scope": "Native CPU conversion/validation functions and constructed arrays; no policy run",
+  "cases": [
+    {
+      "id": "single6-ee-obs-vector",
+      "layout": {
+        "id": "single6",
+        "arm_dim": [
+          6
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        8
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single6-ee-obs-chunk",
+      "layout": {
+        "id": "single6",
+        "arm_dim": [
+          6
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        8
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single6-ee-dataset-prefix",
+      "layout": {
+        "id": "single6",
+        "arm_dim": [
+          6
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        8
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'ee_poses' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'ee_poses' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-ee-obs-vector",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        16
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-ee-obs-chunk",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        16
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-ee-dataset-prefix",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        16
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_poses' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_poses' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-ee-obs-vector",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        17
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-ee-obs-chunk",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        17
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_pose' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-ee-dataset-prefix",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        17
+      ],
+      "native_oracle_accepts": true,
+      "passed": false,
+      "error": "ValueError: State field 'left_ee_poses' last dim mismatch: expected 6, got 7.",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 139, in run_case\n    packed = process_data.pack_robot_state(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 154, in pack_robot_state\n    arm_value = _ensure_valid_state_array(arm_key, state_dict[arm_key], arm_dim)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/danielwahnich/workspace/nisayon-codex/artifacts/frontier-advantage-2026-10-12/xpolicylab/utils/process_data.py\", line 112, in _ensure_valid_state_array\n    raise ValueError(\nValueError: State field 'left_ee_poses' last dim mismatch: expected 6, got 7.\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single7-ee-obs-vector",
+      "layout": {
+        "id": "single7",
+        "arm_dim": [
+          7
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        8
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "ebd9c48881f4d41650da1192325dfe81cc751055b1916a19072e9ce3fd551c4d",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single7-ee-obs-chunk",
+      "layout": {
+        "id": "single7",
+        "arm_dim": [
+          7
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        8
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "08d54fd2649c6b11d62a83827eab1be039185899096f5e1112202a8e7e3d0ca3",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single7-ee-dataset-prefix",
+      "layout": {
+        "id": "single7",
+        "arm_dim": [
+          7
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        8
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "7de92245ddd55b99d5fb77228532792d58ca8f94065359fb6b2336d83b7862d7",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-joint-obs-vector",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "obs-vector",
+      "expected_shape": [
+        14
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "0319e5b0ea5871e20945435e486662863c70addace7f8b7bacab967cec7f44db",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-joint-obs-chunk",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        14
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "9968f6e2c9e2cc5c42b676e6548417807b91e4cb6a264dac36040d197b5e6958",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-joint-dataset-prefix",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        14
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "304877794fa8fc06e9a1854d24875f2be2e2daa0067cf18fadbef2fd5511fcc3",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-joint-obs-vector",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "obs-vector",
+      "expected_shape": [
+        16
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "7789529bec4191ced2ef84b1bf60b253fe479923ccbcee2a2587415e55ed0e27",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-joint-obs-chunk",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "obs-chunk",
+      "expected_shape": [
+        3,
+        16
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "3c0bce38bf98dabc19d50cfd0c398c0df25fea33c7f3ed3d51985897eafaae38",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "mixed67-joint-dataset-prefix",
+      "layout": {
+        "id": "mixed67",
+        "arm_dim": [
+          6,
+          7
+        ],
+        "ee_dim": [
+          2,
+          1
+        ]
+      },
+      "mode": "joint",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        16
+      ],
+      "native_oracle_accepts": true,
+      "packed_sha256": "49063a4fc9535d6cec79e8d822b8fa247658771a25cb6abe6ee3b2f8cc459e99",
+      "passed": true,
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single6-ee-obs-vector-malformed",
+      "layout": {
+        "id": "single6",
+        "arm_dim": [
+          6
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        7
+      ],
+      "native_oracle_accepts": false,
+      "malformed_pack_unpack_rejected": [
+        false,
+        false
+      ],
+      "passed": false,
+      "error": "AssertionError: helper accepted a pose rejected by native schema validator",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 137, in run_case\n    assert all(rejected), \"helper accepted a pose rejected by native schema validator\"\n           ^^^^^^^^^^^^^\nAssertionError: helper accepted a pose rejected by native schema validator\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "single6-ee-dataset-prefix-malformed",
+      "layout": {
+        "id": "single6",
+        "arm_dim": [
+          6
+        ],
+        "ee_dim": [
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        7
+      ],
+      "native_oracle_accepts": false,
+      "malformed_pack_unpack_rejected": [
+        false,
+        false
+      ],
+      "passed": false,
+      "error": "AssertionError: helper accepted a pose rejected by native schema validator",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 137, in run_case\n    assert all(rejected), \"helper accepted a pose rejected by native schema validator\"\n           ^^^^^^^^^^^^^\nAssertionError: helper accepted a pose rejected by native schema validator\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-ee-obs-vector-malformed",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "obs-vector",
+      "expected_shape": [
+        14
+      ],
+      "native_oracle_accepts": false,
+      "malformed_pack_unpack_rejected": [
+        false,
+        false
+      ],
+      "passed": false,
+      "error": "AssertionError: helper accepted a pose rejected by native schema validator",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 137, in run_case\n    assert all(rejected), \"helper accepted a pose rejected by native schema validator\"\n           ^^^^^^^^^^^^^\nAssertionError: helper accepted a pose rejected by native schema validator\n",
+      "inputs_unchanged": true
+    },
+    {
+      "id": "dual6-ee-dataset-prefix-malformed",
+      "layout": {
+        "id": "dual6",
+        "arm_dim": [
+          6,
+          6
+        ],
+        "ee_dim": [
+          1,
+          1
+        ]
+      },
+      "mode": "ee",
+      "form": "dataset-prefix",
+      "expected_shape": [
+        2,
+        3,
+        14
+      ],
+      "native_oracle_accepts": false,
+      "malformed_pack_unpack_rejected": [
+        false,
+        false
+      ],
+      "passed": false,
+      "error": "AssertionError: helper accepted a pose rejected by native schema validator",
+      "traceback": "Traceback (most recent call last):\n  File \"/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/probe_pose_contract.py\", line 137, in run_case\n    assert all(rejected), \"helper accepted a pose rejected by native schema validator\"\n           ^^^^^^^^^^^^^\nAssertionError: helper accepted a pose rejected by native schema validator\n",
+      "inputs_unchanged": true
+    }
+  ],
+  "source_unchanged": true,
+  "passed": 9,
+  "failed": 13,
+  "completed_at": "2026-10-12T16:14:04.910416+00:00"
+}

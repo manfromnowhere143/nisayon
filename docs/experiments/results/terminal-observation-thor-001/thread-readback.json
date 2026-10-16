@@ -1,0 +1,168 @@
+{
+  "checked_at": "2026-10-13T17:35:08.914462+00:00",
+  "threads": [
+    {
+      "thread": "huggingface/lerobot#4943",
+      "state": "open",
+      "updated_at": "2026-10-13T13:03:16Z",
+      "counts": {
+        "comments": 3,
+        "reviews": 0,
+        "inline": 0
+      },
+      "head": "0f5d98875af5c7bd98c2b6804cba96119b2ef12b",
+      "merged": false
+    },
+    {
+      "thread": "huggingface/lerobot#4932",
+      "state": "open",
+      "updated_at": "2026-10-12T18:37:14Z",
+      "counts": {
+        "comments": 2,
+        "reviews": 1,
+        "inline": 0
+      },
+      "head": "d6db556a7552b32e1f24d1ee1a71587ceee22c24",
+      "merged": false
+    },
+    {
+      "thread": "huggingface/lerobot#4927",
+      "state": "open",
+      "updated_at": "2026-10-13T07:24:42Z",
+      "counts": {
+        "comments": 7,
+        "reviews": 2,
+        "inline": 0
+      },
+      "head": "f640546392135b317aa6f36cf6c90fc990b933f5",
+      "merged": false
+    },
+    {
+      "thread": "XPolicyLab/XPolicyLab#167",
+      "state": "open",
+      "updated_at": "2026-10-12T16:24:05Z",
+      "counts": {
+        "comments": 0
+      }
+    },
+    {
+      "thread": "wenxichen2746/DREAM-Chunk-Kinetix#1",
+      "state": "open",
+      "updated_at": "2026-10-12T17:34:40Z",
+      "counts": {
+        "comments": 0
+      }
+    },
+    {
+      "thread": "Physical-Intelligence/openpi#906",
+      "state": "open",
+      "updated_at": "2026-10-09T13:13:37Z",
+      "counts": {
+        "comments": 5
+      }
+    },
+    {
+      "thread": "Physical-Intelligence/openpi#1060",
+      "state": "open",
+      "updated_at": "2026-10-09T14:30:27Z",
+      "counts": {
+        "comments": 4
+      }
+    },
+    {
+      "thread": "Physical-Intelligence/openpi#799",
+      "state": "open",
+      "updated_at": "2026-10-11T06:42:31Z",
+      "counts": {
+        "comments": 5
+      }
+    },
+    {
+      "thread": "Physical-Intelligence/openpi#1065",
+      "state": "open",
+      "updated_at": "2026-10-11T12:43:41Z",
+      "counts": {
+        "comments": 9
+      }
+    },
+    {
+      "thread": "NVIDIA/Isaac-GR00T#785",
+      "state": "open",
+      "updated_at": "2026-10-10T06:08:48Z",
+      "counts": {
+        "comments": 2
+      }
+    },
+    {
+      "thread": "NVIDIA/Isaac-GR00T#712",
+      "state": "open",
+      "updated_at": "2026-10-11T06:57:11Z",
+      "counts": {
+        "comments": 1
+      }
+    },
+    {
+      "thread": "huggingface/lerobot#4633",
+      "state": "open",
+      "updated_at": "2026-10-11T06:42:45Z",
+      "counts": {
+        "comments": 4
+      }
+    },
+    {
+      "thread": "RUCKBReasoning/RoboRecover#2",
+      "state": "open",
+      "updated_at": "2026-10-10T06:08:34Z",
+      "counts": {
+        "comments": 0
+      }
+    },
+    {
+      "thread": "irom-princeton/rapid-policy-evaluation#1",
+      "state": "open",
+      "updated_at": "2026-10-11T06:58:31Z",
+      "counts": {
+        "comments": 0
+      }
+    },
+    {
+      "thread": "huggingface/lerobot#4450",
+      "state": "open",
+      "updated_at": "2026-10-11T18:20:50Z",
+      "counts": {
+        "comments": 0,
+        "reviews": 1,
+        "inline": 0
+      },
+      "head": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+      "merged": false
+    }
+  ],
+  "new_or_edited_responses": [
+    {
+      "thread": "huggingface/lerobot#4943",
+      "surface": "comments",
+      "change": "new",
+      "user": "LinCanNerd",
+      "url": "https://github.com/huggingface/lerobot/pull/4943#issuecomment-6146173321",
+      "created": "2026-10-13T13:03:16Z",
+      "updated": "2026-10-13T13:03:16Z",
+      "body": "Here's the Jetson Thor result. Jetson AGX Thor (aarch64), JetPack 7.2.1 (L4T R39.2), Ubuntu 24.04, CPU only (`LEROBOT_TEST_DEVICE=cpu`). Python 3.12.3, Torch 2.11.0+cu130, Gymnasium 1.4.0, NumPy 2.2.6.\n\nI ran the four-file command from the description:\n\n| Source | Result |\n|---|---|\n| `0f5d988` (current head) | 48 passed |\n| base `24f15b9` + `tests/scripts/test_eval_terminal_observations.py` from `0f5d988` | 40 passed, 8 failed |\n\nThe 8 base failures are the `SameStep` cases of `test_episode_data_retains_terminal_observations` (state and nested_rgb, terminated and truncated, sync and async). Neither run had skips.\n\nI tested `0f5d988` instead of `5166b72` because the fixture change is the only difference. Linux has `forkserver`, so the async cases used it here, and the `spawn` fallback wasn't exercised on this machine.\n\n(Reply drafted with AI assistance.)\n",
+      "state": null
+    }
+  ],
+  "missing_prior_response_urls": [],
+  "relevant_notifications": [
+    {
+      "repo": "huggingface/lerobot",
+      "subject": {
+        "title": "fix(eval): retain terminal observations with same-step autoreset",
+        "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4943",
+        "latest_comment_url": "https://api.github.com/repos/huggingface/lerobot/issues/comments/6146173321",
+        "type": "PullRequest"
+      },
+      "updated_at": "2026-10-13T13:03:38Z"
+    }
+  ],
+  "artifact": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/github-replies-20261013T173459Z"
+}

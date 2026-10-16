@@ -1,0 +1,105 @@
+{
+  "schema": "nisayon.pose-contract.validation.v1",
+  "status": "passed",
+  "source_receipts_verified": 42,
+  "frozen_protocol_and_decision_unchanged": true,
+  "executed_probe_unchanged": true,
+  "same_locked_environment": true,
+  "patch_reproduces_executed_candidate": true,
+  "only_ast_change_is_cartesian_width_assignment": true,
+  "upstream_adapter_or_policy_tests_executed": false,
+  "engine_suite": "Not repeated: no Nisayon production source or dependencies changed; the native helper experiments and compact reproduction are the relevant behavioral checks.",
+  "recorded_at": "2026-10-12T16:30:58.785750+00:00",
+  "checks": [
+    {
+      "name": "ruff-check",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.08152895898092538,
+      "stdout": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/ruff-check.stdout.txt",
+        "bytes": 19,
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "stderr": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/ruff-check.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "ruff-format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.07927645900053903,
+      "stdout": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/ruff-format.stdout.txt",
+        "bytes": 28,
+        "sha256": "bfc4710458a6112a7f9b4cedee311e5f71de9f8a98e15b8e289e1c29cc487a56"
+      },
+      "stderr": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/ruff-format.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "docs-check",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "wall_seconds": 4.047037457989063,
+      "stdout": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/docs-check.stdout.txt",
+        "bytes": 140,
+        "sha256": "cc7329f79723600f7195c4651a65207673d48d9dfd9e814eed86cd932f9fdf60"
+      },
+      "stderr": {
+        "path": "artifacts/frontier-advantage-2026-10-12/validation/docs-check.stderr.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": "startup-readback",
+      "command": [
+        ".venv/bin/nisayon",
+        "start"
+      ],
+      "returncode": 0,
+      "wall_seconds": 0.25753045798046514,
+      "full_handoff_present": true,
+      "handoff_characters": 5884,
+      "checkpoint_summary_present": true,
+      "handoff_sha256": "96658680838e4287d21c3f4a760758d995df9aeab9c419316271deed41fe88e9"
+    }
+  ],
+  "handoff_characters": 5884,
+  "staged_diff_check": {
+    "strict_non_patch_passed": true,
+    "full_returncode": 2,
+    "only_whitespace_findings": {
+      "file": "docs/experiments/results/pose-contract-001/cartesian-width.patch",
+      "lines": [
+        4,
+        11,
+        13
+      ],
+      "reason": "Required single-space blank context lines in the exact applied and tested unified diff; preserved as evidence.",
+      "also_reported": "New blank line at EOF is the same required final context line 13."
+    }
+  },
+  "raw_files_verified": 121
+}

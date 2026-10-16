@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-10-12T18:37:14.552158+00:00",
+  "url": "https://github.com/huggingface/lerobot/pull/4932#issuecomment-6130341233",
+  "id": 6130341233,
+  "author": "manfromnowhere143",
+  "created_at": "2026-10-12T18:37:14Z",
+  "updated_at": "2026-10-12T18:37:14Z",
+  "body": "Thanks for offering the Thor check. I've opened the separate fix in #4943, based on current main at `24f15b9`. It preserves the terminal observation in the saved episode while leaving the reset observation available for live inference.\n\nThe unchanged base fails eight SAME_STEP recording checks. The patch passes all 34 added checks and 14 existing evaluator/summary/freeze checks on macOS arm64, with no skips. Full pre-commit checks pass. The scoring correction in #4485 remains separate.\n\nFor the focused CPU check on the Thor, use commit `5166b7252cfd3757607a5022bae89dd013affbe8` from #4943:\n\n```sh\nLEROBOT_TEST_DEVICE=cpu python -m pytest -q tests/scripts/test_eval_terminal_observations.py\n```\n\nThe expected result is 34 passes. Please include the tested commit and Python, Torch and Gymnasium versions with the result so we can compare it directly. These are native software regressions with a scripted policy; I haven't tested a learned checkpoint or robot with this patch.\n",
+  "body_sha256": "b0be7c22639d524e425be3561fbbec54002b6a4fa5d0aabd1894115bae3a1bca",
+  "body_readback": "Exact after removing optional final newline",
+  "authorization": "Standing task-scoped technical follow-through; user reaffirmed voice and careful execution on 12 October 2026."
+}

@@ -8,6 +8,11 @@ not reproduced those systems as part of this repository setup. Links to moving
 documentation are dated observations. Pin exact versions when an adapter or
 experiment depends on them.
 
+The [10 October expansion review](FRONTIER_REVIEW_2026-10-10.md) adds recent
+recovery research, current public incident leads, pinned interface inspections
+and an executed CPU probe of RoboRecover's summary semantics. It preserves the
+distinction between reported capability, inspected source and measured behavior.
+
 ## Execution semantics and competent baselines
 
 | Source | Date or version | Consequence for this project |

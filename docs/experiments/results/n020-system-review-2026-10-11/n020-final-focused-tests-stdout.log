@@ -1,0 +1,22 @@
+.........F............................................................   [100%]
+=================================== FAILURES ===================================
+_ test_partial_finalization_is_invalid_even_with_all_records[artifact-manifest.json] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-157/test_partial_finalization_is_i0')
+member = 'artifact-manifest.json'
+
+    @pytest.mark.parametrize("member", ["summary.json", "seal.json", "artifact-manifest.json"])
+    def test_partial_finalization_is_invalid_even_with_all_records(tmp_path, member):
+        store = _unsealed_store(tmp_path, len(processor_case.ASSIGNMENT_IDS))
+        write_json(store / member, {})
+        result = processor_case.inspect_store(store)
+>       assert result["integrity"] == "invalid"
+E       AssertionError: assert 'verified_prefix' == 'invalid'
+E         
+E         - invalid
+E         + verified_prefix
+
+tests/engine/test_processor_case.py:441: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_processor_case.py::test_partial_finalization_is_invalid_even_with_all_records[artifact-manifest.json]
+1 failed, 69 passed in 5.92s

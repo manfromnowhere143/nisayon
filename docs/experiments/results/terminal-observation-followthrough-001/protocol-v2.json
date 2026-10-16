@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-10-12T18:26:19.863909+00:00",
+  "base_commit": "24f15b92b556cb861ca65e989462e23505a701bd",
+  "phase": "before rerunning unchanged production source with corrected fixture",
+  "test_file": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/terminal-observation-followthrough-001/upstream/tests/scripts/test_eval_terminal_observations.py",
+  "test_sha256": "40197b0b008785f4406ec597794a7312a6cb456b0366fa80ee21d20a042d71db",
+  "declared_cases": {
+    "terminal_recording": 16,
+    "live_inputs_and_transitions": 16,
+    "rollout_step_limit": 2
+  },
+  "expected_original_failures": 8,
+  "expected_failure_scope": "SAME_STEP terminal recording, both vectors, state/nested RGB, termination/truncation",
+  "candidate_acceptance": "All 34 declared cases and 14 selected upstream checks pass; source differs only in lerobot_eval.py plus the new test file. Preserve raw transition values and live observations. No scoring fix included.",
+  "additional_tests": "No tuning after baseline. Setup errors retained separately.",
+  "supersedes": "docs/experiments/results/terminal-observation-followthrough-001/protocol.json",
+  "previous_test_sha256": "d68a020a9da4c0b765476af2e7ccf241a816e266ff88867f1f8b19ec544a9b83",
+  "correction": "The first 16 recording checks were rejected by eval_policy before rollout because the fixture inherited nn.Module rather than PreTrainedPolicy. Use the existing public policy/config interface with a scripted CPU action. Inputs, expected sequences, acceptance rules and the unapplied candidate patch remain unchanged. The other 32 checks passed; all 48 rerun because the fixture implementation changed."
+}

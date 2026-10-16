@@ -1,0 +1,32 @@
+{
+  "read_at": "2026-10-12T15:54:39.584273+00:00",
+  "discussion_sha256": "09ad5099fcc8eaa50e61dba7f682abb3b06f29e7eece2b73f95e31f3030a6463",
+  "pull_head": "f640546392135b317aa6f36cf6c90fc990b933f5",
+  "comments": [
+    {
+      "id": 6126940056,
+      "html_url": "https://github.com/huggingface/lerobot/pull/4927#issuecomment-6126940056",
+      "created_at": "2026-10-12T15:05:05Z",
+      "updated_at": "2026-10-12T15:05:05Z",
+      "body": "## Follow-up: public LeBoard reliability case study + reproducibility bundle\n\nIndependent analysis of the Apache-2.0 dataset [`rogation/leboard-training-runs`](https://huggingface.co/datasets/rogation/leboard-training-runs) (revision `f25f8a7603fcca023d16694dd01b9cb8280741b8`) is now public:\n\n- Case study: https://www.arisole.com/developers/leboard-case-study\n- Reproducibility repo: https://github.com/stealthg0dd/arisole-leboard-reliability\n\nVerified with `arisole-eval==0.1.2`: multi-task `per_task[].metrics.successes` lists parse to 500 episodes/run; because these files carry no per-episode seeds, **0.1.2 reports unpaired rates** (paired_episodes=0). Episode transition counts in the write-up are **exploratory** (position-within-task pairing) from the independent `analysis.py`, not claimed as seed-paired PASS_TO_FAIL by the published package.\n\nNot an official LeRobot / LeBoard / Hugging Face partnership.",
+      "author": "stealthg0dd"
+    },
+    {
+      "id": 6127308467,
+      "html_url": "https://github.com/huggingface/lerobot/pull/4927#issuecomment-6127308467",
+      "created_at": "2026-10-12T15:26:03Z",
+      "updated_at": "2026-10-12T15:26:03Z",
+      "body": "## Fix published: `arisole-eval==0.1.3` (label-coverage gate evidence)\n\n@manfromnowhere143 Thank you — we independently reproduced your constructed control on the published **0.1.2** wheel:\n\n- 30 seed-matched pairs, 1 `PASS_TO_PASS`, 29 `INCOMPARABLE`\n- `gate` used `paired_episodes=30` as the evidence denominator → `REVIEW`, process exit **0**\n\nThat was incorrect for a CI gate. **0.1.3** adopts your bounded correction (with explicit summary fields):\n\n- `matched_episodes` = seed-matched rows (back-compat `paired_episodes`)\n- `comparable_episodes` = fully labelled transitions only\n- `incomparable_episodes` = unknown / `INCOMPARABLE`\n- Evidence thresholds and `pass_to_fail_rate` use **labelled** pairs only\n- Incomplete label coverage → `INSUFFICIENT_DATA` with rule `require_paired_success_labels`\n- Default `fail_ci_on_insufficient_data=true` → exit **2**\n- Complete-evidence `BLOCK` / `PASS` preserved; clear labelled regressions can still `BLOCK` even if some labels are missing (BLOCK outranks INSUFFICIENT_DATA)\n\nRe-ran your script against PyPI **0.1.3**: outcome `INSUFFICIENT_DATA`, exit **2**.\n\nRegression tests: `apps/arisole-eval/tests/test_gate_label_coverage.py` (partial labels, missing labels, complete PASS/BLOCK, 19 vs 20 boundary, unpaired multi-task, 6/30≠6/60, `fail_ci_on_insufficient_data` off). Full package suite: **32 passed**. LeBoard unpaired fixtures and bundled quickstart still expect `INSUFFICIENT_DATA`.\n\n- PyPI: https://pypi.org/project/arisole-eval/0.1.3/\n- Hub card: https://huggingface.co/stealthgod/arisole-eval\n- Commit: https://github.com/stealthg0dd/strideiq/commit/fdebd57b0c3731f6a11334456138fab0bfbc5949\n\n```bash\npip install 'arisole-eval==0.1.3'\n```",
+      "author": "stealthg0dd"
+    },
+    {
+      "id": 6127361745,
+      "html_url": "https://github.com/huggingface/lerobot/pull/4927#issuecomment-6127361745",
+      "created_at": "2026-10-12T15:29:14Z",
+      "updated_at": "2026-10-12T15:29:35Z",
+      "body": "@manfromnowhere143 Thanks for taking the time to dig into this and share such a clear reproduction. Really appreciate it. Your findings helped us improve the CI gate in v0.1.3. Would be great to hear if the fix behaves as expected in your testing. We shall keep improving basis the valuable community feedback.",
+      "author": "stealthg0dd"
+    }
+  ],
+  "boundary": "Author reports reproduction/adoption; released artifact behavior checked separately. No endorsement by LeRobot, LeBoard or Hugging Face."
+}

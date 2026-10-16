@@ -1,0 +1,67 @@
+--- a/arisole_eval/lerobot/meta.py
++++ b/arisole_eval/lerobot/meta.py
+@@ -15,22 +15,20 @@
+ 
+ def _unanimous_task_groups(info: LeRobotEvalInfo) -> str | None:
+     """Return task_group when every multi-task entry shares the same observed group."""
++    per_task = info.raw.get("per_task")
++    if not isinstance(per_task, list) or not per_task:
++        return None
+     groups: list[str] = []
+-    per_task = info.raw.get("per_task")
+-    if isinstance(per_task, list):
+-        for entry in per_task:
+-            if not isinstance(entry, dict):
+-                continue
+-            group = entry.get("task_group")
+-            if group is None:
+-                continue
+-            groups.append(str(group))
+-    if not groups:
++    for entry in per_task:
++        if not isinstance(entry, dict):
++            return None
++        group = entry.get("task_group")
++        if not isinstance(group, str) or not group.strip():
++            return None
++        groups.append(group)
++    if len(set(groups)) != 1:
+         return None
+-    unique = set(groups)
+-    if len(unique) != 1:
+-        return None
+-    return next(iter(unique))
++    return groups[0]
+ 
+ 
+ def _explicit_from_eval_info(raw: dict[str, Any], key: str) -> Any:
+@@ -98,15 +96,21 @@
+             out["environment"] = group
+             sources["environment"] = "eval_info.per_task[].task_group"
+ 
+-    # Episode-level task when unanimous and still missing (single-task layouts).
++    # Require every original single-task entry, including entries the parser
++    # could not turn into episodes. Missing labels cannot establish unanimity.
+     if out.get("task") in (None, ""):
+-        ep_tasks = [
+-            ep.raw.get("task")
+-            for ep in info.episodes
+-            if isinstance(ep.raw, dict) and ep.raw.get("task")
+-        ]
+-        if ep_tasks and len(set(map(str, ep_tasks))) == 1:
+-            out["task"] = str(ep_tasks[0])
++        entries = info.raw.get("per_episode")
++        ep_tasks = (
++            [entry.get("task") for entry in entries]
++            if isinstance(entries, list) and all(isinstance(entry, dict) for entry in entries)
++            else []
++        )
++        if (
++            ep_tasks
++            and all(isinstance(task, str) and task.strip() for task in ep_tasks)
++            and len(set(ep_tasks)) == 1
++        ):
++            out["task"] = ep_tasks[0]
+             sources["task"] = "eval_info.per_episode[].task"
+ 
+     # CLI / programmatic overrides always win and are attributed.

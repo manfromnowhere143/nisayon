@@ -1,0 +1,67 @@
+--- a/arisole_eval/gate.py
++++ b/arisole_eval/gate.py
+@@ -139,8 +139,35 @@
+             )
+         return _finalize(reasons, cfg, result)
+ 
+-    paired = int(summary.get("paired_episodes") or 0)
+-    p2f = int(summary.get("pass_to_fail") or 0)
++    matched = int(summary.get("paired_episodes") or 0)
++    # Seed matching does not establish that either outcome was observed.
++    # Keep all matched rows in the comparison, but only labelled transitions
++    # can contribute to evidence thresholds and observed regression rates.
++    observed_transitions = {
++        "PASS_TO_PASS", "PASS_TO_FAIL", "FAIL_TO_PASS", "FAIL_TO_FAIL"
++    }
++    labelled = [
++        pair for pair in result.get("episodes", [])
++        if pair.get("transition") in observed_transitions
++    ]
++    paired = len(labelled)
++    missing = max(matched - paired, 0)
++    p2f = sum(pair["transition"] == "PASS_TO_FAIL" for pair in labelled)
++
++    if cfg.require_task_success_labels and missing:
++        reasons.append(
++            {
++                "rule": "require_paired_success_labels",
++                "outcome": "INSUFFICIENT_DATA",
++                "message": (
++                    f"{missing} of {matched} seed-matched pairs lack an observed outcome; "
++                    "retain them as unknown, not as observed non-regressions."
++                ),
++                "observed": paired,
++                "matched": matched,
++                "missing": missing,
++            }
++        )
+ 
+     if cfg.require_task_success_labels:
+         baseline_metric = metrics.get("task_success_rate_baseline") or {}
+@@ -160,7 +187,7 @@
+                 "rule": "min_comparable_episodes",
+                 "outcome": "INSUFFICIENT_DATA",
+                 "message": (
+-                    f"paired_episodes={paired} < min_comparable_episodes={cfg.min_comparable_episodes}; "
++                    f"labelled_paired_episodes={paired} < min_comparable_episodes={cfg.min_comparable_episodes}; "
+                     "statistically weak comparison cannot produce PASS/BLOCK."
+                 ),
+                 "observed": paired,
+@@ -174,7 +201,7 @@
+         {
+             "rule": "pass_to_fail_rate",
+             "outcome": "PASS",
+-            "message": f"pass_to_fail_rate={p2f_rate:.3f} over {paired} paired episodes",
++            "message": f"pass_to_fail_rate={p2f_rate:.3f} over {paired} labelled paired episodes",
+             "observed": p2f_rate,
+         }
+     )
+@@ -194,7 +221,7 @@
+                 "rule": "min_episodes_for_strong_claim",
+                 "outcome": "REVIEW",
+                 "message": (
+-                    f"pass_to_fail_rate is low but paired_episodes={paired} "
++                    f"pass_to_fail_rate is low but labelled_paired_episodes={paired} "
+                     f"< min_episodes_for_strong_claim={cfg.min_episodes_for_strong_claim}"
+                 ),
+                 "observed": paired,

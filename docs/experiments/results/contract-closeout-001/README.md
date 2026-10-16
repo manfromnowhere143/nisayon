@@ -53,8 +53,7 @@ cost 24.649775 s. The named follow-up and complete passing matrix above close it
 
 Phase start `2026-09-19T15:13:45Z`, continuing clean execution `cc1a072`.
 The original mission, engine continuation and integration clocks remain in the
-private phase record (`work/continuations/contract-closeout-2026-09-19.json`,
-excluded from this snapshot).
+phase record (private continuity record).
 This phase implements the shared contract-closeout assignment and acceptance
 criteria; it does not restart scientific experiments or reset resource budgets.
 

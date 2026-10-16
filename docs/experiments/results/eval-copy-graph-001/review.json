@@ -1,0 +1,383 @@
+{
+  "schema": "nisayon.eval-copy-graph-review.v1",
+  "recorded_at": "2026-10-11T14:27:49.004095+00:00",
+  "task": "N021",
+  "authorization": "Daniel requested autonomous scientific and engineering progress; standing explicit targeted outreach and technical follow-through authority applies to the source-bound PR review.",
+  "selection": {
+    "initial_route": "Rechecked the RTC snapshot contribution route. The current roadmap still has 1brahim-Khan proposing the same fix; no competing contribution was created.",
+    "searches": [
+      "repo:huggingface/lerobot \"RTC\" \"snapshot\"",
+      "repo:huggingface/lerobot \"RTC\" \"race\""
+    ],
+    "candidate_read_scope": "PR #4450 and #4638 full bodies and issue-comment streams. Selected #4450 because it presents a concrete choice about worker isolation and its source exposes a linked-state invariant. No full #4638 code review or exhaustive issue search is claimed.",
+    "current_main": "b9cb121cb7d4e3e26ec5c906d08dda68d151ba52",
+    "tested_pr_head": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+    "owner_decision": "The open PR author proposes a worker-copy fix and asks reviewers to assess its design. The owner has not responded to this review or accepted a Nisayon value comparison.",
+    "issue4327": "Reported 85% sequential versus 0% parallel evaluation is author-reported only. No replication of those policy/task results."
+  },
+  "planned_controls": {
+    "frozen_at": "2026-10-11T14:23:11.880383+00:00",
+    "hypothesis": "Separate deep copies lose the shared RelativeActionsProcessorStep reference; copying the complete context once preserves it within each worker while retaining between-worker separation.",
+    "cases": [
+      "fresh",
+      "warm",
+      "disabled",
+      "same_worker_reuse",
+      "two_workers_reuse",
+      "uncopyable_rejected"
+    ],
+    "baseline_expected_pass": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      true
+    ],
+    "candidate_required_pass": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "reference": "Direct sequential calls with the linked original steps give absolute joint target 11 from state 10 and delta 1; excluded gripper stays 0.25.",
+    "limits": "Software source controls, not robot trials or a cost comparison."
+  },
+  "finding": "Independent deepcopy calls create disconnected relative-action steps. The PR helper raises on fresh state and silently produces 101 instead of 11 after a cached state of 100 and a new state of 10. A single context deepcopy passes the six bounded controls, preserving the original context and the intended within-worker connection.",
+  "counts": {
+    "source_variants": 2,
+    "controls_per_variant": 6,
+    "pr_controls_failed": 4,
+    "pr_controls_passed": 2,
+    "candidate_controls_passed": 6,
+    "sequential_reference_passed": true
+  },
+  "validation": {
+    "first_execution": {
+      "argv": [
+        ".venv/bin/python",
+        "-B",
+        "docs/experiments/results/eval-copy-graph-001/probe.py",
+        "--captures",
+        "artifacts/scientific-next-step-2026-10-11",
+        "--out",
+        "docs/experiments/results/eval-copy-graph-001/result.json",
+        "--patch-out",
+        "docs/experiments/results/eval-copy-graph-001/candidate.patch"
+      ],
+      "returncode": 0,
+      "wall_seconds": 1.9949788749800064,
+      "stdout": "",
+      "stderr": ""
+    },
+    "final_probe_exit_code": 0,
+    "lint": "Passed after correcting initial I001 import ordering.",
+    "format": "Passed after scoped formatting.",
+    "candidate_patch_applies_to_exact_pr_source": true,
+    "source_hashes_and_sizes_verified": true,
+    "review_author_commit_body_readback_verified": true,
+    "full_upstream_test_suite_executed": false,
+    "documentation": {
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python scripts/check_docs.py",
+      "documents": 158,
+      "mermaid_blocks": 5,
+      "errors": [],
+      "scope": "Local links and code fences; no Mermaid rendering."
+    },
+    "diff_check": "git diff --check passed",
+    "startup_handoff_characters": 5946,
+    "startup_handoff_returned_in_full": true
+  },
+  "publication": {
+    "url": "https://github.com/huggingface/lerobot/pull/4450#pullrequestreview-5483662010",
+    "id": 5483662010,
+    "author": "manfromnowhere143",
+    "state": "COMMENTED",
+    "commit_id": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+    "submitted_at_github": "2026-10-11T14:26:44Z",
+    "body": "At `ca864ff`, the separate `deepcopy` calls break a reference needed by enabled relative-action processors. `AbsoluteActionsProcessorStep.relative_step` must point to the relative step used by that worker's preprocessor. Copying them independently creates two different relative steps.\n\nA minimal reduction using the PR's processor classes:\n\n```python\nfrom copy import deepcopy\nimport torch\nfrom lerobot.processor import AbsoluteActionsProcessorStep, RelativeActionsProcessorStep\n\nrelative = RelativeActionsProcessorStep(enabled=True)\nabsolute = AbsoluteActionsProcessorStep(enabled=True, relative_step=relative)\npre, post = deepcopy(relative), deepcopy(absolute)\n\npre({\"observation\": {\"observation.state\": torch.tensor([[10.0]])}})\nassert post.relative_step is not pre\npost({\"action\": torch.tensor([[1.0]])})  # raises: no state has been cached\n```\n\nIf the original relative step already cached state `100`, the copied postprocessor instead returns `101`, without an error, after its worker's preprocessor sees state `10`. The required target is `11`.\n\nThe context can be copied in one pass so the shared `deepcopy` memo preserves these connections within a worker:\n\n```python\nctx = deepcopy(\n    (policy, env_preprocessor, env_postprocessor, preprocessor, postprocessor)\n)\n```\n\nI checked the PR's selected helper and processor definitions on CPU with a scripted task callback. The separate-copy version fails the fresh-state, cached-state, same-worker reuse and two-worker reuse controls; the single-copy candidate passes those and the disabled-processor and uncopyable-policy controls. The existing tests use identity processors and replace `eval_one`, so they do not exercise the paired steps.\n\nThis is a bounded source-level check, not a full `eval_policy_all`, GPU or robot run. A regression using the real paired pipelines would protect this relationship when the PR is rebased. The per-worker weight-memory cost remains a separate trade-off.",
+    "body_sha256": "f895c46709a3c3c093bd6b03be007126b31e95ebfebaf6699ac1a8369d2e797c",
+    "precheck": "PR still open at the same head; issue comments, reviews and review comments empty. Verified authenticated identity before posting.",
+    "new_review_count": 1,
+    "repository_commits_published": 0
+  },
+  "cost_and_scope": {
+    "retained_payloads": 29,
+    "retained_payload_bytes": 912105,
+    "final_probe_wall_seconds": 0.05323929199948907,
+    "new_dependencies": 0,
+    "gpu_runs": 0,
+    "learned_policy_runs": 0,
+    "robot_runs": 0,
+    "cloud_resources": 0,
+    "nisayon_production_code_changes": 0,
+    "cost_limit": "Source request sizes and probe execution times are retained. Full engineering, model-provider, review and adoption costs remain unmeasured; no savings estimate follows."
+  },
+  "limits": [
+    "Selected unchanged source definitions; task callback and policy are scripted.",
+    "Processor steps run directly; full pipeline conversion and eval_policy_all are not executed.",
+    "No learned inference, environment stepping, GPU or robot task outcome.",
+    "One connected deepcopy preserves this reference; arbitrary custom copying and closures are unqualified.",
+    "No measured customer savings, general detector or novel copying algorithm.",
+    "Full upstream pipeline converters and evaluator integration remain unexecuted; the public review explicitly requests a real paired-pipeline regression before merge.",
+    "The original shared-state diagnosis and proposed per-worker copies are upstream work. The correction uses ordinary Python memoized copying.",
+    "Nine prior artifact/research requests were not polled again here. This review is a delivered technical finding, not a tenth artifact request."
+  ],
+  "next": "Read new maintainer evidence at this exact PR; rebind any changed head before testing or editing. Native paired-pipeline integration and resource behavior remain upstream qualification needs. Continue N015 on a source-bound owner decision; do not count this finding as a completed customer value case.",
+  "artifacts": {
+    "probe.py": {
+      "sha256": "f5d15214027376405cb69c7d401f74dfbbfeb222aa8648fb0e2fb445ad5eb478",
+      "bytes": 10859
+    },
+    "result.json": {
+      "sha256": "5423c94ff060d72b6ebbe4f03f27fc1143d9eda0ce261a64bea45afa47be3a43",
+      "bytes": 18588
+    },
+    "candidate.patch": {
+      "sha256": "05c9b934edb7c49468ba05def556b9c78ea593828ad379897da32fb6d07a0a10",
+      "bytes": 771
+    },
+    "sources.json": {
+      "sha256": "9c6a39d17e6080dba42a4cb1a8dbffb0777089083067912632fc98610b001bdc",
+      "bytes": 2316
+    }
+  },
+  "captures": [
+    {
+      "name": "lerobot-head",
+      "url": "https://api.github.com/repos/huggingface/lerobot/commits/main",
+      "path": "artifacts/scientific-next-step-2026-10-11/lerobot-head.json",
+      "sha256": "334a04a9f4e348b13ad992e2f0a31c9035b08d58f4dc8abba841ce28a26e03b4",
+      "bytes": 241178,
+      "retrieved_at": "2026-10-11T14:18:23.679682+00:00"
+    },
+    {
+      "name": "roadmap",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3832",
+      "path": "artifacts/scientific-next-step-2026-10-11/roadmap.json",
+      "sha256": "bf125281323aa2b5e3e526858371b74b12c6765085fb648c32fb22cac5a8d85a",
+      "bytes": 31423,
+      "retrieved_at": "2026-10-11T14:18:23.519509+00:00"
+    },
+    {
+      "name": "roadmap-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/3832/comments?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/roadmap-comments.json",
+      "sha256": "7e8ff677af994bcebf0407316038d21badc034d9c0d2f74db971129aebf64bcd",
+      "bytes": 21433,
+      "retrieved_at": "2026-10-11T14:18:23.462953+00:00"
+    },
+    {
+      "name": "rtc-search",
+      "url": "https://api.github.com/search/issues?q=repo%3Ahuggingface/lerobot%20%22RTC%22%20%22snapshot%22&per_page=50",
+      "path": "artifacts/scientific-next-step-2026-10-11/rtc-search.json",
+      "sha256": "248e6f200e3e1cd5c8ee1c39baa3acc98684ff65b30320cf22bbabe0f19ebc0f",
+      "bytes": 154331,
+      "retrieved_at": "2026-10-11T14:18:24.075737+00:00"
+    },
+    {
+      "name": "rtc-race-search",
+      "url": "https://api.github.com/search/issues?q=repo%3Ahuggingface/lerobot%20%22RTC%22%20%22race%22&per_page=50",
+      "path": "artifacts/scientific-next-step-2026-10-11/rtc-race-search.json",
+      "sha256": "ae70adf26b292ff768fc5e3165d24ce121ef170664eccf4cad1d244cd4754c72",
+      "bytes": 81415,
+      "retrieved_at": "2026-10-11T14:18:24.515661+00:00"
+    },
+    {
+      "name": "pr4450",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450.json",
+      "sha256": "1b290f25c8c548830a77f750b0370684f6ab43c18ad8000346d2f91ccac189bd",
+      "bytes": 23692,
+      "retrieved_at": "2026-10-11T14:18:47.072662+00:00"
+    },
+    {
+      "name": "pr4638",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4638",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4638.json",
+      "sha256": "c09dcf78eeb655db7054be89434d5cec08c25f26c2b7deb692c6bb3ca0349774",
+      "bytes": 21202,
+      "retrieved_at": "2026-10-11T14:18:47.161536+00:00"
+    },
+    {
+      "name": "pr4450-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4450/comments?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at": "2026-10-11T14:18:46.763919+00:00"
+    },
+    {
+      "name": "pr4638-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4638/comments?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4638-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at": "2026-10-11T14:18:46.746630+00:00"
+    },
+    {
+      "name": "pr4450-files",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450/files?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-files",
+      "sha256": "cf1caa6a229643bcf295219f5de3fdb84bd88d8f3e4536ececd120320eda0442",
+      "bytes": 14336,
+      "retrieved_at": "2026-10-11T14:19:11.156753+00:00"
+    },
+    {
+      "name": "pr4450-eval.py",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/scripts/lerobot_eval.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-eval.py",
+      "sha256": "393cb55cda6721a15cef0dcdd0ccb5788a7a0c1f917dc4b96ffaf4804c2dceda",
+      "bytes": 50080,
+      "retrieved_at": "2026-10-11T14:19:11.158716+00:00"
+    },
+    {
+      "name": "pr4450-test.py",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/tests/scripts/test_lerobot_eval.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-test.py",
+      "sha256": "f283b44b8fd8b134fcc1d5e4516df4fa754ffa1e71b1ba34ba00db8a71fd92ba",
+      "bytes": 6087,
+      "retrieved_at": "2026-10-11T14:19:11.123052+00:00"
+    },
+    {
+      "name": "pr4450-relative.py",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/processor/relative_action_processor.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-relative.py",
+      "sha256": "11ee2656c500e9d87e5b37a24ddf5d09fa42a4197316e007026faa4e72c82dac",
+      "bytes": 8633,
+      "retrieved_at": "2026-10-11T14:19:11.122900+00:00"
+    },
+    {
+      "name": "pr4450-factory.py",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/policies/factory.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-factory.py",
+      "sha256": "499a7a388495b0b1a9db8cde2c9761dddfe2bf9e706c935afd2a2484b4cdcd14",
+      "bytes": 22279,
+      "retrieved_at": "2026-10-11T14:19:11.557833+00:00"
+    },
+    {
+      "name": "pr4450-pipeline.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/processor/pipeline.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-pipeline.txt",
+      "sha256": "1a578cd7e4534e4cf4a09516417f6a5f3d328e45c4ce15f0f4b2ffaf17cb3a73",
+      "bytes": 89183,
+      "retrieved_at": "2026-10-11T14:20:01.077796+00:00"
+    },
+    {
+      "name": "pr4450-types.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/lerobot_types.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-types.txt",
+      "sha256": "2c4e6ba9184af9436eaf0e0b520810294365b68fc4a610161996260f2aea8600",
+      "bytes": 1757,
+      "retrieved_at": "2026-10-11T14:20:00.948209+00:00"
+    },
+    {
+      "name": "pr4450-constants.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/utils/constants.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-constants.txt",
+      "sha256": "f8e5808b571bdf0dd77eb8a535ed940c0a23344131d50e3b4de91fe6966aca9d",
+      "bytes": 4729,
+      "retrieved_at": "2026-10-11T14:20:00.967271+00:00"
+    },
+    {
+      "name": "pr4450-converters.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/processor/converters.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-converters.txt",
+      "sha256": "8784392d9cb12677d243bc04d596d5c507f116365418cc38885186e7992fa8dc",
+      "bytes": 13989,
+      "retrieved_at": "2026-10-11T14:20:01.031795+00:00"
+    },
+    {
+      "name": "pr4450-license.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/LICENSE",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-license.txt",
+      "sha256": "0583375a0ec642ec79c447781f34322b0cfa66baff31258214d040f1f6d86d7c",
+      "bytes": 27627,
+      "retrieved_at": "2026-10-11T14:20:01.372684+00:00"
+    },
+    {
+      "name": "issue4327.json",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4327",
+      "path": "artifacts/scientific-next-step-2026-10-11/issue4327.json",
+      "sha256": "211231098f271868ff931b548a2460ffb86565d8cc21c920e62712d595070fc7",
+      "bytes": 5210,
+      "retrieved_at": "2026-10-11T14:20:01.580470+00:00"
+    },
+    {
+      "name": "main-eval.py",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/b9cb121cb7d4e3e26ec5c906d08dda68d151ba52/src/lerobot/scripts/lerobot_eval.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/main-eval.py",
+      "sha256": "2a5962b162e225c1621e5b4058f0d9f9c082eea0db42981dfebd40bf9c3e1c50",
+      "bytes": 49595,
+      "retrieved_at": "2026-10-11T14:20:01.537987+00:00"
+    },
+    {
+      "name": "pr4450-hub.txt",
+      "url": "https://raw.githubusercontent.com/huggingface/lerobot/ca864ff1c7727d15ea4bc6c5f1e21b105633a473/src/lerobot/utils/hub.py",
+      "path": "artifacts/scientific-next-step-2026-10-11/pr4450-hub.txt",
+      "sha256": "1c9dc26020ce79a5584ef5345ca1fd99f1049334708ab3cf9545e9107c2e9474",
+      "bytes": 11507,
+      "retrieved_at": "2026-10-11T14:21:08.961313+00:00"
+    },
+    {
+      "name": "prepost-pr4450",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450",
+      "path": "artifacts/scientific-next-step-2026-10-11/prepost-pr4450.json",
+      "sha256": "1b290f25c8c548830a77f750b0370684f6ab43c18ad8000346d2f91ccac189bd",
+      "bytes": 23692,
+      "retrieved_at": "2026-10-11T14:25:13.309203+00:00"
+    },
+    {
+      "name": "prepost-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/issues/4450/comments?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/prepost-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at": "2026-10-11T14:25:13.044349+00:00"
+    },
+    {
+      "name": "prepost-reviews",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450/reviews?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/prepost-reviews.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at": "2026-10-11T14:25:13.113500+00:00"
+    },
+    {
+      "name": "prepost-review-comments",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450/comments?per_page=100",
+      "path": "artifacts/scientific-next-step-2026-10-11/prepost-review-comments.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bytes": 2,
+      "retrieved_at": "2026-10-11T14:25:13.064054+00:00"
+    },
+    {
+      "name": "prepost-identity",
+      "url": "https://api.github.com/user",
+      "path": "artifacts/scientific-next-step-2026-10-11/prepost-identity.json",
+      "sha256": "252e342fac682b45791441522ad25f7236f3d63b2ba010de05153f66d671eeb7",
+      "bytes": 1431,
+      "retrieved_at": "2026-10-11T14:25:13.436728+00:00"
+    },
+    {
+      "name": "review-response",
+      "method": "POST",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450/reviews",
+      "path": "artifacts/scientific-next-step-2026-10-11/review-response.json",
+      "sha256": "f80ad7ff6102c3c6ec76414065aa75174a6d0966776db78b73649631532987c0",
+      "bytes": 3643,
+      "retrieved_at": "2026-10-11T14:25:31.690029+00:00",
+      "wall_seconds": 1.1645247080014087
+    },
+    {
+      "name": "review-readback",
+      "url": "https://api.github.com/repos/huggingface/lerobot/pulls/4450/reviews/5483662010",
+      "path": "artifacts/scientific-next-step-2026-10-11/review-readback.json",
+      "sha256": "f80ad7ff6102c3c6ec76414065aa75174a6d0966776db78b73649631532987c0",
+      "bytes": 3643,
+      "retrieved_at": "2026-10-11T14:25:32.294262+00:00"
+    }
+  ]
+}

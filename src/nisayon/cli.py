@@ -57,7 +57,9 @@ def parser() -> argparse.ArgumentParser:
     external_run.add_argument("--out", type=Path, required=True)
     external_run.add_argument("--resume", action="store_true")
     external_run.add_argument("--interrupt-at")
-    external_inspect = external.add_parser("inspect")
+    external_inspect = external.add_parser(
+        "inspect", help="read a retained processor packet without a Nisayon workspace"
+    )
     external_inspect.add_argument("store", type=Path)
     external_inspect.add_argument("--out", type=Path)
     transfer = sub.add_parser(
@@ -73,8 +75,12 @@ def parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = parser().parse_args()
     try:
-        # A portable evidence packet can be inspected outside a Git workspace.
-        root = None if args.command == "verify-lift-transfer" else workspace.project_root()
+        # Read-only packets do not require a workspace. Execution and workspace
+        # mutations still pass through the repository identity gate.
+        portable_read = args.command == "verify-lift-transfer" or (
+            args.command == "external-decision" and args.external_command == "inspect"
+        )
+        root = None if portable_read else workspace.project_root()
         exit_code = 0
         match args.command:
             case "start":

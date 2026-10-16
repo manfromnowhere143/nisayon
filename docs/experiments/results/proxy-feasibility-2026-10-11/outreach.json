@@ -1,0 +1,101 @@
+{
+  "schema": "nisayon.proxy-feasibility.outreach.v1",
+  "authorization": "Daniel explicitly authorized targeted outreach and technical follow-through on 11 October 2026; persisted in memory/notes/8c8111fc43f04fa3982933aebe1650ac.json. Current user asks for additional relevant contacts and forensic research.",
+  "prior_threads": [
+    {
+      "thread": "openpi906",
+      "comments": 5,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": 6081602191,
+      "latest_comment_author": "manfromnowhere143"
+    },
+    {
+      "thread": "openpi1060",
+      "comments": 4,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": 6082970232,
+      "latest_comment_author": "manfromnowhere143"
+    },
+    {
+      "thread": "groot785",
+      "comments": 2,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": 6094509123,
+      "latest_comment_author": "manfromnowhere143"
+    },
+    {
+      "thread": "roborecover2",
+      "comments": 0,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": null,
+      "latest_comment_author": null
+    },
+    {
+      "thread": "openpi799",
+      "comments": 5,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": 6106344819,
+      "latest_comment_author": "manfromnowhere143"
+    },
+    {
+      "thread": "lerobot4633",
+      "comments": 4,
+      "unchanged_since_previous_outreach": true,
+      "latest_comment_id": 6106346399,
+      "latest_comment_author": "manfromnowhere143"
+    }
+  ],
+  "messages": [
+    {
+      "target": "repos/NVIDIA/Isaac-GR00T/issues/712/comments",
+      "html_url": "https://github.com/NVIDIA/Isaac-GR00T/issues/712#issuecomment-6106447750",
+      "id": 6106447750,
+      "created_at": "2026-10-11T06:57:11Z",
+      "author": "manfromnowhere143",
+      "body_path": "artifacts/confirmation-frontier-2026-10-11/groot712-outreach.md",
+      "body_sha256": "7cdb8689675be1c7856a1311f2f0a705dc8aff274a2e31aa449caa84e77545ef",
+      "post_response_path": "artifacts/confirmation-frontier-2026-10-11/groot712-post-response.json",
+      "readback_path": "artifacts/confirmation-frontier-2026-10-11/groot712-post-readback.json",
+      "readback_sha256": "75c99419648eba635cacdc32cffe2028e956c71b8486b33c4f88fa301f7ae855",
+      "exact_readback_verified": true,
+      "completed_at": "2026-10-11T06:55:59.143581+00:00",
+      "wall_seconds": 1.6103372090146877,
+      "body": "@shifsa, is the workstation-to-Jetson discrepancy still affecting your deployment decision?\n\nI'm Daniel, building [Nisayon](https://github.com/manfromnowhere143/nisayon) to help engineers investigate and qualify robot-policy deployment changes. Your report is a useful case because it includes the evaluation command and error measurements on both machines. Those averages alone don't locate the difference.\n\nIf you still have the June artifacts, could you share the GR00T revision and checkpoint identifier used on each machine, plus the existing evaluation configuration and logs? A small saved example of the same trajectory and timestep, with processed inputs and predicted actions from both machines, would be especially useful. Seed, precision, and PyTorch/CUDA versions would help interpret it; private images and training data can stay out.\n\nI can start with those records and check where the two paths cease to be comparable. No new robot run is needed for that first inspection. What choice are you trying to make now: whether to deploy on Jetson, change the inference configuration, or revisit the checkpoint?\n"
+    },
+    {
+      "target": "repos/irom-princeton/rapid-policy-evaluation/issues",
+      "html_url": "https://github.com/irom-princeton/rapid-policy-evaluation/issues/1",
+      "id": 5798789032,
+      "created_at": "2026-10-11T06:57:12Z",
+      "author": "manfromnowhere143",
+      "body_path": "artifacts/confirmation-frontier-2026-10-11/suresim-outreach-initial.md",
+      "body_sha256": "06f46d2d8cd24468fa49edba10a4f7680df5546309e5576e657a20bb60883c5f",
+      "post_response_path": "artifacts/confirmation-frontier-2026-10-11/suresim-post-response.json",
+      "readback_path": "artifacts/confirmation-frontier-2026-10-11/suresim-post-readback.json",
+      "readback_sha256": "7f0ed2e4239f902d09e019aca2f899c23152ae0943ef72f1301883292d9b4216",
+      "exact_readback_verified": true,
+      "completed_at": "2026-10-11T06:56:00.607103+00:00",
+      "wall_seconds": 1.463197625009343,
+      "body": "I'm Daniel, building [Nisayon](https://github.com/manfromnowhere143/nisayon). I'm investigating when existing simulation evidence can reduce the work needed to qualify a robot-policy deployment change. SureSim's comparison against real-only intervals, including the low-correlation result, is directly relevant.\n\nI read [v1, Sections 4\u20135](https://arxiv.org/html/2510.04354v1) and inspected this repository at `e9e6cb5`. I found the Franka `real_uniform_raw_full.tsv`, but couldn't locate the paired and additional simulation tables referenced by [`franka_problem_data.py`](https://github.com/irom-princeton/rapid-policy-evaluation/blob/e9e6cb567f8792630044e5c1662ed6e1db9c7480/examples/FrankaDP_1877507_object_generalization/franka_problem_data.py):\n\n- `fixed_objects_full_125_avg_results_real_Bernoulli_sim_partial_multi_init.csv`\n- `additional_robocasa_real_Bernoulli_sim_partial_multi_init.csv`\n\nIs there a canonical export for reproducing Figures 4\u20135, with object identifiers, paired scores, additional simulation scores, and the metric/aggregation choice? I may have missed a separate download.\n\nOne methodological detail would also help: Section 5 describes reconstructed physical objects for the paired pool and filtered RoboCASA assets for the additional pool. What matching or sampling record supports treating those pools as draws from the same target distribution? I'm trying to separate uncertainty in the simulation residual from uncertainty about which objects the result covers.\n\nExisting score tables and that mapping would be enough to begin; I'm not asking for new hardware trials. I'd be glad to return a reproducible readback with any differences left explicit.\n"
+    },
+    {
+      "target": "repos/irom-princeton/rapid-policy-evaluation/issues/1",
+      "action": "edit_same_issue_with_missing_score_question",
+      "html_url": "https://github.com/irom-princeton/rapid-policy-evaluation/issues/1",
+      "id": 5798789032,
+      "updated_at": "2026-10-11T06:58:31Z",
+      "author": "manfromnowhere143",
+      "body_path": "artifacts/confirmation-frontier-2026-10-11/suresim-outreach.md",
+      "body_sha256": "834e22470d7f487933f22a027cab9b8a83144466cdd259b07002320e327ed87a",
+      "readback_path": "artifacts/confirmation-frontier-2026-10-11/suresim-edit-readback.json",
+      "readback_sha256": "18e4a2a0acb1bc9bc71f999a795fe8bc4b3a04febb0eb1a82b2c54043555f7e7",
+      "exact_readback_verified": true,
+      "completed_at": "2026-10-11T06:57:19.073225+00:00",
+      "wall_seconds": 1.9076130830217153,
+      "body": "I'm Daniel, building [Nisayon](https://github.com/manfromnowhere143/nisayon). I'm investigating when existing simulation evidence can reduce the work needed to qualify a robot-policy deployment change. SureSim's comparison against real-only intervals, including the low-correlation result, is directly relevant.\n\nI read [v1, Sections 4\u20135](https://arxiv.org/html/2510.04354v1) and inspected this repository at `e9e6cb5`. I found the Franka `real_uniform_raw_full.tsv`, but couldn't locate the paired and additional simulation tables referenced by [`franka_problem_data.py`](https://github.com/irom-princeton/rapid-policy-evaluation/blob/e9e6cb567f8792630044e5c1662ed6e1db9c7480/examples/FrankaDP_1877507_object_generalization/franka_problem_data.py):\n\n- `fixed_objects_full_125_avg_results_real_Bernoulli_sim_partial_multi_init.csv`\n- `additional_robocasa_real_Bernoulli_sim_partial_multi_init.csv`\n\nIs there a canonical export for reproducing Figures 4\u20135, with object identifiers, paired scores, additional simulation scores, and the metric/aggregation choice? I may have missed a separate download.\n\nIn the raw TSV, the third-column scores are blank on lines 24, 25, and 210 (`greenbowl` and `blackbox`), while the fourth column contains zero. Which treatment of those missing partial scores was used for the plotted result?\n\nOne methodological detail would also help: Section 5 describes reconstructed physical objects for the paired pool and filtered RoboCASA assets for the additional pool. What matching or sampling record supports treating those pools as draws from the same target distribution? I'm trying to separate uncertainty in the simulation residual from uncertainty about which objects the result covers.\n\nExisting score tables and that mapping would be enough to begin; I'm not asking for new hardware trials. I'd be glad to return a reproducible readback with any differences left explicit.\n"
+    }
+  ],
+  "distinct_new_requests": 2,
+  "total_pending_requests_at_readback": 8,
+  "limits": "No customer commitment or response was established. GR00T incident is older and current relevance is asked explicitly. SureSim request is research/data access, not a customer lead. Local and GitHub timestamp epochs differ; preserve both and use monotonic durations for elapsed costs."
+}

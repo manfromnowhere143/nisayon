@@ -1,0 +1,60 @@
+[
+  {
+    "name": "ruff-check",
+    "command": [
+      ".venv/bin/ruff",
+      "check",
+      "."
+    ],
+    "result": {
+      "chunk_id": "a58d1c",
+      "wall_time_seconds": 0.388293584,
+      "exit_code": 0,
+      "original_token_count": 5,
+      "output": "All checks passed!\n"
+    }
+  },
+  {
+    "name": "ruff-format-initial",
+    "command": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "."
+    ],
+    "result": {
+      "chunk_id": "304d5a",
+      "wall_time_seconds": 0.386697292,
+      "exit_code": 1,
+      "original_token_count": 150,
+      "output": "unformatted: File would be reformatted\n  --> docs/experiments/results/decision-endpoint-001/REPRODUCE.md:29:14\n   |\n28 | artifacts = Path(\"artifacts/decision-evidence-2026-10-12\")\n   - for name in [\"native-predicate-sources.json\", \"native-predicate-config.json\",\n   -              \"checkpoint-metadata-sources.json\"]:\n29 + for name in [\n30 +     \"native-predicate-sources.json\",\n31 +     \"native-predicate-config.json\",\n32 +     \"checkpoint-metadata-sources.json\",\n33 + ]:\n34 |     manifest = json.loads((evidence / name).read_text())\n   |\n\n1 file would be reformatted, 527 files already formatted\n"
+    }
+  },
+  {
+    "name": "docs-check",
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "scripts/check_docs.py"
+    ],
+    "result": {
+      "chunk_id": "ce5abd",
+      "wall_time_seconds": 0.000009542,
+      "exit_code": 0,
+      "original_token_count": 35,
+      "output": "{\n  \"documents\": 175,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n"
+    }
+  },
+  {
+    "name": "ruff-format-final",
+    "command": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "."
+    ],
+    "returncode": 0,
+    "stdout": "528 files already formatted\n",
+    "resolution": "Formatted only REPRODUCE.md's Python list. Frozen protocol, decision and executed reader were unchanged."
+  }
+]

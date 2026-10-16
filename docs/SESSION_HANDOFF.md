@@ -1,81 +1,35 @@
 # Continue Nisayon
 
-**Public source snapshot · 14 October 2026.** The latest
-[evaluator correction](experiments/results/cost-retention-public-001/README.md)
-retains measured prefix costs beneath unmeasured parents and exposes partial
-and invalid totals. Its 15-control comparison and exposed D05 readback are
-reproducible without private records. The research summaries below retain their
-original dates; no new robot performance or comparative advantage is established.
+This is the public research source snapshot. Read [the release notes](RELEASE.md),
+[the voice and authorship rule](VOICE.md), and [the shared memory convention](../memory/INDEX.md).
+Run `uv run --frozen nisayon start` and inspect Git status before editing.
 
-Read the [source update and release
-boundary](RELEASE.md), [voice and authorship rule](VOICE.md), and
-[development setup](DEVELOPMENT.md#local-setup). Private client settings, session
-memory, lane records and development Git ancestors are not distributed here.
+The [README review route](../README.md#inspect-the-work) connects the implemented
+engine, bounded offline decision probes and confirmation obligations to their
+code and controls. The [architecture](ARCHITECTURE.md) distinguishes implemented
+data flow from the proposed general compiler, selector and execution bridge.
+The [experiment index](experiments/README.md) retains work through 16 October 2026.
 
-In a fresh checkout, run `uv sync --frozen`, `make check`, and
-`uv run --frozen nisayon start`. Inspect Git status before editing. The base
-profile reports optional simulation and private-store skips explicitly. Install
-that extra only in a separate development environment; do not resynchronize a
-retained experimental runtime.
+Both retained development comparisons found equal accepted-repair counts and
+greater measured trial wall time for the additional-checks arm. No efficiency
+advantage has been established. The original protocols, failures and unknowns
+remain in the research records. Private client configuration, correspondence,
+the internal work queue, lane checkpoints and session memory are not distributed.
 
-The [decision-specific research update](RESEARCH_PLAN.md#decision-specific-validation--11-october-2026)
-adds a standard-library readback of published aggregate ranks. Its 14 correlation
-checks pass, while the deployment-choice metric remains a separate obligation.
-The [architecture](ARCHITECTURE.md#what-the-decision-means) now makes the
-checkpoint's learned conventions explicit when proposing a serving change.
-The [incident review](experiments/results/incident-selection-2026-10-11/review.json)
-credits existing GR00T compatibility work and retains current alternatives.
-This update adds no robot run, production adapter or comparative-value result.
+Finite decision probes execute no interventions. Prediction-audit research is
+conditional on an appropriate population endpoint, valid sampling and an existing
+pre-execution signal whose complete cost fits inside the avoided execution work.
+It does not change the current finite confirmation obligation. Native software
+checks and upstream adoption have the scope recorded in each result.
 
-The [RTC follow-through](experiments/TEMPORAL_INTERFACE.md#rtc-follow-through--10-october-2026)
-adds selected relative-action and normalization controls and an observation/queue
-memory-coherence case. The paired candidate passes all twelve controls, across
-36 executions of three variants; 100 focused research tests pass. The diagnosis
-and design were already proposed by 1brahim-Khan in September and are credited.
-Stable published observation payloads and scripted CPU execution bound these
-results; full runtime, learned policy and physical synchronization remain
-unqualified. The original audit below remains intact. Tensor-dependent tests
-are explicit skips in the base profile.
+Re-score the compact records using [the README](../README.md#reproduce).
+Its separately documented five-trajectory exploration is not fresh confirmation.
+Do not reuse spent confirmation seeds, weaken D05's progress rule or describe
+the three repetitions of one known incident as three unseen cases. No new
+efficiency experiment is justified until a discriminating case and feasible
+cost opportunity exist. See [the trace analysis](experiments/UNUSED_AUDIT.md).
 
-The [RTC queue audit](experiments/TEMPORAL_INTERFACE.md#rtc-queue-snapshot-audit--10-october-2026)
-reproduces four index/prefix mismatches in selected current LeRobot worker
-definitions. A local atomic-snapshot candidate passes all seven assigned controls,
-including no-race and reset cases; 61 focused research checks pass. The source,
-patch and upstream license are retained. These CPU controls use a scripted policy
-and virtual latency; no robot result, comparative advantage or upstream acceptance
-follows. The optional PyTorch cases are explicit skips in the base profile.
-
-The [native evidence correction](experiments/results/native-record-decoding-001/result.json)
-rejects conflicting JSON keys, non-finite numbers and records changed after the
-initial hash scan. Fifteen rejection controls fail before and pass after; all
-1,210 research-environment tests pass. The native and B2 retained readbacks keep
-their outcomes. This establishes software integrity behavior, not scientific
-acceptance or physical truth. See the [current platform checks](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml).
-
-The two original comparisons still show equal accepted-repair counts and greater
-measured trial wall time for the additional-checks arm. A1 completed runtime
-qualification but rejected its checkpoint at 1/10 against the frozen 8/10
-requirement. B2 confirmed a checkpoint-specific observation-convention correction
-at 9/10 versus 0/10 unchanged. These results establish no diagnostic or economic
-advantage; the later assessments are single-lane and non-independent.
-
-The [portable evidence reader](experiments/TRANSFER_EVIDENCE.md) checks the
-existing B2 packet without running a simulator. Its raw packet is held separately;
-the public compact records do not replace it. The
-[history receipt correction](experiments/results/condition-history-fix-001/README.md)
-preserves all recovered seeds and evidence references. It does not retroactively
-validate an invalid experiment.
-
-The next value investigation requires an executable external incident, a live
-unresolved decision and a competent conventional workflow with equal information
-and measured costs. The incident review tracks four existing requests: OpenPI
-#906 and #1060, GR00T #785 and RoboRecover #2. The 11 October readback found no
-new reply. OpenPI #906 had been omitted from the short continuation and is now
-restored. Start with ordinary CPU reconstruction if an owner supplies matching
-source/settings and records. Do not duplicate requests or reuse consumed conditions.
-
-Re-score the retained compact records through the [README](../README.md).
-Its five-trajectory example is exposed exploration, not fresh confirmation.
-Keep original failures, unknown costs and D05's task-progress requirement.
-The published `v0.1.0` tag and its validation remain unchanged; public updates
-must descend from public history without adding private ancestors.
+The next decisive evidence is an independently owned incident with a freshly
+confirmed correction and lower complete effort than a competent native workflow,
+followed by a separate untouched reuse case. Participation, economic value and
+general applicability remain open. See [the research plan](RESEARCH_PLAN.md).

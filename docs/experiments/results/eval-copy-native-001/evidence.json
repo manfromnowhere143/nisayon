@@ -1,0 +1,642 @@
+{
+  "schema": "nisayon.eval-copy-native.v1",
+  "recorded_at": "2026-10-11T18:21:19.274169+00:00",
+  "task": "N021",
+  "authorization": "Daniel requested autonomous technical follow-through and explicitly instructed obtaining the correct environment and versions without shortcuts. Standing targeted communication authority covers updating the existing source-bound review.",
+  "source_commit": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+  "upstream_url": "https://github.com/huggingface/lerobot/pull/4450",
+  "archive": {
+    "name": "upstream-archive",
+    "url": "https://codeload.github.com/huggingface/lerobot/tar.gz/ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+    "path": "artifacts/eval-copy-native-001/upstream.tar.gz",
+    "sha256": "99d765f5b47c8b19d4630ef1cfc692c373fa790dac2ba5083d6e6461f5dfd6c2",
+    "bytes": 6348915,
+    "retrieved_at": "2026-10-11T18:08:51.721589+00:00",
+    "wall_seconds": 3.490374500019243,
+    "extracted_files": 528,
+    "selected_bytes": 6037318,
+    "extraction_note": "The extracted_files/selected_bytes fields describe the initial partial extraction. Before native execution the entire archive was expanded: 1,035 files / 15,628,859 bytes. Every original baseline file and the one-file candidate difference were verified again after both runs."
+  },
+  "integrity": {
+    "full_archive_file_count": 1035,
+    "full_archive_file_bytes": 15628859,
+    "all_original_baseline_archive_files_unchanged": true,
+    "candidate_changes": [
+      {
+        "path": "src/lerobot/scripts/lerobot_eval.py",
+        "baseline_sha256": "393cb55cda6721a15cef0dcdd0ccb5788a7a0c1f917dc4b96ffaf4804c2dceda",
+        "candidate_sha256": "87dfbec6a0ddc102ad80e88d04ce7587b04cac641e4b7f1ab720f286e351e814"
+      }
+    ],
+    "patch_commands": [
+      {
+        "command": [
+          "patch",
+          "-p1",
+          "-i",
+          "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/eval-copy-graph-001/candidate.patch",
+          "--dry-run"
+        ],
+        "exit_code": 0,
+        "stdout": "patching file 'src/lerobot/scripts/lerobot_eval.py'\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "patch",
+          "-p1",
+          "-i",
+          "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/eval-copy-graph-001/candidate.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "patching file 'src/lerobot/scripts/lerobot_eval.py'\n",
+        "stderr": ""
+      }
+    ],
+    "verified_again_after_native_runs": true
+  },
+  "environment": {
+    "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+    "platform": "macOS-14.4-arm64-arm-64bit",
+    "machine": "arm64",
+    "dependency_count": 70,
+    "installed_source_package": "lerobot 0.6.2 at pinned PR commit",
+    "same_distributions_between_variants": true,
+    "lock_sha256": "38d8c3ce0f3a138fa4bb541b2b3137af7075d699bb03525dc952433df16a0e74",
+    "selection": "Base, dataset, evaluation and complete test extras from pinned upstream metadata. Only binary dependency distributions; hash-checked sync, no-deps/no-build-isolation editable source install.",
+    "uv": "0.11.28",
+    "device": "CPU test tensors; MPS availability printed by upstream conftest is not a test device selection.",
+    "offline_test_environment": {
+      "HF_HUB_OFFLINE": "1",
+      "HF_DATASETS_OFFLINE": "1",
+      "HF_HOME": "task-local empty cache"
+    },
+    "retained_environment_snapshot_unchanged": true,
+    "snapshot_scope": "Python version, 86 package/version pairs, repository uv.lock hash, .venv/pyvenv.cfg hash. No install command targeted either retained research environment."
+  },
+  "results": {
+    "baseline": {
+      "failed": 4,
+      "passed": 9,
+      "skipped": 0,
+      "errors": 0,
+      "failures": [
+        {
+          "test": "test_parallel_preserves_linked_pipeline_state[fresh]",
+          "message": "RuntimeError: AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor."
+        },
+        {
+          "test": "test_parallel_preserves_linked_pipeline_state[cached]",
+          "message": "AssertionError: Tensor-likes are not equal!\n\nMismatched elements: 1 / 2 (50.0%)\nGreatest absolute difference: 80.0 at index (0, 0)\nGreatest relative difference: 3.809523820877075 at index (0, 0)"
+        },
+        {
+          "test": "test_native_rollout_follows_current_state[parallel-fresh]",
+          "message": "RuntimeError: AbsoluteActionsProcessorStep requires state from RelativeActionsProcessorStep but no state has been cached. Ensure the preprocessor runs before the postprocessor."
+        },
+        {
+          "test": "test_native_rollout_follows_current_state[parallel-cached]",
+          "message": "AssertionError: \nArrays are not equal\n\nMismatched elements: 1 / 2 (50%)\nMax absolute difference among violations: 90.\nMax relative difference among violations: 8.18181818\n ACTUAL: array([101.  ,   0.25], dtype=float32)\n DESIRED: array([11.  ,  0.25])"
+        }
+      ]
+    },
+    "candidate": {
+      "failed": 0,
+      "passed": 13,
+      "skipped": 0,
+      "errors": 0
+    },
+    "initial_nine_check_run": {
+      "failed": 2,
+      "passed": 7,
+      "purpose": "Initial normal-import pipeline/dispatcher regression before adding the full evaluator rollout controls. Separate evidence; not pooled."
+    }
+  },
+  "scope": {
+    "native_dispatch_tests": 6,
+    "unchanged_upstream_tests": 3,
+    "native_rollout_tests": 4,
+    "rollout_fixture": "Four tasks, two deterministic three-step episodes per case, native Gym SyncVectorEnv; scripted PreTrainedPolicy. All evaluator/processor/Gym implementations remain unchanged. Fresh baseline parallel fails before actions; candidate executes all declared fixture episodes.",
+    "candidate_change": "Only the retained one-tuple deepcopy patch.",
+    "not_established": [
+      "learned-policy performance",
+      "Linux or GPU compatibility",
+      "physics-simulator outcomes",
+      "hardware behavior or safety",
+      "arbitrary policy deepcopy correctness",
+      "upstream acceptance",
+      "customer savings",
+      "general automated detector",
+      "commercial viability"
+    ]
+  },
+  "known_issues": [
+    "Initial linked-test lint I001 import order corrected before execution.",
+    "Pytest warns that already-imported anyio cannot be assertion-rewritten in the programmatic runner.",
+    "OpenCV/PyAV emit duplicate AVFoundation class warnings on macOS. Video capture/codecs are not exercised.",
+    "REST review PUT returned 404; readback unchanged. GraphQL viewerCanUpdate true; supported mutation succeeded and REST readback verified exact content. Cause of REST failure unknown."
+  ],
+  "known_costs": {
+    "archive_bytes": 6348915,
+    "archive_fetch_wall_seconds": 3.490374500019243,
+    "setup_command_receipts": [
+      {
+        "label": "resolve-test-profile",
+        "command": [
+          "uv",
+          "pip",
+          "compile",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/requirements.in",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+          "--generate-hashes",
+          "--only-binary",
+          ":all:",
+          "--output-file",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/requirements.lock"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.6098696659901179
+      },
+      {
+        "label": "sync-test-profile",
+        "command": [
+          "uv",
+          "pip",
+          "sync",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+          "--require-hashes",
+          "--only-binary",
+          ":all:",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/requirements.lock"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.7717672089929692
+      },
+      {
+        "label": "install-baseline",
+        "command": [
+          "uv",
+          "pip",
+          "install",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+          "--no-deps",
+          "--no-build-isolation",
+          "-e",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.5549357920244802
+      },
+      {
+        "label": "pip-check",
+        "command": [
+          "uv",
+          "pip",
+          "check",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.03952133300481364
+      }
+    ],
+    "initial_native_command": {
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+        "-m",
+        "pytest",
+        "-c",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473/pyproject.toml",
+        "-p",
+        "no:cacheprovider",
+        "--timeout=60",
+        "-ra",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473/tests/scripts/test_lerobot_eval.py",
+        "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/eval-copy-native-001/test_linked_processors.py",
+        "--junitxml=/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/baseline-native.xml"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "HF_HUB_OFFLINE": "1",
+        "HF_DATASETS_OFFLINE": "1",
+        "HF_HOME": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/hf-cache",
+        "PYTHONPATH": "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473"
+      },
+      "exit_code": 1,
+      "wall_seconds": 58.085268749971874
+    },
+    "baseline_full_command": {
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+        "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/eval-copy-native-001/run_checks.py",
+        "--source",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/source/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/baseline-full.json"
+      ],
+      "exit_code": 1,
+      "wall_seconds": 9.230374250008026
+    },
+    "candidate_commands": [
+      {
+        "label": "install-candidate",
+        "command": [
+          "uv",
+          "pip",
+          "install",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+          "--no-deps",
+          "--no-build-isolation",
+          "-e",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/candidate/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.6034645829931833
+      },
+      {
+        "label": "candidate-pip-check",
+        "command": [
+          "uv",
+          "pip",
+          "check",
+          "--python",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 0.04072895800345577
+      },
+      {
+        "label": "candidate-full",
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/venv/bin/python",
+          "/Users/danielwahnich/workspace/nisayon-codex/docs/experiments/results/eval-copy-native-001/run_checks.py",
+          "--source",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/candidate/lerobot-ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+          "--output",
+          "/Users/danielwahnich/workspace/nisayon-codex/artifacts/eval-copy-native-001/candidate-full.json"
+        ],
+        "exit_code": 0,
+        "wall_seconds": 9.462756833003368
+      }
+    ],
+    "baseline_pytest_seconds": 0.614,
+    "candidate_pytest_seconds": 0.45,
+    "interpretation": "Command wall times are execution measurements, not engineer/adoption costs or a comparative performance benchmark. Cold imports and warm caches differ. Initial resolve/install logs retained; some initial command timing was not captured. No cost or speedup advantage claimed.",
+    "unmeasured": [
+      "total engineer review/maintenance time",
+      "initial dependency download bytes and total cache storage",
+      "owner adoption time",
+      "customer comparison",
+      "GPU memory cost"
+    ]
+  },
+  "communication": {
+    "review_url": "https://github.com/huggingface/lerobot/pull/4450#pullrequestreview-5483662010",
+    "review_id": 5483662010,
+    "author": "manfromnowhere143",
+    "commit": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+    "state": "COMMENTED",
+    "exact_body_readback": true,
+    "body_sha256": "ca2832aa6bfcd1577975ab6e3a842ab6504a44ee34849983bba56e0597dc32c1",
+    "action": "Updated existing review with dated native results and both executed regression files through GraphQL; no new review or comment.",
+    "initial_failure": "REST PUT returned 404. GET confirmed unchanged body. GraphQL viewerCanUpdate was true; supported updatePullRequestReview mutation succeeded. Cause of REST 404 is unknown.",
+    "verified_at": "2026-10-11T18:19:38.858772+00:00"
+  },
+  "raw_artifacts": [
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-full-command.json",
+      "bytes": 561,
+      "sha256": "ac9d3e29340858a0eb5a802be6c858255c27b3308d539af0f6b5d7cdf07ae3bd"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-full.json",
+      "bytes": 8203,
+      "sha256": "34929fdbd7fc25f0e53f29cfd202f545b985ee47a7d3a5f9797ed1df9b9b3e0c"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-full.stderr.txt",
+      "bytes": 1244,
+      "sha256": "b6c1f7d18c2f976d88f97712023278a19f2d36af56515528c6ed51d41c412055"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-full.stdout.txt",
+      "bytes": 23996,
+      "sha256": "a2794c8ff05dbf62e7be1a5524938fe9b4b72da65c60403e81caf576a61ffeb1"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-full.xml",
+      "bytes": 16569,
+      "sha256": "d2458e9cc8fb9432690b58e2c190686d3964f8aed97d9b54a044aacb92eba6e8"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-native.json",
+      "bytes": 1370,
+      "sha256": "3952c8952dfb721be473785939dce528725e09c3c851afb0abb6b9fbe9fd74a0"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-native.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-native.stdout.txt",
+      "bytes": 7873,
+      "sha256": "0ba5a63851c797356d453bde0d1e65a709861d5146a21204ef6688eb92282856"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/baseline-native.xml",
+      "bytes": 8316,
+      "sha256": "ff902e235c034c8b4ba8c647d17e921a1d0cf1e525bf5de38a3201bf28e51edb"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-commands.json",
+      "bytes": 1402,
+      "sha256": "49663207769a689eaf0f8adb4012dd2e7950b7bf34c3be0d65cd7343b16c7e94"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-full.json",
+      "bytes": 8216,
+      "sha256": "37643322dc67dcb3a547a3accdf26abb10cb6cad0692c7ac96d2f547b1177262"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-full.stderr.txt",
+      "bytes": 884,
+      "sha256": "9cc321fca86797418b39b87a1d71eb852603b7786c9f59f5c44f24ec595ea315"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-full.stdout.txt",
+      "bytes": 1364,
+      "sha256": "e7c81e489d16c1736e9e756805cd4e4716376bcf37b9b95b170d495b5a0aa600"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-full.xml",
+      "bytes": 1667,
+      "sha256": "5e34a408a3b0d52c2d3afdbf6bf1894a056337d16e6919504c3a2714b4d42a62"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-pip-check.stderr.txt",
+      "bytes": 183,
+      "sha256": "01ca39c376055cf768222f95c69634fbdafaf1c2918faf2d9994e06960fa2bba"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/candidate-pip-check.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/comments.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/configs-init.py",
+      "bytes": 2489,
+      "sha256": "ad4eae49484f1d4e1f2a7496024d1995527e1db03353c81ce688e0a4e05d58a8"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/conftest.py",
+      "bytes": 4083,
+      "sha256": "a733e2a863260101edb2d00f0b80ce0e5738a0307c16307edae6e805f8d9d9b2"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install-baseline.stderr.txt",
+      "bytes": 640,
+      "sha256": "f2cf8a879040bf5652c80cff4eb38fae77dd3831e604df8187db1ff8cd689e34"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install-baseline.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install-candidate.stderr.txt",
+      "bytes": 887,
+      "sha256": "712776468fc7854f4683ce464cae599f5edb50252a63246802eb1501a57ceca9"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install-candidate.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install.stderr.txt",
+      "bytes": 2138,
+      "sha256": "d9f00d3693f62646ca24fa5a4e560d4ecc2a2c9b8bb94e9e535bbf4d4029c6c8"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/install.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/pip-check.stderr.txt",
+      "bytes": 138,
+      "sha256": "8552f009e26951675ea3f29b6bf229db7e9b94c5bc381611ea5d013efb6245f5"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/pip-check.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/planned-rollout.json",
+      "bytes": 872,
+      "sha256": "b547b6c484c0c1598e7f3ac8ac4b162b6a17b48eee6305c9c62ee2c0abddd734"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/planned.json",
+      "bytes": 813,
+      "sha256": "dbde546fc345cff82fa19c1c739b81e011974a03280d1df0b344f762badd7d63"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/pr.json",
+      "bytes": 23692,
+      "sha256": "0744fcbf6bc890c65f7140cef91e184c7eb8c86e4ccc90c6efb3d9700555da04"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/preupdate-pr.json",
+      "bytes": 23692,
+      "sha256": "0744fcbf6bc890c65f7140cef91e184c7eb8c86e4ccc90c6efb3d9700555da04"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/preupdate-review.json",
+      "bytes": 3643,
+      "sha256": "f80ad7ff6102c3c6ec76414065aa75174a6d0966776db78b73649631532987c0"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/processor-init.py",
+      "bytes": 6098,
+      "sha256": "70863c9d39c35aa3748bc558881d895a6c1af61f7e5bc2f2464cc3b0624e92bb"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/pyproject.toml",
+      "bytes": 24511,
+      "sha256": "8d158048570bef7c3bf4c0a5f862fb22d4da7eee067a94ed94c9195a9d3bdd68"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/pytest.ini",
+      "bytes": 36,
+      "sha256": "1dac468dd93a169701c454eceadb34c9ebe60cdb8afa67a28ea85f0f0dfa5bba"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/requirements-initial.in",
+      "bytes": 950,
+      "sha256": "d76de580b76833e61b38019493a762637b0b9350d64e98ddf723060207dd4bda"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/requirements-initial.lock",
+      "bytes": 164762,
+      "sha256": "03a527de4613c2c51c0c6a7134a9bbc6cb0212279a227f5e7fbe4e038f1adcb5"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/requirements.in",
+      "bytes": 1110,
+      "sha256": "376cf1af38605e9e162a98d46260a92ae0a53a81657b7498b9b8283e79139bfc"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/requirements.lock",
+      "bytes": 176076,
+      "sha256": "38d8c3ce0f3a138fa4bb541b2b3137af7075d699bb03525dc952433df16a0e74"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/resolve-test-profile.stderr.txt",
+      "bytes": 30,
+      "sha256": "7f481dd6de57bec1a640e8f19e56a123ca395ff3a8909a21bd6cadd4d0587722"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/resolve-test-profile.stdout.txt",
+      "bytes": 176076,
+      "sha256": "38d8c3ce0f3a138fa4bb541b2b3137af7075d699bb03525dc952433df16a0e74"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/resolve.stderr.txt",
+      "bytes": 30,
+      "sha256": "58fc00110cc648468d8af87559e17f6a83a3d18e99528f3a6aa1f678300c0dfc"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/resolve.stdout.txt",
+      "bytes": 164762,
+      "sha256": "03a527de4613c2c51c0c6a7134a9bbc6cb0212279a227f5e7fbe4e038f1adcb5"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/retained-environment-after.json",
+      "bytes": 4323,
+      "sha256": "a887ced97e921ee7b3587d477f874bb8aed90b53ed48c2315f979b893d9d99dd"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/retained-environment-before.json",
+      "bytes": 4323,
+      "sha256": "a887ced97e921ee7b3587d477f874bb8aed90b53ed48c2315f979b893d9d99dd"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-after-failed-edit.json",
+      "bytes": 2227,
+      "sha256": "0676f4491c81d65835a13fc74ff9a12d81536f2fe1a15faabb918563f5d5edc4"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-comments.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-graphql-payload.json",
+      "bytes": 17330,
+      "sha256": "978dcbbfd844979eef2d735e35374e472b03ad78177f9d6d0f37c6a147f61aae"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-graphql-preflight.json",
+      "bytes": 2110,
+      "sha256": "52477aef41b0ec95cf5f2e5158f1afbd51c5e1b9a4842a6dccf98520964a40c3"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-graphql-update.json",
+      "bytes": 17346,
+      "sha256": "51618e973288dea72c0e921e77dd0bc23a70c520686695eceeb9b8a737a4e901"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-graphql-update.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update-payload.json",
+      "bytes": 17062,
+      "sha256": "2d8d0b4e9c15d7f9033b841a6fcbeb99b3ba814bceee365369aa6b69a8204314"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update-readback.json",
+      "bytes": 18695,
+      "sha256": "45bbf701d21691db85c7458b1baa74f87d31e8b6374b04239d7fedadacda15f6"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update-readback.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update-response.json",
+      "bytes": 138,
+      "sha256": "6839887b8d49670cf46d60fc7272d7181336d8afb4b4d46aa03b2c559ea18004"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update-response.stderr.txt",
+      "bytes": 25,
+      "sha256": "d2c8985c89b29a842ac4946d13bdbc297709f44f20bb968faf9682664b211db6"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-update.json",
+      "bytes": 747,
+      "sha256": "b288032a9be50a8af9d8d6bfbb5eb4c6d82749444f96d5abe3a919a057afcbc2"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/review-updated.md",
+      "bytes": 16479,
+      "sha256": "ca2832aa6bfcd1577975ab6e3a842ab6504a44ee34849983bba56e0597dc32c1"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/reviews.json",
+      "bytes": 3645,
+      "sha256": "8e15fe4ea69f73b3315805f230ecc0d277b264d0598cf1da5fe3a724d4161e3e"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/setup-commands.json",
+      "bytes": 1798,
+      "sha256": "3a26a133dc41e5fced062a04a328d8ab5432cbc1747941d17678d3842fc76e28"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/source-integrity.json",
+      "bytes": 183213,
+      "sha256": "b697926f5adae9cf4730c707bdc6c00c179af5fc3e4b495cf4a8165845dccb4f"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/sources.json",
+      "bytes": 5770,
+      "sha256": "3835f4a9821bf971131e72ab8f933d7240e8d626ba4f64c98e2c83c86283ad09"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/sync-test-profile.stderr.txt",
+      "bytes": 247,
+      "sha256": "1743d5515c9d1bdb93b893cc638c53b7c5e607c31ea4902dbf714cc5717829d5"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/sync-test-profile.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/venv.stderr.txt",
+      "bytes": 195,
+      "sha256": "8e56c631f359202d8216ab8341cb33f645f6a32bf0056bea09c8b49a41e164d3"
+    },
+    {
+      "path": "artifacts/eval-copy-native-001/venv.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "next": "Respond to changed source or maintainer evidence. Rebind source before qualification on a new head. N015 still requires a source-bound owner decision and complete comparative costs; no repeat of spent experiments or unchanged outreach."
+}

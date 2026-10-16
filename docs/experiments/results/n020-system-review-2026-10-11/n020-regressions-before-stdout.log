@@ -1,0 +1,58 @@
+..F..F                                                                   [100%]
+=================================== FAILURES ===================================
+_____ test_all_assignment_records_without_finalization_remain_a_prefix[18] _____
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-153/test_all_assignment_records_wi0')
+completed = 18
+
+    @pytest.mark.parametrize("completed", [0, 1, len(processor_case.ASSIGNMENT_IDS)])
+    def test_all_assignment_records_without_finalization_remain_a_prefix(tmp_path, completed):
+        store = _unsealed_store(tmp_path, completed)
+        before = {p.relative_to(store): file_digest(p) for p in store.rglob("*") if p.is_file()}
+        result = processor_case.inspect_store(store)
+>       assert result["integrity"] == "verified_prefix"
+E       AssertionError: assert 'verified_complete_store' == 'verified_prefix'
+E         
+E         - verified_prefix
+E         + verified_complete_store
+
+tests/engine/test_processor_case.py:428: AssertionError
+_____ test_readback_outside_workspace_preserves_prefix_and_output_boundary _____
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-153/test_readback_outside_workspac0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1070b32f0>
+capsys = <_pytest.capture.CaptureFixture object at 0x1070b3b90>
+
+    def test_readback_outside_workspace_preserves_prefix_and_output_boundary(
+        tmp_path, monkeypatch, capsys
+    ):
+        store = _unsealed_store(tmp_path, len(processor_case.ASSIGNMENT_IDS))
+        monkeypatch.chdir(tmp_path)
+    
+        def forbidden():
+            raise AssertionError("Readback must not discover or initialize a workspace")
+    
+        monkeypatch.setattr(cli.workspace, "project_root", forbidden)
+        output = tmp_path / "inspection.json"
+        monkeypatch.setattr(
+            "sys.argv", ["nisayon", "external-decision", "inspect", str(store), "--out", str(output)]
+        )
+        with pytest.raises(SystemExit) as exited:
+>           cli.main()
+
+/Users/danielwahnich/workspace/nisayon-codex/tests/engine/test_processor_case.py:460: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/Users/danielwahnich/workspace/nisayon-codex/src/nisayon/cli.py:77: in main
+    root = None if args.command == "verify-lift-transfer" else workspace.project_root()
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def forbidden():
+>       raise AssertionError("Readback must not discover or initialize a workspace")
+E       AssertionError: Readback must not discover or initialize a workspace
+
+/Users/danielwahnich/workspace/nisayon-codex/tests/engine/test_processor_case.py:452: AssertionError
+=========================== short test summary info ============================
+FAILED tests/engine/test_processor_case.py::test_all_assignment_records_without_finalization_remain_a_prefix[18]
+FAILED tests/engine/test_processor_case.py::test_readback_outside_workspace_preserves_prefix_and_output_boundary
+2 failed, 4 passed, 4 deselected in 0.24s

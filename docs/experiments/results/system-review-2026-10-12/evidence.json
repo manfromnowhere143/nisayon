@@ -1,0 +1,380 @@
+{
+  "schema": "nisayon.system-review.evidence.v1",
+  "recorded_at": "2026-10-12T05:46:19.430352+00:00",
+  "baseline_commit": "c319404be5ed841569628b64d4108c50aa67f7ee",
+  "method": "Read retained terminal JSON, bind its bytes, extract scoped verdicts and recompute descriptive cost ratios. This does not re-execute or independently re-adjudicate the original experiments.",
+  "source_bindings": {
+    "scripted": {
+      "path": "docs/experiments/results/engine-historical-replay-001/scripted-score.json",
+      "sha256": "b244cec83a6ed6ce7aec6ea6b4adba530f40058122334feb5968fa9abdb8b31a",
+      "bytes": 9417
+    },
+    "bounded": {
+      "path": "docs/experiments/results/engine-historical-replay-001/bounded-score.json",
+      "sha256": "7152b0fcfbfdf43286c9f8b8174fd418069f929025d59ef6c91fe73ea9648607",
+      "bytes": 9318
+    },
+    "a1": {
+      "path": "docs/experiments/results/a1-runtime-001/completed-runtime-assessment-001.json",
+      "sha256": "1b55090a39c90405bc41a981991b9913607f60406762657f7fd9ba93317970c4",
+      "bytes": 42356
+    },
+    "b2": {
+      "path": "docs/experiments/results/b2-semantic-transfer-001/result.json",
+      "sha256": "f16bbb9c5934257747c3d7907a113c2e29f370deb479511e6d21f2aade8b43d0",
+      "bytes": 10327
+    },
+    "b2-readback": {
+      "path": "docs/experiments/results/b2-semantic-transfer-001/readback.json",
+      "sha256": "15d6b09602b2fa7ae108f98c161607b600369356ab0383fbeb950921ae835643",
+      "bytes": 4431
+    },
+    "native": {
+      "path": "docs/experiments/results/eval-copy-native-001/evidence.json",
+      "sha256": "fd07030372e77d4046b192e3ff4ad5132e927d1637837debf1c363225cd32204",
+      "bytes": 26707
+    },
+    "rank": {
+      "path": "docs/experiments/results/proxy-ranking-readback-001/result.json",
+      "sha256": "0de55fac805e8a0c6be9fff9e26939b789087943b455422c77dc9b583d8bd4af",
+      "bytes": 12792
+    }
+  },
+  "comparisons": {
+    "scripted": {
+      "arms": {
+        "A": {
+          "assigned_cases": 10,
+          "outcomes": {
+            "confirmed": 6,
+            "invalid": 1,
+            "not_attempted": 0,
+            "rejected": 1,
+            "timeout": 0,
+            "unresolved": 1,
+            "unsupported": 1
+          },
+          "false_acceptances": 0,
+          "rollouts": 569,
+          "diagnostic_rollouts": 33,
+          "confirmation_rollouts": 536,
+          "costs": {
+            "diagnostic_wall": {
+              "unit": "s",
+              "known_total": 102.331113626,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "confirmation_wall": {
+              "unit": "s",
+              "known_total": 779.622530044,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "own_trial_wall": {
+              "unit": "s",
+              "known_total": 881.95364367,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "engineer_time": {
+              "unit": "s",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 10,
+              "unreported_trials": 0
+            },
+            "provider_and_compute_charges": {
+              "unit": "USD",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 10,
+              "unreported_trials": 0
+            }
+          }
+        },
+        "B": {
+          "assigned_cases": 10,
+          "outcomes": {
+            "confirmed": 6,
+            "invalid": 1,
+            "not_attempted": 0,
+            "rejected": 1,
+            "timeout": 0,
+            "unresolved": 1,
+            "unsupported": 1
+          },
+          "false_acceptances": 0,
+          "rollouts": 569,
+          "diagnostic_rollouts": 33,
+          "confirmation_rollouts": 536,
+          "costs": {
+            "diagnostic_wall": {
+              "unit": "s",
+              "known_total": 138.961592791,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "confirmation_wall": {
+              "unit": "s",
+              "known_total": 787.235968124,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "own_trial_wall": {
+              "unit": "s",
+              "known_total": 926.197560915,
+              "known_trials": 10,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "engineer_time": {
+              "unit": "s",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 10,
+              "unreported_trials": 0
+            },
+            "provider_and_compute_charges": {
+              "unit": "USD",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 10,
+              "unreported_trials": 0
+            }
+          }
+        }
+      },
+      "B_minus_A_trial_wall_s": 44.243917245000034,
+      "B_over_A_trial_wall": 1.0501658081040308,
+      "free_diagnosis_conditional_wall_speedup_bound": 1.1312572555082838,
+      "conditions": "Hold the selected candidate, confirmation schedule and acceptance obligations fixed. Retrospective arithmetic, not a new experiment, complete economic cost or general lower bound.",
+      "incident_unit": "Ten authored development incidents"
+    },
+    "bounded": {
+      "arms": {
+        "A": {
+          "assigned_cases": 3,
+          "outcomes": {
+            "confirmed": 3,
+            "invalid": 0,
+            "not_attempted": 0,
+            "rejected": 0,
+            "timeout": 0,
+            "unresolved": 0,
+            "unsupported": 0
+          },
+          "false_acceptances": 0,
+          "rollouts": 210,
+          "diagnostic_rollouts": 9,
+          "confirmation_rollouts": 201,
+          "costs": {
+            "diagnostic_wall": {
+              "unit": "s",
+              "known_total": 79.478639666,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "confirmation_wall": {
+              "unit": "s",
+              "known_total": 342.793800875,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "own_trial_wall": {
+              "unit": "s",
+              "known_total": 422.272440541,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "engineer_time": {
+              "unit": "s",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 3,
+              "unreported_trials": 0
+            },
+            "provider_and_compute_charges": {
+              "unit": "USD",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 3,
+              "unreported_trials": 0
+            }
+          }
+        },
+        "B": {
+          "assigned_cases": 3,
+          "outcomes": {
+            "confirmed": 3,
+            "invalid": 0,
+            "not_attempted": 0,
+            "rejected": 0,
+            "timeout": 0,
+            "unresolved": 0,
+            "unsupported": 0
+          },
+          "false_acceptances": 0,
+          "rollouts": 210,
+          "diagnostic_rollouts": 9,
+          "confirmation_rollouts": 201,
+          "costs": {
+            "diagnostic_wall": {
+              "unit": "s",
+              "known_total": 88.896386,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "confirmation_wall": {
+              "unit": "s",
+              "known_total": 346.261170543,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "own_trial_wall": {
+              "unit": "s",
+              "known_total": 435.157556543,
+              "known_trials": 3,
+              "missing_trials": 0,
+              "unreported_trials": 0
+            },
+            "engineer_time": {
+              "unit": "s",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 3,
+              "unreported_trials": 0
+            },
+            "provider_and_compute_charges": {
+              "unit": "USD",
+              "known_total": 0.0,
+              "known_trials": 0,
+              "missing_trials": 3,
+              "unreported_trials": 0
+            }
+          }
+        }
+      },
+      "B_minus_A_trial_wall_s": 12.885116002000018,
+      "B_over_A_trial_wall": 1.0305137507564834,
+      "free_diagnosis_conditional_wall_speedup_bound": 1.2318555337439778,
+      "conditions": "Hold the selected candidate, confirmation schedule and acceptance obligations fixed. Retrospective arithmetic, not a new experiment, complete economic cost or general lower bound.",
+      "incident_unit": "Three repetitions of one known underlying incident, not three independent incidents"
+    }
+  },
+  "a1": {
+    "disposition": "D2_qualified_not_competent",
+    "competence": {
+      "verdict": "not_competent",
+      "successes": 1,
+      "assigned": 10,
+      "criterion": "at least 8 of 10 assigned episodes succeed"
+    },
+    "verdicts": {
+      "Q-C_compatibility": "compatible",
+      "Q-K_competence": "not_competent",
+      "criteria": {
+        "C1": "pass",
+        "C2": "pass",
+        "C3": "pass",
+        "C3b": "pass",
+        "C4": "pass",
+        "C5": "pass",
+        "C6": "pass",
+        "C7": "pass",
+        "C8": "pass",
+        "C9": "pass"
+      },
+      "gate": "within",
+      "permission_and_custody": "pass",
+      "replay_reproducibility": "agree"
+    }
+  },
+  "b2": {
+    "verdict": {
+      "all_captured_initial_conditions_equal": true,
+      "corrected_successes": 9,
+      "execution_failures": 0,
+      "paired_conditions": 10,
+      "paired_regressions": 0,
+      "paired_repairs": 9,
+      "required_paired_repairs": 8,
+      "supported": true,
+      "unchanged_successes": 0
+    },
+    "episode_count": 20,
+    "remaining_failure": {
+      "seed": 180104,
+      "corrected_steps": 400,
+      "diagnostic_rerun": false
+    },
+    "assessment_mode": "single_lane_non_independent",
+    "all_conditions_spent": true
+  },
+  "native_lerobot": {
+    "commit": "ca864ff1c7727d15ea4bc6c5f1e21b105633a473",
+    "results": {
+      "baseline": {
+        "passed": 9,
+        "failed": 4,
+        "skipped": 0,
+        "errors": 0
+      },
+      "candidate": {
+        "passed": 13,
+        "failed": 0,
+        "skipped": 0,
+        "errors": 0
+      }
+    },
+    "scope": {
+      "native_dispatch_tests": 6,
+      "unchanged_upstream_tests": 3,
+      "native_rollout_tests": 4,
+      "rollout_fixture": "Four tasks, two deterministic three-step episodes per case, native Gym SyncVectorEnv; scripted PreTrainedPolicy. All evaluator/processor/Gym implementations remain unchanged. Fresh baseline parallel fails before actions; candidate executes all declared fixture episodes.",
+      "candidate_change": "Only the retained one-tuple deepcopy patch.",
+      "not_established": [
+        "learned-policy performance",
+        "Linux or GPU compatibility",
+        "physics-simulator outcomes",
+        "hardware behavior or safety",
+        "arbitrary policy deepcopy correctness",
+        "upstream acceptance",
+        "customer savings",
+        "general automated detector",
+        "commercial viability"
+      ]
+    },
+    "review_url": "https://github.com/huggingface/lerobot/pull/4450#pullrequestreview-5483662010",
+    "acceptance_and_economic_value": "unverified"
+  },
+  "rank_readback": {
+    "published_aggregate_cells": 14,
+    "status": "published_rank_arithmetic_reproduced",
+    "does_not_establish": "trial-level uncertainty, repair effects or comparative economics"
+  },
+  "executed_correction": {
+    "path": "src/nisayon/evaluation/prospective.py",
+    "before_sha256": "44154b3ed1512da1c57472be69bf9029722643c8980c842a9663f13963dc3c3d",
+    "after_sha256": "84deffee094cc6fbb3ed06354de88a07b86627448a1f2ef3e54a1aa19ce8922f",
+    "numeric_interval_function_ast_unchanged_excluding_docstring": true,
+    "change": "Correct fixed-n independent common-probability Bernoulli premises in docstring, JSON limits and text rendering. Exchangeability alone is insufficient. Nominal coverage remains unestablished for clustered/repeated incidents or optional stopping.",
+    "retained_experiment_reports_rewritten": false
+  },
+  "limits": [
+    "No new policy, model, simulator, GPU or hardware experiments.",
+    "The full software test suite is engineering validation, not fresh robot confirmation.",
+    "Unknown labor and provider charges remain unknown even where the retained known-total field is zero.",
+    "Current external owner demand, adoption, incident frequency and full costs remain unmeasured. No live correspondence was polled in this assessment."
+  ]
+}

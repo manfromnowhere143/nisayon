@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-12T10:32:54.929845+00:00",
+  "status": "frozen_before_execution",
+  "upstream_selected_tests": 13,
+  "additional_controls": 24,
+  "source_read_findings": [
+    "PR4932 proposes worker-side registration and safe optional-attribute probes. Its author reports a real PushT run; not replicated here.",
+    "Metric mask and negative-reward maximum defects already have upstream PR4485 f689403357200e6c31f43fc6b5b77ae850693962; any reproducer must credit that work.",
+    "SAME_STEP supplies the next episode reset observation and retains final_obs in info; the evaluator observation-history path appears to omit that substitution. Native execution has not yet tested this suspicion."
+  ],
+  "controls": {
+    "metrics": {
+      "count": 4,
+      "axes": "sync/async x SameStep/NextStep",
+      "expected": "First short failed episode: sum=-2,max=-2,success=false; longer episode: sum=3,max=1,success=true; 1/2 aggregated successes."
+    },
+    "episode_observations": {
+      "count": 8,
+      "axes": "sync/async x SameStep/NextStep x terminated/truncated",
+      "expected": "For each original episode, recorded state starts at its assigned seed and increments by applied actions through terminal state; never next-episode reset state."
+    },
+    "optional_attributes": {
+      "count": 8,
+      "axes": "sync/async x neither/task/description/both",
+      "expected": "Workers remain usable; description preferred, task fallback, empty string otherwise; exact long-episode actions 43,44,45."
+    },
+    "reuse": {
+      "count": 4,
+      "axes": "sync/async x SameStep/NextStep",
+      "expected": "Reused linked processors on seeds73,74 equal freshly constructed pipelines at those seeds for all actions,rewards,success,done and policy inputs."
+    }
+  },
+  "test_hashes": {
+    "test_episode_contract.py": "5428f3fc55d9dea902600768b5157bc7b396e26010078a235e27c88c477d58b9",
+    "run_checks.py": "faa331ce4b0d7fbc37bb67aa3d61e4f68a98c1c136c83ea5ca6e6a4d59d637bd"
+  },
+  "adaptation": "Use forkserver matching upstream factory; preserve SameStep (its configured default) and NextStep controls. Contract is checked against explicit action-dependent fixture, not sync agreement alone. These are source-informed deterministic regressions, not blind or statistical confirmation."
+}

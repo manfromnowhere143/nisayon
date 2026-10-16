@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-10-13T17:36:06.000391+00:00",
+  "head": "0f5d98875af5c7bd98c2b6804cba96119b2ef12b",
+  "base": "24f15b92b556cb861ca65e989462e23505a701bd",
+  "fixture_update_parent": "5166b7252cfd3757607a5022bae89dd013affbe8",
+  "files": {
+    "tests/scripts/test_eval_terminal_observations.py": {
+      "sha256": "f8ccd8f2a9f25f5b7b604a6e7834e51ff6df13abda2f259badbb1b2db243b282",
+      "git_blob": "cccbe92b25708fa65a23ba25ca8629886d529ccf",
+      "matches_published_n032": true
+    },
+    "src/lerobot/scripts/lerobot_eval.py": {
+      "sha256": "7eebbcca2b2fb3c8ea21443a151779c36cd0c198dcc94a05e609db9e6b4df922",
+      "git_blob": "f961c28f040c1e043deb81d9020b2fc1d2144b32",
+      "matches_published_n032": true
+    }
+  },
+  "head_update_diff": [
+    {
+      "filename": "tests/scripts/test_eval_terminal_observations.py",
+      "status": "modified",
+      "additions": 3,
+      "deletions": 1,
+      "patch": "@@ -15,6 +15,7 @@\n \"\"\"Native CPU checks for saved episode boundaries and unchanged live inference.\"\"\"\n \n from functools import partial\n+from multiprocessing import get_all_start_methods\n \n import gymnasium as gym\n import numpy as np\n@@ -145,7 +146,8 @@ def _processors():\n def _vector_env(vector, mode, truncated, images, lengths=(1, 3)):\n     factories = [partial(_EpisodeEnv, length, truncated, images) for length in lengths]\n     vector_cls = gym.vector.AsyncVectorEnv if vector == \"async\" else gym.vector.SyncVectorEnv\n-    kwargs = {\"context\": \"forkserver\"} if vector == \"async\" else {}\n+    context = \"forkserver\" if \"forkserver\" in get_all_start_methods() else \"spawn\"\n+    kwargs = {\"context\": context} if vector == \"async\" else {}\n     # Exercise reused observation buffers too: recording must own the retained bytes.\n     return vector_cls(factories, autoreset_mode=gym.vector.AutoresetMode(mode), copy=False, **kwargs)\n "
+    }
+  ],
+  "contributor_report": {
+    "author": "LinCanNerd",
+    "url": "https://github.com/huggingface/lerobot/pull/4943#issuecomment-6146173321",
+    "platform": "Jetson AGX Thor aarch64; JetPack 7.2.1/L4T R39.2; Ubuntu 24.04",
+    "device": "CPU only (LEROBOT_TEST_DEVICE=cpu)",
+    "versions": {
+      "python": "3.12.3",
+      "torch": "2.11.0+cu130",
+      "gymnasium": "1.4.0",
+      "numpy": "2.2.6"
+    },
+    "candidate": {
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0
+    },
+    "base_with_same_test_fixture": {
+      "passed": 40,
+      "failed": 8,
+      "skipped": 0
+    },
+    "failed_family": "SameStep test_episode_data_retains_terminal_observations; state/nested_rgb, terminated/truncated, sync/async",
+    "async_start_method": "forkserver",
+    "spawn_fallback_exercised": false,
+    "raw_logs_supplied": false
+  },
+  "assessment": "Reported external reproduction of the software regression and correction on a second OS. Source references and consistency with retained local comparison verified; remote execution itself not independently observed. No robot/GPU performance, full-suite or safety claim.",
+  "check_runs": [
+    {
+      "name": "Label PR",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "combined_status": "pending",
+  "pr_merged": false
+}

@@ -1,0 +1,148 @@
+{
+  "schema": "nisayon.arisole-publication.validation.v1",
+  "scope": "Documentation-only change; no new tests or Nisayon runtime changes. Local lint, formatting, docs and diff checks; public platform tests recorded in publication.json. Frozen execution environments were not synchronized.",
+  "checks": {
+    "source": [
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "returncode": 0,
+        "seconds": 0.025498584029264748,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/ruff",
+          "check",
+          "."
+        ],
+        "returncode": 0,
+        "seconds": 0.0684465829981491,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "returncode": 0,
+        "seconds": 0.040371333016082644,
+        "stdout": "533 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+          "-B",
+          "scripts/check_docs.py"
+        ],
+        "returncode": 0,
+        "seconds": 6.570133458008058,
+        "stdout": "{\n  \"documents\": 179,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n",
+        "stderr": ""
+      }
+    ],
+    "public": [
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "returncode": 0,
+        "seconds": 0.02554554201196879,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/ruff",
+          "check",
+          "."
+        ],
+        "returncode": 0,
+        "seconds": 0.10940045898314565,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "returncode": 0,
+        "seconds": 0.0540593329933472,
+        "stdout": "478 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/danielwahnich/workspace/nisayon-codex/.venv/bin/python",
+          "-B",
+          "scripts/check_docs.py"
+        ],
+        "returncode": 0,
+        "seconds": 0.09108074998948723,
+        "stdout": "{\n  \"documents\": 143,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "manifest": {
+    "entries_checked": 4777,
+    "mismatches": 0,
+    "copied_case_note_matches_source_revision": "acca14f374893ed62725d6f11b6d47c4635b9f68"
+  },
+  "retained_prewrite_failure": {
+    "operation": "Short handoff length check",
+    "attempted_characters": 6088,
+    "limit": 6000,
+    "result": "Assertion prevented writes; shortened prose before saving. No evidence or protocol result was changed."
+  },
+  "test_scope": "Existing public CI only; private full engine suite and Arisole controls not repeated for this documentation update.",
+  "closeout_checks": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "seconds": 0.013854374992661178,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "returncode": 0,
+      "seconds": 5.719546583015472,
+      "stdout": "{\n  \"documents\": 179,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        ".venv/bin/nisayon",
+        "start"
+      ],
+      "returncode": 0,
+      "seconds": 0.19612770795356482,
+      "full_handoff_present": true,
+      "handoff_characters": 5996
+    }
+  ],
+  "completed_at": "2026-10-12T17:57:07.703626+00:00",
+  "status": "passed"
+}

@@ -1,0 +1,23 @@
+from pathlib import Path
+from datetime import datetime, timezone
+import hashlib, json, subprocess, tarfile, urllib.request
+
+root = Path(__file__).resolve().parent
+release = json.loads((root / 'python-build-20260901.json').read_text())
+asset = next(x for x in release['matches'] if 'install_only_stripped' in x['name'])
+archive = root / asset['name']
+with urllib.request.urlopen(asset['browser_download_url'], timeout=90) as stream:
+    data = stream.read()
+assert len(data) == asset['size']
+assert 'sha256:' + hashlib.sha256(data).hexdigest() == asset['digest']
+archive.write_bytes(data)
+destination = root / 'python-runtime'
+destination.mkdir(exist_ok=False)
+with tarfile.open(archive) as bundle:
+    bundle.extractall(destination, filter='data')
+python = destination / 'python/bin/python3.11'
+version = subprocess.check_output([str(python), '--version'], text=True).strip()
+assert version == 'Python 3.11.16'
+receipt = {'release': release['html_url'], 'asset': asset, 'verified_at': datetime.now(timezone.utc).isoformat(), 'executable': str(python), 'version': version, 'global_installation_changed': False}
+(root / 'python-runtime.json').write_text(json.dumps(receipt, indent=2) + '\n')
+print(json.dumps({'version': version, 'archive_sha256': asset['digest'], 'global_installation_changed': False}))

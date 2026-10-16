@@ -1,0 +1,94 @@
+{
+  "schema": "nisayon.decision-endpoint.validation.v1",
+  "status": "passed",
+  "recorded_at": "2026-10-12T17:09:28.461592+00:00",
+  "frozen_protocol_and_decision_unchanged": true,
+  "executed_reader_unchanged": true,
+  "source_receipts_verified": 171,
+  "distinct_source_receipts_verified": 164,
+  "raw_files_hashed": 330,
+  "artifact_logical_bytes_at_validation": 511000159,
+  "artifact_limit_bytes": 1073741824,
+  "native_analysis": "Exact counts/nonfloating values; largest absolute float difference 2.220446049250313e-16.",
+  "independent_calculation": "Same exposed records, alternative exact-binomial calculation; maximum interval difference 4.894418204060003e-13. Not independent experimental confirmation.",
+  "state_label_check": {
+    "compared": 40960,
+    "disagreed": 0
+  },
+  "original_runtime_dependent_audit_executed": false,
+  "new_policy_rollouts": 0,
+  "engine_suite": "Not repeated: no production engine code or dependency changed. Unchanged upstream analyzer and separate all-cell readback are the relevant executed checks.",
+  "checks": [
+    {
+      "name": "ruff-check",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "result": {
+        "chunk_id": "a58d1c",
+        "wall_time_seconds": 0.388293584,
+        "exit_code": 0,
+        "original_token_count": 5,
+        "output": "All checks passed!\n"
+      }
+    },
+    {
+      "name": "ruff-format-initial",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "result": {
+        "chunk_id": "304d5a",
+        "wall_time_seconds": 0.386697292,
+        "exit_code": 1,
+        "original_token_count": 150,
+        "output": "unformatted: File would be reformatted\n  --> docs/experiments/results/decision-endpoint-001/REPRODUCE.md:29:14\n   |\n28 | artifacts = Path(\"artifacts/decision-evidence-2026-10-12\")\n   - for name in [\"native-predicate-sources.json\", \"native-predicate-config.json\",\n   -              \"checkpoint-metadata-sources.json\"]:\n29 + for name in [\n30 +     \"native-predicate-sources.json\",\n31 +     \"native-predicate-config.json\",\n32 +     \"checkpoint-metadata-sources.json\",\n33 + ]:\n34 |     manifest = json.loads((evidence / name).read_text())\n   |\n\n1 file would be reformatted, 527 files already formatted\n"
+      }
+    },
+    {
+      "name": "docs-check",
+      "command": [
+        ".venv/bin/python",
+        "-B",
+        "scripts/check_docs.py"
+      ],
+      "result": {
+        "chunk_id": "ce5abd",
+        "wall_time_seconds": 9.542e-06,
+        "exit_code": 0,
+        "original_token_count": 35,
+        "output": "{\n  \"documents\": 175,\n  \"mermaid_blocks\": 5,\n  \"errors\": [],\n  \"scope\": \"local file links and code fences; Mermaid rendering is separate\"\n}\n"
+      }
+    },
+    {
+      "name": "ruff-format-final",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "stdout": "528 files already formatted\n",
+      "resolution": "Formatted only REPRODUCE.md's Python list. Frozen protocol, decision and executed reader were unchanged."
+    }
+  ],
+  "startup": {
+    "returncode": 0,
+    "full_handoff_present": true,
+    "handoff_characters": 5787,
+    "handoff_sha256": "56f65f9cafb1c46adbf1b66239d33d33cb6b8360308a06187cf3c52dbbf8faae",
+    "checkpoint_summary_present": true,
+    "checkpoint_id": "466690195ebc4565a59a26f0087d0648",
+    "note_id": "085318e881194cda88675cb412929046"
+  },
+  "staged_diff_check": {
+    "returncode": 0,
+    "scope": "All 65 staged task files; unrelated checkpoints excluded."
+  }
+}

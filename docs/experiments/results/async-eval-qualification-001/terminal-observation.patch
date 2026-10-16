@@ -1,0 +1,43 @@
+--- a/src/lerobot/scripts/lerobot_eval.py
++++ b/src/lerobot/scripts/lerobot_eval.py
+@@ -291,7 +291,7 @@
+         while not np.all(done) and step < max_steps:
+             # Numpy array to tensor and changing dictionary keys to LeRobot policy format.
+             observation = preprocess_observation(observation)
+-            if return_observations:
++            if return_observations and step == 0:
+                 all_observations.append(deepcopy(observation))
+
+             # Infer "task" from sub-environments (prefer natural language description).
+@@ -321,6 +321,19 @@
+
+             # Apply the next action.
+             observation, reward, terminated, truncated, info = env.step(action_numpy)
++            if return_observations:
++                # SAME_STEP returns the next episode's reset observation. Keep it for
++                # live inference, but retain the actual terminal observation in the trace.
++                recorded_next = deepcopy(observation)
++                if "final_obs" in info:
++                    space = env.single_observation_space
++                    rows = list(gym.vector.utils.iterate(space, recorded_next))
++                    for env_idx in np.flatnonzero(terminated | truncated):
++                        rows[env_idx] = info["final_obs"][env_idx]
++                    recorded_next = gym.vector.utils.concatenate(
++                        space, rows, gym.vector.utils.create_empty_array(space, n=env.num_envs)
++                    )
++                all_observations.append(deepcopy(preprocess_observation(recorded_next)))
+             if render_callback is not None:
+                 render_callback(env)
+
+@@ -402,11 +415,6 @@
+                         ds.push_to_hub(private=recording_private)
+                     else:
+                         logging.warning("No episodes recorded for %s — skipping push to hub.", ds.repo_id)
+-
+-    # Track the final observation.
+-    if return_observations:
+-        observation = preprocess_observation(observation)
+-        all_observations.append(deepcopy(observation))
+
+     # Stack the sequence along the first dimension so that we have (batch, sequence, *) tensors.
+     ret = {

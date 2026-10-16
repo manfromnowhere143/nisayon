@@ -1,0 +1,50 @@
+{
+  "schema": "nisayon.openpi-lock-inspection.v1",
+  "status": "static_dependency_findings_supported",
+  "source_commit": "215abfb217dbac7d5f1273282331b9b1866c0479",
+  "reporter_revision_verified": false,
+  "packaging_version": "26.3",
+  "target_python": "3.11.13",
+  "linux_platform_selections": {
+    "x86_64": {
+      "nvidia-cublas-cu12": "12.6.4.1",
+      "nvidia-cuda-cupti-cu12": "12.6.80",
+      "nvidia-cuda-nvcc-cu12": "12.9.41",
+      "nvidia-cuda-runtime-cu12": "12.6.77",
+      "nvidia-cudnn-cu12": "9.5.1.17",
+      "nvidia-cufft-cu12": "11.3.0.4",
+      "nvidia-cusolver-cu12": "11.7.1.2",
+      "nvidia-cusparse-cu12": "12.5.4.2",
+      "nvidia-nccl-cu12": "2.26.2",
+      "nvidia-nvjitlink-cu12": "12.6.85"
+    },
+    "aarch64": {
+      "nvidia-cublas-cu12": "12.9.0.13",
+      "nvidia-cuda-cupti-cu12": "12.9.19",
+      "nvidia-cuda-nvcc-cu12": "12.9.41",
+      "nvidia-cuda-runtime-cu12": "12.9.37",
+      "nvidia-cudnn-cu12": "9.10.1.4",
+      "nvidia-cufft-cu12": "11.4.0.6",
+      "nvidia-cusolver-cu12": "11.7.4.40",
+      "nvidia-cusparse-cu12": "12.5.9.5",
+      "nvidia-nccl-cu12": "2.26.5",
+      "nvidia-nvjitlink-cu12": "12.9.41"
+    }
+  },
+  "torch_cudnn_requirement": "nvidia-cudnn-cu12==9.5.1.17; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+  "jax_plugin_cudnn_requirement": "nvidia-cudnn-cu12<10.0,>=9.1; extra == \"with-cuda\"",
+  "checks": {
+    "linux_x86_cudnn_and_runtime_pins": true,
+    "linux_arm_selects_different_versions": true,
+    "jax_plugin_permits_both_cudnn_versions": true,
+    "torch_exact_pin_rejects_single_cudnn_upgrade": true
+  },
+  "limits": [
+    "No dependency installation, resolver execution or GPU library import.",
+    "Platform branches are inspected; neither platform is hardware-qualified.",
+    "Vendor support matrices require separate source review.",
+    "Reporter revision, installed/loaded libraries and driver remain unknown.",
+    "No root cause, repaired training run or economic advantage is established."
+  ],
+  "audit_wall_seconds": 0.06499383298796602
+}

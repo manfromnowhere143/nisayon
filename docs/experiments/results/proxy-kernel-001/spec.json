@@ -1,0 +1,94 @@
+{
+  "schema": "nisayon.proxy-kernel.spec.v1",
+  "status": "frozen_exploratory_software_probe",
+  "frozen_at": "2026-10-11T07:33:17.021513+00:00",
+  "question": "Does the pinned interval kernel preserve nominal mean coverage in selected known same-population models, and does an informative proxy narrow intervals relative to the same real-only kernel?",
+  "source": {
+    "repository": "https://github.com/irom-princeton/rapid-policy-evaluation",
+    "commit": "e9e6cb567f8792630044e5c1662ed6e1db9c7480",
+    "file": "src/suresim/intervals/ppi.py",
+    "url": "https://raw.githubusercontent.com/irom-princeton/rapid-policy-evaluation/e9e6cb567f8792630044e5c1662ed6e1db9c7480/src/suresim/intervals/ppi.py",
+    "sha256": "e5d8025a524f6bab9060965c1bd30d07d19ddc4e43cf6069a7619b4b41b4c691",
+    "license": "MIT; Copyright (c) 2024 Intelligent Robot Motion Lab"
+  },
+  "selected_definitions": [
+    "MARTINGALE",
+    "mean_ci_eff_corrected_membership_accelerated",
+    "gold_only_est",
+    "pp_conf_set_eff",
+    "ppi_uniform",
+    "wsr_iid"
+  ],
+  "runtime": {
+    "python": "3.12.13",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "dependencies": "Use existing frozen Nisayon environment; no installation or synchronization."
+  },
+  "methods": [
+    "real_only",
+    "two_stage",
+    "uniform"
+  ],
+  "models": [
+    {
+      "name": "informative_biased",
+      "description": "Y~Bernoulli(0.4); paired Z=0.1+0.8Y. Additional Z from an independent identical population.",
+      "population_correlation": 1
+    },
+    {
+      "name": "uninformative",
+      "description": "Y~Bernoulli(0.4); paired and additional Z~Bernoulli(0.4), independent of Y.",
+      "population_correlation": 0
+    },
+    {
+      "name": "anticorrelated",
+      "description": "Y~Bernoulli(0.4); paired Z=1-Y. Additional Z from an independent identical population.",
+      "population_correlation": -1
+    }
+  ],
+  "true_mean": 0.4,
+  "label_counts": [
+    60,
+    120
+  ],
+  "additional_count": 700,
+  "replicates_per_cell": 1000,
+  "alpha": 0.1,
+  "delta": 0.09,
+  "c": 0.99,
+  "seed": 20261011,
+  "comparison": "Same real draws in all three arms per replicate; no candidate search, optional stopping, adaptive model selection or parameter tuning after output.",
+  "rng": "Independent SeedSequence by model index, sample count and replicate; separate recorded seed for upstream global-numpy shuffle.",
+  "metrics": [
+    "coverage_count",
+    "empty_interval_count",
+    "mean_clipped_width",
+    "mean_paired_width_difference_vs_real_only",
+    "method_cpu_seconds"
+  ],
+  "coverage_check": {
+    "null": "miscoverage probability <= alpha for each of 18 method/model/count cells",
+    "test": "Exact one-sided binomial tail on miscoverage count",
+    "family_alpha": 0.01,
+    "multiplicity": "Bonferroni over 18 cells",
+    "interval": "Clopper-Pearson simultaneous 95% coverage intervals, Bonferroni over 18 cells",
+    "interpretation": "No detected undercoverage is not a validity proof; all cells and invalid outputs retained."
+  },
+  "boundary_controls": [
+    "constant zero Y=Z on all samples",
+    "constant one Y=Z on all samples",
+    "constant quarter Y=Z on all samples",
+    "affine normalization of accelerated kernel for a fixed bounded vector"
+  ],
+  "numerics": "Intersect returned intervals with known outcome support [0,1]; preserve empty intervals as misses, do not discard replicates. Reject non-finite/malformed outputs and fail the probe. Retain original source bodies; do not fix upstream numerics inside the comparator.",
+  "caps": {
+    "wall_seconds": 600,
+    "new_policy_or_physics_runs": 0,
+    "new_hardware_runs": 0,
+    "reserved_access": false,
+    "dependency_installs": 0
+  },
+  "stop": "Stop on invalid output, source mismatch, failed deterministic control or wall cap. Coverage failure requires diagnosis before any efficiency claim. No parameter retry to obtain a favorable result.",
+  "limits": "Synthetic statistical trials only. Does not reproduce paper hardware figures, test distribution transport, qualify the whole upstream package, accept a robot deployment, demonstrate total savings or establish novelty."
+}

@@ -1,0 +1,34 @@
+"""Exercise the installed public CLI on exposed cost fixtures; no policy run."""
+import hashlib,json,subprocess,sys
+from pathlib import Path
+import nisayon.evaluation
+from nisayon.evaluation.fixtures import SCENARIOS,write_bundle
+root=Path.cwd()
+assert str(root/'src') in nisayon.evaluation.__file__
+out=root.parent/'cli-readback'
+out.mkdir(exist_ok=False)
+rows=[]
+for name,status in [('interrupted','partial'),('cycle','invalid'),('units','invalid')]:
+    data=next(item for item in SCENARIOS if item.name=='strict_positive_control').build()
+    for record in data.runs.values(): record['costs']={}
+    inner,outer=list(data.runs.values())[:2]
+    inner['costs']={'wall':{'value':2,'unit':'s'}}
+    inner['cost_parent_run_id']=outer['id']
+    outer['costs']={'wall':{'value':None if name=='interrupted' else 8,'unit':'ms' if name=='units' else 's'}}
+    if name=='interrupted':outer['costs']['wall']['missing']='interrupted'
+    if name=='cycle':outer['cost_parent_run_id']=inner['id']
+    bundle=write_bundle(data,out/name)
+    command=[sys.executable,'-B','-m','nisayon.evaluation','evaluate',str(bundle)]
+    result=subprocess.run(command,cwd=root,capture_output=True,text=True)
+    (out/(name+'.stdout')).write_text(result.stdout)
+    (out/(name+'.stderr')).write_text(result.stderr)
+    assert result.returncode==0,(name,result.stderr,result.stdout)
+    assert 'Decision: ACCEPTED' in result.stdout
+    assert 'Cost status: '+status in result.stdout
+    if name=='interrupted':assert 'wall: 2.0 s' in result.stdout
+    if name=='cycle':assert 'invalid: cyclic_cost_ancestry' in result.stdout
+    if name=='units':assert 'unavailable (unit unresolved)' in result.stdout and 'invalid: incompatible_units' in result.stdout
+    rows.append({'fixture':name,'returncode':result.returncode,'lines':[line for line in result.stdout.splitlines() if line.startswith(('Decision:','Cost status:','  wall:'))],'stdout_sha256':hashlib.sha256(result.stdout.encode()).hexdigest(),'input_sha256':{str(p.relative_to(out/name)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((out/name).rglob('*')) if p.is_file()}})
+record={'source_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'installed_evaluator':str(Path(nisayon.evaluation.__file__).relative_to(root)),'cases':rows,'scope':'Constructed exposed fixtures. Exit 0 reflects the accepted fixture task; the separate cost status remains partial or invalid. No economic or physical acceptance follows.'}
+(out/'result.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps({'cases':len(rows),'passed':True}))

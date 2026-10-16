@@ -1,0 +1,37 @@
+{
+  "schema": "nisayon.github-followthrough.protocol.v1",
+  "frozen_at": "2026-10-13T07:18:40.761888+00:00",
+  "decision": "Resolve two new concrete responses before resuming new incident work. No new platform scope.",
+  "local_head": "dc1b06460abe2d5ac4c620632baeb459be50928d",
+  "lerobot": {
+    "source_head": "5166b7252cfd3757607a5022bae89dd013affbe8",
+    "incoming_url": "https://github.com/huggingface/lerobot/pull/4943#issuecomment-6133164059",
+    "source_before": {
+      "src/lerobot/scripts/lerobot_eval.py": "7eebbcca2b2fb3c8ea21443a151779c36cd0c198dcc94a05e609db9e6b4df922",
+      "tests/scripts/test_eval_terminal_observations.py": "40197b0b008785f4406ec597794a7312a6cb456b0366fa80ee21d20a042d71db"
+    },
+    "intervention": "Adopt JonnyFaeth suggested get_all_start_methods selection: forkserver when available, otherwise spawn. Test fixture only.",
+    "checks": [
+      "48 existing selected checks, unchanged assertions, default native macOS launch path",
+      "17 async cases using the fallback with real spawned Gym workers; only the fixture available-method list is controlled",
+      "Full upstream pre-commit; source bytes and existing test assertions unchanged except fixture launch selection"
+    ],
+    "acceptance": "48/48 default plus 17/17 async fallback, zero failures/skips, actual worker context recorded; production source byte-identical to original PR.",
+    "limits": "No local Windows OS available. External report at original commit plus suggested fixture change is attributed, not our own Windows reproduction. No full suite, Thor, learned policy, robot or performance claim."
+  },
+  "arisole": {
+    "version": "0.1.4",
+    "incoming_url": "https://github.com/huggingface/lerobot/pull/4927#issuecomment-6134928238",
+    "wheel_sha256": "3863c4553f3670469e69864ccd84b8ce5cf0c72f323949b2f871507aec0f8717",
+    "sdist_sha256": "c68c7e855366b8d9cdc44b2f334092850de294fb7fe38a358eced3f6ae5bf28c",
+    "checks": [
+      "Unmodified sdist full suite in an extracted directory outside development repository: expect 32/32, no failures/skips, all fixture paths within archive",
+      "Same 12 exposed CLI controls against published wheel in new Python3.12.13 environment, same dependency pins as0.1.3",
+      "Matched/comparable/incomparable counts agree with constructed labels; source and frozen environments unmodified"
+    ],
+    "acceptance": "32 source tests and all12 wheel controls plus coverage counts pass. If not, report exact remaining failures without endorsing release.",
+    "limits": "No new policy/robot run; software regressions reused, not fresh scientific confirmation."
+  },
+  "resources": "Local CPU only; new isolated Arisole venv. Preserve all existing frozen environments. No cloud/GPU/hardware/training.",
+  "publication": "One checked reply per new response; update existing public LeRobot branch only after checks. Preserve human author identity and credit JonnyFaeth. Verify remote bytes and exact replies."
+}

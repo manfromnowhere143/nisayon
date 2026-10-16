@@ -1,0 +1,675 @@
+{
+  "schema": "nisayon.native-routing-qualification.v1",
+  "started_at": "2026-10-16T07:07:36.628798+00:00",
+  "upstream_revision": "42b7ed874567cb753df19de3d726d51b5d99ae63",
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "scope": "CPU extracted transport and unchanged native queue; no inference or robot",
+  "driver_sha256": "5526dbeb84dd66ff65b0d375d79291d09adcb3c5e5d242480e0668207e3eb67a",
+  "harness_sha256": "33fbfb7d338e5ea5b0437092557b6acdd56a81a3ba7354e08b4daba0bac40cac",
+  "commands": [
+    {
+      "name": "compiler-version",
+      "argv": [
+        "/usr/bin/clang++",
+        "--version"
+      ],
+      "started_at": "2026-10-16T07:07:36.640955+00:00",
+      "exit_code": 0,
+      "stdout": "Apple clang version 15.0.0 (clang-1500.3.9.4)\nTarget: arm64-apple-darwin23.4.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+      "stderr": "",
+      "wall_seconds": 0.10717720800312236
+    },
+    {
+      "name": "libzmq-version",
+      "argv": [
+        "pkg-config",
+        "--modversion",
+        "libzmq"
+      ],
+      "started_at": "2026-10-16T07:07:36.748447+00:00",
+      "exit_code": 0,
+      "stdout": "4.3.5\n",
+      "stderr": "",
+      "wall_seconds": 0.005382750008720905
+    },
+    {
+      "name": "libzmq-flags",
+      "argv": [
+        "pkg-config",
+        "--cflags",
+        "--libs",
+        "libzmq"
+      ],
+      "started_at": "2026-10-16T07:07:36.754179+00:00",
+      "exit_code": 0,
+      "stdout": "-I/opt/homebrew/Cellar/zeromq/4.3.5_2/include -DZMQ_BUILD_DRAFT_API=1 -I/opt/homebrew/Cellar/libsodium/1.0.20/include -L/opt/homebrew/Cellar/zeromq/4.3.5_2/lib -lzmq\n",
+      "stderr": "",
+      "wall_seconds": 0.0029689579969272017
+    },
+    {
+      "name": "compile-native-queue",
+      "argv": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-pthread",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/VinRobotics/vla.cpp/src",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/VinRobotics/vla.cpp/tests/test_request_queue.cpp",
+        "-o",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/native-queue"
+      ],
+      "started_at": "2026-10-16T07:07:36.758453+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "wall_seconds": 0.7072790840175003
+    },
+    {
+      "name": "native-queue",
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/native-queue"
+      ],
+      "started_at": "2026-10-16T07:07:37.466055+00:00",
+      "exit_code": 0,
+      "stdout": "test_request_queue: OK\n",
+      "stderr": "",
+      "wall_seconds": 0.28129662497667596
+    },
+    {
+      "name": "compile-original",
+      "argv": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-pthread",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/VinRobotics/vla.cpp/src",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/zeromq/cppzmq",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/original",
+        "/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/vla_routing_controls.cpp",
+        "-o",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/original/routing-controls",
+        "-I/opt/homebrew/Cellar/zeromq/4.3.5_2/include",
+        "-DZMQ_BUILD_DRAFT_API=1",
+        "-I/opt/homebrew/Cellar/libsodium/1.0.20/include",
+        "-L/opt/homebrew/Cellar/zeromq/4.3.5_2/lib",
+        "-lzmq"
+      ],
+      "started_at": "2026-10-16T07:07:37.747861+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "wall_seconds": 0.5923005000222474
+    },
+    {
+      "name": "original",
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/original/routing-controls"
+      ],
+      "started_at": "2026-10-16T07:07:38.340418+00:00",
+      "exit_code": 1,
+      "stdout": "{\"transport_cases\":[{\"name\":\"latest_dealer_then_req\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"726f626f740000\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"726f626f740000\",\"result\":\"replaced\",\"depth\":1,\"displaced_rid\":1}],\"pop_order\":[2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"superseded\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":false},{\"name\":\"latest_req_then_dealer\",\"pushes\":[{\"rid\":1,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"726f626f740000\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"726f626f740000\",\"result\":\"replaced\",\"depth\":1,\"displaced_rid\":1}],\"pop_order\":[2],\"receipts\":[{\"peer\":0,\"rid\":2,\"status\":\"served\"},{\"peer\":1,\"rid\":1,\"status\":\"superseded\"}],\"passed\":false},{\"name\":\"latest_ascii_distinct\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"636c69656e742d61\"],\"key_hex\":\"636c69656e742d6100\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"636c69656e742d62\",\"\"],\"key_hex\":\"636c69656e742d620000\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"served\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":true},{\"name\":\"latest_same_binary_client\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"726f626f740000\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"726f626f740000\",\"result\":\"replaced\",\"depth\":1,\"displaced_rid\":1}],\"pop_order\":[2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"superseded\"},{\"peer\":0,\"rid\":2,\"status\":\"served\"}],\"passed\":true},{\"name\":\"fifo_binary_distinct\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"726f626f740000\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"726f626f740000\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"served\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":true}],\"transport_passed\":3,\"finite_injectivity\":{\"inputs\":1464,\"first_collision\":{\"first_hex\":[\"3a\",\"\",\"\"],\"second_hex\":[\"3a\",\"00\"],\"key_hex\":\"3a000000\"},\"unique_keys\":1160,\"additional_inputs_colliding\":304,\"passed\":false}}\n",
+      "stderr": "",
+      "wall_seconds": 0.17069320898735896
+    },
+    {
+      "name": "compile-corrected",
+      "argv": [
+        "/usr/bin/clang++",
+        "-std=c++17",
+        "-pthread",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/VinRobotics/vla.cpp/src",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/source/zeromq/cppzmq",
+        "-I",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/corrected",
+        "/Users/danielwahnich/workspace/nisayon-codex/scripts/experiments/vla_routing_controls.cpp",
+        "-o",
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/corrected/routing-controls",
+        "-I/opt/homebrew/Cellar/zeromq/4.3.5_2/include",
+        "-DZMQ_BUILD_DRAFT_API=1",
+        "-I/opt/homebrew/Cellar/libsodium/1.0.20/include",
+        "-L/opt/homebrew/Cellar/zeromq/4.3.5_2/lib",
+        "-lzmq"
+      ],
+      "started_at": "2026-10-16T07:07:38.511777+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "wall_seconds": 0.5905058329808526
+    },
+    {
+      "name": "corrected",
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-codex/artifacts/n044-owner-followthrough-2026-10-16/run-002/corrected/routing-controls"
+      ],
+      "started_at": "2026-10-16T07:07:39.102551+00:00",
+      "exit_code": 0,
+      "stdout": "{\"transport_cases\":[{\"name\":\"latest_dealer_then_req\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"363a726f626f7400\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"353a726f626f74303a\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"served\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":true},{\"name\":\"latest_req_then_dealer\",\"pushes\":[{\"rid\":1,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"353a726f626f74303a\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"363a726f626f7400\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":2,\"status\":\"served\"},{\"peer\":1,\"rid\":1,\"status\":\"served\"}],\"passed\":true},{\"name\":\"latest_ascii_distinct\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"636c69656e742d61\"],\"key_hex\":\"383a636c69656e742d61\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"636c69656e742d62\",\"\"],\"key_hex\":\"383a636c69656e742d62303a\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"served\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":true},{\"name\":\"latest_same_binary_client\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"363a726f626f7400\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"363a726f626f7400\",\"result\":\"replaced\",\"depth\":1,\"displaced_rid\":1}],\"pop_order\":[2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"superseded\"},{\"peer\":0,\"rid\":2,\"status\":\"served\"}],\"passed\":true},{\"name\":\"fifo_binary_distinct\",\"pushes\":[{\"rid\":1,\"peer\":0,\"envelope_hex\":[\"726f626f7400\"],\"key_hex\":\"363a726f626f7400\",\"result\":\"queued\",\"depth\":1,\"displaced_rid\":0},{\"rid\":2,\"peer\":1,\"envelope_hex\":[\"726f626f74\",\"\"],\"key_hex\":\"353a726f626f74303a\",\"result\":\"queued\",\"depth\":2,\"displaced_rid\":0}],\"pop_order\":[1,2],\"receipts\":[{\"peer\":0,\"rid\":1,\"status\":\"served\"},{\"peer\":1,\"rid\":2,\"status\":\"served\"}],\"passed\":true}],\"transport_passed\":5,\"finite_injectivity\":{\"inputs\":1464,\"first_collision\":null,\"unique_keys\":1464,\"additional_inputs_colliding\":0,\"passed\":true}}\n",
+      "stderr": "",
+      "wall_seconds": 0.16614804201526567
+    }
+  ],
+  "source_sha256": {
+    "VinRobotics/vla.cpp/src/serving/server.cpp": "0f1d0b2331f85f323d9e54c0698c9384a014d581fe634a63b6985933721bd5a8",
+    "VinRobotics/vla.cpp/src/serving/request_queue.h": "19fc76d6808c63bb669fd9d24e12fe0018ef01c367a1f7b35813e61031916ffa",
+    "VinRobotics/vla.cpp/tests/test_request_queue.cpp": "8aaa5cb92ddf2bf6f3716a79c11d5e7164377caf9c6ac3c1b4177a42926879fa",
+    "VinRobotics/vla.cpp/LICENSE.md": "471fe2b35c9507ca4f80b21315667dd22bcd5a4816fb4eaea0524c86fe01475a",
+    "zeromq/cppzmq/zmq.hpp": "1f8b641161dcf12641ae4951c2c49552de425be88d66c988ec5e85046f1320f6",
+    "zeromq/cppzmq/LICENSE": "7e6db90e2e805c72b3daa77849d1cb5f1f92da0e69750c8a4aa1d86d70704748"
+  },
+  "extractions": {
+    "bool send_multipart(": {
+      "sha256": "96cc3c8ee6e8125a49c7c7873be68f18a0a9e5545c8d5e6f5d6f87f2b1509fcb",
+      "line": 299,
+      "bytes": 469
+    },
+    "bool recv_multipart(": {
+      "sha256": "60c96bce067240647c6d5b6266e172994e47b46db404f6620066a3b0e937ce5e",
+      "line": 314,
+      "bytes": 362
+    },
+    "std::string envelope_key(": {
+      "sha256": "c43aae982140686762b87cc8625bdd2db79312d956fed12182367e665579880d",
+      "line": 326,
+      "bytes": 250
+    }
+  },
+  "complete_effort": {
+    "comparative_effort_established": false,
+    "human_labor_seconds": null,
+    "provider_cost": null,
+    "owner_effort_seconds": null
+  },
+  "variants": {
+    "original": {
+      "transport_cases": [
+        {
+          "name": "latest_dealer_then_req",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "726f626f740000",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "726f626f740000",
+              "result": "replaced",
+              "depth": 1,
+              "displaced_rid": 1
+            }
+          ],
+          "pop_order": [
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "superseded"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": false
+        },
+        {
+          "name": "latest_req_then_dealer",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "726f626f740000",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "726f626f740000",
+              "result": "replaced",
+              "depth": 1,
+              "displaced_rid": 1
+            }
+          ],
+          "pop_order": [
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 2,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 1,
+              "status": "superseded"
+            }
+          ],
+          "passed": false
+        },
+        {
+          "name": "latest_ascii_distinct",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "636c69656e742d61"
+              ],
+              "key_hex": "636c69656e742d6100",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "636c69656e742d62",
+                ""
+              ],
+              "key_hex": "636c69656e742d620000",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "latest_same_binary_client",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "726f626f740000",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "726f626f740000",
+              "result": "replaced",
+              "depth": 1,
+              "displaced_rid": 1
+            }
+          ],
+          "pop_order": [
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "superseded"
+            },
+            {
+              "peer": 0,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "fifo_binary_distinct",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "726f626f740000",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "726f626f740000",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "transport_passed": 3,
+      "finite_injectivity": {
+        "inputs": 1464,
+        "first_collision": {
+          "first_hex": [
+            "3a",
+            "",
+            ""
+          ],
+          "second_hex": [
+            "3a",
+            "00"
+          ],
+          "key_hex": "3a000000"
+        },
+        "unique_keys": 1160,
+        "additional_inputs_colliding": 304,
+        "passed": false
+      },
+      "process_exit_code": 1,
+      "extracted_source_sha256": "95477ae9a7414425453f133a3d0b91971dfc3a0e0d6cb1f4c7be19be76168f0e"
+    },
+    "corrected": {
+      "transport_cases": [
+        {
+          "name": "latest_dealer_then_req",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "363a726f626f7400",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "353a726f626f74303a",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "latest_req_then_dealer",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "353a726f626f74303a",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "363a726f626f7400",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 2,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 1,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "latest_ascii_distinct",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "636c69656e742d61"
+              ],
+              "key_hex": "383a636c69656e742d61",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "636c69656e742d62",
+                ""
+              ],
+              "key_hex": "383a636c69656e742d62303a",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "latest_same_binary_client",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "363a726f626f7400",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "363a726f626f7400",
+              "result": "replaced",
+              "depth": 1,
+              "displaced_rid": 1
+            }
+          ],
+          "pop_order": [
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "superseded"
+            },
+            {
+              "peer": 0,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        },
+        {
+          "name": "fifo_binary_distinct",
+          "pushes": [
+            {
+              "rid": 1,
+              "peer": 0,
+              "envelope_hex": [
+                "726f626f7400"
+              ],
+              "key_hex": "363a726f626f7400",
+              "result": "queued",
+              "depth": 1,
+              "displaced_rid": 0
+            },
+            {
+              "rid": 2,
+              "peer": 1,
+              "envelope_hex": [
+                "726f626f74",
+                ""
+              ],
+              "key_hex": "353a726f626f74303a",
+              "result": "queued",
+              "depth": 2,
+              "displaced_rid": 0
+            }
+          ],
+          "pop_order": [
+            1,
+            2
+          ],
+          "receipts": [
+            {
+              "peer": 0,
+              "rid": 1,
+              "status": "served"
+            },
+            {
+              "peer": 1,
+              "rid": 2,
+              "status": "served"
+            }
+          ],
+          "passed": true
+        }
+      ],
+      "transport_passed": 5,
+      "finite_injectivity": {
+        "inputs": 1464,
+        "first_collision": null,
+        "unique_keys": 1464,
+        "additional_inputs_colliding": 0,
+        "passed": true
+      },
+      "process_exit_code": 0,
+      "extracted_source_sha256": "0124c5c2a29458f37c6a01a743e9c08d5ed49fa8ffc0c51f5946c6c439d338a0"
+    }
+  },
+  "source_defect_reproduced": true,
+  "bounded_correction_supported": true,
+  "finished_at": "2026-10-16T07:07:39.269143+00:00",
+  "driver_wall_seconds": 2.629726249957457
+}

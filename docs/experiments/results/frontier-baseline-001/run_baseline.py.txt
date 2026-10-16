@@ -1,0 +1,35 @@
+from pathlib import Path
+import datetime
+import hashlib
+import json
+import os
+import subprocess
+import time
+
+root = Path(__file__).resolve().parent
+protocol = json.loads((root / 'baseline-protocol.json').read_text())
+source = Path(protocol['source'])
+env = dict(os.environ, **protocol['environment'])
+env['PYTHONPATH'] = protocol['overlay'] + os.pathsep + str(source / 'src') + os.pathsep + str(source)
+python = protocol['python']
+metadata = "import importlib.metadata as m,json,platform,sys; import lerobot.remote_inference.server as s; print(json.dumps({'python':sys.version,'executable':sys.executable,'platform':platform.platform(),'source':s.__file__,'packages':sorted((d.metadata['Name'],d.version) for d in m.distributions())},sort_keys=True))"
+before = subprocess.run([python, '-B', '-c', metadata], cwd=source, env=env, capture_output=True, text=True)
+(root / 'environment-before.json').write_text(before.stdout)
+(root / 'environment-before.stderr').write_text(before.stderr)
+if before.returncode:
+    raise SystemExit(before.returncode)
+command = [python, '-B', '-m', 'pytest', '-p', 'no:cacheprovider', '-q', '-ra', '--maxfail=10', '--junitxml=' + str(root / 'native.xml'), *protocol['tests']]
+started = datetime.datetime.now(datetime.timezone.utc).isoformat()
+t0 = time.monotonic()
+with (root / 'native.stdout').open('w') as out, (root / 'native.stderr').open('w') as err:
+    result = subprocess.run(command, cwd=source, env=env, stdout=out, stderr=err, timeout=180)
+elapsed = time.monotonic() - t0
+after = subprocess.run([python, '-B', '-c', metadata], cwd=source, env=env, capture_output=True, text=True)
+(root / 'environment-after.json').write_text(after.stdout)
+(root / 'environment-after.stderr').write_text(after.stderr)
+receipt = {'started_at':started,'command':command,'cwd':str(source),'environment_overrides':{k:env[k] for k in (*protocol['environment'], 'PYTHONPATH')},'exit_code':result.returncode,'wall_seconds':elapsed,'environment_equal':before.stdout == after.stdout and after.returncode == 0,'test_hashes_equal':all(hashlib.sha256((source/t).read_bytes()).hexdigest() == h for t,h in protocol['test_hashes'].items()),'protocol_sha256':hashlib.sha256((root/'baseline-protocol.json').read_bytes()).hexdigest()}
+(root / 'native-result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+print(json.dumps(receipt,indent=2))
+print((root/'native.stdout').read_text())
+print((root/'native.stderr').read_text())
+raise SystemExit(result.returncode)

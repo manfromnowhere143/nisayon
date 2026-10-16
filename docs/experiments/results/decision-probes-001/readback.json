@@ -1,0 +1,514 @@
+{
+  "status": "supported_constructed_software_controls",
+  "initial_assessment": {
+    "status": "unresolved",
+    "survivors": [
+      "a1",
+      "a2",
+      "b1",
+      "b2"
+    ],
+    "residuals": {
+      "a1": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "a2": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "b1": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "b2": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      }
+    },
+    "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+    "decision": {
+      "status": "unresolved",
+      "label": null,
+      "possible_labels": [
+        "restore_A:confirm_A",
+        "restore_B:confirm_B"
+      ],
+      "task_confirmation": "not_assessed",
+      "scope": "caller-declared equivalence; no correction validation or task acceptance"
+    }
+  },
+  "declared_labels": {
+    "a1": "restore_A:confirm_A",
+    "a2": "restore_A:confirm_A",
+    "b1": "restore_B:confirm_B",
+    "b2": "restore_B:confirm_B"
+  },
+  "candidate_probes": [
+    {
+      "id": "decision",
+      "cost": 1,
+      "predictions": {
+        "a1": [
+          0
+        ],
+        "a2": [
+          0
+        ],
+        "b1": [
+          1
+        ],
+        "b2": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "subtype",
+      "cost": 3,
+      "predictions": {
+        "a1": [
+          0
+        ],
+        "a2": [
+          1
+        ],
+        "b1": [
+          0
+        ],
+        "b2": [
+          1
+        ]
+      }
+    },
+    {
+      "id": "full",
+      "cost": 5,
+      "predictions": {
+        "a1": [
+          0
+        ],
+        "a2": [
+          1
+        ],
+        "b1": [
+          2
+        ],
+        "b2": [
+          3
+        ]
+      }
+    }
+  ],
+  "full_identification_plan": {
+    "hypotheses": [
+      "a1",
+      "a2",
+      "b1",
+      "b2"
+    ],
+    "scope": "offline predictions only; conditional on supplied models and bound",
+    "cost_unit": "caller_declared_observation_units",
+    "status": "separating_plan",
+    "selected": [
+      "decision",
+      "subtype"
+    ],
+    "total_cost": 4,
+    "unseparated_pairs": [],
+    "separation_witnesses": [
+      {
+        "pair": [
+          "a1",
+          "a2"
+        ],
+        "probe": "subtype",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a1",
+          "b1"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a1",
+          "b2"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a2",
+          "b1"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a2",
+          "b2"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "b1",
+          "b2"
+        ],
+        "probe": "subtype",
+        "coordinate": 0
+      }
+    ],
+    "optimality": "all subsets of the supplied pool; nonadaptive batch objective"
+  },
+  "decision_plan": {
+    "hypotheses": [
+      "a1",
+      "a2",
+      "b1",
+      "b2"
+    ],
+    "scope": "offline declared decisions and error bound; no correction validation or task acceptance",
+    "cost_unit": "caller_declared_observation_units",
+    "decision_labels": {
+      "a1": "restore_A:confirm_A",
+      "a2": "restore_A:confirm_A",
+      "b1": "restore_B:confirm_B",
+      "b2": "restore_B:confirm_B"
+    },
+    "task_confirmation": "not_assessed",
+    "status": "decision_separating_plan",
+    "selected": [
+      "decision"
+    ],
+    "total_cost": 1,
+    "unseparated_pairs": [],
+    "separation_witnesses": [
+      {
+        "pair": [
+          "a1",
+          "b1"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a1",
+          "b2"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a2",
+          "b1"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      },
+      {
+        "pair": [
+          "a2",
+          "b2"
+        ],
+        "probe": "decision",
+        "coordinate": 0
+      }
+    ],
+    "optimality": "all subsets of the supplied pool; nonadaptive batch objective"
+  },
+  "competent_conventional_decision_plan": {
+    "selected": [
+      "decision"
+    ],
+    "total_cost": 1
+  },
+  "constructed_outcomes": [
+    {
+      "constructed_hypothesis": "a1",
+      "assessment": {
+        "status": "unresolved",
+        "survivors": [
+          "a1",
+          "a2"
+        ],
+        "residuals": {
+          "a1": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "a2": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "b1": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "b2": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          }
+        },
+        "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+        "decision": {
+          "status": "invariant_within_declared_hypotheses",
+          "label": "restore_A:confirm_A",
+          "possible_labels": [
+            "restore_A:confirm_A"
+          ],
+          "task_confirmation": "not_assessed",
+          "scope": "caller-declared equivalence; no correction validation or task acceptance"
+        }
+      }
+    },
+    {
+      "constructed_hypothesis": "a2",
+      "assessment": {
+        "status": "unresolved",
+        "survivors": [
+          "a1",
+          "a2"
+        ],
+        "residuals": {
+          "a1": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "a2": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "b1": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "b2": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          }
+        },
+        "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+        "decision": {
+          "status": "invariant_within_declared_hypotheses",
+          "label": "restore_A:confirm_A",
+          "possible_labels": [
+            "restore_A:confirm_A"
+          ],
+          "task_confirmation": "not_assessed",
+          "scope": "caller-declared equivalence; no correction validation or task acceptance"
+        }
+      }
+    },
+    {
+      "constructed_hypothesis": "b1",
+      "assessment": {
+        "status": "unresolved",
+        "survivors": [
+          "b1",
+          "b2"
+        ],
+        "residuals": {
+          "a1": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "a2": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "b1": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "b2": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          }
+        },
+        "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+        "decision": {
+          "status": "invariant_within_declared_hypotheses",
+          "label": "restore_B:confirm_B",
+          "possible_labels": [
+            "restore_B:confirm_B"
+          ],
+          "task_confirmation": "not_assessed",
+          "scope": "caller-declared equivalence; no correction validation or task acceptance"
+        }
+      }
+    },
+    {
+      "constructed_hypothesis": "b2",
+      "assessment": {
+        "status": "unresolved",
+        "survivors": [
+          "b1",
+          "b2"
+        ],
+        "residuals": {
+          "a1": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "a2": {
+            "max_abs": 1.0,
+            "display_overflow": false,
+            "within_bound": false
+          },
+          "b1": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          },
+          "b2": {
+            "max_abs": 0.0,
+            "display_overflow": false,
+            "within_bound": true
+          }
+        },
+        "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+        "decision": {
+          "status": "invariant_within_declared_hypotheses",
+          "label": "restore_B:confirm_B",
+          "possible_labels": [
+            "restore_B:confirm_B"
+          ],
+          "task_confirmation": "not_assessed",
+          "scope": "caller-declared equivalence; no correction validation or task acceptance"
+        }
+      }
+    }
+  ],
+  "shared_label_plan": {
+    "hypotheses": [
+      "a1",
+      "a2",
+      "b1",
+      "b2"
+    ],
+    "scope": "offline declared decisions and error bound; no correction validation or task acceptance",
+    "cost_unit": "caller_declared_observation_units",
+    "decision_labels": {
+      "a1": "restore_A:confirm_A",
+      "a2": "restore_A:confirm_A",
+      "b1": "restore_A:confirm_A",
+      "b2": "restore_A:confirm_A"
+    },
+    "task_confirmation": "not_assessed",
+    "status": "decision_separating_plan",
+    "selected": [],
+    "total_cost": 0,
+    "unseparated_pairs": [],
+    "separation_witnesses": [],
+    "optimality": "all subsets of the supplied pool; nonadaptive batch objective"
+  },
+  "shared_label_assessment": {
+    "status": "unresolved",
+    "survivors": [
+      "a1",
+      "a2",
+      "b1",
+      "b2"
+    ],
+    "residuals": {
+      "a1": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "a2": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "b1": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      },
+      "b2": {
+        "max_abs": 0.0,
+        "display_overflow": false,
+        "within_bound": true
+      }
+    },
+    "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+    "decision": {
+      "status": "invariant_within_declared_hypotheses",
+      "label": "restore_A:confirm_A",
+      "possible_labels": [
+        "restore_A:confirm_A"
+      ],
+      "task_confirmation": "not_assessed",
+      "scope": "caller-declared equivalence; no correction validation or task acceptance"
+    }
+  },
+  "out_of_family_assessment": {
+    "status": "model_mismatch",
+    "survivors": [],
+    "residuals": {
+      "a1": {
+        "max_abs": 9.0,
+        "display_overflow": false,
+        "within_bound": false
+      },
+      "a2": {
+        "max_abs": 9.0,
+        "display_overflow": false,
+        "within_bound": false
+      },
+      "b1": {
+        "max_abs": 8.0,
+        "display_overflow": false,
+        "within_bound": false
+      },
+      "b2": {
+        "max_abs": 8.0,
+        "display_overflow": false,
+        "within_bound": false
+      }
+    },
+    "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+    "decision": {
+      "status": "model_mismatch",
+      "label": null,
+      "possible_labels": [],
+      "task_confirmation": "not_assessed",
+      "scope": "caller-declared equivalence; no correction validation or task acceptance"
+    }
+  },
+  "limits": [
+    "Constructed exposed predictions and labels, not independent owner records.",
+    "Declared observation cost, not measured complete engineering effort.",
+    "The competent conventional decision calculation ties; no comparative advantage.",
+    "No correction validity, fresh task outcome, physical feasibility or reuse qualified."
+  ],
+  "elapsed_seconds": 0.0003565829829312861
+}

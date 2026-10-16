@@ -1,0 +1,103 @@
+{
+  "schema": "nisayon.research-outreach.v1",
+  "recorded_at": "2026-10-10T06:09:03.650288+00:00",
+  "scope": "Two authorized GitHub technical questions following the 10 October research review; no owner reply or collaboration established by posting",
+  "authorization": "Daniel instructed proceeding after the prepared questions and research verdict; this turn announced sending the source-bound RoboRecover question and GR00T request for existing records",
+  "preflight_captures": [
+    {
+      "endpoint": "repos/RUCKBReasoning/RoboRecover/commits/main",
+      "captured_at": "2026-10-10T06:05:45.815102+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/roborecover-main-before.json",
+      "sha256": "c1ebb0e71430bf7a0f630321961f1b0a29764168fc7b55d130fbd18857aeeb58"
+    },
+    {
+      "endpoint": "repos/RUCKBReasoning/RoboRecover/issues?state=all&per_page=100",
+      "captured_at": "2026-10-10T06:05:46.321236+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/roborecover-issues-before.json",
+      "sha256": "ed5f890f32479ad7f050b694a4a6283e23ab2734d044728a3f4b85794709f2a6"
+    },
+    {
+      "endpoint": "repos/RUCKBReasoning/RoboRecover/git/trees/089b9420e8b7c303e2338a8212a8b6c27c26a79b?recursive=1",
+      "captured_at": "2026-10-10T06:05:46.898229+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/roborecover-tree-before.json",
+      "sha256": "747cee70602f4bdf69d32795e217d895ed56e4384ee512383b3578a7ce15303c"
+    },
+    {
+      "endpoint": "repos/NVIDIA/Isaac-GR00T/issues/785",
+      "captured_at": "2026-10-10T06:05:47.425996+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/gr00t-785-before.json",
+      "sha256": "68da25ff962af723b95a4b9bf09f1291630d27b0ffb6041a69b3b7991efbdc6c"
+    },
+    {
+      "endpoint": "repos/NVIDIA/Isaac-GR00T/issues/785/comments?per_page=100",
+      "captured_at": "2026-10-10T06:05:47.971980+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/gr00t-785-comments-before.json",
+      "sha256": "ccbe526cca22104d22815c1d4bce6b6d63f4b1379487389d5874b6917bfbaeb2"
+    },
+    {
+      "endpoint": "repos/Physical-Intelligence/openpi/issues/1060/comments?per_page=100",
+      "captured_at": "2026-10-10T06:05:48.405253+00:00",
+      "path": "artifacts/recovery-outreach-2026-10-10/openpi-1060-comments-before.json",
+      "sha256": "c5917407c6bbe73d124a62293de51de27c41f26f3d4a6621ff83b89af68c3180"
+    }
+  ],
+  "roborecover_inspected_commit": "089b9420e8b7c303e2338a8212a8b6c27c26a79b",
+  "reproducer_check": {
+    "script_sha256": "bcf123b9766eef5add00014356b0d8f154bd5a3bc89b59e0f6cd8b19e2daf03c",
+    "at": "2026-10-10T06:06:43.538499+00:00",
+    "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+    "returncode": 0,
+    "stdout": "infer_ok success_count: 1 total: 1 success_rate: 1.0 infer_steps: 1 in_failed_files: False\ninfer_failed success_count: 0 total: 1 success_rate: 0.0 infer_steps: 1 in_failed_files: True\nstate_mismatch success_count: 0 total: 1 success_rate: 0.0 infer_steps: 0 in_failed_files: True\nreplay_already_done success_count: 1 total: 1 success_rate: 1.0 infer_steps: 0 in_failed_files: True\nUnequal repeats: pooled = 0.25 ; equal scenario mean = 0.5\n",
+    "stderr": "",
+    "wall_seconds": 0.6165601250104373,
+    "scope": "Constructed records exercising two unmodified pinned upstream definitions; no simulator, model or dataset run"
+  },
+  "posted_code_matches_tested_code": true,
+  "posts": [
+    {
+      "destination": "roborecover",
+      "status": "posted_exact_readback_verified",
+      "url": "https://github.com/RUCKBReasoning/RoboRecover/issues/2",
+      "id": 5788670706,
+      "author": "manfromnowhere143",
+      "created_at": "2026-10-10T06:08:34Z",
+      "updated_at": "2026-10-10T06:08:34Z",
+      "readback_file_written_at": "2026-10-10T06:07:22.226391+00:00",
+      "title": "Clarify success fields when prefix replay completes the task",
+      "body": "I have a question about the meaning of the RoboTwin Pi0.5 evaluator's success fields at commit `089b9420e8b7c303e2338a8212a8b6c27c26a79b`.\n\nIn the [prefix-replay return](https://github.com/RUCKBReasoning/RoboRecover/blob/089b9420e8b7c303e2338a8212a8b6c27c26a79b/overlays/RoboTwin/script/eval_ood_replay_then_infer.py#L421-L441), environment completion can produce `status=\"replay_already_done\"`, `infer_steps=0` and `eval_success_at_end=True`. Passing a constructed record with these values through the unmodified `build_summary` gives `task_summary.success_count=1` and `success_rate=1.0`; the same record is included in `failed_files`. The error-type summary uses the same success predicate.\n\nThe status information is retained, and the [entrypoint's exit handling](https://github.com/RUCKBReasoning/RoboRecover/blob/089b9420e8b7c303e2338a8212a8b6c27c26a79b/overlays/RoboTwin/script/eval_ood_replay_then_infer.py#L779-L788) returns 2 for this status. My question concerns consumers of the summary fields. I have not run the simulator or evaluated a policy, and this constructed case does not establish that any published result was affected.\n\nAre these fields intended to describe environment completion regardless of phase, or successful recovery evaluation? If the former, would a separately named recovery-success field help readers retain that distinction while preserving the raw flag, failed trials and scheduled denominator?\n\nThere is a related aggregation question: `build_summary` pools trial records, while the [documented protocol](https://github.com/RUCKBReasoning/RoboRecover/blob/089b9420e8b7c303e2338a8212a8b6c27c26a79b/README.md#5-results-and-protocol) averages scenarios equally. In a constructed example with one successful trial for A and three failed trials for B, these yield 0.25 and 0.5. That is a difference in estimand, not evidence that the paper used unequal repeats. Is there a canonical final-analysis function that computes the documented scenario mean?\n\n<details>\n<summary>Self-contained reproducer and observed output (Python 3.12, standard library only)</summary>\n\nSave the following as `reproduce.py` and run `python3.12 -B reproduce.py`. It downloads the pinned evaluator, checks its SHA256, and extracts only the unmodified `EvalResult` and `build_summary` definitions. It does not import upstream top-level code or load any model, simulator or dataset. All records are constructed software controls.\n\n```python\n\"\"\"Constructed reporting controls only; no simulator, model or dataset runs.\"\"\"\n\nimport argparse\nimport ast\nimport hashlib\nimport sys\nimport urllib.request\nfrom collections import Counter, defaultdict\nfrom dataclasses import dataclass, replace\nfrom datetime import datetime\nfrom types import ModuleType\nfrom typing import Any\n\ncommit = \"089b9420e8b7c303e2338a8212a8b6c27c26a79b\"\npath = \"overlays/RoboTwin/script/eval_ood_replay_then_infer.py\"\nurl = f\"https://raw.githubusercontent.com/RUCKBReasoning/RoboRecover/{commit}/{path}\"\nwith urllib.request.urlopen(url, timeout=30) as response:\n    source = response.read()\nif hashlib.sha256(source).hexdigest() != (\n    \"e335523db8ad4a2e06def1180f0e734334dbbd3b873df69d46873e17face700d\"\n):\n    raise ValueError(\"Source differs from the reviewed revision\")\n\nselected = [\n    node\n    for node in ast.parse(source).body\n    if isinstance(node, (ast.ClassDef, ast.FunctionDef))\n    and node.name in {\"EvalResult\", \"build_summary\"}\n]\nif [node.name for node in selected] != [\"EvalResult\", \"build_summary\"]:\n    raise ValueError(\"Expected exactly the two reviewed definitions\")\nupstream = ModuleType(\"roborecover_summary_probe\")\nsys.modules[upstream.__name__] = upstream\nvars(upstream).update(\n    argparse=argparse,\n    Counter=Counter,\n    defaultdict=defaultdict,\n    dataclass=dataclass,\n    datetime=datetime,\n    Any=Any,\n)\nexec(compile(ast.Module(body=selected, type_ignores=[]), url, \"exec\"), vars(upstream))\n\nargs = argparse.Namespace(\n    json_root=None,\n    sample_file_list=None,\n    policy_name=\"constructed\",\n    train_config_name=None,\n    model_name=\"constructed\",\n    checkpoint_id=None,\n    pi0_step=None,\n    eval_mode=\"seed_plus_replay\",\n    num_steps_wait_after_replay=0,\n    max_infer_steps=10,\n)\nbase = upstream.EvalResult(\n    file=\"constructed/replay.json\",\n    model_name=\"constructed\",\n    repeat_idx=0,\n    sample_id=\"replay\",\n    task_name=\"constructed_task\",\n    task_config=\"constructed\",\n    seed=0,\n    episode_idx=0,\n    instruction=\"No task was executed\",\n    error_type=\"constructed\",\n    s_stage=None,\n    d_stage=None,\n    status=\"replay_already_done\",\n    reason=\"env_done_during_replay\",\n    replay_steps=1,\n    wait_steps=0,\n    infer_steps=0,\n    actions_len=1,\n    annotated_step=1,\n    replay_done=True,\n    infer_done=False,\n    eval_success_at_end=True,\n    failure_detail=\"replay_env_done\",\n)\npositive = replace(\n    base,\n    file=\"constructed/a.json\",\n    sample_id=\"a\",\n    status=\"infer_ok\",\n    reason=\"constructed\",\n    infer_steps=1,\n    infer_done=True,\n    failure_detail=None,\n)\nnegative = replace(\n    positive,\n    file=\"constructed/b.json\",\n    sample_id=\"b\",\n    status=\"infer_failed\",\n    eval_success_at_end=False,\n)\nmissing = replace(\n    base,\n    status=\"state_mismatch\",\n    eval_success_at_end=None,\n    replay_steps=0,\n    replay_done=False,\n    reason=\"constructed\",\n    failure_detail=\"init_state_mismatch\",\n)\nfor row, expected in [(positive, 1), (negative, 0), (missing, 0), (base, 1)]:\n    summary = upstream.build_summary([row], args=args)\n    task = summary[\"task_summary\"][\"constructed_task\"]\n    failed = row.file in summary[\"failed_files\"]\n    assert task[\"success_count\"] == expected and task[\"total\"] == 1\n    assert failed == (row.status != \"infer_ok\")\n    print(\n        row.status,\n        \"success_count:\",\n        task[\"success_count\"],\n        \"total:\",\n        task[\"total\"],\n        \"success_rate:\",\n        task[\"success_rate\"],\n        \"infer_steps:\",\n        row.infer_steps,\n        \"in_failed_files:\",\n        failed,\n    )\n\nrows = [positive] + [replace(negative, repeat_idx=i) for i in range(3)]\npooled = upstream.build_summary(rows, args=args)[\"task_summary\"][\"constructed_task\"][\"success_rate\"]\nby_scenario = defaultdict(list)\nfor row in rows:\n    by_scenario[row.sample_id].append(int(row.eval_success_at_end))\nscenario_mean = sum(sum(v) / len(v) for v in by_scenario.values()) / len(by_scenario)\nassert pooled == 0.25 and scenario_mean == 0.5\nprint(\"Unequal repeats: pooled =\", pooled, \"; equal scenario mean =\", scenario_mean)\n```\n\nObserved output:\n\n```text\ninfer_ok success_count: 1 total: 1 success_rate: 1.0 infer_steps: 1 in_failed_files: False\ninfer_failed success_count: 0 total: 1 success_rate: 0.0 infer_steps: 1 in_failed_files: True\nstate_mismatch success_count: 0 total: 1 success_rate: 0.0 infer_steps: 0 in_failed_files: True\nreplay_already_done success_count: 1 total: 1 success_rate: 1.0 infer_steps: 0 in_failed_files: True\nUnequal repeats: pooled = 0.25 ; equal scenario mean = 0.5\n```\n\n</details>\n",
+      "body_sha256": "eb22e27346368226056c0630887118178741feaec36dd2d0bb859b268f95d37f",
+      "raw_readback": "artifacts/recovery-outreach-2026-10-10/roborecover-readback.json",
+      "raw_readback_sha256": "16caf6965f9c961dee7479eef50fd5501d262626ce3583ec100aabf5471d8364"
+    },
+    {
+      "destination": "gr00t",
+      "status": "posted_exact_readback_verified",
+      "url": "https://github.com/NVIDIA/Isaac-GR00T/issues/785#issuecomment-6094509123",
+      "id": 6094509123,
+      "author": "manfromnowhere143",
+      "created_at": "2026-10-10T06:08:48Z",
+      "updated_at": "2026-10-10T06:08:48Z",
+      "readback_file_written_at": "2026-10-10T06:07:36.741482+00:00",
+      "title": null,
+      "body": "Hi @Lukas-Kozel — are the jitter/action-loop episodes also the episodes where recovery fails, or are these separate behaviors?\n\nBuilding on the timing checks above, an existing failed attempt could help distinguish a deployment problem from a need for recovery demonstrations. If you can share a small sanitized example, the useful pieces would be:\n\n- the GR00T and gear-sonic revisions and resolved control settings, including control rate and predicted versus executed action horizon;\n- a short numeric observation/action trace around the first jitter or repeated motion, with observation acquisition and action dispatch timestamps and their clock units/source, if already recorded. A comparable successful attempt under the same setup would help.\n\nWhich decision are you currently trying to make: change deployment timing/controller settings, collect corrective demonstrations, or something else?\n\nI haven't tested your stack and can't infer the cause from the symptoms alone. Existing configs and logs are enough for a first inspection; I'm not asking for weights, images, new robot runs or training.\n",
+      "body_sha256": "87c2f0c09ca08165ea9e9b410496ebb3eee714766c73e3ceab9044b1a9482cf4",
+      "raw_readback": "artifacts/recovery-outreach-2026-10-10/gr00t-readback.json",
+      "raw_readback_sha256": "d0a24f01baf5c0054e4b70a2aa601db8bcb665c230e6a4ebcbe46f9fd06d9c62"
+    }
+  ],
+  "openpi_reply_check": {
+    "captured_at": "2026-10-10T06:05:48.405253+00:00",
+    "url": "https://github.com/Physical-Intelligence/openpi/issues/1060#issuecomment-6082970232",
+    "comment_count": 4,
+    "latest_comment_id": 6082970232,
+    "later_reply_present": false,
+    "followup_posted": false
+  },
+  "limitations": [
+    "The reproducer exercises constructed software records, not robot outcomes or published result data",
+    "Upstream failed_files, status counts and nonzero exit handling are retained in the question",
+    "No matching GR00T deployment trace or settings have been received",
+    "No production engine change, training, robot run, environment synchronization or private-history publication occurred",
+    "No automatic follow-up or background monitor was created"
+  ]
+}

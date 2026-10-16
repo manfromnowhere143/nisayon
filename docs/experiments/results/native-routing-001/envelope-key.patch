@@ -1,0 +1,14 @@
+--- a/src/serving/server.cpp
++++ b/src/serving/server.cpp
+@@ -326,8 +326,10 @@
+ std::string envelope_key(const std::vector<zmq::message_t> & envelope) {
+     std::string key;
+     for (const auto & f : envelope) {
++        // Length framing preserves binary frame boundaries.
++        key.append(std::to_string(f.size()));
++        key.push_back(':');
+         key.append(static_cast<const char*>(f.data()), f.size());
+-        key.push_back('\0');
+     }
+     return key;
+ }

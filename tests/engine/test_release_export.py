@@ -9,5 +9,7 @@ def test_export_omits_archived_private_handoffs_but_keeps_research(monkeypatch):
     assert export.excluded("docs/SESSION_HANDOFF.md")
     assert export.excluded("docs/SESSION_HANDOFF_THROUGH_2026_09_18.md")
     assert export.excluded("docs/SESSION_HANDOFF_THROUGH_2026_10_09.md")
+    assert export.excluded("work/queue.json")
+    assert export.excluded("work/continuations/n040-owner-recruitment/README.md")
     assert not export.excluded("docs/experiments/results/b2-semantic-transfer-001/readback.json")
     assert not export.excluded("work/development/consumed-conditions.json")

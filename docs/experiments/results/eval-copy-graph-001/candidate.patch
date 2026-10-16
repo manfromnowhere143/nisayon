@@ -1,0 +1,18 @@
+--- a/src/lerobot/scripts/lerobot_eval.py
++++ b/src/lerobot/scripts/lerobot_eval.py
+@@ -972,12 +972,9 @@
+         ctx = getattr(thread_local, "eval_ctx", None)
+         if ctx is None:
+             try:
+-                ctx = (
+-                    deepcopy(policy),
+-                    deepcopy(env_preprocessor),
+-                    deepcopy(env_postprocessor),
+-                    deepcopy(preprocessor),
+-                    deepcopy(postprocessor),
++                # Preserve references between processors and the policy within this worker.
++                ctx = deepcopy(
++                    (policy, env_preprocessor, env_postprocessor, preprocessor, postprocessor)
+                 )
+             except Exception as e:
+                 raise RuntimeError(

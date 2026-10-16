@@ -1,0 +1,98 @@
+{
+  "schema": "nisayon.pose-contract.protocol.v1",
+  "frozen_at": "2026-10-12T16:10:24.438777+00:00",
+  "baseline_commit": "be658ba88a4c7aa1d24bc57a31facd54580f17bc",
+  "source_repository": "https://github.com/XPolicyLab/XPolicyLab",
+  "source_revision": "f6e309e8ece20bfa33c0e5d7b05a5f3287522757",
+  "decision_sha256": "ae9ee223d5543882bf30fb4403b33378b85cb0ca1e3272edb1e66bdc7785d526",
+  "source_sha256": {
+    "model_template.py": "4f8d1eeb8073aa7ae6093abf0f395cd5fef70ff4a4bd1fa6b2d83b356a90754a",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "setup_policy_server.py": "de2f4a0d53f17bab7ee653ef8ceace207a0a963930097023d6186197fcf673cb",
+    "pyproject.toml": "d6034472711926f9375e66a7e3827bc866f5f0f787ac570fc6631ec167168ab3",
+    "README.md": "870dc9bc3abc08c0408aec9b2c316e542c781c4facb3915403f785dd7eb4505b",
+    "CONTRIBUTING.md": "9665ec1af775244f028885b1d35d36878bfbae285c301a1c694bcc0ae6d64239",
+    "XPolicyLab.py": "a3909558697b73479f8baee03e15b4d74060a7c9ac2f31fcbc6cd659e7364862",
+    "client_server/__init__.py": "4717f99f5db6d3e0496032f1678005efc829d071037db6433bc9dac7f5ae680e",
+    "utils/debug_env_client.py": "005dab63b8bdc2e2cf0562cbb749326086769796552c1b1d1c2054cedf612805",
+    "utils/process_data.py": "e044e627eb2677907e9227eda8458c857208913bd484c5e922b53025010eef0b",
+    "utils/load_file.py": "488590d76084f419a36c2fb3e658eeb240ae554678899e9f2ce0cc10da5c4b57",
+    "client_server/tcp/model_client.py": "1a6d01729ff85c5bf3a6a4a8ad871e2d200d2bcb9d0ddec6f37761e6ca54832c",
+    "client_server/tcp/__init__.py": "4e9d378daad5b7b16d35aee5cec44ad6bfb536f0c6d38584cfadc0a599170ef7",
+    "client_server/tcp/utils.py": "944b347cc222c2f698ad6535b7faf006b259c0b24ddc130c9aed462862efc2ff",
+    "client_server/ws/model_server.py": "4988823b436cd05e6a4d8b13012cc30c7ffd57711b72497b1223a6b10dc0c043",
+    "client_server/ws/model_client.py": "4d6e225ae5f577d862366350dca8742e91dd9527d6e76b8b2a6d48c991212d67",
+    "client_server/ws/__init__.py": "79905987a12ebf318dc0b2b9ec6f375d9b4561bac29d6c27d04e318d8f6e00b3",
+    "client_server/ws/__main__.py": "ee1c5807dcdf1c8f6721c5447463eb51babdb0f9ffbd91d1e7343834ca4aa19a",
+    "client_server/ws/protocol/client.py": "b309f58b1bddd99e56578026b61a15e6cfdc07e843e8a082bfd291d0e853ce5a",
+    "client_server/ws/protocol/keepalive.py": "7f6b9e636eefcd6c80a4b62e404a6f89e2f7e1a3b6008500312a972d6990a21d",
+    "client_server/ws/protocol/__init__.py": "19aeae375e94e58d437d789d0aff07b232c13f375235384d784984631d25d5d9",
+    "client_server/ws/protocol/schemas.py": "f1ca82eafa8dcad6d968508adb51c25342b291f7b1c553fff305c381a6098bd0",
+    "client_server/ws/protocol/messages.py": "d05c8cbc20e0cbe1502551864907f25897035993f920748c9290c944c959eab7",
+    "client_server/ws/protocol/exceptions.py": "73161f4cdcc7ffc8a87cec94f5459bfcb9113076be272d6cb2a3ff8d69e0c6ce",
+    "client_server/ws/protocol/codec.py": "8a97ef7e102fd954c266352d81eaceef0f1b0f5504571c03037683efe387865a",
+    ".agents/skills/xpolicylab-adapter-check/SKILL.md": "5c00dff58806d4f069f48fc2cfb9be955fad817e23dd9ab8b47a8db40ce65110"
+  },
+  "ee_layouts": [
+    {
+      "id": "single6",
+      "arm_dim": [
+        6
+      ],
+      "ee_dim": [
+        1
+      ]
+    },
+    {
+      "id": "dual6",
+      "arm_dim": [
+        6,
+        6
+      ],
+      "ee_dim": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "mixed67",
+      "arm_dim": [
+        6,
+        7
+      ],
+      "ee_dim": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "single7",
+      "arm_dim": [
+        7
+      ],
+      "ee_dim": [
+        1
+      ]
+    }
+  ],
+  "array_layouts": [
+    "obs-vector",
+    "obs-chunk",
+    "dataset-prefix"
+  ],
+  "joint_layouts": [
+    "dual6",
+    "mixed67"
+  ],
+  "invalid_cases": [
+    "single6-obs",
+    "single6-dataset",
+    "dual6-obs",
+    "dual6-dataset"
+  ],
+  "cartesian_pose_width": 7,
+  "total_cases": 22,
+  "oracle": "README documented position/quaternion schema plus unmodified native validate_robot_state_dict, with direct expected values and explicit round trips.",
+  "acceptance": "Original defect requires a declared-contract disagreement, not only two mutually inverse helpers. Candidate must pass all 22 controls with unchanged joint behavior and inputs.",
+  "resource_boundary": "One new CPU-only dependency lock and source copy; no learned policy/model, physics, hardware or reserved conditions; four-hour incident cap."
+}
