@@ -1,0 +1,160 @@
+--- a/scripts/Libero_eval/eval_libero_agent.py
++++ b/scripts/Libero_eval/eval_libero_agent.py
+@@ -141,6 +141,22 @@
+     return selected
+ 
+ 
++def _evaluation_execution_settings(
++    args: argparse.Namespace,
++    specs: list[dict[str, Any]],
++) -> dict[str, Any]:
++    """Bind effective episode budgets, including suite defaults, across resumes."""
++    suites = sorted({spec.get("base_suite", spec["suite"]) for spec in specs})
++    return {
++        "max_action_steps_by_suite": {
++            suite: args.max_steps or MAX_STEPS[suite] for suite in suites
++        },
++        "num_steps_wait": args.num_steps_wait,
++        "episode_timeout_s": args.episode_timeout_s,
++        "max_agent_feedback_rounds": args.max_agent_feedback_rounds,
++    }
++
++
+ def _write_evaluation_plan(
+     output_dir: Path,
+     *,
+@@ -155,6 +171,7 @@
+     """Persist backend/profile identity and reject incompatible resumes."""
+     stable_plan = {
+         "suites": suite_names,
++        "execution_settings": _evaluation_execution_settings(args, specs),
+         "task_ids": task_ids_text,
+         "trials_per_task": trials_per_task,
+         "start_trial": args.start_trial,
+@@ -170,8 +187,15 @@
+         "driver_config_sha256": _sha256_file(driver_config_path),
+     }
+     plan_path = output_dir / "evaluation_plan.json"
++    if args.resume and not plan_path.exists() and (output_dir / "results.jsonl").exists():
++        raise ValueError("cannot resume retained results without evaluation_plan.json")
+     if args.resume and plan_path.exists():
+         existing = _load_json(plan_path)
++        if "execution_settings" not in existing:
++            raise ValueError(
++                "existing plan has no recorded execution settings; keep its results "
++                "and choose a new output directory"
++            )
+         previous = {key: existing.get(key) for key in stable_plan}
+         if previous != stable_plan:
+             raise ValueError(
+@@ -181,7 +205,7 @@
+     _atomic_write_json(
+         plan_path,
+         {
+-            "schema_version": "Emerge.libero_evaluation_plan.v1",
++            "schema_version": "Emerge.libero_evaluation_plan.v2",
+             "updated_at": _utc_now(),
+             **stable_plan,
+         },
+--- a/scripts/LiberoPlus_eval/eval_libero_plus_agent.py
++++ b/scripts/LiberoPlus_eval/eval_libero_plus_agent.py
+@@ -360,6 +360,7 @@
+ def _write_evaluation_plan(
+     output_dir: Path,
+     *,
++    args: argparse.Namespace,
+     dimensions: list[str],
+     episodes_per_dimension: int,
+     start_trial: int,
+@@ -374,6 +375,7 @@
+ ) -> None:
+     """Persist the deterministic selection that makes resume reproducible."""
+     stable_plan = {
++        "execution_settings": base._evaluation_execution_settings(args, specs),
+         "dimensions": dimensions,
+         "episodes_per_dimension": episodes_per_dimension,
+         "total_episodes": len(specs),
+@@ -390,8 +392,15 @@
+         "driver_config_sha256": base._sha256_file(driver_config_path),
+     }
+     plan_path = output_dir / "evaluation_plan.json"
++    if resume and not plan_path.exists() and (output_dir / "results.jsonl").exists():
++        raise ValueError("cannot resume retained results without evaluation_plan.json")
+     if resume and plan_path.exists():
+         existing = base._load_json(plan_path)
++        if "execution_settings" not in existing:
++            raise ValueError(
++                "existing plan has no recorded execution settings; keep its results "
++                "and choose a new output directory"
++            )
+         previous = {key: existing.get(key) for key in stable_plan}
+         if previous != stable_plan:
+             raise ValueError(
+@@ -402,7 +411,7 @@
+     base._atomic_write_json(
+         plan_path,
+         {
+-            "schema_version": "Emerge.libero_plus_evaluation_plan.v2",
++            "schema_version": "Emerge.libero_plus_evaluation_plan.v3",
+             "updated_at": base._utc_now(),
+             **stable_plan,
+         },
+@@ -701,6 +710,7 @@
+         )
+         _write_evaluation_plan(
+             output_dir,
++            args=args,
+             dimensions=dimensions,
+             episodes_per_dimension=args.episodes_per_dimension,
+             start_trial=args.start_trial,
+--- a/scripts/LiberoPro_eval/eval_libero_pro_agent.py
++++ b/scripts/LiberoPro_eval/eval_libero_pro_agent.py
+@@ -637,6 +637,7 @@
+ def _write_evaluation_plan(
+     output_dir: Path,
+     *,
++    args: argparse.Namespace,
+     dimensions: list[str],
+     tasks_per_dimension: int | None,
+     only_tasks: list[tuple[str, int]],
+@@ -661,6 +662,7 @@
+             "target_environment": environment_generation["target_environment"],
+         }
+     stable_plan = {
++        "execution_settings": base._evaluation_execution_settings(args, specs),
+         "dimensions": dimensions,
+         "selection_mode": "exact" if only_tasks else "sampled",
+         "task_limit_per_dimension": tasks_per_dimension,
+@@ -685,8 +687,15 @@
+         "episode_keys": [spec["key"] for spec in specs],
+     }
+     plan_path = output_dir / "evaluation_plan.json"
++    if resume and not plan_path.exists() and (output_dir / "results.jsonl").exists():
++        raise ValueError("cannot resume retained results without evaluation_plan.json")
+     if resume and plan_path.exists():
+         existing = base._load_json(plan_path)
++        if "execution_settings" not in existing:
++            raise ValueError(
++                "existing plan has no recorded execution settings; keep its results "
++                "and choose a new output directory"
++            )
+         previous = {key: existing.get(key) for key in stable_plan}
+         if previous != stable_plan:
+             raise ValueError(
+@@ -696,7 +705,7 @@
+     base._atomic_write_json(
+         plan_path,
+         {
+-            "schema_version": "Emerge.libero_pro_evaluation_plan.v2",
++            "schema_version": "Emerge.libero_pro_evaluation_plan.v3",
+             "updated_at": base._utc_now(),
+             "environment_cache": (
+                 str(environment_cache.resolve()) if environment_cache is not None else None
+@@ -1121,6 +1130,7 @@
+         )
+         _write_evaluation_plan(
+             output_dir,
++            args=args,
+             dimensions=dimensions,
+             tasks_per_dimension=args.tasks_per_dimension,
+             only_tasks=args.only_task,

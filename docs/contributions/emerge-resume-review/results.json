@@ -1,0 +1,82 @@
+{
+  "schema": "nisayon.emerge-resume-review.v1",
+  "source_head": "e4c7134ad2aeb6dded049106ada1c28985b66e69",
+  "runs": [
+    {
+      "attempt": "baseline-attempt-1",
+      "tests": 24,
+      "failures": 20,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 4,
+      "duration_s": 5.747178790974431,
+      "returncode": 1
+    },
+    {
+      "attempt": "baseline-attempt-2",
+      "tests": 30,
+      "failures": 21,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 9,
+      "duration_s": 3.1852327910019085,
+      "returncode": 1
+    },
+    {
+      "attempt": "patched-attempt-1",
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 30,
+      "duration_s": 2.846317500108853,
+      "returncode": 0
+    },
+    {
+      "attempt": "control-attempt-1",
+      "tests": 6,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 0,
+      "duration_s": 2.807403750019148,
+      "returncode": 1
+    },
+    {
+      "attempt": "final-attempt",
+      "tests": 30,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 30,
+      "duration_s": 2.8235736660426483,
+      "returncode": 0
+    }
+  ],
+  "first_attempt_limit": "The eight LIBERO-Plus cases hit a fixture KeyError before the intended behavior; no Plus qualification from this attempt. Four pass and twelve other rejection-contract failures remain.",
+  "timestamp_note": "baseline-attempt-1 command started_at was captured after execution; it is retained as emitted and is not a reliable start timestamp. Durations use a monotonic clock.",
+  "fixture_sha256": "6aa844e016c234ea800389c840fd64a17bd009a6e40cd51c5b90d916cdc39b86",
+  "patch_sha256": "d4874d76c1ad4679d77fd29fac8146a399a891f3988b02ec9b5a5ddd43cb24e0",
+  "patched_files": [
+    {
+      "path": "scripts/Libero_eval/eval_libero_agent.py",
+      "before_sha256": "5a81e24a65c81fc6cdea90aed4e5c7240e9722affc1693dc9f7ac9cda8512ae2",
+      "after_sha256": "f60a044594e16e780058691c01dc9bd4d010232a5a974b1425fb97cda3613cd4"
+    },
+    {
+      "path": "scripts/LiberoPlus_eval/eval_libero_plus_agent.py",
+      "before_sha256": "50499537b250e803824bcc6e1a3fba89ebcd8ef660d39ff7b2e7d1a97d4ea1ae",
+      "after_sha256": "c44033bc6742fabba90bdb8cda0b099e68f4bb8351ea648e811f79f2d0b52637"
+    },
+    {
+      "path": "scripts/LiberoPro_eval/eval_libero_pro_agent.py",
+      "before_sha256": "a6e40f9a563de2bdb1b0eca100757a2a1656636fdfc8bfaa529c86adcd8a949e",
+      "after_sha256": "9cf9ec42e014a5f3441145d279391ac3a360936b220b7b5f47862d76e43dd419"
+    }
+  ],
+  "source_files": 41,
+  "complete_engineering_cost": null,
+  "owner_cost": null,
+  "scope": "Native Python entrypoints with controlled enumeration, benchmark setup and rollout; no robot/agent/model execution.",
+  "public_record_transformation": "Normalize local checkout/fixture paths and remove JUnit host attribute; retain status, counts, times and failures."
+}

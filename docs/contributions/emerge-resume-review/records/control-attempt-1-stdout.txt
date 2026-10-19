@@ -1,0 +1,233 @@
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_____________ test_explicit_effective_default_is_compatible[base] ______________
+artifacts/n066-owner-decision/raw-default-control/scripts/Libero_eval/eval_libero_agent.py:1269: in main
+    _write_evaluation_plan(
+artifacts/n066-owner-decision/raw-default-control/scripts/Libero_eval/eval_libero_agent.py:196: in _write_evaluation_plan
+    raise ValueError(
+E   ValueError: resume arguments, policy backend, or profile do not match evaluation_plan.json; use the original settings or a new output directory
+
+During handling of the above exception, another exception occurred:
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:204: in test_explicit_effective_default_is_compatible
+    assert campaign.invoke(["--resume", "--max-steps", "620"]) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:140: in invoke
+    return self.module.main()
+           ^^^^^^^^^^^^^^^^^^
+artifacts/n066-owner-decision/raw-default-control/scripts/Libero_eval/eval_libero_agent.py:1280: in main
+    parser.error(str(exc))
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2637: in exit
+    _sys.exit(status)
+E   SystemExit: 2
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 episode(s): suites=['libero_spatial'], tasks=0,1, trials_per_task=1, workers=1, policy=vla
+Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_explicit_effective_defaul0/profile.md (sha256=f2d3b15b09d4)
+Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_explicit_effective_defaul0/campaign
+[1/2] run controlled-base-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-base-1: Controlled task, not a robot outcome
+----------------------------- Captured stderr call -----------------------------
+usage: eval_libero_agent.py [-h] [--suite SUITE] [--task-ids TASK_IDS]
+                            [--trials-per-task TRIALS_PER_TASK]
+                            [--start-trial START_TRIAL] [--workers WORKERS]
+                            [--seed SEED] [--full]
+                            [--driver-config DRIVER_CONFIG]
+                            [--agent-config AGENT_CONFIG]
+                            [--agent-python AGENT_PYTHON]
+                            [--watchdog-python WATCHDOG_PYTHON]
+                            [--policy-backend {vla,wam}]
+                            [--wam-conditioning-mode {task,phase,task_with_phase}]
+                            [--profile-path PROFILE_PATH]
+                            [--skip-policy-server-check]
+                            [--skip-wam-server-check] [--max-steps MAX_STEPS]
+                            [--num-steps-wait NUM_STEPS_WAIT]
+                            [--episode-timeout-s EPISODE_TIMEOUT_S]
+                            [--max-agent-feedback-rounds MAX_AGENT_FEEDBACK_ROUNDS]
+                            [--watchdog-ready-timeout-s WATCHDOG_READY_TIMEOUT_S]
+                            [--watchdog-poll-interval-s WATCHDOG_POLL_INTERVAL_S]
+                            [--poll-interval-s POLL_INTERVAL_S]
+                            [--record-video] [--web-video | --no-web-video]
+                            [--stream] [--stream-host STREAM_HOST]
+                            [--stream-port STREAM_PORT]
+                            [--stream-fps STREAM_FPS] [--resume]
+                            [--continue-on-error] [--dry-run]
+                            [--output-dir OUTPUT_DIR]
+eval_libero_agent.py: error: resume arguments, policy backend, or profile do not match evaluation_plan.json; use the original settings or a new output directory
+_____________ test_explicit_effective_default_is_compatible[plus] ______________
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPlus_eval/eval_libero_plus_agent.py:706: in main
+    _write_evaluation_plan(
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPlus_eval/eval_libero_plus_agent.py:401: in _write_evaluation_plan
+    raise ValueError(
+E   ValueError: resume arguments, policy backend, or profile do not match evaluation_plan.json; use the original settings or choose a new output directory
+
+During handling of the above exception, another exception occurred:
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:204: in test_explicit_effective_default_is_compatible
+    assert campaign.invoke(["--resume", "--max-steps", "620"]) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:140: in invoke
+    return self.module.main()
+           ^^^^^^^^^^^^^^^^^^
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPlus_eval/eval_libero_plus_agent.py:722: in main
+    parser.error(str(exc))
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2637: in exit
+    _sys.exit(status)
+E   SystemExit: 2
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 LIBERO-Plus episode(s): dimensions=['Camera Viewpoints'], episodes_per_dimension=2, workers=1, schedule=dimension-and-suite-round-robin
+  Camera Viewpoints: libero_spatial=2, libero_object=0, libero_goal=0, libero_10=0
+Policy: vla | Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_explicit_effective_defaul1/profile.md (sha256=f2d3b15b09d4) | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_explicit_effective_defaul1/campaign
+[1/2] run controlled-plus-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-plus-1: Controlled task, not a robot outcome
+----------------------------- Captured stderr call -----------------------------
+usage: eval_libero_plus_agent.py [-h] [--trials-per-task TRIALS_PER_TASK]
+                                 [--start-trial START_TRIAL]
+                                 [--workers WORKERS] [--seed SEED]
+                                 [--driver-config DRIVER_CONFIG]
+                                 [--agent-config AGENT_CONFIG]
+                                 [--agent-python AGENT_PYTHON]
+                                 [--watchdog-python WATCHDOG_PYTHON]
+                                 [--policy-backend {vla,wam}]
+                                 [--wam-conditioning-mode {task,phase,task_with_phase}]
+                                 [--profile-path PROFILE_PATH]
+                                 [--skip-policy-server-check]
+                                 [--skip-wam-server-check]
+                                 [--max-steps MAX_STEPS]
+                                 [--num-steps-wait NUM_STEPS_WAIT]
+                                 [--episode-timeout-s EPISODE_TIMEOUT_S]
+                                 [--max-agent-feedback-rounds MAX_AGENT_FEEDBACK_ROUNDS]
+                                 [--watchdog-ready-timeout-s WATCHDOG_READY_TIMEOUT_S]
+                                 [--watchdog-poll-interval-s WATCHDOG_POLL_INTERVAL_S]
+                                 [--poll-interval-s POLL_INTERVAL_S]
+                                 [--record-video]
+                                 [--web-video | --no-web-video] [--stream]
+                                 [--stream-host STREAM_HOST]
+                                 [--stream-port STREAM_PORT]
+                                 [--stream-fps STREAM_FPS] [--resume]
+                                 [--continue-on-error] [--dry-run]
+                                 [--output-dir OUTPUT_DIR] --dimension
+                                 DIMENSION --episodes-per-dimension
+                                 EPISODES_PER_DIMENSION
+eval_libero_plus_agent.py: error: resume arguments, policy backend, or profile do not match evaluation_plan.json; use the original settings or choose a new output directory
+______________ test_explicit_effective_default_is_compatible[pro] ______________
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPro_eval/eval_libero_pro_agent.py:1126: in main
+    _write_evaluation_plan(
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPro_eval/eval_libero_pro_agent.py:696: in _write_evaluation_plan
+    raise ValueError(
+E   ValueError: resume arguments or LIBERO-Pro revisions do not match evaluation_plan.json
+
+During handling of the above exception, another exception occurred:
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:204: in test_explicit_effective_default_is_compatible
+    assert campaign.invoke(["--resume", "--max-steps", "620"]) == 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:140: in invoke
+    return self.module.main()
+           ^^^^^^^^^^^^^^^^^^
+artifacts/n066-owner-decision/raw-default-control/scripts/LiberoPro_eval/eval_libero_pro_agent.py:1145: in main
+    parser.error(str(exc))
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2650: in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/argparse.py:2637: in exit
+    _sys.exit(status)
+E   SystemExit: 2
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 LIBERO-Pro episode(s): dimensions=['Object'], task_limit_per_dimension=2, trials_per_task=1, workers=1, schedule=trial-dimension-suite-round-robin
+  Object: libero_goal=0, libero_spatial=2, libero_10=0, libero_object=0; excluded=0
+Protocol: Emerge + pi0.5 | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_explicit_effective_defaul2/campaign
+[1/2] run controlled-pro-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-pro-1: Controlled task, not a robot outcome
+----------------------------- Captured stderr call -----------------------------
+usage: eval_libero_pro_agent.py [-h] [--trials-per-task TRIALS_PER_TASK]
+                                [--start-trial START_TRIAL]
+                                [--workers WORKERS] [--seed SEED]
+                                [--driver-config DRIVER_CONFIG]
+                                [--agent-config AGENT_CONFIG]
+                                [--agent-python AGENT_PYTHON]
+                                [--watchdog-python WATCHDOG_PYTHON]
+                                [--policy-backend {vla}]
+                                [--profile-path PROFILE_PATH]
+                                [--skip-policy-server-check]
+                                [--max-steps MAX_STEPS]
+                                [--num-steps-wait NUM_STEPS_WAIT]
+                                [--episode-timeout-s EPISODE_TIMEOUT_S]
+                                [--max-agent-feedback-rounds MAX_AGENT_FEEDBACK_ROUNDS]
+                                [--watchdog-ready-timeout-s WATCHDOG_READY_TIMEOUT_S]
+                                [--watchdog-poll-interval-s WATCHDOG_POLL_INTERVAL_S]
+                                [--poll-interval-s POLL_INTERVAL_S]
+                                [--record-video]
+                                [--web-video | --no-web-video] [--stream]
+                                [--stream-host STREAM_HOST]
+                                [--stream-port STREAM_PORT]
+                                [--stream-fps STREAM_FPS] [--resume]
+                                [--continue-on-error] [--dry-run]
+                                [--output-dir OUTPUT_DIR] --dimension
+                                DIMENSION
+                                [--tasks-per-dimension TASKS_PER_DIMENSION]
+                                [--only-task DERIVED_SUITE:TASK_ID]
+eval_libero_pro_agent.py: error: resume arguments or LIBERO-Pro revisions do not match evaluation_plan.json
+________________ test_changed_effective_default_rejected[base] _________________
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:213: in test_changed_effective_default_rejected
+    with pytest.raises(SystemExit) as exc:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE SystemExit
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 episode(s): suites=['libero_spatial'], tasks=0,1, trials_per_task=1, workers=1, policy=vla
+Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default0/profile.md (sha256=f2d3b15b09d4)
+Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default0/campaign
+[1/2] run controlled-base-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-base-1: Controlled task, not a robot outcome
+Prepared 2 episode(s): suites=['libero_spatial'], tasks=0,1, trials_per_task=1, workers=1, policy=vla
+Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default0/profile.md (sha256=f2d3b15b09d4)
+Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default0/campaign
+[1/2] skip completed controlled-base-0
+[2/2] run controlled-base-1: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+________________ test_changed_effective_default_rejected[plus] _________________
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:213: in test_changed_effective_default_rejected
+    with pytest.raises(SystemExit) as exc:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE SystemExit
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 LIBERO-Plus episode(s): dimensions=['Camera Viewpoints'], episodes_per_dimension=2, workers=1, schedule=dimension-and-suite-round-robin
+  Camera Viewpoints: libero_spatial=2, libero_object=0, libero_goal=0, libero_10=0
+Policy: vla | Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default1/profile.md (sha256=f2d3b15b09d4) | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default1/campaign
+[1/2] run controlled-plus-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-plus-1: Controlled task, not a robot outcome
+Prepared 2 LIBERO-Plus episode(s): dimensions=['Camera Viewpoints'], episodes_per_dimension=2, workers=1, schedule=dimension-and-suite-round-robin
+  Camera Viewpoints: libero_spatial=2, libero_object=0, libero_goal=0, libero_10=0
+Policy: vla | Profile: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default1/profile.md (sha256=f2d3b15b09d4) | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default1/campaign
+[1/2] skip completed controlled-plus-0
+[2/2] run controlled-plus-1: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+_________________ test_changed_effective_default_rejected[pro] _________________
+docs/contributions/emerge-resume-review/tests/test_resume_contract.py:213: in test_changed_effective_default_rejected
+    with pytest.raises(SystemExit) as exc:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE SystemExit
+----------------------------- Captured stdout call -----------------------------
+Prepared 2 LIBERO-Pro episode(s): dimensions=['Object'], task_limit_per_dimension=2, trials_per_task=1, workers=1, schedule=trial-dimension-suite-round-robin
+  Object: libero_goal=0, libero_spatial=2, libero_10=0, libero_object=0; excluded=0
+Protocol: Emerge + pi0.5 | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default2/campaign
+[1/2] run controlled-pro-0: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+[2/2] run controlled-pro-1: Controlled task, not a robot outcome
+Prepared 2 LIBERO-Pro episode(s): dimensions=['Object'], task_limit_per_dimension=2, trials_per_task=1, workers=1, schedule=trial-dimension-suite-round-robin
+  Object: libero_goal=0, libero_spatial=2, libero_10=0, libero_object=0; excluded=0
+Protocol: Emerge + pi0.5 | Output: <REVIEW_WORKTREE>/artifacts/n066-owner-decision/control-attempt-1/tmp/test_changed_effective_default2/campaign
+[1/2] skip completed controlled-pro-0
+[2/2] run controlled-pro-1: Controlled task, not a robot outcome
+  success=False reason=controlled_task_failure steps=1 duration=0.0s
+=========================== short test summary info ============================
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_explicit_effective_default_is_compatible[base]
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_explicit_effective_default_is_compatible[plus]
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_explicit_effective_default_is_compatible[pro]
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_changed_effective_default_rejected[base]
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_changed_effective_default_rejected[plus]
+FAILED docs/contributions/emerge-resume-review/tests/test_resume_contract.py::test_changed_effective_default_rejected[pro]

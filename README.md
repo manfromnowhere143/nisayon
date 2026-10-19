@@ -109,6 +109,13 @@ have distinct scopes.
 
 ## Latest progress
 
+19 October: an [evaluation resume review](docs/contributions/emerge-resume-review/README.md)
+reproduces a mixed-budget campaign in three EMERGE-Policy evaluator entrypoints.
+The proposed patch binds effective action limits, settling steps, episode
+timeouts and feedback allowances. All 30 selected controls pass; the original
+failures and an incomplete default-handling correction are retained. Task
+execution is controlled, with no inference or robot-outcome claim.
+
 19 October: a [G1 simulation reset review](docs/contributions/g1-reset-review/README.md)
 reproduces swallowed policy-reset errors and proposes handling viewer input on
 the control thread. Sixteen selected checks pass with the patch, including an
@@ -124,8 +131,9 @@ a proposed changed-observation reset check, model identities and an offline
 report reader make the result inspectable. These are software checks with
 synthetic inputs, not physical task confirmation or measured owner savings.
 
-*Research through 16 October 2026, N045; repository review and integration in
-N046. The [release notes](docs/RELEASE.md) identify the public source snapshots.*
+The public source includes selected native contributions through 19 October
+2026. Each packet records its source, qualification and review status. The
+[release notes](docs/RELEASE.md) identify earlier source snapshots.
 
 The latest research sharpens the question: which experiment could change the
 correction we choose? Full cause identification can demand observations that

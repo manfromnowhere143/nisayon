@@ -1,0 +1,47 @@
+{
+  "schema": "nisayon.native-contract-review.v1",
+  "created_at": "2026-10-19T14:47:26.047069+00:00",
+  "mission": "N066",
+  "status": "frozen_before_first_execution",
+  "source": {
+    "repo": "EMERGE-Policy/EMERGE-Policy",
+    "head": "e4c7134ad2aeb6dded049106ada1c28985b66e69"
+  },
+  "hypothesis": "Evaluation resume permits incompatible execution budgets to share a result population.",
+  "scope": [
+    "standard LIBERO",
+    "LIBERO-Plus",
+    "LIBERO-Pro"
+  ],
+  "native_components": [
+    "CLI argument parsing and main",
+    "evaluation plan persistence and comparison",
+    "completed/pending result selection",
+    "result append and native summary"
+  ],
+  "controlled_boundaries": [
+    "task enumeration and initial states",
+    "agent/controller/robot rollout replaced by deterministic result records",
+    "third-party source/data lookup"
+  ],
+  "controls": [
+    "unchanged settings allow resume and preserve earlier records",
+    "changed maximum action steps rejected before scheduling and without changing retained plan/results/summary",
+    "changed settling steps rejected",
+    "changed wall-clock episode budget rejected",
+    "changed feedback allowance rejected",
+    "implicit suite defaults equal their explicit effective setting",
+    "changed effective default rejected",
+    "a legacy manifest without execution identity is not silently rebound",
+    "rejected resume remains resumable with original settings",
+    "an incomplete fix that records only raw max_steps is rejected"
+  ],
+  "qualification_limits": [
+    "no policy inference",
+    "no simulator or hardware task",
+    "no published paper result invalidation",
+    "no owner participation or saved effort",
+    "no general source/config/environment equivalence guarantee"
+  ],
+  "cost_rule": "Record executed commands and subprocess durations; do not substitute them for complete engineering or owner time."
+}
