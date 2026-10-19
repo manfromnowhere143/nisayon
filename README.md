@@ -109,6 +109,13 @@ have distinct scopes.
 
 ## Latest progress
 
+19 October: a [G1 simulation reset review](docs/contributions/g1-reset-review/README.md)
+reproduces swallowed policy-reset errors and proposes handling viewer input on
+the control thread. Sixteen selected checks pass with the patch, including an
+actual recurrent-policy reset comparison. The upstream failures and an incomplete
+fix are retained. This is a proposed software correction; locomotion improvement
+and owner savings are unmeasured.
+
 19 October: the invited [LongWAM port review](docs/contributions/longwam-cuda-qualification/README.md)
 now includes full-weight IDM and COD execution. Fourteen original/candidate
 case bodies pass after CPU loading and CUDA transfer on an A100 40 GB; the

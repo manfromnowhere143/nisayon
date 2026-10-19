@@ -1,0 +1,93 @@
+--- a/g1_teleop.py
++++ b/g1_teleop.py
+@@ -5,6 +5,7 @@
+ import pathlib
+ import sys
+ import time
++from queue import Empty, SimpleQueue
+ import torch
+ import numpy as np
+ 
+@@ -87,6 +88,24 @@
+     ], dtype=np.float32)
+ 
+ 
++def reset_policy_memory(policy):
++    """Reset the supported recurrent state or stop before more control steps."""
++    reset = getattr(policy, "reset_memory", None)
++    try:
++        if callable(reset):
++            reset()
++            return
++        hidden = getattr(policy, "hidden_state", None)
++        cell = getattr(policy, "cell_state", None)
++        if not isinstance(hidden, torch.Tensor) or not isinstance(cell, torch.Tensor):
++            raise TypeError("Policy requires reset_memory() or hidden_state and cell_state tensors")
++        with torch.no_grad():
++            hidden.zero_()
++            cell.zero_()
++    except Exception as exc:
++        raise RuntimeError("Walking policy memory reset failed; stopping teleoperation") from exc
++
++
+ def run_teleop(duration: float | None = None):
+     device = "cuda" if torch.cuda.is_available() else "cpu"
+     print(f"[G1 TELEOP] Starting Reactive Locomotion Controller on {device.upper()}...")
+@@ -138,6 +157,7 @@
+     def reset_robot():
+         nonlocal action, target_dof_pos, obs, target_cmd, cur_cmd
+         nonlocal burst_vx, burst_vy, burst_wz, expire_vx, expire_vy, expire_wz, perturb_expire
++        reset_policy_memory(policy)
+         mujoco.mj_resetData(m, d)
+         d.qpos[0] = 0.0
+         d.qpos[1] = 0.0
+@@ -159,19 +179,6 @@
+         perturb_expire = 0.0
+         target_cmd[:] = [base_cruise_vx, 0.0, 0.0]
+         cur_cmd[:] = [base_cruise_vx, 0.0, 0.0]
+-
+-        # Reset recurrent LSTM state in TorchScript policy
+-        if hasattr(policy, "reset_memory"):
+-            try:
+-                policy.reset_memory()
+-            except Exception:
+-                pass
+-        elif hasattr(policy, "hidden_state"):
+-            try:
+-                policy.hidden_state.zero_()
+-                policy.cell_state.zero_()
+-            except Exception:
+-                pass
+ 
+         mujoco.mj_forward(m, d)
+ 
+@@ -224,7 +231,13 @@
+             perturb_expire = now + 0.15  # Sustained 150ms perturbation
+             print("[PERTURBATION] Applied 60 N torso push impulse (150ms).")
+ 
++    viewer_keys = SimpleQueue()
++
+     def viewer_key_callback(keycode: int):
++        # The viewer thread must not mutate simulation or policy state.
++        viewer_keys.put(keycode)
++
++    def handle_viewer_key(keycode: int):
+         if keycode in (ord('W'), ord('w'), 265):
+             handle_reactive_input('w')
+         elif keycode in (ord('Z'), ord('z')):
+@@ -279,6 +292,15 @@
+                 step_start = time.time()
+                 now = time.time()
+ 
++                # Apply viewer input on the control thread so reset failures
++                # reach this loop and its cleanup, before the next physics step.
++                while True:
++                    try:
++                        keycode = viewer_keys.get_nowait()
++                    except Empty:
++                        break
++                    handle_viewer_key(keycode)
++
+                 # Poll cross-platform keyboard
+                 term_key = kbd.poll()
+                 if term_key:

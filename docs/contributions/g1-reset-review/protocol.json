@@ -1,0 +1,21 @@
+{
+  "schema": "nisayon.n065.reset-review.v1",
+  "frozen_at": "2026-10-19",
+  "source": "https://github.com/ShashankJangid/Unitree_G1/pull/9",
+  "commit": "6a9f2e3fbffec61a32b680874cfb002c53f6c0ba",
+  "question": "Does the proposed walking-policy reset preserve explicit failure and clear actual recurrent state before later inference?",
+  "scope": "Local CPU source review and controlled runtime regression. The author owns the original report and integration. No hardware, locomotion-quality, whole-PR approval, owner effort or independent reuse claim.",
+  "fixture": "Run the full g1_teleop.run_teleop function with real MuJoCo scene loading and controlled viewer, keyboard, time and mj_step. Stateful policy doubles distinguish successful, failed, unsupported and partially available reset contracts. Separately load the shipped TorchScript model on CPU and compare recurrence after reset to a fresh load on the same synthetic observation.",
+  "expected": {
+    "initial_reset_failure": "Error escapes; zero physics steps and policy calls after failure.",
+    "manual_reset_failure": "Error escapes before the next physics step or inference; keyboard/viewer clean up.",
+    "fall_reset_failure": "Error escapes after triggering step; zero later physics steps or inference; cleanup.",
+    "viewer_reset": "Callback only schedules input; reset executes in control thread before another step. A reset error must reach run_teleop, not remain on viewer callback thread.",
+    "normal_reset": "Fresh, manual and fall resets clear hidden and cell state. Native successful reset and force controls keep passing.",
+    "unsupported": "No reset API or incomplete/non-tensor fallback must raise rather than silently claim reset.",
+    "shipped_policy": "After a nonempty synthetic prefix and exported reset_memory, hidden/cell are zero and first output matches separately freshly loaded policy exactly."
+  },
+  "controls": "Preserve a failure-injection observation separately from assertion pass counts. Retain unchanged upstream and proposed patch runs. No changing acceptance after seeing results.",
+  "costs": "Record setup, source acquisition, test duration and adaptations. No claim these total owner time or measure savings.",
+  "stop": "If the head changes or an existing fix covers the finding, reassess before sending. Limit contribution to concrete reset behavior; do not take over the broad integration."
+}

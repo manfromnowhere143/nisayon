@@ -1,0 +1,58 @@
+"""Check actual recurrent tensors and outputs on CPU with synthetic inputs."""
+
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+
+import torch
+
+
+def test_shipped_recurrent_reset_matches_fresh_load():
+    source = Path(os.environ["NISAYON_G1_SOURCE"])
+    output = Path(os.environ["NISAYON_G1_RESULTS"])
+    checkpoint = source / "models/motion.pt"
+    torch.set_num_threads(1)
+    fresh = torch.jit.load(str(checkpoint), map_location="cpu").eval()
+    used = torch.jit.load(str(checkpoint), map_location="cpu").eval()
+    spec = importlib.util.spec_from_file_location("policy_reset_probe", source / "g1_teleop.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    helper = getattr(module, "reset_policy_memory", None)
+    observation = torch.linspace(-0.2, 0.2, 47).reshape(1, 47)
+    with torch.no_grad():
+        expected = fresh(observation).clone()
+        for tick in range(12):
+            used(observation + tick / 100)
+        dirty = used(observation).clone()
+        dirty_hidden = used.hidden_state.clone()
+        dirty_cell = used.cell_state.clone()
+        if helper is None:
+            used.reset_memory()
+        else:
+            helper(used)
+        zero_hidden = used.hidden_state.clone()
+        zero_cell = used.cell_state.clone()
+        actual = used(observation).clone()
+    record = {
+        "checkpoint_sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
+        "device": "cpu", "dtype": "float32", "prefix_calls": 12,
+        "reset_route": "proposed runtime helper" if helper else "exported method directly",
+        "hidden_shape": list(zero_hidden.shape), "cell_shape": list(zero_cell.shape),
+        "dirty_hidden_nonzero": int(torch.count_nonzero(dirty_hidden)),
+        "dirty_cell_nonzero": int(torch.count_nonzero(dirty_cell)),
+        "reset_hidden_nonzero": int(torch.count_nonzero(zero_hidden)),
+        "reset_cell_nonzero": int(torch.count_nonzero(zero_cell)),
+        "unreset_vs_fresh_max_abs": float((dirty - expected).abs().max()),
+        "reset_vs_fresh_max_abs": float((actual - expected).abs().max()),
+        "fresh_output": expected.tolist(), "dirty_output": dirty.tolist(),
+        "reset_output": actual.tolist(),
+        "scope": "Synthetic observations; no simulator trajectory, walking-quality or hardware result.",
+    }
+    output.mkdir(parents=True, exist_ok=True)
+    (output / "shipped-policy.json").write_text(json.dumps(record, indent=2) + "\n")
+    assert record["dirty_hidden_nonzero"] > 0 and record["dirty_cell_nonzero"] > 0
+    assert record["unreset_vs_fresh_max_abs"] > 0
+    assert record["reset_hidden_nonzero"] == record["reset_cell_nonzero"] == 0
+    torch.testing.assert_close(actual, expected, atol=0, rtol=0)
