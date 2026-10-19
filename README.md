@@ -109,6 +109,14 @@ have distinct scopes.
 
 ## Latest progress
 
+20 October: an [ASPIRE validation review](docs/contributions/aspire-validation-review/README.md)
+reproduces a normal CLI reporting success after its child fails without producing
+a new outcome. The proposed correction isolates each attempt's retained records,
+including late completions, while preserving valid evidence after simulator
+teardown exits. All 56 selected checks pass, or 65 when combined with the
+existing contributor's separate metadata patch. These are controlled software
+results; adoption, physical confirmation and owner savings remain unproved.
+
 19 October: an [evaluation resume review](docs/contributions/emerge-resume-review/README.md)
 reproduces a mixed-budget campaign in three EMERGE-Policy evaluator entrypoints.
 The proposed patch binds effective action limits, settling steps, episode
@@ -131,7 +139,7 @@ a proposed changed-observation reset check, model identities and an offline
 report reader make the result inspectable. These are software checks with
 synthetic inputs, not physical task confirmation or measured owner savings.
 
-The public source includes selected native contributions through 19 October
+The public source includes selected native contributions through 20 October
 2026. Each packet records its source, qualification and review status. The
 [release notes](docs/RELEASE.md) identify earlier source snapshots.
 

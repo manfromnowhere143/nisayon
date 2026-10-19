@@ -1,0 +1,126 @@
+.F..F..FFF.                                                              [100%]
+=================================== FAILURES ===================================
+_______________ test_current_success_survives_teardown_exit[139] _______________
+
+plan = ValidationPlan(schema_version=1, name='attempts', benchmark='behavior', cases=(ValidationCase(id='task', kind='program...uccess=None, require={'program_ok': True, 'task_success': True}),), renderer=None, sealed=False, required_providers=())
+tmp_path = PosixPath('<PYTEST_TEMP>/test_current_success_survives_1')
+exit_code = 139
+
+    @pytest.mark.parametrize("exit_code", [0, 139])
+    def test_current_success_survives_teardown_exit(plan, tmp_path, exit_code):
+        # BEHAVIOR may exit 139 after finalizing a valid outcome (docs/run-artifacts.md).
+        def command(argv, env):
+            del env
+            _write(_root(argv))
+            return exit_code
+    
+        summary = _run(plan, tmp_path, command)
+>       assert summary["success"] is True
+E       assert False is True
+
+../../../../docs/contributions/aspire-validation-review/test_validation_attempts.py:64: AssertionError
+____________ test_previous_success_cannot_pass_an_empty_attempt[0] _____________
+
+plan = ValidationPlan(schema_version=1, name='attempts', benchmark='behavior', cases=(ValidationCase(id='task', kind='program...uccess=None, require={'program_ok': True, 'task_success': True}),), renderer=None, sealed=False, required_providers=())
+tmp_path = PosixPath('<PYTEST_TEMP>/test_previous_success_cannot_p0')
+exit_code = 0
+
+    @pytest.mark.parametrize("exit_code", [0, 1, 139])
+    def test_previous_success_cannot_pass_an_empty_attempt(plan, tmp_path, exit_code):
+        old = []
+    
+        def first(argv, env):
+            del env
+            old.append(_write(_root(argv)))
+            return 0
+    
+        assert _run(plan, tmp_path, first)["success"] is True
+        path = old[0] / "outcome.json"
+        before = path.read_bytes()
+        summary = _run(plan, tmp_path, lambda *_: exit_code)
+        assert path.read_bytes() == before
+>       assert summary["success"] is False
+E       assert True is False
+
+../../../../docs/contributions/aspire-validation-review/test_validation_attempts.py:88: AssertionError
+___ test_current_outcome_wins_regardless_of_old_directory_sort_order[False] ____
+
+plan = ValidationPlan(schema_version=1, name='attempts', benchmark='behavior', cases=(ValidationCase(id='task', kind='program...uccess=None, require={'program_ok': True, 'task_success': True}),), renderer=None, sealed=False, required_providers=())
+tmp_path = PosixPath('<PYTEST_TEMP>/test_current_outcome_wins_rega0')
+success = False
+
+    @pytest.mark.parametrize("success", [False, True])
+    def test_current_outcome_wins_regardless_of_old_directory_sort_order(plan, tmp_path, success):
+        old = _write(tmp_path / "output/task/runs/1", name="zz-prior")
+        before = (old / "outcome.json").read_bytes()
+        current = []
+    
+        def command(argv, env):
+            del env
+            current.append(_write(_root(argv), name="aa-current", success=success))
+            return 0
+    
+        summary = _run(plan, tmp_path, command)
+        assert (old / "outcome.json").read_bytes() == before
+>       assert summary["success"] is success
+E       assert True is False
+
+../../../../docs/contributions/aspire-validation-review/test_validation_attempts.py:104: AssertionError
+____ test_current_outcome_wins_regardless_of_old_directory_sort_order[True] ____
+
+plan = ValidationPlan(schema_version=1, name='attempts', benchmark='behavior', cases=(ValidationCase(id='task', kind='program...uccess=None, require={'program_ok': True, 'task_success': True}),), renderer=None, sealed=False, required_providers=())
+tmp_path = PosixPath('<PYTEST_TEMP>/test_current_outcome_wins_rega1')
+success = True
+
+    @pytest.mark.parametrize("success", [False, True])
+    def test_current_outcome_wins_regardless_of_old_directory_sort_order(plan, tmp_path, success):
+        old = _write(tmp_path / "output/task/runs/1", name="zz-prior")
+        before = (old / "outcome.json").read_bytes()
+        current = []
+    
+        def command(argv, env):
+            del env
+            current.append(_write(_root(argv), name="aa-current", success=success))
+            return 0
+    
+        summary = _run(plan, tmp_path, command)
+        assert (old / "outcome.json").read_bytes() == before
+        assert summary["success"] is success
+>       assert Path(summary["cases"][0]["seeds"][0]["detail"]["run_dir"]) == current[0]
+E       AssertionError: assert PosixPath('<PYTEST_TEMP>/test_current_outcome_wins_rega1/output/task/runs/1/0001/zz-prior') == PosixPath('<PYTEST_TEMP>/test_current_outcome_wins_rega1/output/task/runs/1/0001/aa-current')
+E        +  where PosixPath('<PYTEST_TEMP>/test_current_outcome_wins_rega1/output/task/runs/1/0001/zz-prior') = Path('<PYTEST_TEMP>/test_current_outcome_wins_rega1/output/task/runs/1/0001/zz-prior')
+
+../../../../docs/contributions/aspire-validation-review/test_validation_attempts.py:105: AssertionError
+___________ test_late_completion_of_previous_attempt_is_not_current ____________
+
+plan = ValidationPlan(schema_version=1, name='attempts', benchmark='behavior', cases=(ValidationCase(id='task', kind='program...uccess=None, require={'program_ok': True, 'task_success': True}),), renderer=None, sealed=False, required_providers=())
+tmp_path = PosixPath('<PYTEST_TEMP>/test_late_completion_of_previo0')
+
+    def test_late_completion_of_previous_attempt_is_not_current(plan, tmp_path):
+        roots = []
+    
+        def first(argv, env):
+            del env
+            roots.append(_root(argv))
+            return 0
+    
+        assert _run(plan, tmp_path, first)["success"] is False
+    
+        def second(argv, env):
+            del argv, env
+            # The earlier producer finishes during the second invocation. Merely
+            # comparing outcome paths before and after the command would accept it.
+            _write(roots[0])
+            return 0
+    
+>       assert _run(plan, tmp_path, second)["success"] is False
+E       assert True is False
+
+../../../../docs/contributions/aspire-validation-review/test_validation_attempts.py:125: AssertionError
+=========================== short test summary info ============================
+FAILED ../../../../../../../../dev::test_current_success_survives_teardown_exit[139]
+FAILED ../../../../../../../../dev::test_previous_success_cannot_pass_an_empty_attempt[0]
+FAILED ../../../../../../../../dev::test_current_outcome_wins_regardless_of_old_directory_sort_order[False]
+FAILED ../../../../../../../../dev::test_current_outcome_wins_regardless_of_old_directory_sort_order[True]
+FAILED ../../../../../../../../dev::test_late_completion_of_previous_attempt_is_not_current
+5 failed, 6 passed in 1.10s
