@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="4" failures="0" skipped="0" tests="4" time="110.876" timestamp="2026-10-19T11:26:49.476179+00:00"><testcase classname="tests.policies.longwam.test_longwam_gpu" name="test_full_weight_streaming_vae_matches_window" time="106.864"><error message="failed on setup with &quot;torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)&quot;">@pytest.fixture(scope="module")
+    def policy():
+        cfg = PreTrainedConfig.from_pretrained(CHECKPOINT)
+        cfg.device, cfg.execution, cfg.trigger_stride, cfg.streaming_vae = "cuda", "async", 5, True
+&gt;       with LongWAMPolicy.from_pretrained(CHECKPOINT, config=cfg).eval() as model:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/policies/longwam/test_longwam_gpu.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/policies/longwam/modeling_longwam.py:90: in from_pretrained
+    return super().from_pretrained(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:197: in from_pretrained
+    policy = cls._load_as_safetensor(instance, model_file, device, strict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:223: in _load_as_safetensor
+    missing_keys, unexpected_keys = load_model_as_safetensor(
+../environment/lib/python3.12/site-packages/safetensors/torch.py:228: in load_model
+    state_dict = load_file(filename, device=device, backend=backend)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+filename = '/opt/nisayon-n063/native-idm/model.safetensors', device = 'cuda:0'
+backend = 'mmap'
+
+    def load_file(
+        filename: Union[str, os.PathLike],
+        device: Union[str, int] = "cpu",
+        *,
+        backend: str = "mmap",
+    ) -&gt; Dict[str, torch.Tensor]:
+        """
+        Loads a safetensors file into torch format.
+    
+        Args:
+            filename (`str`, or `os.PathLike`):
+                The name of the file which contains the tensors
+            device (`Union[str, int]`, *optional*, defaults to `cpu`):
+                The device where the tensors need to be located after load.
+                available options are all regular torch device locations.
+            backend (`str`, *optional*, defaults to `"mmap"`):
+                Storage backend used to serve tensor bytes. `"mmap"` (default)
+                and `"pread"` uses `pread(2)` to read tensor bytes.
+    
+        Returns:
+            `Dict[str, torch.Tensor]`: dictionary that contains name as key, value as `torch.Tensor`
+    
+        Example:
+    
+        ```python
+        from safetensors.torch import load_file
+    
+        file_path = "./my_folder/bert.safetensors"
+        loaded = load_file(file_path)
+        ```
+        """
+        with safe_open(filename, framework="pt", device=device, backend=backend) as f:
+&gt;           return f.get_tensors()
+                   ^^^^^^^^^^^^^^^
+E           torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+../environment/lib/python3.12/site-packages/safetensors/torch.py:360: OutOfMemoryError</error></testcase><testcase classname="tests.policies.longwam.test_longwam_gpu" name="test_full_weight_async_pending_transition[late_handoff]" time="0.001"><error message="failed on setup with &quot;torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)&quot;">@pytest.fixture(scope="module")
+    def policy():
+        cfg = PreTrainedConfig.from_pretrained(CHECKPOINT)
+        cfg.device, cfg.execution, cfg.trigger_stride, cfg.streaming_vae = "cuda", "async", 5, True
+&gt;       with LongWAMPolicy.from_pretrained(CHECKPOINT, config=cfg).eval() as model:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/policies/longwam/test_longwam_gpu.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/policies/longwam/modeling_longwam.py:90: in from_pretrained
+    return super().from_pretrained(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:197: in from_pretrained
+    policy = cls._load_as_safetensor(instance, model_file, device, strict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:223: in _load_as_safetensor
+    missing_keys, unexpected_keys = load_model_as_safetensor(
+../environment/lib/python3.12/site-packages/safetensors/torch.py:228: in load_model
+    state_dict = load_file(filename, device=device, backend=backend)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+filename = '/opt/nisayon-n063/native-idm/model.safetensors', device = 'cuda:0'
+backend = 'mmap'
+
+    def load_file(
+        filename: Union[str, os.PathLike],
+        device: Union[str, int] = "cpu",
+        *,
+        backend: str = "mmap",
+    ) -&gt; Dict[str, torch.Tensor]:
+        """
+        Loads a safetensors file into torch format.
+    
+        Args:
+            filename (`str`, or `os.PathLike`):
+                The name of the file which contains the tensors
+            device (`Union[str, int]`, *optional*, defaults to `cpu`):
+                The device where the tensors need to be located after load.
+                available options are all regular torch device locations.
+            backend (`str`, *optional*, defaults to `"mmap"`):
+                Storage backend used to serve tensor bytes. `"mmap"` (default)
+                and `"pread"` uses `pread(2)` to read tensor bytes.
+    
+        Returns:
+            `Dict[str, torch.Tensor]`: dictionary that contains name as key, value as `torch.Tensor`
+    
+        Example:
+    
+        ```python
+        from safetensors.torch import load_file
+    
+        file_path = "./my_folder/bert.safetensors"
+        loaded = load_file(file_path)
+        ```
+        """
+        with safe_open(filename, framework="pt", device=device, backend=backend) as f:
+&gt;           return f.get_tensors()
+                   ^^^^^^^^^^^^^^^
+E           torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+../environment/lib/python3.12/site-packages/safetensors/torch.py:360: OutOfMemoryError</error></testcase><testcase classname="tests.policies.longwam.test_longwam_gpu" name="test_full_weight_async_pending_transition[reset_pending]" time="0.001"><error message="failed on setup with &quot;torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)&quot;">@pytest.fixture(scope="module")
+    def policy():
+        cfg = PreTrainedConfig.from_pretrained(CHECKPOINT)
+        cfg.device, cfg.execution, cfg.trigger_stride, cfg.streaming_vae = "cuda", "async", 5, True
+&gt;       with LongWAMPolicy.from_pretrained(CHECKPOINT, config=cfg).eval() as model:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/policies/longwam/test_longwam_gpu.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/policies/longwam/modeling_longwam.py:90: in from_pretrained
+    return super().from_pretrained(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:197: in from_pretrained
+    policy = cls._load_as_safetensor(instance, model_file, device, strict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:223: in _load_as_safetensor
+    missing_keys, unexpected_keys = load_model_as_safetensor(
+../environment/lib/python3.12/site-packages/safetensors/torch.py:228: in load_model
+    state_dict = load_file(filename, device=device, backend=backend)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+filename = '/opt/nisayon-n063/native-idm/model.safetensors', device = 'cuda:0'
+backend = 'mmap'
+
+    def load_file(
+        filename: Union[str, os.PathLike],
+        device: Union[str, int] = "cpu",
+        *,
+        backend: str = "mmap",
+    ) -&gt; Dict[str, torch.Tensor]:
+        """
+        Loads a safetensors file into torch format.
+    
+        Args:
+            filename (`str`, or `os.PathLike`):
+                The name of the file which contains the tensors
+            device (`Union[str, int]`, *optional*, defaults to `cpu`):
+                The device where the tensors need to be located after load.
+                available options are all regular torch device locations.
+            backend (`str`, *optional*, defaults to `"mmap"`):
+                Storage backend used to serve tensor bytes. `"mmap"` (default)
+                and `"pread"` uses `pread(2)` to read tensor bytes.
+    
+        Returns:
+            `Dict[str, torch.Tensor]`: dictionary that contains name as key, value as `torch.Tensor`
+    
+        Example:
+    
+        ```python
+        from safetensors.torch import load_file
+    
+        file_path = "./my_folder/bert.safetensors"
+        loaded = load_file(file_path)
+        ```
+        """
+        with safe_open(filename, framework="pt", device=device, backend=backend) as f:
+&gt;           return f.get_tensors()
+                   ^^^^^^^^^^^^^^^
+E           torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+../environment/lib/python3.12/site-packages/safetensors/torch.py:360: OutOfMemoryError</error></testcase><testcase classname="tests.policies.longwam.test_longwam_gpu" name="test_full_weight_async_pending_transition[reset_pending_changed_observation]" time="0.001"><error message="failed on setup with &quot;torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)&quot;">@pytest.fixture(scope="module")
+    def policy():
+        cfg = PreTrainedConfig.from_pretrained(CHECKPOINT)
+        cfg.device, cfg.execution, cfg.trigger_stride, cfg.streaming_vae = "cuda", "async", 5, True
+&gt;       with LongWAMPolicy.from_pretrained(CHECKPOINT, config=cfg).eval() as model:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/policies/longwam/test_longwam_gpu.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/policies/longwam/modeling_longwam.py:90: in from_pretrained
+    return super().from_pretrained(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:197: in from_pretrained
+    policy = cls._load_as_safetensor(instance, model_file, device, strict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/policies/pretrained.py:223: in _load_as_safetensor
+    missing_keys, unexpected_keys = load_model_as_safetensor(
+../environment/lib/python3.12/site-packages/safetensors/torch.py:228: in load_model
+    state_dict = load_file(filename, device=device, backend=backend)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+filename = '/opt/nisayon-n063/native-idm/model.safetensors', device = 'cuda:0'
+backend = 'mmap'
+
+    def load_file(
+        filename: Union[str, os.PathLike],
+        device: Union[str, int] = "cpu",
+        *,
+        backend: str = "mmap",
+    ) -&gt; Dict[str, torch.Tensor]:
+        """
+        Loads a safetensors file into torch format.
+    
+        Args:
+            filename (`str`, or `os.PathLike`):
+                The name of the file which contains the tensors
+            device (`Union[str, int]`, *optional*, defaults to `cpu`):
+                The device where the tensors need to be located after load.
+                available options are all regular torch device locations.
+            backend (`str`, *optional*, defaults to `"mmap"`):
+                Storage backend used to serve tensor bytes. `"mmap"` (default)
+                and `"pread"` uses `pread(2)` to read tensor bytes.
+    
+        Returns:
+            `Dict[str, torch.Tensor]`: dictionary that contains name as key, value as `torch.Tensor`
+    
+        Example:
+    
+        ```python
+        from safetensors.torch import load_file
+    
+        file_path = "./my_folder/bert.safetensors"
+        loaded = load_file(file_path)
+        ```
+        """
+        with safe_open(filename, framework="pt", device=device, backend=backend) as f:
+&gt;           return f.get_tensors()
+                   ^^^^^^^^^^^^^^^
+E           torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 39.49 GiB of which 14.44 MiB is free. Including non-PyTorch memory, this process has 39.47 GiB memory in use. Of the allocated memory 38.75 GiB is allocated by PyTorch, and 314.83 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+../environment/lib/python3.12/site-packages/safetensors/torch.py:360: OutOfMemoryError</error></testcase></testsuite></testsuites>

@@ -109,6 +109,14 @@ have distinct scopes.
 
 ## Latest progress
 
+19 October: the invited [LongWAM port review](docs/contributions/longwam-cuda-qualification/README.md)
+now includes full-weight IDM and COD execution. Fourteen original/candidate
+case bodies pass after CPU loading and CUDA transfer on an A100 40 GB; the
+fourteen direct-loading setup errors are retained separately. Exact fixtures,
+a proposed changed-observation reset check, model identities and an offline
+report reader make the result inspectable. These are software checks with
+synthetic inputs, not physical task confirmation or measured owner savings.
+
 *Research through 16 October 2026, N045; repository review and integration in
 N046. The [release notes](docs/RELEASE.md) identify the public source snapshots.*
 

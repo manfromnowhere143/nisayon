@@ -1,0 +1,118 @@
+--- a/tests/policies/longwam/test_longwam_gpu.py
++++ b/tests/policies/longwam/test_longwam_gpu.py
+@@ -8,6 +8,7 @@
+ import os
+ import threading
+ from concurrent.futures import ThreadPoolExecutor
++from typing import Any
+ 
+ import pytest
+ import torch
+@@ -62,54 +63,96 @@
+         session.reset()
+ 
+ 
+-@pytest.mark.parametrize("transition", ["late_handoff", "reset_pending"])
+-def test_full_weight_async_pending_transition(policy, observation, monkeypatch, transition):
++@pytest.mark.parametrize("transition", ["late_handoff", "reset_pending", "reset_pending_changed_observation"])
++def test_full_weight_async_pending_transition(
++    policy: LongWAMPolicy,
++    observation: dict[str, Any],
++    monkeypatch: pytest.MonkeyPatch,
++    transition: str,
++) -> None:
++    check_async_pending_transition(policy, observation, monkeypatch, transition)
++
++
++def check_async_pending_transition(
++    policy: LongWAMPolicy,
++    observation: dict[str, Any],
++    monkeypatch: pytest.MonkeyPatch,
++    transition: str,
++) -> None:
++    """Check native lifecycle assertions; CPU controls separately exercise their sensitivity."""
+     policy.close()
+     entered, release = threading.Event(), threading.Event()
+-    chunks = []
++    chunks, inputs = [], []
+     original = policy.model.infer_joint_ar
+ 
+-    def delayed(**kwargs):
++    def delayed(**kwargs: Any) -> dict[str, Any]:
++        worker = policy._runtime.worker
++        inputs.append(
++            {
++                "episode": worker.episode,
++                "anchor": worker.last_step,
++                "state": kwargs["proprio"].detach().cpu().clone(),
++                "image": kwargs["input_image"].detach().cpu().clone(),
++            }
++        )
+         if len(chunks) == 1:
+             entered.set()
+             if not release.wait(60):
+                 raise TimeoutError("Lifecycle test did not release the full-model inference")
+         result = original(**kwargs)
+-        chunks.append(result["action"].detach().float().cpu())
++        chunks.append(result["action"].detach().float().cpu().clone())
+         return result
+ 
+     monkeypatch.setattr(policy.model, "infer_joint_ar", delayed)
+ 
+-    def at_step(step):
+-        # Distinct inputs make stale chunks distinguishable with real weights too.
++    def at_step(step: int) -> dict[str, Any]:
+         batch = dict(observation)
+         for key in policy.config.camera_keys:
+             batch[key] = (observation[key] + step * 0.01).clamp(0, 1)
+         batch["observation.state"] = observation["observation.state"] + step * 0.03
+         return batch
+ 
++    next_batch = at_step(10 if transition != "reset_pending" else 0)
++    expected_state = next_batch["observation.state"].detach().cpu().clone()
++    expected_image = policy._images(next_batch, temporal=False).detach().cpu().clone()
+     try:
+         first = policy.select_action(at_step(0)).cpu()
+         last = 10 if transition == "late_handoff" else 6
+         for step in range(1, last):
+             policy.select_action(at_step(step))
+         assert entered.wait(30)
+-        if transition == "reset_pending":
++        if transition != "late_handoff":
+             policy.reset()
+         with ThreadPoolExecutor(max_workers=1) as caller:
+-            future = caller.submit(policy.select_action, at_step(10 if transition == "late_handoff" else 0))
++            future = caller.submit(policy.select_action, next_batch)
+             try:
+                 with pytest.raises(TimeoutError):
+                     future.result(timeout=0.1)
+             finally:
+                 release.set()
+             actual = future.result(120).cpu()
+-        assert not torch.equal(chunks[0][5], chunks[1][5]), "Fixture must distinguish old and new chunks"
+         if transition == "late_handoff":
++            assert not torch.equal(chunks[0][5], chunks[1][5]), "Fixture must distinguish old and new chunks"
+             torch.testing.assert_close(actual[0], chunks[1][5], atol=0, rtol=0)
+             assert policy._runtime.metrics["late_handoffs"] >= 1
+         else:
+-            torch.testing.assert_close(actual, first, atol=0, rtol=0)
++            assert len(inputs) == len(chunks) == 3, "Reset must execute one fresh inference"
++            assert [(value["episode"], value["anchor"]) for value in inputs] == [(1, 0), (1, 5), (2, 0)]
++            torch.testing.assert_close(
++                inputs[2]["state"], expected_state, atol=0, rtol=0, msg="Reset inference used stale state"
++            )
++            torch.testing.assert_close(
++                inputs[2]["image"], expected_image, atol=0, rtol=0, msg="Reset inference used stale image"
++            )
++            torch.testing.assert_close(
++                actual[0],
++                chunks[2][0].to(actual.dtype),
++                atol=0,
++                rtol=0,
++                msg="Reset action must match fresh inference",
++            )
++            if transition == "reset_pending":
++                torch.testing.assert_close(actual, first, atol=0, rtol=0)
+             assert policy._runtime.episode == 2
+         assert torch.isfinite(actual).all()
+     finally:
