@@ -1,0 +1,11 @@
+--- a/rlebench/summarize.py
++++ b/rlebench/summarize.py
+@@ -77,7 +77,7 @@
+         rewards = _object(_object(final.get("verifier_result")).get("rewards"))
+         name = final.get("step_name")
+         if isinstance(name, str) and name not in (".", "..") and "/" not in name:
+-            path = path / "steps" / name
++            path = path / "steps" / "evaluate"
+         if rewards:
+             return rewards, path / "verifier" / "reward.json"
+     elif (path / "steps").is_dir():

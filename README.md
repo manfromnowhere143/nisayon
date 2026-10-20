@@ -84,9 +84,9 @@ on that case. A separate untouched incident must then establish repeat use.
 
 The Orin intake concerns a deployment failure with a reported working laptop
 reference. Existing outputs and a live owner decision have been requested.
-Two additional researched invitations have been sent and verified. At the last
-retained readback on 16 October, neither invitation had a reply; no prospect is
-enrolled and no source-bound owner incident is available. The
+Two additional researched invitations have been sent and verified. An invited
+engineer has since expressed interest; the current question and permitted
+records remain needed. No prospect is enrolled in the comparison. The
 [research direction](docs/RESEARCH_PLAN.md) and [architecture](docs/ARCHITECTURE.md)
 describe what would justify expansion. Useful upstream contributions give us
 testable engineering evidence and contact with real problems; they do not by
@@ -108,6 +108,14 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+20 October: a [RLE-Bench summary review](docs/contributions/rlebench-phase-review/README.md)
+finds that an embedded step reward can be paired with another phase's metadata.
+A two-line reorder on the existing contributor's draft keeps the selected reward,
+success rate and gate result together. All 16 selected native tests pass, and
+12 constructed CLI cases agree; the eight new regressions fail on the unchanged
+draft. The source, failures and an incomplete-fix control are retained. Adoption,
+executed robot trials and owner savings remain unproved.
 
 20 October: an [ASPIRE validation review](docs/contributions/aspire-validation-review/README.md)
 reproduces a normal CLI reporting success after its child fails without producing

@@ -1,0 +1,194 @@
+........FFFFFFFF                                                         [100%]
+=================================== FAILURES ===================================
+_____ test_embedded_step_rewards_keep_their_metadata_phase[False-evaluate] _____
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee0')
+phase = 'evaluate', root_present = False
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and None == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+_____ test_embedded_step_rewards_keep_their_metadata_phase[False-develop] ______
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee1')
+phase = 'develop', root_present = False
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and None == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+______ test_embedded_step_rewards_keep_their_metadata_phase[False-custom] ______
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee2')
+phase = 'custom', root_present = False
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and None == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+_____ test_embedded_step_rewards_keep_their_metadata_phase[True-evaluate] ______
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee3')
+phase = 'evaluate', root_present = True
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and 0.9 == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+______ test_embedded_step_rewards_keep_their_metadata_phase[True-develop] ______
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee4')
+phase = 'develop', root_present = True
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and 0.9 == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+______ test_embedded_step_rewards_keep_their_metadata_phase[True-custom] _______
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_rewards_kee5')
+phase = 'custom', root_present = True
+
+    @pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
+    @pytest.mark.parametrize('root_present', [False, True])
+    def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        if phase == 'develop':
+            write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
+        write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
+        write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
+        if root_present:
+            # Equal rewards do not make the distinct verifier metadata interchangeable.
+            write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+            write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and 0.9 == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:270: AssertionError
+________ test_embedded_step_reward_without_files_keeps_metadata_unknown ________
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_reward_with0')
+
+    def test_embedded_step_reward_without_files_keeps_metadata_unknown(tmp_path):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': 'evaluate', 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
+        write(t / 'verifier/report.json', {'success_rate': .9})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] is None
+E       assert (0.4 == 0.4 and 0.9 is None)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:283: AssertionError
+_________ test_embedded_step_reward_keeps_precedence_over_file_reward __________
+
+tmp_path = PosixPath('PYTEST_TEMP/pytest-of-danielwahnich/pytest-452/test_embedded_step_reward_keep0')
+
+    def test_embedded_step_reward_keeps_precedence_over_file_reward(tmp_path):
+        path = job(tmp_path, 'run')
+        t = trial(path, 'trial', finished_at='done', step_results=[{
+            'step_name': 'evaluate', 'verifier_result': {'rewards': {'reward': .4}},
+        }])
+        write(t / 'steps/evaluate/verifier/reward.json', {'reward': .1, 'gated': 1})
+        write(t / 'steps/evaluate/verifier/report.json', {'success_rate': .25})
+        row = scan(tmp_path)[0]
+>       assert row['reward'] == .4 and row['success_rate'] == .25
+E       assert (0.4 == 0.4 and None == 0.25)
+
+artifacts/n068-verification-boundary/sensitivity/test_phase_review.py:295: AssertionError
+=========================== short test summary info ============================
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[False-evaluate]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[False-develop]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[False-custom]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[True-evaluate]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[True-develop]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_rewards_keep_their_metadata_phase[True-custom]
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_reward_without_files_keeps_metadata_unknown
+FAILED artifacts/n068-verification-boundary/upstream-pr9::test_embedded_step_reward_keeps_precedence_over_file_reward
+8 failed, 8 passed in 0.15s

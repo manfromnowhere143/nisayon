@@ -1,0 +1,53 @@
+diff --git a/tests/test_rlebench_summarize.py b/tests/test_rlebench_summarize.py
+index a2b71c9..cf1e58d 100644
+--- a/tests/test_rlebench_summarize.py
++++ b/tests/test_rlebench_summarize.py
+@@ -249,3 +249,48 @@ def test_completed_single_step_development_reward(tmp_path):
+     assert scan(tmp_path)[0]['reward'] == .8
+     write(t / 'result.json', {})
+     assert scan(tmp_path)[0]['reward'] == .8
++
++
++@pytest.mark.parametrize('phase', ['evaluate', 'develop', 'custom'])
++@pytest.mark.parametrize('root_present', [False, True])
++def test_embedded_step_rewards_keep_their_metadata_phase(tmp_path, phase, root_present):
++    path = job(tmp_path, 'run')
++    t = trial(path, 'trial', finished_at='done', step_results=[{
++        'step_name': phase, 'verifier_result': {'rewards': {'reward': .4}},
++    }])
++    if phase == 'develop':
++        write(t / 'steps/develop/verifier/diagnosis.json', {'phase': 'finished'})
++    write(t / 'steps' / phase / 'verifier/reward.json', {'reward': .4, 'gated': 1})
++    write(t / 'steps' / phase / 'verifier/report.json', {'success_rate': .25})
++    if root_present:
++        # Equal rewards do not make the distinct verifier metadata interchangeable.
++        write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
++        write(t / 'verifier/report.json', {'success_rate': .9})
++    row = scan(tmp_path)[0]
++    assert row['reward'] == .4 and row['success_rate'] == .25
++    assert row['extra']['trials'][0]['gated'] is True
++    assert row['extra']['trials'][0]['status'] == 'completed'
++
++
++def test_embedded_step_reward_without_files_keeps_metadata_unknown(tmp_path):
++    path = job(tmp_path, 'run')
++    t = trial(path, 'trial', finished_at='done', step_results=[{
++        'step_name': 'evaluate', 'verifier_result': {'rewards': {'reward': .4}},
++    }])
++    write(t / 'verifier/reward.json', {'reward': .4, 'gated': 0})
++    write(t / 'verifier/report.json', {'success_rate': .9})
++    row = scan(tmp_path)[0]
++    assert row['reward'] == .4 and row['success_rate'] is None
++    assert row['extra']['trials'][0]['gated'] is None
++
++
++def test_embedded_step_reward_keeps_precedence_over_file_reward(tmp_path):
++    path = job(tmp_path, 'run')
++    t = trial(path, 'trial', finished_at='done', step_results=[{
++        'step_name': 'evaluate', 'verifier_result': {'rewards': {'reward': .4}},
++    }])
++    write(t / 'steps/evaluate/verifier/reward.json', {'reward': .1, 'gated': 1})
++    write(t / 'steps/evaluate/verifier/report.json', {'success_rate': .25})
++    row = scan(tmp_path)[0]
++    assert row['reward'] == .4 and row['success_rate'] == .25
++    assert row['extra']['trials'][0]['gated'] is True
