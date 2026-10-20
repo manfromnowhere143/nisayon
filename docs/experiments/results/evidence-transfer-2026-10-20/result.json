@@ -1,0 +1,108 @@
+{
+  "status": "published_aggregate_arithmetic_checked",
+  "source": {
+    "url": "https://arxiv.org/html/2608.25067v1",
+    "revision": "v1",
+    "date": "2026-08-25",
+    "html_sha256": "2e8766fd1236c5e6ae7a3b8f16ee5013324e1651c15a94526c1c00c41691cc82",
+    "locations": [
+      "Table 3, cross-simulator replay rows",
+      "Table 4, frozen Brier scores",
+      "Section Results, Cross-Simulator Transfer and Clearance Policies"
+    ]
+  },
+  "cells": [
+    {
+      "property": "completion",
+      "base_conditional_failure_rate": "1",
+      "candidate_conditional_failure_rate": "1",
+      "conditional_rate_reduction": "0",
+      "assigned_anchors": 160,
+      "candidate_coverage": "1",
+      "excluded_cases": 0,
+      "failures_in_excluded_cases": 0,
+      "hypothetical_loss_gain": "0 L - 160 Q - 0 E - A"
+    },
+    {
+      "property": "reported",
+      "base_conditional_failure_rate": "1/8",
+      "candidate_conditional_failure_rate": "0",
+      "conditional_rate_reduction": "1/8",
+      "assigned_anchors": 160,
+      "candidate_coverage": "3/4",
+      "excluded_cases": 40,
+      "failures_in_excluded_cases": 20,
+      "hypothetical_loss_gain": "20 L - 160 Q - 40 E - A"
+    },
+    {
+      "property": "observable",
+      "base_conditional_failure_rate": "3/16",
+      "candidate_conditional_failure_rate": "7/40",
+      "conditional_rate_reduction": "1/80",
+      "assigned_anchors": 160,
+      "candidate_coverage": "3/4",
+      "excluded_cases": 40,
+      "failures_in_excluded_cases": 9,
+      "hypothetical_loss_gain": "9 L - 160 Q - 40 E - A"
+    },
+    {
+      "property": "settled",
+      "base_conditional_failure_rate": "0",
+      "candidate_conditional_failure_rate": "0",
+      "conditional_rate_reduction": "0",
+      "assigned_anchors": 160,
+      "candidate_coverage": "1",
+      "excluded_cases": 0,
+      "failures_in_excluded_cases": 0,
+      "hypothetical_loss_gain": "0 L - 160 Q - 0 E - A"
+    }
+  ],
+  "brier_comparisons": {
+    "cohort_1": {
+      "profile_minus_strong_lookup": "-33/625",
+      "profile_minus_path_only": "-503/10000",
+      "interpretation": "Descriptive reported Brier difference; no pooling or new significance test"
+    },
+    "cohort_2": {
+      "profile_minus_strong_lookup": "537/10000",
+      "profile_minus_path_only": "-1117/10000",
+      "interpretation": "Descriptive reported Brier difference; no pooling or new significance test"
+    }
+  },
+  "hypothetical_cost_reversal": {
+    "positive_gain": "5",
+    "negative_gain": "-11",
+    "parameters": "L=1, E=1/10, A=0; Q=0 then Q=1/10",
+    "premises": "Commensurate hypothetical units and perfect escalation; no owner costs measured"
+  },
+  "controls": {
+    "invalid_inputs_rejected": [
+      "unknown_subset",
+      "unknown_correspondence",
+      "unknown_agreement",
+      "more_candidate_cases",
+      "more_candidate_failures",
+      "impossible_excluded_failures",
+      "boolean_count",
+      "negative_cost"
+    ],
+    "constructed_pointwise_loss_checks": 180
+  },
+  "owner_value": "unresolved",
+  "physical_confirmation": "not_run",
+  "reuse": "not_tested",
+  "limits": [
+    "Source-reported correspondence and aggregates, not original episode records.",
+    "Agreement does not establish independent error detection.",
+    "Arithmetic controls are exposed constructed cases, not new physical samples.",
+    "Loss tradeoffs do not establish matched task quality or complete engineering savings.",
+    "No production acceptance or confirmation sample requirement changes."
+  ],
+  "source_check": {
+    "scope": "transcription only; no verification of physical outcomes",
+    "sha256": "2e8766fd1236c5e6ae7a3b8f16ee5013324e1651c15a94526c1c00c41691cc82",
+    "matches_retained_html": true,
+    "property_counts_checked": 8,
+    "brier_values_checked": 6
+  }
+}

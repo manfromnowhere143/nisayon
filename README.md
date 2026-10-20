@@ -109,6 +109,13 @@ have distinct scopes.
 
 ## Latest progress
 
+20 October: an [evidence-transfer review](docs/experiments/results/evidence-transfer-2026-10-20/README.md)
+examines whether another verifier improves a deployment decision. A check of
+published aggregates separates lower conditional error from reduced coverage;
+hypothetical cost changes can reverse the preferred choice. The proposed
+expansion is reuse of qualified experimental procedures, with applicability,
+fresh task confirmation and complete owner effort still to be established.
+
 20 October: a [RLE-Bench summary review](docs/contributions/rlebench-phase-review/README.md)
 finds that an embedded step reward can be paired with another phase's metadata.
 A two-line reorder on the existing contributor's draft keeps the selected reward,

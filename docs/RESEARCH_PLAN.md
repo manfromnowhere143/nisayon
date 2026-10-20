@@ -46,6 +46,15 @@ cell. Bad predictors can consume more trials while retaining valid uncertainty.
 Qualify an owner's existing signal and complete acquisition costs first; do not
 build a new model or weaken the existing finite confirmation obligation.
 
+[N069](experiments/results/evidence-transfer-2026-10-20/README.md) checks the
+case for expansion against current verdict-transfer, planning and world-model
+research. Its executable aggregate audit preserves coverage and a stronger
+native comparator, with cost-ranking reversals under explicit hypothetical
+losses. The selected hypothesis is cheaper reuse of qualified experiment
+procedures across deployment changes. Applicability checks, fresh task
+confirmation and complete owner effort remain required; no new acceptance
+rule or independent reuse result follows.
+
 ## Current roadmap
 
 | Stage | State and decision |

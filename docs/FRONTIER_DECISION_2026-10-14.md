@@ -1,5 +1,26 @@
 # Where Nisayon can earn an advantage
 
+## N069: establish the value of another measurement · 20 October 2026
+
+[The evidence-transfer review](experiments/results/evidence-transfer-2026-10-20/README.md)
+checks three primary papers and current policy, debugging and data offerings.
+Verdict transfer already has close prior work. Additional structure, memory or
+verification is not by itself evidence of a better decision. The executable
+audit retains coverage, a strong comparator, conditional rates and hypothetical
+cost sensitivity; it establishes no physical or economic result.
+
+The proposed expansion is reuse of qualified experimental procedures across
+deployment changes. Identify which prior premises changed, which observation
+could change the correction choice, and whether its witness can still measure
+the required property at the required time. Reuse a procedure before proposing
+to reuse its physical outcomes. Source identity alone does not establish either.
+
+The next owner comparison must charge applicability, adaptation and verification
+against competent native tools and a capable agent. Keep the current fresh
+confirmation obligation and separate untouched reuse. If acquisition and review
+erase the saving, reject the corresponding value claim. No general compiler,
+world model, data platform or physical allocation is authorized by this reading.
+
 ## N045: price valid confirmation before expanding it · 16 October 2026
 
 [The completed research and finite qualification](experiments/results/prediction-audit-001/README.md)
