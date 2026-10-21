@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-20T03:22:52.276188+00:00",
+  "original_failure": "All four carried tests fail while opening the toy world, before signal delivery, with Position control requires observed initial positions.",
+  "cause": "The current CLI resolves conventions before constructing BackendConfig. The earlier fixture relied on BackendConfig.control defaulting to delta; unresolved simulator conventions now default to position.",
+  "adaptation": "Add sim.control: delta to the test YAML, preserving the authors intended toy action semantics. No assertion, Event.wait implementation, signal handler, injection timing or timeout changed.",
+  "inference": "The unadapted failures do not test the shutdown correction."
+}

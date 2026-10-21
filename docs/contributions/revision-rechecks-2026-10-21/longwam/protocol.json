@@ -1,0 +1,16 @@
+{
+  "status": "frozen before runtime checks",
+  "question": "Does the rewritten synchronous Long-WAM integration satisfy its native CPU contracts, and do accepted inputs preserve consistent observation geometry?",
+  "request": "https://github.com/huggingface/lerobot/pull/5008#issuecomment-6295962523",
+  "revision": "f21d6d2f270b4ed48e2ef711284d291bc614e8fa",
+  "checks": [
+    "Run unmodified native reduced real-backbone train/save/load/inference tests in both denoising modes with checkpointing on and off",
+    "Run unmodified native history and padded-loss tests in both modes",
+    "Use identical square and rectangular synthetic pixels to compare accepted training-window and current-frame preprocessing; distinguish quantization from geometric disagreement",
+    "Read changed policy and processor integration for reset, queue, shape, frozen backbone and conditioning contracts"
+  ],
+  "environment": "Retained Python 3.12 CPU environment with a separate hash-locked dependency target; no mutation of retained environments. Offline model hub, tiny local tokenizer and randomly initialized reduced real backbones.",
+  "decision": "Report reproduced checks and any concrete counterexample. Distinguish deliberate preprocessing differences from unsupported claims; do not transplant old-revision CUDA results.",
+  "limits": "No current full-weight, CUDA, timing improvement, LIBERO success or physical task reproduction. Owner-reported results remain attributed. No independent task samples or owner effort advantage.",
+  "cost": "Retain source acquisition, dependency preparation, failures, test wall time and review work. No paid compute."
+}

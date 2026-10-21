@@ -1,0 +1,55 @@
+"""Retrieve a bounded source subset and verify Git blob identities."""
+
+import argparse
+import concurrent.futures
+import hashlib
+import json
+import time
+import urllib.request
+from datetime import UTC, datetime
+from pathlib import Path
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--tree", type=Path, required=True)
+    parser.add_argument("--destination", type=Path, required=True)
+    parser.add_argument("--record", type=Path, required=True)
+    args = parser.parse_args()
+    tree = json.loads(args.tree.read_text())
+    started = time.monotonic()
+
+    def fetch(entry):
+        relative = Path(entry["path"])
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("Unsafe source path")
+        url = f"https://raw.githubusercontent.com/{tree['repo']}/{tree['revision']}/{entry['path']}"
+        request = urllib.request.Request(url, headers={"User-Agent": "Nisayon-source-review"})
+        with urllib.request.urlopen(request, timeout=45) as response:
+            data = response.read(4 * 1024 * 1024 + 1)
+        if len(data) != entry["size"] or len(data) > 4 * 1024 * 1024:
+            raise ValueError(f"Wrong source size: {relative}")
+        git_hash = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+        if git_hash != entry["sha"]:
+            raise ValueError(f"Git blob mismatch: {relative}")
+        target = args.destination / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with target.open("xb") as output:
+            output.write(data)
+        return {"path": entry["path"], "bytes": len(data), "git_blob": git_hash,
+                "sha256": hashlib.sha256(data).hexdigest(), "url": url}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+        records = list(pool.map(fetch, tree["files"]))
+    receipt = {"at": datetime.now(UTC).isoformat(), "repo": tree["repo"],
+               "sha": tree["revision"], "files": records,
+               "elapsed_seconds": time.monotonic() - started,
+               "scope": "Selected source and tests; every raw file matches the pinned Git tree blob."}
+    with args.record.open("x") as output:
+        json.dump(receipt, output, indent=2)
+        output.write("\n")
+    print(json.dumps({k: v for k, v in receipt.items() if k != "files"} | {"file_count": len(records)}))
+
+
+if __name__ == "__main__":
+    main()

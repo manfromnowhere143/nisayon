@@ -1,0 +1,481 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+________________ test_cli_signal_closes_active_world[False-15] _________________
+
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_0')
+interrupt_wait = False, shutdown_signal = <Signals.SIGTERM: 15>
+
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows does not deliver POSIX SIGTERM callbacks")
+    @pytest.mark.parametrize("shutdown_signal", [signal.SIGTERM, signal.SIGINT])
+    @pytest.mark.parametrize("interrupt_wait", [False, True])
+    def test_cli_signal_closes_active_world(tmp_path, interrupt_wait, shutdown_signal):
+        pytest.importorskip("zenoh")
+        pytest.importorskip("msgpack")
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            endpoint = f"tcp/127.0.0.1:{sock.getsockname()[1]}"
+        config = tmp_path / "server.yaml"
+        config.write_text(f'sim:\n  type: toy\n  control: delta\nzenoh:\n  listen_endpoints: ["{endpoint}"]\n')
+        arm = tmp_path / "arm"
+        injected = tmp_path / "injected"
+        closed = tmp_path / "closed"
+        restored = tmp_path / "restored"
+        # The trace controls signal timing. It leaves Event.wait and the CLI unchanged.
+        (tmp_path / "sitecustomize.py").write_text(
+            """
+    import atexit
+    import inspect
+    import os
+    from pathlib import Path
+    import signal
+    import sys
+    import threading
+    
+    from lerobot.sims.backend import Backend
+    
+    arm = Path(os.environ['SHUTDOWN_ARM'])
+    injected = Path(os.environ['SHUTDOWN_INJECTED'])
+    closed = Path(os.environ['SHUTDOWN_CLOSED'])
+    restored = Path(os.environ['SHUTDOWN_RESTORED'])
+    original_handler = signal.getsignal(signal.SIGTERM)
+    def check_handler():
+        if signal.getsignal(signal.SIGTERM) == original_handler:
+            restored.touch()
+    atexit.register(check_handler)
+    source, first_line = inspect.getsourcelines(threading.Event.wait)
+    locked_line = first_line + next(i for i, line in enumerate(source) if 'signaled = self._flag' in line)
+    fired = False
+    
+    def profile(frame, event, arg):
+        if event == 'return' and frame.f_code is Backend.close.__code__:
+            with closed.open('a') as marker:
+                marker.write('closed\\n')
+    
+    def trace(frame, event, arg):
+        global fired
+        if (not fired and event == 'line' and frame.f_code is threading.Event.wait.__code__
+            and frame.f_lineno == locked_line and frame.f_back is not None
+            and frame.f_back.f_code.co_name == 'serve' and arm.exists()):
+            fired = True
+            assert frame.f_locals['self']._cond._is_owned()
+            injected.touch()
+            os.kill(os.getpid(), int(os.environ['SHUTDOWN_SIGNAL']))
+        return trace
+    
+    sys.setprofile(profile)
+    sys.settrace(trace)
+    """
+        )
+        env = os.environ.copy()
+        # Import the checked-out source even when pytest uses an editable installation elsewhere.
+        source = str(Path(__file__).resolve().parents[2] / "src")
+        env["PYTHONPATH"] = os.pathsep.join([str(tmp_path), source, env.get("PYTHONPATH", "")])
+        env.update(
+            SHUTDOWN_ARM=str(arm),
+            SHUTDOWN_INJECTED=str(injected),
+            SHUTDOWN_CLOSED=str(closed),
+            SHUTDOWN_RESTORED=str(restored),
+            SHUTDOWN_SIGNAL=str(int(shutdown_signal)),
+        )
+        client = EnvClient(endpoint, timeout_s=5)
+        with (tmp_path / "server.log").open("w+") as log:
+            process = subprocess.Popen(
+                [sys.executable, "-m", "lerobot.scripts.lerobot_env_server", "--config", str(config)],
+                env=env,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            try:
+                deadline = time.monotonic() + 10
+                while time.monotonic() < deadline:
+                    assert process.poll() is None
+                    with socket.socket() as sock:
+                        if sock.connect_ex(("127.0.0.1", int(endpoint.rsplit(":", 1)[1]))) == 0:
+                            break
+                    time.sleep(0.02)
+                else:
+                    pytest.fail("The environment server did not listen within ten seconds")
+                client.open(1, "lockstep", seeds=[42])
+                result = client.request("step", actions=np.zeros((1, 2), np.float32))["result"]
+                assert result["step"].tolist() == [1]
+                if interrupt_wait:
+                    arm.touch()
+                else:
+                    process.send_signal(shutdown_signal)
+                assert process.wait(timeout=5) == 0
+                assert injected.exists() == interrupt_wait
+>               assert restored.exists()
+E               AssertionError: assert False
+E                +  where False = exists()
+E                +    where exists = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_0/restored').exists
+
+tests/env_server/test_env_server_shutdown.py:128: AssertionError
+_________________ test_cli_signal_closes_active_world[False-2] _________________
+
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_1')
+interrupt_wait = False, shutdown_signal = <Signals.SIGINT: 2>
+
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows does not deliver POSIX SIGTERM callbacks")
+    @pytest.mark.parametrize("shutdown_signal", [signal.SIGTERM, signal.SIGINT])
+    @pytest.mark.parametrize("interrupt_wait", [False, True])
+    def test_cli_signal_closes_active_world(tmp_path, interrupt_wait, shutdown_signal):
+        pytest.importorskip("zenoh")
+        pytest.importorskip("msgpack")
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            endpoint = f"tcp/127.0.0.1:{sock.getsockname()[1]}"
+        config = tmp_path / "server.yaml"
+        config.write_text(f'sim:\n  type: toy\n  control: delta\nzenoh:\n  listen_endpoints: ["{endpoint}"]\n')
+        arm = tmp_path / "arm"
+        injected = tmp_path / "injected"
+        closed = tmp_path / "closed"
+        restored = tmp_path / "restored"
+        # The trace controls signal timing. It leaves Event.wait and the CLI unchanged.
+        (tmp_path / "sitecustomize.py").write_text(
+            """
+    import atexit
+    import inspect
+    import os
+    from pathlib import Path
+    import signal
+    import sys
+    import threading
+    
+    from lerobot.sims.backend import Backend
+    
+    arm = Path(os.environ['SHUTDOWN_ARM'])
+    injected = Path(os.environ['SHUTDOWN_INJECTED'])
+    closed = Path(os.environ['SHUTDOWN_CLOSED'])
+    restored = Path(os.environ['SHUTDOWN_RESTORED'])
+    original_handler = signal.getsignal(signal.SIGTERM)
+    def check_handler():
+        if signal.getsignal(signal.SIGTERM) == original_handler:
+            restored.touch()
+    atexit.register(check_handler)
+    source, first_line = inspect.getsourcelines(threading.Event.wait)
+    locked_line = first_line + next(i for i, line in enumerate(source) if 'signaled = self._flag' in line)
+    fired = False
+    
+    def profile(frame, event, arg):
+        if event == 'return' and frame.f_code is Backend.close.__code__:
+            with closed.open('a') as marker:
+                marker.write('closed\\n')
+    
+    def trace(frame, event, arg):
+        global fired
+        if (not fired and event == 'line' and frame.f_code is threading.Event.wait.__code__
+            and frame.f_lineno == locked_line and frame.f_back is not None
+            and frame.f_back.f_code.co_name == 'serve' and arm.exists()):
+            fired = True
+            assert frame.f_locals['self']._cond._is_owned()
+            injected.touch()
+            os.kill(os.getpid(), int(os.environ['SHUTDOWN_SIGNAL']))
+        return trace
+    
+    sys.setprofile(profile)
+    sys.settrace(trace)
+    """
+        )
+        env = os.environ.copy()
+        # Import the checked-out source even when pytest uses an editable installation elsewhere.
+        source = str(Path(__file__).resolve().parents[2] / "src")
+        env["PYTHONPATH"] = os.pathsep.join([str(tmp_path), source, env.get("PYTHONPATH", "")])
+        env.update(
+            SHUTDOWN_ARM=str(arm),
+            SHUTDOWN_INJECTED=str(injected),
+            SHUTDOWN_CLOSED=str(closed),
+            SHUTDOWN_RESTORED=str(restored),
+            SHUTDOWN_SIGNAL=str(int(shutdown_signal)),
+        )
+        client = EnvClient(endpoint, timeout_s=5)
+        with (tmp_path / "server.log").open("w+") as log:
+            process = subprocess.Popen(
+                [sys.executable, "-m", "lerobot.scripts.lerobot_env_server", "--config", str(config)],
+                env=env,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            try:
+                deadline = time.monotonic() + 10
+                while time.monotonic() < deadline:
+                    assert process.poll() is None
+                    with socket.socket() as sock:
+                        if sock.connect_ex(("127.0.0.1", int(endpoint.rsplit(":", 1)[1]))) == 0:
+                            break
+                    time.sleep(0.02)
+                else:
+                    pytest.fail("The environment server did not listen within ten seconds")
+                client.open(1, "lockstep", seeds=[42])
+                result = client.request("step", actions=np.zeros((1, 2), np.float32))["result"]
+                assert result["step"].tolist() == [1]
+                if interrupt_wait:
+                    arm.touch()
+                else:
+                    process.send_signal(shutdown_signal)
+                assert process.wait(timeout=5) == 0
+                assert injected.exists() == interrupt_wait
+>               assert restored.exists()
+E               AssertionError: assert False
+E                +  where False = exists()
+E                +    where exists = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_1/restored').exists
+
+tests/env_server/test_env_server_shutdown.py:128: AssertionError
+_________________ test_cli_signal_closes_active_world[True-15] _________________
+
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_2')
+interrupt_wait = True, shutdown_signal = <Signals.SIGTERM: 15>
+
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows does not deliver POSIX SIGTERM callbacks")
+    @pytest.mark.parametrize("shutdown_signal", [signal.SIGTERM, signal.SIGINT])
+    @pytest.mark.parametrize("interrupt_wait", [False, True])
+    def test_cli_signal_closes_active_world(tmp_path, interrupt_wait, shutdown_signal):
+        pytest.importorskip("zenoh")
+        pytest.importorskip("msgpack")
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            endpoint = f"tcp/127.0.0.1:{sock.getsockname()[1]}"
+        config = tmp_path / "server.yaml"
+        config.write_text(f'sim:\n  type: toy\n  control: delta\nzenoh:\n  listen_endpoints: ["{endpoint}"]\n')
+        arm = tmp_path / "arm"
+        injected = tmp_path / "injected"
+        closed = tmp_path / "closed"
+        restored = tmp_path / "restored"
+        # The trace controls signal timing. It leaves Event.wait and the CLI unchanged.
+        (tmp_path / "sitecustomize.py").write_text(
+            """
+    import atexit
+    import inspect
+    import os
+    from pathlib import Path
+    import signal
+    import sys
+    import threading
+    
+    from lerobot.sims.backend import Backend
+    
+    arm = Path(os.environ['SHUTDOWN_ARM'])
+    injected = Path(os.environ['SHUTDOWN_INJECTED'])
+    closed = Path(os.environ['SHUTDOWN_CLOSED'])
+    restored = Path(os.environ['SHUTDOWN_RESTORED'])
+    original_handler = signal.getsignal(signal.SIGTERM)
+    def check_handler():
+        if signal.getsignal(signal.SIGTERM) == original_handler:
+            restored.touch()
+    atexit.register(check_handler)
+    source, first_line = inspect.getsourcelines(threading.Event.wait)
+    locked_line = first_line + next(i for i, line in enumerate(source) if 'signaled = self._flag' in line)
+    fired = False
+    
+    def profile(frame, event, arg):
+        if event == 'return' and frame.f_code is Backend.close.__code__:
+            with closed.open('a') as marker:
+                marker.write('closed\\n')
+    
+    def trace(frame, event, arg):
+        global fired
+        if (not fired and event == 'line' and frame.f_code is threading.Event.wait.__code__
+            and frame.f_lineno == locked_line and frame.f_back is not None
+            and frame.f_back.f_code.co_name == 'serve' and arm.exists()):
+            fired = True
+            assert frame.f_locals['self']._cond._is_owned()
+            injected.touch()
+            os.kill(os.getpid(), int(os.environ['SHUTDOWN_SIGNAL']))
+        return trace
+    
+    sys.setprofile(profile)
+    sys.settrace(trace)
+    """
+        )
+        env = os.environ.copy()
+        # Import the checked-out source even when pytest uses an editable installation elsewhere.
+        source = str(Path(__file__).resolve().parents[2] / "src")
+        env["PYTHONPATH"] = os.pathsep.join([str(tmp_path), source, env.get("PYTHONPATH", "")])
+        env.update(
+            SHUTDOWN_ARM=str(arm),
+            SHUTDOWN_INJECTED=str(injected),
+            SHUTDOWN_CLOSED=str(closed),
+            SHUTDOWN_RESTORED=str(restored),
+            SHUTDOWN_SIGNAL=str(int(shutdown_signal)),
+        )
+        client = EnvClient(endpoint, timeout_s=5)
+        with (tmp_path / "server.log").open("w+") as log:
+            process = subprocess.Popen(
+                [sys.executable, "-m", "lerobot.scripts.lerobot_env_server", "--config", str(config)],
+                env=env,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            try:
+                deadline = time.monotonic() + 10
+                while time.monotonic() < deadline:
+                    assert process.poll() is None
+                    with socket.socket() as sock:
+                        if sock.connect_ex(("127.0.0.1", int(endpoint.rsplit(":", 1)[1]))) == 0:
+                            break
+                    time.sleep(0.02)
+                else:
+                    pytest.fail("The environment server did not listen within ten seconds")
+                client.open(1, "lockstep", seeds=[42])
+                result = client.request("step", actions=np.zeros((1, 2), np.float32))["result"]
+                assert result["step"].tolist() == [1]
+                if interrupt_wait:
+                    arm.touch()
+                else:
+                    process.send_signal(shutdown_signal)
+>               assert process.wait(timeout=5) == 0
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/env_server/test_env_server_shutdown.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../../../../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:1264: in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <Popen: returncode: -9 args: ['$LOCAL_USER/workspace/nisayon-replie...>
+timeout = 5
+
+    def _wait(self, timeout):
+        """Internal implementation of wait() on POSIX."""
+        if self.returncode is not None:
+            return self.returncode
+    
+        if timeout is not None:
+            endtime = _time() + timeout
+            # Enter a busy loop if we have a timeout.  This busy loop was
+            # cribbed from Lib/threading.py in Thread.wait() at r71065.
+            delay = 0.0005 # 500 us -> initial delay of 1 ms
+            while True:
+                if self._waitpid_lock.acquire(False):
+                    try:
+                        if self.returncode is not None:
+                            break  # Another thread waited.
+                        (pid, sts) = self._try_wait(os.WNOHANG)
+                        assert pid == self.pid or pid == 0
+                        if pid == self.pid:
+                            self._handle_exitstatus(sts)
+                            break
+                    finally:
+                        self._waitpid_lock.release()
+                remaining = self._remaining_time(endtime)
+                if remaining <= 0:
+>                   raise TimeoutExpired(self.args, timeout)
+E                   subprocess.TimeoutExpired: Command '['$RETAINED_PYTHON', '-m', 'lerobot.scripts.lerobot_env_server', '--config', '$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_2/server.yaml']' timed out after 5 seconds
+
+../../../../../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/subprocess.py:2045: TimeoutExpired
+_________________ test_cli_signal_closes_active_world[True-2] __________________
+
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_3')
+interrupt_wait = True, shutdown_signal = <Signals.SIGINT: 2>
+
+    @pytest.mark.skipif(sys.platform == "win32", reason="Windows does not deliver POSIX SIGTERM callbacks")
+    @pytest.mark.parametrize("shutdown_signal", [signal.SIGTERM, signal.SIGINT])
+    @pytest.mark.parametrize("interrupt_wait", [False, True])
+    def test_cli_signal_closes_active_world(tmp_path, interrupt_wait, shutdown_signal):
+        pytest.importorskip("zenoh")
+        pytest.importorskip("msgpack")
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            endpoint = f"tcp/127.0.0.1:{sock.getsockname()[1]}"
+        config = tmp_path / "server.yaml"
+        config.write_text(f'sim:\n  type: toy\n  control: delta\nzenoh:\n  listen_endpoints: ["{endpoint}"]\n')
+        arm = tmp_path / "arm"
+        injected = tmp_path / "injected"
+        closed = tmp_path / "closed"
+        restored = tmp_path / "restored"
+        # The trace controls signal timing. It leaves Event.wait and the CLI unchanged.
+        (tmp_path / "sitecustomize.py").write_text(
+            """
+    import atexit
+    import inspect
+    import os
+    from pathlib import Path
+    import signal
+    import sys
+    import threading
+    
+    from lerobot.sims.backend import Backend
+    
+    arm = Path(os.environ['SHUTDOWN_ARM'])
+    injected = Path(os.environ['SHUTDOWN_INJECTED'])
+    closed = Path(os.environ['SHUTDOWN_CLOSED'])
+    restored = Path(os.environ['SHUTDOWN_RESTORED'])
+    original_handler = signal.getsignal(signal.SIGTERM)
+    def check_handler():
+        if signal.getsignal(signal.SIGTERM) == original_handler:
+            restored.touch()
+    atexit.register(check_handler)
+    source, first_line = inspect.getsourcelines(threading.Event.wait)
+    locked_line = first_line + next(i for i, line in enumerate(source) if 'signaled = self._flag' in line)
+    fired = False
+    
+    def profile(frame, event, arg):
+        if event == 'return' and frame.f_code is Backend.close.__code__:
+            with closed.open('a') as marker:
+                marker.write('closed\\n')
+    
+    def trace(frame, event, arg):
+        global fired
+        if (not fired and event == 'line' and frame.f_code is threading.Event.wait.__code__
+            and frame.f_lineno == locked_line and frame.f_back is not None
+            and frame.f_back.f_code.co_name == 'serve' and arm.exists()):
+            fired = True
+            assert frame.f_locals['self']._cond._is_owned()
+            injected.touch()
+            os.kill(os.getpid(), int(os.environ['SHUTDOWN_SIGNAL']))
+        return trace
+    
+    sys.setprofile(profile)
+    sys.settrace(trace)
+    """
+        )
+        env = os.environ.copy()
+        # Import the checked-out source even when pytest uses an editable installation elsewhere.
+        source = str(Path(__file__).resolve().parents[2] / "src")
+        env["PYTHONPATH"] = os.pathsep.join([str(tmp_path), source, env.get("PYTHONPATH", "")])
+        env.update(
+            SHUTDOWN_ARM=str(arm),
+            SHUTDOWN_INJECTED=str(injected),
+            SHUTDOWN_CLOSED=str(closed),
+            SHUTDOWN_RESTORED=str(restored),
+            SHUTDOWN_SIGNAL=str(int(shutdown_signal)),
+        )
+        client = EnvClient(endpoint, timeout_s=5)
+        with (tmp_path / "server.log").open("w+") as log:
+            process = subprocess.Popen(
+                [sys.executable, "-m", "lerobot.scripts.lerobot_env_server", "--config", str(config)],
+                env=env,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+            )
+            try:
+                deadline = time.monotonic() + 10
+                while time.monotonic() < deadline:
+                    assert process.poll() is None
+                    with socket.socket() as sock:
+                        if sock.connect_ex(("127.0.0.1", int(endpoint.rsplit(":", 1)[1]))) == 0:
+                            break
+                    time.sleep(0.02)
+                else:
+                    pytest.fail("The environment server did not listen within ten seconds")
+                client.open(1, "lockstep", seeds=[42])
+                result = client.request("step", actions=np.zeros((1, 2), np.float32))["result"]
+                assert result["step"].tolist() == [1]
+                if interrupt_wait:
+                    arm.touch()
+                else:
+                    process.send_signal(shutdown_signal)
+                assert process.wait(timeout=5) == 0
+                assert injected.exists() == interrupt_wait
+>               assert restored.exists()
+E               AssertionError: assert False
+E                +  where False = exists()
+E                +    where exists = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-shutdown-adapted/temporary/test_cli_signal_closes_active_3/restored').exists
+
+tests/env_server/test_env_server_shutdown.py:128: AssertionError
+=========================== short test summary info ============================
+FAILED tests/env_server/test_env_server_shutdown.py::test_cli_signal_closes_active_world[False-15]
+FAILED tests/env_server/test_env_server_shutdown.py::test_cli_signal_closes_active_world[False-2]
+FAILED tests/env_server/test_env_server_shutdown.py::test_cli_signal_closes_active_world[True-15]
+FAILED tests/env_server/test_env_server_shutdown.py::test_cli_signal_closes_active_world[True-2]
+4 failed in 9.42s

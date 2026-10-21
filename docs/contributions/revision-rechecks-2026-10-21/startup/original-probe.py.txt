@@ -1,0 +1,159 @@
+"""Observe native startup cleanup with synthetic CPU failures, without weights."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import time
+from contextlib import ExitStack
+from importlib import import_module, metadata
+from pathlib import Path
+from unittest.mock import patch
+
+MARKER = "N054 synthetic child failure: no model or GPU was loaded.\n"
+ERROR = "pi0.5 model service exited during load; see retained server.stderr.log"
+
+
+def run(workspace: Path) -> dict:
+    sys.path.insert(0, str(workspace.resolve()))
+    module = import_module("XPolicyLab.policy.SenseNova-RoboRSI.model")
+    runtime = import_module("XPolicyLab.policy.SenseNova-RoboRSI.pi05_runtime")
+    server_class = runtime.Pi05Server
+    real_popen = subprocess.Popen
+    servers, children = [], []
+
+    def make_server(**kwargs):
+        kwargs["port"] = 0
+        kwargs["startup_timeout_s"] = 5
+        server = server_class(**kwargs)
+        servers.append(server)
+        return server
+
+    def service_env(policy_dir, data_home, output_dir, gpu_id):
+        output_dir.mkdir(parents=True, exist_ok=True)
+        return {"PATH": os.defpath}
+
+    def launch_failure(command, **kwargs):
+        assert command[2:4] == ["-m", "server.openpi_batch_server"]
+        child = real_popen(
+            [sys.executable, "-I", "-c", f"import sys; sys.stderr.write({MARKER!r}); sys.exit(17)"],
+            **kwargs,
+        )
+        children.append(child)
+        try:
+            child.wait(timeout=5)
+        except BaseException:
+            child.kill()
+            child.wait(timeout=5)
+            raise
+        return child
+
+    def model_without_constructor():
+        model = module.Model.__new__(module.Model)
+        model.model_cfg = {}
+        model._vla = model._vla_temporary = None
+        return model
+
+    def error_from(call):
+        try:
+            call()
+        except (RuntimeError, ValueError) as exc:
+            return {"type": type(exc).__name__, "message": str(exc)}
+        raise AssertionError("Expected a controlled startup failure")
+
+    def log_state(server):
+        path = server.output_dir / "server.stderr.log"
+        return {
+            "output_directory_exists": server.output_dir.exists(),
+            "stderr_exists": path.is_file(),
+            "stderr_sha256": hashlib.sha256(path.read_bytes()).hexdigest()
+            if path.is_file()
+            else None,
+            "process_returncode": server.process.poll() if server.process is not None else None,
+            "streams_closed": all(
+                stream is None or stream.closed for stream in (server._stdout, server._stderr)
+            ),
+        }
+
+    results = []
+    with tempfile.TemporaryDirectory(prefix="n054-probe-") as temporary, ExitStack() as stack:
+        root = Path(temporary)
+        for name in ("check_pi05_runtime", "validate_pi05_checkpoint", "validate_pi05_tokenizer"):
+            stack.enter_context(patch.object(runtime, name, return_value=None))
+        stack.enter_context(patch.object(runtime, "_service_env", side_effect=service_env))
+        stack.enter_context(patch.object(server_class, "_ready", return_value=False))
+        stack.enter_context(patch.object(runtime.subprocess, "Popen", side_effect=launch_failure))
+        stack.enter_context(patch.object(runtime, "Pi05Server", side_effect=make_server))
+        stack.enter_context(patch.object(module, "resolve_checkpoint_root", return_value=root))
+
+        direct = make_server(checkpoint_dir=root, data_home=root, output_dir=root / "direct")
+        error = error_from(direct.start)
+        state = log_state(direct)
+        assert error == {"type": "RuntimeError", "message": ERROR}
+        assert state["stderr_sha256"] == hashlib.sha256(MARKER.encode()).hexdigest()
+        assert state["process_returncode"] == 17 and state["streams_closed"]
+        results.append({"case": "native_service_failure", "error": error, **state})
+
+        model = model_without_constructor()
+        error = error_from(model._ensure_vla)
+        state = log_state(servers[-1])
+        assert error == {"type": "RuntimeError", "message": ERROR}
+        assert not state["output_directory_exists"] and not state["stderr_exists"]
+        assert state["process_returncode"] == 17 and state["streams_closed"]
+        assert model._vla is None and model._vla_temporary is None
+        assert (direct.output_dir / "server.stderr.log").read_text() == MARKER
+        results.append({"case": "adapter_service_failure", "error": error, **state})
+
+        with patch.object(
+            runtime, "check_pi05_runtime", side_effect=ValueError("synthetic preflight rejection")
+        ):
+            before = len(children)
+            model = model_without_constructor()
+            error = error_from(model._ensure_vla)
+            state = log_state(servers[-1])
+            assert error == {"type": "ValueError", "message": "synthetic preflight rejection"}
+            assert len(children) == before and not state["output_directory_exists"]
+            assert model._vla is None and model._vla_temporary is None
+            results.append({"case": "preflight_failure_without_process", "error": error, **state})
+
+        before = len(servers)
+        model = model_without_constructor()
+        cached = type("ExistingService", (), {"port": 12345})()
+        model._vla = cached
+        assert model._ensure_vla() == 12345 and model._vla is cached
+        assert len(servers) == before
+        results.append({"case": "cached_service", "port": 12345, "new_server_created": False})
+
+    return {
+        "cases": results,
+        "observations_verified": len(results),
+        "synthetic_child_processes": len(children),
+        "child_returncodes": [child.returncode for child in children],
+        "scope": "Normal native imports; Model constructor bypassed; preflight, environment construction and process command replaced. Native startup, file handles, process cleanup and adapter cleanup executed. No model, weights, simulator, robot or task outcome.",
+        "python": sys.version,
+        "packages": {
+            name: metadata.version(name)
+            for name in ("numpy", "opencv-python-headless", "h5py", "PyYAML")
+        },
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--workspace", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    started = time.perf_counter()
+    result = run(args.workspace)
+    result["probe_wall_seconds"] = time.perf_counter() - started
+    args.output.write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()

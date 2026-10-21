@@ -1,0 +1,346 @@
+.................F.F........FFFF.FFs.................................... [ 88%]
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_______________________ test_jpeg_observations_match_raw _______________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x149883ad0>, 'tcp/127.0.0.1:60927')
+
+    def test_jpeg_observations_match_raw(server):
+        from lerobot.envs.batched import BatchedEnv
+    
+        _, endpoint = server
+        obs = {}
+        for encoding in ("raw", "jpeg"):
+            env = BatchedEnv(EnvClient(endpoint, encoding=encoding, jpeg_quality=95), num_envs=2)
+            try:
+                obs[encoding], _ = env.reset(seed=[10, 20])
+            finally:
+>               env.close()
+
+tests/env_server/test_env_server.py:122: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/envs/batched.py:132: in close
+    self.client.close()
+src/lerobot/env_server/client.py:212: in close
+    self.request("close")
+src/lerobot/env_server/client.py:162: in request
+    result = self._query(key, MessageType.CONTROL, body, timeout)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/lerobot/env_server/client.py:179: in _query
+    response = query_reply(
+src/lerobot/transport/wire/client.py:52: in query_reply
+    validate_reply(response, request, expected, check_instance=check_instance, check_session=check_session)
+src/lerobot/transport/wire/protocol.py:168: in validate_reply
+    raise_peer_error(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+response = Envelope(message_type=<MessageType.ERROR: 'error'>, instance_id='04e9a7b31f7f40eaa0584cd8620e0314', session_id='2e9073...quest_id='a5c9d6419d3c42d897e1a4865bf88017', body={'code': 'stale', 'message': 'Unknown simulator session'}, version=1)
+
+    def raise_peer_error(response: Envelope) -> None:
+        """Validate and propagate structured peer errors without service-specific interpretation."""
+        if response.message_type is not MessageType.ERROR:
+            return
+        try:
+            code = ErrorCode(response.body["code"])
+        except (KeyError, ValueError, TypeError) as exc:
+            raise ProtocolError(ErrorCode.MALFORMED, "Invalid error code") from exc
+        details = response.body.get("details")
+        if details is not None and not isinstance(details, dict):
+            raise ProtocolError(ErrorCode.MALFORMED, "Invalid error details")
+        message = response.body.get("message", "Peer error")
+        if not isinstance(message, str):
+            raise ProtocolError(ErrorCode.MALFORMED, "Invalid error message")
+>       raise ProtocolError(code, message, details=details)
+E       lerobot.transport.wire.protocol.ProtocolError: Unknown simulator session
+
+src/lerobot/transport/wire/protocol.py:155: ProtocolError
+_________________________ test_robot_and_command_hold __________________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x1481df050>, 'tcp/127.0.0.1:60934')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_robot_and_command_hold0')
+
+    def test_robot_and_command_hold(server, tmp_path):
+        from lerobot.robots.sim import SimRobot, SimRobotConfig
+        from lerobot.robots.sim.world import World
+>       from lerobot.rollout.robot_wrapper import ThreadSafeRobot
+
+tests/env_server/test_env_server.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/rollout/__init__.py:25: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+________________ test_eval_loop_accepts_canonical_observations _________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x14991b560>, 'tcp/127.0.0.1:60949')
+
+    def test_eval_loop_accepts_canonical_observations(server):
+        from types import SimpleNamespace
+    
+        import torch
+    
+        from lerobot.envs.batched import BatchedEnv
+        from lerobot.processor import PolicyProcessorPipeline
+>       from lerobot.scripts.lerobot_eval import rollout
+
+tests/env_server/test_env_server.py:351: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/scripts/lerobot_eval.py:77: in <module>
+    from lerobot.datasets.lerobot_dataset import LeRobotDataset
+src/lerobot/datasets/__init__.py:20: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+----------------------------- Captured stderr call -----------------------------
+W1021 16:50:51.498000 4367 torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+------------------------------ Captured log call -------------------------------
+WARNING  torch.distributed.elastic.multiprocessing.redirects:redirects.py:29 NOTE: Redirects are currently not supported in Windows or MacOs.
+_________________ test_sim_robot_local_inference_engines[sync] _________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x1536c4d10>, 'tcp/127.0.0.1:60951')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_sim_robot_local_inference0')
+mode = 'sync'
+
+    @pytest.mark.parametrize("mode", ["sync", "rtc"])
+    def test_sim_robot_local_inference_engines(server, tmp_path, mode):
+        import torch
+    
+        from lerobot.inference import RTCInferenceEngine
+        from lerobot.inference.sync import SyncInferenceEngine
+        from lerobot.policies.rtc.configuration_rtc import RTCConfig
+        from lerobot.robots.sim import SimRobot, SimRobotConfig
+>       from lerobot.rollout.robot_wrapper import ThreadSafeRobot
+
+tests/env_server/test_env_server.py:397: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/rollout/__init__.py:25: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+_________________ test_sim_robot_local_inference_engines[rtc] __________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x15359bef0>, 'tcp/127.0.0.1:60952')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_sim_robot_local_inference1')
+mode = 'rtc'
+
+    @pytest.mark.parametrize("mode", ["sync", "rtc"])
+    def test_sim_robot_local_inference_engines(server, tmp_path, mode):
+        import torch
+    
+        from lerobot.inference import RTCInferenceEngine
+        from lerobot.inference.sync import SyncInferenceEngine
+        from lerobot.policies.rtc.configuration_rtc import RTCConfig
+        from lerobot.robots.sim import SimRobot, SimRobotConfig
+>       from lerobot.rollout.robot_wrapper import ThreadSafeRobot
+
+tests/env_server/test_env_server.py:397: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/rollout/__init__.py:25: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+____________________ test_sim_robot_remote_inference_engine ____________________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x149a24c50>, 'tcp/127.0.0.1:60953')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_sim_robot_remote_inferenc0')
+
+    def test_sim_robot_remote_inference_engine(server, tmp_path):
+        import torch
+    
+        from lerobot.configs.types import FeatureType, NormalizationMode, PolicyFeature
+        from lerobot.inference import PolicyRunner, RemoteInferenceConfig
+        from lerobot.policies.act.processor_act import make_act_pre_post_processors
+        from lerobot.remote_inference.client import RemoteClient
+        from lerobot.remote_inference.engine import RemoteInferenceEngine
+        from lerobot.remote_inference.server import PolicyServer, SessionWorker
+        from lerobot.robots.sim import SimRobot, SimRobotConfig
+>       from lerobot.rollout.robot_wrapper import ThreadSafeRobot
+
+tests/env_server/test_env_server.py:466: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/rollout/__init__.py:25: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+_________ test_rollout_rejects_checkpoint_schema_before_opening_world __________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x149a24fb0>, 'tcp/127.0.0.1:60956')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_rollout_rejects_checkpoin0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x1536e43e0>
+
+    def test_rollout_rejects_checkpoint_schema_before_opening_world(server, tmp_path, monkeypatch):
+        from types import SimpleNamespace
+    
+        from lerobot.configs.types import FeatureType, PolicyFeature
+        from lerobot.robots.sim import SimRobot, SimRobotConfig
+>       from lerobot.rollout import context
+
+tests/env_server/test_env_server.py:585: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/rollout/__init__.py:25: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+_____________ test_sim_robot_records_scalar_state_actions_and_rgb ______________
+
+server = (<lerobot.env_server.server.EnvServer object at 0x1536e5a00>, 'tcp/127.0.0.1:60957')
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_sim_robot_records_scalar_0')
+
+    def test_sim_robot_records_scalar_state_actions_and_rgb(server, tmp_path):
+        from types import SimpleNamespace
+    
+        from lerobot.configs.dataset import DatasetRecordConfig
+>       from lerobot.datasets import LeRobotDataset
+
+tests/env_server/test_env_server.py:613: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/datasets/__init__.py:20: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+__________ test_recording_a_sim_robot_ends_the_episode_with_the_world __________
+
+tmp_path = PosixPath('$REVIEW_ROOT/artifacts/n070-revision-transfer/runs/current-fixed-directory/temporary/test_recording_a_sim_robot_end0')
+
+    def test_recording_a_sim_robot_ends_the_episode_with_the_world(tmp_path):
+>       from lerobot.scripts.lerobot_record import record_loop
+
+tests/env_server/test_in_process.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/lerobot/scripts/lerobot_record.py:105: in <module>
+    from lerobot.datasets import (
+src/lerobot/datasets/__init__.py:20: in <module>
+    require_package("datasets", extra="dataset")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+pkg_name = 'datasets', extra = 'dataset', import_name = None
+
+    def require_package(pkg_name: str, extra: str, import_name: str | None = None) -> None:
+        """Raise an informative ImportError if a package required by an optional feature is missing."""
+        cache_key = import_name or pkg_name
+        if cache_key not in _require_package_cache:
+            _require_package_cache[cache_key] = is_package_available(pkg_name, import_name)
+        if not _require_package_cache[cache_key]:
+>           raise ImportError(
+                f"'{pkg_name}' is required but not installed. Install it with: "
+                f"pip install 'lerobot[{extra}]' (or uv pip install 'lerobot[{extra}]')"
+            )
+E           ImportError: 'datasets' is required but not installed. Install it with: pip install 'lerobot[dataset]' (or uv pip install 'lerobot[dataset]')
+
+src/lerobot/utils/import_utils.py:120: ImportError
+=========================== short test summary info ============================
+FAILED tests/env_server/test_env_server.py::test_jpeg_observations_match_raw
+FAILED tests/env_server/test_env_server.py::test_robot_and_command_hold - Imp...
+FAILED tests/env_server/test_env_server.py::test_eval_loop_accepts_canonical_observations
+FAILED tests/env_server/test_env_server.py::test_sim_robot_local_inference_engines[sync]
+FAILED tests/env_server/test_env_server.py::test_sim_robot_local_inference_engines[rtc]
+FAILED tests/env_server/test_env_server.py::test_sim_robot_remote_inference_engine
+FAILED tests/env_server/test_env_server.py::test_rollout_rejects_checkpoint_schema_before_opening_world
+FAILED tests/env_server/test_env_server.py::test_sim_robot_records_scalar_state_actions_and_rgb
+FAILED tests/env_server/test_in_process.py::test_recording_a_sim_robot_ends_the_episode_with_the_world
+9 failed, 71 passed, 1 skipped in 10.76s

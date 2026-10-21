@@ -1,0 +1,56 @@
+"""Compare the native processor on identical current and temporal images."""
+
+import argparse
+import json
+from pathlib import Path
+
+import torch
+
+from lerobot.lerobot_types import TransitionKey
+from lerobot.policies.longwam.processor_longwam import LongWAMInputs
+
+
+def run():
+    processor = LongWAMInputs(("observation.images.front",), (16, 16), "{task}")
+    records = []
+    for height, width in ((16, 16), (32, 32), (16, 32), (32, 16)):
+        pixels = torch.zeros(1, 3, height, width)
+        # White outer quarters and a black central half on the longest axis.
+        if width >= height:
+            pixels[..., : width // 4] = 1
+            pixels[..., 3 * width // 4 :] = 1
+        else:
+            pixels[..., : height // 4, :] = 1
+            pixels[..., 3 * height // 4 :, :] = 1
+
+        def apply(image):
+            transition = {
+                TransitionKey.OBSERVATION: {
+                    "observation.images.front": image,
+                    "observation.state": torch.zeros(1, 2),
+                },
+                TransitionKey.COMPLEMENTARY_DATA: {"task": ["pick"]},
+            }
+            return processor(transition)[TransitionKey.OBSERVATION]["observation.images.front"]
+
+        inference = apply(pixels)
+        training = apply(pixels[:, None])[:, 0]
+        delta = (training - inference).abs()
+        records.append({
+            "input_shape": list(pixels.shape), "output_shape": list(inference.shape),
+            "max_absolute_difference": delta.max().item(),
+            "mean_absolute_difference": delta.mean().item(),
+            "training_mean": training.mean().item(), "inference_mean": inference.mean().item(),
+            "training_row": training[0, 0, 0].tolist(),
+            "inference_row": inference[0, 0, 0].tolist(),
+        })
+    return {"cases": records, "scope": "Native processor, identical synthetic pixels, CPU. No model or task outcome."}
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    result = run()
+    args.output.write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps(result))
