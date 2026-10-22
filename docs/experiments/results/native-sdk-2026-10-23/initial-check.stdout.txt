@@ -1,0 +1,709 @@
+uv run --frozen ruff check .
+All checks passed!
+uv run --frozen ruff format --check .
+649 files already formatted
+uv run --frozen pytest
+......ssssss............................................................ [  4%]
+........................................................................ [  9%]
+............s........................s.................................. [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 24%]
+........................................................................ [ 28%]
+............ss..............FFFFFFFFFFF...............ssssssssssssssssss [ 33%]
+ssssssssssssssssss......sssssssssssssss...............s................. [ 38%]
+........................................................................ [ 43%]
+........................................................................ [ 48%]
+..........................................sssssssssssss................. [ 53%]
+........................................................................ [ 57%]
+........................................................................ [ 62%]
+........................................................................ [ 67%]
+.................................s...................................... [ 72%]
+........................................................................ [ 77%]
+........................................................................ [ 81%]
+........................................................................ [ 86%]
+........................................................................ [ 91%]
+........................................................................ [ 96%]
+.....................................................                    [100%]
+=================================== FAILURES ===================================
+__ test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate ___
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_real_twenty_assignments_k0')
+
+    def test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate(tmp_path):
+        output = tmp_path / "demonstration"
+        before = file_digest(SOURCE / "comparison-ledger.json")
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_real_twenty_assignments_k0/demonstration')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_failure_consuming_terminal_evidence_retains_all_preceding_declarations __
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_failure_consuming_termina0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x13a169400>
+
+    def test_failure_consuming_terminal_evidence_retains_all_preceding_declarations(
+        tmp_path, monkeypatch
+    ):
+        original = workflow._bound
+    
+        def broken(root, reference):
+            if reference["path"].endswith("confirmation/decision.json"):
+                raise ValueError("Labelled injected terminal read failure")
+            return original(root, reference)
+    
+        monkeypatch.setattr(workflow, "_bound", broken)
+        output = tmp_path / "partial"
+>       with pytest.raises(ValueError, match="terminal read failure"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'terminal read failure'
+E         Actual message: 'Pause artifact growth below 5 GiB free space'
+
+tests/engine/test_retained_declarations.py:79: AssertionError
+__ test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims ___
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_early_interruption_keeps_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x13a172390>
+
+    def test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims(
+        tmp_path, monkeypatch
+    ):
+        declare = workflow.declare
+        seen = 0
+    
+        def interrupted(*args, **kwargs):
+            nonlocal seen
+            seen += 1
+            if seen == 3:
+                raise OSError("Labelled interruption before third declaration")
+            return declare(*args, **kwargs)
+    
+        monkeypatch.setattr(workflow, "declare", interrupted)
+        output = tmp_path / "partial-statements"
+        with pytest.raises(OSError, match="before third declaration"):
+>           workflow.run_demo(SOURCE, PLAN, output)
+
+tests/engine/test_retained_declarations.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_early_interruption_keeps_0/partial-statements')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_recovery_exposes_a_cross_0')
+
+    def test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments(tmp_path):
+        output = tmp_path / "changed-statement"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_recovery_exposes_a_cross_0/changed-statement')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[syntax] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps0')
+corruption = 'syntax'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps0/damaged-cost')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[not_object] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps1')
+corruption = 'not_object'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps1/damaged-cost')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[wrong_schema] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps2')
+corruption = 'wrong_schema'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_damaged_cost_record_keeps2/damaged-cost')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv0')
+corruption = 'observed_shape'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv0/damaged-receipt')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_clock] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv1')
+corruption = 'observed_clock'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv1/damaged-receipt')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv2')
+corruption = 'terminal_evidence'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv2/damaged-receipt')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape] _
+
+tmp_path = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv3')
+corruption = 'reference_shape'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+source = PosixPath('<public-checkout>/docs/experiments/results/development-ablation-001')
+plan_path = PosixPath('<public-checkout>/work/development/retained-declaration-plan-v1.json')
+output = PosixPath('<pytest-temporary-root>/test_malformed_receipt_preserv3/damaged-receipt')
+
+    def run_demo(source: Path, plan_path: Path, output: Path) -> dict:
+        """Freeze all declarations before reading any terminal decision in this run.
+    
+        The input ledger already exposes outcomes. Observed local read order cannot
+        turn these old records into prospective or independently held evidence.
+        """
+        source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+        output = output.absolute()
+        if output.exists():
+            raise ValueError("Use a new output directory; prior attempts are retained")
+        source_ledger, source_suite = source / "comparison-ledger.json", source / "frozen-suite.json"
+        ledger, ledger_sha = _read(source_ledger)
+        suite, suite_sha = _read(source_suite)
+        plan, plan_sha = _read(plan_path)
+        if (
+            ledger.get("schema") != "nisayon.comparison.v1"
+            or suite.get("schema") != "nisayon.development.frozen-suite.v1"
+            or plan.get("schema") != "nisayon.retained-declaration-plan.v1"
+            or plan.get("evidence_scope") != SCOPE
+        ):
+            raise ValueError("Only explicitly labelled retained development inputs are supported")
+        if digest(suite) != ledger["suite"]["case_ledger_sha256"]:
+            raise ValueError("Historical frozen suite changed")
+        if plan["source_suite_sha256"] != digest(suite):
+            raise ValueError("Declaration plan belongs to another historical suite")
+        if ledger["cases"] != suite["cases"] or ledger["arms"] != suite["arms"]:
+            raise ValueError("Ledger assignment contract differs from frozen suite")
+        cases = {_name(case["id"]): case for case in suite["cases"]}
+        arms = [_name(arm["id"]) for arm in suite["arms"]]
+        assigned = {(case_id, arm) for case_id in cases for arm in arms}
+        trials = {(t["case_id"], t["arm"]): t for t in ledger["trials"]}
+        if (
+            len(cases) != len(suite["cases"])
+            or len(arms) != len(set(arms))
+            or len(trials) != len(ledger["trials"])
+            or set(trials) != assigned
+            or set(plan["cases"]) != set(cases)
+        ):
+            raise ValueError("Duplicate, missing or unassigned case/arm/plan row")
+        if shutil.disk_usage(output.parent.resolve(strict=True)).free < 5 * 1024**3:
+>           raise ValueError("Pause artifact growth below 5 GiB free space")
+E           ValueError: Pause artifact growth below 5 GiB free space
+
+src/nisayon/engine/retained_declarations.py:122: ValueError
+=========================== short test summary info ============================
+FAILED tests/engine/test_retained_declarations.py::test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate
+FAILED tests/engine/test_retained_declarations.py::test_failure_consuming_terminal_evidence_retains_all_preceding_declarations
+FAILED tests/engine/test_retained_declarations.py::test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims
+FAILED tests/engine/test_retained_declarations.py::test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[syntax]
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[not_object]
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[wrong_schema]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_clock]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape]
+11 failed, 1406 passed, 80 skipped in 293.59s (0:04:53)

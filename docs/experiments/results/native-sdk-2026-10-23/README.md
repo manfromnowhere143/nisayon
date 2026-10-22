@@ -80,5 +80,13 @@ the live comparison and untouched reuse have not been executed.
 
 The current release integration is a separate software qualification. Its
 checks cannot replace that owner experiment. The original 172 focused installed
-tests passed; current public-source checks are recorded in `validation.json`
-when completed. No new simulator, policy training or physical trial is claimed.
+tests passed. The [current validation](validation.json) records 1,406 passes,
+80 explicit skips and 11 failures in the first clean-clone suite. All failures
+came from metadata tests depending on available host disk space. Their fixture
+now controls capacity, and a new below-floor test preserves the unchanged
+runtime refusal: all 13 module tests pass. Public lint, formatting and document
+checks pass. [Installed checks](installed-example.json) also cover acceptance,
+rejection, abstention and review with owner files absent and execution blocked.
+The [platform CI](https://github.com/manfromnowhere143/nisayon/actions/workflows/ci.yml)
+is a separate full-suite result. No new simulator, policy training or physical
+trial is claimed.

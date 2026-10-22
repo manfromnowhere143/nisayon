@@ -104,7 +104,7 @@ have distinct scopes.
 | What makes a correction acceptable? | [Fresh-confirmation obligation](docs/evaluation/CONFIRMATION_OBLIGATION.md), [assessment code](src/nisayon/evaluation/confirmation.py) and [failure paths](tests/evaluation/). |
 | What did the comparisons actually show? | [Results below](#what-the-experiments-found), [complete experiment index](docs/experiments/README.md), and each result's protocol, retained failures and reproduction commands. |
 | Can this checkout reproduce the software checks? | [Development setup](docs/DEVELOPMENT.md), [locked dependencies](uv.lock) and [Linux/macOS checks](.github/workflows/ci.yml). Optional-stack and private-store skips remain explicit. |
-| What did the current repository review verify? | [Clean-clone checks, reproduction correction and diagram review](docs/experiments/results/main-refresh-2026-10-16/README.md), with the initial failure retained. |
+| What did the current repository review verify? | [Native SDK, portable review and cost comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), with [earlier clean-clone and diagram checks](docs/experiments/results/main-refresh-2026-10-16/README.md) retained. |
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
@@ -557,8 +557,10 @@ the confirmation schedule could change those conditional cost ceilings; it
 requires a prospective protocol at matched quality and error control. A passing
 software screen alone establishes neither task reliability nor a cost saving.
 
-The [latest research decision](docs/FRONTIER_DECISION_2026-10-14.md) therefore
-prioritizes experiments that can alter a real correction choice. The finite
+The [current owner procedure](docs/OWNER_COMPARISON.md) prioritizes a live
+integration decision with substantial setup, adaptation or review work. It
+preserves the [research decision](docs/FRONTIER_DECISION_2026-10-14.md): experiments
+must be able to alter a real correction choice. The finite
 probe module makes that distinction explicit, under supplied model and label
 premises. Its next useful test is an independently owned incident with a live
 choice, followed by a separate untouched reuse case. Charge preparation and

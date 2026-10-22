@@ -4,6 +4,7 @@ import csv
 import io
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -14,6 +15,24 @@ from nisayon.engine.io import file_digest
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "docs/experiments/results/development-ablation-001"
 PLAN = ROOT / "work/development/retained-declaration-plan-v1.json"
+
+
+@pytest.fixture(autouse=True)
+def declared_disk_capacity(monkeypatch):
+    # These metadata fixtures exercise retention, not the host's current disk load.
+    monkeypatch.setattr(
+        workflow.shutil, "disk_usage", lambda _path: SimpleNamespace(free=5 * 1024**3)
+    )
+
+
+def test_low_disk_refuses_before_creating_the_output(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        workflow.shutil, "disk_usage", lambda _path: SimpleNamespace(free=5 * 1024**3 - 1)
+    )
+    output = tmp_path / "insufficient-space"
+    with pytest.raises(ValueError, match="below 5 GiB"):
+        workflow.run_demo(SOURCE, PLAN, output)
+    assert not output.exists()
 
 
 def test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate(tmp_path):
