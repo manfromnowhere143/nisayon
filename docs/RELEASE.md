@@ -1,5 +1,22 @@
 # Research source and releases
 
+## Native qualification and portable review · 23 October 2026
+
+This update exports the native SDK, `nisayon-qualify`, portable review and finite
+cost-target checks from the current research source. The
+[implementation record](experiments/results/native-sdk-2026-10-23/README.md)
+retains the negative planner comparison and distinguishes it from current
+public installation checks and the unexecuted owner/reuse experiment.
+The [owner protocol](OWNER_COMPARISON.md) includes setup, retries, review and
+maintenance; unknown costs cannot become savings. No robot acceptance or
+complete-cost advantage is established.
+
+The update descends only from existing public main. Private research ancestry,
+owner correspondence, session memory and local configuration remain excluded.
+Existing public records, licenses and historical release tags are preserved.
+The source manifest and validation record identify the exact copied files and
+reviewed documentation overlays.
+
 ## Integrated research snapshot · 16 October 2026
 
 The current review integrates the implemented engine, offline decision probes,

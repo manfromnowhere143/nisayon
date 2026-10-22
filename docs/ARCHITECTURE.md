@@ -1,6 +1,6 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 16 October
+**Design v0.1 · 17 September 2026; implementation status updated 23 October
 2026.** The general product architecture remains proposed.
 
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
@@ -109,6 +109,18 @@ published prediction-audit formula and its acquisition costs in constructed
 probability models. It leaves the implemented finite confirmation obligation
 unchanged. An owner's pre-execution signal, sampling process and complete costs
 would need their own qualification before this research option could be used.
+
+## Native qualification and review · 23 October 2026
+
+The implemented `nisayon.qualification` package adds explicit project/environment
+contexts, immutable cases and plans, native call witnesses, retained attempts,
+read-only assessments, applicability checks and portable review bundles.
+The [interface](NATIVE_QUALIFICATION.md) keeps software qualification separate
+from deployment acceptance. The experimental decision-planner bridge is measured
+in the [native comparison](experiments/results/native-sdk-2026-10-23/README.md);
+it did not establish an advantage over the fixed probe. The
+[cost assessor](COST_TARGET.md) preserves missing costs and false acceptances.
+A general execution compiler and learned selector remain proposed.
 
 ## Implemented code and data flow
 

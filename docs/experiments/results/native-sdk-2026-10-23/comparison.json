@@ -1,0 +1,2003 @@
+{
+  "schema": "nisayon.native-decision-cost.development.v1",
+  "provenance": {
+    "repository": "https://github.com/XPolicyLab/XPolicyLab",
+    "revision": "94dbf9505f2f87cf59c3ee8ba5912cd236781771",
+    "upstream_files": {
+      "XPolicyLab.py": "a3909558697b73479f8baee03e15b4d74060a7c9ac2f31fcbc6cd659e7364862",
+      "utils/process_data.py": "593b72c64b5a897f2388e6a937d08ff4fc22b51af3bc0a8a0d2b221c235020bd",
+      "utils/load_file.py": "488590d76084f419a36c2fb3e658eeb240ae554678899e9f2ce0cc10da5c4b57",
+      "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    "negative_control": "Merged implementation with only the seven-value width override removed",
+    "source_readback_sha256": "c8c09bc36fb888cc890aafe7641ac5427716c25487298735f6e254f48b6672bb"
+  },
+  "source_files_before_and_after": {
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "adapter.py": "ed906567508a05d977a69b59081d2198b3b9854de9d43e4ffbdf6cc3263967a7",
+    "negative_process_data.py": "8141d371cfdd342884023e9533d185e123cd4663c02e7fe7ec03fd1713d38548",
+    "NOTICE.txt": "16d58637aee4660407d3a291f1fc0046ef0a6deaa44deb6e124c4ced7023dd73",
+    "XPolicyLab.py": "a3909558697b73479f8baee03e15b4d74060a7c9ac2f31fcbc6cd659e7364862",
+    "utils/process_data.py": "593b72c64b5a897f2388e6a937d08ff4fc22b51af3bc0a8a0d2b221c235020bd",
+    "utils/load_file.py": "488590d76084f419a36c2fb3e658eeb240ae554678899e9f2ce0cc10da5c4b57"
+  },
+  "source_unchanged": true,
+  "inputs_sha256": "c96f26b379ca26aad99decb825f9d478f77e07f75d178558e29a03bb3cad0ecc",
+  "expected": {
+    "r0-merged": "keep",
+    "r0-width_error": "replace",
+    "r0-numeric_offset": "unresolved",
+    "r0-prefix_error": "reject",
+    "r0-ineffective_control": "unresolved",
+    "r0-missing_call": "unresolved",
+    "r0-stale_memory": "replace",
+    "r1-merged": "keep",
+    "r1-width_error": "replace",
+    "r1-numeric_offset": "unresolved",
+    "r1-prefix_error": "reject",
+    "r1-ineffective_control": "unresolved",
+    "r1-missing_call": "unresolved",
+    "r1-stale_memory": "replace",
+    "r2-merged": "keep",
+    "r2-width_error": "replace",
+    "r2-numeric_offset": "unresolved",
+    "r2-prefix_error": "reject",
+    "r2-ineffective_control": "unresolved",
+    "r2-missing_call": "unresolved",
+    "r2-stale_memory": "replace"
+  },
+  "rows": {
+    "fixed": {
+      "r0-merged": {
+        "arm": "fixed",
+        "scenario": "merged",
+        "repetition": 0,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.6693957149982452e-07,
+          "diagnostic": 2.2843451249646023,
+          "hypothesis_assessment": 0.00024158402811735868,
+          "confirmation": 12.265863874927163
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.550841082935221,
+        "reference": "assignments/r0-merged-fixed/outcome.json"
+      },
+      "r0-width_error": {
+        "arm": "fixed",
+        "scenario": "width_error",
+        "repetition": 0,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.4994369596242905e-07,
+          "diagnostic": 2.622929041972384,
+          "hypothesis_assessment": 0.0001919169444590807,
+          "confirmation": 13.400903375004418
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 16.024473583092913,
+        "reference": "assignments/r0-width_error-fixed/outcome.json"
+      },
+      "r0-numeric_offset": {
+        "arm": "fixed",
+        "scenario": "numeric_offset",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.7499551177024841e-06,
+          "diagnostic": 2.27565929107368,
+          "hypothesis_assessment": 0.00024162500631064177
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.2761952079599723,
+        "reference": "assignments/r0-numeric_offset-fixed/outcome.json"
+      },
+      "r0-prefix_error": {
+        "arm": "fixed",
+        "scenario": "prefix_error",
+        "repetition": 0,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.25030055642128e-07,
+          "diagnostic": 2.1798151249531657,
+          "hypothesis_assessment": 0.0001989590236917138,
+          "confirmation": 12.214441791991703
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.394896042067558,
+        "reference": "assignments/r0-prefix_error-fixed/outcome.json"
+      },
+      "r0-ineffective_control": {
+        "arm": "fixed",
+        "scenario": "ineffective_control",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.958920620381832e-06,
+          "diagnostic": 2.156201084027998
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1564325420185924,
+        "reference": "assignments/r0-ineffective_control-fixed/outcome.json"
+      },
+      "r0-missing_call": {
+        "arm": "fixed",
+        "scenario": "missing_call",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 3.330642357468605e-07,
+          "diagnostic": 2.1465855001006275
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.146866833907552,
+        "reference": "assignments/r0-missing_call-fixed/outcome.json"
+      },
+      "r0-stale_memory": {
+        "arm": "fixed",
+        "scenario": "stale_memory",
+        "repetition": 0,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.0803418010473251e-07,
+          "diagnostic": 2.126822083024308,
+          "hypothesis_assessment": 0.00018862506840378046,
+          "confirmation": 12.193148166988976
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.32046120800078,
+        "reference": "assignments/r0-stale_memory-fixed/outcome.json"
+      },
+      "r1-merged": {
+        "arm": "fixed",
+        "scenario": "merged",
+        "repetition": 1,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.50060111284256e-07,
+          "diagnostic": 2.2944741250248626,
+          "hypothesis_assessment": 0.00020866701379418373,
+          "confirmation": 13.233943417086266
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 15.528942874982022,
+        "reference": "assignments/r1-merged-fixed/outcome.json"
+      },
+      "r1-width_error": {
+        "arm": "fixed",
+        "scenario": "width_error",
+        "repetition": 1,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.5420373529195786e-06,
+          "diagnostic": 2.304528000066057,
+          "hypothesis_assessment": 0.0002050829352810979,
+          "confirmation": 12.92484491597861
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 15.229928291984834,
+        "reference": "assignments/r1-width_error-fixed/outcome.json"
+      },
+      "r1-numeric_offset": {
+        "arm": "fixed",
+        "scenario": "numeric_offset",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 8.393544703722e-08,
+          "diagnostic": 2.2162612080574036,
+          "hypothesis_assessment": 0.0001837499439716339
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.216700749937445,
+        "reference": "assignments/r1-numeric_offset-fixed/outcome.json"
+      },
+      "r1-prefix_error": {
+        "arm": "fixed",
+        "scenario": "prefix_error",
+        "repetition": 1,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.5419209375977516e-06,
+          "diagnostic": 2.205037208041176,
+          "hypothesis_assessment": 0.0001967499265447259,
+          "confirmation": 12.40255858306773
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.608089125016704,
+        "reference": "assignments/r1-prefix_error-fixed/outcome.json"
+      },
+      "r1-ineffective_control": {
+        "arm": "fixed",
+        "scenario": "ineffective_control",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.25030055642128e-07,
+          "diagnostic": 2.1542296250117943
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1544423330342397,
+        "reference": "assignments/r1-ineffective_control-fixed/outcome.json"
+      },
+      "r1-missing_call": {
+        "arm": "fixed",
+        "scenario": "missing_call",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.750071533024311e-06,
+          "diagnostic": 2.147083332994953
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1472989580361173,
+        "reference": "assignments/r1-missing_call-fixed/outcome.json"
+      },
+      "r1-stale_memory": {
+        "arm": "fixed",
+        "scenario": "stale_memory",
+        "repetition": 1,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.0791776478290558e-07,
+          "diagnostic": 2.211313582956791,
+          "hypothesis_assessment": 0.00019112497102469206,
+          "confirmation": 12.554779917001724
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.766712167067453,
+        "reference": "assignments/r1-stale_memory-fixed/outcome.json"
+      },
+      "r2-merged": {
+        "arm": "fixed",
+        "scenario": "merged",
+        "repetition": 2,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.8329592421650887e-06,
+          "diagnostic": 2.117826292058453,
+          "hypothesis_assessment": 0.00019175000488758087,
+          "confirmation": 12.051973957917653
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.170299292076379,
+        "reference": "assignments/r2-merged-fixed/outcome.json"
+      },
+      "r2-width_error": {
+        "arm": "fixed",
+        "scenario": "width_error",
+        "repetition": 2,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.08965502679348e-07,
+          "diagnostic": 2.1858137499075383,
+          "hypothesis_assessment": 0.00020108302123844624,
+          "confirmation": 12.315333958016708
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.50168262491934,
+        "reference": "assignments/r2-width_error-fixed/outcome.json"
+      },
+      "r2-numeric_offset": {
+        "arm": "fixed",
+        "scenario": "numeric_offset",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.9170187190175056e-06,
+          "diagnostic": 2.1798953330144286,
+          "hypothesis_assessment": 0.00023329199757426977
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.180425332975574,
+        "reference": "assignments/r2-numeric_offset-fixed/outcome.json"
+      },
+      "r2-prefix_error": {
+        "arm": "fixed",
+        "scenario": "prefix_error",
+        "repetition": 2,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 2.0791776478290558e-07,
+          "diagnostic": 2.179293958004564,
+          "hypothesis_assessment": 0.00022008398082107306,
+          "confirmation": 12.326142834033817
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.505976625019684,
+        "reference": "assignments/r2-prefix_error-fixed/outcome.json"
+      },
+      "r2-ineffective_control": {
+        "arm": "fixed",
+        "scenario": "ineffective_control",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.8330756574869156e-06,
+          "diagnostic": 2.1292122920276597
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1294224580051377,
+        "reference": "assignments/r2-ineffective_control-fixed/outcome.json"
+      },
+      "r2-missing_call": {
+        "arm": "fixed",
+        "scenario": "missing_call",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.2491364032030106e-07,
+          "diagnostic": 2.0758508750004694
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.0760499159805477,
+        "reference": "assignments/r2-missing_call-fixed/outcome.json"
+      },
+      "r2-stale_memory": {
+        "arm": "fixed",
+        "scenario": "stale_memory",
+        "repetition": 2,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 1.6693957149982452e-07,
+          "diagnostic": 2.1141756249126047,
+          "hypothesis_assessment": 0.00019616703502833843,
+          "confirmation": 12.373308290960267
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.488010332919657,
+        "reference": "assignments/r2-stale_memory-fixed/outcome.json"
+      }
+    },
+    "planner": {
+      "r0-merged": {
+        "arm": "planner",
+        "scenario": "merged",
+        "repetition": 0,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00027820898685604334,
+          "diagnostic": 2.129288874915801,
+          "hypothesis_assessment": 0.0001842499477788806,
+          "confirmation": 11.855544165940955
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 13.985587208997458,
+        "reference": "assignments/r0-merged-planner/outcome.json"
+      },
+      "r0-width_error": {
+        "arm": "planner",
+        "scenario": "width_error",
+        "repetition": 0,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00030637497548013926,
+          "diagnostic": 2.0982588339829817,
+          "hypothesis_assessment": 0.0001971670426428318,
+          "confirmation": 12.399073041975498
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.49815962498542,
+        "reference": "assignments/r0-width_error-planner/outcome.json"
+      },
+      "r0-numeric_offset": {
+        "arm": "planner",
+        "scenario": "numeric_offset",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.0002477500820532441,
+          "diagnostic": 2.2161172080086544,
+          "hypothesis_assessment": 0.00022199994418770075
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.2168701250338927,
+        "reference": "assignments/r0-numeric_offset-planner/outcome.json"
+      },
+      "r0-prefix_error": {
+        "arm": "planner",
+        "scenario": "prefix_error",
+        "repetition": 0,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.0002786250552162528,
+          "diagnostic": 2.2378301250282675,
+          "hypothesis_assessment": 0.00021116598509252071,
+          "confirmation": 12.384583916980773
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.62335000000894,
+        "reference": "assignments/r0-prefix_error-planner/outcome.json"
+      },
+      "r0-ineffective_control": {
+        "arm": "planner",
+        "scenario": "ineffective_control",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.000264291069470346,
+          "diagnostic": 2.115013291942887
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.11547249997966,
+        "reference": "assignments/r0-ineffective_control-planner/outcome.json"
+      },
+      "r0-missing_call": {
+        "arm": "planner",
+        "scenario": "missing_call",
+        "repetition": 0,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00025279202964156866,
+          "diagnostic": 2.103995000012219
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1044492499204352,
+        "reference": "assignments/r0-missing_call-planner/outcome.json"
+      },
+      "r0-stale_memory": {
+        "arm": "planner",
+        "scenario": "stale_memory",
+        "repetition": 0,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "memory": 0.22976050002034754,
+          "selection": 0.0002798329805955291,
+          "diagnostic": 2.1352460000198334,
+          "hypothesis_assessment": 0.00018012500368058681,
+          "confirmation": 12.190567124984227
+        },
+        "native_calls": 21,
+        "reuse": {
+          "schema": "nisayon.qualification.reuse.v1",
+          "previous_plan_sha256": "03b947e194833f1407f8ad2e142a554767345ed5912285e2f184862b91c18b7c",
+          "proposed_plan_sha256": "74a622934381b17261e2cb140ff82caf08ad876ae0a9498f609f52ba7063472a",
+          "previous_assessment_sha256": "502c7a5d22c2ed37fb1e7585995bfac94d9ac242a960c416dcaac9d2baadd964",
+          "procedure": "adaptable_requires_execution",
+          "observations": "describe_previous_execution_only",
+          "verdict_applicability": "inapplicable",
+          "reason": "Prior measurements do not establish the changed claim",
+          "changed_dependencies": [
+            "question",
+            "targets",
+            "probes",
+            "premises",
+            "sources",
+            "tool",
+            "context.project"
+          ],
+          "unmet_obligations": [],
+          "automatic_acceptance": false,
+          "limit": "No automatic inference of missing dependencies or evidence of lower adaptation cost."
+        },
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.556385917006992,
+        "reference": "assignments/r0-stale_memory-planner/outcome.json"
+      },
+      "r1-merged": {
+        "arm": "planner",
+        "scenario": "merged",
+        "repetition": 1,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.0002476669615134597,
+          "diagnostic": 2.0983301249798387,
+          "hypothesis_assessment": 0.0001908749109134078,
+          "confirmation": 12.63077558297664
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.729886583052576,
+        "reference": "assignments/r1-merged-planner/outcome.json"
+      },
+      "r1-width_error": {
+        "arm": "planner",
+        "scenario": "width_error",
+        "repetition": 1,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00037566700484603643,
+          "diagnostic": 2.284754874999635,
+          "hypothesis_assessment": 0.0001741660526022315,
+          "confirmation": 12.474862165981904
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.760506333084777,
+        "reference": "assignments/r1-width_error-planner/outcome.json"
+      },
+      "r1-numeric_offset": {
+        "arm": "planner",
+        "scenario": "numeric_offset",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00027075002435594797,
+          "diagnostic": 2.189297709031962,
+          "hypothesis_assessment": 0.00020074995700269938
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.1900326249888167,
+        "reference": "assignments/r1-numeric_offset-planner/outcome.json"
+      },
+      "r1-prefix_error": {
+        "arm": "planner",
+        "scenario": "prefix_error",
+        "repetition": 1,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00027816591318696737,
+          "diagnostic": 2.2302548750303686,
+          "hypothesis_assessment": 0.0002209589583799243,
+          "confirmation": 12.461967917042784
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.693038167082705,
+        "reference": "assignments/r1-prefix_error-planner/outcome.json"
+      },
+      "r1-ineffective_control": {
+        "arm": "planner",
+        "scenario": "ineffective_control",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.0002757919719442725,
+          "diagnostic": 2.1259193749865517
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.126410999917425,
+        "reference": "assignments/r1-ineffective_control-planner/outcome.json"
+      },
+      "r1-missing_call": {
+        "arm": "planner",
+        "scenario": "missing_call",
+        "repetition": 1,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00030933308880776167,
+          "diagnostic": 2.129670707974583
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1301580839790404,
+        "reference": "assignments/r1-missing_call-planner/outcome.json"
+      },
+      "r1-stale_memory": {
+        "arm": "planner",
+        "scenario": "stale_memory",
+        "repetition": 1,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "memory": 0.23280895897187293,
+          "selection": 0.00039245898369699717,
+          "diagnostic": 2.0998467080062255,
+          "hypothesis_assessment": 0.00019229191821068525,
+          "confirmation": 12.096237832913175
+        },
+        "native_calls": 21,
+        "reuse": {
+          "schema": "nisayon.qualification.reuse.v1",
+          "previous_plan_sha256": "03b947e194833f1407f8ad2e142a554767345ed5912285e2f184862b91c18b7c",
+          "proposed_plan_sha256": "07a48bdd2eebe0084d1e360f9c60bb436d7d75ed63fd110092d40d62f80421be",
+          "previous_assessment_sha256": "502c7a5d22c2ed37fb1e7585995bfac94d9ac242a960c416dcaac9d2baadd964",
+          "procedure": "adaptable_requires_execution",
+          "observations": "describe_previous_execution_only",
+          "verdict_applicability": "inapplicable",
+          "reason": "Prior measurements do not establish the changed claim",
+          "changed_dependencies": [
+            "question",
+            "targets",
+            "probes",
+            "premises",
+            "sources",
+            "tool",
+            "context.project"
+          ],
+          "unmet_obligations": [],
+          "automatic_acceptance": false,
+          "limit": "No automatic inference of missing dependencies or evidence of lower adaptation cost."
+        },
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.429791125003248,
+        "reference": "assignments/r1-stale_memory-planner/outcome.json"
+      },
+      "r2-merged": {
+        "arm": "planner",
+        "scenario": "merged",
+        "repetition": 2,
+        "decision": "keep",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00025141704827547073,
+          "diagnostic": 2.093127041007392,
+          "hypothesis_assessment": 0.00018866593018174171,
+          "confirmation": 11.989828999969177
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.083700541988946,
+        "reference": "assignments/r2-merged-planner/outcome.json"
+      },
+      "r2-width_error": {
+        "arm": "planner",
+        "scenario": "width_error",
+        "repetition": 2,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.000360167003236711,
+          "diagnostic": 2.112372124916874,
+          "hypothesis_assessment": 0.00018174992874264717,
+          "confirmation": 12.397123457980342
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.510453249909915,
+        "reference": "assignments/r2-width_error-planner/outcome.json"
+      },
+      "r2-numeric_offset": {
+        "arm": "planner",
+        "scenario": "numeric_offset",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00024262501392513514,
+          "diagnostic": 2.1242304170737043,
+          "hypothesis_assessment": 0.00020408304408192635
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "model_mismatch",
+          "survivors": [],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.125,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 2.875,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "model_mismatch",
+            "label": null,
+            "possible_labels": [],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": null,
+        "reason": "Declared hypotheses do not determine a correction",
+        "workflow_wall_seconds": 2.12496312498115,
+        "reference": "assignments/r2-numeric_offset-planner/outcome.json"
+      },
+      "r2-prefix_error": {
+        "arm": "planner",
+        "scenario": "prefix_error",
+        "repetition": 2,
+        "decision": "reject",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00023691693786531687,
+          "diagnostic": 2.1110572079196572,
+          "hypothesis_assessment": 0.0001984580885618925,
+          "confirmation": 12.157846958027221
+        },
+        "native_calls": 21,
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "merged"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            },
+            "width_error": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "keep",
+            "possible_labels": [
+              "keep"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "keep",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "reject",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.269654750009067,
+        "reference": "assignments/r2-prefix_error-planner/outcome.json"
+      },
+      "r2-ineffective_control": {
+        "arm": "planner",
+        "scenario": "ineffective_control",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00025400007143616676,
+          "diagnostic": 2.1126479590311646
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1131067499518394,
+        "reference": "assignments/r2-ineffective_control-planner/outcome.json"
+      },
+      "r2-missing_call": {
+        "arm": "planner",
+        "scenario": "missing_call",
+        "repetition": 2,
+        "decision": "unresolved",
+        "valid": false,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "selection": 0.00025162508245557547,
+          "diagnostic": 2.1954403329873458
+        },
+        "native_calls": 3,
+        "diagnostic_validity": "invalid",
+        "reason": "Diagnostic execution or controls invalid",
+        "workflow_wall_seconds": 2.1958898750599474,
+        "reference": "assignments/r2-missing_call-planner/outcome.json"
+      },
+      "r2-stale_memory": {
+        "arm": "planner",
+        "scenario": "stale_memory",
+        "repetition": 2,
+        "decision": "replace",
+        "valid": true,
+        "selected": [
+          "c-six-vector"
+        ],
+        "stages": {
+          "memory": 0.25015837501268834,
+          "selection": 0.00032716698478907347,
+          "diagnostic": 2.278090834035538,
+          "hypothesis_assessment": 0.00020591693464666605,
+          "confirmation": 12.333276875084266
+        },
+        "native_calls": 21,
+        "reuse": {
+          "schema": "nisayon.qualification.reuse.v1",
+          "previous_plan_sha256": "03b947e194833f1407f8ad2e142a554767345ed5912285e2f184862b91c18b7c",
+          "proposed_plan_sha256": "c2384a26e9ac98e2b6d9dacb3652c29bc52f3fe7890966f014b1c6784317cb67",
+          "previous_assessment_sha256": "502c7a5d22c2ed37fb1e7585995bfac94d9ac242a960c416dcaac9d2baadd964",
+          "procedure": "adaptable_requires_execution",
+          "observations": "describe_previous_execution_only",
+          "verdict_applicability": "inapplicable",
+          "reason": "Prior measurements do not establish the changed claim",
+          "changed_dependencies": [
+            "question",
+            "targets",
+            "probes",
+            "premises",
+            "sources",
+            "tool",
+            "context.project"
+          ],
+          "unmet_obligations": [],
+          "automatic_acceptance": false,
+          "limit": "No automatic inference of missing dependencies or evidence of lower adaptation cost."
+        },
+        "diagnostic_validity": "valid",
+        "hypothesis_assessment": {
+          "status": "identified_within_declared_hypotheses",
+          "survivors": [
+            "width_error"
+          ],
+          "residuals": {
+            "merged": {
+              "max_abs": 2.75,
+              "display_overflow": false,
+              "within_bound": false
+            },
+            "width_error": {
+              "max_abs": 0.0,
+              "display_overflow": false,
+              "within_bound": true
+            }
+          },
+          "scope": "fit within supplied hypotheses and error bound; no task acceptance",
+          "decision": {
+            "status": "invariant_within_declared_hypotheses",
+            "label": "replace",
+            "possible_labels": [
+              "replace"
+            ],
+            "task_confirmation": "not_assessed",
+            "scope": "caller-declared equivalence; no correction validation or task acceptance"
+          }
+        },
+        "proposed_choice": "replace",
+        "confirmation_validity": "valid",
+        "confirmation_decision": "adopt",
+        "deployment_decision": "unresolved",
+        "workflow_wall_seconds": 14.862394083989784,
+        "reference": "assignments/r2-stale_memory-planner/outcome.json"
+      }
+    }
+  },
+  "all_assignments_per_arm": 21,
+  "workflow_wall_seconds": {
+    "fixed": 196.57414758193772,
+    "planner": 193.32026091893204
+  },
+  "workflow_ratio_fixed_over_planner": 1.0168315863404,
+  "confirmation_wall_seconds": {
+    "fixed": 150.25724308297504,
+    "planner": 147.37168803985696
+  },
+  "fixed_diagnostic_elimination_bound": {
+    "optimistic_speedup_cap": 1.3082507275432012,
+    "twofold_ruled_out_under_premises": true,
+    "premises": "Same measured sequential confirmation implementation and schedule; all other work free",
+    "scope": "Conditional accounting bound, not a bound on future implementations or complete economics"
+  },
+  "identical_probe_selections": true,
+  "native_calls": {
+    "fixed": 279,
+    "planner": 279
+  },
+  "outcome_counts": {
+    "fixed": {
+      "keep": 3,
+      "replace": 6,
+      "unresolved": 9,
+      "reject": 3
+    },
+    "planner": {
+      "keep": 3,
+      "replace": 6,
+      "unresolved": 9,
+      "reject": 3
+    }
+  },
+  "target": {
+    "schema": "nisayon.cost-target.v1",
+    "status": "unresolved",
+    "target_speedup": 2.0,
+    "quality_matched": true,
+    "baseline_quality": {
+      "assigned": 21,
+      "correct": 21,
+      "incorrect_cases": [],
+      "false_acceptance_cases": [],
+      "invalid_acceptance_cases": [],
+      "confirmed_correction_cases": [
+        "r0-stale_memory",
+        "r0-width_error",
+        "r1-stale_memory",
+        "r1-width_error",
+        "r2-stale_memory",
+        "r2-width_error"
+      ],
+      "outcome_counts": {
+        "keep": 3,
+        "reject": 3,
+        "replace": 6,
+        "unresolved": 9
+      }
+    },
+    "candidate_quality": {
+      "assigned": 21,
+      "correct": 21,
+      "incorrect_cases": [],
+      "false_acceptance_cases": [],
+      "invalid_acceptance_cases": [],
+      "confirmed_correction_cases": [
+        "r0-stale_memory",
+        "r0-width_error",
+        "r1-stale_memory",
+        "r1-width_error",
+        "r2-stale_memory",
+        "r2-width_error"
+      ],
+      "outcome_counts": {
+        "keep": 3,
+        "reject": 3,
+        "replace": 6,
+        "unresolved": 9
+      }
+    },
+    "baseline_costs": {
+      "unit": "USD",
+      "scope": "All assigned decisions including intake, engineering, model/compute and review; no amortization",
+      "status": "partial",
+      "known_total": 0.0,
+      "display_overflow": false,
+      "missing_phases": [
+        "adoption",
+        "confirmation",
+        "diagnosis",
+        "intake",
+        "maintenance",
+        "retries",
+        "review",
+        "setup"
+      ],
+      "total": null
+    },
+    "candidate_costs": {
+      "unit": "USD",
+      "scope": "All assigned decisions including intake, engineering, model/compute and review; no amortization",
+      "status": "partial",
+      "known_total": 0.0,
+      "display_overflow": false,
+      "missing_phases": [
+        "adoption",
+        "confirmation",
+        "diagnosis",
+        "intake",
+        "maintenance",
+        "retries",
+        "review",
+        "setup"
+      ],
+      "total": null
+    },
+    "cost_ratio_baseline_over_candidate": null,
+    "reasons": [
+      "complete_costs_unmeasured"
+    ],
+    "scope": "Finite assigned cases and declared exclusive costs; no population or untouched-reuse claim",
+    "premises": "Expected decisions, measurement completeness, disjoint phases and valuation are supplied, not independently verified"
+  },
+  "shared_setup_wall_seconds": 0.2318546250462532,
+  "driver_wall_seconds": 390.1451617500279,
+  "limits": [
+    "Exposed development comparison; not an independent agent or external-owner trial",
+    "Recorded workflow times are partial costs; economic costs remain unknown",
+    "No physical-task acceptance or untouched reuse",
+    "Finite controls are not statistical false-acceptance guarantees"
+  ]
+}

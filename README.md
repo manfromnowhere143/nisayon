@@ -60,7 +60,7 @@ flowchart TB
         E --> C["Confirm correction<br/>fresh task conditions"]
     end
     D["Offline probe selection<br/>declared causes or choices<br/>no intervention execution"]
-    D -. "proposal; no execution bridge" .-> E
+    D -. "experimental native bridge; task confirmation separate" .-> E
     N["Native software checks<br/>source-bound corrections<br/>scoped upstream adoption"]
     R["Confirmation research<br/>prediction audits · complete cost<br/>no runtime acceptance change"]
     subgraph V["Owner evidence needed"]
@@ -108,6 +108,28 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**23 October — native SDK, portable review and the cost target.** The Python
+SDK and `nisayon-qualify` bind an owner project and environment, retain native
+reference/control/candidate calls, and assess a declared software relation.
+Portable bundles can be reviewed without executing owner code. Start with the
+[native example](docs/NATIVE_QUALIFICATION.md) and [review guide](docs/PORTABLE_REVIEW.md).
+
+The [native cost comparison](docs/experiments/results/native-sdk-2026-10-23/README.md)
+matched all 21 expected decisions in each arm. The planner chose the same probe
+as the fixed baseline; measured workflow time was 196.6 versus 193.3 seconds.
+This does not establish the twofold complete-cost target. Fresh confirmation
+caught a defect that diagnosis alone would have accepted. Complete economic
+cost remains unresolved. The [next owner experiment](docs/OWNER_COMPARISON.md)
+tests avoidable setup, adaptation and review, followed by untouched reuse;
+its required owner records remain outstanding.
+
+22 October: the separate native checkpoint investigation produced two public
+LeRobot corrections: [completed accumulation windows](https://github.com/huggingface/lerobot/pull/5061)
+and [interrupted checkpoint publication and EMA recovery](https://github.com/huggingface/lerobot/pull/5062).
+Their finite CPU evidence and failed checks are described in the submissions.
+The accumulation change remains a draft pending native distributed qualification;
+maintainer adoption and full-weight training quality are not established.
 
 20 October: an [evidence-transfer review](docs/experiments/results/evidence-transfer-2026-10-20/README.md)
 examines whether another verifier improves a deployment decision. A check of
@@ -399,7 +421,8 @@ measurement and an accepted repair are distinct results. The
 [contract](docs/evaluation/CONFIRMATION_OBLIGATION.md) and
 [adversarial controls](docs/evaluation/CONTROLS.md) make those distinctions executable.
 
-The finite probe tool is separate from this execution path. A declared choice
+The finite probe tool remains separate from the closed-loop task path. An
+experimental bridge now exercises native software checks. A declared choice
 can be resolved while its cause remains uncertain, including a zero-probe case
 when every supplied hypothesis has the same label. Neither case skips fresh
 confirmation: the tool always reports `task_confirmation: not_assessed`.

@@ -33,3 +33,12 @@ The next decisive evidence is an independently owned incident with a freshly
 confirmed correction and lower complete effort than a competent native workflow,
 followed by a separate untouched reuse case. Participation, economic value and
 general applicability remain open. See [the research plan](RESEARCH_PLAN.md).
+
+## Current interface and next test · 23 October 2026
+
+Use the [native SDK](NATIVE_QUALIFICATION.md) and [portable review](PORTABLE_REVIEW.md)
+for bounded software qualification. The [latest comparison](experiments/results/native-sdk-2026-10-23/README.md)
+found identical probe selection and no established twofold complete-cost gain.
+Follow the [owner procedure](OWNER_COMPARISON.md) for a live decision and separate
+untouched reuse. Those experiments remain unexecuted pending owner records.
+Private history and correspondence are not included in this public checkout.

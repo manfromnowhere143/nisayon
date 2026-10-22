@@ -12,6 +12,12 @@ and historical source extraction stay separate from robot-policy confirmation.
 
 ## Local setup
 
+The [native qualification SDK and CLI](NATIVE_QUALIFICATION.md) execute bounded
+software checks in an explicit owner project, including outside Git. Use
+`nisayon-qualify` for that interface; workspace commands below retain their
+repository identity checks. The qualification adapter needs no simulator in
+the SDK host and preserves the owner's existing dependency environment.
+
 Install Git, Python 3.12, uv and ripgrep (`rg`) before the Python environment.
 Workspace search calls ripgrep directly. Use `brew install ripgrep` on macOS
 or `sudo apt-get install ripgrep` on Debian/Ubuntu. CI installs this system
@@ -215,6 +221,12 @@ it to completed by inference. Command records do not measure human effort,
 external billing or experimental validity.
 
 ## Concurrent sessions
+
+The [engagement monitor](ENGAGEMENTS.md) adds a read-only GitHub queue shared by
+same-repository worktrees. `nisayon engagements status` exposes pending changes
+and stale reads; `nisayon start` includes its summary. Its local schedule uses
+no model calls and does not send replies. Branch-local research memory still
+requires deliberate integration as described below.
 
 The prepared first-case assignments are in [the parallel mission](PARALLEL_MISSION.md).
 Codex uses `../nisayon-codex`; Fable 5 uses `../nisayon-fable5`. For sessions

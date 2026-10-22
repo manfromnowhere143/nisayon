@@ -136,6 +136,18 @@ def checkpoint_save(
 def context(root: Path) -> dict:
     handoff = root / "docs/SESSION_HANDOFF.md"
     queue = root / "work/queue.json"
+    engagement_summary = None
+    if (root / "work/engagements.json").exists():
+        from . import engagements
+
+        try:
+            current = engagements.status(root)
+            engagement_summary = {
+                key: current[key]
+                for key in ("store", "needs_review", "stale", "last_finished", "error")
+            }
+        except (OSError, ValueError, KeyError) as error:
+            engagement_summary = {"error": str(error), "status": "unknown"}
     return {
         "project": "Nisayon",
         "git": git_state(root),
@@ -144,5 +156,6 @@ def context(root: Path) -> dict:
         "recent_checkpoints": load_records(root, "checkpoints")[:3],
         "recent_notes": memory_search(root, limit=5),
         "queue": json.loads(queue.read_text()) if queue.exists() else [],
+        "engagements": engagement_summary,
         "memory_scope": "Project records; read sources before asserting scientific claims",
     }

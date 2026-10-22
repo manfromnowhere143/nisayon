@@ -1,0 +1,21 @@
+{
+  "schema": "nisayon.qualification.case.v1",
+  "id": "normalization",
+  "question": "Does the candidate preserve the declared normalization on these inputs?",
+  "contract": {"kind": "exact"},
+  "source_files": ["policy.py"],
+  "targets": {
+    "reference": {"path": "policy.py", "callable": "reference", "required_calls": ["normalize"]},
+    "negative_control": {"path": "policy.py", "callable": "wrong_sign", "required_calls": ["normalize"]},
+    "candidate": {"path": "policy.py", "callable": "candidate", "required_calls": ["normalize"]}
+  },
+  "premises": {
+    "population": "Two exposed development vectors; no task generalization",
+    "state": "fresh_process",
+    "environment": "Pure Python normalization example; declared file contains its dependencies"
+  },
+  "probes": [
+    {"id": "offset", "input": {"position": [0, 10, 20]}, "expected": {"action": [-1.0, 0.0, 1.0]}},
+    {"id": "fractional", "input": {"position": [5, 15, 30]}, "expected": {"action": [-0.5, 0.5, 2.0]}}
+  ]
+}

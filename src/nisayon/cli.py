@@ -41,6 +41,17 @@ def parser() -> argparse.ArgumentParser:
     checkpoint.add_argument("--reference", action="append", default=[])
     checkpoint.add_argument("--session", default="manual")
     sub.add_parser("checkpoints")
+    engagement = sub.add_parser("engagements", help="read-only GitHub monitoring").add_subparsers(
+        dest="engagement_command", required=True
+    )
+    engagement.add_parser("scan")
+    engagement.add_parser("status")
+    reviewed = engagement.add_parser("review")
+    reviewed.add_argument("key")
+    reviewed.add_argument("--fingerprint", required=True)
+    reviewed.add_argument("--disposition", required=True)
+    reviewed.add_argument("--note", required=True)
+    reviewed.add_argument("--reference", required=True)
     run = sub.add_parser("run")
     run.add_argument("--label", required=True)
     run.add_argument("--timeout", type=float)
@@ -90,6 +101,8 @@ def main() -> None:
                     print(f"Nisayon · {state['branch']} · {(state['head'] or 'no commit')[:12]}")
                     print(f"{root}\n{len(state['changes'])} Git status entries\n")
                     print(result["handoff"])
+                    if result.get("engagements"):
+                        print("\nEngagement monitoring: " + json.dumps(result["engagements"]))
                     for row in result["recent_checkpoints"]:
                         print(f"\nCheckpoint {row['id'][:8]} ({row['created_at']})")
                         print(row["summary"])
@@ -132,6 +145,23 @@ def main() -> None:
                 )
             case "checkpoints":
                 result = records.load_records(root, "checkpoints")[:10]
+            case "engagements":
+                from . import engagements
+
+                if args.engagement_command == "scan":
+                    result = engagements.scan(root)
+                    exit_code = 1 if result["status"] == "incomplete" else 0
+                elif args.engagement_command == "status":
+                    result = engagements.status(root)
+                else:
+                    result = engagements.review(
+                        root,
+                        args.key,
+                        args.fingerprint,
+                        args.disposition,
+                        args.note,
+                        args.reference,
+                    )
             case "run":
                 argv = args.argv[1:] if args.argv[:1] == ["--"] else args.argv
                 result = runs.run_command(root, argv, args.label, args.timeout)
