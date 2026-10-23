@@ -1,0 +1,757 @@
+{
+  "scope": "Qualification through export and blocked-execution review; later documentation/publication is separate additional work. All are partial costs, not an economic comparison.",
+  "recorded_at": "2026-10-23T06:13:08.293938+00:00",
+  "elapsed_since_intake_timer_seconds": 1253.173999916995,
+  "prior_discovery_cost": "Unknown assistant/provider cost before this timestamp; not free and not a measured arm.",
+  "measured_command_interval_union_seconds": 374.3628656864166,
+  "measured_command_duration_sum_seconds": 420.26761083479505,
+  "overlap_policy": "Duration sum may overlap. Interval union avoids double counting concurrent commands; neither includes every investigation action. SDK child clocks are nested in these wrappers and are not added.",
+  "complete_cost": null,
+  "human_engineering_seconds": null,
+  "provider_cost": null,
+  "compute_cost": null,
+  "independent_comparator": null,
+  "twofold_target": 2,
+  "target_status": "unresolved",
+  "receipts": [
+    {
+      "receipt": "author-native-candidate.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/candidate:artifacts/groot-statistics-2026-10-23/candidate/tests",
+        "TEST_CACHE_PATH=artifacts/groot-statistics-2026-10-23/test-cache",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "addopts=",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_sharded_datasets.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_dataset_factory.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_stats_pipeline.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/state_action/test_state_action_processor.py"
+      ],
+      "started_at": "2026-10-23T06:01:44.788259+00:00",
+      "returncode": 1,
+      "timed_out": false,
+      "elapsed_seconds": 7.057366374996491
+    },
+    {
+      "receipt": "author-regression-base.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/source:artifacts/groot-statistics-2026-10-23/source/tests",
+        "TEST_CACHE_PATH=artifacts/groot-statistics-2026-10-23/test-cache",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-o",
+        "addopts=",
+        "artifacts/groot-statistics-2026-10-23/source/tests/gr00t/data/test_pr796_sharded_datasets.py",
+        "-k",
+        "constant_dimension_merges_to_zero_std"
+      ],
+      "started_at": "2026-10-23T06:01:35.265241+00:00",
+      "returncode": 1,
+      "timed_out": false,
+      "elapsed_seconds": 6.237621415988542
+    },
+    {
+      "receipt": "commands/author-native-candidate-extended.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/candidate:artifacts/groot-statistics-2026-10-23/candidate/tests",
+        "TEST_CACHE_PATH=artifacts/groot-statistics-2026-10-23/test-cache",
+        "artifacts/groot-statistics-2026-10-23/test-venv/bin/python",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-rs",
+        "-o",
+        "addopts=",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_sharded_datasets.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_dataset_factory.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/test_stats_pipeline.py",
+        "artifacts/groot-statistics-2026-10-23/candidate/tests/gr00t/data/state_action/test_state_action_processor.py"
+      ],
+      "started_at": "2026-10-23T06:03:31.575746+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 36.02946999995038
+    },
+    {
+      "receipt": "commands/changed-environment-plan.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-candidate-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-changed-environment",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/changed-environment-plan.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/test-venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:08:16.819628+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.2377200829796493
+    },
+    {
+      "receipt": "commands/changed-environment-reuse.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "reuse",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-v2",
+        "artifacts/groot-statistics-2026-10-23/changed-environment-plan.json"
+      ],
+      "started_at": "2026-10-23T06:08:17.100868+00:00",
+      "returncode": 3,
+      "timed_out": false,
+      "elapsed_seconds": 0.13082104199565947
+    },
+    {
+      "receipt": "commands/export-ineffective.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "export",
+        "artifacts/groot-statistics-2026-10-23/sdk-ineffective",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/ineffective-review.zip"
+      ],
+      "started_at": "2026-10-23T06:09:07.051160+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.13128695904742926
+    },
+    {
+      "receipt": "commands/export-original.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "export",
+        "artifacts/groot-statistics-2026-10-23/sdk-original",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/original-review.zip"
+      ],
+      "started_at": "2026-10-23T06:09:06.697281+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.13057962502352893
+    },
+    {
+      "receipt": "commands/export-zero-all.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "export",
+        "artifacts/groot-statistics-2026-10-23/sdk-zero-all",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/zero-all-review.zip"
+      ],
+      "started_at": "2026-10-23T06:09:06.875286+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.12992991600185633
+    },
+    {
+      "receipt": "commands/install-native-tests.json",
+      "command": [
+        "uv",
+        "pip",
+        "sync",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/test-venv/bin/python",
+        "--require-hashes",
+        "work/experiments/groot-statistics-2026-10-23/requirements-native-tests.lock"
+      ],
+      "started_at": "2026-10-23T06:02:59.061218+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 1.3652020409936085
+    },
+    {
+      "receipt": "commands/native-test-venv.json",
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "3.12",
+        "artifacts/groot-statistics-2026-10-23/test-venv"
+      ],
+      "started_at": "2026-10-23T06:02:58.997568+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.02093370899092406
+    },
+    {
+      "receipt": "commands/portable-blocked-execution.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "work/experiments/groot-statistics-2026-10-23/review_without_execution.py",
+        "artifacts/groot-statistics-2026-10-23/candidate-review.zip"
+      ],
+      "started_at": "2026-10-23T06:05:33.215020+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.130745374946855
+    },
+    {
+      "receipt": "commands/public-parent-refresh.json",
+      "command": [
+        "git",
+        "fetch",
+        "research",
+        "main"
+      ],
+      "started_at": "2026-10-23T06:07:19.550046+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.6193477920023724
+    },
+    {
+      "receipt": "commands/sdk-candidate-plan-v2.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-candidate-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-v2",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-plan-v2.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:03:00.163379+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.2401152920210734
+    },
+    {
+      "receipt": "commands/sdk-candidate-run-v2.json",
+      "command": [
+        "env",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "run",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-plan-v2.json"
+      ],
+      "started_at": "2026-10-23T06:03:00.448667+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 74.58083608292509
+    },
+    {
+      "receipt": "commands/sdk-export.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "export",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-v2",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/candidate-review.zip"
+      ],
+      "started_at": "2026-10-23T06:04:35.990949+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.1273050419986248
+    },
+    {
+      "receipt": "commands/sdk-ineffective-plan.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-ineffective-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-ineffective",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/sdk-ineffective-plan.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:03:23.986802+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.1847566249780357
+    },
+    {
+      "receipt": "commands/sdk-ineffective-run.json",
+      "command": [
+        "env",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "run",
+        "artifacts/groot-statistics-2026-10-23/sdk-ineffective-plan.json"
+      ],
+      "started_at": "2026-10-23T06:07:04.475188+00:00",
+      "returncode": 3,
+      "timed_out": false,
+      "elapsed_seconds": 72.2784671660047
+    },
+    {
+      "receipt": "commands/sdk-inspect.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "inspect",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-v2"
+      ],
+      "started_at": "2026-10-23T06:04:35.818465+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.1260776249691844
+    },
+    {
+      "receipt": "commands/sdk-original-plan.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-original-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-original",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/sdk-original-plan.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:03:23.532789+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.1785710830008611
+    },
+    {
+      "receipt": "commands/sdk-original-run.json",
+      "command": [
+        "env",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "run",
+        "artifacts/groot-statistics-2026-10-23/sdk-original-plan.json"
+      ],
+      "started_at": "2026-10-23T06:04:34.596559+00:00",
+      "returncode": 1,
+      "timed_out": false,
+      "elapsed_seconds": 77.0310478330357
+    },
+    {
+      "receipt": "commands/sdk-zero-all-plan.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-zero-all-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-zero-all",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/sdk-zero-all-plan.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:03:23.756175+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.1865697919856757
+    },
+    {
+      "receipt": "commands/sdk-zero-all-run.json",
+      "command": [
+        "env",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "run",
+        "artifacts/groot-statistics-2026-10-23/sdk-zero-all-plan.json"
+      ],
+      "started_at": "2026-10-23T06:05:51.692785+00:00",
+      "returncode": 1,
+      "timed_out": false,
+      "elapsed_seconds": 72.7216148750158
+    },
+    {
+      "receipt": "confirmation.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/source",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "work/experiments/groot-statistics-2026-10-23/probe.py",
+        "confirmation"
+      ],
+      "started_at": "2026-10-23T06:01:56.555457+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.311206541955471
+    },
+    {
+      "receipt": "development.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/source",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "work/experiments/groot-statistics-2026-10-23/probe.py",
+        "development"
+      ],
+      "started_at": "2026-10-23T06:01:35.265245+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 10.842181458952837
+    },
+    {
+      "receipt": "fetch-pr.json",
+      "command": [
+        "git",
+        "-C",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "fetch",
+        "--depth",
+        "1",
+        "origin",
+        "refs/pull/796/head:refs/remotes/origin/pr-796"
+      ],
+      "started_at": "2026-10-23T05:54:37.131870+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.8315560419578105
+    },
+    {
+      "receipt": "install-native-dependencies.json",
+      "command": [
+        "uv",
+        "pip",
+        "sync",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--require-hashes",
+        "work/experiments/groot-statistics-2026-10-23/requirements.lock"
+      ],
+      "started_at": "2026-10-23T05:55:08.739310+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 6.183414375060238
+    },
+    {
+      "receipt": "lock-native-dependencies.json",
+      "command": [
+        "uv",
+        "pip",
+        "compile",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--generate-hashes",
+        "work/experiments/groot-statistics-2026-10-23/requirements.in",
+        "--output-file",
+        "work/experiments/groot-statistics-2026-10-23/requirements.lock"
+      ],
+      "started_at": "2026-10-23T05:54:04.279290+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.7858978339936584
+    },
+    {
+      "receipt": "lock-native-test-dependencies.json",
+      "command": [
+        "uv",
+        "pip",
+        "compile",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--generate-hashes",
+        "work/experiments/groot-statistics-2026-10-23/requirements-native-tests.in",
+        "-o",
+        "work/experiments/groot-statistics-2026-10-23/requirements-native-tests.lock"
+      ],
+      "started_at": "2026-10-23T06:02:28.036457+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.7750317919999361
+    },
+    {
+      "receipt": "native-import.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/source",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "-c",
+        "import json, numpy, torch, transformers; import gr00t.data.dataset.sharded_mixture_dataset as m; import gr00t.data.stats as s; import gr00t.data.utils as u; import pr_mixture as c; print(json.dumps({\"numpy\":numpy.__version__,\"torch\":torch.__version__,\"transformers\":transformers.__version__,\"merger\":m.__file__,\"statistics\":s.__file__,\"normalization\":u.__file__,\"candidate\":c.__file__}))"
+      ],
+      "started_at": "2026-10-23T05:56:36.316732+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 33.929263832978904
+    },
+    {
+      "receipt": "native-venv.json",
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "3.12",
+        "artifacts/groot-statistics-2026-10-23/venv"
+      ],
+      "started_at": "2026-10-23T05:53:44.229489+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.020197167061269283
+    },
+    {
+      "receipt": "sdk-candidate-plan.json",
+      "command": [
+        "env",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "plan",
+        "work/experiments/groot-statistics-2026-10-23/sdk-candidate-v2.json",
+        "--project",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "--out",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate",
+        "--plan",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-plan.json",
+        "--python",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "--timeout",
+        "60",
+        "--total-seconds",
+        "600"
+      ],
+      "started_at": "2026-10-23T06:02:29.158552+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.24023875000420958
+    },
+    {
+      "receipt": "sdk-candidate-run.json",
+      "command": [
+        "env",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=src",
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "nisayon.qualification.cli",
+        "run",
+        "artifacts/groot-statistics-2026-10-23/sdk-candidate-plan.json"
+      ],
+      "started_at": "2026-10-23T06:02:34.927389+00:00",
+      "returncode": 2,
+      "timed_out": false,
+      "elapsed_seconds": 0.0755185829475522
+    },
+    {
+      "receipt": "sdk-case-declaration.json",
+      "command": [
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "HF_HUB_OFFLINE=1",
+        "TRANSFORMERS_OFFLINE=1",
+        "PYTHONPATH=artifacts/groot-statistics-2026-10-23/source",
+        "artifacts/groot-statistics-2026-10-23/venv/bin/python",
+        "-B",
+        "work/experiments/groot-statistics-2026-10-23/probe.py",
+        "sdk-cases"
+      ],
+      "started_at": "2026-10-23T06:01:25.808773+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 7.666167541989125
+    },
+    {
+      "receipt": "source-clone.json",
+      "command": [
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--no-checkout",
+        "--single-branch",
+        "--depth",
+        "1",
+        "https://github.com/NVIDIA/Isaac-GR00T.git",
+        "artifacts/groot-statistics-2026-10-23/source"
+      ],
+      "started_at": "2026-10-23T05:53:07.247283+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.7661589999916032
+    },
+    {
+      "receipt": "source-configs.json",
+      "command": [
+        "env",
+        "GIT_LFS_SKIP_SMUDGE=1",
+        "git",
+        "-C",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "sparse-checkout",
+        "add",
+        "gr00t/configs",
+        "tests/fixtures"
+      ],
+      "started_at": "2026-10-23T05:54:37.131403+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.5052713750628754
+    },
+    {
+      "receipt": "source-sparse.json",
+      "command": [
+        "env",
+        "GIT_LFS_SKIP_SMUDGE=1",
+        "git",
+        "-C",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "sparse-checkout",
+        "set",
+        "gr00t/data",
+        "tests/gr00t/data"
+      ],
+      "started_at": "2026-10-23T05:53:44.229434+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.020863291923888028
+    },
+    {
+      "receipt": "source-tree.json",
+      "command": [
+        "gh",
+        "api",
+        "repos/NVIDIA/Isaac-GR00T/git/trees/944fe70c4fd54e3fcb80a7d7258a328f9c061176?recursive=1",
+        "--jq",
+        ".tree[] | select(.path | test(\"stat|normaliz\")) | {path,sha,type}"
+      ],
+      "started_at": "2026-10-23T05:53:15.328810+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.933668207959272
+    },
+    {
+      "receipt": "source-utils.json",
+      "command": [
+        "env",
+        "GIT_LFS_SKIP_SMUDGE=1",
+        "git",
+        "-C",
+        "artifacts/groot-statistics-2026-10-23/source",
+        "sparse-checkout",
+        "add",
+        "gr00t/utils",
+        "tests/test_support"
+      ],
+      "started_at": "2026-10-23T05:55:18.415462+00:00",
+      "returncode": 0,
+      "timed_out": false,
+      "elapsed_seconds": 0.504589292104356
+    }
+  ]
+}

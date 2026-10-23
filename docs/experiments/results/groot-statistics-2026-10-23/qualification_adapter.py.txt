@@ -1,0 +1,89 @@
+"""Nisayon's bounded GR00T statistics probe; upstream implementation is unmodified.
+
+The reference uses rational moments, independently of the native merger. NaN
+observations are explicit strings so that evidence remains valid JSON. This is
+not a repair of those observations. Native zero-std normalization is passthrough.
+"""
+
+import copy
+from fractions import Fraction
+import math
+
+import numpy as np
+
+from gr00t.data.dataset import sharded_mixture_dataset as baseline_module
+from gr00t.data import utils as native_utils
+import pr_mixture as candidate_module
+
+
+def encode(value):
+    if isinstance(value, np.ndarray):
+        return encode(value.tolist())
+    if isinstance(value, dict):
+        return {k: encode(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [encode(v) for v in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return "NaN" if math.isnan(value) else ("+Infinity" if value > 0 else "-Infinity")
+    return value
+
+
+def exact_moments(payload):
+    groups = [s["arm"] for s in payload["statistics"]]
+    weights = [Fraction(w) for w in payload["weights"]]
+    total = sum(weights)
+    shape = np.asarray(groups[0]["mean"]).shape
+    arrays = [{k: np.asarray(v).ravel() for k, v in g.items()} for g in groups]
+    out = {key: [] for key in ("mean", "std", "min", "max", "q01", "q99")}
+    for j in range(math.prod(shape)):
+        means = [Fraction(float(g["mean"][j])) for g in arrays]
+        stds = [Fraction(float(g["std"][j])) for g in arrays]
+        mean = sum(w * m for w, m in zip(weights, means)) / total
+        # Centered exact expression avoids copying the native cancellation formula.
+        variance = sum(w * (s * s + (m - mean) ** 2)
+                       for w, m, s in zip(weights, means, stds)) / total
+        out["mean"].append(float(mean))
+        out["std"].append(math.sqrt(float(variance)))
+        for key in ("min", "q01"):
+            out[key].append(float(min(g[key][j] for g in arrays)))
+        for key in ("max", "q99"):
+            out[key].append(float(max(g[key][j] for g in arrays)))
+    return {"arm": {k: np.asarray(v).reshape(shape).tolist() for k, v in out.items()}}
+
+
+def reference(payload):
+    merged = exact_moments(payload)
+    values = np.asarray(payload["values"], dtype=float)
+    means = np.broadcast_to(np.asarray(merged["arm"]["mean"]), values.shape)
+    stds = np.broadcast_to(np.asarray(merged["arm"]["std"]), values.shape)
+    output = values.copy()
+    for index in np.ndindex(values.shape):
+        if stds[index] != 0:
+            output[index] = (values[index] - means[index]) / stds[index]
+    return {"statistics": merged, "normalized": output.tolist(), "inputs_unchanged": True}
+
+
+def native(payload, merger, zero_all=False):
+    before = copy.deepcopy(payload)
+    merged = merger(payload["statistics"], payload["weights"],
+                    is_relative_stats=payload["relative"])
+    if zero_all:
+        merged["arm"]["std"] = np.zeros_like(merged["arm"]["std"]).tolist()
+    params = {k: np.asarray(v, dtype=float) for k, v in merged["arm"].items()}
+    values = np.asarray(payload["values"], dtype=float)
+    original_values = values.copy()
+    normalized = native_utils.normalize_values_meanstd(values, params)
+    return encode({"statistics": merged, "normalized": normalized,
+                   "inputs_unchanged": payload == before and np.array_equal(values, original_values)})
+
+
+def baseline(payload):
+    return native(payload, baseline_module.merge_statistics)
+
+
+def candidate(payload):
+    return native(payload, candidate_module.merge_statistics)
+
+
+def zero_every_std(payload):
+    return native(payload, candidate_module.merge_statistics, zero_all=True)

@@ -42,6 +42,7 @@ extend the evidence base without changing the negative comparative results above
 
 | Boundary or decision | Latest retained evidence |
 |---|---|
+| Current native statistics change and portable review | [GR00T PR #796 qualification](results/groot-statistics-2026-10-23/README.md): 18 development and 32 fresh generated cases pass; original and wrong-fix controls rejected; no full-cost or untouched-reuse claim |
 | External adoption and release verification | [Arisole 0.1.3](results/reporter-followthrough-001/README.md), [0.1.4 and Windows follow-through](results/github-followthrough-2026-10-13/README.md) |
 | Terminal observations and actions | [LeRobot submission](results/terminal-observation-followthrough-001/README.md), [reported Thor reproduction and its limits](results/terminal-observation-thor-001/README.md), [EXPO-FT dispatch](results/terminal-dispatch-001/README.md) |
 | Recorded identity and execution time | [Retriever native replay](results/replay-identity-001/README.md) |

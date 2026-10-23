@@ -109,6 +109,15 @@ have distinct scopes.
 
 ## Latest progress
 
+**23 October — current GR00T patch qualification.** Nisayon qualified the author's
+[PR #796](https://github.com/NVIDIA/Isaac-GR00T/pull/796) against real dataset
+statistics and normalization: 18 development and 32 fresh generated cases pass;
+42 upstream tests pass with 12 missing-data skips. The SDK rejects the original
+defect and a plausible wrong fix, and portable review preserves the scoped
+verdict. [Inspect the evidence and reproduce](docs/experiments/results/groot-statistics-2026-10-23/README.md).
+This supports the stated NaN correction on CPU. Owner adoption, robot outcomes,
+the twofold complete-cost target and untouched reuse remain unestablished.
+
 **23 October — native SDK, portable review and the cost target.** The Python
 SDK and `nisayon-qualify` bind an owner project and environment, retain native
 reference/control/candidate calls, and assess a declared software relation.

@@ -1,0 +1,192 @@
+"""Execute frozen development or fresh confirmation, retaining every outcome."""
+
+import argparse
+import copy
+import hashlib
+import json
+import random
+import warnings
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+from gr00t.data.stats import calculate_dataset_statistics
+import qualification_adapter as adapter
+
+ROOT = Path("work/experiments/groot-statistics-2026-10-23")
+ART = Path("artifacts/groot-statistics-2026-10-23")
+
+
+def dump(path, value):
+    with path.open("x") as stream:
+        json.dump(value, stream, indent=2, allow_nan=False)
+        stream.write("\n")
+
+
+def group(means, stds):
+    mean, std = np.asarray(means), np.asarray(stds)
+    return {"arm": {"mean": mean.tolist(), "std": std.tolist(),
+                    "min": (mean-2*std).tolist(), "max": (mean+2*std).tolist(),
+                    "q01": (mean-std).tolist(), "q99": (mean+std).tolist()},
+            "__fingerprints__": {"arm": "declared-sidecar"}}
+
+
+def item(name, groups, weights, relative=False, math_check=True):
+    mean = np.asarray(groups[0]["arm"]["mean"])
+    values = np.stack([mean - np.asarray(groups[0]["arm"]["std"]),
+                       mean + np.asarray(groups[0]["arm"]["std"])])
+    return {"id": name, "math_check": math_check,
+            "input": {"statistics": groups, "weights": weights,
+                      "relative": relative, "values": values.tolist()}}
+
+
+def development():
+    cases = []
+    protocol = json.loads((ROOT / "protocol.json").read_text())
+    directory = ART / "parquet"
+    directory.mkdir()
+    for c in protocol["development"]["pipeline_constants"]:
+        stats = []
+        for n in protocol["development"]["row_counts"]:
+            values = [[-0.5 if i % 2 == 0 else 0.5, c] for i in range(n)]
+            path = directory / f"constant-{c}-rows-{n}.parquet"
+            pd.DataFrame({"arm": values}).to_parquet(path)
+            stats.append(calculate_dataset_statistics([path], features=["arm"]))
+        for weights in protocol["development"]["weights"]:
+            cases.append(item(f"pipeline-{c}-{weights[0]}-{weights[1]}",
+                              copy.deepcopy(stats), weights, math_check=False))
+    cases += [
+        item("single", [group([0.5,1.25], [0.25,0])], [1]),
+        item("unequal", [group([-1,1.25],[0.25,0]), group([1,1.25],[0.5,0])], [1,2]),
+        item("three", [group([-1,0.75],[0.125,0]), group([0,0.75],[0.25,0]),
+                       group([1,0.75],[0.5,0])], [1,3,5]),
+        item("relative", [group([[0,1.25],[0.5,0.75]], [[0.5,0],[0.25,0]])
+                          for _ in range(2)], [1,2], relative=True),
+    ]
+    return cases
+
+
+def confirmation():
+    frozen = json.loads((ROOT / "development-freeze.json").read_text())
+    for path, digest in frozen["files"].items():
+        assert hashlib.sha256(Path(path).read_bytes()).hexdigest() == digest, path
+    rng = random.Random(7962026)
+    cases = []
+    for i in range(32):
+        count = rng.randint(2,4)
+        relative = i % 4 == 0
+        constant = rng.randint(-16,16) / 8
+        groups = []
+        for _ in range(count):
+            means = [rng.randint(-16,16) / 8, constant]
+            stds = [rng.choice([0,0.125,0.25,0.5]), 0]
+            if relative:
+                means = [means, [rng.randint(-16,16) / 8, constant]]
+                stds = [stds, [rng.choice([0,0.125,0.25,0.5]),0]]
+            groups.append(group(means, stds))
+        cases.append(item(f"confirmation-{i:02}", groups,
+                          [rng.randint(1,9) for _ in range(count)], relative))
+    return cases
+
+
+def evaluate(case):
+    payload = case["input"]
+    with warnings.catch_warnings(record=True) as emitted:
+        warnings.simplefilter("always")
+        base = adapter.baseline(copy.deepcopy(payload))
+        changed = adapter.candidate(copy.deepcopy(payload))
+        mutant = adapter.zero_every_std(copy.deepcopy(payload))
+    reference = adapter.reference(payload)
+    checks = {}
+    base_stats = base["statistics"]["arm"]
+    changed_stats = changed["statistics"]["arm"]
+    checks["sidecars_ignored"] = set(changed["statistics"]) == {"arm"}
+    checks["input_nonmutation"] = all(v["inputs_unchanged"] for v in (base,changed,mutant))
+    checks["finite_preserved"] = all(
+        x == y for key in base_stats
+        for x, y in zip(np.asarray(base_stats[key],dtype=object).ravel(),
+                        np.asarray(changed_stats[key],dtype=object).ravel())
+        if not isinstance(x,str))
+    base_std = np.asarray(base_stats["std"],dtype=object)
+    changed_std = np.asarray(changed_stats["std"],dtype=float)
+    bad = base_std == "NaN"
+    checks["nan_becomes_exact_zero"] = bool(np.all(changed_std[bad] == 0))
+    checks["candidate_finite"] = bool(all(np.isfinite(np.asarray(v,dtype=float)).all()
+                                         for v in changed_stats.values()) and
+                                     np.isfinite(np.asarray(changed["normalized"],dtype=float)).all())
+    values = np.asarray(payload["values"],dtype=float)
+    output = np.asarray(changed["normalized"],dtype=float)
+    mask = np.broadcast_to(changed_std == 0, values.shape)
+    checks["zero_std_passthrough"] = bool(np.array_equal(output[mask],values[mask]))
+    if case["math_check"]:
+        ref_std = np.asarray(reference["statistics"]["arm"]["std"])
+        positive = ref_std > 0
+        checks["positive_variance_oracle"] = bool(np.allclose(
+            changed_std[positive],ref_std[positive],rtol=1e-12,atol=1e-12))
+    return {"id":case["id"], "checks":checks, "passed":all(checks.values()),
+            "baseline_nan_dimensions":int(np.count_nonzero(bad)),
+            "zero_all_differs_from_candidate": mutant != changed,
+            "baseline":base, "candidate":changed, "mutant":mutant,
+            "rational_reference":reference,
+            "warnings":[str(w.message) for w in emitted]}
+
+
+def sdk_cases():
+    # Fixed development probes, not selected by observing native results.
+    cases = [
+        item("constant-1.25",[group([0,1.25],[0.5,0]) for _ in range(2)],[1,2]),
+        item("constant-0.75",[group([0,0.75],[0.5,0]) for _ in range(2)],[1,4]),
+        item("unequal",[group([-1,1.25],[0.25,0]),group([1,1.25],[0.5,0])],[1,2]),
+        item("relative",[group([[0,1.25],[0.5,0.75]],[[0.5,0],[0.25,0]])
+                         for _ in range(2)],[1,2],True),
+    ]
+    source = ART / "source"
+    files = sorted(str(p.relative_to(source)) for p in (source / "gr00t").rglob("*.py"))
+    files += ["pr_mixture.py", "qualification_adapter.py"]
+    def target(name, calls):
+        return {"path":"qualification_adapter.py", "callable":name,"required_calls":calls}
+    original = target("baseline",["baseline_module.merge_statistics", "native_utils.normalize_values_meanstd"])
+    patched = target("candidate",["candidate_module.merge_statistics", "native_utils.normalize_values_meanstd"])
+    spec = {"schema":"nisayon.qualification.case.v1", "id":"gr00t-pr796",
+            "question":"Does PR796 satisfy the declared finite native statistics and normalization relation?",
+            "contract":{"kind":"numerical","atol":1e-12,"rtol":1e-12},
+            "source_files":files,
+            "targets":{"reference":target("reference",[]),"negative_control":original,"candidate":patched},
+            "premises":{"population":"Four exposed constructed CPU development probes; no robot or training claim",
+                        "state":"fresh_process", "environment":"Python3.12 NumPy1.26.4 Torch2.9.0 Transformers4.57.3, locked CPU environment"},
+            "probes":[{"id":c["id"],"input":c["input"],"expected":adapter.reference(c["input"])} for c in cases]}
+    for name in ("candidate", "original", "zero-all", "ineffective"):
+        variant = copy.deepcopy(spec)
+        variant["id"] += "-"+name
+        if name == "original":
+            variant["targets"]["candidate"] = original
+        elif name == "zero-all":
+            variant["targets"]["candidate"] = target("zero_every_std",patched["required_calls"])
+        elif name == "ineffective":
+            variant["targets"]["negative_control"] = patched
+        dump(ROOT / f"sdk-{name}.json", variant)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("phase",choices=["development","confirmation","sdk-cases"])
+    args = parser.parse_args()
+    if args.phase == "sdk-cases":
+        sdk_cases()
+    else:
+        cases = development() if args.phase == "development" else confirmation()
+        dump(ART / f"{args.phase}-inputs.json", cases)
+        results = []
+        for case in cases:
+            try:
+                results.append(evaluate(case))
+            except Exception as error:
+                results.append({"id":case["id"],"passed":False,
+                                "error":type(error).__name__+": "+str(error)})
+        dump(ART / f"{args.phase}-results.json", results)
+        summary = {"cases":len(results),"passed":sum(r["passed"] for r in results),
+                   "baseline_nan_cases":sum(r.get("baseline_nan_dimensions",0)>0 for r in results),
+                   "zero_all_detected_cases":sum(r.get("zero_all_differs_from_candidate",False) for r in results)}
+        print(json.dumps(summary))
+        raise SystemExit(0 if summary["cases"] == summary["passed"] else 1)

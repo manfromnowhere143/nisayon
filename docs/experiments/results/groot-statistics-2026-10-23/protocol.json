@@ -1,0 +1,95 @@
+{
+  "schema": "nisayon.gr00t-statistics-protocol.v1",
+  "status": "frozen_before_case_execution",
+  "question": "Does the author's PR796 remove roundoff-generated NaN standard deviations while preserving finite native statistics and downstream mean/std behavior on the declared CPU cases?",
+  "owner_decision_scope": "A public proposed source change is available for technical review. External owner enrollment, adoption and complete-cost comparison remain separate and unestablished.",
+  "source": {
+    "repository": "NVIDIA/Isaac-GR00T",
+    "reported_base": "dac54b313160c201c450f97df0fd74ebd379c892",
+    "current_main": "944fe70c4fd54e3fcb80a7d7258a328f9c061176",
+    "candidate_repository": "v0ropaev/Isaac-GR00T",
+    "candidate": "f6242731eb6fed8e1ec4250bb97cfae64a482843",
+    "base_merger_blob": "9100ce221de88315a19f8bbd097cb13b0f214ac5",
+    "candidate_merger_blob": "27a73b5ad56d0f1e5d19093863f681ed05611cd6",
+    "attribution": "v0ropaev owns the report, correction and original regression. Nisayon performs this additional qualification."
+  },
+  "environment": {
+    "python": "3.12",
+    "numpy": "1.26.4",
+    "torch": "2.9.0",
+    "transformers": "4.57.3",
+    "dependency_lock": "requirements.lock",
+    "hardware": "Local macOS ARM64 CPU, no model weights, video decoding, distributed execution, GPU, or physical robot.",
+    "imports": "Normally import native merger, statistics pipeline and normalization. No module stubs or source-function extraction."
+  },
+  "development": {
+    "pipeline_constants": [
+      1.25,
+      0.75,
+      -1.25,
+      -0.75,
+      0.7,
+      0,
+      1
+    ],
+    "row_counts": [
+      1000,
+      2000
+    ],
+    "weights": [
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        4
+      ]
+    ],
+    "varying_first_dimension": "Alternating exactly representable -0.5 and 0.5",
+    "additional_contracts": [
+      "single-dataset control",
+      "unequal dataset means and variances",
+      "three-dataset mixture",
+      "relative action statistics with two temporal axes",
+      "sidecar metadata ignored",
+      "input nonmutation",
+      "constant-dimension normalization preserves original value when std is zero"
+    ]
+  },
+  "confirmation": {
+    "seed": 7962026,
+    "cases": 32,
+    "population": "Fresh, constructed mixtures of binary-rational means in [-2,2], standard deviations in {0,0.125,0.25,0.5}, 2 to 4 datasets and positive integer weights 1 to 9. Each case includes a constant and varying dimension; every fourth case uses relative statistics.",
+    "timing": "Do not generate or run until development implementation, native source and criteria are frozen.",
+    "isolation": "Fresh generated conditions, visible to this investigator after generation; not a blinded independent evaluator or an untouched second incident.",
+    "not_equivalent_to": "The existing 32-pair robot-task confirmation obligation is not discharged."
+  },
+  "acceptance": {
+    "must_fix": "The exposed constant 1.25 / weights 1:2 witness must fail on base and pass on candidate.",
+    "preservation": "Exact equality of all finite baseline output fields. Each baseline NaN std from the declared finite input must become exactly zero; its corresponding normalized values must follow native zero-std passthrough semantics.",
+    "finite": "All candidate stats and normalized values must be finite on every declared case.",
+    "controls": "A mutant setting every std to zero must be rejected; the original defective native function must not be accepted; an ineffective negative control must return unresolved.",
+    "mathematical_scope": "Use an independent exact-rational mixture moment computation for dyadic positive-variance sanity checks, atol=1e-12, rtol=1e-12. Exposed float32 upstream accumulation errors are reported separately and do not change the frozen NaN-fix criterion.",
+    "failure_handling": "Retain every failed/invalid attempt and every assignment; do not relax tolerances or edit data after results."
+  },
+  "nisayon_adapter": {
+    "frozen_public_source": "a395ddb339e30c9d52ac303ab9380e34cf4e30d4",
+    "use": "Reuse existing SDK plan/run/inspect/export/review and required native-call witnesses. Do not alter SDK semantics to make this case pass.",
+    "question_boundary": "SDK software relation only; deployment decision remains unresolved."
+  },
+  "costs": {
+    "record": "Retain acquisition, environment setup, adaptation, native attempts, SDK execution, inspection and review command receipts and outer timers.",
+    "twofold_target": 2,
+    "competent_baseline": "Native tools plus a capable agent with equal information remains the required product comparator. This one investigator's public technical review is not a measured independent agent arm.",
+    "complete_cost": null,
+    "reason": "Human/provider/prior setup allocation and independent baseline are not yet measured. Raw timings alone cannot establish savings.",
+    "double_counting": "Child-call time is nested in wrapper time; report inclusive phases without summing nested clocks."
+  },
+  "stopping": {
+    "initial_intake_seconds": 14400,
+    "no_paid_compute": true,
+    "stop_if": "Native import cannot be established within bounded CPU setup, source identity fails, or the four-hour intake cap is reached."
+  },
+  "second_incident": "Unselected and untouched. Freeze applicable procedure after this case before independent selection; a second seed or current-main source overlay is not that test."
+}

@@ -68,3 +68,9 @@ Hosted execution needs a demonstrated remote execution or shared review need.
 The next missing input is a real owner case. Existing owner inquiries remain unanswered at the 23 October intake check.
 No owner has been enrolled in this comparison. The public SDK integration
 checks are a separate software task and do not substitute for this experiment.
+
+The [23 October GR00T qualification](experiments/results/groot-statistics-2026-10-23/README.md)
+uses a current public author proposal and native CPU checks. It establishes a
+bounded software result and a retained reuse procedure, without owner enrollment
+or an independent complete-cost comparison. Its fresh generated inputs are not
+the untouched second incident.

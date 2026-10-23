@@ -1,0 +1,50 @@
+
+[conftest] shared HF cache: artifacts/groot-statistics-2026-10-23/test-cache/hf-cache/shared
+[conftest] UV_CACHE_DIR=artifacts/groot-statistics-2026-10-23/test-cache/uv-cache
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ TestMergeStatistics.test_constant_dimension_merges_to_zero_std ________
+
+self = <test_pr796_sharded_datasets.TestMergeStatistics object at 0x11bcc5af0>
+
+    def test_constant_dimension_merges_to_zero_std(self):
+        """A dimension that is constant in every dataset has zero variance.
+        calculate_dataset_statistics reports std 0.0 for a constant column of
+        1.25, and with weights 1:2, E[x^2] - E[x]^2 rounds to about -2.2e-16,
+        which used to come back from np.sqrt as NaN."""
+    
+        def stats():
+            return {
+                "x": {
+                    "min": [0.0, 1.25],
+                    "max": [1.0, 1.25],
+                    "mean": [0.5, 1.25],
+                    "std": [0.2, 0.0],
+                    "q01": [0.0, 1.25],
+                    "q99": [1.0, 1.25],
+                }
+            }
+    
+        merged = merge_statistics([stats(), stats()], [1, 2])
+        std = np.array(merged["x"]["std"])
+>       assert np.all(np.isfinite(std))
+E       AssertionError: assert False
+E        +  where False = <function all at 0x108a34430>(array([ True, False]))
+E        +    where <function all at 0x108a34430> = np.all
+E        +    and   array([ True, False]) = <ufunc 'isfinite'>(array([0.2, nan]))
+E        +      where <ufunc 'isfinite'> = np.isfinite
+
+artifacts/groot-statistics-2026-10-23/source/tests/gr00t/data/test_pr796_sharded_datasets.py:188: AssertionError
+=============================== warnings summary ===============================
+artifacts/groot-statistics-2026-10-23/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110
+  /Users/danielwahnich/workspace/nisayon-groot-statistics-2026-10-23/artifacts/groot-statistics-2026-10-23/venv/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+    warnings.warn(
+
+tests/gr00t/data/test_pr796_sharded_datasets.py::TestMergeStatistics::test_constant_dimension_merges_to_zero_std
+  /Users/danielwahnich/workspace/nisayon-groot-statistics-2026-10-23/artifacts/groot-statistics-2026-10-23/source/gr00t/data/dataset/sharded_mixture_dataset.py:124: RuntimeWarning: invalid value encountered in sqrt
+    overall_std = np.sqrt(overall_variance).tolist()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED artifacts/groot-statistics-2026-10-23/source/tests/gr00t/data/test_pr796_sharded_datasets.py::TestMergeStatistics::test_constant_dimension_merges_to_zero_std
+1 failed, 21 deselected, 2 warnings in 5.47s

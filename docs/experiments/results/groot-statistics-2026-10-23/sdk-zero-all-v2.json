@@ -1,0 +1,708 @@
+{
+  "schema": "nisayon.qualification.case.v1",
+  "id": "gr00t-pr796-zero-all",
+  "question": "Does PR796 satisfy the declared finite native statistics and normalization relation?",
+  "contract": {
+    "kind": "numerical",
+    "atol": 1e-12,
+    "rtol": 1e-12
+  },
+  "source_files": [
+    "gr00t/__init__.py",
+    "gr00t/configs/__init__.py",
+    "gr00t/configs/base_config.py",
+    "gr00t/configs/data/__init__.py",
+    "gr00t/configs/data/data_config.py",
+    "gr00t/configs/data/embodiment_configs.py",
+    "gr00t/configs/finetune_config.py",
+    "gr00t/configs/model/__init__.py",
+    "gr00t/configs/model/gr00t_n1d7.py",
+    "gr00t/configs/training/__init__.py",
+    "gr00t/configs/training/training_config.py",
+    "gr00t/data/__init__.py",
+    "gr00t/data/collator/__init__.py",
+    "gr00t/data/collator/collators.py",
+    "gr00t/data/dataset/__init__.py",
+    "gr00t/data/dataset/factory.py",
+    "gr00t/data/dataset/lerobot_episode_loader.py",
+    "gr00t/data/dataset/sharded_mixture_dataset.py",
+    "gr00t/data/dataset/sharded_single_step_dataset.py",
+    "gr00t/data/embodiment_tags.py",
+    "gr00t/data/interfaces.py",
+    "gr00t/data/state_action/action_chunking.py",
+    "gr00t/data/state_action/droid_frame.py",
+    "gr00t/data/state_action/pose.py",
+    "gr00t/data/state_action/state_action_processor.py",
+    "gr00t/data/stats.py",
+    "gr00t/data/types.py",
+    "gr00t/data/utils.py",
+    "gr00t/utils/determinism.py",
+    "gr00t/utils/dist_utils.py",
+    "gr00t/utils/initial_actions.py",
+    "gr00t/utils/video_utils.py",
+    "pr_mixture.py",
+    "qualification_adapter.py"
+  ],
+  "targets": {
+    "reference": {
+      "path": "qualification_adapter.py",
+      "callable": "reference",
+      "required_calls": []
+    },
+    "negative_control": {
+      "path": "qualification_adapter.py",
+      "callable": "baseline",
+      "required_calls": [
+        "baseline_module.merge_statistics",
+        "native_utils.normalize_values_meanstd"
+      ]
+    },
+    "candidate": {
+      "path": "qualification_adapter.py",
+      "callable": "zero_every_std",
+      "required_calls": [
+        "candidate_module.merge_statistics",
+        "native_utils.normalize_values_meanstd"
+      ]
+    }
+  },
+  "premises": {
+    "population": "Four exposed constructed CPU development probes; no robot or training claim",
+    "state": "fresh_process",
+    "environment": "Python3.12 NumPy1.26.4 Torch2.9.0 Transformers4.57.3, locked CPU environment"
+  },
+  "probes": [
+    {
+      "id": "constant-1p25",
+      "input": {
+        "statistics": [
+          {
+            "arm": {
+              "mean": [
+                0.0,
+                1.25
+              ],
+              "std": [
+                0.5,
+                0.0
+              ],
+              "min": [
+                -1.0,
+                1.25
+              ],
+              "max": [
+                1.0,
+                1.25
+              ],
+              "q01": [
+                -0.5,
+                1.25
+              ],
+              "q99": [
+                0.5,
+                1.25
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          },
+          {
+            "arm": {
+              "mean": [
+                0.0,
+                1.25
+              ],
+              "std": [
+                0.5,
+                0.0
+              ],
+              "min": [
+                -1.0,
+                1.25
+              ],
+              "max": [
+                1.0,
+                1.25
+              ],
+              "q01": [
+                -0.5,
+                1.25
+              ],
+              "q99": [
+                0.5,
+                1.25
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          }
+        ],
+        "weights": [
+          1,
+          2
+        ],
+        "relative": false,
+        "values": [
+          [
+            -0.5,
+            1.25
+          ],
+          [
+            0.5,
+            1.25
+          ]
+        ]
+      },
+      "expected": {
+        "statistics": {
+          "arm": {
+            "mean": [
+              0.0,
+              1.25
+            ],
+            "std": [
+              0.5,
+              0.0
+            ],
+            "min": [
+              -1.0,
+              1.25
+            ],
+            "max": [
+              1.0,
+              1.25
+            ],
+            "q01": [
+              -0.5,
+              1.25
+            ],
+            "q99": [
+              0.5,
+              1.25
+            ]
+          }
+        },
+        "normalized": [
+          [
+            -1.0,
+            1.25
+          ],
+          [
+            1.0,
+            1.25
+          ]
+        ],
+        "inputs_unchanged": true
+      }
+    },
+    {
+      "id": "constant-0p75",
+      "input": {
+        "statistics": [
+          {
+            "arm": {
+              "mean": [
+                0.0,
+                0.75
+              ],
+              "std": [
+                0.5,
+                0.0
+              ],
+              "min": [
+                -1.0,
+                0.75
+              ],
+              "max": [
+                1.0,
+                0.75
+              ],
+              "q01": [
+                -0.5,
+                0.75
+              ],
+              "q99": [
+                0.5,
+                0.75
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          },
+          {
+            "arm": {
+              "mean": [
+                0.0,
+                0.75
+              ],
+              "std": [
+                0.5,
+                0.0
+              ],
+              "min": [
+                -1.0,
+                0.75
+              ],
+              "max": [
+                1.0,
+                0.75
+              ],
+              "q01": [
+                -0.5,
+                0.75
+              ],
+              "q99": [
+                0.5,
+                0.75
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          }
+        ],
+        "weights": [
+          1,
+          4
+        ],
+        "relative": false,
+        "values": [
+          [
+            -0.5,
+            0.75
+          ],
+          [
+            0.5,
+            0.75
+          ]
+        ]
+      },
+      "expected": {
+        "statistics": {
+          "arm": {
+            "mean": [
+              0.0,
+              0.75
+            ],
+            "std": [
+              0.5,
+              0.0
+            ],
+            "min": [
+              -1.0,
+              0.75
+            ],
+            "max": [
+              1.0,
+              0.75
+            ],
+            "q01": [
+              -0.5,
+              0.75
+            ],
+            "q99": [
+              0.5,
+              0.75
+            ]
+          }
+        },
+        "normalized": [
+          [
+            -1.0,
+            0.75
+          ],
+          [
+            1.0,
+            0.75
+          ]
+        ],
+        "inputs_unchanged": true
+      }
+    },
+    {
+      "id": "unequal",
+      "input": {
+        "statistics": [
+          {
+            "arm": {
+              "mean": [
+                -1.0,
+                1.25
+              ],
+              "std": [
+                0.25,
+                0.0
+              ],
+              "min": [
+                -1.5,
+                1.25
+              ],
+              "max": [
+                -0.5,
+                1.25
+              ],
+              "q01": [
+                -1.25,
+                1.25
+              ],
+              "q99": [
+                -0.75,
+                1.25
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          },
+          {
+            "arm": {
+              "mean": [
+                1.0,
+                1.25
+              ],
+              "std": [
+                0.5,
+                0.0
+              ],
+              "min": [
+                0.0,
+                1.25
+              ],
+              "max": [
+                2.0,
+                1.25
+              ],
+              "q01": [
+                0.5,
+                1.25
+              ],
+              "q99": [
+                1.5,
+                1.25
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          }
+        ],
+        "weights": [
+          1,
+          2
+        ],
+        "relative": false,
+        "values": [
+          [
+            -1.25,
+            1.25
+          ],
+          [
+            -0.75,
+            1.25
+          ]
+        ]
+      },
+      "expected": {
+        "statistics": {
+          "arm": {
+            "mean": [
+              0.3333333333333333,
+              1.25
+            ],
+            "std": [
+              1.0374916331657276,
+              0.0
+            ],
+            "min": [
+              -1.5,
+              1.25
+            ],
+            "max": [
+              2.0,
+              1.25
+            ],
+            "q01": [
+              -1.25,
+              1.25
+            ],
+            "q99": [
+              1.5,
+              1.25
+            ]
+          }
+        },
+        "normalized": [
+          [
+            -1.526116724914748,
+            1.25
+          ],
+          [
+            -1.0441851275732486,
+            1.25
+          ]
+        ],
+        "inputs_unchanged": true
+      }
+    },
+    {
+      "id": "relative",
+      "input": {
+        "statistics": [
+          {
+            "arm": {
+              "mean": [
+                [
+                  0.0,
+                  1.25
+                ],
+                [
+                  0.5,
+                  0.75
+                ]
+              ],
+              "std": [
+                [
+                  0.5,
+                  0.0
+                ],
+                [
+                  0.25,
+                  0.0
+                ]
+              ],
+              "min": [
+                [
+                  -1.0,
+                  1.25
+                ],
+                [
+                  0.0,
+                  0.75
+                ]
+              ],
+              "max": [
+                [
+                  1.0,
+                  1.25
+                ],
+                [
+                  1.0,
+                  0.75
+                ]
+              ],
+              "q01": [
+                [
+                  -0.5,
+                  1.25
+                ],
+                [
+                  0.25,
+                  0.75
+                ]
+              ],
+              "q99": [
+                [
+                  0.5,
+                  1.25
+                ],
+                [
+                  0.75,
+                  0.75
+                ]
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          },
+          {
+            "arm": {
+              "mean": [
+                [
+                  0.0,
+                  1.25
+                ],
+                [
+                  0.5,
+                  0.75
+                ]
+              ],
+              "std": [
+                [
+                  0.5,
+                  0.0
+                ],
+                [
+                  0.25,
+                  0.0
+                ]
+              ],
+              "min": [
+                [
+                  -1.0,
+                  1.25
+                ],
+                [
+                  0.0,
+                  0.75
+                ]
+              ],
+              "max": [
+                [
+                  1.0,
+                  1.25
+                ],
+                [
+                  1.0,
+                  0.75
+                ]
+              ],
+              "q01": [
+                [
+                  -0.5,
+                  1.25
+                ],
+                [
+                  0.25,
+                  0.75
+                ]
+              ],
+              "q99": [
+                [
+                  0.5,
+                  1.25
+                ],
+                [
+                  0.75,
+                  0.75
+                ]
+              ]
+            },
+            "__fingerprints__": {
+              "arm": "declared-sidecar"
+            }
+          }
+        ],
+        "weights": [
+          1,
+          2
+        ],
+        "relative": true,
+        "values": [
+          [
+            [
+              -0.5,
+              1.25
+            ],
+            [
+              0.25,
+              0.75
+            ]
+          ],
+          [
+            [
+              0.5,
+              1.25
+            ],
+            [
+              0.75,
+              0.75
+            ]
+          ]
+        ]
+      },
+      "expected": {
+        "statistics": {
+          "arm": {
+            "mean": [
+              [
+                0.0,
+                1.25
+              ],
+              [
+                0.5,
+                0.75
+              ]
+            ],
+            "std": [
+              [
+                0.5,
+                0.0
+              ],
+              [
+                0.25,
+                0.0
+              ]
+            ],
+            "min": [
+              [
+                -1.0,
+                1.25
+              ],
+              [
+                0.0,
+                0.75
+              ]
+            ],
+            "max": [
+              [
+                1.0,
+                1.25
+              ],
+              [
+                1.0,
+                0.75
+              ]
+            ],
+            "q01": [
+              [
+                -0.5,
+                1.25
+              ],
+              [
+                0.25,
+                0.75
+              ]
+            ],
+            "q99": [
+              [
+                0.5,
+                1.25
+              ],
+              [
+                0.75,
+                0.75
+              ]
+            ]
+          }
+        },
+        "normalized": [
+          [
+            [
+              -1.0,
+              1.25
+            ],
+            [
+              -1.0,
+              0.75
+            ]
+          ],
+          [
+            [
+              1.0,
+              1.25
+            ],
+            [
+              1.0,
+              0.75
+            ]
+          ]
+        ],
+        "inputs_unchanged": true
+      }
+    }
+  ]
+}

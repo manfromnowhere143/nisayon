@@ -42,3 +42,8 @@ found identical probe selection and no established twofold complete-cost gain.
 Follow the [owner procedure](OWNER_COMPARISON.md) for a live decision and separate
 untouched reuse. Those experiments remain unexecuted pending owner records.
 Private history and correspondence are not included in this public checkout.
+
+The [GR00T PR #796 qualification](experiments/results/groot-statistics-2026-10-23/README.md)
+adds a current native CPU case with portable evidence, explicit false-acceptance
+controls and a frozen reuse procedure. Owner enrollment, complete-cost comparison
+and an untouched second incident remain unestablished.
