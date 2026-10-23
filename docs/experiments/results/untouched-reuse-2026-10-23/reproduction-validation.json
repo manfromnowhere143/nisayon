@@ -1,0 +1,141 @@
+{
+  "schema": "nisayon.public-native-reproduction-validation.v1",
+  "started_at": "2026-10-23T08:42:25.400924+00:00",
+  "finished_at": "2026-10-23T08:42:32.327550+00:00",
+  "inclusive_seconds": 6.926499457913451,
+  "result": "passed",
+  "scope": "Same host and existing pinned environment; published observer, oracle and standard correction patch applied in new copies. Additional exposed-input publication check, not a solver trial, fresh confirmation, new environment or cross-platform validation.",
+  "observed_conditions": 48,
+  "grading": {
+    "base": {
+      "conditions": 16,
+      "passed": 7
+    },
+    "head": {
+      "conditions": 16,
+      "passed": 13
+    },
+    "correction": {
+      "conditions": 16,
+      "passed": 16
+    }
+  },
+  "corrected_source_sha256": "4d102510a25778eb9a6ef9610cef898f331e47d7a489b706851c5663e7162a66",
+  "source_files_sha256": {
+    "native_probe.py.txt": "e45039bb11b7fe6ac8d306a714ba264068bab73b1b7cf8decd38ed587f4091d1",
+    "semantic_oracle.py.txt": "bc99b1937ad6a8e4da1fffbc27dc902969ef2bca4e86608ada5fe32a1a4c2579",
+    "correction.patch": "335b89fb785e150478335667dd4690cd884ae69dd64ba3794fef713bc5078e69",
+    "development-inputs.json": "ea797b237c0878f9363385b72f3fdc2e0552a07198ad789b29ac11dbdc026509"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/patch",
+        "-p1",
+        "-i",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/correction.patch"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/correction",
+      "exit_code": 0,
+      "elapsed_seconds": 0.005876000039279461,
+      "stdout": "patching file 'kornia/augmentation/random_generator/_2d/cutmix.py'\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/native_probe.py.txt",
+        "--native-root",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base",
+        "--inputs",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/development-inputs.json",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 1.7186960419639945,
+      "stdout": "{\"candidate\": null, \"conditions\": 16, \"executed\": 7, \"output\": \"/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/native_probe.py.txt",
+        "--native-root",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/head",
+        "--inputs",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/development-inputs.json",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/head-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 1.217454707948491,
+      "stdout": "{\"candidate\": null, \"conditions\": 16, \"executed\": 15, \"output\": \"/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/head-observed.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/native_probe.py.txt",
+        "--native-root",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/correction",
+        "--inputs",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/development-inputs.json",
+        "--output",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/correction-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 1.209820541087538,
+      "stdout": "{\"candidate\": null, \"conditions\": 16, \"executed\": 16, \"output\": \"/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/correction-observed.json\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/semantic_oracle.py.txt",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 0.7689152500825003,
+      "stdout": "{\n  \"candidate\": null,\n  \"conditions\": 16,\n  \"passed\": 7,\n  \"rows\": [\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'Half'\"\n      ],\n      \"condition_id\": \"dev-cutmix-float16\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'BFloat16'\"\n      ],\n      \"condition_id\": \"dev-cutmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float64\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'Half'\"\n      ],\n      \"condition_id\": \"dev-patchmix-float16\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'BFloat16'\"\n      ],\n      \"condition_id\": \"dev-patchmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float64\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'Half'\"\n      ],\n      \"condition_id\": \"dev-module-float16\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'BFloat16'\"\n      ],\n      \"condition_id\": \"dev-module-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float64\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: ValueError: Expected parameter concentration (Tensor of shape (2,)) of distribution Dirichlet(concentration: torch.Size([2])) to satisfy the constraint IndependentConstraint(GreaterThan(lower_bound=0.0), 1), but found invalid values:\\ntensor([0., 0.], dtype=torch.float16)\"\n      ],\n      \"condition_id\": \"dev-concentration-0\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'Half'\"\n      ],\n      \"condition_id\": \"dev-concentration-1\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: NotImplementedError: \\\"dirichlet\\\" not implemented for 'BFloat16'\"\n      ],\n      \"condition_id\": \"dev-concentration-2\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-3\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/semantic_oracle.py.txt",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/head-observed.json",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 0.7434404169907793,
+      "stdout": "{\n  \"candidate\": null,\n  \"conditions\": 16,\n  \"passed\": 13,\n  \"rows\": [\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float64\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float64\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float64\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"native execution failed: ValueError: Expected parameter concentration (Tensor of shape (2,)) of distribution Dirichlet(concentration: torch.Size([2])) to satisfy the constraint IndependentConstraint(GreaterThan(lower_bound=0.0), 1), but found invalid values:\\ntensor([0., 0.])\"\n      ],\n      \"condition_id\": \"dev-concentration-0\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"concentration0 must stay finite and positive\",\n        \"concentration0 does not represent the original scalar in the required sampler dtype\",\n        \"concentration1 must stay finite and positive\",\n        \"concentration1 does not represent the original scalar in the required sampler dtype\",\n        \"seeded Beta draws differ from direct native torch Beta(original scalar, original scalar)\"\n      ],\n      \"condition_id\": \"dev-concentration-1\"\n    },\n    {\n      \"passed\": false,\n      \"failures\": [\n        \"concentration0 does not represent the original scalar in the required sampler dtype\",\n        \"concentration1 does not represent the original scalar in the required sampler dtype\",\n        \"seeded Beta draws differ from direct native torch Beta(original scalar, original scalar)\"\n      ],\n      \"condition_id\": \"dev-concentration-2\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-3\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+        "-B",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/docs/experiments/results/untouched-reuse-2026-10-23/semantic_oracle.py.txt",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/correction-observed.json",
+        "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001/base-observed.json"
+      ],
+      "cwd": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/public-native-replay-001",
+      "exit_code": 0,
+      "elapsed_seconds": 0.7655759169720113,
+      "stdout": "{\n  \"candidate\": null,\n  \"conditions\": 16,\n  \"passed\": 16,\n  \"rows\": [\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-cutmix-float64\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-patchmix-float64\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-bfloat16\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float32\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-module-float64\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-0\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-1\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-2\"\n    },\n    {\n      \"passed\": true,\n      \"failures\": [],\n      \"condition_id\": \"dev-concentration-3\"\n    }\n  ]\n}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "decisions": [
+    {
+      "id": "c-1975d86b",
+      "decision": "reject",
+      "reason": "CPU half-precision Beta sampling fails; 30 of 58 conditions violate the contract.",
+      "evidence_paths": [
+        "evidence/semantic-review-c-1975d86b.json",
+        "evidence/review-c-1975d86b.nisayon.zip"
+      ]
+    },
+    {
+      "id": "c-2447c73c",
+      "decision": "reject",
+      "reason": "Forcing float32 sampling violates float64 precision and exact upstream-base regression requirements in 16 conditions.",
+      "evidence_paths": [
+        "evidence/semantic-review-c-2447c73c.json",
+        "evidence/review-c-2447c73c.nisayon.zip"
+      ]
+    },
+    {
+      "id": "c-2ade37ec",
+      "decision": "adopt",
+      "reason": "Passes all 58 exposed conditions, including concentration, seeded draws, mixing semantics and full-precision regression. Adoption remains conditional on separate fresh confirmation.",
+      "evidence_paths": [
+        "evidence/semantic-review-c-2ade37ec.json",
+        "evidence/review-c-2ade37ec.nisayon.zip"
+      ]
+    },
+    {
+      "id": "c-dcc5ae8b",
+      "decision": "reject",
+      "reason": "The diagnostic annotation leaves the original CPU half-precision failures unchanged.",
+      "evidence_paths": [
+        "evidence/semantic-review-c-dcc5ae8b.json",
+        "evidence/review-c-dcc5ae8b.nisayon.zip"
+      ]
+    },
+    {
+      "id": "c-f23d0a2f",
+      "decision": "reject",
+      "reason": "Conversion before promotion corrupts concentrations: float16 underflows or overflows, and bfloat16 rounds the original scalar. Seventeen conditions violate the contract.",
+      "evidence_paths": [
+        "evidence/semantic-review-c-f23d0a2f.json",
+        "evidence/review-c-f23d0a2f.nisayon.zip"
+      ]
+    }
+  ],
+  "reproduction_command": "PYTHONPATH=/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-reuse-i_v68ja8/sdk PYTHONDONTWRITEBYTECODE=1 /Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python -B run_qualification.py --out evidence-replay && PYTHONDONTWRITEBYTECODE=1 /Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python -B review_evidence.py --evidence evidence-replay --report report-replay.json",
+  "limitations": [
+    "CPU eager execution in the exact supplied environment; no GPU, compilation, population or deployment acceptance.",
+    "All 16 development conditions and 42 additional exposed conditions executed per candidate. Reserved confirmation remains unexecuted.",
+    "All five SDK portable reviews verified. Supplied sources remained unchanged; Git was unavailable, so packet hashes established source integrity.",
+    "Report saved to report.json; reproduction instructions in REPRODUCE.md; frozen artifact hashes in FREEZE.json."
+  ],
+  "cost_notes": [
+    "Measured qualification workflow: 54.875 seconds, including oracle preparation, 15 SDK role processes, assessment, export and portable review.",
+    "Intake, adapter engineering, setup failures and final review are additional costs recorded in WORK_LOG.md. No native or SDK retry was needed.",
+    "Provider tokens and charges, human effort, compute charges and future maintenance remain unmeasured; no cost-savings claim."
+  ]
+}

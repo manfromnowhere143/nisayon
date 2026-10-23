@@ -1,6 +1,6 @@
 # Prospective owner and reuse comparison
 
-Status: prepared, not enrolled or executed. This preserves N015/N086's product
+Owner comparison status: prepared, not enrolled or executed. This preserves N015/N086's product
 test and the [current native comparison](experiments/results/native-sdk-2026-10-23/README.md).
 The XPolicyLab development replay is exposed and cannot serve as the untouched
 reuse case. The SDK's `adopt` result covers only its declared software relation.
@@ -74,3 +74,15 @@ uses a current public author proposal and native CPU checks. It establishes a
 bounded software result and a retained reuse procedure, without owner enrollment
 or an independent complete-cost comparison. Its fresh generated inputs are not
 the untouched second incident.
+
+The subsequent [Kornia comparison](experiments/results/untouched-reuse-2026-10-23/README.md)
+tests the unchanged SDK and frozen procedure on a separately selected public
+software incident. Both isolated solver arms meet the same frozen rubric: 5/5
+correct decisions, no false acceptance among four unsuitable variants, and a
+correction passing 32 reserved conditions. Both workflows reproduce. Nisayon
+takes 2.7% more solver time with 24.4% fewer counted tokens. Setup, retries and
+review are retained; provider charges, active human effort and owner costs remain
+unknown. This supports bounded software reuse without discharging the owner
+comparison or twofold complete-cost target. The next reuse experiment should
+freeze a qualified contract and adapter, then measure whether reusing them
+reduces repeated setup and review at matched quality.

@@ -1,0 +1,63 @@
+{
+  "decisions": [
+    {
+      "id": "c-1975d86b",
+      "decision": "reject",
+      "reason": "CPU half-precision Beta sampling raises native Dirichlet exceptions.",
+      "evidence_paths": [
+        "evidence-final/observed-c-1975d86b.json",
+        "evidence-final/assessment-c-1975d86b.json"
+      ]
+    },
+    {
+      "id": "c-2447c73c",
+      "decision": "reject",
+      "reason": "Incorrectly reduces float64 samplers to float32; 22 of 43 full-precision regression conditions differ from upstream base.",
+      "evidence_paths": [
+        "evidence-final/observed-c-2447c73c.json",
+        "evidence-final/assessment-c-2447c73c.json"
+      ]
+    },
+    {
+      "id": "c-2ade37ec",
+      "decision": "adopt",
+      "reason": "Conditional on fresh evaluator confirmation: all 88 conditions pass 1,710 semantic checks, including 43 exact full-precision base comparisons.",
+      "evidence_paths": [
+        "evidence-final/observed-c-2ade37ec.json",
+        "evidence-final/assessment-c-2ade37ec.json",
+        "review.json"
+      ]
+    },
+    {
+      "id": "c-dcc5ae8b",
+      "decision": "reject",
+      "reason": "Diagnostic-only change leaves native CPU half-precision Beta sampling failures intact.",
+      "evidence_paths": [
+        "evidence-final/observed-c-dcc5ae8b.json",
+        "evidence-final/assessment-c-dcc5ae8b.json"
+      ]
+    },
+    {
+      "id": "c-f23d0a2f",
+      "decision": "reject",
+      "reason": "Half conversion corrupts beta before promotion: underflow, overflow and bfloat16 rounding violate concentration and seeded-draw requirements.",
+      "evidence_paths": [
+        "evidence-final/observed-c-f23d0a2f.json",
+        "evidence-final/assessment-c-f23d0a2f.json"
+      ]
+    }
+  ],
+  "reproduction_command": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python -B qualify.py --output replay-evidence",
+  "limitations": [
+    "CPU eager execution in the pinned environment only; no deployment or physical-safety acceptance.",
+    "Reserved confirmation was neither accessed nor executed. Finite exposed cases do not prove every possible input.",
+    "Initial cut-bound test-design failure and its correction are retained and explained in audit.md.",
+    "Git inspection was unavailable; sealed hashes and native witnesses verified identity. All 2,746 manifested files remained unchanged.",
+    "report.json, checks and evidence are frozen; identities are recorded in freeze.json."
+  ],
+  "cost_notes": [
+    "Two runs attempted 880 native conditions across ten candidate interpreters; measured driver execution totaled approximately 17.031 seconds.",
+    "Intake, implementation, adaptation and review are additional costs documented in audit.md.",
+    "Provider costs, common preparation, future confirmation and maintenance remain unmeasured; no cost-superiority claim."
+  ]
+}

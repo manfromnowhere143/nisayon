@@ -1,0 +1,163 @@
+"""Reproduce with the exact supplied interpreter; every output directory is new."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import time
+
+ROOT = Path(__file__).resolve().parent
+PYTHON = json.loads((ROOT / "ENVIRONMENT.json").read_text())["python_executable"]
+BASE = "c-1975d86b"
+
+
+def write(path, value):
+    path.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
+
+
+def immutable_file(path, text):
+    if path.exists():
+        if path.read_text() != text:
+            raise RuntimeError(f"Frozen adapter mismatch: {path}")
+    else:
+        path.write_text(text)
+
+
+def verify_sources():
+    entries = json.loads((ROOT / "MANIFEST.json").read_text())["files"]
+    checked = []
+    for entry in entries:
+        path = ROOT / entry["path"]
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
+        checked.append({"path": entry["path"], "sha256": actual, "matches": actual == entry["sha256"]})
+    if not all(x["matches"] for x in checked):
+        raise RuntimeError("Supplied packet identity mismatch")
+    return checked
+
+
+def conditions():
+    rows = json.loads((ROOT / "development.json").read_text())
+    for kind in ("cutmix", "patchmix", "module"):
+        for dtype in ("float16", "bfloat16", "float32", "float64"):
+            for index, beta in enumerate((1e-8, 0.37, 100000.0)):
+                row = {"id": f"extra-{kind}-{dtype}-{index}", "kind": kind, "dtype": dtype, "beta": beta, "shape": [4, 2, 7, 10], "seed": 200+len(rows), "same_on_batch": index != 1, "move": ("parent", "set_rng", "to")[index]}
+                if kind == "patchmix":
+                    row["patch_size"] = (1, 7, 3)[index]
+                else:
+                    row["num_mix"] = 2
+                    row["cut_size"] = [0.0, 1.0] if index != 1 else [0.2, 0.8]
+                if kind == "module":
+                    row["labels"] = [2049, 65537, 1048577, 16777215]
+                rows.append(row)
+    for kind in ("cutmix", "patchmix", "module"):
+        for dtype in ("float16", "float64"):
+            row = {"id": f"extra-singleton-{kind}-{dtype}", "kind": kind, "dtype": dtype, "beta": 0.37, "shape": [1, 1, 1, 1], "seed": 400+len(rows), "same_on_batch": True, "move": "parent"}
+            if kind == "patchmix":
+                row["patch_size"] = 1
+            else:
+                row["num_mix"] = 2
+                row["cut_size"] = [0.99, 1.0]
+            rows.append(row)
+    return rows
+
+
+def prepare_adapters(candidates):
+    source = (ROOT / "native_probe.py").read_text()
+    source = source.replace('        path = frame.f_code.co_filename\n', '        if old_profile is not None:\n            old_profile(frame, event, arg)\n        path = frame.f_code.co_filename\n')
+    source = source.replace('            labels = torch.arange(shape[0], dtype=torch.int64) * 17 + 13', '            labels = torch.tensor(condition["labels"], dtype=torch.int64) if "labels" in condition else torch.arange(shape[0], dtype=torch.int64) * 17 + 13')
+    immutable_file(ROOT / "qualification_observer.py", source)
+    for cid in candidates:
+        text = f'''from pathlib import Path
+import json
+import sys
+from qualification_observer import load_native
+from qualification_adapter import run
+native = load_native(Path(__file__).resolve().parent / "native/{cid}")
+CutmixGenerator, PatchMixGenerator, RandomCutMixV2 = native[1:]
+def candidate(value):
+    return run(value, native)
+def reference(value):
+    return run(value, native, reference=True)
+if __name__ == "__main__":
+    value = json.loads(Path(sys.argv[1]).read_text())
+    result = reference(value)
+    Path(sys.argv[2]).write_text(json.dumps(result, indent=2, allow_nan=False) + "\\n")
+'''
+        immutable_file(ROOT / f"target_{cid}.py", text)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out", default="evidence")
+    args = parser.parse_args()
+    if os.path.abspath(sys.executable) != PYTHON:
+        raise RuntimeError("Use the exact virtual-environment executable from RUN_ENVIRONMENT.md")
+    started = time.perf_counter()
+    output = (ROOT / args.out).resolve()
+    if not output.is_relative_to(ROOT):
+        raise RuntimeError("Output must remain inside this workspace")
+    output.mkdir(exist_ok=False)
+    write(output / "source-verification-before.json", verify_sources())
+    candidates = [r["id"] for r in json.loads((ROOT / "candidates.json").read_text())]
+    prepare_adapters(candidates)
+    rows = conditions()
+    write(output / "conditions.json", {"conditions": rows})
+    command = [PYTHON, "-B", str(ROOT / f"target_{BASE}.py"), str(output / "conditions.json"), str(output / "oracle.json")]
+    with (output / "oracle.stdout.jsonl").open("w") as stdout, (output / "oracle.stderr.txt").open("w") as stderr:
+        done = subprocess.run(command, cwd=ROOT, stdout=stdout, stderr=stderr, timeout=90)
+    write(output / "oracle-command.json", {"command": command, "returncode": done.returncode})
+    if done.returncode:
+        raise RuntimeError("Independent oracle preparation failed; retained logs")
+    expected = json.loads((output / "oracle.json").read_text())
+    from nisayon.qualification import CaseSpec, ExecutionContext, plan_change, run_plan, assess_change, export_run, inspect_bundle
+    summary = []
+    required = ["CutmixGenerator.make_samplers", "CutmixGenerator.forward", "PatchMixGenerator.make_samplers", "PatchMixGenerator.forward", "RandomCutMixV2.apply_transform", "RandomCutMixV2.apply_transform_class"]
+    for cid in candidates:
+        candidate_started = time.perf_counter()
+        roots = {BASE, cid}
+        files = {str(p.relative_to(ROOT)) for source in roots for p in (ROOT / "native" / source / "kornia").rglob("*.py")}
+        files.update(["qualification_observer.py", "qualification_adapter.py", f"target_{BASE}.py", f"target_{cid}.py", "requirements.lock", "provenance.json", "ENVIRONMENT.json", "development.json"])
+        # The case embeds every input and expected output. All imported owner
+        # Python files are declared, with source hashes checked by the SDK.
+        case_value = {
+            "schema": "nisayon.qualification.case.v1", "id": cid,
+            "question": "Does this unchanged Kornia candidate satisfy the declared CPU scalar-concentration and mixing contract on the frozen conditions?",
+            "contract": {"kind": "numerical", "atol": 0.0, "rtol": 0.0},
+            "source_files": sorted(files),
+            "targets": {
+                "reference": {"path": f"target_{BASE}.py", "callable": "reference", "required_calls": required},
+                "negative_control": {"path": f"target_{BASE}.py", "callable": "candidate", "required_calls": required},
+                "candidate": {"path": f"target_{cid}.py", "callable": "candidate", "required_calls": required},
+            },
+            "premises": {
+                "population": "16 supplied development conditions plus 42 explicitly exposed diagnostic conditions; finite positive Python scalars, CPU eager PyTorch, four declared dtypes; no reserved confirmation executed",
+                "state": "fresh_process",
+                "environment": "Exact supplied CPython 3.12.13 venv, PyTorch 2.14.0 CPU; torch seeded before each oracle draw and native observation; unchanged licensed candidate sources",
+                "oracle": "Native torch Beta constructed directly in contract dtype; independent rectangle, permutation, image, class and area checks; full precision compared to upstream base. Zero numerical tolerance.",
+            },
+            "probes": [{"id": "all-exposed-conditions", "input": {"conditions": rows}, "expected": expected}],
+        }
+        write(output / f"case-{cid}.json", case_value)
+        case = CaseSpec.from_dict(case_value)
+        context = ExecutionContext.from_project(ROOT, output_dir=output / f"run-{cid}", python=PYTHON, timeout_seconds=90, total_seconds=300)
+        plan = plan_change(case, context=context)
+        write(output / f"plan-{cid}.json", plan.record())
+        evidence = run_plan(plan, context=context)
+        assessment = assess_change(case, evidence)
+        assessment.write(output / f"assessment-{cid}.json")
+        receipt = export_run(output / f"run-{cid}", output / f"review-{cid}.nisayon.zip")
+        write(output / f"export-{cid}.json", receipt)
+        review = inspect_bundle(receipt["bundle"])
+        write(output / f"review-{cid}.json", review)
+        item = {"id": cid, "software_decision": assessment.decision, "review_status": review["review_status"], "assessment_agrees": review["assessment_agrees"], "wall_seconds_including_plan_run_assess_export_review": time.perf_counter()-candidate_started, "declared_source_count": len(files)}
+        summary.append(item)
+        write(output / "summary.json", summary)
+        print(json.dumps(item), flush=True)
+    write(output / "source-verification-after.json", verify_sources())
+    write(output / "workflow-cost.json", {"wall_seconds": time.perf_counter()-started, "sdk_role_attempts": 15, "oracle_preparation_processes": 1, "conditions_per_candidate": len(rows), "development_conditions_per_candidate": 16, "extra_exposed_conditions_per_candidate": len(rows)-16, "provider_tokens": None, "provider_cost": None, "human_cost": None, "future_adoption_maintenance_cost": None})
+
+
+if __name__ == "__main__":
+    main()

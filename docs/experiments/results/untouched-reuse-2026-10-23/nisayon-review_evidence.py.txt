@@ -1,0 +1,104 @@
+"""Read-only evidence review and report generation; never imports Kornia."""
+import argparse
+import json
+from pathlib import Path
+
+
+def read(path):
+    return json.loads(path.read_text())
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--evidence", default="evidence")
+    parser.add_argument("--report", default="report.json")
+    args = parser.parse_args()
+    root = Path(__file__).resolve().parent
+    directory = root / args.evidence
+    ids = [x["id"] for x in read(root / "candidates.json")]
+    conditions = read(directory / "conditions.json")["conditions"]
+    expected = read(directory / "oracle.json")["conditions"]
+    development = {x["id"] for x in read(root / "development.json")}
+    summaries = []
+    reasons = {
+        "c-1975d86b": "CPU half-precision Beta sampling raises NotImplementedError in the native upstream base; valid scalar 1e-8 also rounds to zero in float16.",
+        "c-2447c73c": "Forcing all Beta samplers to float32 fixes half precision but violates the float64 sampler and exact upstream-base regression contract.",
+        "c-2ade37ec": "All 58 exposed conditions satisfy direct scalar concentrations, sampler dtype and seeded Beta draws, parameter and mixing semantics, and exact full-precision base regression. Scoped adoption is conditional on the evaluator's fresh confirmation.",
+        "c-dcc5ae8b": "The diagnostic annotation leaves CPU half-precision sampling failures unchanged; observing sampler dtype is not a repair.",
+        "c-f23d0a2f": "Promoting an already rounded half-precision CutMix concentration loses the supplied scalar: float16 1e-8 becomes zero, 100000 becomes infinity, and bfloat16 0.37 becomes 0.369140625. Successful execution alone does not satisfy the distribution contract.",
+    }
+    decisions = []
+    for cid in ids:
+        store = directory / f"run-{cid}"
+        attempt = store / "candidate-all-exposed-conditions"
+        observation = read(attempt / "observation.json")
+        actual = observation["value"]["conditions"]
+        raw = [json.loads(line)["observation"] for line in (attempt / "stdout.txt").read_text().splitlines() if line.startswith('{"role":')]
+        assessment = read(directory / f"assessment-{cid}.json")
+        review = read(directory / f"review-{cid}.json")
+        assert assessment["execution_validity"] == "valid"
+        assert assessment["comparisons"][0]["reference_oracle_difference"] is None
+        assert assessment["comparisons"][0]["negative_control_difference"] is not None
+        assert review["integrity"] == "verified" and review["assessment_agrees"]
+        assert assessment["deployment_decision"] == "unresolved"
+        assert len(raw) == len(conditions) == len(actual) == len(expected) == 58
+        assert all(count > 0 for count in observation["calls"].values())
+        condition_results = []
+        for c, a, e, r in zip(conditions, actual, expected, raw):
+            assert c["id"] == a["id"] == e["id"] == r["condition"]["id"]
+            assert r["native_calls"] and r["native_files"]
+            assert all(f"native/{cid}/kornia/" in path for path in r["native_files"])
+            for path, sha in r["native_files"].items():
+                relative = str(Path(path).relative_to(root))
+                assert observation["sources_before"][relative] == sha == observation["sources_after"][relative]
+            mismatches = [key for key in sorted(set(a) | set(e)) if a.get(key) != e.get(key)]
+            item = {"id": c["id"], "development": c["id"] in development, "native_status": r["status"], "contract_satisfied": not mismatches, "mismatched_fields": mismatches, "failed_obligations": [k for k, v in a.get("obligations", {}).items() if not v], "native_call_count": sum(r["native_calls"].values())}
+            if r["status"] != "ok":
+                item.update({"error_type": r["error_type"], "error": r["error"]})
+            if "concentration1" in r:
+                item["actual_concentration1"] = r["concentration1"]
+                item["expected_concentration1"] = e["concentration1"]
+            condition_results.append(item)
+        assert sum(r["development"] for r in condition_results) == 16
+        failures = [r for r in condition_results if not r["contract_satisfied"]]
+        decision = "reject" if failures else "adopt"
+        assert decision == assessment["software_decision"] == review["software_decision"]
+        summary = {"id": cid, "decision": decision, "conditions": 58, "development_conditions": 16, "native_successes": sum(r["native_status"] == "ok" for r in condition_results), "contract_passes": 58-len(failures), "contract_failures": len(failures), "native_required_calls": observation["calls"], "results": condition_results}
+        summaries.append(summary)
+        (directory / f"semantic-review-{cid}.json").write_text(json.dumps(summary, indent=2) + "\n")
+        paths = [f"{args.evidence}/semantic-review-{cid}.json", f"{args.evidence}/assessment-{cid}.json", f"{args.evidence}/run-{cid}/candidate-all-exposed-conditions/stdout.txt", f"{args.evidence}/review-{cid}.nisayon.zip"]
+        decisions.append({"id": cid, "decision": decision, "reason": reasons[cid], "evidence_paths": paths})
+        print(json.dumps({k: v for k, v in summary.items() if k not in ("results", "native_required_calls")}))
+    environment = read(root / "ENVIRONMENT.json")
+    sdk = str(root.parent / "sdk")
+    executable = environment["python_executable"]
+    reproduction = f"PYTHONPATH={sdk} PYTHONDONTWRITEBYTECODE=1 {executable} -B run_qualification.py --out evidence-replay && PYTHONDONTWRITEBYTECODE=1 {executable} -B review_evidence.py --evidence evidence-replay --report report-replay.json"
+    cost = read(directory / "workflow-cost.json")
+    report = {
+        "decisions": decisions,
+        "reproduction_command": reproduction,
+        "limitations": [
+            "CPU eager PyTorch 2.14.0 in the exact supplied Python environment; positive finite Python scalar concentrations, four declared dtypes and valid nonempty inputs only.",
+            "58 exposed conditions per candidate include every supplied development condition; finite testing does not prove every in-scope input. Adoption requires the separate evaluator's unexecuted reserved confirmation.",
+            "No GPU/MPS, compilation, already-rounded tensor concentrations, invalid-input policy, unrelated feature, statistical population, robot or deployment acceptance claim.",
+            "SDK witnesses synchronous Python calls; they do not trace native kernels. Source and dependency identity checks are integrity evidence, not authorship authentication.",
+            "Git commands failed because developer tools are unavailable; all supplied packet files were checked against MANIFEST.json before and after execution instead.",
+        ],
+        "cost_notes": [
+            f"Measured qualification workflow: {cost['wall_seconds']:.3f} seconds, including oracle preparation, planning, 15 SDK role processes, assessment, five exports and five portable reviews; this excludes earlier intake and adapter engineering.",
+            "Five candidates each execute all 58 conditions. Baseline references and negative controls are repeated by SDK design; attempts are nested in runner wall time and must not be added again.",
+            "Setup, failed Git checks, one unsuccessful example-file read, adapter development, execution and read-only review are retained in WORK_LOG.md. No native or SDK retry was needed.",
+            "Provider input/output tokens, cached input, provider/compute charges, human effort and future adoption/maintenance costs are unmeasured, not zero; no cost-savings claim.",
+        ],
+    }
+    schema = read(root / "report-schema.json")
+    assert set(report) == set(schema["required"])
+    assert len(decisions) == len(ids) and {r["id"] for r in decisions} == set(ids)
+    for item in decisions:
+        assert set(item) == {"id", "decision", "reason", "evidence_paths"}
+        assert all((root / p).is_file() for p in item["evidence_paths"])
+    (root / args.report).write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
+
+
+if __name__ == "__main__":
+    main()

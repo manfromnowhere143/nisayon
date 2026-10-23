@@ -1,5 +1,21 @@
 # Research source and releases
 
+## Untouched software reuse · 23 October 2026
+
+The [Kornia comparison](experiments/results/untouched-reuse-2026-10-23/README.md)
+uses the unchanged native qualification SDK on a separately selected incident.
+Both isolated solver arms meet the frozen decision-quality rubric; the correction
+passes 32 reserved native conditions and both workflows reproduce. Nisayon uses
+24.4% fewer counted tokens but takes 2.7% more solver time. Full economic costs
+remain unknown; the twofold complete-cost target is unproven.
+
+The packet retains portable assessments, native outcomes and failures, source
+patches, checker bytes, costs and reproduction instructions. It establishes a
+bounded CPU software result with a previously public remedy, not a robot or
+owner adoption result. Engine code, dependencies and historical evidence remain
+unchanged. Publication continues from public main with private research history,
+correspondence and session memory excluded; the existing release tag is retained.
+
 ## Native qualification and portable review · 23 October 2026
 
 This update exports the native SDK, `nisayon-qualify`, portable review and finite

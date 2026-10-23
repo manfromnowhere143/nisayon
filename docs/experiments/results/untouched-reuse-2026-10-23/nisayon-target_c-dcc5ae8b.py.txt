@@ -1,0 +1,15 @@
+from pathlib import Path
+import json
+import sys
+from qualification_observer import load_native
+from qualification_adapter import run
+native = load_native(Path(__file__).resolve().parent / "native/c-dcc5ae8b")
+CutmixGenerator, PatchMixGenerator, RandomCutMixV2 = native[1:]
+def candidate(value):
+    return run(value, native)
+def reference(value):
+    return run(value, native, reference=True)
+if __name__ == "__main__":
+    value = json.loads(Path(sys.argv[1]).read_text())
+    result = reference(value)
+    Path(sys.argv[2]).write_text(json.dumps(result, indent=2, allow_nan=False) + "\n")

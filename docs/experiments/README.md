@@ -9,8 +9,9 @@ the arm with additional checks took more measured trial time.
 Work through N045 on 16 October adds native software corrections, finite probes
 for causes or declared decisions, current research, and a bounded qualification
 of prediction audits against complete confirmation cost.
-The independently owned comparison and separate reuse case remain open. The
-tables below connect the full trajectory to its retained evidence.
+The 23 October Kornia comparison adds separately selected software reuse with
+matched decision quality. The owner comparison and complete-cost advantage
+remain open. The tables below connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
@@ -42,6 +43,7 @@ extend the evidence base without changing the negative comparative results above
 
 | Boundary or decision | Latest retained evidence |
 |---|---|
+| Untouched software reuse and complete cost | [Kornia PR #6277 comparison](results/untouched-reuse-2026-10-23/README.md): both arms make 5/5 correct decisions; correction passes 32 fresh conditions; Nisayon takes 2.7% more solver time with 24.4% fewer counted tokens; complete-cost target unproven |
 | Current native statistics change and portable review | [GR00T PR #796 qualification](results/groot-statistics-2026-10-23/README.md): 18 development and 32 fresh generated cases pass; original and wrong-fix controls rejected; no full-cost or untouched-reuse claim |
 | External adoption and release verification | [Arisole 0.1.3](results/reporter-followthrough-001/README.md), [0.1.4 and Windows follow-through](results/github-followthrough-2026-10-13/README.md) |
 | Terminal observations and actions | [LeRobot submission](results/terminal-observation-followthrough-001/README.md), [reported Thor reproduction and its limits](results/terminal-observation-thor-001/README.md), [EXPO-FT dispatch](results/terminal-dispatch-001/README.md) |

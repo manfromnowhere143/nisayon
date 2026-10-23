@@ -1,0 +1,87 @@
+"""Read-only consistency review of already executed qualification evidence."""
+import argparse
+from collections import Counter
+import hashlib
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+
+
+def read(p):
+    return json.loads(p.read_text())
+
+
+def validate(value, schema):
+    typ = schema.get("type")
+    assert {"object": lambda: isinstance(value, dict),
+            "array": lambda: isinstance(value, list),
+            "string": lambda: isinstance(value, str)}[typ]()
+    if "enum" in schema:
+        assert value in schema["enum"]
+    if typ == "object":
+        assert all(k in value for k in schema.get("required", []))
+        if schema.get("additionalProperties") is False:
+            assert set(value) <= set(schema["properties"])
+        for k, v in value.items():
+            validate(v, schema["properties"][k])
+    if typ == "array":
+        for v in value:
+            validate(v, schema["items"])
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--evidence", default="evidence-final")
+    args = parser.parse_args()
+    evidence = ROOT / args.evidence
+    report = read(evidence / "report.json")
+    validate(report, read(ROOT / "report-schema.json"))
+    candidates = read(ROOT / "candidates.json")
+    assert Counter(d["id"] for d in report["decisions"]) == Counter(c["id"] for c in candidates)
+    assert (evidence / "qualify-frozen.py").read_bytes() == (ROOT / "qualify.py").read_bytes()
+    expected_conditions = read(evidence / "conditions.json")
+    dev = read(ROOT / "development.json")
+    assert expected_conditions[:len(dev)] == dev
+    before = read(evidence / "run-start.json")["source_identity"]
+    after = read(evidence / "source-identity-after.json")
+    assert before == after and not after["mismatches"]
+    assert all(r["returncode"] == 0 for r in read(evidence / "processes.json"))
+    cached_hashes = {}
+    reviews = []
+    for decision in report["decisions"]:
+        cid = decision["id"]
+        result = read(evidence / f"observed-{cid}.json")
+        assessment = read(evidence / f"assessment-{cid}.json")
+        assert [r["condition"] for r in result["results"]] == expected_conditions
+        assert assessment["development_conditions"] == 16
+        assert not assessment["checker_errors"]
+        assert all(r["reference_executed"] for r in assessment["regressions"])
+        for p in decision["evidence_paths"]:
+            assert (ROOT / p).is_file()
+        for r in result["results"]:
+            assert r["native_calls"], "Missing native call evidence"
+            for path, sha in r["native_files"].items():
+                assert Path(path).is_relative_to(ROOT / "native" / cid)
+                if path not in cached_hashes:
+                    cached_hashes[path] = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                assert cached_hashes[path] == sha
+        failed = [c for r in result["results"] for c in r["checks"] if not c["passed"]]
+        assert len(failed) == len(assessment["failures"])
+        regression_failures = sum(not r["passed"] for r in assessment["regressions"])
+        if decision["decision"] == "adopt":
+            assert not failed and not regression_failures
+            assert all(r["status"] == "ok" for r in result["results"])
+        elif decision["decision"] == "reject":
+            assert failed or regression_failures
+        reviews.append(dict(id=cid, decision=decision["decision"],
+                            conditions=len(result["results"]),
+                            semantic_checks=assessment["semantic_checks"],
+                            failed_checks=len(failed), regression_failures=regression_failures))
+    print(json.dumps(dict(review="passed", source_files_verified_before_and_after=after["checked_files"],
+                          candidates=reviews), indent=2))
+
+
+if __name__ == "__main__":
+    main()

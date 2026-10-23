@@ -1,0 +1,342 @@
+"""Offline native contract qualification. Never changes supplied source trees.
+
+The common observer supplies normal imports, call witnesses and lossless tensor
+values. These checks supply the independent semantic and base-regression oracles.
+"""
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+from datetime import datetime, timezone
+import hashlib
+import importlib.metadata
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+import traceback
+
+ROOT = Path(__file__).resolve().parent
+
+
+def read(path):
+    return json.loads(Path(path).read_text())
+
+
+def write(path, data):
+    Path(path).write_text(json.dumps(data, indent=2, allow_nan=True) + "\n")
+
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def conditions():
+    rows = read(ROOT / "development.json")
+    # Exposed engineering cases, NOT evaluator confirmation: concentration limits,
+    # interior non-half-representable values, transitions, geometry, and sharing.
+    for ki, kind in enumerate(("cutmix", "patchmix", "module")):
+        for di, dtype in enumerate(("float16", "bfloat16", "float32", "float64")):
+            for bi, beta in enumerate((1e-8, 100000.0, 0.37, 1.2345678901)):
+                row = dict(id=f"extra-{kind}-{dtype}-beta{bi}", kind=kind,
+                           dtype=dtype, beta=beta, shape=[4, 2, 9, 13],
+                           seed=101 + ki * 100 + di * 10 + bi,
+                           move=("set_rng", "to", "parent")[(di + bi) % 3],
+                           same_on_batch=bool(bi % 2))
+                if kind == "patchmix":
+                    row["patch_size"] = (1, 9, 3, 5)[bi]
+                else:
+                    row["num_mix"] = 1 + bi % 3
+                    if bi == 3:
+                        row["cut_size"] = [0.25, 0.75]
+                rows.append(row)
+            for edge in ("singleton", "zero_or_full"):
+                row = dict(id=f"extra-{kind}-{dtype}-{edge}", kind=kind,
+                           dtype=dtype, beta=0.37, seed=701 + ki * 20 + di,
+                           shape=[1, 1, 1, 1] if edge == "singleton" else [4, 1, 5, 7],
+                           same_on_batch=True, move="parent")
+                if kind == "patchmix":
+                    row["patch_size"] = 1 if edge == "singleton" else 5
+                else:
+                    row["num_mix"] = 2
+                    # 0.75 is exactly representable in every tested dtype, stays
+                    # valid after configuration, and forces an empty 1x1 cut.
+                    # The first trial used 0.999: bfloat16 rounded it to 1 and
+                    # native input validation rejected it. That trial is retained.
+                    row["cut_size"] = [0.75, 1.0] if edge == "singleton" else [0.0, 0.0]
+                rows.append(row)
+    return rows
+
+
+def semantic_check(observed, torch, serialize):
+    c = observed["condition"]
+    checks = []
+    def check(name, passed, **detail):
+        checks.append(dict(name=name, passed=bool(passed), **detail))
+    def tensor(v):
+        return torch.tensor(v["values"], dtype=getattr(torch, v["dtype"].split(".")[-1])).reshape(v["shape"])
+    def equal(a, b):
+        return a.dtype == b.dtype and a.shape == b.shape and torch.equal(a, b)
+    dtype = getattr(torch, c["dtype"])
+    beta_dtype = torch.float32 if dtype in (torch.float16, torch.bfloat16) else dtype
+    conc = torch.tensor(c["beta"], dtype=beta_dtype)
+    for key in ("concentration1", "concentration0"):
+        if key in observed:
+            check(key + "_original_scalar_and_dtype", equal(tensor(observed[key]), conc),
+                  expected=serialize(conc), actual=observed[key])
+    torch.manual_seed(c["seed"] + 1)
+    expected_draws = torch.distributions.Beta(conc, conc).sample((16,))
+    if "beta_draws" in observed:
+        check("exact_seeded_native_beta_draws", equal(tensor(observed["beta_draws"]), expected_draws),
+              expected=serialize(expected_draws))
+    check("native_execution", observed["status"] == "ok",
+          error_type=observed.get("error_type"), error=observed.get("error"))
+    if observed["status"] != "ok":
+        return checks
+    generator_file = "patchmix" if c["kind"] == "patchmix" else "cutmix"
+    check("native_generator_forward_witness",
+          observed["native_calls"].get(f"augmentation/random_generator/_2d/{generator_file}.py:forward", 0) > 0)
+    if c["kind"] == "module":
+        for method in ("apply_transform", "apply_transform_class"):
+            check("native_module_" + method + "_witness",
+                  observed["native_calls"].get(f"augmentation/_2d/mix/cutmix.py:{method}", 0) > 0)
+    p = {k: tensor(v) for k, v in observed["params"].items()}
+    for key, value in p.items():
+        check("finite_param_" + key, torch.isfinite(value).all())
+    b, _, h, w = c["shape"]
+    nm = c.get("num_mix", 1)
+    pairs = p["mix_pairs"]
+    expected_pair_shape = (b,) if c["kind"] == "patchmix" else (nm, b)
+    check("pair_shape_dtype", tuple(pairs.shape) == expected_pair_shape and pairs.dtype == torch.int64)
+    check("pair_permutations", all(torch.equal(pair.sort().values, torch.arange(b)) for pair in pairs.reshape(-1, b)))
+    if c["kind"] == "patchmix":
+        xy, lam = p["patch_coords"], p["lam"]
+        check("patch_shapes", tuple(xy.shape) == (b, 2) and tuple(lam.shape) == (b,))
+        check("patch_integer_coordinates", xy.dtype == torch.int64)
+        check("patch_bounds", (xy >= 0).all() and (xy[:, 0] + c["patch_size"] <= w).all()
+              and (xy[:, 1] + c["patch_size"] <= h).all())
+        check("patch_coefficients_in_unit_interval", ((lam >= 0) & (lam <= 1)).all())
+        if c.get("same_on_batch"):
+            check("shared_patch_geometry_and_coefficients", torch.equal(xy, xy[:1].expand_as(xy))
+                  and torch.equal(lam, lam[:1].expand_as(lam)))
+        return checks
+    crop = p["crop_src"]
+    check("cut_shapes", tuple(crop.shape) == (nm, b, 4, 2) and tuple(p["image_shape"].shape) == (2,))
+    check("image_shape_value", torch.equal(p["image_shape"], torch.tensor([h, w], dtype=p["image_shape"].dtype)))
+    check("integer_cut_vertices", torch.equal(crop, crop.floor()))
+    # Kornia vertices are inclusive. Empty cuts have end = start - 1.
+    x0, y0 = crop[:, :, 0, 0], crop[:, :, 0, 1]
+    xend, yend = crop[:, :, 2, 0] + 1, crop[:, :, 2, 1] + 1
+    check("rectangular_vertex_order", torch.equal(crop[:, :, 1, 0], xend - 1)
+          and torch.equal(crop[:, :, 1, 1], y0) and torch.equal(crop[:, :, 3, 0], x0)
+          and torch.equal(crop[:, :, 3, 1], yend - 1))
+    check("cut_bounds_allowing_empty", ((x0 >= 0) & (x0 <= xend) & (xend <= w)
+          & (y0 >= 0) & (y0 <= yend) & (yend <= h)).all())
+    if c.get("same_on_batch"):
+        check("shared_cut_geometry", torch.equal(crop, crop[:, :1].expand_as(crop)))
+    if c["kind"] != "module":
+        return checks
+    before, after, out = (tensor(observed[k]) for k in ("input", "input_after", "output"))
+    labels, out_labels = tensor(observed["labels"]), tensor(observed["output_labels"])
+    check("caller_input_preserved", equal(before, after))
+    check("image_shape_and_dtype", tuple(out.shape) == tuple(c["shape"]) and out.dtype == dtype)
+    check("finite_image_and_labels", torch.isfinite(out).all() and torch.isfinite(out_labels).all())
+    label_dtype = torch.float32 if dtype in (torch.float16, torch.bfloat16) else dtype
+    check("class_shape_and_dtype", tuple(out_labels.shape) == (nm, b, 3) and out_labels.dtype == label_dtype)
+    expected_image = before.clone()
+    expected_labels = torch.empty((nm, b, 3), dtype=label_dtype)
+    for mix in range(nm):
+        for row in range(b):
+            left, top = int(x0[mix, row]), int(y0[mix, row])
+            right, bottom = int(xend[mix, row]), int(yend[mix, row])
+            source = int(pairs[mix, row])
+            # Each mix copies from the original input; later mixes overwrite overlaps.
+            expected_image[row, :, top:bottom, left:right] = before[source, :, top:bottom, left:right]
+            expected_labels[mix, row, 0] = labels[row]
+            expected_labels[mix, row, 1] = labels[source]
+            area = (right - left) * (bottom - top)
+            expected_labels[mix, row, 2] = 1 - torch.tensor(area, dtype=label_dtype) / (h * w)
+    check("exact_rectangle_copy_semantics", equal(out, expected_image))
+    check("original_and_permuted_class_ids", torch.equal(out_labels[:, :, :2], expected_labels[:, :, :2]))
+    check("one_minus_cut_area_lambda", torch.equal(out_labels[:, :, 2], expected_labels[:, :, 2]),
+          expected=serialize(expected_labels[:, :, 2]))
+    check("probability_one_gate", torch.equal(p["batch_prob"], torch.ones_like(p["batch_prob"])))
+    return checks
+
+
+def worker(candidate, outdir):
+    from native_probe import load_native, observe, serialize
+    row = next(r for r in read(ROOT / "candidates.json") if r["id"] == candidate)
+    native = load_native(ROOT / row["native_root"])
+    torch = native[0]
+    results = []
+    for c in conditions():
+        r = observe(c, native)
+        try:
+            r["checks"] = semantic_check(r, torch, serialize)
+        except Exception:
+            r["checker_error"] = traceback.format_exc()
+        results.append(r)
+    write(outdir / f"observed-{candidate}.json", dict(candidate=candidate,
+          python=sys.version, executable=sys.executable, torch=torch.__version__,
+          results=results))
+    print(json.dumps(dict(candidate=candidate, conditions=len(results),
+          native_errors=sum(r["status"] != "ok" for r in results),
+          checker_errors=sum("checker_error" in r for r in results),
+          failed_checks=sum(not c["passed"] for r in results for c in r.get("checks", [])))))
+
+
+def source_identity():
+    seal = read(ROOT / "SEAL.json")
+    assert digest(ROOT / "MANIFEST.json") == seal["public_manifest_sha256"]
+    manifest = read(ROOT / "MANIFEST.json")
+    mismatches = []
+    for row in manifest["files"]:
+        if digest(ROOT / row["path"]) != row["sha256"]:
+            mismatches.append(row["path"])
+    return dict(manifest_sha256=digest(ROOT / "MANIFEST.json"),
+                checked_files=len(manifest["files"]), mismatches=mismatches,
+                provenance=read(ROOT / "provenance.json"))
+
+
+def environment_identity():
+    env = read(ROOT / "ENVIRONMENT.json")
+    assert sys.executable == env["python_executable"], "Invoke the exact supplied venv executable"
+    actual = {k: importlib.metadata.version(k) for k in env["distribution_versions"]}
+    assert actual == env["distribution_versions"], "Dependency versions differ"
+    assert sys.version == env["python_version"], "Python version differs"
+    assert digest(sys.executable) == env["python_binary_sha256"]
+    return dict(executable=sys.executable, version=sys.version, base_prefix=sys.base_prefix,
+                python_binary_sha256=digest(sys.executable), distribution_versions=actual,
+                environment_record_sha256=digest(ROOT / "ENVIRONMENT.json"),
+                dependency_manifest_sha256=digest(ROOT / "environment-manifest.json"))
+
+
+def driver(outdir):
+    started = time.perf_counter()
+    outdir.mkdir(parents=True, exist_ok=True)
+    write(outdir / "run-start.json", dict(utc=datetime.now(timezone.utc).isoformat(),
+          environment=environment_identity(), source_identity=source_identity()))
+    assert not read(outdir / "run-start.json")["source_identity"]["mismatches"]
+    write(outdir / "conditions.json", conditions())
+    (outdir / "qualify-frozen.py").write_bytes(Path(__file__).read_bytes())
+    candidates = read(ROOT / "candidates.json")
+    runs = []
+    for candidate in candidates:
+        tick = time.perf_counter()
+        command = [sys.executable, "-B", str(Path(__file__).resolve()), "--worker", candidate["id"], "--output", str(outdir)]
+        proc = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
+        runs.append(dict(candidate=candidate["id"], command=command, returncode=proc.returncode,
+                         stdout=proc.stdout, stderr=proc.stderr, seconds=time.perf_counter() - tick))
+        write(outdir / "processes.json", runs)
+        print(proc.stdout.strip(), flush=True)
+        if proc.returncode:
+            print(proc.stderr, file=sys.stderr)
+    base_id = "c-1975d86b"
+    base = read(outdir / f"observed-{base_id}.json")["results"]
+    base_by_id = {r["condition"]["id"]: r for r in base}
+    summaries, decisions = [], []
+    for candidate in candidates:
+        cid = candidate["id"]
+        observed = read(outdir / f"observed-{cid}.json")
+        regressions, failures, checker_errors = [], [], []
+        for r in observed["results"]:
+            cond = r["condition"]
+            if "checker_error" in r:
+                checker_errors.append(dict(condition=cond["id"], error=r["checker_error"]))
+            for check in r.get("checks", []):
+                if not check["passed"]:
+                    failures.append(dict(condition=cond["id"], **check))
+            if cond["dtype"] in ("float32", "float64"):
+                ref = base_by_id[cond["id"]]
+                keys = ["concentration0", "concentration1", "beta_draws", "params"]
+                if cond["kind"] == "module":
+                    keys += ["input", "input_after", "labels", "output", "output_labels"]
+                differences = [k for k in keys if r.get(k) != ref.get(k)]
+                valid = r["status"] == ref["status"] == "ok"
+                regressions.append(dict(condition=cond["id"], base=base_id,
+                                        passed=valid and not differences, differing_fields=differences,
+                                        reference_executed=ref["status"] == "ok"))
+        regression_failures = [r for r in regressions if not r["passed"]]
+        summary = dict(candidate=cid, conditions=len(observed["results"]),
+                       development_conditions=sum(r["condition"]["id"].startswith("dev-") for r in observed["results"]),
+                       native_exceptions=sum(r["status"] != "ok" for r in observed["results"]),
+                       semantic_checks=sum(len(r.get("checks", [])) for r in observed["results"]),
+                       failures=failures, checker_errors=checker_errors, regressions=regressions)
+        summaries.append(summary)
+        write(outdir / f"assessment-{cid}.json", summary)
+        if checker_errors or any(not r["reference_executed"] for r in regressions):
+            decision, reason = "unresolved", "Checker or base-reference execution failed; see retained exact failures."
+        elif failures or regression_failures:
+            decision = "reject"
+            counts = Counter(r["name"] for r in failures)
+            by_id = {r["condition"]["id"]: r for r in observed["results"]}
+            default_half = by_id["dev-cutmix-float16"]
+            if default_half["status"] == "error":
+                reason = ("CPU half-precision execution fails: dev-cutmix-float16 raises "
+                          + default_half["error"] + ". Both generators retain half-precision Beta samplers; "
+                          "bfloat16/module failures are also retained. Full-precision agreement does not repair this violation.")
+            elif regression_failures:
+                reason = ("Float64 Beta samplers are incorrectly reduced to float32. "
+                          f"{len(regression_failures)}/{len(regressions)} full-precision conditions differ from exact upstream base, "
+                          "including dev-patchmix-float64. Half-precision execution alone is insufficient.")
+            else:
+                reason = ("CutMix converts beta to half before promotion: float16 beta=1e-8 raises, "
+                          "beta=100000 becomes infinity, and bfloat16 beta=0.37 becomes 0.369140625 "
+                          "instead of float32 0.3700000047683716. Concentrations and seeded Beta draws violate the contract.")
+        else:
+            decision = "adopt"
+            reason = (f"All {len(observed['results'])} exposed conditions (16 supplied, 72 additional) pass "
+                      f"{summary['semantic_checks']} semantic checks; all {len(regressions)} full-precision conditions "
+                      "match exact upstream base. Conditional on evaluator fresh confirmation; CPU eager scope only.")
+        paths = [str((outdir / f"observed-{cid}.json").relative_to(ROOT)),
+                 str((outdir / f"assessment-{cid}.json").relative_to(ROOT)),
+                 str((outdir / "run-start.json").relative_to(ROOT))]
+        decisions.append(dict(id=cid, decision=decision, reason=reason, evidence_paths=paths))
+    final_identity = source_identity()
+    write(outdir / "source-identity-after.json", final_identity)
+    assert not final_identity["mismatches"], "Supplied source changed during execution"
+    elapsed = time.perf_counter() - started
+    write(outdir / "run-cost.json", dict(seconds=elapsed, candidate_processes=len(runs),
+          conditions_per_candidate=len(conditions()), total_native_conditions=len(conditions()) * len(runs),
+          finished_utc=datetime.now(timezone.utc).isoformat()))
+    report = dict(decisions=decisions,
+                  reproduction_command=f"{sys.executable} -B qualify.py --output replay-evidence",
+                  limitations=[
+                      "One public software incident; finite exposed examples are not a proof over every scalar/shape.",
+                      "CPU eager only in the pinned Python/PyTorch environment; no GPU/MPS, compilation, invalid inputs, tensor-valued concentrations, deployment or physical-safety acceptance.",
+                      "Reserved evaluator inputs and confirmation have not been accessed or run. Adoption remains conditional on fresh confirmation after freeze.",
+                      "Full-precision reference is the sealed exact upstream-base candidate c-1975d86b; no new upstream checkout or network access.",
+                      "Git CLI identity inspection failed because Xcode command-line tools are unavailable; sealed packet hashes, import paths, native call witnesses and before/after source verification provide identity evidence."
+                      ,"An exploratory cut_size=0.999 becomes invalid after bfloat16 conversion; its retained native rejection is an input-policy observation, outside the valid-cut-size assessment. Final singleton checks use exactly representable 0.75."
+                  ],
+                  cost_notes=[
+                      f"This reproducible run: {len(runs)} candidate interpreters, {len(conditions()) * len(runs)} native conditions, {elapsed:.3f} seconds including source verification and checks.",
+                      "All setup, source reading, checker construction, analysis and review are additional costs; see audit.md. Common dependency/packet preparation is supplied study work, not zero-cost work.",
+                      "Model/provider tokens and fees, prior common setup labor, future evaluator confirmation, owner adoption and longer-term maintenance costs are not measured here; no cost superiority claim."
+                  ])
+    schema = read(ROOT / "report-schema.json")
+    assert set(report) == set(schema["required"])
+    assert {d["id"] for d in decisions} == {c["id"] for c in candidates}
+    assert len(decisions) == len(candidates)
+    for d in decisions:
+        assert set(d) == {"id", "decision", "reason", "evidence_paths"}
+        assert d["decision"] in ("adopt", "reject", "unresolved")
+        assert all((ROOT / path).is_file() for path in d["evidence_paths"])
+    write(outdir / "report.json", report)
+    print(json.dumps(dict(decisions=[{k: d[k] for k in ("id", "decision")} for d in decisions], seconds=elapsed)), flush=True)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--worker")
+    parser.add_argument("--output", default="evidence")
+    args = parser.parse_args()
+    outdir = Path(args.output).resolve()
+    if not outdir.is_relative_to(ROOT):
+        raise ValueError("Evidence must remain inside the workspace")
+    if args.worker:
+        worker(args.worker, outdir)
+    else:
+        driver(outdir)

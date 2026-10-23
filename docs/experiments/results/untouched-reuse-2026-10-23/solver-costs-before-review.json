@@ -1,0 +1,54 @@
+{
+  "schema": "nisayon.untouched-reuse-solver-costs.v1",
+  "recorded_at": "2026-10-23T08:21:25.222782+00:00",
+  "arms": {
+    "native": {
+      "solver_wall_seconds": 634.802781,
+      "input_tokens": 929790,
+      "cached_input_tokens": 855424,
+      "uncached_input_tokens": 74366,
+      "output_tokens": 17455,
+      "input_plus_output_tokens": 947245,
+      "local_compute": {
+        "child_user_cpu_seconds": 14.214083,
+        "child_system_cpu_seconds": 2.910865,
+        "outer_command_seconds": 634.9739155420102,
+        "scope": "Parent-observed waited-child resource usage; provider inference and unwaited descendants are not measured. Outer command time includes recorded runner time and is not additive."
+      },
+      "source_initial_files_unchanged": true,
+      "model": "gpt-6-astra",
+      "effort": "xhigh"
+    },
+    "nisayon": {
+      "solver_wall_seconds": 651.864773,
+      "input_tokens": 698997,
+      "cached_input_tokens": 629376,
+      "uncached_input_tokens": 69621,
+      "output_tokens": 17322,
+      "input_plus_output_tokens": 716319,
+      "local_compute": {
+        "child_user_cpu_seconds": 48.547487,
+        "child_system_cpu_seconds": 7.056099,
+        "outer_command_seconds": 652.0201635829872,
+        "scope": "Parent-observed waited-child resource usage; provider inference and unwaited descendants are not measured. Outer command time includes recorded runner time and is not additive."
+      },
+      "source_initial_files_unchanged": true,
+      "model": "gpt-6-astra",
+      "effort": "xhigh"
+    }
+  },
+  "ratios": {
+    "nisayon_over_native_wall": 1.0268776264230008,
+    "native_over_nisayon_counted_tokens": 1.322378716744914,
+    "nisayon_counted_token_reduction_fraction": 0.2437869822485207
+  },
+  "bounds": [
+    "Observed one-incident, single random serial order; no population speed claim.",
+    "All solver work including adaptation and retries falls inside solver wall; native driver costs are nested and must not be added.",
+    "Cached input is included in input_tokens and is not added again.",
+    "Case preparation, evaluation, publication and coordinator work are outside solver wall and must be retained separately.",
+    "Provider charges, human active effort and full economic costs are unknown."
+  ],
+  "matched_quality": "awaiting final sealed review",
+  "twofold_complete_cost_target": "unproven"
+}

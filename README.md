@@ -52,7 +52,7 @@ proposed.
 ```mermaid
 flowchart TB
     accTitle: Implemented Nisayon tools and the next evidence needed
-    accDescr: Case binding, bounded execution and fresh confirmation are implemented. Offline decision probes do not execute interventions. Native checks provide software evidence. Prediction-audit research is separate from runtime acceptance. A real owner's matched comparison and untouched reuse remain unproved; broader expansion depends on that evidence.
+    accDescr: Case binding, bounded execution and fresh confirmation are implemented. Offline decision probes do not execute interventions. Native checks provide software evidence, including a separately selected reuse case. Prediction-audit research is separate from runtime acceptance. A real owner's matched comparison and lower complete cost remain unproved; broader expansion depends on that evidence.
     subgraph W["Implemented execution"]
         direction LR
         I["Bind deployment<br/>source · weights<br/>state · timing"]
@@ -109,14 +109,27 @@ have distinct scopes.
 
 ## Latest progress
 
+**23 October — untouched software reuse, matched quality.** A fresh selector chose
+[Kornia PR #6277](https://github.com/kornia/kornia/pull/6277) outside the recorded
+exposure inventory. The unchanged SDK and a capable native-tools-plus-agent
+baseline each made all five candidate decisions correctly, with zero false
+acceptances among four unsuitable variants. The accepted correction passed
+32/32 reserved native conditions; both frozen workflows reproduced.
+[Inspect the comparison, costs and portable evidence](docs/experiments/results/untouched-reuse-2026-10-23/README.md).
+Nisayon took 651.9 versus 634.8 seconds of solver time and used 24.4% fewer counted
+tokens. Complete economic cost remains unknown and the twofold target unproven.
+This is one CPU software incident with a publicly known remedy; it establishes
+neither independent human replication nor owner or robot acceptance.
+
 **23 October — current GR00T patch qualification.** Nisayon qualified the author's
 [PR #796](https://github.com/NVIDIA/Isaac-GR00T/pull/796) against real dataset
 statistics and normalization: 18 development and 32 fresh generated cases pass;
 42 upstream tests pass with 12 missing-data skips. The SDK rejects the original
 defect and a plausible wrong fix, and portable review preserves the scoped
 verdict. [Inspect the evidence and reproduce](docs/experiments/results/groot-statistics-2026-10-23/README.md).
-This supports the stated NaN correction on CPU. Owner adoption, robot outcomes,
-the twofold complete-cost target and untouched reuse remain unestablished.
+This supports the stated NaN correction on CPU. Owner adoption, robot outcomes
+and the twofold complete-cost target remain unestablished. The separate Kornia
+case above tests reuse of its frozen procedure.
 
 **23 October — native SDK, portable review and the cost target.** The Python
 SDK and `nisayon-qualify` bind an owner project and environment, retain native

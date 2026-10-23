@@ -8,7 +8,7 @@ The [README review route](../README.md#inspect-the-work) connects the implemente
 engine, bounded offline decision probes and confirmation obligations to their
 code and controls. The [architecture](ARCHITECTURE.md) distinguishes implemented
 data flow from the proposed general compiler, selector and execution bridge.
-The [experiment index](experiments/README.md) retains work through 16 October 2026.
+The [experiment index](experiments/README.md) retains public results through 23 October 2026.
 
 Both retained development comparisons found equal accepted-repair counts and
 greater measured trial wall time for the additional-checks arm. No efficiency
@@ -37,13 +37,24 @@ general applicability remain open. See [the research plan](RESEARCH_PLAN.md).
 ## Current interface and next test · 23 October 2026
 
 Use the [native SDK](NATIVE_QUALIFICATION.md) and [portable review](PORTABLE_REVIEW.md)
-for bounded software qualification. The [latest comparison](experiments/results/native-sdk-2026-10-23/README.md)
+for bounded software qualification. The [native SDK comparison](experiments/results/native-sdk-2026-10-23/README.md)
 found identical probe selection and no established twofold complete-cost gain.
 Follow the [owner procedure](OWNER_COMPARISON.md) for a live decision and separate
-untouched reuse. Those experiments remain unexecuted pending owner records.
+untouched reuse with full owner costs. The owner comparison remains unexecuted
+pending permitted owner records.
 Private history and correspondence are not included in this public checkout.
 
 The [GR00T PR #796 qualification](experiments/results/groot-statistics-2026-10-23/README.md)
 adds a current native CPU case with portable evidence, explicit false-acceptance
-controls and a frozen reuse procedure. Owner enrollment, complete-cost comparison
-and an untouched second incident remain unestablished.
+controls and a frozen reuse procedure. The subsequent
+[Kornia comparison](experiments/results/untouched-reuse-2026-10-23/README.md) uses
+that unchanged procedure on a separately selected incident. Both isolated arms
+meet the frozen decision-quality rubric, the correction passes 32 reserved
+conditions, and both workflows reproduce. Nisayon takes 2.7% more solver time
+with 24.4% fewer counted tokens; complete economic cost remains unknown.
+
+The next bounded reuse experiment should freeze a qualified contract and adapter,
+then measure whether they remove repeated setup and review at matched quality.
+Owner enrollment, robot acceptance and the twofold complete-cost target remain
+unproven. Preserve failures, custody, unknown costs and the public/private history
+boundary; do not infer a new selector or API requirement from this result.

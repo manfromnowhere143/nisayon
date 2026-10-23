@@ -1,0 +1,119 @@
+"""Private semantic grading. No reserved native execution before both arms freeze."""
+from __future__ import annotations
+
+import copy
+import json
+from pathlib import Path
+import sys
+import torch
+
+
+def tensor(data):
+    return torch.tensor(data["values"], dtype=getattr(torch, data["dtype"].removeprefix("torch."))).reshape(data["shape"])
+
+
+def canonical_observation(row):
+    return {k: v for k, v in row.items() if k not in {"elapsed_seconds", "native_calls", "native_files"}}
+
+
+def assess(row, baseline=None):
+    failures = []
+    c = row["condition"]
+    def check(value, message):
+        if not bool(value):
+            failures.append(message)
+    if row["status"] != "ok":
+        return {"passed": False, "failures": ["native execution failed: " + row.get("error_type", "unknown") + ": " + row.get("error", "")], "condition_id": c["id"]}
+    try:
+        kind = c["kind"]
+        target = "patchmix.py:forward" if kind == "patchmix" else "cutmix.py:forward"
+        check(any(k.endswith(target) and n > 0 for k, n in row.get("native_calls", {}).items()), "required native generator forward witness absent")
+        if kind == "module":
+            check(any(k.endswith("cutmix.py:apply_transform") and n > 0 for k, n in row["native_calls"].items()), "native augmentation application witness absent")
+        check(bool(row.get("native_files")), "native source identities absent")
+        dtype = getattr(torch, c["dtype"])
+        expected_dtype = torch.float32 if dtype in (torch.float16, torch.bfloat16) else dtype
+        expected_concentration = torch.tensor(c["beta"], dtype=expected_dtype)
+        for key in ("concentration0", "concentration1"):
+            observed = tensor(row[key])
+            check(observed.dtype == expected_dtype, key + " precision changed")
+            check(observed.shape == torch.Size([]), key + " must be scalar")
+            check(torch.isfinite(observed).all() and (observed > 0).all(), key + " must stay finite and positive")
+            check(torch.equal(observed, expected_concentration), key + " does not represent the original scalar in the required sampler dtype")
+        torch.manual_seed(int(c["seed"]) + 1)
+        expected_draw = torch.distributions.Beta(expected_concentration, expected_concentration).sample((16,))
+        observed_draw = tensor(row["beta_draws"])
+        check(observed_draw.dtype == expected_dtype, "Beta draw dtype differs")
+        check(torch.equal(observed_draw, expected_draw), "seeded Beta draws differ from direct native torch Beta(original scalar, original scalar)")
+        check(torch.isfinite(observed_draw).all() and ((observed_draw >= 0) & (observed_draw <= 1)).all(), "invalid Beta draw values")
+        params = row["params"]
+        for key, val in params.items():
+            if isinstance(val, dict) and "dtype" in val:
+                check(torch.isfinite(tensor(val)).all(), "nonfinite parameter: " + key)
+        b, channels, h, w = c["shape"]
+        same = c.get("same_on_batch", False)
+        pair = tensor(params["mix_pairs"])
+        if kind == "patchmix":
+            check(pair.shape == (b,), "pair shape")
+            check(torch.equal(pair.sort().values, torch.arange(b)), "pair is not a permutation")
+            coords = tensor(params["patch_coords"])
+            lam = tensor(params["lam"])
+            check(coords.shape == (b, 2) and coords.dtype == torch.int64, "patch coordinate shape/dtype")
+            check(((coords[:, 0] >= 0) & (coords[:, 0] <= w - c["patch_size"])).all(), "patch x bounds")
+            check(((coords[:, 1] >= 0) & (coords[:, 1] <= h - c["patch_size"])).all(), "patch y bounds")
+            check(lam.shape == (b,) and ((lam >= 0) & (lam <= 1)).all(), "patch lam shape/range")
+            if same:
+                check(torch.equal(coords, coords[0].expand_as(coords)), "same_on_batch patch coordinates differ")
+                check(torch.equal(lam, lam[0].expand_as(lam)), "same_on_batch patch coefficients differ")
+        else:
+            n = c.get("num_mix", 1)
+            check(pair.shape == (n, b), "pair shape")
+            check(torch.equal(pair.sort(dim=-1).values, torch.arange(b).expand(n, b)), "pair is not a permutation")
+            crop = tensor(params["crop_src"])
+            check(crop.shape == (n, b, 4, 2), "crop shape")
+            x0, y0 = crop[..., 0, 0], crop[..., 0, 1]
+            x1, y1 = crop[..., 2, 0], crop[..., 2, 1]
+            widths, heights = x1 - x0 + 1, y1 - y0 + 1
+            check(torch.equal(crop, crop.floor()), "noninteger crop")
+            check(((widths >= 0) & (widths <= w) & (heights >= 0) & (heights <= h)).all(), "cut size bounds")
+            check(((x0 >= 0) & (x0 <= w) & (y0 >= 0) & (y0 <= h) & (x1 < w) & (y1 < h)).all(), "crop bounds")
+            check(torch.equal(crop[..., 1, 0], x1) and torch.equal(crop[..., 1, 1], y0) and torch.equal(crop[..., 3, 0], x0) and torch.equal(crop[..., 3, 1], y1), "rectangular vertex order")
+            check(torch.equal(tensor(params["image_shape"]), torch.tensor([h, w])), "image_shape values")
+            if same:
+                check(torch.equal(crop, crop[:, :1].expand_as(crop)), "same_on_batch crop geometry differs")
+            if kind == "module":
+                image = tensor(row["input"])
+                check(torch.equal(image, tensor(row["input_after"])), "caller image mutated")
+                output = tensor(row["output"])
+                check(output.shape == image.shape and output.dtype == dtype, "image shape/dtype changed")
+                expected_image = image.clone()
+                for mix in range(n):
+                    for i in range(b):
+                        xa, ya, xb, yb = map(int, (x0[mix, i], y0[mix, i], x1[mix, i], y1[mix, i]))
+                        if xb >= xa and yb >= ya:
+                            expected_image[i, :, ya:yb + 1, xa:xb + 1] = image[int(pair[mix, i]), :, ya:yb + 1, xa:xb + 1]
+                check(torch.equal(output, expected_image), "output not the native cut-and-copy of its recorded input/geometry")
+                labels = tensor(row["labels"])
+                out_labels = tensor(row["output_labels"])
+                calc_dtype = dtype if dtype in (torch.float32, torch.float64) else torch.float32
+                expected_labels = torch.stack([torch.stack([labels.to(calc_dtype), labels[pair[m]].to(calc_dtype), 1 - widths[m].to(calc_dtype) * heights[m].to(calc_dtype) / (h * w)], dim=1) for m in range(n)])
+                check(out_labels.dtype == calc_dtype and torch.equal(out_labels, expected_labels), "class ids or corrected lambda semantics differ")
+                check(torch.isfinite(output).all() and torch.isfinite(out_labels).all(), "nonfinite augmentation output")
+        if baseline is not None and c["dtype"] in ("float32", "float64"):
+            check(canonical_observation(row) == canonical_observation(baseline), "full precision output changed relative to exact upstream base")
+    except Exception as exc:
+        failures.append("oracle observation/schema exception: " + type(exc).__name__ + ": " + str(exc))
+    return {"passed": not failures, "failures": failures, "condition_id": c["id"]}
+
+
+def grade_file(path, baseline_path=None):
+    data = json.loads(Path(path).read_text())
+    baselines = {}
+    if baseline_path:
+        baselines = {r["condition"]["id"]: r for r in json.loads(Path(baseline_path).read_text())["results"]}
+    rows = [assess(row, baselines.get(row["condition"]["id"])) for row in data["results"]]
+    return {"candidate": data.get("candidate"), "conditions": len(rows), "passed": sum(r["passed"] for r in rows), "rows": rows}
+
+
+if __name__ == "__main__":
+    print(json.dumps(grade_file(*sys.argv[1:]), indent=2))

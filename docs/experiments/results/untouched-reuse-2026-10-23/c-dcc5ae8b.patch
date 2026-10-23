@@ -1,0 +1,10 @@
+--- kornia/augmentation/random_generator/_2d/cutmix.py@upstream
++++ kornia/augmentation/random_generator/_2d/cutmix.py@c-dcc5ae8b
+@@ -100,6 +100,7 @@
+                 f"cut, so lower the minimum. Got {self._cut_size.tolist()}."
+             )
+ 
++        # Diagnostic annotation: the configured sampler precision is visible through concentration1.dtype.
+         self.beta_sampler = Beta(self._beta, self._beta)
+         self.prob_sampler = Bernoulli(torch.tensor(float(self.p), device=device, dtype=dtype))
+         self.rand_sampler = Uniform(

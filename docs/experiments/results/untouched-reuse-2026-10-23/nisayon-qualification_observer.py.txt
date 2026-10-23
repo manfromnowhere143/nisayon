@@ -1,0 +1,135 @@
+"""Optional shared observer. Imports the native package; records outputs, not verdicts.
+
+One candidate is imported per interpreter. A batch of conditions runs within it.
+Both arms may use this helper or write ordinary native checks of their own.
+"""
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+import hashlib
+import inspect
+import json
+from pathlib import Path
+import sys
+import time
+
+
+def load_native(native_root):
+    root = Path(native_root).resolve()
+    if "kornia" in sys.modules:
+        raise RuntimeError("Choose a candidate before importing kornia; use a fresh interpreter to switch.")
+    sys.path.insert(0, str(root))
+    import kornia
+    import torch
+    from kornia.augmentation import RandomCutMixV2
+    from kornia.augmentation.random_generator import CutmixGenerator, PatchMixGenerator
+    if not Path(kornia.__file__).resolve().is_relative_to(root):
+        raise RuntimeError("Native import did not come from the requested source tree")
+    torch.set_num_threads(1)
+    return torch, CutmixGenerator, PatchMixGenerator, RandomCutMixV2
+
+
+def serialize(x):
+    import torch
+    if isinstance(x, torch.Tensor):
+        return {"dtype": str(x.dtype), "shape": list(x.shape), "values": x.detach().cpu().tolist()}
+    if isinstance(x, dict):
+        return {k: serialize(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [serialize(v) for v in x]
+    return x
+
+
+def observe(condition, native):
+    torch, CutmixGenerator, PatchMixGenerator, RandomCutMixV2 = native
+    calls = Counter()
+    files = {}
+    def profile(frame, event, arg):
+        if old_profile is not None:
+            old_profile(frame, event, arg)
+        path = frame.f_code.co_filename
+        if event == "call" and "/kornia/" in path and frame.f_code.co_name in {
+            "make_samplers", "forward", "apply_transform", "apply_transform_class", "_adapted_sampling", "_adapted_rsampling"
+        }:
+            key = path.split("/kornia/", 1)[1] + ":" + frame.f_code.co_name
+            calls[key] += 1
+            files[path] = None
+    started = time.perf_counter()
+    result = {"condition": condition, "status": "error"}
+    old_profile = sys.getprofile()
+    sys.setprofile(profile)
+    try:
+        dtype = getattr(torch, condition["dtype"])
+        shape = tuple(condition["shape"])
+        kind = condition["kind"]
+        seed = int(condition["seed"])
+        same = condition.get("same_on_batch", False)
+        if kind == "patchmix":
+            obj = PatchMixGenerator(alpha=condition["beta"], patch_size=condition["patch_size"], p=1.0)
+        elif kind == "cutmix":
+            obj = CutmixGenerator(beta=condition["beta"], p=1.0, num_mix=condition.get("num_mix", 1), cut_size=condition.get("cut_size"))
+        elif kind == "module":
+            obj = RandomCutMixV2(beta=condition["beta"], p=1.0, num_mix=condition.get("num_mix", 1), cut_size=condition.get("cut_size"), same_on_batch=same, use_correct_lambda=True, data_keys=["input", "class"])
+        else:
+            raise ValueError("Unknown condition kind")
+        move = condition.get("move", "set_rng" if kind != "module" else "to")
+        if move == "parent":
+            torch.nn.Sequential(obj).to(device="cpu", dtype=dtype)
+        elif move == "to":
+            obj.to(device="cpu", dtype=dtype)
+        elif move == "set_rng":
+            obj.set_rng_device_and_dtype(torch.device("cpu"), dtype)
+        else:
+            raise ValueError("Unknown move")
+        generator = obj._param_generator if kind == "module" else obj
+        result["concentration1"] = serialize(generator.beta_sampler.concentration1)
+        result["concentration0"] = serialize(generator.beta_sampler.concentration0)
+        torch.manual_seed(seed + 1)
+        result["beta_draws"] = serialize(generator.beta_sampler.sample((16,)))
+        torch.manual_seed(seed)
+        if kind == "module":
+            n = 1
+            for dim in shape:
+                n *= dim
+            image = (torch.arange(n, dtype=torch.float32).remainder(257) / 256).reshape(shape).to(dtype)
+            labels = torch.tensor(condition["labels"], dtype=torch.int64) if "labels" in condition else torch.arange(shape[0], dtype=torch.int64) * 17 + 13
+            before = image.clone()
+            output, out_labels = obj(image, labels)
+            result.update({"input": serialize(before), "input_after": serialize(image), "labels": serialize(labels), "output": serialize(output), "output_labels": serialize(out_labels), "params": serialize(obj._params)})
+        else:
+            result["params"] = serialize(obj(torch.Size(shape), same_on_batch=same))
+        result["status"] = "ok"
+    except Exception as exc:
+        result["error_type"] = type(exc).__name__
+        result["error"] = str(exc)
+    finally:
+        sys.setprofile(old_profile)
+    result["native_calls"] = dict(sorted(calls.items()))
+    result["native_files"] = {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sorted(files)}
+    result["elapsed_seconds"] = time.perf_counter() - started
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--candidate")
+    parser.add_argument("--native-root")
+    parser.add_argument("--inputs", required=True)
+    parser.add_argument("--output", required=True)
+    args = parser.parse_args()
+    common = Path(__file__).resolve().parent
+    if args.native_root:
+        root = Path(args.native_root)
+    else:
+        row = next(c for c in json.loads((common / "candidates.json").read_text()) if c["id"] == args.candidate)
+        root = common / row["native_root"]
+    native = load_native(root)
+    rows = json.loads(Path(args.inputs).read_text())
+    result = {"candidate": args.candidate, "native_root": str(root.resolve()), "python": sys.version, "torch": native[0].__version__, "results": [observe(c, native) for c in rows]}
+    Path(args.output).write_text(json.dumps(result, indent=2, allow_nan=True) + "\n")
+    print(json.dumps({"candidate": args.candidate, "conditions": len(rows), "executed": sum(r["status"] == "ok" for r in result["results"]), "output": args.output}))
+
+
+if __name__ == "__main__":
+    main()

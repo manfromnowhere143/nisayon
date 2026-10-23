@@ -1,0 +1,103 @@
+"""Frozen confirmation driver. Refuses execution without two frozen arm outputs.
+
+This is evaluator-only. Candidate labels and input conditions are never copied
+into the solver-readable packet before the two freezes.
+"""
+from __future__ import annotations
+import argparse
+import datetime
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+import time
+
+from semantic_oracle import assess, canonical_observation
+
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--arm-a", required=True, help="Frozen final JSON")
+    parser.add_argument("--arm-b", required=True, help="Frozen final JSON")
+    parser.add_argument("--attestation", required=True, help="Coordinator record with arms list {final_path, sha256, frozen_at}")
+    args = parser.parse_args()
+    private = Path(__file__).resolve().parent
+    common = private.parent / "case-release/common"
+    attestation = json.loads(Path(args.attestation).read_text())
+    arm_paths = [Path(args.arm_a).resolve(), Path(args.arm_b).resolve()]
+    if arm_paths[0] == arm_paths[1]:
+        raise RuntimeError("Two distinct frozen outputs are required")
+    bound = {str(Path(row["final_path"]).resolve()): row for row in attestation["arms"]}
+    for arm in arm_paths:
+        receipt = bound[str(arm)]
+        if digest(arm) != receipt["sha256"] or not receipt["frozen_at"]:
+            raise RuntimeError("Arm output freeze binding mismatch")
+    seal = json.loads((private / "private-seal.json").read_text())
+    for row in seal["bound_files"]:
+        if digest(private / row["path"]) != row["sha256"]:
+            raise RuntimeError("Private seal changed: " + row["path"])
+    public_manifest = json.loads((common / "MANIFEST.json").read_text())
+    for row in public_manifest["files"]:
+        if digest(common / row["path"]) != row["sha256"]:
+            raise RuntimeError("Public packet changed: " + row["path"])
+    run_root = private / "confirmation"
+    run_root.mkdir(exist_ok=False)
+    (run_root / "arm-freeze-attestation.json").write_text(json.dumps(attestation, indent=2) + "\n")
+    expected = json.loads((private / "expected-decisions.json").read_text())
+    roles = json.loads((private / "candidate-roles.json").read_text())
+    candidates = json.loads((common / "candidates.json").read_text())
+    inputs = json.loads((private / "reserved-inputs.json").read_text())
+    if len(inputs) != 32:
+        raise RuntimeError("Reserved count changed")
+    stages = {}
+    phase_start = time.monotonic()
+    for stage in ["fresh", "unchanged-replay"]:
+        stage_root = run_root / stage
+        stage_root.mkdir()
+        observations = {}
+        for candidate in candidates:
+            cid = candidate["id"]
+            output = stage_root / (cid + ".json")
+            cmd = [str(private / "native-env/bin/python"), "-B", str(common / "native_probe.py"), "--candidate", cid, "--inputs", str(private / "reserved-inputs.json"), "--output", str(output)]
+            start = time.monotonic()
+            at = datetime.datetime.now(datetime.timezone.utc).isoformat()
+            proc = subprocess.run(cmd, capture_output=True, text=True)
+            (stage_root / (cid + ".stdout")).write_text(proc.stdout)
+            (stage_root / (cid + ".stderr")).write_text(proc.stderr)
+            with (private / "command-records.jsonl").open("a") as f:
+                f.write(json.dumps({"at": at, "phase": stage, "command": cmd, "elapsed_seconds": time.monotonic() - start, "exit_code": proc.returncode, "provider_usage": "unknown"}) + "\n")
+            if proc.returncode:
+                raise RuntimeError("Native confirmation process failed; retain artifacts and mark invalid")
+            observations[cid] = json.loads(output.read_text())["results"]
+            if [r["condition"]["id"] for r in observations[cid]] != [r["id"] for r in inputs]:
+                raise RuntimeError("Assigned condition missing or reordered")
+        baselines = {r["condition"]["id"]: r for r in observations[roles["original"]]}
+        grading = {cid: [assess(row, baselines[row["condition"]["id"]]) for row in rows] for cid, rows in observations.items()}
+        stages[stage] = {"grading": grading, "observations": observations}
+        (stage_root / "grading.json").write_text(json.dumps(grading, indent=2) + "\n")
+    replay_equal = all([canonical_observation(r) for r in stages["fresh"]["observations"][cid]] == [canonical_observation(r) for r in stages["unchanged-replay"]["observations"][cid]] for cid in expected)
+    fresh_decisions = {cid: ("adopt" if all(r["passed"] for r in rows) else "reject") for cid, rows in stages["fresh"]["grading"].items()}
+    oracle_supported = expected == fresh_decisions and replay_equal
+    scored_arms = []
+    for arm_path in arm_paths:
+        final = json.loads(arm_path.read_text())
+        decisions = final["decisions"]
+        ids = [d["id"] for d in decisions]
+        complete = len(ids) == len(expected) and set(ids) == set(expected)
+        outcomes = []
+        for row in decisions:
+            cid = row["id"]
+            outcomes.append({"id": cid, "decision": row["decision"], "expected": expected.get(cid), "correct": row["decision"] == expected.get(cid), "false_acceptance": row["decision"] == "adopt" and expected.get(cid) != "adopt"})
+        scored_arms.append({"final_path": str(arm_path), "final_sha256": digest(arm_path), "complete_decision_set": complete, "outcomes": outcomes, "false_acceptances": sum(row["false_acceptance"] for row in outcomes), "false_acceptance_denominator": sum(v != "adopt" for v in expected.values()), "all_decisions_correct": complete and all(row["correct"] for row in outcomes), "evidence_review": "pending separate read-only rubric review; decision agreement alone does not pass quality", "reproduction_command": final.get("reproduction_command"), "limitations": final.get("limitations")})
+    result = {"schema": "nisayon.reserved-confirmation.v1", "completed_at": datetime.datetime.now(datetime.timezone.utc).isoformat(), "candidate_count": len(expected), "conditions_per_candidate": 32, "fresh_assigned_outcomes": len(expected) * 32, "unchanged_replay_outcomes": len(expected) * 32, "all_expected_outcomes_retained": True, "oracle_supported_by_confirmation": oracle_supported, "unchanged_replay_equal": replay_equal, "frozen_expected_decisions": expected, "fresh_semantic_decisions": fresh_decisions, "arms": scored_arms, "elapsed_seconds": time.monotonic() - phase_start, "interpretation": "one public software incident; controls/inputs are dependent; no owner enrollment, deployment acceptance, or independent human replication", "usage": "evaluator model/provider usage unknown"}
+    (run_root / "result.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps({k: v for k, v in result.items() if k not in {"arms", "frozen_expected_decisions", "fresh_semantic_decisions"}}, indent=2))
+
+
+if __name__ == "__main__":
+    main()
