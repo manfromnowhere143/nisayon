@@ -1,0 +1,220 @@
+{
+  "schema": "nisayon.contract-reuse-evaluation.v1",
+  "completed_at_utc": "2026-10-24T04:47:22.005551+00:00",
+  "status": "confirmation_and_unchanged_replay_supported",
+  "proposal": "https://github.com/kornia/kornia/pull/5958",
+  "base_sha": "6bb63bac1b480d7351ebbc6fd554d5c06d5145ea",
+  "head_sha": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+  "package_identity": "1b5abf5f230dd31ccebf227b9f2a4a0b1ac006ded82de676405336a812c395ce",
+  "workflow_freeze_sha256": "97159f6d04f5095ebafb84c55007b4df9208f448a0b99ad420953890d48c3cc8",
+  "fresh_inputs_sha256": "cb93cfc49239731bcf5379039c5f5283f6ca9f89cec7f49aef742e15340cf314",
+  "prior_semantic_oracle_sha256": "bc99b1937ad6a8e4da1fffbc27dc902969ef2bca4e86608ada5fe32a1a4c2579",
+  "frozen_observer_sha256": "997d5ed5ed56c42fd48053ec68914985fd99f688b7436790f9b24fcd52ddd1fb",
+  "fresh_outcomes": {
+    "current-base": {
+      "conditions": 32,
+      "native_ok": 16,
+      "semantic_passed": 16,
+      "decision": "reject",
+      "by_dtype": {
+        "float16": {
+          "assigned": 8,
+          "passed": 0
+        },
+        "bfloat16": {
+          "assigned": 8,
+          "passed": 0
+        },
+        "float32": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float64": {
+          "assigned": 8,
+          "passed": 8
+        }
+      }
+    },
+    "current-head": {
+      "conditions": 32,
+      "native_ok": 16,
+      "semantic_passed": 16,
+      "decision": "reject",
+      "by_dtype": {
+        "float16": {
+          "assigned": 8,
+          "passed": 0
+        },
+        "bfloat16": {
+          "assigned": 8,
+          "passed": 0
+        },
+        "float32": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float64": {
+          "assigned": 8,
+          "passed": 8
+        }
+      }
+    },
+    "positive-control": {
+      "conditions": 32,
+      "native_ok": 32,
+      "semantic_passed": 32,
+      "decision": "adopt",
+      "by_dtype": {
+        "float16": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "bfloat16": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float32": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float64": {
+          "assigned": 8,
+          "passed": 8
+        }
+      }
+    },
+    "precision-control": {
+      "conditions": 32,
+      "native_ok": 32,
+      "semantic_passed": 24,
+      "decision": "reject",
+      "by_dtype": {
+        "float16": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "bfloat16": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float32": {
+          "assigned": 8,
+          "passed": 8
+        },
+        "float64": {
+          "assigned": 8,
+          "passed": 0
+        }
+      }
+    }
+  },
+  "candidate_outcome_denominator": 128,
+  "auxiliary_baseline_observations": 32,
+  "valid_full_precision_baseline_checks": 16,
+  "quality": {
+    "native": {
+      "decisions_correct": 4,
+      "decision_denominator": 4,
+      "false_acceptances": 0,
+      "false_acceptance_denominator": 3,
+      "all_roles_valid": true,
+      "replay_identical": true,
+      "complete_scoped_quality": "pass",
+      "deployment_decision": "unresolved"
+    },
+    "nisayon": {
+      "decisions_correct": 4,
+      "decision_denominator": 4,
+      "false_acceptances": 0,
+      "false_acceptance_denominator": 3,
+      "all_roles_valid": true,
+      "replay_identical": true,
+      "complete_scoped_quality": "pass",
+      "deployment_decision": "unresolved"
+    }
+  },
+  "denominator_limit": "The denominator of three contains two dependent current revisions and one exposed negative control. The positive control is excluded. This is one selected proposal, not a population error-rate estimate.",
+  "finding": "Current base and head have identical fresh semantic observations under the default/global stream. Their rejections reflect the existing half-precision CPU/scalar contract failures, not evidence that the optional generator feature introduced a regression.",
+  "scope": "Default/global-stream CPU eager mixing only. Explicit generator isolation/routing, whole-PR adoption, owner acceptance, deployment and robot performance remain outside the contract.",
+  "replay": {
+    "exposed_conditions": 58,
+    "candidate_revision_controls": 4,
+    "workflows": 2,
+    "roles_per_execution": 3,
+    "role_output_comparisons": 24,
+    "decisions_compared": 8,
+    "mode_order": [
+      "native",
+      "nisayon"
+    ],
+    "adaptations": "Copied complete common source/package and SDK bytes; changed runtime/output paths and sandbox read/write roots only. Original 58 inputs, candidate order, mode order, bind and execute arguments, interpreter/environment identities and three roles retained."
+  },
+  "timing": {
+    "fresh_confirmation_seconds": 8.276153457933106,
+    "replay_outer_seconds": 93.14708591706585,
+    "execution_driver_seconds": 111.69861370802391,
+    "replay_workflows": {
+      "native": {
+        "binding_seconds": 11.215802624006756,
+        "execution_including_immediate_review_seconds": 22.898151876055636,
+        "binding_plus_execution_seconds": 34.11395450006239
+      },
+      "nisayon": {
+        "binding_seconds": 12.148319291998632,
+        "execution_including_immediate_review_seconds": 46.723605208215304,
+        "binding_plus_execution_seconds": 58.871924500213936
+      }
+    },
+    "review_seconds": 0.3128764589782804,
+    "evaluator_started_at_utc": "2026-10-24T04:40:57Z",
+    "archive_build_and_verification_seconds": 0.7271840830799192,
+    "review_and_release_script_seconds": 1.0457166250562295,
+    "evaluator_total_elapsed_to_release_seconds": 385.736851
+  },
+  "failures": {
+    "execution_or_replay_process_failures": 0,
+    "retried_workflows": 0,
+    "native_condition_failures_retained": {
+      "current-base": {
+        "NotImplementedError": 15,
+        "ValueError": 1
+      },
+      "current-head": {
+        "NotImplementedError": 15,
+        "ValueError": 1
+      },
+      "positive-control": {},
+      "precision-control": {}
+    }
+  },
+  "integrity": {
+    "checked_at_utc": "2026-10-24T04:45:42.042456+00:00",
+    "original_runtime_14897_files_unchanged": true,
+    "original_declarations_unchanged": true,
+    "copied_source_package_and_sdk_file_sets_unchanged": true,
+    "private_support_and_conditions_unchanged": true,
+    "environment_identity_unchanged": true,
+    "native_python_invocation": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/bin/python",
+    "note": "RECORD identity verifies installation metadata, not every installed shared-library byte. Process success and hashes do not establish semantic acceptance."
+  },
+  "cost_limits": {
+    "provider_charges": null,
+    "evaluator_model_tokens": null,
+    "active_human_effort": null,
+    "note": "Nested clocks are not additive. Evaluator preparation and review are common costs. Prior package/study preparation and later adoption/maintenance remain additional. No twofold complete-cost claim follows."
+  },
+  "limitations": [
+    "No new model solver calls were made; this evaluates two automated frozen procedures.",
+    "The independent prior oracle shares native Torch primitives and the frozen observer; it is not external human replication.",
+    "The old oracle checks pairing permutations/sharing and exact full-precision regression; the frozen workflow contract additionally checks seeded pairing. No oracle or threshold was changed after outcomes.",
+    "Environment RECORD metadata is checked, not every installed library byte.",
+    "Source selection has disclosed selector-only prior exposure; its stricter sensitivity returned no eligible case."
+  ],
+  "evidence_zip": {
+    "path": "evidence.zip",
+    "sha256": "f7d919be83e97e003358a7490604634a8d08fadd644d25fcd6fbbd1e504d226f",
+    "bytes": 7657717,
+    "manifest_files": 368,
+    "all_entry_digests_verified": true
+  }
+}

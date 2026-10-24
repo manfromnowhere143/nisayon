@@ -1,0 +1,58 @@
+{
+  "schema": "nisayon.contract-reuse-selection-costs.v1",
+  "started_at_utc": "2026-10-24T04:28:23+00:00",
+  "receipt_at_utc": "2026-10-24T04:36:13.811504+00:00",
+  "selection_conservative_continuous_seconds": 259.0,
+  "selection_cap_seconds": 1800,
+  "post_selection_to_reserved_seal_seconds": 108.497926,
+  "reserved_seal_to_receipt_seconds": 103.313578,
+  "total_evaluator_elapsed_to_receipt_seconds": 470.811504,
+  "phase_note": "Continuous UTC wall intervals include reasoning, source reads, interpretation clarification, record construction and controls. They are not summed with nested tool/script clocks.",
+  "read_only_upstream_calls": {
+    "connector": 42,
+    "gh_rest_pages": 1
+  },
+  "local_record_scripts": [
+    {
+      "command": "python3 work/experiments/contract-reuse-2026-10-24/selection/build_selection_receipt.py",
+      "attempts": 1,
+      "exit_code": 0,
+      "tool_wall_seconds": 0.319956958
+    },
+    {
+      "command": "python3 artifacts/contract-reuse-2026-10-24/selection/evaluator-private/make_reserved.py",
+      "attempts": 1,
+      "exit_code": 0,
+      "tool_wall_seconds": 0.265795667,
+      "private_nested_clock": "evaluator-private/generation-costs.json"
+    },
+    {
+      "command": "python3 work/experiments/contract-reuse-2026-10-24/selection/freeze_controls.py",
+      "attempts": 1,
+      "exit_code": 0,
+      "tool_wall_seconds": 0.4162025,
+      "nested_control_hash_seconds": 0.1616964159766212
+    },
+    {
+      "command": "python3 work/experiments/contract-reuse-2026-10-24/selection/finalize_receipt.py",
+      "attempts": 1,
+      "status": "finalizing",
+      "script_elapsed_to_receipt_seconds": 0.024647749960422516
+    }
+  ],
+  "failed_upstream_or_record_execution_attempts": 0,
+  "preserved_nonexecution_issues": [
+    "Connector search metadata incomplete; REST enumeration supplied exact timestamps, draft state and refs.",
+    "Initial selector-only exposure exclusion exceeded the literal protocol; preserved in search-order.json and corrected explicitly in exposure-clarification.json. Its sensitivity result remains no_eligible_case.",
+    "Current upstream metadata reports mergeable=false; source is not merged or rebased."
+  ],
+  "package_execution_count": 0,
+  "native_execution_count": 0,
+  "solver_call_count": 0,
+  "new_dependency_install_count": 0,
+  "provider_charges": null,
+  "model_token_usage": null,
+  "active_human_effort": null,
+  "unknowns_are_not_zero": true,
+  "cost_scope": "Selection and confirmation preparation are common preparation costs. They are additional to prior package creation/qualification and original study costs, not free setup and not an observed complete-cost ratio."
+}

@@ -1,5 +1,24 @@
 # Research source and releases
 
+## Executable contract reuse · 24 October 2026
+
+A [frozen CPU mixing contract](experiments/results/contract-reuse-2026-10-24/README.md)
+binds another current Kornia proposal without adapter or checker changes. Native
+Python and Nisayon agree on all four scoped decisions. Current base and head
+remain unsuitable for the declared contract; the optional generator feature and
+whole-PR adoption are outside scope. Fresh confirmation matches all four
+decisions and all 24 role outputs reproduce in unchanged replay. The selection
+record discloses prior
+selector-only discovery and its more conservative no-eligible-case sensitivity.
+
+The package includes source/environment/input boundaries and 28 regression
+checks. Both workflows receive the same automation. Measured binding and
+execution take 32.67 seconds natively and 57.04 seconds with Nisayon across four
+candidates; complete cost remains unknown. Source snapshots, commands, controls,
+portable assessments, failed prefixes and cost limits are retained. Core SDK,
+dependency lock and historical evidence remain unchanged. Publication descends
+only from existing public main and preserves the historical release tag.
+
 ## Untouched software reuse · 23 October 2026
 
 The [Kornia comparison](experiments/results/untouched-reuse-2026-10-23/README.md)

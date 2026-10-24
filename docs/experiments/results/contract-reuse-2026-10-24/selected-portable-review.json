@@ -1,0 +1,80 @@
+{
+  "schema": "nisayon.contract-reuse-portable-review.v1",
+  "started_at": "2026-10-24T04:41:19.499191+00:00",
+  "ended_at": "2026-10-24T04:41:20.019307+00:00",
+  "command": [
+    "/Users/danielwahnich/.nvm/versions/node/v20.18.3/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+    "sandbox",
+    "-P",
+    "portable_reuse_review",
+    "-c",
+    "permissions.portable_reuse_review={filesystem={\":root\"=\"deny\",\":minimal\"=\"read\",\"/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none\"=\"read\",\"/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-contract-reuse-pd0xl4sr/sdk\"=\"read\",\"/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-selected-portable-a4cf4ehq\"=\"write\"},network={enabled=false}}",
+    "-C",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-selected-portable-a4cf4ehq",
+    "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/bin/python3.12",
+    "-B",
+    "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-selected-portable-a4cf4ehq/review.py"
+  ],
+  "returncode": 0,
+  "wall_seconds_including_copy": 0.519575042068027,
+  "observed": {
+    "reviews": [
+      {
+        "bundle": "evidence-current-base.nisayon.zip",
+        "seconds": 0.09401883301325142,
+        "bundle_sha256": "d0033fb3052d461e2cb1a5c80f2f92209802ed36e41062fd0d586abc869d8047",
+        "integrity": "verified",
+        "review_status": "verified",
+        "assessment_agrees": true,
+        "software_decision": "reject",
+        "deployment_decision": "unresolved"
+      },
+      {
+        "bundle": "evidence-current-head.nisayon.zip",
+        "seconds": 0.091946457978338,
+        "bundle_sha256": "605efd309dc85cb5d5d659ef56aa6febea69ae0beafa1ad103073f44ae14bd7a",
+        "integrity": "verified",
+        "review_status": "verified",
+        "assessment_agrees": true,
+        "software_decision": "reject",
+        "deployment_decision": "unresolved"
+      },
+      {
+        "bundle": "evidence-positive-control.nisayon.zip",
+        "seconds": 0.10036091599613428,
+        "bundle_sha256": "4159f6501d3e90f5284e7a7048d2526010fd957b37d10bb7e3ad12fd412897f3",
+        "integrity": "verified",
+        "review_status": "verified",
+        "assessment_agrees": true,
+        "software_decision": "adopt",
+        "deployment_decision": "unresolved"
+      },
+      {
+        "bundle": "evidence-precision-control.nisayon.zip",
+        "seconds": 0.11382804100867361,
+        "bundle_sha256": "f0ab90439061ef7351ffd4400197c7969d5d5f9ff2f1cd3c39f95ce43ab5377a",
+        "integrity": "verified",
+        "review_status": "verified",
+        "assessment_agrees": true,
+        "software_decision": "reject",
+        "deployment_decision": "unresolved"
+      }
+    ],
+    "excluded_reads": [
+      {
+        "path": "/Users/danielwahnich/workspace/nisayon-untouched-reuse-2026-10-23/artifacts/untouched-reuse-2026-10-23/evaluator-private/native-env/pyvenv.cfg",
+        "denied": true,
+        "errno": 1
+      },
+      {
+        "path": "/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/nisayon-contract-reuse-pd0xl4sr/nisayon/binding-current-head/candidate/kornia/__init__.py",
+        "denied": true,
+        "errno": 1
+      }
+    ],
+    "native_imports_and_subprocesses_guarded": true
+  },
+  "script_sha256": "072a98fcda97da0898d95feebf6f0681881e13cb1f9acef705d80a4ed796acc5",
+  "stderr": "",
+  "scope": "Review of selected workflow bundles with native source/environment denied. Reassessment of retained observations, not fresh execution or a complete cost claim."
+}

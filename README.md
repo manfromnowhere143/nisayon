@@ -109,6 +109,20 @@ have distinct scopes.
 
 ## Latest progress
 
+**24 October — a frozen contract reused without adaptation.** The same executable
+CPU mixing contract bound to the exact base and head of Kornia PR #5958. Native
+Python and Nisayon rejected both unsuitable revisions and a precision-damaging
+control, while accepting the previously qualified correction. The selected
+proposal's new generator feature remains outside scope; its title and body had
+appeared in prior selector discovery. [Read the result, selection boundary and
+reproduction](docs/experiments/results/contract-reuse-2026-10-24/README.md).
+Fresh confirmation matched all four decisions with zero false acceptance among
+three unsuitable sources; all 24 role outputs reproduced in unchanged replay.
+Binding plus workflow took 32.67 seconds with native Python and 57.04 seconds
+with Nisayon across four candidates. The twofold complete-cost target remains
+unproven. The reusable package benefits both workflows; owner effort saved has
+not been measured.
+
 **23 October — untouched software reuse, matched quality.** A fresh selector chose
 [Kornia PR #6277](https://github.com/kornia/kornia/pull/6277) outside the recorded
 exposure inventory. The unchanged SDK and a capable native-tools-plus-agent

@@ -1,0 +1,34 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_added_module_cannot_shadow_a_bound_dependency ______________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-550/test_added_module_cannot_shado0')
+conditions = [{'id': 'dev-cutmix-float16', 'kind': 'cutmix', 'dtype': 'float16', 'beta': 1.0, ...}, {'id': 'dev-cutmix-bfloat16', '...6', 'beta': 1.0, ...}, {'id': 'dev-patchmix-bfloat16', 'kind': 'patchmix', 'dtype': 'bfloat16', 'beta': 1.0, ...}, ...]
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x120388140>
+
+    def test_added_module_cannot_shadow_a_bound_dependency(tmp_path, conditions, monkeypatch):
+        # A new torch.py beside the entry point changes import resolution without
+        # modifying any previously recorded file or installed distribution RECORD.
+        monkeypatch.setitem(__import__("sys").modules, "scope", scope)
+        spec = importlib.util.spec_from_file_location("mix_qualify", PACKAGE / "qualify.py")
+        qualify = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(qualify)
+        monkeypatch.setattr(qualify, "verify_package", lambda: "fixture-package")
+        native = {}
+        for role in ("baseline", "candidate"):
+            package = tmp_path / role / "kornia"
+            package.mkdir(parents=True)
+            (package / "__init__.py").write_text("# bounded fixture\n")
+            native[role] = scope.native_files(tmp_path / role)
+        scope.write(tmp_path / "inputs.json", conditions)
+        files = {str(p.relative_to(tmp_path)): scope.file_digest(p) for p in tmp_path.rglob("*") if p.is_file()}
+        scope.write(tmp_path / "binding.json", {"package_sha256": "fixture-package", "files": files, "native": native})
+        qualify.verify_binding(tmp_path)
+        (tmp_path / "torch.py").write_text("raise RuntimeError('import shadow')\n")
+>       with pytest.raises(ValueError, match="file set"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_kornia_mix_package.py:124: Failed
+=========================== short test summary info ============================
+FAILED tests/qualification/test_kornia_mix_package.py::test_added_module_cannot_shadow_a_bound_dependency

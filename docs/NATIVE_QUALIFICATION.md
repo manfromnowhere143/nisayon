@@ -19,6 +19,21 @@ The [implementation and comparison record](experiments/results/native-sdk-2026-1
 retains the measured results and limits. The [owner comparison](OWNER_COMPARISON.md)
 sets out the separate prospective value test.
 
+## Reuse an executable domain contract
+
+The [CPU mixing example](../examples/qualification/kornia_mix/README.md) packages
+qualified semantics for three Kornia entry points. It binds complete source
+snapshots and a pinned environment, rejects source/file-set or input-domain
+drift, and runs through either ordinary Python or this SDK. Both modes share the
+same checker; each changed candidate still requires native execution. This is a
+bounded example, not automatic contract discovery.
+
+The [24 October experiment](experiments/results/contract-reuse-2026-10-24/README.md)
+reuses that package on a selected current proposal without editing its bytes.
+The report distinguishes default behavior from the proposal's new feature,
+records selection exposure and compares the competent native workflow. Neither
+portable integrity nor a reused procedure transfers a previous verdict.
+
 ## Run the example
 
 Use a new installation environment; preserve historical experiment environments.

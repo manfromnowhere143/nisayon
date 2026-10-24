@@ -1,0 +1,195 @@
+{
+  "schema": "nisayon.contract-reuse-selection.v1",
+  "status": "selected_for_unchanged_binding",
+  "selection_started_at_utc": "2026-10-24T04:28:23Z",
+  "selected_at_utc": "2026-10-24T04:32:42Z",
+  "selection_elapsed_seconds_conservative": 259.0,
+  "selection_cap_seconds": 1800,
+  "window": {
+    "from_inclusive": "2026-09-24T04:28:23Z",
+    "to_inclusive": "2026-10-24T04:28:23Z",
+    "no_boundary_candidates": true
+  },
+  "ordering": "creation timestamp ascending, then PR number ascending",
+  "selected": {
+    "url": "https://github.com/kornia/kornia/pull/5958",
+    "number": 5958,
+    "title": "feat(augmentation): support independent torch.Generator streams",
+    "state": "open",
+    "draft": false,
+    "created_at": "2026-10-14T19:02:20Z",
+    "updated_at": "2026-10-21T20:04:38Z",
+    "base_sha": "6bb63bac1b480d7351ebbc6fd554d5c06d5145ea",
+    "head_sha": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+    "head_repo_full_name": "px12811/kornia",
+    "mergeable": false,
+    "commits": 11,
+    "changed_files": 57
+  },
+  "upstream_author": "px12811",
+  "license": {
+    "spdx": "Apache-2.0",
+    "url": "https://github.com/kornia/kornia/blob/fe71400f53bce6e02772f52ff2a6f7d4973d6dd4/LICENSE",
+    "git_blob_sha": "d9a10c0d8e868ebf8da0b3dc95bb0be634c34bfe",
+    "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9"
+  },
+  "applicability": {
+    "basis": "Actual source changes decorate CutmixGenerator/PatchMixGenerator.forward and route their Bernoulli, Beta, Uniform and pairing draws through a new distribution helper. RandomCutMixV2 inherits changed MixAugmentationBaseV2.forward and augmentation-base forwarding.",
+    "preserved_interface": "Existing concrete constructor signatures and positional forward arguments remain; optional keyword-only generator defaults to None. Source retains set_rng_device_and_dtype, direct .to and parent-module _apply paths. RandomCutMixV2 implementation blob matches the frozen reference blob.",
+    "semantic_scope": "Only the existing default/global-stream CPU mixing contract: four dtypes, positive scalar concentrations, seeded native distributions, geometry, class labels and input preservation. No claim that source compatibility proves contract satisfaction.",
+    "new_feature_limit": "Explicit independent-generator routing, isolated streams, compilation and accelerator behavior are outside the frozen observer and cannot be accepted from its verdict.",
+    "environment_source_check": "Head declares Python >=3.11, torch>=2.5.1, kornia_rs>=0.2.0 and numpy>=1.21. Frozen Python3.12.13/torch2.14.0/kornia_rs0.2.0/numpy2.5.4 satisfy declared bounds; no runtime import or binding was executed.",
+    "not_pr6277_equivalent": "PR5958 was created 2026-10-14 and changes optional RNG-stream routing across native augmentation paths. Its inspected patch does not implement the PR6277 concentration-dtype correction; it is not selected as a replacement URL or rebase for that correction.",
+    "source_files": [
+      {
+        "path": "kornia/augmentation/random_generator/_2d/cutmix.py",
+        "ref": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+        "git_blob_sha": "ca9a6bd53da276ca348dedc177e7722c12113dba",
+        "content_sha256": "c2fe1295f57cedb78565258954723ad0e33839dc67a4fba05708bf63cf06ba8d",
+        "classes": [
+          {
+            "name": "CutmixGenerator",
+            "methods": [
+              "__init__",
+              "__repr__",
+              "make_samplers",
+              "forward"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "kornia/augmentation/random_generator/_2d/patchmix.py",
+        "ref": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+        "git_blob_sha": "67190a4f993d2b66972b144504cb74333deb82db",
+        "content_sha256": "880c791c1a63f8a943dea755642d85b796358920fe496d2cdbaa52ca82024023",
+        "classes": [
+          {
+            "name": "PatchMixGenerator",
+            "methods": [
+              "__init__",
+              "__repr__",
+              "make_samplers",
+              "forward"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "kornia/augmentation/_2d/mix/cutmix.py",
+        "ref": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+        "git_blob_sha": "d44bf6a66a297fdfd97329aae39825146ac2269f",
+        "content_sha256": "87ee79ce1bb0689bfefba3d9c682b5ad9d4719c9ba49912fba87f799f4b28441",
+        "classes": [
+          {
+            "name": "RandomCutMixV2",
+            "methods": [
+              "__init__",
+              "apply_transform_class",
+              "apply_non_transform_class",
+              "apply_transform"
+            ]
+          }
+        ]
+      },
+      {
+        "path": "kornia/augmentation/random_generator/base.py",
+        "ref": "fe71400f53bce6e02772f52ff2a6f7d4973d6dd4",
+        "git_blob_sha": "6bbb4e2914e8ab4670066d0d36a7f18a85767be1",
+        "content_sha256": "89ae664e9c94c3d94d05b7c380203db27f48825b0a4247eaae210960a06e5c4d",
+        "classes": [
+          {
+            "name": "_PostInitInjectionMetaClass",
+            "methods": [
+              "__call__"
+            ]
+          },
+          {
+            "name": "RandomGeneratorBase",
+            "methods": [
+              "__init__",
+              "__post_init__",
+              "set_rng_device_and_dtype",
+              "to",
+              "_apply",
+              "make_samplers",
+              "forward"
+            ]
+          },
+          {
+            "name": "DistributionWithMapper",
+            "methods": [
+              "__init__",
+              "rsample",
+              "sample",
+              "sample_n",
+              "__getattr__"
+            ]
+          },
+          {
+            "name": "UniformDistribution",
+            "methods": []
+          }
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "open_pull_requests_rest": 38,
+    "rest_pages": 1,
+    "open_nondraft_in_window": 30,
+    "connector_search_matches_rest_window": true,
+    "first_three_source_exclusions": [
+      5747,
+      5780,
+      5796
+    ],
+    "prior_exposure_inventory_threads": 624,
+    "registered_interaction_threads": 56,
+    "kornia_in_prior_inventory_or_registered_threads": 0,
+    "prior_selector_discovery_count": 54
+  },
+  "exposure_interpretation": {
+    "primary_rule": "Literal frozen protocol: prior solver exposure inventory, registered Nisayon interactions, and previous study variants; selector-only discovery is disclosed separately.",
+    "initial_overbroad_screen_retained": "The pre-query search-order.json included all prior selector discovery. On coordinator clarification, exposure-clarification.json preserves its distinction from the frozen protocol. No candidate outcomes were observed before or after this clarification.",
+    "selected_prior_selector_exposure": "PR5958 title/body was present in the 23 October selector full-response discovery record. No evidence it reached either prior solver packet or the registered interaction inventory was found.",
+    "sensitivity_status": "no_eligible_case",
+    "sensitivity_excluded_prior_selector_count": 24,
+    "sensitivity_remaining_inapplicable": [
+      6281,
+      6285,
+      6286,
+      6287,
+      6289,
+      6291
+    ],
+    "limit": "No proof of absence from model pretraining, omitted sessions or untracked concurrent notes."
+  },
+  "frozen_package": {
+    "identity": "1b5abf5f230dd31ccebf227b9f2a4a0b1ac006ded82de676405336a812c395ce",
+    "manifest_sha256": "ddd3458cce7d5a1238d21e0f027a52dca719fab9f5689abc58aa37eb0e1873ba",
+    "file_checks": {
+      "README.md": true,
+      "baseline-files.json": true,
+      "contract.json": true,
+      "contract.py": true,
+      "inputs.json": true,
+      "observer.py": true,
+      "qualify.py": true,
+      "requirements.lock": true,
+      "scope.py": true
+    },
+    "package_execution_count": 0,
+    "native_execution_count": 0,
+    "modified": false
+  },
+  "contract_reference_revision": "4f4c9d61ecdbc38511ce08e3018ad3a3c3a78d1f",
+  "next_scope": "Bind the exact current PR base and head separately against the unchanged frozen reference/oracle/control only after execution custody is established. Neither current base nor head is already qualified.",
+  "limits": [
+    "Read-only source applicability, not executed qualification.",
+    "GitHub reports mergeable=false; exact source retained without merge/rebase.",
+    "The source snapshot retained here is inspection evidence, not a complete executable checkout.",
+    "Context-separated model selection, not independent human replication or owner enrollment.",
+    "One software incident; no population, robot, deployment or complete-cost savings claim."
+  ]
+}
