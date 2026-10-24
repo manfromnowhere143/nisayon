@@ -20,6 +20,13 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [24 October native continuation](results/native-continuation-2026-10-24/README.md)
+qualifies two optimizer updates and fresh-process checkpoint continuation with
+published LongWAM IDM weights. All 25 gates pass across two synthetic seeds;
+the next update matches on both ranks. The combined candidate, instrumented
+recipe, failed prefixes and complete checkpoint-retention record remain
+distinct from training quality, owner adoption and comparative cost.
+
 The [24 October read-witness experiment](results/owner-read-witness-2026-10-24/README.md)
 exposes an omitted normalization-data dependency with an unmodified OpenPI
 loader. New native plans retain owner-file read attempts, block observed

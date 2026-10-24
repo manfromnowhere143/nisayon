@@ -1,6 +1,6 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 23 October
+**Design v0.1 · 17 September 2026; implementation status updated 24 October
 2026.** The general product architecture remains proposed.
 
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
@@ -110,7 +110,7 @@ probability models. It leaves the implemented finite confirmation obligation
 unchanged. An owner's pre-execution signal, sampling process and complete costs
 would need their own qualification before this research option could be used.
 
-## Native qualification and review · 23 October 2026
+## Native qualification and review · 24 October 2026
 
 The implemented `nisayon.qualification` package adds explicit project/environment
 contexts, immutable cases and plans, native call witnesses, retained attempts,
@@ -121,6 +121,21 @@ in the [native comparison](experiments/results/native-sdk-2026-10-23/README.md);
 it did not establish an advantage over the fixed probe. The
 [cost assessor](COST_TARGET.md) preserves missing costs and false acceptances.
 A general execution compiler and learned selector remain proposed.
+
+New plans also freeze a bounded CPython owner-file read policy. Observed
+undeclared reads or incomplete witnesses prevent acceptance; a declared data
+change invalidates reuse. The [read-witness experiment](experiments/results/owner-read-witness-2026-10-24/README.md)
+retains the omitted-data counterexample and the metadata-import defect found
+during implementation. This is a checked boundary under explicit premises,
+not complete dependency discovery. The [native flow](NATIVE_QUALIFICATION.md#python-interface)
+shows execution, read-only assessment, portable review and scoped reuse.
+
+The separate [full-weight continuation investigation](experiments/results/native-continuation-2026-10-24/README.md)
+qualifies the combined LongWAM/LeRobot/Accelerate candidate on two synthetic
+seeds and two A100 GPUs. Exact next-update witnesses agree on both ranks after
+fresh-process resume. This is an instrumented native training experiment, not
+a generic training backend in the SDK; training quality and owner value remain
+unmeasured.
 
 ## Implemented code and data flow
 
@@ -149,6 +164,9 @@ flowchart TB
 | Inspect | Implementation | Verification and limit |
 |---|---|---|
 | Workspace entry points | [CLI](../src/nisayon/cli.py), [MCP](../src/nisayon/mcp_server.py), [workspace](../src/nisayon/workspace.py) | [Workspace tests](../tests/test_workspace.py); developer permissions do not isolate evaluation answers. |
+| Native software qualification | [SDK and CLI](NATIVE_QUALIFICATION.md), [runner](../src/nisayon/qualification/runner.py), [read witness](../src/nisayon/qualification/reads.py) | [Controls](../tests/qualification/); exact source, data and environment identities, observed calls and bounded owner reads. Software acceptance leaves deployment unresolved. |
+| Evidence review and reuse | [Portable reader](../src/nisayon/qualification/bundle.py), [applicability](../src/nisayon/qualification/reuse.py) | [Portable review contract](PORTABLE_REVIEW.md); no owner code executes during review. Procedure, observations and verdict have separate reuse requirements. |
+| Complete owner cost | [Cost target](COST_TARGET.md), [active-effort recorder](../examples/qualification/owner_effort/README.md), [prospective comparison](OWNER_COMPARISON.md) | Setup, retries, review and declared charges are included; missing costs stay unknown. The twofold target remains unproven. |
 | Closed-loop execution and retention | [Execution store](../src/nisayon/engine/execution_store.py), [Lift adapter](../src/nisayon/engine/lift.py), [history](../src/nisayon/engine/history.py) | [Execution tests](../tests/engine/); the measured physical model is the pinned simulator, not a hardware guarantee. |
 | Fresh task confirmation | [Producer service](../src/nisayon/engine/confirmation_service.py), [assessment](../src/nisayon/evaluation/confirmation.py) | [Frozen obligation](evaluation/CONFIRMATION_OBLIGATION.md); source identity and task progress must both hold. |
 | Cost accounting | [Reconciliation](../src/nisayon/evaluation/costs.py), [regressions](../tests/evaluation/test_evaluation_costs.py) | Nested measurements count once; invalid or unmeasured cost remains explicit. |

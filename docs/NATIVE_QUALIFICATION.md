@@ -102,14 +102,26 @@ are immutable canonical JSON values; `record()` returns a separate copy.
 evidence rather than trusting a caller-supplied success flag.
 
 ```mermaid
-flowchart LR
-    C["Case + explicit owner context"] --> P["Freeze plan<br/>files · environment · tool"]
-    P --> R["Run native functions<br/>intent before each attempt"]
-    R --> E["Retain observations and failures<br/>manifest · seal · measured costs"]
-    E --> A["Read-only assessment<br/>software: adopt / reject / unresolved"]
-    E --> M["Reuse assessment<br/>procedure · observations · verdict scope"]
+flowchart TB
+    accTitle: Native qualification, read witnesses and scoped reuse
+    accDescr: Freeze the case, owner files, environment, tool and read policy. Record intent before native execution and retain calls, read attempts and failures. Read-only assessment requires valid complete evidence. Portable review executes no owner code. Reuse separately checks procedure, observations and verdict applicability; changed inputs require new evidence. Deployment acceptance remains unresolved.
+    C["Case + explicit owner context"] --> P["Freeze plan v2<br/>files · environment · tool · read policy"]
+    P --> R["Record intent, then execute<br/>reference · control · candidate"]
+    R --> W["Observe native calls and owner reads<br/>check identities before and after"]
+    W --> E["Retain outcomes and failures<br/>manifest · seal · measured costs"]
+    E --> A["Read-only software assessment<br/>adopt · reject · unresolved"]
+    E --> B["Export and portable review<br/>recompute without owner execution"]
+    E --> M["Assess reuse against current context<br/>procedure · observations · verdict"]
+    M -. "changed inputs need new evidence" .-> P
     A --> T["Deployment: unresolved<br/>fresh task obligation remains"]
 ```
+
+An undeclared owner read or an incomplete read witness prevents acceptance.
+A declared input change invalidates reuse of the old observations and verdict;
+it can leave the procedure reusable. The witness covers bounded CPython read
+attempts under the [stated premises](#declare-a-checkable-question), not every
+native, remote or subprocess dependency. Integrity and applicability checks
+cannot establish physical truth.
 
 ## Declare a checkable question
 

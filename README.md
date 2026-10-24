@@ -32,6 +32,12 @@ or declared correction choices. Several causes can remain possible while
 agreeing on one choice. The tool preserves that uncertainty; its answer still
 needs a valid correction and fresh task confirmation.
 
+For native software changes, the Python SDK and `nisayon-qualify` bind source,
+data and environment identities, run reference/control/candidate functions, and
+retain call and owner-file read witnesses. Another machine can inspect the
+evidence without executing owner code. Reusing a procedure, reusing observations
+and carrying forward a verdict are separate decisions.
+
 [System map](#the-system-and-the-next-proof) · [Results](#what-the-experiments-found) ·
 [Code and review](#inspect-the-work) ·
 [Latest progress](#latest-progress) ·
@@ -51,28 +57,33 @@ proposed.
 
 ```mermaid
 flowchart TB
-    accTitle: Implemented Nisayon tools and the next evidence needed
-    accDescr: Case binding, bounded execution and fresh confirmation are implemented. Offline decision probes do not execute interventions. Native checks provide software evidence, including a separately selected reuse case. Prediction-audit research is separate from runtime acceptance. A real owner's matched comparison and lower complete cost remain unproved; broader expansion depends on that evidence.
-    subgraph W["Implemented execution"]
-        direction LR
-        I["Bind deployment<br/>source · weights<br/>state · timing"]
-        I --> E["Execute and retain<br/>outcomes · attempts<br/>costs · unknowns"]
-        E --> C["Confirm correction<br/>fresh task conditions"]
+    accTitle: Nisayon execution, retained evidence, reuse and the next value test
+    accDescr: Closed-loop Lift experiments require fresh task confirmation. The native Python SDK checks declared software relations and owner-file reads. Separate upstream studies qualify exact source and training recipes. All retain scoped evidence and costs. Procedure, observation and verdict reuse have different requirements. Owner savings and a separate untouched owner incident remain unproved; expansion depends on those results.
+    subgraph W["Implemented paths"]
+        T["Closed-loop Lift<br/>fixed policy<br/>changed deployment"] --> F["Fresh task confirmation<br/>correction and reference pairs"]
+        N["Native Python SDK + CLI<br/>source · data<br/>environment"] --> S["Software qualification<br/>call and read witnesses<br/>reference · control · candidate"]
     end
-    D["Offline probe selection<br/>declared causes or choices<br/>no intervention execution"]
-    D -. "experimental native bridge; task confirmation separate" .-> E
-    N["Native software checks<br/>source-bound corrections<br/>scoped upstream adoption"]
-    R["Confirmation research<br/>prediction audits · complete cost<br/>no runtime acceptance change"]
-    subgraph V["Owner evidence needed"]
+    D["Offline decision probes<br/>declared hypotheses<br/>and choices"] -. "experimental native bridge" .-> N
+    X["Native upstream studies<br/>training · checkpoints<br/>source-specific fixes"] --> H
+    F --> H["Retained evidence<br/>identities · attempts · costs · unknowns"]
+    S --> H
+    H --> R["Inspect and scope reuse<br/>procedure · observations · verdict"]
+    subgraph V["Value still to establish"]
         direction LR
-        O["One owner comparison<br/>matched task quality<br/>lower complete effort"]
-        O --> U["Untouched second incident<br/>measure reuse"]
-        U --> P["Expand with evidence<br/>compiler · selector · backends"]
+        O["Live owner comparison<br/>matched quality · full cost"]
+        O --> U["Untouched owner incident<br/>measure setup and review saved"]
+        U --> P["Expand on evidence<br/>compiler · selector<br/>additional backends"]
     end
-    C -. "task evidence; owner value still open" .-> O
-    N -. "software evidence; owner value still open" .-> O
-    R -. "qualify owner inputs and acquisition cost" .-> O
+    R -. "twofold complete-cost target unproven" .-> V
 ```
+
+The paths have different acceptance rules. A native software verdict does not
+grant task acceptance; upstream training studies are separate experiments, not
+general SDK backends. Scripted temporal tests cover queues, timing and resets
+without learned inference. Prediction-audit research remains separate from
+runtime acceptance. The [implementation map](docs/ARCHITECTURE.md#implemented-code-and-data-flow)
+and [native qualification flow](docs/NATIVE_QUALIFICATION.md#python-interface)
+link these boundaries to code and controls.
 
 The next milestone is one engineer's live choice between a runtime correction,
 more training or data, and a different policy. Start with that engineer's
@@ -104,10 +115,19 @@ have distinct scopes.
 | What makes a correction acceptable? | [Fresh-confirmation obligation](docs/evaluation/CONFIRMATION_OBLIGATION.md), [assessment code](src/nisayon/evaluation/confirmation.py) and [failure paths](tests/evaluation/). |
 | What did the comparisons actually show? | [Results below](#what-the-experiments-found), [complete experiment index](docs/experiments/README.md), and each result's protocol, retained failures and reproduction commands. |
 | Can this checkout reproduce the software checks? | [Development setup](docs/DEVELOPMENT.md), [locked dependencies](uv.lock) and [Linux/macOS checks](.github/workflows/ci.yml). Optional-stack and private-store skips remain explicit. |
-| What did the current repository review verify? | [Native SDK, portable review and cost comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), with [earlier clean-clone and diagram checks](docs/experiments/results/main-refresh-2026-10-16/README.md) retained. |
+| What did the current repository review verify? | [24 October source and diagram audit](docs/experiments/results/main-refresh-2026-10-24/README.md), [native SDK comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), and [earlier clean-clone checks](docs/experiments/results/main-refresh-2026-10-16/README.md). |
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**24 October — full-weight checkpoint continuation qualified.** Published
+LongWAM IDM weights complete two optimizer updates and an exact fresh-process
+continuation on each of two synthetic seeds. All 25 declared gates pass;
+next-update witnesses match on both ranks of the two-A100 run. The
+[result and continuation diagram](docs/experiments/results/native-continuation-2026-10-24/README.md)
+link the combined candidate, retained failures and published reproduction packet.
+This qualifies the instrumented LeRobot/Accelerate recipe. Training quality,
+owner adoption, changed-topology recovery and complete-cost savings remain open.
 
 **24 October — changed data can invalidate unchanged code.** A controlled check
 with OpenPI's native statistics loader exposed an omitted-input limit: the old
@@ -286,11 +306,9 @@ cannot replace fresh task confirmation.
 
 ## External corrections and open decisions
 
-*The 16 October readback covered the prior 19 threads, completed at 06:55 UTC
-after retrying two failed reads. No substantive change; one merge-preview hash
-changed. The two additional owner discussions were unchanged at 06:53 UTC,
-and both email threads still contained only their original invitations.
-N044 subsequently added the technical report below.*
+The five pull requests linked in the table were checked on 24 October and
+remain open. Results and adoption claims stay bound to their retained revisions;
+this status read did not rerun the experiments.
 
 A finding from Nisayon's evaluation work was adopted in **arisole-eval 0.1.3**.
 A constructed case had 30 seed-matched episode pairs but only one fully labelled
