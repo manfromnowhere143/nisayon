@@ -12,7 +12,10 @@ of prediction audits against complete confirmation cost.
 The 23 October Kornia comparison adds separately selected software reuse with
 matched decision quality. The 24 October contract experiment reuses frozen
 executable semantics on another proposal and retains the exposure boundary. The
-owner comparison and complete-cost advantage remain open. The tables below
+owner comparison and complete-cost advantage remain open. A new
+[active-effort recorder](results/owner-effort-2026-10-24/README.md) qualifies
+measurement of owner setup, review and full declared costs; no owner trial has
+started. The tables below
 connect the trajectory to its retained evidence.
 
 ## Results and what changed

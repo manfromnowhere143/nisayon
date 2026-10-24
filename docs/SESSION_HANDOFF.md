@@ -8,7 +8,7 @@ The [README review route](../README.md#inspect-the-work) connects the implemente
 engine, bounded offline decision probes and confirmation obligations to their
 code and controls. The [architecture](ARCHITECTURE.md) distinguishes implemented
 data flow from the proposed general compiler, selector and execution bridge.
-The [experiment index](experiments/README.md) retains public results through 23 October 2026.
+The [experiment index](experiments/README.md) retains public results through 24 October 2026.
 
 Both retained development comparisons found equal accepted-repair counts and
 greater measured trial wall time for the additional-checks arm. No efficiency
@@ -53,8 +53,16 @@ meet the frozen decision-quality rubric, the correction passes 32 reserved
 conditions, and both workflows reproduce. Nisayon takes 2.7% more solver time
 with 24.4% fewer counted tokens; complete economic cost remains unknown.
 
-The next bounded reuse experiment should freeze a qualified contract and adapter,
-then measure whether they remove repeated setup and review at matched quality.
+The [24 October contract reuse](experiments/results/contract-reuse-2026-10-24/README.md)
+binds an unchanged executable contract to another current proposal and retains
+matched decisions, fresh checks, replay and the selector's exposure boundary.
+Native execution remains faster in that scope. The
+[owner-effort recorder](../examples/qualification/owner_effort/README.md) now
+captures active work and composes full declared phase costs, with separate owner
+acceptance. Its controls are synthetic and its prepared ledger is unresolved.
+The next observation is actual owner setup and review effort for an initial
+decision and independently selected reuse. The owner protocol preserves
+incomplete work and addresses knowledge carried from one review into another.
 Owner enrollment, robot acceptance and the twofold complete-cost target remain
 unproven. Preserve failures, custody, unknown costs and the public/private history
 boundary; do not infer a new selector or API requirement from this result.

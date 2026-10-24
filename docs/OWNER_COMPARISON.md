@@ -65,7 +65,8 @@ the finite planner, procedure retrieval and a learned selector. Use equal
 information and budgets, including no-memory, stale-memory and restart controls.
 Hosted execution needs a demonstrated remote execution or shared review need.
 
-The next missing input is a real owner case. Existing owner inquiries remain unanswered at the 23 October intake check.
+The next missing input is a real owner case. The 24 October check of the existing
+deployment inquiry and two public invitations supplied no new decision records.
 No owner has been enrolled in this comparison. The public SDK integration
 checks are a separate software task and do not substitute for this experiment.
 
@@ -83,6 +84,53 @@ correction passing 32 reserved conditions. Both workflows reproduce. Nisayon
 takes 2.7% more solver time with 24.4% fewer counted tokens. Setup, retries and
 review are retained; provider charges, active human effort and owner costs remain
 unknown. This supports bounded software reuse without discharging the owner
-comparison or twofold complete-cost target. The next reuse experiment should
-freeze a qualified contract and adapter, then measure whether reusing them
-reduces repeated setup and review at matched quality.
+comparison or twofold complete-cost target.
+
+The [24 October contract reuse](experiments/results/contract-reuse-2026-10-24/README.md)
+then bound an unchanged executable contract to another current proposal, with
+matched scoped decisions and unchanged replay. The native workflow remained
+faster. This establishes reusable qualification within the retained selection
+boundary; it does not measure avoided owner setup or review.
+
+## Observe owner work prospectively
+
+The [active-effort example](../examples/qualification/owner_effort/README.md)
+records explicit human intervals, rejects conflicting allocations and retains
+open or interrupted work. It composes phased effort, declared rates and charges
+with the existing cost-target evaluator. Its initial ledger contains unknowns
+and pending owner reviews. The [2026 primary-source review](experiments/results/owner-effort-2026-10-24/SOURCES.md)
+explains why elapsed agent time and test success cannot supply these observations.
+
+Freeze all eligible cases, selection or decline reasons, assigned workflows,
+reviewer identities, quality controls and stopping rules before observing the
+comparison. Give both arms equal semantic knowledge, capable agents, budgets and
+opportunities for feedback. Charge the preparation of each usable deliverable,
+including a native review packet comparable to the portable Nisayon packet.
+Do not compare native execution alone against execution plus export and review.
+
+Measure active owner setup and review separately from active engineering work,
+wall clocks, provider usage and compute. Include capture overhead, preparation,
+adaptation, retries, delivery, integration and the agreed maintenance horizon.
+Unknown historical preparation remains unknown. Shared preparation is charged
+once per arm for comparison and once in the actual study total. Candidate-only
+development stays in the candidate arm; no assumed future amortization.
+
+An owner who sees one solution cannot become untouched for the same decision's
+second workflow. Randomizing order alone does not remove that carryover. For a
+single-owner pilot, show one prospectively assigned packet first and record
+subsequent exposed review separately; leave its unobserved counterfactual effort
+unknown. A second qualified reviewer can support a paired descriptive comparison,
+with reviewer differences disclosed. A causal owner-effort estimate needs enough
+prospectively assigned comparable decisions, accounting for owner/task blocks
+and incomplete assignments. Do not infer a population effect from two cases or
+use a bootstrap over dependent controls as independent replication.
+
+Require the owner to judge whether the delivered decision resolves the frozen
+question, with unresolved choices permitted when appropriate. Record review
+questions and rework; neither a passing test nor agreement between model
+reviewers fills this acceptance field. Record failures against the full assigned
+denominator. Freeze the reusable package after the initial decision, and retain
+the separate selector's exposure and applicability record before subsequent use.
+The historical twofold complete-cost target and fresh-confirmation obligations
+remain unchanged. The measurement tool is ready; owner enrollment, active effort
+observations and an accepted deployment decision remain outstanding.

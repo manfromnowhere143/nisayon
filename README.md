@@ -109,6 +109,15 @@ have distinct scopes.
 
 ## Latest progress
 
+**24 October — owner-effort measurement is ready.** A local recording example now
+keeps active setup and review time separate from agent runtime, retains
+interruptions, and includes engineering rates, preparation and explicit charges
+in the finite cost comparison. Owner acceptance remains a separate requirement.
+[Run the recorder and inspect its checks](examples/qualification/owner_effort/README.md).
+No owner comparison has started; measured savings and competitive superiority
+remain unestablished. The [prospective protocol](docs/OWNER_COMPARISON.md) now
+addresses review carryover, incomplete assignments and full preparation costs.
+
 **24 October — a frozen contract reused without adaptation.** The same executable
 CPU mixing contract bound to the exact base and head of Kornia PR #5958. Native
 Python and Nisayon rejected both unsuitable revisions and a precision-damaging
