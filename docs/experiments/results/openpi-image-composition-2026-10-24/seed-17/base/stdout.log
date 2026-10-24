@@ -1,0 +1,360 @@
+FFFFFFFFFF..FFFFFFFFFF..FFFFFFFFFF..FFFFFFFFFFFF.                        [100%]
+=================================== FAILURES ===================================
+________ test_resize_rank_values_layout_and_batch[size0-0-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size0-0-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size0-0-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8), tensor([[[[ 17,  54,  91],\n          [128, 165, 202],\n          [239,  25,  62],\n          ...,\n          [201, 238,  ...,\n          ...,\n          [ 32,  69, 106],\n          [143, 180, 217],\n          [  3,  40,  77]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8) = to_last(tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8), 'last')
+E    +    and   tensor([[[[ 17,  54,  91],\n          [128, 165, 202],\n          [239,  25,  62],\n          ...,\n          [201, 238,  ...,\n          ...,\n          [ 32,  69, 106],\n          [143, 180, 217],\n          [  3,  40,  77]]]], dtype=torch.uint8) = to_last(tensor([[[[ 17, 128, 239,  ..., 201,  61, 172],\n          [ 32, 143,   3,  ..., 216,  76, 187],\n          [ 47, 158,  ...,\n          [158,  18, 129,  ...,  91, 202,  62],\n          [173,  33, 144,  ..., 106, 217,  77]]]], dtype=torch.uint8), 'first')
+________ test_resize_rank_values_layout_and_batch[size0-0-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]), tensor([[[[-0.8667, -0.5765, -0.2863],\n          [ 0.0039,  0.2941,  0.5843],\n          [ 0.8745, -0.8039, -0.5137],\n ...          [-0.7490, -0.4588, -0.1686],\n          [ 0.1216,  0.4118,  0.7020],\n          [-0.9765, -0.6863, -0.3961]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]) = to_last(tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]), 'last')
+E    +    and   tensor([[[[-0.8667, -0.5765, -0.2863],\n          [ 0.0039,  0.2941,  0.5843],\n          [ 0.8745, -0.8039, -0.5137],\n ...          [-0.7490, -0.4588, -0.1686],\n          [ 0.1216,  0.4118,  0.7020],\n          [-0.9765, -0.6863, -0.3961]]]]) = to_last(tensor([[[[-0.8667,  0.0039,  0.8745,  ...,  0.5765, -0.5216,  0.3490],\n          [-0.7490,  0.1216, -0.9765,  ...,  0...,  0.0118,  ..., -0.2863,  0.5843, -0.5137],\n          [ 0.3569, -0.7412,  0.1294,  ..., -0.1686,  0.7020, -0.3961]]]]), 'first')
+________ test_resize_rank_values_layout_and_batch[size0-1-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[ 17,  54,  91],\n          [128, 165, 202],\n          [239,  25,  62],\n          ...,\n          [201, 238,  ...,\n          ...,\n          [ 32,  69, 106],\n          [143, 180, 217],\n          [  3,  40,  77]]]], dtype=torch.uint8), tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[ 17,  54,  91],\n          [128, 165, 202],\n          [239,  25,  62],\n          ...,\n          [201, 238,  ...,\n          ...,\n          [ 32,  69, 106],\n          [143, 180, 217],\n          [  3,  40,  77]]]], dtype=torch.uint8) = to_last(tensor([[[[ 17, 128, 239,  ..., 201,  61, 172],\n          [ 32, 143,   3,  ..., 216,  76, 187],\n          [ 47, 158,  ...,\n          [158,  18, 129,  ...,  91, 202,  62],\n          [173,  33, 144,  ..., 106, 217,  77]]]], dtype=torch.uint8), 'first')
+E    +    and   tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8) = to_last(tensor([[[ 17,  54,  91],\n         [128, 165, 202],\n         [239,  25,  62],\n         ...,\n         [201, 238,  24],\n... 144],\n         ...,\n         [ 32,  69, 106],\n         [143, 180, 217],\n         [  3,  40,  77]]], dtype=torch.uint8), 'last')
+________ test_resize_rank_values_layout_and_batch[size0-1-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-0.8667, -0.5765, -0.2863],\n          [ 0.0039,  0.2941,  0.5843],\n          [ 0.8745, -0.8039, -0.5137],\n ...          [-0.7490, -0.4588, -0.1686],\n          [ 0.1216,  0.4118,  0.7020],\n          [-0.9765, -0.6863, -0.3961]]]]), tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[-0.8667, -0.5765, -0.2863],\n          [ 0.0039,  0.2941,  0.5843],\n          [ 0.8745, -0.8039, -0.5137],\n ...          [-0.7490, -0.4588, -0.1686],\n          [ 0.1216,  0.4118,  0.7020],\n          [-0.9765, -0.6863, -0.3961]]]]) = to_last(tensor([[[[-0.8667,  0.0039,  0.8745,  ...,  0.5765, -0.5216,  0.3490],\n          [-0.7490,  0.1216, -0.9765,  ...,  0...,  0.0118,  ..., -0.2863,  0.5843, -0.5137],\n          [ 0.3569, -0.7412,  0.1294,  ..., -0.1686,  0.7020, -0.3961]]]]), 'first')
+E    +    and   tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]) = to_last(tensor([[[-0.8667, -0.5765, -0.2863],\n         [ 0.0039,  0.2941,  0.5843],\n         [ 0.8745, -0.8039, -0.5137],\n    .....,\n         [-0.7490, -0.4588, -0.1686],\n         [ 0.1216,  0.4118,  0.7020],\n         [-0.9765, -0.6863, -0.3961]]]), 'last')
+________ test_resize_rank_values_layout_and_batch[size0-1-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size0-1-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size0-2-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[ 17, 128, 239,  ..., 201,  61, 172],\n          [ 32, 143,   3,  ..., 216,  76, 187],\n          [ 47, 158,  ...,\n          [  4, 115, 226,  ..., 188,  48, 159],\n          [ 19, 130, 241,  ..., 203,  63, 174]]]], dtype=torch.uint8), tensor([[[[[ 17, 128, 239,  ..., 201,  61, 172],\n           [ 32, 143,   3,  ..., 216,  76, 187],\n           [ 47, 158...          [  4, 115, 226,  ..., 188,  48, 159],\n           [ 19, 130, 241,  ..., 203,  63, 174]]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+________ test_resize_rank_values_layout_and_batch[size0-2-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-0.8667,  0.0039,  0.8745,  ...,  0.5765, -0.5216,  0.3490],\n          [-0.7490,  0.1216, -0.9765,  ...,  0...,  0.7725,  ...,  0.4745, -0.6235,  0.2471],\n          [-0.8510,  0.0196,  0.8902,  ...,  0.5922, -0.5059,  0.3647]]]]), tensor([[[[[-0.8667,  0.0039,  0.8745,  ...,  0.5765, -0.5216,  0.3490],\n           [-0.7490,  0.1216, -0.9765,  ..., ... 0.7725,  ...,  0.4745, -0.6235,  0.2471],\n           [-0.8510,  0.0196,  0.8902,  ...,  0.5922, -0.5059,  0.3647]]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+________ test_resize_rank_values_layout_and_batch[size1-0-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size1-0-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size1-0-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8) = to_last(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), 'last')
+E    +    and   tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8) = to_last(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), 'first')
+________ test_resize_rank_values_layout_and_batch[size1-0-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]) = to_last(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), 'last')
+E    +    and   tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]) = to_last(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), 'first')
+________ test_resize_rank_values_layout_and_batch[size1-1-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8), tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8) = to_last(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), 'first')
+E    +    and   tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8) = to_last(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), 'last')
+________ test_resize_rank_values_layout_and_batch[size1-1-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]), tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]) = to_last(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), 'first')
+E    +    and   tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]) = to_last(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), 'last')
+________ test_resize_rank_values_layout_and_batch[size1-1-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size1-1-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size1-2-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), tensor([[[[[0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n       ... 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0]]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+________ test_resize_rank_values_layout_and_batch[size1-2-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), tensor([[[[[-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1...., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.]]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+________ test_resize_rank_values_layout_and_batch[size2-0-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size2-0-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (1, 3, 224, 224) == (3, 224, 224)
+E     
+E     At index 0 diff: 1 != 3
+E     Left contains one more item: 224
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size2-0-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8) = to_last(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), 'last')
+E    +    and   tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8) = to_last(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), 'first')
+________ test_resize_rank_values_layout_and_batch[size2-0-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]) = to_last(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), 'last')
+E    +    and   tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]) = to_last(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), 'first')
+________ test_resize_rank_values_layout_and_batch[size2-1-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8), tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0]...         [0, 0, 0],\n          ...,\n          [0, 0, 0],\n          [0, 0, 0],\n          [0, 0, 0]]]], dtype=torch.uint8) = to_last(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), 'first')
+E    +    and   tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8) = to_last(tensor([[[0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n    ... 0],\n         [0, 0, 0],\n         ...,\n         [0, 0, 0],\n         [0, 0, 0],\n         [0, 0, 0]]], dtype=torch.uint8), 'last')
+________ test_resize_rank_values_layout_and_batch[size2-1-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:57: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(to_last(result, layout), to_last(other, other_layout))
+E   AssertionError: assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]), tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+E    +    and   tensor([[[[-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          ...,\n          [-1., -1., -...    [-1., -1., -1.],\n          ...,\n          [-1., -1., -1.],\n          [-1., -1., -1.],\n          [-1., -1., -1.]]]]) = to_last(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), 'first')
+E    +    and   tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]) = to_last(tensor([[[-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n...         [-1., -1., -1.],\n         ...,\n         [-1., -1., -1.],\n         [-1., -1., -1.],\n         [-1., -1., -1.]]]), 'last')
+________ test_resize_rank_values_layout_and_batch[size2-1-last-dtype0] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size2-1-last-dtype1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:51: in test_resize_rank_values_layout_and_batch
+    assert tuple(result.shape) == expected
+E   assert (224, 224, 3) == (1, 224, 224, 3)
+E     
+E     At index 0 diff: 224 != 1
+E     Right contains one more item: 3
+E     Use -v to get more diff
+________ test_resize_rank_values_layout_and_batch[size2-2-first-dtype0] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          ...[0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0],\n          [0, 0, 0,  ..., 0, 0, 0]]]], dtype=torch.uint8), tensor([[[[[0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n       ... 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0],\n           [0, 0, 0,  ..., 0, 0, 0]]]]], dtype=torch.uint8))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+________ test_resize_rank_values_layout_and_batch[size2-2-first-dtype1] ________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:71: in test_resize_rank_values_layout_and_batch
+    assert torch.equal(result, separate), "Batching changed image semantics"
+E   AssertionError: Batching changed image semantics
+E   assert False
+E    +  where False = <built-in method equal of type object at 0x10e958650>(tensor([[[[-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -......, -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.],\n          [-1., -1., -1.,  ..., -1., -1., -1.]]]]), tensor([[[[[-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1...., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.],\n           [-1., -1., -1.,  ..., -1., -1., -1.]]]]]))
+E    +    where <built-in method equal of type object at 0x10e958650> = torch.equal
+_________ test_preprocessing_preserves_camera_semantics[False-size0-1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (1, 224, 224, 3) == (1, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[False-size0-2] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[False-size1-1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:104: in test_preprocessing_preserves_camera_semantics
+    processed = preprocessing.preprocess_observation_pytorch(obs, train=train)
+src/openpi/models_pytorch/preprocessing_pytorch.py:146: in preprocess_observation_pytorch
+    image = image.permute(0, 3, 1, 2)  # [B, H, W, C] -> [B, C, H, W]
+E   RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 3 is not equal to len(dims) = 4
+_________ test_preprocessing_preserves_camera_semantics[False-size1-2] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[False-size2-1] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:104: in test_preprocessing_preserves_camera_semantics
+    processed = preprocessing.preprocess_observation_pytorch(obs, train=train)
+src/openpi/models_pytorch/preprocessing_pytorch.py:146: in preprocess_observation_pytorch
+    image = image.permute(0, 3, 1, 2)  # [B, H, W, C] -> [B, C, H, W]
+E   RuntimeError: permute(sparse_coo): number of dimensions in the tensor input does not match the length of the desired ordering of dimensions i.e. input.dim() = 3 is not equal to len(dims) = 4
+_________ test_preprocessing_preserves_camera_semantics[False-size2-2] _________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[True-size0-1] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (1, 224, 224, 3) == (1, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[True-size0-2] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[True-size1-1] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:104: in test_preprocessing_preserves_camera_semantics
+    processed = preprocessing.preprocess_observation_pytorch(obs, train=train)
+src/openpi/models_pytorch/preprocessing_pytorch.py:72: in preprocess_observation_pytorch
+    image = image[:, start_h : start_h + crop_height, start_w : start_w + crop_width, :]
+E   IndexError: too many indices for tensor of dimension 3
+_________ test_preprocessing_preserves_camera_semantics[True-size1-2] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+_________ test_preprocessing_preserves_camera_semantics[True-size2-1] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:104: in test_preprocessing_preserves_camera_semantics
+    processed = preprocessing.preprocess_observation_pytorch(obs, train=train)
+src/openpi/models_pytorch/preprocessing_pytorch.py:72: in preprocess_observation_pytorch
+    image = image[:, start_h : start_h + crop_height, start_w : start_w + crop_width, :]
+E   IndexError: too many indices for tensor of dimension 3
+_________ test_preprocessing_preserves_camera_semantics[True-size2-2] __________
+../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py:106: in test_preprocessing_preserves_camera_semantics
+    assert tuple(image.shape) == (batch, 3, 224, 224)
+E   assert (2, 224, 224, 3) == (2, 3, 224, 224)
+E     
+E     At index 1 diff: 224 != 3
+E     Use -v to get more diff
+- generated xml file: /Users/danielwahnich/workspace/nisayon-target-expansion-2026-10-24/work/experiments/target-expansion-2026-10-24/seed-17/base/tests.xml -
+=========================== short test summary info ============================
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-0-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-0-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-0-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-0-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-1-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-1-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-1-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-1-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-2-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size0-2-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-0-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-0-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-0-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-0-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-1-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-1-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-1-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-1-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-2-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size1-2-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-0-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-0-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-0-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-0-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-1-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-1-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-1-last-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-1-last-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-2-first-dtype0]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_resize_rank_values_layout_and_batch[size2-2-first-dtype1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size0-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size0-2]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size1-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size1-2]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size2-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[False-size2-2]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size0-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size0-2]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size1-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size1-2]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size2-1]
+FAILED ../../../../work/experiments/target-expansion-2026-10-24/test_image_contract.py::test_preprocessing_preserves_camera_semantics[True-size2-2]

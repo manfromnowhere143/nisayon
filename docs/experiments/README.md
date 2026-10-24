@@ -20,6 +20,12 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [24 October OpenPI composition](results/openpi-image-composition-2026-10-24/README.md)
+qualifies two existing authors' image fixes together. All 48 common checks and
+both native helper tests pass on initial and fresh inputs. A shape-correct,
+pixel-incorrect control is rejected. This is software evidence, with owner
+acceptance and complete-cost value still unmeasured.
+
 | Question | Observed result | Read the evidence |
 |---|---|---|
 | Can a correction survive a frozen acceptance rule? | The gripper-sign correction passed 32/32 fresh pairs under the strict obligation; invalid replay and action suppression were rejected. | [Strict first case](LIFT_PROTOCOL_V3.md), [freshness correction and confirmation](CONDITION_FRESHNESS.md) |

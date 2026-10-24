@@ -109,6 +109,15 @@ have distinct scopes.
 
 ## Latest progress
 
+**24 October — two image fixes qualified together.** The exact OpenPI #1016
+and #1050 patches pass all 48 declared CPU image checks and both native helper
+tests on initial and fresh inputs. A deliberately incorrect reshape passes the
+shape/finiteness screen but fails pixel-identity checks. The original authors'
+fixes, all failures and setup costs are retained in the
+[composition result and runnable example](docs/experiments/results/openpi-image-composition-2026-10-24/README.md).
+This establishes the checked image contract; owner acceptance, task quality and
+complete-cost savings remain open.
+
 **24 October — owner-effort measurement is ready.** A local recording example now
 keeps active setup and review time separate from agent runtime, retains
 interruptions, and includes engineering rates, preparation and explicit charges

@@ -66,3 +66,12 @@ incomplete work and addresses knowledge carried from one review into another.
 Owner enrollment, robot acceptance and the twofold complete-cost target remain
 unproven. Preserve failures, custody, unknown costs and the public/private history
 boundary; do not infer a new selector or API requirement from this result.
+
+The [OpenPI image composition](experiments/results/openpi-image-composition-2026-10-24/README.md)
+adds an executed current case after expanded discovery. Existing #1016 and #1050
+fixes satisfy the joint 48-check CPU image contract and two native helper tests
+on both retained seeds. The pixel-ordering negative control is rejected, while
+the weakened shape screen accepts it. Keep the authored fixes credited to their
+upstream contributors. This is an exposed case; actual owner review and complete
+cost savings still require observation. The separate LeRobot and UI work remains
+outside this packet.

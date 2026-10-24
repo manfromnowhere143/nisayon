@@ -1,0 +1,69 @@
+diff --git a/src/openpi/shared/image_tools.py b/src/openpi/shared/image_tools.py
+index 8cde353..fec2226 100644
+--- a/src/openpi/shared/image_tools.py
++++ b/src/openpi/shared/image_tools.py
+@@ -70,16 +70,21 @@ def resize_with_pad_torch(
+     Returns:
+         Resized and padded tensor with same shape format as input
+     """
++    # Track whether a batch dimension has to be added so the original rank can be
++    # restored on return, matching the JAX resize_with_pad which preserves the
++    # input rank even for a single-image batch (issue #805).
++    added_batch_dim = images.dim() == 3
++
+     # Check if input is in channels-last format [*b, h, w, c] or channels-first [*b, c, h, w]
+     if images.shape[-1] <= 4:  # Assume channels-last format
+         channels_last = True
+         # Convert to channels-first for torch operations
+-        if images.dim() == 3:
++        if added_batch_dim:
+             images = images.unsqueeze(0)  # Add batch dimension
+         images = images.permute(0, 3, 1, 2)  # [b, h, w, c] -> [b, c, h, w]
+     else:
+         channels_last = False
+-        if images.dim() == 3:
++        if added_batch_dim:
+             images = images.unsqueeze(0)  # Add batch dimension
+ 
+     batch_size, channels, cur_height, cur_width = images.shape
+@@ -120,7 +125,10 @@ def resize_with_pad_torch(
+     # Convert back to original format if needed
+     if channels_last:
+         padded_images = padded_images.permute(0, 2, 3, 1)  # [b, c, h, w] -> [b, h, w, c]
+-        if batch_size == 1 and images.shape[0] == 1:
+-            padded_images = padded_images.squeeze(0)  # Remove batch dimension if it was added
++
++    # Only drop the batch dimension we added ourselves, so a genuine size-1 batch
++    # is preserved (matches the JAX resize_with_pad).
++    if added_batch_dim:
++        padded_images = padded_images.squeeze(0)
+ 
+     return padded_images
+diff --git a/src/openpi/shared/image_tools_test.py b/src/openpi/shared/image_tools_test.py
+index c19bee2..4b2c8b0 100644
+--- a/src/openpi/shared/image_tools_test.py
++++ b/src/openpi/shared/image_tools_test.py
+@@ -1,4 +1,5 @@
+ import jax.numpy as jnp
++import torch
+ 
+ from openpi.shared import image_tools
+ 
+@@ -35,3 +36,17 @@ def test_resize_with_pad_shapes():
+     resized_images = image_tools.resize_with_pad(images, height, width)
+     assert resized_images.shape == (1, height, width, 3)
+     assert jnp.all(resized_images == 0)
++
++
++def test_resize_with_pad_torch_preserves_batch_dim():
++    # Regression test for #805: resize_with_pad_torch must preserve the input
++    # rank, matching the JAX resize_with_pad. A channels-last batch of size 1
++    # (4D) must stay 4D and not be squeezed down to a single 3D image.
++    images = torch.zeros((1, 480, 640, 3), dtype=torch.float32)
++    resized = image_tools.resize_with_pad_torch(images, 224, 224)
++    assert tuple(resized.shape) == (1, 224, 224, 3)
++
++    # A genuinely unbatched 3D image still returns unbatched.
++    single = torch.zeros((480, 640, 3), dtype=torch.float32)
++    resized_single = image_tools.resize_with_pad_torch(single, 224, 224)
++    assert tuple(resized_single.shape) == (224, 224, 3)
