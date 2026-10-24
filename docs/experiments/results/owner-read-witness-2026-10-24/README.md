@@ -37,6 +37,12 @@ source files match public commit `54a45573389931254e5ad6b39cc1956072b94043`
 byte-for-byte. [Source identities](source-identities.json) bind the final SDK
 and probe; [the matrix](result.json) gives machine-readable outcomes.
 
+A post-publication source check distinguished the retained upstream lock text
+(which had one appended newline) from the exact upstream bytes. Both source
+records now identify the two digests and the upstream Git blob. The executed
+native module independently matches its upstream Git blob exactly; the source,
+locked runtime and execution records retain their original identities.
+
 The [prospective local protocol](PROTOCOL.md) preceded implementation. It was
 not externally preregistered. Selection and both input sets were exposed to the
 implementer; this is neither an independently selected incident nor untouched
