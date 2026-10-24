@@ -12,7 +12,7 @@ The installed tool, owner files and native environment have separate identities.
 The existing `nisayon` workspace commands retain their own repository checks.
 
 The current adapter supports synchronous Python functions with JSON inputs and
-outputs on Python 3.12 or 3.13. It can qualify exact or numerical relations on
+outputs on CPython 3.12 or 3.13. It can qualify exact or numerical relations on
 the frozen probes. Deployment acceptance remains `unresolved`: this adapter
 does not execute a policy in a closed loop or satisfy a fresh task obligation.
 The [implementation and comparison record](experiments/results/native-sdk-2026-10-23/README.md)
@@ -117,9 +117,28 @@ The case schema is `nisayon.qualification.case.v1`; see the example for the
 complete structure. Unknown fields are rejected. Declare one to 32 probes and
 one to 1,024 source, data or lock files. Include each entry point, imported owner
 implementation and any data that can change the result. Owner imports absent
-from the manifest invalidate the execution. Declared dependency completeness
-remains a premise: this is not automatic discovery of file reads, remote
-services, environment variables or device state.
+from the manifest invalidate the execution. New plans also require a bounded
+CPython witness of file-read attempts during owner import and execution. An
+observed owner read absent from the declaration prevents acceptance; it is never
+silently added to the dependency list. Declare the input explicitly and make a
+new plan. The [normalization-data experiment](experiments/results/owner-read-witness-2026-10-24/README.md)
+retains the omitted-input counterexample, controls and reproduction.
+
+Read events record attempted opens, including attempts that fail; they do not
+prove bytes were consumed. Missing witnesses, unresolved file descriptors,
+ambiguous relative `os.open` paths, owner-path aliases, observed owner reads from
+another thread and exceeded event/path limits return `unresolved`. Ordinary
+relative Python `open` paths use the worker's current directory. Write-only
+opens are counted separately. The bound is 32,768 open events and 1,024 distinct
+owner read paths per call. A project-local Python environment remains excluded
+unless its files were explicitly declared; environment identity still applies.
+
+Dependency completeness remains a premise. File access outside the owner root
+is counted without retaining private host filenames. Native C I/O, variables,
+remote services, child processes and device state are not traced. Background
+work after the synchronous call is outside the observation window. Before/after
+hashes do not establish an atomic snapshot or detect a transient change that is
+restored before the final hash. Inputs must remain stable during the call.
 
 Every case supplies `reference`, `negative_control` and `candidate` targets.
 Each target names a file and function. Optional `required_calls` names Python
@@ -161,10 +180,24 @@ trajectory's future observations, are blocked by this adapter.
 
 Before each subprocess starts, the runner writes its intent and request. It
 records stdout, stderr, return status, elapsed wall time, actual call counts,
-input hashes, returned values, loaded owner files and source identities before
-and after execution. It redirects bytecode lookup to a new cache location so an
+input hashes, returned values, loaded owner files, bounded read witnesses and
+source identities before and after execution. It redirects bytecode lookup to a new cache location so an
 old `.pyc` cannot replace the pinned source. Source or environment changes,
 unexpected imports and unexecuted required calls prevent acceptance.
+
+New plans use `nisayon.qualification.plan.v2` and bind the read policy into every
+request; their observations use `nisayon.qualification.observation.v2`. The case
+schema and SDK call signatures remain unchanged. Historical v1 evidence remains
+readable and is explicitly labeled `legacy_declared_files_and_imports_only`.
+It cannot supply the read witness for a v2 plan. Replan before new execution;
+older readers cannot assess v2 evidence. This migration does not retroactively
+promote the coverage of a historical verdict.
+
+An older review bundle can report `assessment_mismatch` because its recorded
+assessment predates the explicit read policy and stable-input premise. Review
+preserves both assessments and returns `unresolved`; it does not silently waive
+the difference. Raw v1 stores remain inspectable without the owner environment,
+and a new export records the current assessment under that same historical scope.
 
 Native environment identity includes the Python executable digest, version,
 prefix, platform, library roots and installed distribution metadata/RECORD

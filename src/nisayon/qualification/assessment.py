@@ -9,7 +9,8 @@ from nisayon.engine.io import decode_json, digest, file_digest
 
 from .compare import difference
 from .context import project_file, tool_identity
-from .models import Assessment, CaseSpec, ExperimentPlan, RunEvidence
+from .models import PLAN_SCHEMA, Assessment, CaseSpec, ExperimentPlan, RunEvidence
+from .reads import check_read_witness
 
 
 def _read(root: Path, name: str):
@@ -97,6 +98,11 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
             "target": plan["case"]["targets"][assignment["role"]],
             "input": probes[assignment["probe"]]["input"],
         }
+        if plan["schema"] == PLAN_SCHEMA:
+            expected_request["read_policy"] = plan["read_policy"]
+            expected_request["read_library_roots"] = plan["context"]["native_environment"][
+                "library_roots"
+            ]
         if request != expected_request or intent["request_sha256"] != digest(request):
             raise ValueError("Attempt does not match the frozen assignment")
         if intent.get("declared_before_execution") is not True:
@@ -117,8 +123,13 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
         observed = _read(root, name + "/observation.json")
         target = request["target"]
         required_calls = {target["callable"], *target.get("required_calls", [])}
+        observation_schema = (
+            "nisayon.qualification.observation.v2"
+            if plan["schema"] == PLAN_SCHEMA
+            else "nisayon.qualification.observation.v1"
+        )
         if (
-            observed["schema"] != "nisayon.qualification.observation.v1"
+            observed["schema"] != observation_schema
             or observed["request_sha256"] != digest(request)
             or observed["input_sha256"] != digest(request["input"])
             or observed["sources_before"] != plan["sources"]
@@ -136,6 +147,13 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
         ):
             errors.append(f"undeclared_or_changed_import:{name}")
             continue
+        if plan["schema"] == PLAN_SCHEMA:
+            errors.extend(
+                f"{issue}:{name}"
+                for issue in check_read_witness(
+                    observed.get("read_witness"), plan["sources"], target["path"]
+                )
+            )
         runtimes.add(digest(observed["runtime"]))
         if observed["runtime"] != plan["context"]["native_environment"]:
             errors.append(f"native_environment_differs_from_plan:{name}")
@@ -161,12 +179,13 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
         "costs": None,
         "assessment_tool": tool_identity(),
         "scope": "Declared native software relation on the frozen probes. No physical-task acceptance.",
-        "premises": "Owner-supplied oracle, declared dependency completeness and trusted native code. Environment identity covers package records, not every installed binary. Integrity is not authenticity.",
+        "premises": "Owner-supplied oracle, declared dependency completeness, stable file contents during each call and trusted native code. Environment identity covers package records, not every installed binary. Integrity is not authenticity.",
     }
     root = evidence.root.resolve()
     try:
         plan = ExperimentPlan.read(project_file(root, "plan.json"))
         value = plan.record()
+        result["read_policy"] = value.get("read_policy", "legacy_declared_files_and_imports_only")
         if plan.sha256 != evidence.plan_sha256 or value["case"] != case.record():
             raise ValueError("Assessment case/plan identity mismatch")
         # Reconstruct assignment structure rather than trusting an edited shortened list.

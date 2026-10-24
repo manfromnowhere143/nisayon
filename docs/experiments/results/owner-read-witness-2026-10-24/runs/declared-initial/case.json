@@ -1,0 +1,58 @@
+{
+  "contract": {
+    "kind": "exact"
+  },
+  "id": "openpi-statistics-dependency",
+  "premises": {
+    "environment": "minimal locked CPU loader dependencies; no policy or training",
+    "population": "exposed controlled normalization vectors",
+    "state": "fresh_process"
+  },
+  "probes": [
+    {
+      "expected": {
+        "action": [
+          -1.0,
+          0.0,
+          1.0
+        ]
+      },
+      "id": "initial",
+      "input": {
+        "position": [
+          0,
+          10,
+          20
+        ]
+      }
+    }
+  ],
+  "question": "Does the wrapper use the specified normalization statistics?",
+  "schema": "nisayon.qualification.case.v1",
+  "source_files": [
+    "policy.py",
+    "native.py",
+    "stats/norm_stats.json"
+  ],
+  "targets": {
+    "candidate": {
+      "callable": "candidate",
+      "path": "policy.py",
+      "required_calls": [
+        "native.load"
+      ]
+    },
+    "negative_control": {
+      "callable": "negative_control",
+      "path": "policy.py",
+      "required_calls": [
+        "native.load"
+      ]
+    },
+    "reference": {
+      "callable": "reference",
+      "path": "policy.py",
+      "required_calls": []
+    }
+  }
+}

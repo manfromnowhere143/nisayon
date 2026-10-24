@@ -10,7 +10,9 @@ from pathlib import Path, PurePosixPath
 from nisayon.engine.io import canonical_bytes, decode_json, digest
 
 CASE_SCHEMA = "nisayon.qualification.case.v1"
-PLAN_SCHEMA = "nisayon.qualification.plan.v1"
+LEGACY_PLAN_SCHEMA = "nisayon.qualification.plan.v1"
+PLAN_SCHEMA = "nisayon.qualification.plan.v2"
+READ_POLICY = "cpython_owner_reads_v1"
 ROLES = ("reference", "negative_control", "candidate")
 
 
@@ -164,12 +166,18 @@ class ExperimentPlan:
     _bytes: bytes
 
     def __post_init__(self) -> None:
-        value = fields(
-            decode_json(self._bytes),
-            {"schema", "case", "context", "sources", "tool", "obligations", "assignments"},
-        )
-        if value["schema"] != PLAN_SCHEMA:
+        value = decode_json(self._bytes)
+        if not isinstance(value, dict) or value.get("schema") not in {
+            LEGACY_PLAN_SCHEMA,
+            PLAN_SCHEMA,
+        }:
             raise ValueError("Unsupported qualification plan schema")
+        required = {"schema", "case", "context", "sources", "tool", "obligations", "assignments"}
+        if value["schema"] == PLAN_SCHEMA:
+            required.add("read_policy")
+            if value.get("read_policy") != READ_POLICY:
+                raise ValueError("Unsupported native read observation policy")
+        fields(value, required)
         CaseSpec.from_dict(value["case"])
         object.__setattr__(self, "_bytes", canonical_bytes(value))
 

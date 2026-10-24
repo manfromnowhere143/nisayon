@@ -11,7 +11,7 @@ from pathlib import Path
 from nisayon.engine.io import digest, file_digest, write_json
 
 from .context import ExecutionContext, project_file, tool_identity
-from .models import PLAN_SCHEMA, ROLES, CaseSpec, ExperimentPlan, RunEvidence
+from .models import PLAN_SCHEMA, READ_POLICY, ROLES, CaseSpec, ExperimentPlan, RunEvidence
 
 
 def plan_change(case: CaseSpec, *, context: ExecutionContext) -> ExperimentPlan:
@@ -40,6 +40,7 @@ def plan_change(case: CaseSpec, *, context: ExecutionContext) -> ExperimentPlan:
     return ExperimentPlan.from_dict(
         {
             "schema": PLAN_SCHEMA,
+            "read_policy": READ_POLICY,
             "case": value,
             "context": context.record(),
             "sources": sources,
@@ -201,6 +202,8 @@ def run_plan(plan: ExperimentPlan, *, context: ExecutionContext) -> RunEvidence:
                     "sources": value["sources"],
                     "target": value["case"]["targets"][assignment["role"]],
                     "input": probe["input"],
+                    "read_policy": value["read_policy"],
+                    "read_library_roots": value["context"]["native_environment"]["library_roots"],
                 }
                 record = _attempt(
                     request,

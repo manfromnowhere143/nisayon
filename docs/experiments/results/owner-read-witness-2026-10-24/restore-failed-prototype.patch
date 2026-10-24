@@ -1,0 +1,36 @@
+--- a/src/nisayon/qualification/worker.py
++++ b/src/nisayon/qualification/worker.py
+@@ -43,9 +43,8 @@
+     sys.path.insert(0, str(root))
+     # A separate process for each probe is the declared reset, not general robot state capture.
+     random.seed(0)
+-    # Use the frozen environment roots. Collecting metadata here could import
+-    # an owner module (e.g. platform.py) before observation starts and hide its reads.
+-    with OwnerReadWitness(root, before, request["read_library_roots"]) as reads:
++    libraries_before = environment_record()["library_roots"]
++    with OwnerReadWitness(root, before, libraries_before) as reads:
+         spec = importlib.util.spec_from_file_location("_nisayon_native_target", source)
+         if spec is None or spec.loader is None:
+             raise ValueError("Cannot import the declared native entry point")
+--- a/src/nisayon/qualification/runner.py
++++ b/src/nisayon/qualification/runner.py
+@@ -203,7 +203,6 @@
+                     "target": value["case"]["targets"][assignment["role"]],
+                     "input": probe["input"],
+                     "read_policy": value["read_policy"],
+-                    "read_library_roots": value["context"]["native_environment"]["library_roots"],
+                 }
+                 record = _attempt(
+                     request,
+--- a/src/nisayon/qualification/assessment.py
++++ b/src/nisayon/qualification/assessment.py
+@@ -100,9 +100,6 @@
+         }
+         if plan["schema"] == PLAN_SCHEMA:
+             expected_request["read_policy"] = plan["read_policy"]
+-            expected_request["read_library_roots"] = plan["context"]["native_environment"][
+-                "library_roots"
+-            ]
+         if request != expected_request or intent["request_sha256"] != digest(request):
+             raise ValueError("Attempt does not match the frozen assignment")
+         if intent.get("declared_before_execution") is not True:

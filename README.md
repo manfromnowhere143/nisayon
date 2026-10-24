@@ -109,6 +109,16 @@ have distinct scopes.
 
 ## Latest progress
 
+**24 October — changed data can invalidate unchanged code.** A controlled check
+with OpenPI's native statistics loader exposed an omitted-input limit: the old
+SDK still reported prior evidence applicable after an undeclared statistics
+file changed, while fresh execution rejected the changed result. New plans
+require a bounded witness of owner-file read attempts. Undeclared reads prevent
+acceptance; explicitly declared data changes invalidate reuse. Initial and fresh
+inputs confirm both controls. [Inspect the experiment, migration and limits](docs/experiments/results/owner-read-witness-2026-10-24/README.md).
+This strengthens a software evidence boundary; dependency completeness, owner
+value and the twofold complete-cost target remain open.
+
 **24 October — two image fixes qualified together.** The exact OpenPI #1016
 and #1050 patches pass all 48 declared CPU image checks and both native helper
 tests on initial and fresh inputs. A deliberately incorrect reshape passes the

@@ -1,0 +1,67 @@
+.....F.................................................................. [ 43%]
+........................................................................ [ 87%]
+....................F                                                    [100%]
+=================================== FAILURES ===================================
+_____ test_cli_interrupt_retains_prefix_and_terminates_native_descendants ______
+
+native = ({'schema': 'nisayon.qualification.case.v1', 'id': 'normalization', 'question': 'Does this port preserve the declared ...), python=PosixPath('/Users/danielwahnich/workspace/nisayon/.venv/bin/python'), timeout_seconds=10, total_seconds=120))
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-579/test_cli_interrupt_retains_pre0')
+
+    @pytest.mark.skipif(os.name != "posix", reason="Process-group cleanup is a POSIX contract")
+    def test_cli_interrupt_retains_prefix_and_terminates_native_descendants(native, tmp_path):
+        declaration, context = native
+        source = context.project / "policy.py"
+        source.write_text(
+            source.read_text() + "\ndef interruptible(value):\n"
+            "    import subprocess, sys, time\n"
+            "    child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(30)'])\n"
+            "    print(child.pid, flush=True)\n"
+            "    time.sleep(30)\n"
+            "    return normalize(value)\n"
+        )
+        declaration["targets"]["candidate"]["callable"] = "interruptible"
+        plan = plan_change(CaseSpec.from_dict(declaration), context=context)
+        plan_path = tmp_path / "frozen.json"
+        write_json(plan_path, plan.record())
+        process = subprocess.Popen(
+            [sys.executable, "-m", "nisayon.qualification", "run", str(plan_path)],
+            cwd=context.project,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        prefix = context.output_dir / "candidate-offset/stdout.txt"
+        try:
+            deadline = time.monotonic() + 15
+            while not prefix.exists() or not prefix.read_text().strip():
+>               assert process.poll() is None, "Runner exited before entering native call"
+E               AssertionError: Runner exited before entering native call
+E               assert 2 is None
+E                +  where 2 = poll()
+E                +    where poll = <Popen: returncode: 2 args: ['/Users/danielwahnich/workspace/nisayon/.venv/b...>.poll
+
+tests/qualification/test_execution_controls.py:141: AssertionError
+_________________ test_cli_export_and_review_outside_workspace _________________
+
+sample = (PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-579/review-native0...th('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-579/review-native0/owner'))
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-579/test_cli_export_and_review_out0')
+
+    def test_cli_export_and_review_outside_workspace(sample, tmp_path):
+        output = tmp_path / "portable.zip"
+        command = [sys.executable, "-m", "nisayon.qualification"]
+        export = subprocess.run(
+            [*command, "export", str(sample[0]), "--out", str(output)],
+            cwd=tmp_path,
+            capture_output=True,
+            text=True,
+        )
+>       assert export.returncode == 0, export.stderr
+E       AssertionError: {"error": "Expected an object with only declared fields"}
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/Users/danielwahnich/workspace/nisayon/.venv/bin/python', '-m', 'nisayon.qualification', 'expo...iew_out0/portable.zip'], returncode=2, stdout='', stderr='{"error": "Expected an object with only declared fields"}\n').returncode
+
+tests/qualification/test_review_bundle.py:437: AssertionError
+=========================== short test summary info ============================
+FAILED tests/qualification/test_execution_controls.py::test_cli_interrupt_retains_prefix_and_terminates_native_descendants
+FAILED tests/qualification/test_review_bundle.py::test_cli_export_and_review_outside_workspace

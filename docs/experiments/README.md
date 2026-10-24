@@ -20,6 +20,13 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [24 October read-witness experiment](results/owner-read-witness-2026-10-24/README.md)
+exposes an omitted normalization-data dependency with an unmodified OpenPI
+loader. New native plans retain owner-file read attempts, block observed
+undeclared inputs and invalidate reuse when declared data changes. Initial and
+fresh vectors confirm the controls; this is a constructed software boundary,
+not an owner-cost comparison or complete dependency discovery.
+
 The [24 October OpenPI composition](results/openpi-image-composition-2026-10-24/README.md)
 qualifies two existing authors' image fixes together. All 48 common checks and
 both native helper tests pass on initial and fresh inputs. A shape-correct,

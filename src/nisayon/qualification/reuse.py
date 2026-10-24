@@ -21,6 +21,8 @@ def assess_reuse(previous: RunEvidence, proposed: ExperimentPlan) -> dict:
     for field in ("sources", "tool"):
         if old_value[field] != new_value[field]:
             changes.append(field)
+    if old_value.get("read_policy") != new_value.get("read_policy"):
+        changes.append("read_policy")
     old_context, new_context = old_value["context"], new_value["context"]
     for field in ("python", "python_sha256", "native_environment"):
         if old_context[field] != new_context[field]:
