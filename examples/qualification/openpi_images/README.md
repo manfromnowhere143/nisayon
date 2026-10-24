@@ -10,7 +10,13 @@ omission and a deliberately incorrect reshape control. The
 [protocol](PROTOCOL.md) was frozen before native outcomes. The test itself stayed
 unchanged after the test-configuration dependency was corrected.
 
-From a fresh Nisayon checkout with Git, uv and Python 3.12:
+The retained native runs and dependency lock are for macOS 14.4 on Apple silicon,
+using Python 3.12 and CPU execution. The lock was resolved for that platform;
+it is not a portable Linux or Windows environment lock. Nisayon's repository CI
+on Linux and macOS does not run this separately installed upstream experiment.
+A different platform needs its own resolved lock and native confirmation.
+
+From a fresh Nisayon checkout on the qualified platform with Git and uv:
 
 ```sh
 uv venv --python 3.12 artifacts/openpi/env

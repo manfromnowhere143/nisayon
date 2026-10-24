@@ -5,6 +5,9 @@
 composition passes all 48 declared image checks and both native helper tests,
 first at seed 17 and then on fresh patterned inputs at seed 53. The executable
 probe and source identities remain unchanged between runs.
+The native runs used macOS 14.4 on Apple silicon, Python 3.12 and PyTorch 2.7.1
+on CPU. The example's lock is specific to that environment. Separate Nisayon
+repository CI on Linux and macOS does not extend this native platform evidence.
 
 These are existing author fixes, by `ousamabenyounes` and `okai-x`. Issue #805
 already identifies the batch-rank defect. This work qualifies how the fixes
