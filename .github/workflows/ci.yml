@@ -41,3 +41,16 @@ jobs:
       - run: rg --version
       - run: uv sync --frozen
       - run: make check
+      - name: Exercise the installed SDK and CLI outside Git
+        run: |
+          uv sync --frozen --no-dev --no-editable
+          cd "$RUNNER_TEMP"
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" example nisayon-owner
+          "$GITHUB_WORKSPACE/.venv/bin/python" nisayon-owner/sdk_example.py --out nisayon-sdk-example
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" plan nisayon-owner/case.json --project nisayon-owner --out nisayon-cli-run --plan nisayon-cli-plan.json
+          test ! -e nisayon-cli-run
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" run nisayon-cli-plan.json
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" inspect nisayon-cli-run
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" export nisayon-cli-run --out nisayon-cli-review.nisayon.zip
+          mv nisayon-owner nisayon-owner-unavailable
+          "$GITHUB_WORKSPACE/.venv/bin/nisayon-qualify" review nisayon-cli-review.nisayon.zip

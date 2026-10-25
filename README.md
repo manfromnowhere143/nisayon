@@ -38,6 +38,9 @@ retain call and owner-file read witnesses. Another machine can inspect the
 evidence without executing owner code. Reusing a procedure, reusing observations
 and carrying forward a verdict are separate decisions.
 
+[Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
+[SDK and interface review](docs/SDK_REVIEW_2026-10-25.md)
+
 [System map](#the-system-and-the-next-proof) · [Results](#what-the-experiments-found) ·
 [Code and review](#inspect-the-work) ·
 [Latest progress](#latest-progress) ·
@@ -119,6 +122,17 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**25 October — the SDK has a complete first-use path.** The 0.2.0 developer
+preview packages a runnable example, Python and CLI workflows, and portable
+review outside the original environment. Assessment now verifies the exact
+record bytes it decodes; controlled post-scan changes that previously created
+false acceptance or erased cost now invalidate the result. The
+[SDK and interface audit](docs/SDK_REVIEW_2026-10-25.md) also identifies the
+viewer schema mismatch and compares the next research direction with current
+primary sources. [Start with the exposed example](docs/QUICKSTART.md).
+External adoption, browser visual acceptance, robot deployment acceptance and
+the twofold complete-cost advantage remain unestablished.
 
 **24 October — full-weight checkpoint continuation qualified.** Published
 LongWAM IDM weights complete two optimizer updates and an exact fresh-process

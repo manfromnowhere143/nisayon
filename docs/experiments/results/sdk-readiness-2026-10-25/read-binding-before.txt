@@ -1,0 +1,63 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_observation_replaced_after_manifest_scan_cannot_create_false_acceptance _
+
+native = ({'schema': 'nisayon.qualification.case.v1', 'id': 'normalization', 'question': 'Does this port preserve the declared ...), python=PosixPath('/Users/danielwahnich/workspace/nisayon/.venv/bin/python'), timeout_seconds=10, total_seconds=120))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10255a540>
+
+    def test_observation_replaced_after_manifest_scan_cannot_create_false_acceptance(native, monkeypatch):
+        declaration, context = native
+        declaration["targets"]["candidate"]["callable"] = "bad"
+        case = CaseSpec.from_dict(declaration)
+        evidence = run_plan(plan_change(case, context=context), context=context)
+        assert assess_change(case, evidence).decision == "reject"
+        verify = reader._verify_manifest
+    
+        def replace_after_scan(*args, **kwargs):
+            result = verify(*args, **kwargs)
+            path = evidence.root / "candidate-offset/observation.json"
+            observation = json.loads(path.read_text())
+            observation["value"] = declaration["probes"][0]["expected"]
+            path.write_text(json.dumps(observation))
+            return result
+    
+        monkeypatch.setattr(reader, "_verify_manifest", replace_after_scan)
+        result = assess_change(case, evidence).record()
+>       assert result["software_decision"] == "unresolved"
+E       AssertionError: assert 'adopt' == 'unresolved'
+E         
+E         - unresolved
+E         + adopt
+
+tests/qualification/test_assessment_read_binding.py:27: AssertionError
+_____ test_cost_replaced_after_manifest_scan_cannot_erase_measured_effort ______
+
+native = ({'schema': 'nisayon.qualification.case.v1', 'id': 'normalization', 'question': 'Does this port preserve the declared ...), python=PosixPath('/Users/danielwahnich/workspace/nisayon/.venv/bin/python'), timeout_seconds=10, total_seconds=120))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x102592ff0>
+
+    def test_cost_replaced_after_manifest_scan_cannot_erase_measured_effort(native, monkeypatch):
+        declaration, context = native
+        case = CaseSpec.from_dict(declaration)
+        evidence = run_plan(plan_change(case, context=context), context=context)
+        verify = reader._verify_manifest
+    
+        def replace_after_scan(*args, **kwargs):
+            result = verify(*args, **kwargs)
+            path = evidence.root / "completion.json"
+            completion = json.loads(path.read_text())
+            completion["runner_wall_seconds"] = 0
+            path.write_text(json.dumps(completion))
+            return result
+    
+        monkeypatch.setattr(reader, "_verify_manifest", replace_after_scan)
+        result = assess_change(case, evidence).record()
+>       assert result["software_decision"] == "unresolved"
+E       AssertionError: assert 'adopt' == 'unresolved'
+E         
+E         - unresolved
+E         + adopt
+
+tests/qualification/test_assessment_read_binding.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/qualification/test_assessment_read_binding.py::test_observation_replaced_after_manifest_scan_cannot_create_false_acceptance
+FAILED tests/qualification/test_assessment_read_binding.py::test_cost_replaced_after_manifest_scan_cannot_erase_measured_effort

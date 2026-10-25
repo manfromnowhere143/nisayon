@@ -36,6 +36,12 @@ portable integrity nor a reused procedure transfers a previous verdict.
 
 ## Run the example
 
+For installation without Git and complete Python/CLI workflows, start with
+the [v0.2.0 quickstart](QUICKSTART.md). `nisayon-qualify example DIRECTORY`
+copies the exposed case and executable SDK script into a new directory.
+The [capability map](CAPABILITIES.md) separates product operations from bounded
+research interfaces.
+
 Use a new installation environment; preserve historical experiment environments.
 From a source checkout with the frozen base environment installed:
 

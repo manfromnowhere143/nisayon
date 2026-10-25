@@ -1,0 +1,24 @@
+{
+  "source": "https://arxiv.org/html/2609.10873v1",
+  "scope": "Arithmetic reproduction of the zero-disagreement illustration in section 2 only; not a learning-result replication or a new Nisayon gate.",
+  "inputs": {
+    "comparisons": 3,
+    "attempt": 1,
+    "delta": 0.05,
+    "epsilon": 0.05
+  },
+  "alpha_t": 0.03039635509270134,
+  "one_sided_beta": 0.002533029591058445,
+  "hoeffding_pairs_per_comparison": 4229,
+  "paired_binomial_pairs_per_comparison": 117,
+  "equal_allocation_episodes_hoeffding": 25374,
+  "equal_allocation_episodes_paired": 702,
+  "budget_episodes": 20000,
+  "premises": [
+    "Binary paired outcomes, zero observed disagreements for the unchanged historical comparison.",
+    "Conditionally iid pairs, committed policies, scorer, reset distributions, fixed sample counts.",
+    "The calculation addresses retention only; demonstrating a positive current-task gain can require more samples."
+  ],
+  "implementation": "math.ceil(2*math.log(2*m/alpha)/(epsilon**2)); math.ceil(math.log(beta)/math.log1p(-epsilon))",
+  "paper_values_match": true
+}

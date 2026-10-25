@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 from pathlib import Path
 
@@ -13,22 +14,34 @@ from .models import PLAN_SCHEMA, Assessment, CaseSpec, ExperimentPlan, RunEviden
 from .reads import check_read_witness
 
 
-def _read(root: Path, name: str):
+def _read_bytes(root: Path, name: str) -> bytes:
     path = project_file(root, name)
     if path.stat().st_size > 16 * 1024 * 1024:
         raise ValueError(f"Oversized protocol record: {name}")
-    return decode_json(path.read_bytes())
+    with path.open("rb") as stream:
+        raw = stream.read(16 * 1024 * 1024 + 1)
+    if len(raw) > 16 * 1024 * 1024:
+        raise ValueError(f"Oversized protocol record: {name}")
+    return raw
 
 
-def _verify_manifest(root: Path, plan: ExperimentPlan) -> bool:
+def _read(root: Path, name: str, expected: dict | None = None):
+    raw = _read_bytes(root, name)
+    if expected is not None and hashlib.sha256(raw).hexdigest() != expected.get(name):
+        raise ValueError(f"Evidence bytes changed: {name}")
+    return decode_json(raw)
+
+
+def _verify_manifest(root: Path, plan: ExperimentPlan) -> dict | None:
     manifest_path, seal_path = root / "manifest.json", root / "seal.json"
     if not manifest_path.exists() and not seal_path.exists():
-        return False
-    manifest, seal = _read(root, "manifest.json"), _read(root, "seal.json")
+        return None
+    manifest_bytes = _read_bytes(root, "manifest.json")
+    manifest, seal = decode_json(manifest_bytes), _read(root, "seal.json")
     if (
         seal["schema"] != "nisayon.qualification.seal.v1"
         or seal["plan_sha256"] != plan.sha256
-        or seal["manifest_sha256"] != file_digest(manifest_path)
+        or seal["manifest_sha256"] != hashlib.sha256(manifest_bytes).hexdigest()
     ):
         raise ValueError("Seal identity mismatch")
     actual = set()
@@ -43,10 +56,10 @@ def _verify_manifest(root: Path, plan: ExperimentPlan) -> bool:
     for name, expected in manifest["files"].items():
         if file_digest(project_file(root, name)) != expected:
             raise ValueError(f"Evidence bytes changed: {name}")
-    return True
+    return manifest["files"]
 
 
-def _costs(root: Path, assignments: list[dict]) -> dict:
+def _costs(root: Path, assignments: list[dict], expected: dict | None) -> dict:
     measured = []
     unknown = 0
     for assignment in assignments:
@@ -56,12 +69,14 @@ def _costs(root: Path, assignments: list[dict]) -> dict:
         if not (directory / "record.json").is_file():
             unknown += 1
             continue
-        record = _read(root, assignment["id"] + "/record.json")
+        record = _read(root, assignment["id"] + "/record.json", expected)
         value = record["wall_seconds"]
         if type(value) not in (float, int) or not math.isfinite(value) or value < 0:
             raise ValueError("Invalid attempt cost")
         measured.append(value)
-    completion = _read(root, "completion.json") if (root / "completion.json").exists() else None
+    completion = (
+        _read(root, "completion.json", expected) if (root / "completion.json").exists() else None
+    )
     wall = completion["runner_wall_seconds"] if completion is not None else None
     if wall is not None and (type(wall) not in (int, float) or not math.isfinite(wall) or wall < 0):
         raise ValueError("Invalid runner cost")
@@ -78,7 +93,7 @@ def _costs(root: Path, assignments: list[dict]) -> dict:
     }
 
 
-def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
+def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[str], list[dict]]:
     values, errors, attempts = {}, [], []
     probes = {row["id"]: row for row in plan["case"]["probes"]}
     runtimes = set()
@@ -88,8 +103,8 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
         if not directory.exists():
             errors.append(f"unattempted:{name}")
             continue
-        intent = _read(root, name + "/intent.json")
-        request = _read(root, name + "/request.json")
+        intent = _read(root, name + "/intent.json", expected)
+        request = _read(root, name + "/request.json", expected)
         expected_request = {
             "plan_sha256": digest(plan),
             "assignment": assignment,
@@ -111,7 +126,7 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
             attempts.append({"id": name, "status": "interrupted", "error": "missing_completion"})
             errors.append(f"incomplete:{name}")
             continue
-        record = _read(root, name + "/record.json")
+        record = _read(root, name + "/record.json", expected)
         attempts.append({"id": name, "status": record["status"], "error": record["error"]})
         if record["request_sha256"] != digest(request):
             raise ValueError("Attempt identity mismatch")
@@ -120,7 +135,7 @@ def _observations(root: Path, plan: dict) -> tuple[dict, list[str], list[dict]]:
             continue
         if record["returncode"] != 0:
             raise ValueError("Completed attempt has a nonzero exit code")
-        observed = _read(root, name + "/observation.json")
+        observed = _read(root, name + "/observation.json", expected)
         target = request["target"]
         required_calls = {target["callable"], *target.get("required_calls", [])}
         observation_schema = (
@@ -196,10 +211,16 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
         ]
         if value["assignments"] != expected_assignments:
             raise ValueError("Plan omits or changes required assignments")
-        complete = _verify_manifest(root, plan)
-        result["costs"] = _costs(root, value["assignments"])
+        expected = _verify_manifest(root, plan)
+        if expected is not None:
+            # Bind decoding to the bytes whose digest is checked. The initial
+            # membership scan cannot authorize a later read of different bytes.
+            checked_plan = ExperimentPlan.from_dict(_read(root, "plan.json", expected))
+            if checked_plan.sha256 != plan.sha256:
+                raise ValueError("Plan changed during assessment")
+        result["costs"] = _costs(root, value["assignments"], expected)
         result["obligations"] = list(value["obligations"])
-        if not complete:
+        if expected is None:
             result.update(execution_validity="incomplete", result_status="inconclusive")
             result["obligations"].append("unsealed_execution_prefix")
             for assignment in value["assignments"]:
@@ -215,7 +236,7 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
                     {"id": assignment["id"], "status": record["status"], "error": record["error"]}
                 )
             return Assessment.from_dict(result)
-        completion = _read(root, "completion.json")
+        completion = _read(root, "completion.json", expected)
         if value["obligations"]:
             result.update(execution_validity="not_executed", result_status="inconclusive")
             return Assessment.from_dict(result)
@@ -228,7 +249,7 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
             or any(item is None for item in declaration["premises"].values())
         ):
             raise ValueError("Unsupported or unknown premises cannot be assessed as software")
-        values, errors, attempts = _observations(root, value)
+        values, errors, attempts = _observations(root, value, expected)
         result["attempts"] = attempts
         result["obligations"].extend(errors)
         if completion["outcome"] != "completed":

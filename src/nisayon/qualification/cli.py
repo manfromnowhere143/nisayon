@@ -22,6 +22,7 @@ from . import (
     plan_change,
     run_plan,
 )
+from .example import create_example
 
 
 def parser() -> argparse.ArgumentParser:
@@ -30,6 +31,8 @@ def parser() -> argparse.ArgumentParser:
         description="Qualify a declared native software change in an explicit owner project.",
     )
     commands = app.add_subparsers(dest="command", required=True)
+    example = commands.add_parser("example", help="Copy the runnable example into a new directory")
+    example.add_argument("directory", type=Path)
     planning = commands.add_parser("plan", help="Freeze identities without running owner code")
     planning.add_argument("case", type=Path)
     planning.add_argument("--project", type=Path, required=True)
@@ -58,7 +61,10 @@ def parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = parser().parse_args()
     try:
-        if args.command == "plan":
+        if args.command == "example":
+            result = create_example(args.directory)
+            code = 0
+        elif args.command == "plan":
             context = ExecutionContext.from_project(
                 args.project,
                 output_dir=args.out,

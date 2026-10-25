@@ -1,5 +1,28 @@
 # Research source and releases
 
+## Native SDK 0.2.0 · 25 October 2026
+
+The developer preview supplies an installable wheel, hash-pinned runtime
+dependencies and an exposed example that runs without a source checkout.
+The [quickstart](QUICKSTART.md) covers both Python and CLI execution, a planted
+defect, portable reassessment and conservative reuse. The
+[capability map](CAPABILITIES.md) distinguishes the supported software adapter
+from source-specific robot and training experiments.
+
+Assessment now checks the exact bytes it decodes after scanning the manifest.
+Two regression cases reproduce false acceptance and erased cost under the old
+reader and require invalid, unresolved results after the correction. Installed
+wheel checks run outside Git and review accepted and rejected packages after
+the owner directory and original execution environment become unavailable.
+The [research review](SDK_REVIEW_2026-10-25.md) records current primary sources,
+the interface compatibility defect, and the proposed evidence-applicability
+extension. Developer-operated checks establish neither external adoption nor
+robot deployment acceptance. The twofold complete-cost target remains unproven.
+
+Publication continues only from existing public history. The historical
+`v0.1.0` tag is preserved. The release is a local software preview; browser
+visual and device acceptance are separate checks.
+
 ## Executable contract reuse · 24 October 2026
 
 A [frozen CPU mixing contract](experiments/results/contract-reuse-2026-10-24/README.md)
