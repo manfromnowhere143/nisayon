@@ -1,0 +1,754 @@
+......ssssss............................................................ [  4%]
+.......................................................FFFF............. [  8%]
+............s........................s.................................. [ 13%]
+........................................................................ [ 17%]
+............F........................................................... [ 22%]
+........................................................................ [ 26%]
+............ss..............FFFFFFFFFFFFF..............sssssssssssssssss [ 30%]
+sssssssssssssssssss......sssssssssssssss...............s................ [ 35%]
+...FFF.................................................................. [ 39%]
+........................................................................ [ 44%]
+...........................................sssssssssssss................ [ 48%]
+........................................................................ [ 52%]
+...............................................s........................ [ 57%]
+........................................................................ [ 61%]
+..................................s..................................... [ 66%]
+........................................................................ [ 70%]
+........................................................................ [ 75%]
+........................................................................ [ 79%]
+........................................................................ [ 83%]
+........................................................................ [ 88%]
+........................................................................ [ 92%]
+........................................................................ [ 97%]
+...............................................                          [100%]
+=================================== FAILURES ===================================
+_______ test_confirmation_counts_all_reproduction_and_physical_prefixes ________
+
+    def test_confirmation_counts_all_reproduction_and_physical_prefixes():
+>       simple, recurrent = incident(0), incident(4)
+                            ^^^^^^^^^^^
+
+tests/engine/test_confirmation_service.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/engine/test_confirmation_service.py:19: in incident
+    return load_suite(ROOT / "work/development/incidents-proposed-v1.json")[1][index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_reproduction_and_duplicate_conditions_cannot_be_called_fresh _______
+
+    def test_reproduction_and_duplicate_conditions_cannot_be_called_fresh():
+>       case = incident(0)
+               ^^^^^^^^^^^
+
+tests/engine/test_confirmation_service.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/engine/test_confirmation_service.py:19: in incident
+    return load_suite(ROOT / "work/development/incidents-proposed-v1.json")[1][index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_freeze_separates_same_deployment_with_different_rollout_configurations[False] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_freeze_separates_same_dep0')
+study = False
+
+    @pytest.mark.parametrize("study", [False, True])
+    def test_freeze_separates_same_deployment_with_different_rollout_configurations(tmp_path, study):
+>       case = incident(4)
+               ^^^^^^^^^^^
+
+tests/engine/test_confirmation_service.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/engine/test_confirmation_service.py:19: in incident
+    return load_suite(ROOT / "work/development/incidents-proposed-v1.json")[1][index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_freeze_separates_same_deployment_with_different_rollout_configurations[True] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_freeze_separates_same_dep1')
+study = True
+
+    @pytest.mark.parametrize("study", [False, True])
+    def test_freeze_separates_same_deployment_with_different_rollout_configurations(tmp_path, study):
+>       case = incident(4)
+               ^^^^^^^^^^^
+
+tests/engine/test_confirmation_service.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/engine/test_confirmation_service.py:19: in incident
+    return load_suite(ROOT / "work/development/incidents-proposed-v1.json")[1][index]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_development_case_loader_retains_unsupported_and_unresolved_assignments __
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_development_case_loader_r0')
+
+    def test_development_case_loader_retains_unsupported_and_unresolved_assignments(tmp_path):
+        source = Path(__file__).resolve().parents[2] / "work/development/incidents-proposed-v1.json"
+>       raw, cases, _ = load_suite(source)
+                        ^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_execution_recovery.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_______________ test_low_disk_refuses_before_creating_the_output _______________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_low_disk_refuses_before_c0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x16e4d33e0>
+
+    def test_low_disk_refuses_before_creating_the_output(tmp_path, monkeypatch):
+        monkeypatch.setattr(
+            workflow.shutil, "disk_usage", lambda _path: SimpleNamespace(free=5 * 1024**3 - 1)
+        )
+        output = tmp_path / "insufficient-space"
+        with pytest.raises(ValueError, match="below 5 GiB"):
+>           workflow.run_demo(SOURCE, PLAN, output)
+
+tests/engine/test_retained_declarations.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+__ test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate ___
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_real_twenty_assignments_k0')
+
+    def test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate(tmp_path):
+        output = tmp_path / "demonstration"
+        before = file_digest(SOURCE / "comparison-ledger.json")
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_failure_consuming_terminal_evidence_retains_all_preceding_declarations __
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_failure_consuming_termina0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x14b2c7c80>
+
+    def test_failure_consuming_terminal_evidence_retains_all_preceding_declarations(
+        tmp_path, monkeypatch
+    ):
+        original = workflow._bound
+    
+        def broken(root, reference):
+            if reference["path"].endswith("confirmation/decision.json"):
+                raise ValueError("Labelled injected terminal read failure")
+            return original(root, reference)
+    
+        monkeypatch.setattr(workflow, "_bound", broken)
+        output = tmp_path / "partial"
+        with pytest.raises(ValueError, match="terminal read failure"):
+>           workflow.run_demo(SOURCE, PLAN, output)
+
+tests/engine/test_retained_declarations.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+__ test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims ___
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_early_interruption_keeps_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x16e4cec30>
+
+    def test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims(
+        tmp_path, monkeypatch
+    ):
+        declare = workflow.declare
+        seen = 0
+    
+        def interrupted(*args, **kwargs):
+            nonlocal seen
+            seen += 1
+            if seen == 3:
+                raise OSError("Labelled interruption before third declaration")
+            return declare(*args, **kwargs)
+    
+        monkeypatch.setattr(workflow, "declare", interrupted)
+        output = tmp_path / "partial-statements"
+>       with pytest.raises(OSError, match="before third declaration"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'before third declaration'
+E         Actual message: "[Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'"
+
+tests/engine/test_retained_declarations.py:131: AssertionError
+_ test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_recovery_exposes_a_cross_0')
+
+    def test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments(tmp_path):
+        output = tmp_path / "changed-statement"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:143: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[syntax] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_damaged_cost_record_keeps0')
+corruption = 'syntax'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[not_object] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_damaged_cost_record_keeps1')
+corruption = 'not_object'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[wrong_schema] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_damaged_cost_record_keeps2')
+corruption = 'wrong_schema'
+
+    @pytest.mark.parametrize("corruption", ["syntax", "not_object", "wrong_schema"])
+    def test_damaged_cost_record_keeps_receipts_and_every_assignment_visible(tmp_path, corruption):
+        output = tmp_path / "damaged-cost"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_malformed_receipt_preserv0')
+corruption = 'observed_shape'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_clock] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_malformed_receipt_preserv1')
+corruption = 'observed_clock'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_malformed_receipt_preserv2')
+corruption = 'terminal_evidence'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+_ test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape] _
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_malformed_receipt_preserv3')
+corruption = 'reference_shape'
+
+    @pytest.mark.parametrize(
+        "corruption", ["observed_shape", "observed_clock", "terminal_evidence", "reference_shape"]
+    )
+    def test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes(
+        tmp_path, corruption
+    ):
+        output = tmp_path / "damaged-receipt"
+>       packet = workflow.run_demo(SOURCE, PLAN, output)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:187: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/retained_declarations.py:88: in run_demo
+    source, plan_path = source.resolve(strict=True), plan_path.resolve(strict=True)
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1240: in resolve
+    s = self._flavour.realpath(self, strict=strict)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:424: in realpath
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work'
+rest = 'retained-declaration-plan-v1.json', strict = True, seen = {}
+
+>   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development'
+
+<frozen posixpath>:468: FileNotFoundError
+___________ test_a_different_plan_suite_is_rejected_before_freezing ____________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_a_different_plan_suite_is0')
+
+    def test_a_different_plan_suite_is_rejected_before_freezing(tmp_path):
+>       plan = json.loads(PLAN.read_text())
+                          ^^^^^^^^^^^^^^^^
+
+tests/engine/test_retained_declarations.py:214: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/retained-declaration-plan-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/retained-declaration-plan-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________ test_both_candidates_freeze_before_either_confirmation[False] _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10faa3470>
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_both_candidates_freeze_be0')
+study = False
+
+    @pytest.mark.parametrize("study", [False, True])
+    def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path, study):
+        root = Path(__file__).resolve().parents[2]
+>       source, cases, limits = load_suite(root / "work/development/incidents-proposed-v1.json")
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_screen_execution.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_________ test_both_candidates_freeze_before_either_confirmation[True] _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x16e4cec60>
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_both_candidates_freeze_be1')
+study = True
+
+    @pytest.mark.parametrize("study", [False, True])
+    def test_both_candidates_freeze_before_either_confirmation(monkeypatch, tmp_path, study):
+        root = Path(__file__).resolve().parents[2]
+>       source, cases, limits = load_suite(root / "work/development/incidents-proposed-v1.json")
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_screen_execution.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+______ test_missing_study_declaration_cannot_fall_back_to_v1_confirmation ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x14b0bcef0>
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-620/test_missing_study_declaration0')
+
+    def test_missing_study_declaration_cannot_fall_back_to_v1_confirmation(monkeypatch, tmp_path):
+        root = Path(__file__).resolve().parents[2]
+>       source, cases, limits = load_suite(root / "work/development/incidents-proposed-v1.json")
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/engine/test_screen_execution.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/nisayon/engine/development_cases.py:96: in load_suite
+    raw = json.loads(path.read_text())
+                     ^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1027: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-evidence-applicability-2026-10-25/work/development/incidents-proposed-v1.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/engine/test_confirmation_service.py::test_confirmation_counts_all_reproduction_and_physical_prefixes
+FAILED tests/engine/test_confirmation_service.py::test_reproduction_and_duplicate_conditions_cannot_be_called_fresh
+FAILED tests/engine/test_confirmation_service.py::test_freeze_separates_same_deployment_with_different_rollout_configurations[False]
+FAILED tests/engine/test_confirmation_service.py::test_freeze_separates_same_deployment_with_different_rollout_configurations[True]
+FAILED tests/engine/test_execution_recovery.py::test_development_case_loader_retains_unsupported_and_unresolved_assignments
+FAILED tests/engine/test_retained_declarations.py::test_low_disk_refuses_before_creating_the_output
+FAILED tests/engine/test_retained_declarations.py::test_real_twenty_assignments_keep_claims_and_historical_outcomes_separate
+FAILED tests/engine/test_retained_declarations.py::test_failure_consuming_terminal_evidence_retains_all_preceding_declarations
+FAILED tests/engine/test_retained_declarations.py::test_early_interruption_keeps_missing_assignments_distinct_from_nonclaims
+FAILED tests/engine/test_retained_declarations.py::test_recovery_exposes_a_cross_arm_statement_without_losing_other_assignments
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[syntax]
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[not_object]
+FAILED tests/engine/test_retained_declarations.py::test_damaged_cost_record_keeps_receipts_and_every_assignment_visible[wrong_schema]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_shape]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[observed_clock]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[terminal_evidence]
+FAILED tests/engine/test_retained_declarations.py::test_malformed_receipt_preserves_other_assignments_and_exposes_the_damaged_bytes[reference_shape]
+FAILED tests/engine/test_retained_declarations.py::test_a_different_plan_suite_is_rejected_before_freezing
+FAILED tests/engine/test_screen_execution.py::test_both_candidates_freeze_before_either_confirmation[False]
+FAILED tests/engine/test_screen_execution.py::test_both_candidates_freeze_before_either_confirmation[True]
+FAILED tests/engine/test_screen_execution.py::test_missing_study_declaration_cannot_fall_back_to_v1_confirmation
+21 failed, 1533 passed, 81 skipped in 306.68s (0:05:06)

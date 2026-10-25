@@ -21,6 +21,11 @@ sets out the separate prospective value test.
 
 ## Reuse an executable domain contract
 
+The unreleased [explicit applicability planner](EVIDENCE_APPLICABILITY.md)
+connects observations, scores, confirmation and review to their declared
+dependencies. It explains required checks without changing `assess_reuse` or
+granting acceptance. The published v0.2.0 wheel does not include this addition.
+
 The [CPU mixing example](../examples/qualification/kornia_mix/README.md) packages
 qualified semantics for three Kornia entry points. It binds complete source
 snapshots and a pinned environment, rejects source/file-set or input-domain

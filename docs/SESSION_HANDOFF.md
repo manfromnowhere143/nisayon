@@ -44,6 +44,14 @@ untouched reuse with full owner costs. The owner comparison remains unexecuted
 pending permitted owner records.
 Private history and correspondence are not included in this public checkout.
 
+The [25 October applicability qualification](experiments/results/evidence-applicability-2026-10-25/README.md)
+adds an unreleased explicit dependency planner. One reviewed model matches a
+competent native workflow on six exposed software decisions and repeats with
+new confirmation vectors. Native execution is faster in both runs. The
+[SDK guide](EVIDENCE_APPLICABILITY.md) documents the required review, input and
+receipt bindings. Independent untouched selection, owner effort and the twofold
+complete-cost target remain unproven; the stable v0.2.0 release is unchanged.
+
 The [GR00T PR #796 qualification](experiments/results/groot-statistics-2026-10-23/README.md)
 adds a current native CPU case with portable evidence, explicit false-acceptance
 controls and a frozen reuse procedure. The subsequent

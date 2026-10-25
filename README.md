@@ -71,13 +71,14 @@ flowchart TB
     F --> H["Retained evidence<br/>identities · attempts · costs · unknowns"]
     S --> H
     H --> R["Inspect and scope reuse<br/>procedure · observations · verdict"]
+    R --> A["Explicit dependency model<br/>observations · scores · fresh checks<br/>unreleased SDK planner"]
     subgraph V["Value still to establish"]
         direction LR
         O["Live owner comparison<br/>matched quality · full cost"]
         O --> U["Untouched owner incident<br/>measure setup and review saved"]
         U --> P["Expand on evidence<br/>compiler · selector<br/>additional backends"]
     end
-    R -. "twofold complete-cost target unproven" .-> V
+    A -. "twofold complete-cost target unproven" .-> V
 ```
 
 The paths have different acceptance rules. A native software verdict does not
@@ -122,6 +123,16 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**25 October — evidence applicability now has an explicit dependency model.**
+The unreleased SDK planner explains which checks code, data, runtime, scoring
+and population changes require. One reviewed model matches a competent native
+workflow on six exposed normalization decisions, including three unsuitable
+controls; the unchanged procedure repeats the result on new confirmation
+vectors. Native Python is faster in both runs. [The result, costs and replayable
+records](docs/experiments/results/evidence-applicability-2026-10-25/README.md)
+support scoped correctness. Independent untouched reuse, owner effort savings
+and the twofold complete-cost target remain unproven.
 
 **25 October — the SDK has a complete first-use path.** The 0.2.0 developer
 preview packages a runnable example, Python and CLI workflows, and portable

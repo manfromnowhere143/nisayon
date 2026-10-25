@@ -7,10 +7,12 @@ import json
 import sys
 from pathlib import Path
 
-from nisayon.engine.io import write_json
+from nisayon.engine.io import decode_json, write_json
 
 from . import (
     CaseSpec,
+    DependencyModel,
+    EvidenceState,
     ExecutionContext,
     ExperimentPlan,
     assess_change,
@@ -19,6 +21,7 @@ from . import (
     export_run,
     inspect_bundle,
     inspect_run,
+    plan_applicability,
     plan_change,
     run_plan,
 )
@@ -48,6 +51,13 @@ def parser() -> argparse.ArgumentParser:
     reuse = commands.add_parser("reuse", help="Check what prior evidence can support after change")
     reuse.add_argument("store", type=Path)
     reuse.add_argument("plan", type=Path)
+    applicability = commands.add_parser(
+        "applicability", help="Explain checks required by an explicitly reviewed dependency model"
+    )
+    applicability.add_argument("model", type=Path)
+    applicability.add_argument("previous", type=Path)
+    applicability.add_argument("inputs", type=Path, help="Proposed input identity mapping")
+    applicability.add_argument("--evidence-root", type=Path, required=True)
     export = commands.add_parser("export", help="Package a store for local read-only review")
     export.add_argument("store", type=Path)
     export.add_argument("--out", type=Path, required=True, help="New portable review file")
@@ -92,6 +102,14 @@ def main() -> None:
         elif args.command == "reuse":
             result = assess_reuse(evidence_at(args.store), ExperimentPlan.read(args.plan))
             code = 0 if result["verdict_applicability"] == "applicable_same_scoped_claim" else 3
+        elif args.command == "applicability":
+            result = plan_applicability(
+                DependencyModel.read(args.model),
+                EvidenceState.read(args.previous),
+                decode_json(args.inputs.read_bytes()),
+                evidence_root=args.evidence_root,
+            )
+            code = 0 if result["status"] == "planned" else 3
         else:
             if args.command == "run":
                 plan = ExperimentPlan.read(args.plan)

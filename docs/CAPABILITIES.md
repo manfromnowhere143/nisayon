@@ -16,6 +16,7 @@ not automatically a supported adapter for arbitrary deployments.
 | Execute | `run_plan` → `RunEvidence` | `run` | Fresh synchronous Python process per role/probe; attempts and interrupted prefixes retained |
 | Assess | `assess_change`, `inspect_run`, `evidence_at` | `inspect` | Exact/numerical software relation; deployment remains unresolved |
 | Check reuse | `assess_reuse` | `reuse` | Procedure, observations and verdict applicability distinguished; no automatic acceptance |
+| Explain dependency changes (unreleased) | `DependencyModel`, `EvidenceState`, `plan_applicability`, `record_check` | `applicability` | Reviewed explicit graph, verified receipts and mandatory fresh confirmation; no inferred dependencies or acceptance |
 | Package review | `export_run` | `export` | Bounded original records, including logs and paths; no automatic redaction or upload |
 | Recompute review | `inspect_bundle` | `review` | No original owner environment required; integrity is not authenticity |
 
@@ -25,6 +26,9 @@ the evidence writer. `CaseSpec`, `ExperimentPlan`, `RunEvidence`, `Assessment`
 and `ExecutionContext` are all public exports. The
 [interface guide](NATIVE_QUALIFICATION.md) specifies their premises and schemas;
 [portable review](PORTABLE_REVIEW.md) specifies the transport.
+The [applicability guide](EVIDENCE_APPLICABILITY.md) documents the unreleased
+planner, its model/review/receipt schemas and the native comparison. The stable
+v0.2.0 wheel retains its existing interface.
 
 ## Other implemented research interfaces
 

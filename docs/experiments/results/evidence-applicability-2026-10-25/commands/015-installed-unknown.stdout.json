@@ -1,0 +1,182 @@
+{
+  "schema": "nisayon.qualification.applicability.v1",
+  "model_sha256": "697a3cf6c35ff36304186c27bb1654de4447187dca78ad8e23f6b99f364d2e90",
+  "planner_tool": {
+    "distribution": "nisayon-workspace",
+    "version": "0.2.0",
+    "sources": {
+      "__init__.py": "4549a92fa698d159db4969f37a64f8fc89f02f195e8e998d812eb8348611f5f6",
+      "__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "applicability.py": "fbc34763d2a3a04a81cb06e7b321252799f4aab43e2f05b40b0429d82bd52234",
+      "assessment.py": "ca09b71b85a83501a27481e7f7c04c14b60f7694c992618636fe34cd25d540fd",
+      "bundle.py": "6aeabcaf0366309513e502ab0fbf5ae09457b156c26a41c3b55ff3507c79492e",
+      "cli.py": "1e8bdeb298a8756e6c0619522b8e41edc184f3b05d4da035f18a26bc3f13d0e6",
+      "compare.py": "ed5ab65ffc3e9593268e6d811f79d2e614b7969b9fc106e58fe472e269d3c39a",
+      "context.py": "5654c0f48637e35479f0b1295467aab3fb527d7c7881a0c1afcff7e277d4ef83",
+      "example.py": "a5e876ed603316003d0d0982125f5e3d5f05921ec7e61c139e941f90db67c89b",
+      "models.py": "2f9571fdafcf0e4d4305e06dd5d386a3dd03efcda4605f61a885e369ce00df2e",
+      "reads.py": "ffb4c890742baa9aae1255f5e82817ed2c0643c699bfe7cda8038e9d33f29556",
+      "reuse.py": "058369507b3e286c2020f34ee54a79ea9b23417a9ab2261b8c4c5d0a4ce8d0ea",
+      "runner.py": "55c6a954506237931b0f4f2d47cb5917ce93d8409df2ffa41f3b4409e709bb4b",
+      "worker.py": "f9b7187266550e30e94ab5d0fe3e24e39c1f65edea4b38c50f53f0f1742597d2",
+      "nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "engine/io.py": "ec4fcfcdb8acaad384ae0aa7feb0e1ab6bbf90d8781bcbcabe06f0064fa3632d"
+    }
+  },
+  "previous_state_sha256": "daac52a8482ae14c265be60873ba7d12240f079a9facec12bdaa525cd35b51fc",
+  "proposed_inputs_sha256": "6c71e6abf4e777d15ad4cc1f58b16f9b83ad309be4ebd1d2643c62415a57fee6",
+  "status": "unresolved",
+  "changed_inputs": [
+    "calibration",
+    "confirmation_inputs",
+    "population",
+    "scoring"
+  ],
+  "checks": {
+    "confirm": {
+      "kind": "confirmation",
+      "action": "run",
+      "reasons": [
+        "fresh_check_required"
+      ],
+      "affected_inputs": [
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "calibration"
+        },
+        {
+          "input": "confirmation_inputs",
+          "reason": "changed",
+          "via": "confirmation_inputs"
+        },
+        {
+          "input": "population",
+          "reason": "unknown",
+          "via": "population"
+        },
+        {
+          "input": "scoring",
+          "reason": "changed",
+          "via": "scoring"
+        }
+      ],
+      "prior_artifact": {
+        "path": "nisayon/initial/confirm.json",
+        "sha256": "089583990a8a34e486e16e6a74c8ada78797c3259231552203ecac23fd63e591"
+      }
+    },
+    "observe": {
+      "kind": "observation",
+      "action": "run",
+      "reasons": [],
+      "affected_inputs": [
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "calibration"
+        }
+      ],
+      "prior_artifact": {
+        "path": "nisayon/initial/observe.json",
+        "sha256": "185578d12c4ac87b6fc1f74c216f2b8edd2a6170d307f38dd986bacdff4caaac"
+      }
+    },
+    "score": {
+      "kind": "analysis",
+      "action": "run",
+      "reasons": [
+        "upstream_requires_check:observe"
+      ],
+      "affected_inputs": [
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "observe"
+        },
+        {
+          "input": "scoring",
+          "reason": "changed",
+          "via": "scoring"
+        }
+      ],
+      "prior_artifact": {
+        "path": "nisayon/initial/score.json",
+        "sha256": "2ceb6746556b195193ed57ba014c3215f19e0304d32be300276ba683b466cc65"
+      }
+    },
+    "review": {
+      "kind": "review",
+      "action": "run",
+      "reasons": [
+        "fresh_check_required",
+        "upstream_requires_check:confirm",
+        "upstream_requires_check:score"
+      ],
+      "affected_inputs": [
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "confirm"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "score"
+        },
+        {
+          "input": "confirmation_inputs",
+          "reason": "changed",
+          "via": "confirm"
+        },
+        {
+          "input": "population",
+          "reason": "unknown",
+          "via": "confirm"
+        },
+        {
+          "input": "population",
+          "reason": "unknown",
+          "via": "population"
+        },
+        {
+          "input": "scoring",
+          "reason": "changed",
+          "via": "confirm"
+        },
+        {
+          "input": "scoring",
+          "reason": "changed",
+          "via": "score"
+        }
+      ],
+      "prior_artifact": {
+        "path": "nisayon/initial/review.json",
+        "sha256": "7cf9f007edc0cffe79aab4c14641d2b6110178015b894b6aa663f9068d13229b"
+      }
+    }
+  },
+  "decisions": {
+    "software_adoption": {
+      "applicability": "unresolved",
+      "required_checks": [
+        "confirm",
+        "observe",
+        "score",
+        "review"
+      ],
+      "reusable_checks": [],
+      "obligations": [
+        "unknown_input:population"
+      ]
+    }
+  },
+  "obligations": [
+    "software_adoption:unknown_input:population",
+    "unknown_input:population"
+  ],
+  "automatic_acceptance": false,
+  "observations": "Historical evidence remains about its original execution only.",
+  "limit": "Conditional on the reviewed dependency model, truthful receipts and complete input identities. No discovery of undeclared dependencies, execution attestation, statistical guarantee, physical acceptance or complete-cost saving."
+}

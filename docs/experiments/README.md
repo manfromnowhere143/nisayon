@@ -42,6 +42,7 @@ acceptance and complete-cost value still unmeasured.
 
 | Question | Observed result | Read the evidence |
 |---|---|---|
+| Can an explicit dependency model preserve scoped decisions while reusing applicable evidence? | Both workflows match six exposed normalization decisions and repeat unchanged with new confirmation vectors; native execution is faster. Independent selection and complete-cost savings remain unproven. | [Applicability model and native comparison](results/evidence-applicability-2026-10-25/README.md) |
 | Can a correction survive a frozen acceptance rule? | The gripper-sign correction passed 32/32 fresh pairs under the strict obligation; invalid replay and action suppression were rejected. | [Strict first case](LIFT_PROTOCOL_V3.md), [freshness correction and confirmation](CONDITION_FRESHNESS.md) |
 | Do early validity checks improve a conventional diagnostic procedure? | Both scripts accepted 6/10 assigned incidents with 569 simulator runs per arm. The additional checks changed no decision. | [Matched comparison](MATCHED_COMPARISON.md), [trace explanation](PARITY_ANALYSIS.md) |
 | Does a live model make useful use of the optional audit? | On three paired repetitions of one known incident, both arms accepted 3/3 with 210 runs. No optional audit was requested. | [Bounded model comparison](BOUNDED_AGENT_COMPARISON.md), [availability and cost analysis](UNUSED_AUDIT.md) |
