@@ -18,6 +18,12 @@ def test_real_stdio_protocol_and_shared_memory(workspace):
             result = await client.call_tool("project_context")
             assert not result.is_error
             assert result.structured_content["project"] == "Nisayon"
+            packet = workspace / "work/continuations/older/HANDOFF.md"
+            packet.parent.mkdir(parents=True)
+            packet.write_text("LongWAM native training completed; behavior remains unproven.")
+            focused = await client.call_tool("project_context", {"focus": "LongWAM"})
+            assert not focused.is_error
+            assert focused.structured_content["research"]["matched"] == 1
             note = await client.call_tool(
                 "memory_add",
                 {

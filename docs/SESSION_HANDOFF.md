@@ -1,5 +1,15 @@
 # Continue Nisayon
 
+## Native episode source update · 27 October 2026
+
+Current source includes bounded LIBERO/LeRobot episode capture and replay,
+exposed paired task-record reconstruction and composed software confirmation.
+Start with the [evidence summary](experiments/results/native-episodes-2026-10-27/README.md),
+[native guide](NATIVE_EXECUTION.md) and [quickstart](QUICKSTART.md). The tagged
+v0.2.0 wheel remains unchanged. The retained native controls qualify a specific
+trusted runtime; learned repair, independent sensing truth, deployment acceptance
+and a complete-cost advantage remain unestablished by this source update.
+
 This is the public research source snapshot. Read [the release notes](RELEASE.md),
 [the voice and authorship rule](VOICE.md), and [the shared memory convention](../memory/INDEX.md).
 Run `uv run --frozen nisayon start` and inspect Git status before editing.

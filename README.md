@@ -38,6 +38,14 @@ retain call and owner-file read witnesses. Another machine can inspect the
 evidence without executing owner code. Reusing a procedure, reusing observations
 and carrying forward a verdict are separate decisions.
 
+Current source also captures bounded LIBERO/LeRobot episodes, preserves terminal
+observations and checks recorded physics and success calls in replay. A five-pair
+retained example exercises native task comparison without a simulator. The
+[native episode guide](docs/NATIVE_EXECUTION.md) and
+[evidence summary](docs/experiments/results/native-episodes-2026-10-27/README.md)
+separate these checks from learned task repair, deployment acceptance and cost
+savings, which this update does not establish.
+
 [Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
 [SDK and interface review](docs/SDK_REVIEW_2026-10-25.md)
 

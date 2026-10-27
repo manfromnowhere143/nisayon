@@ -9,7 +9,7 @@ from pathlib import Path
 # The script remains runnable before an editable install has been refreshed.
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from nisayon import records, workspace  # noqa: E402
+from nisayon import continuity, records, workspace  # noqa: E402
 
 
 def main() -> None:
@@ -28,19 +28,7 @@ def main() -> None:
         records.atomic_json(root / ".nisayon/sessions" / f"{uuid.uuid4().hex}.json", snapshot)
         if event == "SessionStart":
             state = records.context(root)
-            # Bound context and prefer the handoff + next steps over historic prose.
-            compact = {
-                "project": "Nisayon",
-                "git": state["git"],
-                "handoff": state["handoff"],
-                "recent_checkpoints": state["recent_checkpoints"][:2],
-                "memory_tool": "nisayon.memory_search or nisayon memory search",
-            }
-            text = json.dumps(compact, ensure_ascii=False)
-            if len(text) > 8500:
-                text = (
-                    text[:8400] + "\n[Context truncated. Run nisayon start for the full handoff.]"
-                )
+            text = continuity.compact_startup(state)
             print(
                 json.dumps(
                     {

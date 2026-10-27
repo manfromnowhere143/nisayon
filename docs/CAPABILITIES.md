@@ -30,6 +30,24 @@ The [applicability guide](EVIDENCE_APPLICABILITY.md) documents the unreleased
 planner, its model/review/receipt schemas and the native comparison. The stable
 v0.2.0 wheel retains its existing interface.
 
+## Native episodes and composed checks (current source)
+
+These additions require the current checkout; they are not in the tagged
+v0.2.0 wheel.
+
+| Operation | Interface | Boundary |
+| --- | --- | --- |
+| Freeze, execute, assess and export a software case | `qualification.workflow.qualify`, `qualify` | Explicit trusted owner code; unresolved deployment authority |
+| Compose investigation and confirmation | `qualify_change`, `qualify --confirmation`, `review-change` | Frozen matched criteria and local condition non-reuse; not blinding or independent adjudication |
+| Execute reviewed dependency checks | `execute_checks`, `inspect_checks`, `export-checks`, `review-check-bundle` | Declared file dependencies and trusted local handlers; no inferred dependencies |
+| Reconstruct paired task records | `assess_native_task`, `native-task`, `review-native-task` | Exposed N100-format records; shared-producer measurement limits |
+| Capture native goal measurements | `MujocoOnRecorder`, `capture_libero_success`, `review-native-measurement` | Qualified serial MuJoCo/LIBERO `On` profile and explicit numerical runtime |
+| Execute and replay bounded episodes | `execute_libero_window`, `review-native-execution` | LIBERO/LeRobot step paths, Euler physics and frozen endings; no independent policy/controller rerun |
+
+The [native evidence summary](experiments/results/native-episodes-2026-10-27/README.md)
+records controls, failures, costs and remaining assumptions. The
+[quickstart](QUICKSTART.md) and [native guide](NATIVE_EXECUTION.md) give the commands.
+
 ## Other implemented research interfaces
 
 | Family | Location | Access and current limit |

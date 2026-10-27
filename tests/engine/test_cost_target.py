@@ -1,6 +1,7 @@
 """A cheap incorrect answer, omitted work or abstention cannot earn the target."""
 
 from copy import deepcopy
+from fractions import Fraction
 from math import inf, nan, nextafter
 
 import pytest
@@ -42,6 +43,17 @@ def test_exact_target_and_all_assigned_denominators(comparison):
     assert result["candidate_quality"]["outcome_counts"]["unresolved"] == 1
     comparison["candidate_costs"]["phases"]["setup"]["value"] = nextafter(50, inf)
     assert assess_cost_target(**comparison)["status"] == "contradicted"
+
+
+def test_exact_composed_costs_reach_the_gate_without_float_rounding(comparison):
+    comparison["baseline_costs"] = ledger(Fraction(2, 3))
+    comparison["candidate_costs"] = ledger(Fraction(1, 3))
+    assert assess_cost_target(**comparison)["status"] == "supported_within_declared_scope"
+    comparison["candidate_costs"]["phases"]["review"]["value"] = Fraction(1, 2**1075)
+    assert assess_cost_target(**comparison)["status"] == "contradicted"
+    comparison["candidate_costs"]["phases"]["review"]["value"] = Fraction(-1, 3)
+    with pytest.raises(ValueError):
+        assess_cost_target(**comparison)
 
 
 def test_fast_false_acceptance_is_a_negative_result(comparison):

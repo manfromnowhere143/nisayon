@@ -149,6 +149,129 @@ def test_exact_twofold_gate_is_finite_arithmetic_not_owner_experiment(ledger, tm
     assert report["baseline_minus_candidate_owner_seconds_by_phase"]["setup"] == 50
 
 
+@pytest.mark.parametrize(
+    "baseline,candidate,extra,shared",
+    [
+        (2, 1, 2**-54, 0),
+        (2, 1, 0, 2**-54),
+        (2**54, 2**53 + 1, 0, 0),
+        (2 * 10**400, 10**400, 1, 0),
+    ],
+)
+def test_cost_aggregation_cannot_erase_a_failed_target(
+    ledger, tmp_path, baseline, candidate, extra, shared
+):
+    for arm, value in (("baseline", baseline), ("candidate", candidate), ("shared", shared)):
+        ledger["coverage"][arm]["setup"]["charges_usd"]["provider"] = measured(value)
+    ledger["coverage"]["candidate"]["setup"]["charges_usd"]["compute"] = measured(extra)
+    report = effort.assess(ledger, tmp_path)
+    assert report["finite_comparisons"]["USD"]["status"] == "contradicted"
+    assert "no_owner_experiment" in report["reasons"]
+    json.dumps(report, allow_nan=False)
+
+
+def test_microsecond_accounting_does_not_falsely_reject_exact_equality(ledger, tmp_path):
+    activity(tmp_path, ledger, "base", 0, 0.6)
+    activity(tmp_path, ledger, "candidate-one", 1, 0.1, arm="candidate")
+    activity(tmp_path, ledger, "candidate-two", 2, 0.2, arm="candidate")
+    report = effort.assess(ledger, tmp_path)
+    for unit in ("USD", "owner_active_seconds"):
+        assert report["finite_comparisons"][unit]["status"] == "supported_within_declared_scope"
+        exact = report["exact_quantities"][f"/phase_ledgers/{unit}/candidate/phases/setup/value"]
+        assert (exact["numerator"], exact["denominator"]) == ("3", "10")
+        assert exact["display"] == "rounded"
+    assert report["status"] == "unresolved"
+
+
+def test_hourly_rate_division_preserves_nonzero_cost_below_float_range(ledger, tmp_path):
+    tiny = float.fromhex("0x0.0000000000001p-1022")
+    for actor in ledger["actors"].values():
+        actor["usd_per_hour"] = measured(tiny)
+    activity(tmp_path, ledger, "base", 0, 2)
+    activity(tmp_path, ledger, "candidate", 0, 1, actor="builder", arm="candidate")
+    report = effort.assess(ledger, tmp_path)
+    assert report["finite_comparisons"]["USD"]["status"] == "supported_within_declared_scope"
+    exact = report["exact_quantities"]["/phase_ledgers/USD/candidate/phases/setup/value"]
+    assert int(exact["numerator"]) == 1
+    assert int(exact["denominator"]) == 3600 * 2**1074
+    assert exact["display"] == "rounded"
+    assert totals(report)["candidate"] == 0  # Display only; exact cost above is nonzero.
+    json.dumps(report, allow_nan=False)
+
+
+def test_report_roundtrip_retains_exact_rate_semantics_and_marks_missingness(ledger, tmp_path):
+    ledger["actors"]["owner"]["usd_per_hour"] = measured(0.1)
+    activity(tmp_path, ledger, "base", 0, 0.000001)
+    ledger["coverage"]["candidate"]["review"]["charges_usd"]["provider"] = unknown()
+    report = json.loads(json.dumps(effort.assess(ledger, tmp_path), allow_nan=False))
+    assert report["schema"] == "nisayon.owner-effort-report.v2"
+    exact = report["exact_quantities"]["/phase_ledgers/USD/baseline/phases/setup/value"]
+    n, d = (0.1).as_integer_ratio()
+    assert int(exact["numerator"]) * d * 3_600_000_000 == int(exact["denominator"]) * n
+    assert "/phase_ledgers/USD/candidate/phases/review/value" not in report["exact_quantities"]
+    assert report["phase_ledgers"]["USD"]["candidate"]["phases"]["review"]["value"] is None
+    assert report["finite_comparisons"]["USD"]["status"] == "unresolved"
+
+
+def test_overflow_display_does_not_lose_exact_equality(ledger, tmp_path):
+    for arm, value in (("baseline", 2 * 10**400), ("candidate", 10**400)):
+        ledger["coverage"][arm]["setup"]["charges_usd"]["provider"] = measured(value)
+    report = effort.assess(ledger, tmp_path)
+    assert report["finite_comparisons"]["USD"]["status"] == "supported_within_declared_scope"
+    exact = report["exact_quantities"]["/phase_ledgers/USD/candidate/phases/setup/value"]
+    assert exact == {"numerator": str(10**400), "denominator": "1", "display": "overflow"}
+    assert totals(report)["candidate"] is None
+    json.dumps(report, allow_nan=False)
+
+
+@pytest.mark.parametrize("nanoseconds,microseconds", [(500, 0), (1500, 2), (2500, 2)])
+def test_time_resolution_uses_exact_round_to_even(ledger, tmp_path, nanoseconds, microseconds):
+    path = activity(tmp_path, ledger, "tiny", 0, 0)
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    rows[1]["ns"] = nanoseconds
+    _, begin, end, complete = effort.read_activity(
+        "\n".join(json.dumps(row) for row in rows).encode()
+    )
+    assert complete
+    assert end - begin == timedelta(microseconds=microseconds)
+
+
+def test_clock_disagreement_cannot_round_down_to_the_one_second_limit(ledger, tmp_path):
+    path = activity(tmp_path, ledger, "long", 0, 1_000_000_000)
+    rows = [json.loads(line) for line in path.read_text().splitlines()]
+    rows[1]["ns"] = 1_000_000_001 * 1_000_000_000
+    effort.read_activity("\n".join(json.dumps(row) for row in rows).encode())
+    rows[1]["ns"] += 1
+    with pytest.raises(ValueError, match="clocks disagree"):
+        effort.read_activity("\n".join(json.dumps(row) for row in rows).encode())
+
+
+def test_serialized_exact_phase_costs_reconstruct_the_failed_target(ledger, tmp_path):
+    from fractions import Fraction
+
+    from nisayon.engine.cost_target import assess_cost_target
+
+    ledger["coverage"]["baseline"]["setup"]["charges_usd"]["provider"] = measured(2)
+    ledger["coverage"]["candidate"]["setup"]["charges_usd"]["provider"] = measured(1)
+    ledger["coverage"]["candidate"]["setup"]["charges_usd"]["compute"] = measured(2**-54)
+    report = json.loads(json.dumps(effort.assess(ledger, tmp_path), allow_nan=False))
+    pair = report["phase_ledgers"]["USD"]
+    for arm, phases in pair.items():
+        for phase, item in phases["phases"].items():
+            exact = report["exact_quantities"][f"/phase_ledgers/USD/{arm}/phases/{phase}/value"]
+            item["value"] = Fraction(int(exact["numerator"]), int(exact["denominator"]))
+    outcome = {"case": {"decision": "replace", "valid": True, "reference": "synthetic"}}
+    checked = assess_cost_target(
+        {"case": "replace"},
+        baseline=outcome,
+        candidate=outcome,
+        baseline_costs=pair["baseline"],
+        candidate_costs=pair["candidate"],
+    )
+    assert checked["status"] == report["finite_comparisons"]["USD"]["status"] == "contradicted"
+    assert checked["cost_ratio_baseline_over_candidate"] == 2  # Rounded display, not acceptance.
+
+
 def test_overlapping_timers_for_one_activity_count_once_and_people_add(ledger, tmp_path):
     activity(tmp_path, ledger, "one", 0, 10)
     activity(tmp_path, ledger, "nested", 2, 2)

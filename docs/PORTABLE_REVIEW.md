@@ -113,3 +113,20 @@ The UI application, its import adapter and device/browser acceptance remain
 separately owned. There is no new HTTP server or native execution service.
 The [implementation record](experiments/results/native-sdk-2026-10-23/README.md)
 describes the checked scope and retained limitations.
+
+## Executable check records
+
+Current source adds `export-checks EXECUTION --evidence-root ROOT --out FILE`
+and `review-check-bundle FILE` for reviewed dependency models and check outputs.
+The export includes the required prior evidence and frozen inputs; review
+reconstructs their relationships without running native handlers. The exact
+SDK source and distribution identity remain part of the contract. A completed
+check may report a rejected or unresolved relation.
+
+`review-native-task FILE` adds semantic reassessment of the included original
+N100-format task records. A consistent task comparison leaves measurement
+adequacy and deployment authority unresolved. See the
+[native task guide](NATIVE_TASK_OUTCOMES.md) and
+[executable examples](../examples/qualification/executable_checks/README.md).
+These commands require current source, not the tagged v0.2.0 wheel. Retained
+paths and logs are not automatically redacted; inspect a package before sharing.

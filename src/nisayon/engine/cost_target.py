@@ -25,7 +25,7 @@ ACCEPTANCES = {"keep", "replace"}
 
 
 def _number(value: object) -> Fraction:
-    if type(value) not in (int, float):
+    if type(value) not in (int, float, Fraction):
         raise ValueError("Costs must be finite nonnegative numbers")
     if isinstance(value, float) and not math.isfinite(value):
         raise ValueError("Costs must be finite nonnegative numbers")
@@ -119,13 +119,16 @@ def assess_cost_target(
     candidate: dict[str, dict],
     baseline_costs: dict,
     candidate_costs: dict,
-    target_speedup: float = 2,
+    target_speedup: int | float | Fraction = 2,
 ) -> dict:
     """Require all finite case outcomes to be correct, and retain abstentions.
 
     This deliberately strict pilot gate is not a statistical noninferiority test.
     Totals are exclusive, producer-declared phase costs in one common unit and
     scope; receipts and any monetary valuation must be qualified separately.
+    In-memory callers may supply Fraction values to preserve composed costs.
+    Integers and finite floats retain their exact represented values. Returned
+    totals and ratios are approximate displays, never inputs to the decision.
     """
     if (
         not isinstance(expected, dict)

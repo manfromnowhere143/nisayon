@@ -48,6 +48,14 @@ confirmed correction or a zero-cost baseline. Exact rational comparisons avoid
 rounding across the target boundary. An overflowing display total is null, with
 an explicit flag; it is not zero.
 
+In-memory callers may pass `Fraction` phase values when composing measured
+durations, rates and charges. Do not round those components to floats before
+calling the gate. Returned totals and ratios are approximate display values;
+the decision uses exact sums. The
+[owner-effort recorder](../examples/qualification/owner_effort/README.md) retains
+exact rational phase values in its v2 JSON report for reconstruction. It cannot
+recover precision lost before input or verify a producer's measurement claims.
+
 These are finite, conditional pilot results. They are not population-level
 noninferiority, statistical false-acceptance guarantees, independent review,
 untouched reuse, commercial savings or physical-task acceptance.

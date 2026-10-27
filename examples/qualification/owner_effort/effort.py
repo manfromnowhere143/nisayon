@@ -18,6 +18,7 @@ import time
 import uuid
 from collections import defaultdict
 from datetime import UTC, datetime, timedelta
+from fractions import Fraction
 from pathlib import Path
 
 from nisayon.engine.cost_target import DECISIONS, PHASES, assess_cost_target
@@ -26,10 +27,14 @@ ARMS = ("baseline", "candidate", "shared")
 CHARGES = ("provider", "compute", "other")
 
 
-def number(value: object) -> float:
-    if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
+def number(value: object) -> Fraction:
+    if (
+        type(value) not in (int, float)
+        or (type(value) is float and not math.isfinite(value))
+        or value < 0
+    ):
         raise ValueError("Expected a finite nonnegative number")
-    return value
+    return Fraction(value)
 
 
 def nonempty(value: object) -> str:
@@ -43,7 +48,7 @@ def exact(value: dict, keys) -> None:
         raise ValueError(f"Required fields: {sorted(keys)}")
 
 
-def quantity(item: dict) -> float | None:
+def quantity(item: dict) -> Fraction | None:
     exact(item, ("value", "reference", "reason"))
     if not isinstance(item["reference"], str) or not isinstance(item["reason"], str):
         raise ValueError("References and reasons must be strings")
@@ -52,6 +57,55 @@ def quantity(item: dict) -> float | None:
         return None
     nonempty(item["reference"])
     return number(item["value"])
+
+
+def microseconds(duration: timedelta) -> int:
+    return ((duration.days * 86400 + duration.seconds) * 1_000_000) + duration.microseconds
+
+
+def display_quantities(report: dict) -> dict:
+    """Keep exact rational witnesses beside approximate JSON display values.
+
+    JSON pointers address every computed Fraction, including signed differences.
+    An overflow display null remains distinct from an unknown, which has no
+    rational witness. Neither display values nor ratios may adjudicate the gate.
+    """
+    witnesses = {}
+
+    def display(value, path):
+        if isinstance(value, Fraction):
+            try:
+                approximate = float(value)
+            except OverflowError:
+                approximate = None
+            witnesses[path] = {
+                "numerator": str(value.numerator),
+                "denominator": str(value.denominator),
+                "display": "overflow"
+                if approximate is None
+                else "exact"
+                if Fraction(approximate) == value
+                else "rounded",
+            }
+            return approximate
+        if isinstance(value, dict):
+            return {
+                key: display(item, f"{path}/{key.replace('~', '~0').replace('/', '~1')}")
+                for key, item in value.items()
+            }
+        if isinstance(value, list):
+            return [display(item, f"{path}/{index}") for index, item in enumerate(value)]
+        return value
+
+    result = display(report, "")
+    result["exact_quantities"] = witnesses
+    result["arithmetic"] = (
+        "Exact supplied integers and finite binary floats; durations rounded to microseconds "
+        "with ties to even. Costs and comparisons use rational arithmetic. Numeric report "
+        "fields and finite-comparison ratios are display values; use exact_quantities at "
+        "the indicated JSON pointers to reconstruct phase ledgers. Unknowns have no witness."
+    )
+    return result
 
 
 def timestamp(value: str) -> datetime:
@@ -98,13 +152,14 @@ def read_activity(data: bytes) -> tuple[dict, datetime, datetime | None, bool]:
         or stop["status"] not in ("completed", "interrupted")
     ):
         raise ValueError("Invalid stop event or monotonic clock")
-    duration = (stop["ns"] - start["ns"]) / 1_000_000_000
-    wall = (timestamp(stop["utc"]) - begin).total_seconds()
-    if abs(wall - duration) > 1:
+    duration_ns = stop["ns"] - start["ns"]
+    wall_ns = microseconds(timestamp(stop["utc"]) - begin) * 1000
+    if abs(wall_ns - duration_ns) > 1_000_000_000:
         raise ValueError("UTC and monotonic clocks disagree by more than one second")
     # Monotonic duration supplies the interval length. UTC only aligns people and
     # sessions. Microsecond resolution is explicit, never a claim of exact attention.
-    return start, begin, begin + timedelta(seconds=duration), stop["status"] == "completed"
+    end = begin + timedelta(microseconds=round(Fraction(duration_ns, 1000)))
+    return start, begin, end, stop["status"] == "completed"
 
 
 def activities(document: dict, root: Path) -> tuple[dict, set, list, dict]:
@@ -142,7 +197,7 @@ def activities(document: dict, root: Path) -> tuple[dict, set, list, dict]:
             by_person[record["actor"]].append((begin, end, key, record["case"]))
     if seen_paths != discovered:
         raise ValueError("Retain every activity file, including interrupted and open prefixes")
-    totals, overlaps = defaultdict(float), []
+    totals, overlaps = defaultdict(Fraction), []
     for person, spans in by_person.items():
         merged = []
         for begin, end, key, case in sorted(spans):
@@ -155,7 +210,7 @@ def activities(document: dict, root: Path) -> tuple[dict, set, list, dict]:
             else:
                 merged.append([begin, end, key, case])
         for begin, end, key, _case in merged:
-            totals[key] += (end - begin).total_seconds()
+            totals[key] += Fraction(microseconds(end - begin), 1_000_000)
     return totals, unfinished, sorted(set(overlaps)), identities
 
 
@@ -242,7 +297,7 @@ def assess(document: dict, root: Path) -> dict:
             exact(item, ("actors", "charges_usd"))
             exact(item["actors"], document["actors"])
             exact(item["charges_usd"], CHARGES)
-            phase_usd, owner_seconds = 0.0, 0.0
+            phase_usd, owner_seconds = Fraction(0), Fraction(0)
             for actor, declaration in item["actors"].items():
                 exact(declaration, ("complete", "reference", "reason"))
                 if type(declaration["complete"]) is not bool:
@@ -268,7 +323,7 @@ def assess(document: dict, root: Path) -> dict:
                 cost = (
                     seconds * rate / 3600
                     if complete and rate is not None
-                    else 0
+                    else Fraction(0)
                     if complete and seconds == 0
                     else None
                 )
@@ -314,8 +369,8 @@ def assess(document: dict, root: Path) -> dict:
         status = "contradicted"
     elif not reasons:
         status = complete.get("status", "unresolved")
-    return {
-        "schema": "nisayon.owner-effort-report.v1",
+    report = {
+        "schema": "nisayon.owner-effort-report.v2",
         "kind": document["kind"],
         "status": status,
         "scope": scope,
@@ -346,6 +401,7 @@ def assess(document: dict, root: Path) -> dict:
         },
         "premises": "Operator-reported attention, all assigned cases and people, complete coverage, disjoint charges, rates, expected decisions and owner receipts require external checking. Shared work is charged once to each arm. No causal or population savings estimate; no authentication, independent review or attention detection.",
     }
+    return display_quantities(report)
 
 
 def track(path: Path, *, actor: str, arm: str, case: str, phase: str, reference: str) -> int:

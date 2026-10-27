@@ -33,12 +33,17 @@ def decode_json(data: str | bytes | bytearray) -> object:
     otherwise valid numeric tokens such as ``1e999``. Explicit nulls remain null.
     This is a decoding boundary, not schema validation or an authenticity check.
     """
-    return json.loads(
-        data,
-        object_pairs_hook=_unique_object,
-        parse_constant=_reject_constant,
-        parse_float=_finite_float,
-    )
+    try:
+        return json.loads(
+            data,
+            object_pairs_hook=_unique_object,
+            parse_constant=_reject_constant,
+            parse_float=_finite_float,
+        )
+    except RecursionError as exc:
+        # Evidence readers handle ValueError as invalid input. A maliciously
+        # deep JSON record must take that path instead of crashing assessment.
+        raise ValueError("JSON nesting exceeds the decoder's supported depth") from exc
 
 
 def canonical_bytes(value: object) -> bytes:

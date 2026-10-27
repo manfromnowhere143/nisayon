@@ -8,8 +8,10 @@ attention, owner consent, causal savings or competitive superiority.
 
 The [prospective comparison](../../../docs/OWNER_COMPARISON.md) remains unenrolled.
 The [measurement result and research](../../../docs/experiments/results/owner-effort-2026-10-24/README.md)
-describe the checks and current evidence boundary. The core SDK and the frozen
-Kornia contract are unchanged. This example uses the existing
+describe the checks and current evidence boundary. The qualification SDK and the frozen
+Kornia contract are unchanged. The
+[exact cost calculation](../../../docs/COST_TARGET.md)
+supersedes the original floating-point aggregation in this example. It uses the existing
 [finite cost evaluator](../../../src/nisayon/engine/cost_target.py).
 
 ## Start a prospective ledger
@@ -70,7 +72,8 @@ Existing output files are never overwritten. Correct an invalid record through
 a separately retained, explained revision; do not silently repair the original.
 
 Duration uses a monotonic clock, aligned to UTC for overlap checks, at
-microsecond resolution. A disagreement greater than one second invalidates the
+microsecond resolution, with ties rounded to even using the integer clock
+difference. A disagreement greater than one second invalidates the
 record. This is a bounded single-clock capture method: clock synchronization
 across machines and long suspension are not qualified. It does not detect idle
 time. Overlapping timers for the same person, case, arm and phase are unioned;
@@ -125,6 +128,24 @@ monetary arithmetic separately. Read the top-level status and reasons as well:
 synthetic arithmetic cannot establish an owner result. An assessment exit code
 of 0 means the report was produced; invalid input returns 2. The report binds
 the exact ledger and activity bytes by SHA-256.
+
+Cost aggregation, rate conversion, shared costs and target comparisons use exact
+rational arithmetic. Each input integer or finite binary float preserves its
+represented value; JSON decimal tokens still parse as binary floats. Precision
+already lost before input is not recoverable. Exact arithmetic is not a claim
+that a declared duration or wage is precisely measured.
+
+The input ledger remains `nisayon.owner-effort.v1`. Reports now use
+`nisayon.owner-effort-report.v2`: numeric fields are approximate displays, with
+exact computed values in `exact_quantities`, indexed by JSON pointer. Numerators
+and positive denominators are decimal strings, avoiding integer coercion in
+other JSON readers. Each witness marks its display `exact`, `rounded` or
+`overflow`. Overflow displays are null but have a witness; unknowns have none.
+A printed cost ratio of 2 can conceal a small failed margin; read the exact
+decision and quantities. To recheck arithmetic, reconstruct phase costs from
+the witnesses, not rounded displays. The finite evaluator also accepts Python
+`Fraction` values directly. Existing v1 reports and input receipts remain
+historical artifacts; they are not silently rewritten.
 
 ```sh
 uv run --frozen pytest tests/qualification/test_owner_effort.py \

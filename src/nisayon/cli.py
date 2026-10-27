@@ -11,10 +11,20 @@ from . import records, runs, workspace
 
 
 def parser() -> argparse.ArgumentParser:
+    from .qualification.cli import add_qualification_arguments
+
     app = argparse.ArgumentParser(prog="nisayon", description="Nisayon engineering workspace")
     sub = app.add_subparsers(dest="command", required=True)
+    add_qualification_arguments(
+        sub.add_parser("qualify", help="Execute and retain a declared owner software qualification")
+    )
     for name in ["start", "status", "map", "doctor"]:
-        sub.add_parser(name).add_argument("--json", action="store_true")
+        command = sub.add_parser(name)
+        command.add_argument("--json", action="store_true")
+        if name == "start":
+            command.add_argument(
+                "--focus", default="", help="Find retained research handoffs by subject keywords"
+            )
     query = sub.add_parser("search")
     query.add_argument("query")
     query.add_argument("--limit", type=int, default=30)
@@ -86,21 +96,41 @@ def parser() -> argparse.ArgumentParser:
 def main() -> None:
     args = parser().parse_args()
     try:
-        # Read-only packets do not require a workspace. Execution and workspace
-        # mutations still pass through the repository identity gate.
+        # Read-only packets and explicit owner-project qualification do not
+        # require a Nisayon checkout. Workspace mutations retain the gate.
         portable_read = args.command == "verify-lift-transfer" or (
             args.command == "external-decision" and args.external_command == "inspect"
         )
-        root = None if portable_read else workspace.project_root()
+        root = None if portable_read or args.command == "qualify" else workspace.project_root()
         exit_code = 0
         match args.command:
+            case "qualify":
+                from .qualification.cli import qualification_command
+
+                result, exit_code = qualification_command(args)
             case "start":
-                result = records.context(root)
+                result = records.context(root, args.focus)
                 if not args.json:
                     state = result["git"]
                     print(f"Nisayon · {state['branch']} · {(state['head'] or 'no commit')[:12]}")
                     print(f"{root}\n{len(state['changes'])} Git status entries\n")
                     print(result["handoff"])
+                    if result["handoff_source"]["truncated"]:
+                        print(
+                            "\n[Handoff excerpt; read docs/SESSION_HANDOFF.md for the complete source.]"
+                        )
+                    print("\n" + result["continuity_instruction"])
+                    print("\nResearch packet index (this checkout):")
+                    for packet in result["research"]["packets"]:
+                        print(f"  {packet['path']}: {packet['title']['text']}")
+                        if "opening" in packet:
+                            print(packet["opening"]["text"])
+                            if packet["opening"]["truncated"]:
+                                print("  [Opening excerpt; read the source packet.]")
+                    research = result["research"]
+                    print(
+                        f"  {research['matched']} matching packets; {research['omitted_matches']} omitted; {len(research['skipped'])} skipped; {research['scan_omitted']} not scanned."
+                    )
                     if result.get("engagements"):
                         print("\nEngagement monitoring: " + json.dumps(result["engagements"]))
                     for row in result["recent_checkpoints"]:

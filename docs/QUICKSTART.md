@@ -27,6 +27,35 @@ an existing robotics environment by these commands.
 
 ## Run with the CLI
 
+Current GitHub source also provides a complete workflow command:
+
+```sh
+.venv/bin/nisayon qualify owner-project/case.json \
+  --project owner-project --out qualification-001
+```
+
+This command executes trusted owner code. It freezes the plan, runs the existing
+native checks, assesses the result and exports and rechecks
+`qualification-001/review.nisayon.zip`. `result.json` names each artifact and
+reports scoped software acceptance separately from unresolved deployment
+acceptance. `nisayon-qualify qualify` exposes the same operation. These additions
+are available from this checkout; the tagged v0.2.0 wheel retains the separate
+commands below. Use `uv sync --frozen` here to install the current source.
+
+The current source SDK also exposes [executable dependency checks and measured claims](../examples/qualification/executable_checks/README.md).
+The OpenPI and retained Newton examples show observation reuse, fresh checks,
+explicit measurement coverage and read-only reconstruction. These APIs are
+available from current source; the tagged v0.2.0 wheel does not contain them.
+
+An output directory must be new. Partial and failed runs remain retained;
+retries require a new directory. `--timeout` bounds each native call and
+`--total-seconds` bounds the runner, including its preflight. Neither bounds the
+entire planning, sealing and review workflow. Workflow, runner and attempt
+timers overlap; human effort and complete cost remain unknown. Portable replay
+does not supply an independent adjudicator or confer deployment authorization.
+
+For an inspection pause before execution, use the existing separate commands:
+
 ```sh
 .venv/bin/nisayon-qualify plan owner-project/case.json \
   --project owner-project --out run-001 --plan plan-001.json
@@ -50,6 +79,56 @@ this means a separate calculation, not an independent person or organization.
 Neither executes the owner project during review. Local file import is not an
 upload. Export preserves original inputs, logs and paths: inspect the contents
 before sharing your own case.
+
+## Compose reuse and confirmation (current source)
+
+The engine can freeze two stages together. Supply a second `CaseSpec`
+with the same question, targets, declared files, premises and comparison rule,
+but distinct inputs and their justified expected outputs. The case and probe
+IDs may differ. The engine refuses a relaxed confirmation criterion or input
+overlap, including equal integer/float representations and signed zeros.
+
+```sh
+nisayon qualify owner-project/case.json \
+  --confirmation owner-project/confirmation.json \
+  --condition-store qualification-conditions \
+  --project owner-project --out change-001
+nisayon-qualify review-change change-001
+```
+
+This executes the explicit trusted owner functions. Both plans are frozen before
+either stage starts. Valid investigation acceptance permits confirmation to run;
+acceptance requires both stages. A valid failure rejects. Invalid controls,
+missing premises, missing outcomes or changed identities leave the result
+unresolved. The unchanged single-case command still has its narrower scope.
+
+For a subsequent run, `--previous change-001/investigation` offers retained
+investigation evidence for rechecking. Only an unchanged, valid scoped claim is
+reused. Otherwise the investigation runs again, with an applicability explanation.
+Confirmation always requires new execution and new conditions. This conservative
+workflow does not yet execute the finer dependency planner or rescore old
+observations under a changed criterion.
+
+Share and retain the explicit condition store for the entire workload. Inputs
+are consumed before execution, including interrupted and unused assignments.
+Renaming cases or changing the candidate does not reset consumption. The store
+cannot discover exposure in another store, undeclared experiments or an external
+population. Local non-reuse is neither blinding nor independent confirmation.
+The SDK therefore retains unresolved deployment authority and unobserved
+independent adjudication even when the declared software relation is accepted.
+
+`protocol.json`, `reservations.json`, `receipt.json` and the referenced stage
+`.nisayon.zip` files form the portable record. Copy them together to review on
+another machine; raw run directories and owner code are not required.
+`review-change` verifies bindings and recomputes the decision instead of trusting
+`result.json`. Individual stage bundles open in the existing software review
+instrument. The instrument does not yet render the aggregate change receipt.
+
+`--total-seconds` applies to **each** native stage (at most two). Planning, sealing
+and review are additional work. Historical reused attempts are counted separately
+from new execution; they are not a measured saving in complete engineering cost.
+These additions require the current source checkout; they are not in the tagged
+v0.2.0 wheel.
 
 ## Use the Python SDK
 

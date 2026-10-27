@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import math
+from fractions import Fraction
 
 from nisayon.engine.io import canonical_bytes
 
@@ -15,9 +16,15 @@ def difference(reference: object, candidate: object, contract: dict, path: str =
         and type(candidate) in (int, float)
     ):
         try:
-            limit = contract.get("atol", 0) + contract.get("rtol", 0) * abs(reference)
-            equal = math.isfinite(limit) and abs(candidate - reference) <= limit
-        except OverflowError:
+            atol, rtol = contract.get("atol", 0), contract.get("rtol", 0)
+            limit = atol + rtol * abs(reference)
+            # Keep the existing conservative overflow boundary. Within it,
+            # evaluate the relation on represented values: float subtraction
+            # can round an exact JSON integer before computing the difference.
+            equal = math.isfinite(limit) and abs(Fraction(candidate) - Fraction(reference)) <= (
+                Fraction(atol) + Fraction(rtol) * abs(Fraction(reference))
+            )
+        except (OverflowError, ValueError):
             equal = False
     elif type(reference) is dict and type(candidate) is dict:
         if set(reference) != set(candidate):

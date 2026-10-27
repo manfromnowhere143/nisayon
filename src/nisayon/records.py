@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -133,9 +134,17 @@ def checkpoint_save(
     return record
 
 
-def context(root: Path) -> dict:
+def context(root: Path, focus: str = "") -> dict:
+    from . import continuity
+
     handoff = root / "docs/SESSION_HANDOFF.md"
     queue = root / "work/queue.json"
+    handoff_bytes = handoff.read_bytes() if handoff.exists() else None
+    handoff_text = handoff_bytes.decode("utf-8") if handoff_bytes is not None else "Missing handoff"
+    queue_bytes = queue.read_bytes() if queue.exists() else None
+    queue_rows = json.loads(queue_bytes) if queue_bytes is not None else []
+    if not isinstance(queue_rows, list) or any(not isinstance(row, dict) for row in queue_rows):
+        raise ValueError("Work queue must contain a list of records")
     engagement_summary = None
     if (root / "work/engagements.json").exists():
         from . import engagements
@@ -152,10 +161,36 @@ def context(root: Path) -> dict:
         "project": "Nisayon",
         "git": git_state(root),
         "map": project_map(root)["entry_points"],
-        "handoff": handoff.read_text()[:6000] if handoff.exists() else "Missing handoff",
+        "continuity_instruction": continuity.GUIDANCE,
+        "handoff": handoff_text[:6000],
+        "handoff_source": {
+            "path": "docs/SESSION_HANDOFF.md",
+            "sha256": hashlib.sha256(handoff_bytes).hexdigest()
+            if handoff_bytes is not None
+            else None,
+            "characters": len(handoff_text),
+            "returned_characters": min(len(handoff_text), 6000),
+            "truncated": len(handoff_text) > 6000,
+            "missing": handoff_bytes is None,
+        },
+        "research": continuity.research_context(root, focus),
         "recent_checkpoints": load_records(root, "checkpoints")[:3],
         "recent_notes": memory_search(root, limit=5),
-        "queue": json.loads(queue.read_text()) if queue.exists() else [],
+        "queue": [
+            {
+                key: continuity.preview(str(row[key]), 240)
+                for key in ("id", "status", "title", "reference", "evidence")
+                if key in row
+            }
+            for row in queue_rows[-5:]
+        ],
+        "queue_source": {
+            "path": "work/queue.json",
+            "sha256": hashlib.sha256(queue_bytes).hexdigest() if queue_bytes is not None else None,
+            "total_entries": len(queue_rows),
+            "returned_entries": min(len(queue_rows), 5),
+            "selection": "Last five recorded entries; not inferred active tasks. Fields are previews.",
+        },
         "engagements": engagement_summary,
         "memory_scope": "Project records; read sources before asserting scientific claims",
     }

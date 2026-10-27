@@ -223,7 +223,9 @@ def export_run(store: str | Path, output: str | Path) -> dict:
     }
 
 
-def _read_bundle(path: Path) -> tuple[dict, dict[str, bytes], str]:
+def _read_bundle(
+    path: Path, *, schema: str = SCHEMA, identity_field: str = "plan_sha256"
+) -> tuple[dict, dict[str, bytes], str]:
     flags = os.O_RDONLY | getattr(os, "O_NONBLOCK", 0)
     with os.fdopen(os.open(path, flags), "rb") as source:
         if not stat.S_ISREG(os.fstat(source.fileno()).st_mode):
@@ -290,8 +292,8 @@ def _read_bundle(path: Path) -> tuple[dict, dict[str, bytes], str]:
         raise ValueError("Noncanonical review archive; wrappers or hidden records are unsupported")
     if "bundle.json" not in data or "assessment.json" not in data:
         raise ValueError("Missing review index or assessment")
-    index = fields(_json(data.pop("bundle.json")), {"schema", "plan_sha256", "files"})
-    if index["schema"] != SCHEMA:
+    index = fields(_json(data.pop("bundle.json")), {"schema", identity_field, "files"})
+    if index["schema"] != schema:
         raise ValueError("Unsupported review schema")
     if not isinstance(index["files"], dict) or set(index["files"]) != set(data):
         raise ValueError("Review membership differs from its index")
@@ -308,7 +310,7 @@ def _read_bundle(path: Path) -> tuple[dict, dict[str, bytes], str]:
     return index, data, _sha(raw)
 
 
-def inspect_bundle(bundle: str | Path) -> dict:
+def inspect_bundle(bundle: str | Path, *, include_plan: bool = False) -> dict:
     """Verify transport and reassess in a private directory without native execution.
 
     Invalid transport raises ValueError. A readable but inconsistent saved
@@ -339,6 +341,7 @@ def inspect_bundle(bundle: str | Path) -> dict:
         "schema": "nisayon.qualification.review.v1",
         "bundle_sha256": archive_sha,
         "plan_sha256": plan.sha256,
+        **({"plan": plan.record()} if include_plan else {}),
         "integrity": "verified",
         "review_status": "verified" if same else "assessment_mismatch",
         "assessment_agrees": same,

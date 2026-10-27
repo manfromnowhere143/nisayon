@@ -30,9 +30,9 @@ server = MCPServer(
 
 
 @server.tool(annotations=READ)
-def project_context() -> dict[str, Any]:
-    """Get current Git state, handoff, recent notes/checkpoints, and the next-work queue."""
-    return records.context(workspace.project_root())
+def project_context(focus: str = "") -> dict[str, Any]:
+    """Get startup context and retained research handoffs, optionally focused by subject keywords."""
+    return records.context(workspace.project_root(), focus)
 
 
 @server.tool(annotations=READ)

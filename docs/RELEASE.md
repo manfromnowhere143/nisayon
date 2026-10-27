@@ -1,5 +1,23 @@
 # Research source and releases
 
+## Bounded native episodes and composed qualification · 27 October 2026
+
+Current source can retain the actual LIBERO/LeRobot terminal observation,
+stop only at a declared maximum or complete first-success step, and replay the
+recorded physics and task measurements. Numeric camera arrays retain their
+exact dtype, shape and bytes. Missing success calls, false early endings,
+changed arrays and interrupted prefixes remain invalid or unresolved.
+
+The update also publishes composed investigation/confirmation, explicit check
+execution and portable review, exact numeric comparisons and cost arithmetic,
+and an exposed five-pair native-record example. The
+[evidence summary](experiments/results/native-episodes-2026-10-27/README.md)
+records validation, native task failures, a planted positive and substantial
+capture overhead. No learned repair, deployment acceptance or cost advantage is
+established. The [quickstart](QUICKSTART.md) distinguishes current-source commands
+from the unchanged tagged v0.2.0 wheel. This source update descends from public
+history; private records and compiled third-party scene assets are not bundled.
+
 ## Native SDK 0.2.0 · 25 October 2026
 
 The developer preview supplies an installable wheel, hash-pinned runtime

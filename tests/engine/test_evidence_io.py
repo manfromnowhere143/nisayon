@@ -45,3 +45,9 @@ def test_valid_numbers_missingness_and_strings_keep_their_existing_digest():
     assert type(decoded["count"]) is int and decoded["label"] == "NaN"
     assert canonical_bytes(decoded) == canonical_bytes(json.loads(source))
     assert decode_json(bytearray(source)) == decoded
+
+
+@pytest.mark.parametrize("opening,closing", [("[", "]"), ('{"nested":', "}")])
+def test_excessive_json_nesting_is_a_declared_input_error(opening, closing):
+    with pytest.raises(ValueError, match="nesting"):
+        decode_json(opening * 10000 + "0" + closing * 10000)

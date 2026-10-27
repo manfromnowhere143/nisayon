@@ -21,6 +21,13 @@ sets out the separate prospective value test.
 
 ## Reuse an executable domain contract
 
+Current source adds the [native task reader](NATIVE_TASK_OUTCOMES.md), bounded
+[native execution](NATIVE_EXECUTION.md), and a [composed investigation and
+confirmation workflow](QUICKSTART.md#compose-reuse-and-confirmation-current-source).
+These interfaces are absent from the tagged v0.2.0 wheel. Native task records
+and native execution have distinct measurement premises; neither grants
+deployment acceptance.
+
 The unreleased [explicit applicability planner](EVIDENCE_APPLICABILITY.md)
 connects observations, scores, confirmation and review to their declared
 dependencies. It explains required checks without changing `assess_reuse` or
@@ -190,6 +197,14 @@ Numerical closeness is not transitive: candidate-reference agreement does not
 establish a tighter candidate-oracle error bound. Boolean values are not numeric
 leaves. Duplicate JSON keys, nonfinite numbers and overflowed tolerance bounds
 cannot yield a pass.
+
+Numerical comparisons evaluate finite integers exactly and floats at their
+represented binary values, including the tolerances. They do not round a large
+integer to a float before subtracting. This prevents a zero-tolerance comparison
+from equating `9007199254740993` with `9007199254740992.0`. Precision lost before
+the native function emits its JSON cannot be recovered by the checker. Historical
+assessments remain records of their original scorer; a changed scorer requires
+explicit reanalysis and a new assessment.
 
 The required `population`, `state` and `environment` premises state the scope.
 Use JSON `null` for an unknown premise; it blocks execution. The implemented

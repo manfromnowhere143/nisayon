@@ -6,7 +6,7 @@ import hashlib
 import math
 from pathlib import Path
 
-from nisayon.engine.io import decode_json, digest, file_digest
+from nisayon.engine.io import canonical_bytes, decode_json, digest, file_digest
 
 from .compare import difference
 from .context import project_file, tool_identity
@@ -118,7 +118,11 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
             expected_request["read_library_roots"] = plan["context"]["native_environment"][
                 "library_roots"
             ]
-        if request != expected_request or intent["request_sha256"] != digest(request):
+        # A frozen input is an identity, not a numerical equivalence test:
+        # Python equality aliases booleans, integer/float pairs and signed zero.
+        if canonical_bytes(request) != canonical_bytes(expected_request) or intent[
+            "request_sha256"
+        ] != digest(request):
             raise ValueError("Attempt does not match the frozen assignment")
         if intent.get("declared_before_execution") is not True:
             raise ValueError("Missing execution intent")
@@ -201,7 +205,7 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
         plan = ExperimentPlan.read(project_file(root, "plan.json"))
         value = plan.record()
         result["read_policy"] = value.get("read_policy", "legacy_declared_files_and_imports_only")
-        if plan.sha256 != evidence.plan_sha256 or value["case"] != case.record():
+        if plan.sha256 != evidence.plan_sha256 or digest(value["case"]) != case.sha256:
             raise ValueError("Assessment case/plan identity mismatch")
         # Reconstruct assignment structure rather than trusting an edited shortened list.
         expected_assignments = [

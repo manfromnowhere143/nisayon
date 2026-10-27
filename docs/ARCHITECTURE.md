@@ -3,6 +3,15 @@
 **Design v0.1 · 17 September 2026; implementation status updated 24 October
 2026.** The general product architecture remains proposed.
 
+The 27 October [native execution interface](NATIVE_EXECUTION.md) adds bounded
+LIBERO/LeRobot capture with frozen completion rules, actual terminal observations,
+physics replay and measured native success calls. The
+[task-record adapter](NATIVE_TASK_OUTCOMES.md) separately reconstructs exposed
+paired outcomes. The [composed software workflow](QUICKSTART.md#compose-reuse-and-confirmation-current-source)
+freezes investigation and confirmation together and tracks local condition
+consumption. Source-specific qualification and unresolved deployment authority
+remain explicit; these are not general simulator or policy dispatch services.
+
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
 bounded model-request interface, fresh-confirmation service and integrated
 evaluator run today. The

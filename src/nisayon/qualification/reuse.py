@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from nisayon.engine.io import digest
+from nisayon.engine.io import canonical_bytes, digest
 
 from .assessment import assess_change
 from .models import CaseSpec, ExperimentPlan, RunEvidence
@@ -11,21 +11,33 @@ from .models import CaseSpec, ExperimentPlan, RunEvidence
 def assess_reuse(previous: RunEvidence, proposed: ExperimentPlan) -> dict:
     """Read and recheck old evidence; never substitute it for a new execution."""
     old = ExperimentPlan.read(previous.root / "plan.json")
+    assessment = assess_change(CaseSpec.from_dict(old.record()["case"]), previous).record()
+    return _reuse_report(old, assessment, proposed)
+
+
+def _reuse_report(old: ExperimentPlan, assessment: dict, proposed: ExperimentPlan) -> dict:
+    """Shared policy for rechecked stores and rechecked portable bundles.
+
+    Internal callers must supply a recomputed assessment, never a saved verdict.
+    """
+    if assessment["plan_sha256"] != old.sha256:
+        raise ValueError("Prior assessment belongs to another plan")
     old_value, new_value = old.record(), proposed.record()
-    assessment = assess_change(CaseSpec.from_dict(old_value["case"]), previous).record()
     old_case, new_case = old_value["case"], new_value["case"]
     changes = []
+    # Reuse requires the same declared claim. Numerical tolerances belong to
+    # output assessment; they cannot equate different input types or signed zeros.
     for field in ("question", "contract", "targets", "probes", "premises", "effects", "feedback"):
-        if old_case.get(field) != new_case.get(field):
+        if canonical_bytes(old_case.get(field)) != canonical_bytes(new_case.get(field)):
             changes.append(field)
     for field in ("sources", "tool"):
-        if old_value[field] != new_value[field]:
+        if canonical_bytes(old_value[field]) != canonical_bytes(new_value[field]):
             changes.append(field)
     if old_value.get("read_policy") != new_value.get("read_policy"):
         changes.append("read_policy")
     old_context, new_context = old_value["context"], new_value["context"]
     for field in ("python", "python_sha256", "native_environment"):
-        if old_context[field] != new_context[field]:
+        if canonical_bytes(old_context[field]) != canonical_bytes(new_context[field]):
             changes.append(f"context.{field}")
     # Relocation can change import resolution and implicit resources even with matching declared files.
     if old_context["project"] != new_context["project"]:
@@ -46,7 +58,7 @@ def assess_reuse(previous: RunEvidence, proposed: ExperimentPlan) -> dict:
         reason = "Declared claim and dependencies agree; dependency completeness remains a premise"
     return {
         "schema": "nisayon.qualification.reuse.v1",
-        "previous_plan_sha256": previous.plan_sha256,
+        "previous_plan_sha256": old.sha256,
         "proposed_plan_sha256": proposed.sha256,
         "previous_assessment_sha256": digest(assessment),
         "procedure": "adaptable_requires_execution" if usable else "unqualified",
