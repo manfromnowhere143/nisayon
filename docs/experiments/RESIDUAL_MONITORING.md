@@ -18,7 +18,7 @@ summary = summarize_monitoring(
             "policy_id": "checkpoint-a",
             "session_id": "recording-a",
             "outcome": "failure",  # supplied reference adjudication
-            "score": 0.91,          # frozen evaluator's P(success)
+            "score": 0.91,  # frozen evaluator's P(success)
         }
     ],
     evaluator_id="judge-and-checkpoint-identity",
