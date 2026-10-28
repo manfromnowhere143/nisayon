@@ -115,3 +115,7 @@ No native sources, native environment, weights or owner code execute during this
 review. The [runnable example](../../../../examples/qualification/scoped_checks/README.md)
 gives a new execution recipe for the separately qualified macOS CPU environment.
 The tagged v0.2.0 wheel is unchanged; this is a current-source SDK addition.
+
+The subsequent [evidence-consumption review](../scoped-evidence-review-2026-10-28/README.md)
+corrects result replacement during readback and type-insensitive row comparison.
+The original comparison and archive remain frozen at the source identities above.

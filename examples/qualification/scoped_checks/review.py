@@ -6,7 +6,7 @@ import io
 import zipfile
 from pathlib import Path
 
-from nisayon.engine.io import decode_json
+from nisayon.engine.io import canonical_bytes, decode_json
 from nisayon.qualification import inspect_check_bundle
 
 
@@ -16,7 +16,9 @@ def camera_score(actual, expected, mode):
         raise ValueError("Incomplete or misaligned native camera rows")
     if len({r["id"] for r in rows}) != len(rows):
         raise ValueError("Duplicate camera condition")
-    matches = sum(a == b for a, b in zip(rows, reference, strict=True))
+    matches = sum(
+        canonical_bytes(a) == canonical_bytes(b) for a, b in zip(rows, reference, strict=True)
+    )
     return {"mode": mode, "matched": matches, "assigned": len(rows), "holds": matches == len(rows)}
 
 
