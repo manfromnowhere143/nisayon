@@ -101,3 +101,7 @@ Native execution was qualified on the documented macOS CPU environment.
 Repository CI and this read-only verifier do not reproduce policy inference or
 the native matrix on another platform. This is a current-source example;
 the tagged v0.2.0 wheel and its capabilities are unchanged.
+
+The subsequent [reader correction](../camera-evidence-review-2026-10-28/README.md)
+rejects incomplete assignments and contradictory summaries even under optimized
+Python. The original archive, manifest and five decisions remain unchanged.

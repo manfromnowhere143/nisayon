@@ -8,6 +8,9 @@ import sys
 import time
 from pathlib import Path
 
+if not __debug__:
+    raise RuntimeError("Camera native qualification requires Python without optimization")
+
 started = time.perf_counter()
 owner, seed, output = Path(sys.argv[1]).resolve(), int(sys.argv[2]), Path(sys.argv[3])
 output.mkdir(parents=True, exist_ok=False)
