@@ -75,3 +75,9 @@ after the camera example's optimization guard was added.
 The built-in review reconstructs bindings and saved claims without executing
 handlers; semantic outcomes still need their domain checker. This addition is
 available from current source and does not change the tagged v0.2.0 wheel.
+
+Check readback hashes the same result bytes it decodes against the reconstructed
+receipt. The camera producer and domain reviewer compare canonical JSON bytes,
+so boolean masks and integer or floating-point values cannot substitute for one
+another under this exact contract. The [retained correction](../../../docs/experiments/results/scoped-evidence-review-2026-10-28/README.md)
+includes replacement controls and preserved positive and negative outcomes.

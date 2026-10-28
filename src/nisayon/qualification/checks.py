@@ -419,7 +419,13 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             raise ValueError("Execution attempt does not match its frozen plan")
         artifact = (out / "checks" / key / "result.json").relative_to(root).as_posix()
         prefix = record_check(model, prefix, key, evidence_root=root, artifact=artifact)
-        artifacts[key] = read(f"checks/{key}/result.json")
+        result_bytes = _artifact_bytes(root, artifact)
+        if (
+            hashlib.sha256(result_bytes).hexdigest()
+            != prefix.record()["checks"][key]["artifact"]["sha256"]
+        ):
+            raise ValueError("Check result changed before consumption")
+        artifacts[key] = decode_json(result_bytes)
         if (
             row["action"] == "reuse"
             and prefix.record()["checks"][key]["artifact"]["sha256"]
