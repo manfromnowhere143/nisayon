@@ -9,7 +9,10 @@ from __future__ import annotations
 import hashlib
 from types import SimpleNamespace
 
-import torch
+if not __debug__:
+    raise RuntimeError("Camera native qualification requires Python without optimization")
+
+import torch  # noqa: E402
 
 KEYS = tuple(f"observation.images.{name}" for name in ("front", "wrist", "side"))
 POLICIES = ("pi0", "pi05", "pi0_fast", "smolvla", "xvla", "evo1")

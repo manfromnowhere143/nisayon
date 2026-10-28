@@ -12,6 +12,9 @@ import time
 from datetime import UTC, datetime
 from pathlib import Path
 
+if not __debug__:
+    raise RuntimeError("Camera native qualification requires Python without optimization")
+
 PACKET = Path(__file__).resolve().parent
 ROOT = PACKET.parents[2]
 ART = ROOT / "artifacts/camera-slot-qualification-2026-10-28"

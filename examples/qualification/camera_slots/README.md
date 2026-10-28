@@ -22,6 +22,12 @@ uv run --frozen python examples/qualification/camera_slots/verify_evidence.py \
   docs/experiments/results/camera-slot-qualification-2026-10-28
 ```
 
+The [verification correction](../../../docs/experiments/results/camera-evidence-review-2026-10-28/README.md)
+requires the complete frozen assignment and binds each portable case to its
+seed inputs and reference rows. The read-only verifier also works under `-O`
+and `-OO`. Native acquisition, preparation and execution require unoptimized
+Python and refuse before source access or native imports otherwise.
+
 For a new native execution, use a fresh checkout on the qualified platform:
 macOS 14.4 / Apple silicon, Python 3.12.13, Torch 2.7.1, NumPy 2.2.6.
 The dependency lock is platform-specific. Another platform needs a separately
