@@ -6,6 +6,8 @@ import subprocess
 import sys
 import time
 
+import pytest
+
 from nisayon import runs
 
 
@@ -95,3 +97,42 @@ def test_keyboard_interrupt_leaves_completed_metadata(workspace):
         if process.poll() is None:
             process.kill()
             process.wait()
+
+
+@pytest.mark.parametrize("published", [False, True])
+def test_interrupt_during_pid_publication_records_interruption(workspace, monkeypatch, published):
+    atomic = runs.atomic_json
+    popen = runs.subprocess.Popen
+    children = []
+    interrupted = False
+
+    def tracked_popen(*args, **kwargs):
+        child = popen(*args, **kwargs)
+        if kwargs.get("start_new_session"):
+            children.append(child)
+        return child
+
+    def interrupt_publication(path, record, **kwargs):
+        nonlocal interrupted
+        if record.get("pid") and record["process_status"] == "running" and not interrupted:
+            interrupted = True
+            if published:
+                atomic(path, record, **kwargs)
+            raise KeyboardInterrupt
+        atomic(path, record, **kwargs)
+
+    monkeypatch.setattr(runs.subprocess, "Popen", tracked_popen)
+    monkeypatch.setattr(runs, "atomic_json", interrupt_publication)
+    try:
+        result = runs.run_command(
+            workspace, [sys.executable, "-c", "import time; time.sleep(30)"], "pid-publication"
+        )
+    except KeyboardInterrupt:
+        pytest.fail("Interruption escaped the run recorder after the child was spawned")
+    assert interrupted
+    assert len(children) == 1 and children[0].poll() is not None
+    assert result["process_status"] == "interrupted"
+    assert result["returncode"] == children[0].returncode
+    assert result["scientific_status"] == "not_assessed"
+    assert result["ended_at"] and result["logs"]
+    assert runs.run_list(workspace)[0] == result

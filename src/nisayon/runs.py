@@ -83,11 +83,17 @@ def run_command(root: Path, command: list[str], label: str, timeout: float | Non
             except subprocess.TimeoutExpired:
                 _stop_group(process)
                 record.update(returncode=process.returncode, process_status="timeout")
-            except KeyboardInterrupt:
-                _stop_group(process)
-                record.update(returncode=process.returncode, process_status="interrupted")
     except OSError as error:
         record.update(process_status="spawn_error", error=str(error), returncode=None)
+    except KeyboardInterrupt:
+        # A reader can observe the PID as atomic_json publishes it, before wait()
+        # starts. Cover that publication boundary as well as the wait itself.
+        if process is not None:
+            _stop_group(process)
+        record.update(
+            returncode=process.returncode if process is not None else None,
+            process_status="interrupted",
+        )
     finally:
         if process is not None and process.poll() is None:
             _stop_group(process)
