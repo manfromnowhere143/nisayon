@@ -574,10 +574,11 @@ def reassess_native_execution(root):
                     )
             outcomes.append(success)
             previous_state, previous_observation = last_state, returned["observation"]
+        recovery = None
         if boundary is not None:
             _require(boundary < first + count - 1, "recovery_boundary_not_executed")
             _require(outcomes[boundary - first] is False, "recovery_requires_measured_failure")
-            result["recovery"] = {
+            recovery = {
                 "boundary_step": boundary,
                 "status": "completed" if outcomes[-1] else "failed",
                 "subsequent_executed_steps": first + count - 1 - boundary,
@@ -587,6 +588,7 @@ def reassess_native_execution(root):
         result.update(
             status="consistent",
             verdict="supported",
+            recovery=recovery,
             steps=count,
             maximum_steps=maximum,
             ending_reason=reason,

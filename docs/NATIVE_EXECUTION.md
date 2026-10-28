@@ -133,6 +133,11 @@ This establishes a measured sequence; improvement caused by a particular
 correction still requires a valid comparison. Constructed passive dynamics are
 not evidence for a learned recovery policy.
 
+Recovery conclusions require a valid complete execution packet. If any check
+fails, including the final observation-store closure check, reassessment returns
+`invalid` / `unresolved` with both `task_outcome` and `recovery` unset. Valid
+unsuccessful recovery remains an explicit `failed` recovery result.
+
 ## Scope and remaining assumptions
 
 The profiles cover the pinned MuJoCo/LIBERO `On` task and the historical N100
