@@ -6,12 +6,10 @@ each selected action, native physics input and successor, returned observation,
 and measured task outcome. `reassess_native_execution` replays those physics
 transitions and joins the measurements to the executed states.
 
-This is a local, unreleased extension of the
-[native measurement collector](NATIVE_MEASUREMENTS.md). Its
-[qualification packet](../work/implementations/native-execution-2026-10-26/README.md)
-contains the installed wheel, exact source identities, native results and costs.
-The public v0.2.0 package does not contain these commands. The
-[episode extension](../work/implementations/native-episodes-2026-10-27/README.md)
+This extension of the [native measurement collector](NATIVE_MEASUREMENTS.md)
+is available from current GitHub source; the tagged v0.2.0 wheel does not contain
+it. The [evidence summary](experiments/results/native-episodes-2026-10-27/README.md)
+records the qualified native profile, controls and costs. The episode extension
 adds the three-call LeRobot interface, frozen early-success stopping and typed
 camera-array retention. Older execution v1 packets remain readable.
 
@@ -38,8 +36,9 @@ result = execute_libero_window(
 )
 ```
 
-The [native harness](../work/implementations/native-execution-2026-10-26/run_native_window.py)
-is a complete example of recorder construction. `policy(observation, index)`
+The [execution controls](../tests/qualification/test_native_episodes.py) contain
+small executable recorder examples; their constructed scenes are not the full
+LIBERO task. `policy(observation, index)`
 receives the initial observation, then each actual returned observation, with
 a zero-based window index. It must return a finite float64 action vector within
 [-1, 1] and the native action dimension. The policy may retain its own state;
@@ -155,7 +154,10 @@ A consistent simulator trace does not establish physical truth or cryptographic
 authenticity. Preserve these distinctions when integrating it into a correction
 comparison or fresh confirmation.
 
-Capture and replay are expensive: the retained four-step full-scene windows
-took about nine seconds, while ordinary execution took about 0.06 seconds after
-environment construction. Full process timings are also retained. This is an
-offline diagnostic; no real-time or complete-cost advantage is established.
+Capture and replay are expensive. In the retained 280-control-step camera run,
+ordinary execution took 8.34 seconds after construction; recorded execution,
+sealing and replay took 436.79 seconds. Tests overlapped these measurements;
+they are diagnostic timings, not an isolated performance benchmark. The
+[evidence summary](experiments/results/native-episodes-2026-10-27/README.md)
+retains the comparator, total process times and cost boundary. No real-time or
+complete-cost advantage is established.
