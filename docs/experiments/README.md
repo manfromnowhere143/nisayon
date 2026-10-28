@@ -60,6 +60,7 @@ acceptance and complete-cost value still unmeasured.
 
 | Question | Observed result | Read the evidence |
 |---|---|---|
+| Can a scoring-code change preserve unaffected observations? | Scoped handler bindings use three native processes versus four for the conservative executor across two exposed camera questions, with matching decisions and reexecuted confirmation. One fixed order does not establish owner savings or a timing advantage. | [Scoped implementation comparison](results/scoped-check-code-2026-10-28/README.md) |
 | Can an explicit dependency model preserve scoped decisions while reusing applicable evidence? | Both workflows match six exposed normalization decisions and repeat unchanged with new confirmation vectors; native execution is faster. Independent selection and complete-cost savings remain unproven. | [Applicability model and native comparison](results/evidence-applicability-2026-10-25/README.md) |
 | Can a correction survive a frozen acceptance rule? | The gripper-sign correction passed 32/32 fresh pairs under the strict obligation; invalid replay and action suppression were rejected. | [Strict first case](LIFT_PROTOCOL_V3.md), [freshness correction and confirmation](CONDITION_FRESHNESS.md) |
 | Do early validity checks improve a conventional diagnostic procedure? | Both scripts accepted 6/10 assigned incidents with 569 simulator runs per arm. The additional checks changed no decision. | [Matched comparison](MATCHED_COMPARISON.md), [trace explanation](PARITY_ANALYSIS.md) |

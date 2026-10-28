@@ -57,6 +57,8 @@ contracts; neither repeated seed is an untouched robot condition.
 
 The prospective expected counts are four native processes in conservative mode
 versus three in scoped mode across the two questions, with identical decisions.
+The [retained comparison](../../../docs/experiments/results/scoped-check-code-2026-10-28/README.md)
+observes those counts and includes portable evidence and readback commands.
 Both modes use the same SDK and dependency knowledge. This is an internal
 invalidation comparison, not a comparison against a competent owner's native
 workflow. Fixed execution order and one comparison do not support a timing
