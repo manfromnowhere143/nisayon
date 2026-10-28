@@ -20,6 +20,11 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [fixed-budget episode audit](results/monitoring-audit-2026-10-28/README.md)
+adds prospective sampling and exact finite-frame bounds alongside the descriptive
+monitoring summary. Its constructed controls and budget calculation qualify the
+software; independent adjudication and complete owner savings remain unmeasured.
+
 The [28 October residual-monitoring audit](results/residual-monitoring-2026-10-28/README.md)
 reanalyses 927 released robot episodes. It separates task success, missed
 failures, valid-success retention and missing evidence across all available
