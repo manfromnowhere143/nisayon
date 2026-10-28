@@ -6,6 +6,8 @@ module does not order policies, infer independent samples, or accept deployments
 
 from __future__ import annotations
 
+from itertools import product
+
 from nisayon.engine.io import digest
 
 from .models import fields, label
@@ -36,6 +38,88 @@ def _bounds(accepted: int, missing: int, total: int) -> dict:
     }
 
 
+def _ratio_completion_bounds(groups: list, numerator: set, denominator: set) -> dict:
+    """Sharp marginal extrema of N/D, with N a subset of D, over free completions."""
+    low_n = low_d = high_n = high_d = minimum_d = maximum_d = 0
+    for count, states in groups:
+        options = {(int(state in numerator), int(state in denominator)) for state in states}
+        minimum_d += count * all(d for _, d in options)
+        maximum_d += count * any(d for _, d in options)
+        # A denominator-only row decreases the ratio; a numerator row increases it.
+        if (0, 1) in options:
+            low_d += count
+        elif (0, 0) not in options:
+            low_n += count
+            low_d += count
+        if (1, 1) in options:
+            high_n += count
+            high_d += count
+        elif (0, 0) not in options:
+            high_d += count
+    if maximum_d and not low_d:
+        # Only optional numerator rows can make this denominator positive.
+        low_n = low_d = 1
+    if maximum_d and not high_d:
+        # Only optional denominator-only rows can make it positive.
+        high_n, high_d = 0, 1
+    return {
+        "lower": _rate(low_n, low_d),
+        "upper": _rate(high_n, high_d),
+        "denominator_min": minimum_d,
+        "denominator_max": maximum_d,
+        "can_be_undefined": minimum_d == 0,
+    }
+
+
+def _completion_bounds(matrix: dict, threshold: float) -> dict:
+    invalid = sum(matrix["invalid"].values())
+    assumptions = (
+        "Supplied episodes form an eligible finite cohort; known reference labels are correct. "
+        "Unclear/unmeasured labels admit either binary outcome; missing scores admit any value "
+        "in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record "
+        "completions, conditional on a positive denominator. Different metric endpoints need not "
+        "be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth "
+        "guarantee is implied; these are not confidence intervals."
+    )
+    if invalid:
+        return {
+            "status": "unavailable_invalid_reference",
+            "invalid_references": invalid,
+            "metrics": None,
+            "assumptions": assumptions,
+        }
+    groups = []
+    for outcome, decisions in matrix.items():
+        labels = (outcome,) if outcome in ("success", "failure") else ("success", "failure")
+        for decision, count in decisions.items():
+            if not count:
+                continue
+            choices = (decision,)
+            if decision == "unmeasured":
+                choices = ("accepted",) if threshold == 0 else ("accepted", "rejected")
+            groups.append((count, set(product(labels, choices))))
+    universe = set(product(("success", "failure"), ("accepted", "rejected")))
+    success = {state for state in universe if state[0] == "success"}
+    failure = universe - success
+    accepted = {state for state in universe if state[1] == "accepted"}
+    events = {
+        "success_fraction": (success, universe),
+        "misses_per_episode": (failure & accepted, universe),
+        "conditional_miss": (failure & accepted, failure),
+        "success_retention": (success & accepted, success),
+        "acceptance_error": (failure & accepted, accepted),
+    }
+    return {
+        "status": "bounded_record_completions" if groups else "empty_cohort",
+        "invalid_references": 0,
+        "metrics": {
+            name: _ratio_completion_bounds(groups, numerator, denominator)
+            for name, (numerator, denominator) in events.items()
+        },
+        "assumptions": assumptions,
+    }
+
+
 def summarize_monitoring(
     episodes: list[dict],
     *,
@@ -56,7 +140,9 @@ def summarize_monitoring(
 
     Conditional rates use answered records of the stated reference class. Bounds
     show every completion of missing predictions in that class; they are not
-    confidence intervals and do not resolve unknown reference outcomes. Pooled
+    confidence intervals and do not resolve unknown reference outcomes. Separate
+    completion_bounds vary unclear/unmeasured labels too, under explicit binary
+    completion premises; invalid references block those whole-cohort bounds. Pooled
     counts do not adjust task mix, session dependence or audit-selection bias.
     """
     for name, value in (
@@ -152,6 +238,7 @@ def summarize_monitoring(
                 success["accepted"], success["unmeasured"], totals["success"]
             ),
         },
+        "completion_bounds": _completion_bounds(matrix, threshold),
         "deployment_decision": "unresolved",
         "limit": (
             "Descriptive counts against supplied reference labels, not independently established "

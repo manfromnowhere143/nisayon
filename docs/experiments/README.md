@@ -26,6 +26,12 @@ failures, valid-success retention and missing evidence across all available
 SO-101 policy/task/session cohorts. Cross-policy associations remain exploratory;
 the reusable summary does not grant deployment acceptance.
 
+The [incomplete-label extension](results/incomplete-monitoring-2026-10-28/README.md)
+quantifies what the same records leave unresolved. With known labels assumed
+correct, the 65 ambiguous community outcomes permit a conditional miss rate
+of 4.5%–32.7%, compared with 6.7% among labelled failures. These finite bounds
+preserve missing evidence and do not establish population risk.
+
 The [28 October native capture comparison](results/native-capture-cost-2026-10-28/README.md)
 removes an extra full-model copy. Six paired runs preserve all recorded states
 and image bytes while reducing median process time by 18–19%. A faster persistent

@@ -100,3 +100,72 @@ def test_standardize_joint_masses_before_conditioning_on_failure():
     rows[0]["score"] = None
     with pytest.raises(ValueError, match="complete binary"):
         audit.task_standardized(rows, ["task-a", "task-b"])
+
+
+def completion_source():
+    records = []
+    for suite in audit.SUITES:
+        for i, outcome in enumerate(("success", "failure", "unclear")):
+            if suite != "community" and outcome == "unclear":
+                continue
+            record = source()
+            episode = f"ep{i}"
+            origin = record["source"] if suite == "so101" else "robometer/rbm-1m-ood"
+            record.update(
+                suite=suite,
+                episode=episode,
+                source=origin,
+                label=outcome,
+                scored=outcome != "unclear",
+                id={
+                    "so101": f"tool_insert/policy/recording-session/{episode}",
+                    "unseen": f"rbm-ood/tool_insert/{episode}",
+                    "community": f"{origin}/{episode}",
+                }[suite],
+                predictions={
+                    judge: None
+                    if suite == "community" and judge == audit.JUDGES[1]
+                    else float(outcome != "failure")
+                    for judge in audit.JUDGES
+                },
+            )
+            records.append(record)
+    upstream = {
+        "model_revision": audit.MODEL_REVISION,
+        "metrics": {
+            judge: {"protocol": "dense-v1", "so101_bacc": 1, "unseen_bacc": 1}
+            for judge in audit.JUDGES
+        },
+    }
+    return records, upstream
+
+
+def test_completion_report_keeps_unknown_labels_missing_scores_and_original_audit():
+    records, upstream = completion_source()
+    original = audit.build_report(records, upstream)
+    report = audit.build_completion_report(records, upstream)
+    for judge in audit.JUDGES:
+        for suite in audit.SUITES:
+            result = report["judges"][judge]["suites"][suite]
+            prior = original["judges"][judge]["suites"][suite]
+            assert {key: result[key] for key in prior} == prior
+            assert "completion_bounds" not in prior
+            if suite != "community":
+                metrics = result["completion_bounds"]["metrics"]
+                assert metrics["conditional_miss"]["upper"]["value"] == 0
+                assert metrics["success_retention"]["lower"]["value"] == 1
+    first = report["judges"][audit.JUDGES[0]]["suites"]["community"]
+    second = report["judges"][audit.JUDGES[1]]["suites"]["community"]
+    assert first["counts"]["unclear"] == second["counts"]["unclear"] == 1
+    assert first["completion_bounds"]["metrics"]["conditional_miss"]["upper"]["value"] == 0.5
+    assert second["counts"]["answered"] == 0
+    assert second["completion_bounds"]["metrics"]["conditional_miss"]["upper"]["value"] == 1
+    assert report["deployment_decision"] == "unresolved"
+    assert audit.build_report(records, upstream) == original
+
+
+def test_completion_report_preserves_published_metric_readback_gate():
+    records, upstream = completion_source()
+    upstream["metrics"][audit.JUDGES[0]]["so101_bacc"] = 0.75
+    with pytest.raises(ValueError, match="did not reproduce"):
+        audit.build_completion_report(records, upstream)

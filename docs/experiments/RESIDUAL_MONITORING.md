@@ -47,6 +47,13 @@ intervals, and they do not settle ambiguous outcomes. Coverage reports show how
 many labels and predictions support the rates. Accepted ambiguous episodes stay
 visible in the matrix.
 
+The separate `completion_bounds` field also varies ambiguous and unmeasured
+reference outcomes, assuming the supplied cohort is eligible and its known
+labels are correct. It reports sharp finite bounds with attainable endpoint
+counts and explicit undefined-denominator states. Invalid references block these
+whole-cohort bounds. See [incomplete outcome audits](INCOMPLETE_MONITORING.md)
+for the premises and [released-record results](results/incomplete-monitoring-2026-10-28/README.md).
+
 For a fully labelled, fully answered panel,
 
 `accepted failures / episodes = (failures / episodes) × (accepted failures / failures)`.
