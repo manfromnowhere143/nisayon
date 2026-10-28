@@ -15,6 +15,11 @@ from .libero_capture import capture_libero_success
 from .measurements import MeasurementContract, assess_measurements
 from .models import Assessment, CaseSpec, ExperimentPlan, RunEvidence
 from .monitoring import summarize_monitoring
+from .monitoring_audit import (
+    assess_monitoring_audit,
+    freeze_monitoring_audit,
+    monitoring_audit_panel,
+)
 from .native_execution import execute_libero_window, reassess_native_execution
 from .native_measurements import MujocoOnRecorder, reassess_native_measurements
 from .native_task_workflow import reassess_native_task_bundle, run_native_task
@@ -47,6 +52,9 @@ __all__ = [
     "assess_reuse",
     "assess_measurements",
     "summarize_monitoring",
+    "assess_monitoring_audit",
+    "freeze_monitoring_audit",
+    "monitoring_audit_panel",
     "evidence_at",
     "export_run",
     "export_checks",

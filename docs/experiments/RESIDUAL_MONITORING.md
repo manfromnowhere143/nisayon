@@ -73,3 +73,9 @@ deployment decision. For policy comparisons, retain every task/session cell;
 different task mixtures can change pooled rates. A prospective test needs frozen
 policy changes, evaluator inputs and independently adjudicated outcomes on
 fresh conditions, with complete audit and execution costs.
+
+For a fixed episode frame with a declared review budget, the separate
+[monitoring-audit workflow](../MONITORING_AUDIT.md) freezes stratified sampling
+before adjudication and retains inclusion probabilities. Its exact finite-frame
+intervals have explicit randomization and reference-label premises. It leaves
+this descriptive summary and its historical reports unchanged.
