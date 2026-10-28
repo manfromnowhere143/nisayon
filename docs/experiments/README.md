@@ -81,6 +81,7 @@ extend the evidence base without changing the negative comparative results above
 
 | Boundary or decision | Latest retained evidence |
 |---|---|
+| Camera-slot and placeholder-budget semantics | [LeRobot #5129 / #5120 qualification](results/camera-slot-qualification-2026-10-28/README.md): two declared contracts, five matched native/SDK decisions, five portable reviews; no owner-cost advantage |
 | Frozen executable contract reuse | [Kornia PR #5958 default behavior](results/contract-reuse-2026-10-24/README.md): unchanged package, matched four decisions after fresh confirmation, all 24 role outputs reproduced, 28 boundary tests; native binding/workflow 32.67 s versus Nisayon 57.04 s; new generator feature and owner value unqualified |
 | Untouched software reuse and complete cost | [Kornia PR #6277 comparison](results/untouched-reuse-2026-10-23/README.md): both arms make 5/5 correct decisions; correction passes 32 fresh conditions; Nisayon takes 2.7% more solver time with 24.4% fewer counted tokens; complete-cost target unproven |
 | Current native statistics change and portable review | [GR00T PR #796 qualification](results/groot-statistics-2026-10-23/README.md): 18 development and 32 fresh generated cases pass; original and wrong-fix controls rejected; no full-cost or untouched-reuse claim |

@@ -1,0 +1,63 @@
+{
+  "question": "On this exposed public camera-preprocessing incident, which proposal satisfies each declared input contract, and does Nisayon change the decision made by the same ordinary native checks?",
+  "frozen_before": "First execution of the new semantic matrix; published issue, proposals and author tests were read during preparation.",
+  "identities": {
+    "base": "9f45b7b37cc4b33f8ecdb503aa4d209370bd528d",
+    "pr5129": "52d44203ed5bd5442dfd85d88ab78f7e91e54d77",
+    "pr5120": "8ff9599739e5607d5ccaeaacd3e12441dc24ae49",
+    "pr5120_base": "77710dee471d5cfb070fad1adc30c8f94dc14757"
+  },
+  "population": "Finite CPU preprocessing inputs for six unchanged native policy methods; no policy weights, action inference, robot episodes or statistical population inference.",
+  "policies": [
+    "pi0",
+    "pi05",
+    "pi0_fast",
+    "smolvla",
+    "xvla",
+    "evo1"
+  ],
+  "inputs": {
+    "camera_count": 3,
+    "subsets": "all eight subsets including empty",
+    "batch_orders": [
+      "configured",
+      "reversed"
+    ],
+    "seeds": [
+      17,
+      67
+    ],
+    "shape": "B=2, C=3, H=8, W=10; temporal T=3 where declared",
+    "dtype": "float32 pixels in [0,1]",
+    "mask_protocol": "SmolVLA per-batch valid mask and PI05 per-frame padding mask remain attached to their originating cameras."
+  },
+  "contracts": {
+    "configured_budget": "Each configured slot is represented in order; SmolVLA inserts up to empty_cameras placeholders and drops excess absent features. EVO1 errors when absences exceed its existing budget and leaves trailing missing tensors to its embedder.",
+    "all_configured_slots": "Same contract, except SmolVLA retains every configured slot regardless of empty_cameras. This is an intentional alternative semantic policy, not a claim that the legacy budget was wrong."
+  },
+  "checks": [
+    "Exact tensor shape, dtype and byte identity per slot",
+    "Exact per-camera masks",
+    "Caller inputs unchanged",
+    "All-cameras-absent refusal",
+    "Configured order independent of input dictionary order",
+    "PI05 temporal layouts and masks",
+    "SmolVLA last-frame selection and budget 0/1/3",
+    "EVO1 budget refusal and trailing embedding boundary"
+  ],
+  "comparator": "Identical frozen contract and native methods in ordinary Python. Source/configuration inspection already exposes the budget difference. No equal-agent diagnostic or owner-cost comparison is asserted.",
+  "sdk": "Unchanged CaseSpec, ExecutionContext, plan_change, run_plan, assess_change, export_run and inspect_bundle, with exact declared source files and required native call witnesses. Constructed same-shape camera swap is the negative control.",
+  "expected_owner_status": "Not enrolled. Deployment acceptance and the broader repeatable complete-cost goal remain unresolved.",
+  "acceptance": "All assigned rows in a contract must match its independently implemented reference. A mismatch rejects only that contract. Missing execution or invalid binding yields unresolved. Report each alternative's scope, no universal winner.",
+  "resource_limit": {
+    "local_cpu_only": true,
+    "max_process_seconds": 120,
+    "max_sdk_case_seconds": 1200,
+    "max_total_native_matrix_seconds": 600,
+    "no_new_compute_purchase": true,
+    "no_weights": true
+  },
+  "costs": "Retain acquisition, environment, invalid attempts, native and SDK process wall/CPU/RSS where observed. Do not add nested clocks or infer owner labor/provider charges. This is not a complete-cost savings claim.",
+  "stopping_rule": "One frozen matrix at the two declared seeds and its SDK/portable readback; no tuning to observed outcomes. Any harness amendment retains the failed attempt and gets a separate record.",
+  "exposure": "Both proposed remedies and author-reported results are exposed. The second seed is a different declared input, not independent-owner or untouched-incident evidence."
+}
