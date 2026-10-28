@@ -65,6 +65,12 @@ workflow. Fixed execution order and one comparison do not support a timing
 advantage estimate. Research, acquisition, implementation, human effort and
 provider charges remain outside its complete-cost evidence.
 
+Native execution requires unoptimized Python. The recipe accepts the exact
+pinned native files with either the retained or current pair of camera helpers;
+mixed or arbitrary helper revisions are refused. Every selected helper remains
+bound in the shared implementation identity. This keeps fresh preparation usable
+after the camera example's optimization guard was added.
+
 `export_checks` and `inspect_check_bundle` retain their existing formats.
 The built-in review reconstructs bindings and saved claims without executing
 handlers; semantic outcomes still need their domain checker. This addition is

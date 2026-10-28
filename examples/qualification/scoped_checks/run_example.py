@@ -104,7 +104,25 @@ def definition(root):
     return DependencyModel.from_dict(value)
 
 
+def owner_files(native_owner):
+    """Accept pinned native files with the exact historical or current helper pair."""
+    retained = decode_json((CAMERA / "retained-freeze.json").read_bytes())["owner_files"]["pr5129"]
+    current = dict(retained)
+    for name in ("entry.py", "camera_contract.py"):
+        current[name] = file_digest(CAMERA / name)
+    actual = {
+        str(p.relative_to(native_owner)): file_digest(p)
+        for p in native_owner.rglob("*")
+        if p.is_file()
+    }
+    if actual != retained and actual != current:
+        raise ValueError("Native owner differs from the pinned source and declared helper pairs")
+    return actual
+
+
 def main():
+    if sys.flags.optimize:
+        raise RuntimeError("Camera native qualification requires Python without optimization")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--camera-root", type=Path, required=True, help="Prepared camera_slots artifact root"
@@ -115,14 +133,7 @@ def main():
     root.mkdir(parents=True, exist_ok=False)
     native_owner = camera_root / "owners/pr5129"
     python = camera_root / "env/bin/python"
-    expected = decode_json((CAMERA / "retained-freeze.json").read_bytes())["owner_files"]["pr5129"]
-    actual = {
-        str(p.relative_to(native_owner)): file_digest(p)
-        for p in native_owner.rglob("*")
-        if p.is_file()
-    }
-    if actual != expected:
-        raise ValueError("Native owner differs from the exposed pinned camera source")
+    expected = owner_files(native_owner)
     runtime = {
         "runner": str(CAMERA / "native_run.py"),
         "native_context": ExecutionContext.from_project(

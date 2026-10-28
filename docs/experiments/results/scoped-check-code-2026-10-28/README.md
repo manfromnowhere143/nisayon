@@ -54,6 +54,17 @@ Its initial documentation check found two private links in the public guide;
 restoring that guide's public links resolves both. The corrected documentation,
 lint and formatting checks pass, with no implementation change after the suite.
 
+The subsequent [camera-verification integration](preparation-compatibility.json)
+adds eight source-pair/optimization controls; all 120 combined focused controls
+pass. The current preparation recipe accepts the exact pinned native files with
+either the historical or current helper pair. One additional 352-row native
+check with the current helpers reproduces all original observation/reference
+bytes, retained in its [separate archive](current-preparation.tar.gz). Its 10.57
+seconds are validation work outside the original comparison windows. A first
+one-off preparation command used system Python without the SDK and failed before
+native execution; the locked-environment retry passed. The SDK implementation
+and original comparison remain unchanged.
+
 The [source freeze](source-freeze.json) binds the unchanged executed SDK and
 example files to [public source `9415968b`](https://github.com/manfromnowhere143/nisayon/tree/9415968b95ff852099c4ad2b81fb62518d88e81a).
 The read-only domain reviewer was added after execution. It recomputes diagnostic
