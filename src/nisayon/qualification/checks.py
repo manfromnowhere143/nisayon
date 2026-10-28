@@ -46,6 +46,20 @@ def _read(path: Path) -> bytes:
 
 
 @dataclass(frozen=True)
+class CheckImplementation:
+    """Bind a handler to a declared code input and complete source dependencies.
+
+    The handler's entire source file is added automatically. Other imports and
+    native dependencies must be declared here, in shared implementation_files,
+    or through explicit dependencies on other bound implementation inputs.
+    This declaration does not infer dependencies or attest loaded Python state.
+    """
+
+    input_key: str
+    files: tuple[Path, ...] = ()
+
+
+@dataclass(frozen=True)
 class CheckContext:
     """Frozen declared inputs and upstream results; returned JSON is a fresh copy."""
 
@@ -77,14 +91,17 @@ def execute_checks(
     output: Path,
     previous: EvidenceState | None = None,
     implementation_input: str = "procedure",
+    check_implementations: dict[str, CheckImplementation] | None = None,
 ) -> dict:
     """Freeze, select, execute and retain checks, without accepting their claims.
 
-    All non-procedure inputs are file bytes or explicit unknowns. The procedure
-    identity includes supplied source files, each handler's source file/symbol
-    and this SDK. Mutable closures and undeclared external state are unsupported.
-    Every check must transitively depend on this procedure identity. Negative
-    scientific results are ordinary completed outputs, not execution failures.
+    By default one procedure binds all handlers, supplied source files and this
+    SDK. Optional per-check bindings put whole handler files and their declared
+    dependencies in separate code inputs; supplied implementation_files and the
+    SDK remain shared. Every check must transitively depend on the shared
+    procedure and directly on its own binding. Other inputs are file bytes or
+    explicit unknowns. Mutable closures and undeclared state are unsupported.
+    Negative scientific results are completed outputs, not execution failures.
     """
     started = time.perf_counter()
     root, out = evidence_root.resolve(), output.absolute()
@@ -93,25 +110,52 @@ def execute_checks(
         raise ValueError("Output must be a new nonsymlink directory within the evidence root")
     if set(handlers) != set(declaration["checks"]):
         raise ValueError("Exactly one handler is required for every declared check")
-    if (
-        implementation_input not in declaration["inputs"]
-        or declaration["inputs"][implementation_input]["kind"] not in {"protocol", "code"}
-        or set(inputs) != set(declaration["inputs"]) - {implementation_input}
-    ):
-        raise ValueError("Bind every input file and a distinct code/protocol implementation input")
+    if implementation_input not in declaration["inputs"] or declaration["inputs"][
+        implementation_input
+    ]["kind"] not in {"protocol", "code"}:
+        raise ValueError("Declare a distinct code/protocol implementation input")
     for key, spec in declaration["checks"].items():
         if implementation_input not in _closure(declaration, spec["depends_on"]):
             raise ValueError(f"Check does not depend on its implementation: {key}")
-    files = {Path(path).absolute() for path in implementation_files}
-    if len(files) > 1024:
-        raise ValueError("Declare at most 1024 implementation source files")
+    shared_files = {Path(path).absolute() for path in implementation_files}
+    scoped_files, scoped_symbols, assignments = {}, {}, {}
+    if check_implementations is not None and (
+        not isinstance(check_implementations, dict) or set(check_implementations) != set(handlers)
+    ):
+        raise ValueError("Bind exactly every check implementation")
     symbols = {}
     for key, handler in handlers.items():
         filename = inspect.getsourcefile(handler)
         if filename is None:
             raise ValueError("Handlers must have inspectable Python source files")
-        files.add(Path(filename).absolute())
-        symbols[key] = {"path": str(Path(filename).absolute()), "symbol": handler.__qualname__}
+        source = Path(filename).absolute()
+        symbol = {"path": str(source), "symbol": handler.__qualname__}
+        if check_implementations is None:
+            shared_files.add(source)
+            symbols[key] = symbol
+        else:
+            binding = check_implementations[key]
+            if not isinstance(binding, CheckImplementation):
+                raise ValueError("Use CheckImplementation for each check binding")
+            code = binding.input_key
+            if (
+                not isinstance(code, str)
+                or code == implementation_input
+                or code not in declaration["inputs"]
+                or declaration["inputs"][code]["kind"] not in {"code", "protocol"}
+                or code not in declaration["checks"][key]["depends_on"]
+            ):
+                raise ValueError(f"Check needs a direct, distinct code/protocol input: {key}")
+            assignments[key] = code
+            scoped_files.setdefault(code, set()).update(
+                {source, *(Path(path).absolute() for path in binding.files)}
+            )
+            scoped_symbols.setdefault(code, {})[key] = symbol
+    if set(inputs) != set(declaration["inputs"]) - {implementation_input, *scoped_files}:
+        raise ValueError("Bind every non-implementation input file exactly once")
+    files = shared_files.union(*scoped_files.values())
+    if len(files) > 1024:
+        raise ValueError("Declare at most 1024 implementation source files")
     paths = {
         key: Path(path).absolute() if path is not None else None for key, path in inputs.items()
     }
@@ -126,16 +170,29 @@ def execute_checks(
             if size > MAX_INPUT_BYTES:
                 raise ValueError("Aggregate check inputs exceed 64 MiB")
             raw[key] = data
+        source_ids = {path: hashlib.sha256(_read(path)).hexdigest() for path in sorted(files)}
         procedure = {
             "tool": tool_identity(),
-            "sources": {
-                str(path): hashlib.sha256(_read(path)).hexdigest() for path in sorted(files)
-            },
+            "sources": {str(path): source_ids[path] for path in sorted(shared_files)},
             "handlers": symbols,
         }
+        if check_implementations is not None:
+            procedure["check_implementations"] = assignments
+            for code, dependencies in scoped_files.items():
+                raw[code] = canonical_bytes(
+                    {
+                        "sources": {str(path): source_ids[path] for path in sorted(dependencies)},
+                        "handlers": scoped_symbols[code],
+                    }
+                )
         raw[implementation_input] = canonical_bytes(procedure)
-        if len(raw[implementation_input]) > MAX_RECORD_BYTES:
+        if any(len(raw[key]) > MAX_RECORD_BYTES for key in {implementation_input, *scoped_files}):
             raise ValueError("Implementation manifest exceeds 16 MiB")
+        if (
+            check_implementations is not None
+            and sum(len(v) for v in raw.values() if v) > MAX_INPUT_BYTES
+        ):
+            raise ValueError("Aggregate check inputs and implementation manifests exceed 64 MiB")
         identities = {
             key: hashlib.sha256(data).hexdigest() if data is not None else None
             for key, data in raw.items()

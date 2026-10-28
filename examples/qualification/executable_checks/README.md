@@ -37,6 +37,14 @@ Unknown inputs block execution; failures retain prefixes and stop dependent work
 Completed checks can contain rejection or uncertainty. No automatic acceptance
 or independent execution attestation follows from completion.
 
+For separately declared scoring implementations, optional `check_implementations`
+binds whole handler files to distinct code inputs. Shared files and the SDK stay
+common, and every check must directly depend on its own binding. This lets an
+unchanged observation survive a scoring-code edit while scores and confirmation
+run again. The [scoped implementation example](../scoped_checks/README.md) gives
+the exact API and a bounded native comparison. The default remains conservative;
+dependency completeness and trusted loaded code remain premises.
+
 Reconstruction rejects unsupported execution schemas, statuses and authority
 fields, and a claimed completed execution with retained errors. A valid unfinished
 prefix remains unresolved. The planner and receipts bind the checker identity:
@@ -76,9 +84,11 @@ It compares whole tracked memory and six sampled payloads. The solver was
 unconverged, and task/deployment acceptance remains unresolved.
 
 Keep the complete evidence root for replay, including model review and prior
-states, or use [portable check export](../../../docs/PORTABLE_REVIEW.md#executable-check-records).
+states, or use the implemented [portable check export](../../../work/implementations/portable-check-review-2026-10-25/README.md).
 `nisayon-qualify export-checks` retains the needed records and
-`review-check-bundle` reconstructs them without running native handlers.
-Instrument display and browser/device acceptance remain separately qualified.
-Source identities must match for reconstruction; an SDK upgrade does not
-silently grant historical records a new assessment.
+`review-check-bundle` reconstructs them without running native handlers. The
+instrument extension is implemented locally on `ui/executable-check-review-2026-10-25`;
+it still awaits actual browser/device acceptance and deployment authorization.
+The [record-consistency continuation](../../../work/implementations/check-record-consistency-2026-10-25/README.md)
+retains current guards, exact-source limits and the Inspect transfer into that
+existing review interface. Original execution evidence remains unchanged.
