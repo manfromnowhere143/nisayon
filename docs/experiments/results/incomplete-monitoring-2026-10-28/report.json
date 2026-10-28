@@ -1,0 +1,1247 @@
+{
+  "schema": "nisayon.research.robojev_completion_audit.v1",
+  "status": "post_hoc_finite_record_completion_analysis",
+  "source": {
+    "url": "https://huggingface.co/datasets/josefchen/RoboJev-evals",
+    "revision": "dc55456160a7c4c19ac9d11dbfddc69b5c9843c6",
+    "sha256": {
+      "benchmark": "c0f91f3587a400408cad927c07df09c1de1ab6d945b0b98015db73867538254e",
+      "summary": "bcd1f6cf710c8b0315a3b4ae69914ca95ae926a1b1098ae12cb37759770dc198"
+    }
+  },
+  "threshold": 0.5,
+  "model_revision": "e089a9b69a365744b80765057d86583647af95a9",
+  "acceptance_relation": "score >= threshold",
+  "judges": {
+    "RoboJev-27B": {
+      "suites": {
+        "so101": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "419bbf40eef0c2fa47119f7d8393ebac880df7deee3bdc8a2ff4b27973d99340",
+          "evaluator_id": "RoboJev-27B",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 268,
+            "success": 111,
+            "failure": 157,
+            "unclear": 0,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 268,
+            "reference_labelled": 268,
+            "labelled_answered": 268,
+            "policy_identified": 268,
+            "session_identified": 268
+          },
+          "matrix": {
+            "success": {
+              "accepted": 106,
+              "rejected": 5,
+              "unmeasured": 0
+            },
+            "failure": {
+              "accepted": 8,
+              "rejected": 149,
+              "unmeasured": 0
+            },
+            "unclear": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 111,
+              "denominator": 268,
+              "value": 0.4141791044776119
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 8,
+              "denominator": 268,
+              "value": 0.029850746268656716
+            },
+            "conditional_miss": {
+              "numerator": 8,
+              "denominator": 157,
+              "value": 0.050955414012738856
+            },
+            "valid_success_retention": {
+              "numerator": 106,
+              "denominator": 111,
+              "value": 0.954954954954955
+            },
+            "reference_label_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "prediction_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "failure_answer_coverage": {
+              "numerator": 157,
+              "denominator": 157,
+              "value": 1.0
+            },
+            "success_answer_coverage": {
+              "numerator": 111,
+              "denominator": 111,
+              "value": 1.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 8,
+              "denominator": 114,
+              "value": 0.07017543859649122
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.050955414012738856,
+              "upper": 0.050955414012738856,
+              "denominator": 157,
+              "missing_predictions": 0
+            },
+            "valid_success_retention": {
+              "lower": 0.954954954954955,
+              "upper": 0.954954954954955,
+              "denominator": 111,
+              "missing_predictions": 0
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 111,
+                  "denominator": 268,
+                  "value": 0.4141791044776119
+                },
+                "upper": {
+                  "numerator": 111,
+                  "denominator": 268,
+                  "value": 0.4141791044776119
+                },
+                "denominator_min": 268,
+                "denominator_max": 268,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 8,
+                  "denominator": 268,
+                  "value": 0.029850746268656716
+                },
+                "upper": {
+                  "numerator": 8,
+                  "denominator": 268,
+                  "value": 0.029850746268656716
+                },
+                "denominator_min": 268,
+                "denominator_max": 268,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 8,
+                  "denominator": 157,
+                  "value": 0.050955414012738856
+                },
+                "upper": {
+                  "numerator": 8,
+                  "denominator": 157,
+                  "value": 0.050955414012738856
+                },
+                "denominator_min": 157,
+                "denominator_max": 157,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 106,
+                  "denominator": 111,
+                  "value": 0.954954954954955
+                },
+                "upper": {
+                  "numerator": 106,
+                  "denominator": 111,
+                  "value": 0.954954954954955
+                },
+                "denominator_min": 111,
+                "denominator_max": 111,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 8,
+                  "denominator": 114,
+                  "value": 0.07017543859649122
+                },
+                "upper": {
+                  "numerator": 8,
+                  "denominator": 114,
+                  "value": 0.07017543859649122
+                },
+                "denominator_min": 114,
+                "denominator_max": 114,
+                "can_be_undefined": false
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        },
+        "unseen": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "7c4dad80029b12c77c008194417473f2b8638ca96dd4c3315150df90c21fbd3c",
+          "evaluator_id": "RoboJev-27B",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 459,
+            "success": 263,
+            "failure": 196,
+            "unclear": 0,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 459,
+            "reference_labelled": 459,
+            "labelled_answered": 459,
+            "policy_identified": 0,
+            "session_identified": 0
+          },
+          "matrix": {
+            "success": {
+              "accepted": 183,
+              "rejected": 80,
+              "unmeasured": 0
+            },
+            "failure": {
+              "accepted": 26,
+              "rejected": 170,
+              "unmeasured": 0
+            },
+            "unclear": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 263,
+              "denominator": 459,
+              "value": 0.5729847494553377
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 26,
+              "denominator": 459,
+              "value": 0.05664488017429194
+            },
+            "conditional_miss": {
+              "numerator": 26,
+              "denominator": 196,
+              "value": 0.1326530612244898
+            },
+            "valid_success_retention": {
+              "numerator": 183,
+              "denominator": 263,
+              "value": 0.6958174904942965
+            },
+            "reference_label_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "prediction_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "failure_answer_coverage": {
+              "numerator": 196,
+              "denominator": 196,
+              "value": 1.0
+            },
+            "success_answer_coverage": {
+              "numerator": 263,
+              "denominator": 263,
+              "value": 1.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 26,
+              "denominator": 209,
+              "value": 0.12440191387559808
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.1326530612244898,
+              "upper": 0.1326530612244898,
+              "denominator": 196,
+              "missing_predictions": 0
+            },
+            "valid_success_retention": {
+              "lower": 0.6958174904942965,
+              "upper": 0.6958174904942965,
+              "denominator": 263,
+              "missing_predictions": 0
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 263,
+                  "denominator": 459,
+                  "value": 0.5729847494553377
+                },
+                "upper": {
+                  "numerator": 263,
+                  "denominator": 459,
+                  "value": 0.5729847494553377
+                },
+                "denominator_min": 459,
+                "denominator_max": 459,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 26,
+                  "denominator": 459,
+                  "value": 0.05664488017429194
+                },
+                "upper": {
+                  "numerator": 26,
+                  "denominator": 459,
+                  "value": 0.05664488017429194
+                },
+                "denominator_min": 459,
+                "denominator_max": 459,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 26,
+                  "denominator": 196,
+                  "value": 0.1326530612244898
+                },
+                "upper": {
+                  "numerator": 26,
+                  "denominator": 196,
+                  "value": 0.1326530612244898
+                },
+                "denominator_min": 196,
+                "denominator_max": 196,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 183,
+                  "denominator": 263,
+                  "value": 0.6958174904942965
+                },
+                "upper": {
+                  "numerator": 183,
+                  "denominator": 263,
+                  "value": 0.6958174904942965
+                },
+                "denominator_min": 263,
+                "denominator_max": 263,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 26,
+                  "denominator": 209,
+                  "value": 0.12440191387559808
+                },
+                "upper": {
+                  "numerator": 26,
+                  "denominator": 209,
+                  "value": 0.12440191387559808
+                },
+                "denominator_min": 209,
+                "denominator_max": 209,
+                "can_be_undefined": false
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        },
+        "community": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "fa137bb0004f0d75d7cb7f9defd44cb351601a93cdaf189b0b28a65cc712ee00",
+          "evaluator_id": "RoboJev-27B",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 200,
+            "success": 60,
+            "failure": 75,
+            "unclear": 65,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 200,
+            "reference_labelled": 135,
+            "labelled_answered": 135,
+            "policy_identified": 0,
+            "session_identified": 0
+          },
+          "matrix": {
+            "success": {
+              "accepted": 56,
+              "rejected": 4,
+              "unmeasured": 0
+            },
+            "failure": {
+              "accepted": 5,
+              "rejected": 70,
+              "unmeasured": 0
+            },
+            "unclear": {
+              "accepted": 29,
+              "rejected": 36,
+              "unmeasured": 0
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 60,
+              "denominator": 135,
+              "value": 0.4444444444444444
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 5,
+              "denominator": 200,
+              "value": 0.025
+            },
+            "conditional_miss": {
+              "numerator": 5,
+              "denominator": 75,
+              "value": 0.06666666666666667
+            },
+            "valid_success_retention": {
+              "numerator": 56,
+              "denominator": 60,
+              "value": 0.9333333333333333
+            },
+            "reference_label_coverage": {
+              "numerator": 135,
+              "denominator": 200,
+              "value": 0.675
+            },
+            "prediction_coverage": {
+              "numerator": 200,
+              "denominator": 200,
+              "value": 1.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 135,
+              "denominator": 200,
+              "value": 0.675
+            },
+            "failure_answer_coverage": {
+              "numerator": 75,
+              "denominator": 75,
+              "value": 1.0
+            },
+            "success_answer_coverage": {
+              "numerator": 60,
+              "denominator": 60,
+              "value": 1.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 5,
+              "denominator": 61,
+              "value": 0.08196721311475409
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.06666666666666667,
+              "upper": 0.06666666666666667,
+              "denominator": 75,
+              "missing_predictions": 0
+            },
+            "valid_success_retention": {
+              "lower": 0.9333333333333333,
+              "upper": 0.9333333333333333,
+              "denominator": 60,
+              "missing_predictions": 0
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 60,
+                  "denominator": 200,
+                  "value": 0.3
+                },
+                "upper": {
+                  "numerator": 125,
+                  "denominator": 200,
+                  "value": 0.625
+                },
+                "denominator_min": 200,
+                "denominator_max": 200,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 5,
+                  "denominator": 200,
+                  "value": 0.025
+                },
+                "upper": {
+                  "numerator": 34,
+                  "denominator": 200,
+                  "value": 0.17
+                },
+                "denominator_min": 200,
+                "denominator_max": 200,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 5,
+                  "denominator": 111,
+                  "value": 0.04504504504504504
+                },
+                "upper": {
+                  "numerator": 34,
+                  "denominator": 104,
+                  "value": 0.3269230769230769
+                },
+                "denominator_min": 75,
+                "denominator_max": 140,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 56,
+                  "denominator": 96,
+                  "value": 0.5833333333333334
+                },
+                "upper": {
+                  "numerator": 85,
+                  "denominator": 89,
+                  "value": 0.9550561797752809
+                },
+                "denominator_min": 60,
+                "denominator_max": 125,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 5,
+                  "denominator": 90,
+                  "value": 0.05555555555555555
+                },
+                "upper": {
+                  "numerator": 34,
+                  "denominator": 90,
+                  "value": 0.37777777777777777
+                },
+                "denominator_min": 90,
+                "denominator_max": 90,
+                "can_be_undefined": false
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        }
+      },
+      "balanced_accuracy_readback": {
+        "so101": {
+          "computed": 0.9519997704711081,
+          "published": 0.952
+        },
+        "unseen": {
+          "computed": 0.7815822146349034,
+          "published": 0.7816
+        }
+      }
+    },
+    "JEV-27B-VL (10 frames)": {
+      "suites": {
+        "so101": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "5ccb5f532d832953a2fe348ded3af108c000d68858f1bc96d1fe261154dd4d4f",
+          "evaluator_id": "JEV-27B-VL (10 frames)",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 268,
+            "success": 111,
+            "failure": 157,
+            "unclear": 0,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 268,
+            "reference_labelled": 268,
+            "labelled_answered": 268,
+            "policy_identified": 268,
+            "session_identified": 268
+          },
+          "matrix": {
+            "success": {
+              "accepted": 91,
+              "rejected": 20,
+              "unmeasured": 0
+            },
+            "failure": {
+              "accepted": 9,
+              "rejected": 148,
+              "unmeasured": 0
+            },
+            "unclear": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 111,
+              "denominator": 268,
+              "value": 0.4141791044776119
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 9,
+              "denominator": 268,
+              "value": 0.033582089552238806
+            },
+            "conditional_miss": {
+              "numerator": 9,
+              "denominator": 157,
+              "value": 0.05732484076433121
+            },
+            "valid_success_retention": {
+              "numerator": 91,
+              "denominator": 111,
+              "value": 0.8198198198198198
+            },
+            "reference_label_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "prediction_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 268,
+              "denominator": 268,
+              "value": 1.0
+            },
+            "failure_answer_coverage": {
+              "numerator": 157,
+              "denominator": 157,
+              "value": 1.0
+            },
+            "success_answer_coverage": {
+              "numerator": 111,
+              "denominator": 111,
+              "value": 1.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 9,
+              "denominator": 100,
+              "value": 0.09
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.05732484076433121,
+              "upper": 0.05732484076433121,
+              "denominator": 157,
+              "missing_predictions": 0
+            },
+            "valid_success_retention": {
+              "lower": 0.8198198198198198,
+              "upper": 0.8198198198198198,
+              "denominator": 111,
+              "missing_predictions": 0
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 111,
+                  "denominator": 268,
+                  "value": 0.4141791044776119
+                },
+                "upper": {
+                  "numerator": 111,
+                  "denominator": 268,
+                  "value": 0.4141791044776119
+                },
+                "denominator_min": 268,
+                "denominator_max": 268,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 9,
+                  "denominator": 268,
+                  "value": 0.033582089552238806
+                },
+                "upper": {
+                  "numerator": 9,
+                  "denominator": 268,
+                  "value": 0.033582089552238806
+                },
+                "denominator_min": 268,
+                "denominator_max": 268,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 9,
+                  "denominator": 157,
+                  "value": 0.05732484076433121
+                },
+                "upper": {
+                  "numerator": 9,
+                  "denominator": 157,
+                  "value": 0.05732484076433121
+                },
+                "denominator_min": 157,
+                "denominator_max": 157,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 91,
+                  "denominator": 111,
+                  "value": 0.8198198198198198
+                },
+                "upper": {
+                  "numerator": 91,
+                  "denominator": 111,
+                  "value": 0.8198198198198198
+                },
+                "denominator_min": 111,
+                "denominator_max": 111,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 9,
+                  "denominator": 100,
+                  "value": 0.09
+                },
+                "upper": {
+                  "numerator": 9,
+                  "denominator": 100,
+                  "value": 0.09
+                },
+                "denominator_min": 100,
+                "denominator_max": 100,
+                "can_be_undefined": false
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        },
+        "unseen": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "03be8262a7f506f81ca5559254ded98ea0ed15afdae5beb7bd807e5b2f40c89b",
+          "evaluator_id": "JEV-27B-VL (10 frames)",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 459,
+            "success": 263,
+            "failure": 196,
+            "unclear": 0,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 459,
+            "reference_labelled": 459,
+            "labelled_answered": 459,
+            "policy_identified": 0,
+            "session_identified": 0
+          },
+          "matrix": {
+            "success": {
+              "accepted": 179,
+              "rejected": 84,
+              "unmeasured": 0
+            },
+            "failure": {
+              "accepted": 18,
+              "rejected": 178,
+              "unmeasured": 0
+            },
+            "unclear": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 263,
+              "denominator": 459,
+              "value": 0.5729847494553377
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 18,
+              "denominator": 459,
+              "value": 0.0392156862745098
+            },
+            "conditional_miss": {
+              "numerator": 18,
+              "denominator": 196,
+              "value": 0.09183673469387756
+            },
+            "valid_success_retention": {
+              "numerator": 179,
+              "denominator": 263,
+              "value": 0.6806083650190115
+            },
+            "reference_label_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "prediction_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 459,
+              "denominator": 459,
+              "value": 1.0
+            },
+            "failure_answer_coverage": {
+              "numerator": 196,
+              "denominator": 196,
+              "value": 1.0
+            },
+            "success_answer_coverage": {
+              "numerator": 263,
+              "denominator": 263,
+              "value": 1.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 18,
+              "denominator": 197,
+              "value": 0.09137055837563451
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.09183673469387756,
+              "upper": 0.09183673469387756,
+              "denominator": 196,
+              "missing_predictions": 0
+            },
+            "valid_success_retention": {
+              "lower": 0.6806083650190115,
+              "upper": 0.6806083650190115,
+              "denominator": 263,
+              "missing_predictions": 0
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 263,
+                  "denominator": 459,
+                  "value": 0.5729847494553377
+                },
+                "upper": {
+                  "numerator": 263,
+                  "denominator": 459,
+                  "value": 0.5729847494553377
+                },
+                "denominator_min": 459,
+                "denominator_max": 459,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 18,
+                  "denominator": 459,
+                  "value": 0.0392156862745098
+                },
+                "upper": {
+                  "numerator": 18,
+                  "denominator": 459,
+                  "value": 0.0392156862745098
+                },
+                "denominator_min": 459,
+                "denominator_max": 459,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 18,
+                  "denominator": 196,
+                  "value": 0.09183673469387756
+                },
+                "upper": {
+                  "numerator": 18,
+                  "denominator": 196,
+                  "value": 0.09183673469387756
+                },
+                "denominator_min": 196,
+                "denominator_max": 196,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 179,
+                  "denominator": 263,
+                  "value": 0.6806083650190115
+                },
+                "upper": {
+                  "numerator": 179,
+                  "denominator": 263,
+                  "value": 0.6806083650190115
+                },
+                "denominator_min": 263,
+                "denominator_max": 263,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 18,
+                  "denominator": 197,
+                  "value": 0.09137055837563451
+                },
+                "upper": {
+                  "numerator": 18,
+                  "denominator": 197,
+                  "value": 0.09137055837563451
+                },
+                "denominator_min": 197,
+                "denominator_max": 197,
+                "can_be_undefined": false
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        },
+        "community": {
+          "schema": "nisayon.qualification.monitoring_summary.v1",
+          "status": "descriptive",
+          "input_sha256": "bf4e0a3aa263e3508ea5ebe870e087eb1c02f3ab1a6006f4786ec3ccfb4db370",
+          "evaluator_id": "JEV-27B-VL (10 frames)",
+          "reference_id": "RoboJev-evals@dc55456160a7c4c19ac9d11dbfddc69b5c9843c6/benchmark.jsonl human labels",
+          "input_protocol": "dense-v1",
+          "threshold": 0.5,
+          "acceptance_relation": "score >= threshold",
+          "counts": {
+            "episodes": 200,
+            "success": 60,
+            "failure": 75,
+            "unclear": 65,
+            "unmeasured": 0,
+            "invalid": 0,
+            "answered": 0,
+            "reference_labelled": 135,
+            "labelled_answered": 0,
+            "policy_identified": 0,
+            "session_identified": 0
+          },
+          "matrix": {
+            "success": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 60
+            },
+            "failure": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 75
+            },
+            "unclear": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 65
+            },
+            "unmeasured": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            },
+            "invalid": {
+              "accepted": 0,
+              "rejected": 0,
+              "unmeasured": 0
+            }
+          },
+          "rates": {
+            "reference_success": {
+              "numerator": 60,
+              "denominator": 135,
+              "value": 0.4444444444444444
+            },
+            "confirmed_misses_per_episode": {
+              "numerator": 0,
+              "denominator": 200,
+              "value": 0.0
+            },
+            "conditional_miss": {
+              "numerator": 0,
+              "denominator": 0,
+              "value": null
+            },
+            "valid_success_retention": {
+              "numerator": 0,
+              "denominator": 0,
+              "value": null
+            },
+            "reference_label_coverage": {
+              "numerator": 135,
+              "denominator": 200,
+              "value": 0.675
+            },
+            "prediction_coverage": {
+              "numerator": 0,
+              "denominator": 200,
+              "value": 0.0
+            },
+            "joint_binary_coverage": {
+              "numerator": 0,
+              "denominator": 200,
+              "value": 0.0
+            },
+            "failure_answer_coverage": {
+              "numerator": 0,
+              "denominator": 75,
+              "value": 0.0
+            },
+            "success_answer_coverage": {
+              "numerator": 0,
+              "denominator": 60,
+              "value": 0.0
+            },
+            "labelled_acceptance_error": {
+              "numerator": 0,
+              "denominator": 0,
+              "value": null
+            }
+          },
+          "missing_prediction_bounds": {
+            "conditional_miss": {
+              "lower": 0.0,
+              "upper": 1.0,
+              "denominator": 75,
+              "missing_predictions": 75
+            },
+            "valid_success_retention": {
+              "lower": 0.0,
+              "upper": 1.0,
+              "denominator": 60,
+              "missing_predictions": 60
+            }
+          },
+          "completion_bounds": {
+            "status": "bounded_record_completions",
+            "invalid_references": 0,
+            "metrics": {
+              "success_fraction": {
+                "lower": {
+                  "numerator": 60,
+                  "denominator": 200,
+                  "value": 0.3
+                },
+                "upper": {
+                  "numerator": 125,
+                  "denominator": 200,
+                  "value": 0.625
+                },
+                "denominator_min": 200,
+                "denominator_max": 200,
+                "can_be_undefined": false
+              },
+              "misses_per_episode": {
+                "lower": {
+                  "numerator": 0,
+                  "denominator": 200,
+                  "value": 0.0
+                },
+                "upper": {
+                  "numerator": 140,
+                  "denominator": 200,
+                  "value": 0.7
+                },
+                "denominator_min": 200,
+                "denominator_max": 200,
+                "can_be_undefined": false
+              },
+              "conditional_miss": {
+                "lower": {
+                  "numerator": 0,
+                  "denominator": 140,
+                  "value": 0.0
+                },
+                "upper": {
+                  "numerator": 140,
+                  "denominator": 140,
+                  "value": 1.0
+                },
+                "denominator_min": 75,
+                "denominator_max": 140,
+                "can_be_undefined": false
+              },
+              "success_retention": {
+                "lower": {
+                  "numerator": 0,
+                  "denominator": 125,
+                  "value": 0.0
+                },
+                "upper": {
+                  "numerator": 125,
+                  "denominator": 125,
+                  "value": 1.0
+                },
+                "denominator_min": 60,
+                "denominator_max": 125,
+                "can_be_undefined": false
+              },
+              "acceptance_error": {
+                "lower": {
+                  "numerator": 0,
+                  "denominator": 125,
+                  "value": 0.0
+                },
+                "upper": {
+                  "numerator": 140,
+                  "denominator": 140,
+                  "value": 1.0
+                },
+                "denominator_min": 0,
+                "denominator_max": 200,
+                "can_be_undefined": true
+              }
+            },
+            "assumptions": "Supplied episodes form an eligible finite cohort; known reference labels are correct. Unclear/unmeasured labels admit either binary outcome; missing scores admit any value in [0, 1] at the declared threshold. Bounds are sharp marginal extrema over free record completions, conditional on a positive denominator. Different metric endpoints need not be jointly attainable. No sampling, label-noise, omitted-episode or physical-truth guarantee is implied; these are not confidence intervals."
+          },
+          "deployment_decision": "unresolved",
+          "limit": "Descriptive counts against supplied reference labels, not independently established task truth or a policy-improvement test. Missing-score bounds are not confidence intervals. Unknown/invalid reference outcomes remain outside binary rates; confirmed misses per episode is only a lower bound when labels or scores are missing. No omitted-episode, task-mix, clustering or audit-selection correction is implied."
+        }
+      },
+      "balanced_accuracy_readback": {
+        "so101": {
+          "computed": 0.8812474895277443,
+          "published": 0.8812474895277442
+        },
+        "unseen": {
+          "computed": 0.7943858151625669,
+          "published": 0.7943858151625669
+        }
+      }
+    }
+  },
+  "deployment_decision": "unresolved",
+  "limit": "Bounds vary unclear reference labels and missing scores in the released cohort. Known reference labels are assumed correct. They neither adjudicate unknown episodes nor correct omitted episodes, selection, label noise or population drift. This is a post hoc analysis of exposed records, not a fresh policy experiment."
+}

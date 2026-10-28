@@ -241,11 +241,54 @@ def build_report(raw: list[dict], upstream: dict) -> dict:
     return report
 
 
+def build_completion_report(raw: list[dict], upstream: dict) -> dict:
+    """Keep the frozen original audit intact; report a separate post hoc analysis."""
+    original = build_report(raw, upstream)
+    report = {
+        "schema": "nisayon.research.robojev_completion_audit.v1",
+        "status": "post_hoc_finite_record_completion_analysis",
+        "source": original["source"],
+        "threshold": original["threshold"],
+        "model_revision": original["model_revision"],
+        "acceptance_relation": original["acceptance_relation"],
+        "judges": {},
+        "deployment_decision": "unresolved",
+        "limit": (
+            "Bounds vary unclear reference labels and missing scores in the released cohort. "
+            "Known reference labels are assumed correct. They neither adjudicate unknown "
+            "episodes nor correct omitted episodes, selection, label noise or population drift. "
+            "This is a post hoc analysis of exposed records, not a fresh policy experiment."
+        ),
+    }
+    for judge in JUDGES:
+        rows = normalize(raw, judge)
+        suites = {}
+        for suite in SUITES:
+            group = [row for row, source in zip(rows, raw, strict=True) if source["suite"] == suite]
+            suites[suite] = summarize_monitoring(
+                group,
+                evaluator_id=judge,
+                reference_id=REFERENCE,
+                input_protocol="dense-v1",
+                threshold=report["threshold"],
+            )
+        report["judges"][judge] = {
+            "suites": suites,
+            "balanced_accuracy_readback": original["judges"][judge]["balanced_accuracy_readback"],
+        }
+    return report
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--benchmark", type=Path, required=True)
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--completion-bounds",
+        action="store_true",
+        help="Write a separate analysis of ambiguous labels and missing scores",
+    )
     args = parser.parse_args()
     data = {}
     for kind in ("benchmark", "summary"):
@@ -254,7 +297,8 @@ def main() -> None:
             raise ValueError(f"{kind} SHA256 differs from the pinned release")
         data[kind] = content
     raw = [decode_json(line) for line in data["benchmark"].splitlines()]
-    report = build_report(raw, decode_json(data["summary"]))
+    build = build_completion_report if args.completion_bounds else build_report
+    report = build(raw, decode_json(data["summary"]))
     with args.out.open("x") as stream:
         stream.write(json.dumps(report, indent=2, allow_nan=False) + "\n")
     print(
