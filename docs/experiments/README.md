@@ -20,6 +20,12 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [28 October native capture comparison](results/native-capture-cost-2026-10-28/README.md)
+removes an extra full-model copy. Six paired runs preserve all recorded states
+and image bytes while reducing median process time by 18–19%. A faster persistent
+buffer fails the memory limit and remains rejected. This compares two Nisayon
+implementations; complete owner-cost advantage remains unresolved.
+
 The [24 October native continuation](results/native-continuation-2026-10-24/README.md)
 qualifies two optimizer updates and fresh-process checkpoint continuation with
 published LongWAM IDM weights. All 25 gates pass across two synthetic seeds;

@@ -1,0 +1,1086 @@
+{
+  "date": "2026-10-28",
+  "scope": "Exposed native recorder cost comparison on one macOS arm64 host. Baseline is the prior Nisayon implementation, not a conventional owner workflow or another robotics system.",
+  "baseline_public_commit": "bbd5fd690e2043ac517b5ccfbe9d4e43df8b97f0",
+  "platform": "macOS-14.4-arm64-arm-64bit",
+  "runtime": {
+    "mujoco": "3.3.2",
+    "numpy": "1.26.4",
+    "robosuite": "1.4.0",
+    "hf_libero": "0.1.4",
+    "renderer": "CGL, 256 x 256 cameras",
+    "threads": 1
+  },
+  "design": {
+    "cases": {
+      "reference": {
+        "steps": 32,
+        "state": 0
+      },
+      "feedback": {
+        "steps": 32,
+        "state": 1
+      }
+    },
+    "seed": 20261026,
+    "pairs_per_condition": 3,
+    "order": "Alternating baseline/candidate, balanced across the two conditions",
+    "maximum_control_steps_per_run": 32,
+    "complete_processes_per_candidate_study": 14
+  },
+  "gates": {
+    "quality": "Consistent replay and equality with ordinary execution for initial inputs, every action/state/observation and all retained array bytes",
+    "all_pairs_faster": true,
+    "minimum_baseline_over_candidate_median": 1.1,
+    "maximum_candidate_median_peak_rss": "1.05 * baseline median + 33554432 bytes"
+  },
+  "cost_boundary": "Whole child processes include imports, construction/reset, recording, sealing, replay and close. Harness execution time and process peak RSS are also retained. Shared preflight, comparison, implementation and verification are separate; owner effort, adoption, maintenance and economic value remain unknown.",
+  "studies": {
+    "persistent_buffer": {
+      "status": "cost_target_not_met",
+      "protocol_sha256": "899c8376a79565659eb3ea0ed6e1f60c502d5e0e9dc4b232a1a73bf2029820d8",
+      "baseline_capture_source_sha256": "237850caa9390a3f2d022364d7be48dd20ca628d68d87e3379f5fd54f5609dd5",
+      "candidate_capture_source_sha256": "ebd7ce36fb022af5e3fb1379b07fbb52ad6db8c2fadc2f53801677b989518ef7",
+      "summaries": {
+        "reference": {
+          "process_seconds": {
+            "baseline": [
+              61.24505904200487,
+              58.59572391700931,
+              57.27202120795846
+            ],
+            "candidate": [
+              45.06211704108864,
+              40.49787558289245,
+              41.93915529199876
+            ]
+          },
+          "median_process_seconds": {
+            "baseline": 58.59572391700931,
+            "candidate": 41.93915529199876
+          },
+          "baseline_over_candidate": 1.3971603268840354,
+          "paired_ratios_in_block_order": [
+            1.3591252045739497,
+            1.4468838938742246,
+            1.3655978717073718
+          ],
+          "peak_rss_bytes": {
+            "baseline": [
+              2013413376,
+              2085830656,
+              2315239424
+            ],
+            "candidate": [
+              2178760704,
+              2317336576,
+              2286419968
+            ]
+          },
+          "speed_gate": true,
+          "memory_gate": false
+        },
+        "feedback": {
+          "process_seconds": {
+            "baseline": [
+              57.40855500008911,
+              59.33791262493469,
+              56.82055912492797
+            ],
+            "candidate": [
+              41.17417558282614,
+              40.6531561659649,
+              43.23170516709797
+            ]
+          },
+          "median_process_seconds": {
+            "baseline": 57.40855500008911,
+            "candidate": 41.17417558282614
+          },
+          "baseline_over_candidate": 1.3942854759679604,
+          "paired_ratios_in_block_order": [
+            1.3942854759679604,
+            1.4596139198317102,
+            1.314326115643756
+          ],
+          "peak_rss_bytes": {
+            "baseline": [
+              2167848960,
+              2109063168,
+              2191409152
+            ],
+            "candidate": [
+              2387673088,
+              2096234496,
+              2460844032
+            ]
+          },
+          "speed_gate": true,
+          "memory_gate": false
+        }
+      },
+      "trials": [
+        {
+          "label": "reference-plain",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "plain",
+          "wall_seconds": 15.051564999856055,
+          "exit_code": 0,
+          "block": null,
+          "peak_rss_bytes": 2153676800,
+          "cpu_user_seconds": 8.694414,
+          "cpu_system_seconds": 2.05869,
+          "execution_seconds": 0.9064097909722477
+        },
+        {
+          "label": "feedback-plain",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "plain",
+          "wall_seconds": 8.686068917158991,
+          "exit_code": 0,
+          "block": null,
+          "peak_rss_bytes": 2168225792,
+          "cpu_user_seconds": 5.573695,
+          "cpu_system_seconds": 1.378659,
+          "execution_seconds": 0.9088789999950677
+        },
+        {
+          "label": "reference-baseline-0",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 61.24505904200487,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2013413376,
+          "cpu_user_seconds": 40.208483,
+          "cpu_system_seconds": 14.750757,
+          "execution_seconds": 53.26346195815131,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "7d4f1fbbe80b8499c0bf591bfc0e90833523347bb179c31679ec011e7d925a92"
+          }
+        },
+        {
+          "label": "reference-candidate-0",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 45.06211704108864,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2178760704,
+          "cpu_user_seconds": 36.677226,
+          "cpu_system_seconds": 3.387195,
+          "execution_seconds": 34.47820866690017,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "cb528eade1e75fb3ebf644aeb291c7221288648c86f244f199cf54673d0b4009",
+            "execution_seal_sha256": "68d86a252d2af473d6e82d3f0b22d99c54ee91d376ecb2c23fa9017944935468"
+          }
+        },
+        {
+          "label": "feedback-candidate-0",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 41.17417558282614,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2387673088,
+          "cpu_user_seconds": 35.980391,
+          "cpu_system_seconds": 2.568686,
+          "execution_seconds": 33.12387891695835,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4551b21e98fd5983b831dc8c8cf58fe096f55ce21fcebfcac597d37463bf3794",
+            "execution_seal_sha256": "e37307883cf99a47080c7d2e1b86a62cbf6f9571b4e55047ed5d431c4bfd53e2"
+          }
+        },
+        {
+          "label": "feedback-baseline-0",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 57.40855500008911,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2167848960,
+          "cpu_user_seconds": 39.398776,
+          "cpu_system_seconds": 13.213568,
+          "execution_seconds": 49.49785983399488,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "6b6d48cc1de088382938d2f4e87cfb25e400a5fefacf0c9b0419c76d0ab105cf"
+          }
+        },
+        {
+          "label": "reference-candidate-1",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 40.49787558289245,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2317336576,
+          "cpu_user_seconds": 35.806923,
+          "cpu_system_seconds": 2.296561,
+          "execution_seconds": 32.525485625024885,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "cb528eade1e75fb3ebf644aeb291c7221288648c86f244f199cf54673d0b4009",
+            "execution_seal_sha256": "e011b5cb12edb8d5ea66df17537eec68ed910f75bb1c6c6a2d78c6e6fbc1194a"
+          }
+        },
+        {
+          "label": "reference-baseline-1",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 58.59572391700931,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2085830656,
+          "cpu_user_seconds": 39.725245,
+          "cpu_system_seconds": 13.926275,
+          "execution_seconds": 50.01282770792022,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "e304eb9091a49521df4ec6adfb1736b1fffa25e6ce7f6781f887f33230c90785"
+          }
+        },
+        {
+          "label": "feedback-baseline-1",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 59.33791262493469,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2109063168,
+          "cpu_user_seconds": 39.721324,
+          "cpu_system_seconds": 14.517689,
+          "execution_seconds": 51.22845149994828,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "6f4128a492c2c6b8a04774e0d43baeab24c4fe411a3e36b91ad044570c3bc9d1"
+          }
+        },
+        {
+          "label": "feedback-candidate-1",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 40.6531561659649,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2096234496,
+          "cpu_user_seconds": 35.910077,
+          "cpu_system_seconds": 2.386933,
+          "execution_seconds": 32.586404209025204,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4551b21e98fd5983b831dc8c8cf58fe096f55ce21fcebfcac597d37463bf3794",
+            "execution_seal_sha256": "30bcae5b6e2513cccc8f8d649e9702c22df6fc4594655b387a9c861978808715"
+          }
+        },
+        {
+          "label": "reference-baseline-2",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 57.27202120795846,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2315239424,
+          "cpu_user_seconds": 39.534042,
+          "cpu_system_seconds": 13.477134,
+          "execution_seconds": 49.454840291058645,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "135227feade91739d8f0fcf977534f58770d2e4d1756f020694e014e6da4812e"
+          }
+        },
+        {
+          "label": "reference-candidate-2",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 41.93915529199876,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2286419968,
+          "cpu_user_seconds": 36.504356,
+          "cpu_system_seconds": 2.588845,
+          "execution_seconds": 33.87098754197359,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "cb528eade1e75fb3ebf644aeb291c7221288648c86f244f199cf54673d0b4009",
+            "execution_seal_sha256": "6bc8924108ece671f25539216b22f3e5a3e7b13b49fd3422b4f76c4d5e3acf0a"
+          }
+        },
+        {
+          "label": "feedback-candidate-2",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 43.23170516709797,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2460844032,
+          "cpu_user_seconds": 36.462283,
+          "cpu_system_seconds": 2.242299,
+          "execution_seconds": 32.378175290999934,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4551b21e98fd5983b831dc8c8cf58fe096f55ce21fcebfcac597d37463bf3794",
+            "execution_seal_sha256": "9340ff4b75d61eb92ae059367c5773ae3156a3e51405760d445f2bbfaa2133dd"
+          }
+        },
+        {
+          "label": "feedback-baseline-2",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 56.82055912492797,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2191409152,
+          "cpu_user_seconds": 39.318447,
+          "cpu_system_seconds": 13.067763,
+          "execution_seconds": 48.88947375002317,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "fa3ee551eacc26ae4c54f31a5af0b2ab52de28f0908957e021d9c36eb6562680"
+          }
+        }
+      ],
+      "suite_wall_seconds": 629.8740643330384,
+      "retained_bytes": 1304841842
+    },
+    "short_lived_buffer": {
+      "status": "supported_scoped_cost_reduction",
+      "protocol_sha256": "b30bd072e59c488b6e1c00e916cf3579bd31b2cede5e45fcea0bc104321662ea",
+      "baseline_capture_source_sha256": "237850caa9390a3f2d022364d7be48dd20ca628d68d87e3379f5fd54f5609dd5",
+      "candidate_capture_source_sha256": "474854f89365907dd0a45ca4918eecf150f6028a2653f5f1752192156c7b9e89",
+      "summaries": {
+        "reference": {
+          "process_seconds": {
+            "baseline": [
+              56.684836625121534,
+              57.52295154216699,
+              57.41116591705941
+            ],
+            "candidate": [
+              47.67928724992089,
+              46.22352979215793,
+              46.58527120901272
+            ]
+          },
+          "median_process_seconds": {
+            "baseline": 57.41116591705941,
+            "candidate": 46.58527120901272
+          },
+          "baseline_over_candidate": 1.2323887878525914,
+          "paired_ratios_in_block_order": [
+            1.188877600623436,
+            1.244451728390636,
+            1.2323887878525914
+          ],
+          "peak_rss_bytes": {
+            "baseline": [
+              2376548352,
+              2180661248,
+              2392817664
+            ],
+            "candidate": [
+              2112782336,
+              2432122880,
+              1992835072
+            ]
+          },
+          "speed_gate": true,
+          "memory_gate": true
+        },
+        "feedback": {
+          "process_seconds": {
+            "baseline": [
+              57.17298512486741,
+              58.15112791699357,
+              56.98528250004165
+            ],
+            "candidate": [
+              47.359621291048825,
+              46.07216800004244,
+              46.67018095892854
+            ]
+          },
+          "median_process_seconds": {
+            "baseline": 57.17298512486741,
+            "candidate": 46.67018095892854
+          },
+          "baseline_over_candidate": 1.2250431421121277,
+          "paired_ratios_in_block_order": [
+            1.207209508148524,
+            1.262174767137939,
+            1.2210212458826928
+          ],
+          "peak_rss_bytes": {
+            "baseline": [
+              2312912896,
+              2271100928,
+              2493612032
+            ],
+            "candidate": [
+              2085748736,
+              2300968960,
+              2391834624
+            ]
+          },
+          "speed_gate": true,
+          "memory_gate": true
+        }
+      },
+      "trials": [
+        {
+          "label": "reference-plain",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "plain",
+          "wall_seconds": 10.418649500003085,
+          "exit_code": 0,
+          "block": null,
+          "peak_rss_bytes": 2117615616,
+          "cpu_user_seconds": 5.741514,
+          "cpu_system_seconds": 1.7348109999999999,
+          "execution_seconds": 0.9603593749925494
+        },
+        {
+          "label": "feedback-plain",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "plain",
+          "wall_seconds": 8.43220116617158,
+          "exit_code": 0,
+          "block": null,
+          "peak_rss_bytes": 2485846016,
+          "cpu_user_seconds": 5.562942,
+          "cpu_system_seconds": 1.29876,
+          "execution_seconds": 0.8793269169982523
+        },
+        {
+          "label": "reference-baseline-0",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 56.684836625121534,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2376548352,
+          "cpu_user_seconds": 39.239914,
+          "cpu_system_seconds": 13.257038,
+          "execution_seconds": 49.0755193750374,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "0e75c4d17927c1c11387afc9c13b9c93735ddbbffa76a5f7a760f864bab2440b"
+          }
+        },
+        {
+          "label": "reference-candidate-0",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 47.67928724992089,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2112782336,
+          "cpu_user_seconds": 36.732963,
+          "cpu_system_seconds": 7.844883,
+          "execution_seconds": 39.392000291030854,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "5e357e9a7467ecced8354e63b9553e470372ee1f88dea8879e35d08b670e51e9",
+            "execution_seal_sha256": "b867781253f5b324cb5d981e476c445b25af4987f6ee9e4a826cda4585dcc54d"
+          }
+        },
+        {
+          "label": "feedback-candidate-0",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 47.359621291048825,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2085748736,
+          "cpu_user_seconds": 36.745069,
+          "cpu_system_seconds": 7.603095,
+          "execution_seconds": 39.10082183405757,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "7437df1f5a4655b5b6d1cc82ffb53507bd482d0708d2156a0b280a534543faf0",
+            "execution_seal_sha256": "becc9505ff63d5e4a49cd43fa0563fcd50c82c41625a063aadff378c56bc45b2"
+          }
+        },
+        {
+          "label": "feedback-baseline-0",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 57.17298512486741,
+          "exit_code": 0,
+          "block": 0,
+          "peak_rss_bytes": 2312912896,
+          "cpu_user_seconds": 39.31937,
+          "cpu_system_seconds": 13.474528,
+          "execution_seconds": 49.31565458304249,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "92a0615baf16c3050b116a77e03192b2f515b1a27eefd5ed7c9f3ce055d06fec"
+          }
+        },
+        {
+          "label": "reference-candidate-1",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 46.22352979215793,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2432122880,
+          "cpu_user_seconds": 36.564,
+          "cpu_system_seconds": 7.224167,
+          "execution_seconds": 38.49600841687061,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "5e357e9a7467ecced8354e63b9553e470372ee1f88dea8879e35d08b670e51e9",
+            "execution_seal_sha256": "d5cef23c14e0aad17517282883341af28adee8156579d01425a25e65cc84d57f"
+          }
+        },
+        {
+          "label": "reference-baseline-1",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 57.52295154216699,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2180661248,
+          "cpu_user_seconds": 39.487315,
+          "cpu_system_seconds": 13.579917,
+          "execution_seconds": 49.552295458037406,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "25a039ac9de38d748dde6346f7383ce89d63ff8f69911106017a28f4fc2c19e1"
+          }
+        },
+        {
+          "label": "feedback-baseline-1",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 58.15112791699357,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2271100928,
+          "cpu_user_seconds": 39.303258,
+          "cpu_system_seconds": 13.509682,
+          "execution_seconds": 50.29339041584171,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "04acd3cce3a0999cabfb76c6867935221da7f56e09233db3a8e174aac094b1e6"
+          }
+        },
+        {
+          "label": "feedback-candidate-1",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 46.07216800004244,
+          "exit_code": 0,
+          "block": 1,
+          "peak_rss_bytes": 2300968960,
+          "cpu_user_seconds": 36.380487,
+          "cpu_system_seconds": 7.050515,
+          "execution_seconds": 38.30673558311537,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "7437df1f5a4655b5b6d1cc82ffb53507bd482d0708d2156a0b280a534543faf0",
+            "execution_seal_sha256": "74c24ced4a907fc4abd6e81b412913477395eae7585bb519c0c52632122d6bdc"
+          }
+        },
+        {
+          "label": "reference-baseline-2",
+          "arm": "baseline",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 57.41116591705941,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2392817664,
+          "cpu_user_seconds": 39.479654,
+          "cpu_system_seconds": 13.477774,
+          "execution_seconds": 49.536879792110994,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "4569bd52f31f0b826e8e2b3c76f025ea7fc06973d586417d819bfe199e21345c",
+            "execution_seal_sha256": "05a61d91987c3a77cb18d870db1220c8de977bee604a595551c2a31ac440696d"
+          }
+        },
+        {
+          "label": "reference-candidate-2",
+          "arm": "candidate",
+          "case": "reference",
+          "mode": "captured",
+          "wall_seconds": 46.58527120901272,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 1992835072,
+          "cpu_user_seconds": 36.57449,
+          "cpu_system_seconds": 7.395615,
+          "execution_seconds": 38.69516724999994,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "5e357e9a7467ecced8354e63b9553e470372ee1f88dea8879e35d08b670e51e9",
+            "execution_seal_sha256": "02c341624db46de5f72c5b9e416f4b669e013ae94d5018922e8ac6e6408c6f13"
+          }
+        },
+        {
+          "label": "feedback-candidate-2",
+          "arm": "candidate",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 46.67018095892854,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2391834624,
+          "cpu_user_seconds": 36.521317,
+          "cpu_system_seconds": 7.343377,
+          "execution_seconds": 39.12282679206692,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "7437df1f5a4655b5b6d1cc82ffb53507bd482d0708d2156a0b280a534543faf0",
+            "execution_seal_sha256": "bea5f185094610a1f5c153bac8c2d6eb9cf523530185efe300947e378c7e2cd5"
+          }
+        },
+        {
+          "label": "feedback-baseline-2",
+          "arm": "baseline",
+          "case": "feedback",
+          "mode": "captured",
+          "wall_seconds": 56.98528250004165,
+          "exit_code": 0,
+          "block": 2,
+          "peak_rss_bytes": 2493612032,
+          "cpu_user_seconds": 39.301427,
+          "cpu_system_seconds": 13.239524,
+          "execution_seconds": 49.20362612511963,
+          "quality": {
+            "checks": {
+              "initial": true,
+              "initial_observation": true,
+              "trajectory": true,
+              "all_array_bytes": true
+            },
+            "steps": 32,
+            "unique_arrays": 297,
+            "status": "consistent",
+            "outcome": {
+              "completion_rule": "terminal",
+              "any": false,
+              "terminal": false,
+              "completed": false
+            },
+            "physics_steps": 800,
+            "calls": 96,
+            "measurement_seal_sha256": "206950db813ee1aa45b70de5be0a5d81982e14cd61651205d884edad2d7c39e8",
+            "execution_seal_sha256": "aed3ec305239ca4ca6e26c26617d7768ccd72fa420ebca2944f81fc10ae03161"
+          }
+        }
+      ],
+      "suite_wall_seconds": 646.5267100830097,
+      "retained_bytes": 1304843961
+    }
+  },
+  "whole_owner_cost_advantage": "unresolved",
+  "untouched_case_advantage": "unresolved"
+}

@@ -42,17 +42,17 @@ class NativeProducer:
         return bool(delta[2] >= 0 and contact and np.linalg.norm(delta[:2]) < 0.03)
 
 
-def setup(path, frames=None):
-    model = mj.MjModel.from_xml_string(XML.decode())
+def setup(path, frames=None, *, xml=XML, producer_type=NativeProducer):
+    model = mj.MjModel.from_xml_string(xml.decode())
     data = mj.MjData(model)
     mj.mj_forward(model, data)
-    native = NativeProducer(model, data)
-    source = inspect.getsource(NativeProducer).encode()
+    native = producer_type(model, data)
+    source = inspect.getsource(producer_type).encode()
     writer = MujocoOnRecorder(
         path,
         model=model,
         producer=native.success,
-        model_xml=XML,
+        model_xml=xml,
         bddl=BDDL,
         goal={"predicate": "libero_object_on_v1", "object": "object", "target": "target"},
         entities={

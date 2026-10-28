@@ -1,5 +1,16 @@
 # Continue Nisayon
 
+## Native capture cost · 28 October 2026
+
+The [camera comparison](experiments/results/native-capture-cost-2026-10-28/README.md)
+retains an 18–19% reduction in median process time against the previous recorder
+on two exposed conditions, with identical trajectories and image bytes. The
+short-lived-buffer implementation passes the frozen median-memory gate; the
+earlier persistent-buffer candidate fails it and remains rejected. Native
+controls now have a locked `native` development group and run in Linux/macOS CI.
+This is an internal recording-cost result. A competent owner-workflow comparison,
+complete engineering cost and untouched reuse remain the next evidentiary gates.
+
 ## Native episode source update · 27 October 2026
 
 Current source includes bounded LIBERO/LeRobot episode capture and replay,

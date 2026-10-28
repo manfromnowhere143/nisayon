@@ -29,6 +29,7 @@ simulation = [
 ]
 
 [dependency-groups]
+native = ["mujoco==3.3.2"]
 dev = [
     "h5py==3.16.0",
     "numpy==1.26.4",
@@ -45,6 +46,9 @@ build-backend = "uv_build"
 module-name = "nisayon"
 
 [tool.uv]
+# The historical Lift stack and the native qualification profile use different
+# simulator versions. Lock both profiles, but never install them together.
+conflicts = [[{ extra = "simulation" }, { group = "native" }]]
 # EGL GPU probing is never used by the headless CPU adapter; upstream declares
 # it unconditionally although it does not build on this macOS host.
 override-dependencies = ["egl-probe==1.0.2; sys_platform == 'linux'"]

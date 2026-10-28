@@ -88,13 +88,18 @@ def _numpy_identity(np):
     }
 
 
-def _model_bytes(mj, np, model):
+def _save_model(mj, np, model):
+    """Serialize the complete live model into a short-lived byte buffer."""
     _require(model.nplugin == 0, "unsupported_mujoco_plugin")
     size = mj.mj_sizeModel(model)
     _require(0 < size <= MAX_MODEL_BYTES, "compiled_model_size")
-    raw = np.empty(size, dtype=np.uint8)
-    mj.mj_saveModel(model, None, raw)
-    return raw.tobytes()
+    buffer = np.empty(size, dtype=np.uint8)
+    mj.mj_saveModel(model, None, buffer)
+    return buffer
+
+
+def _model_bytes(mj, np, model):
+    return _save_model(mj, np, model).tobytes()
 
 
 def _state(mj, np, model, data):
@@ -302,6 +307,8 @@ class MujocoOnRecorder:
     The caller binds the real native objects and sources before collection.
     Capture never forwards, steps, resets or corrects the live simulation.
     The producer must be read-only. Failure leaves an unsealed prefix.
+    Serial, exclusive model ownership is required. Every identity check serializes
+    the full live model; buffers and digests are never reused across checks.
     """
 
     def __init__(
@@ -324,7 +331,7 @@ class MujocoOnRecorder:
         self.model, self.producer = model, producer
         self.root = Path(output).absolute()
         _require(self.root.resolve() == self.root, "symlink_output")
-        raw = _model_bytes(self.mj, self.np, model)
+        raw = _save_model(self.mj, self.np, model)
         self.protocol = _protocol(
             {
                 "schema": SCHEMA if ending is None else EPISODE_SCHEMA,
@@ -423,7 +430,7 @@ class MujocoOnRecorder:
         )
         _require(_producer_identity(self.producer) == self.protocol["producer"], "producer_changed")
         _require(
-            _sha(_model_bytes(self.mj, self.np, self.model)) == self.protocol["model_sha256"],
+            _sha(_save_model(self.mj, self.np, self.model)) == self.protocol["model_sha256"],
             "live_model_changed",
         )
         before = _state(self.mj, self.np, self.model, data)
@@ -450,7 +457,7 @@ class MujocoOnRecorder:
             "native_producer_changed_observation",
         )
         _require(
-            _sha(_model_bytes(self.mj, self.np, self.model)) == self.protocol["model_sha256"],
+            _sha(_save_model(self.mj, self.np, self.model)) == self.protocol["model_sha256"],
             "native_producer_changed_model",
         )
         row = {

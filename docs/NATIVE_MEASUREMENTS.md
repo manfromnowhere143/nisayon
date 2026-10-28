@@ -128,3 +128,12 @@ The retained N100 policy records are not retroactively upgraded by this new run.
 Full-scene integrity checks and packet writing are expensive. The native checks
 retain setup, capture, replay and matched uninstrumented timings. Treat this
 implementation as an offline diagnostic, not a qualified real-time controller.
+
+The recorder hashes a fresh full-model buffer directly at each identity check.
+Each check recomputes the live digest against the frozen reference; the buffer
+does not survive the check. The
+[28 October cost comparison](experiments/results/native-capture-cost-2026-10-28/README.md)
+retains an 18–19% reduction in median process time against the previous recorder
+on two exposed camera conditions, with unchanged observations and a passed
+median-memory gate. A faster persistent-buffer candidate failed the memory gate
+and remains rejected. Complete owner-cost advantage is still unresolved.

@@ -59,6 +59,19 @@ when those packages are installed. Tests that need private retained artifacts
 also report skips when those artifacts are absent; a clean checkout is not a
 scientific replay. Use `PYTEST_ADDOPTS=-ra` to see the skip reasons.
 
+Native measurement and execution tests have a smaller locked profile:
+
+```sh
+uv sync --frozen --group native
+uv run --frozen --group native python -m pytest tests/qualification/test_native*.py
+```
+
+CI runs these controls on Linux and macOS. This profile selects MuJoCo 3.3.2
+with the development group's NumPy 1.26.4. It conflicts with the historical
+`simulation` extra, whose MuJoCo 3.2.7 pin remains unchanged; use separate
+environments. These tests do not install LIBERO, execute a learned policy, or
+reproduce the retained camera experiments.
+
 The retained environments' exact package and file identities belong to the
 historical protocols. The [joint CPU Lift case](experiments/LIFT_PROTOCOL_V3.md)
 and [historical clean reproduction](experiments/CLEAN_REPRODUCTION.md) retain

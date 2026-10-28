@@ -41,6 +41,11 @@ jobs:
       - run: rg --version
       - run: uv sync --frozen
       - run: make check
+      - name: Check the native MuJoCo recorder and replay
+        run: |
+          uv sync --frozen --group native
+          uv run --frozen --group native python -c 'import mujoco, numpy; assert mujoco.__version__ == "3.3.2" and numpy.__version__ == "1.26.4"'
+          uv run --frozen --group native python -m pytest tests/qualification/test_native*.py
       - name: Exercise the installed SDK and CLI outside Git
         run: |
           uv sync --frozen --no-dev --no-editable
