@@ -20,6 +20,12 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [28 October residual-monitoring audit](results/residual-monitoring-2026-10-28/README.md)
+reanalyses 927 released robot episodes. It separates task success, missed
+failures, valid-success retention and missing evidence across all available
+SO-101 policy/task/session cohorts. Cross-policy associations remain exploratory;
+the reusable summary does not grant deployment acceptance.
+
 The [28 October native capture comparison](results/native-capture-cost-2026-10-28/README.md)
 removes an extra full-model copy. Six paired runs preserve all recorded states
 and image bytes while reducing median process time by 18–19%. A faster persistent
