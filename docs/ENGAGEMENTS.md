@@ -41,3 +41,12 @@ No receipt grants scientific acceptance or transfers an earlier result to new
 code automatically. On macOS, `scripts/install_engagement_monitor.py` can install
 or remove a local LaunchAgent from its canonical checkout after explicit local
 configuration; retained snapshots survive removal.
+
+## Optional investigation after detection
+
+The current-source [bounded investigation worker](ENGAGEMENT_INVESTIGATIONS.md)
+consumes a retained snapshot and explicitly selected local evidence. Preparation
+makes no model call; `--run-once` requests one admitted worker invocation.
+It produces a checked proposal requiring review. Delivery, experiments, lessons
+and deployment authority remain separate. The read-only monitor never starts
+this worker automatically.

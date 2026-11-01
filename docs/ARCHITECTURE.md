@@ -1,6 +1,6 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 24 October
+**Design v0.1 · 17 September 2026; implementation status updated 1 November
 2026.** The general product architecture remains proposed.
 
 The 27 October [native execution interface](NATIVE_EXECUTION.md) adds bounded
@@ -11,6 +11,11 @@ paired outcomes. The [composed software workflow](QUICKSTART.md#compose-reuse-an
 freezes investigation and confirmation together and tracks local condition
 consumption. Source-specific qualification and unresolved deployment authority
 remain explicit; these are not general simulator or policy dispatch services.
+
+The [bounded upstream investigation](ENGAGEMENT_INVESTIGATIONS.md) adds one
+manually invoked worker over retained thread evidence. It proposes a response
+or experiment and preserves a review boundary before either can occur. It is
+separate from the physical experiment executor and scientific acceptance.
 
 The workspace tools, one CPU Lift adapter, a finite diagnostic procedure,
 bounded model-request interface, fresh-confirmation service and integrated
@@ -182,6 +187,7 @@ flowchart TB
 | Bounded integration cases | [Temporal runtime](../src/nisayon/engine/temporal_runtime.py), [processor cases](../src/nisayon/engine/processor_case.py) | [Temporal interface](experiments/TEMPORAL_INTERFACE.md); constructed software execution and retained readback, with no robot-performance inference. |
 | Declared decision probes | [Finite API](../src/nisayon/engine/identifiability.py), [controls](../tests/engine/test_decision_probes.py) | Exact bounded enumeration; supplied models and labels are premises. |
 | Confirmation research | [Prediction-audit qualification](../scripts/experiments/qualify_prediction_audit.py), [cost challenge](../scripts/experiments/challenge_prediction_audit_cost.py) | Exposed finite arithmetic, separate from the production confirmation service. |
+| Upstream investigation | [Bounded worker](../src/nisayon/engagement_agent.py), [controls](../tests/test_engagement_agent.py) | [Manual invocation and review](ENGAGEMENT_INVESTIGATIONS.md); no automatic delivery, experiment execution or lesson promotion. |
 
 The proposed architecture below describes what further components would need to
 do. Its compiler and general selector are not additional implemented services.

@@ -39,12 +39,12 @@ evidence without executing owner code. Reusing a procedure, reusing observations
 and carrying forward a verdict are separate decisions.
 
 Current source also captures bounded LIBERO/LeRobot episodes, preserves terminal
-observations and checks recorded physics and success calls in replay. A five-pair
-retained example exercises native task comparison without a simulator. The
-[native episode guide](docs/NATIVE_EXECUTION.md) and
-[evidence summary](docs/experiments/results/native-episodes-2026-10-27/README.md)
-separate these checks from learned task repair, deployment acceptance and cost
-savings, which this update does not establish.
+observations and checks recorded physics and success calls in replay. The
+[native episode guide](docs/NATIVE_EXECUTION.md) separates these checks from
+learned task repair and deployment acceptance. A
+[bounded investigation worker](docs/ENGAGEMENT_INVESTIGATIONS.md) can propose
+follow-up work from retained upstream evidence; experiments and public responses
+still require separate review.
 
 [Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
 [SDK and interface review](docs/SDK_REVIEW_2026-10-25.md)
@@ -69,17 +69,20 @@ proposed.
 ```mermaid
 flowchart TB
     accTitle: Nisayon execution, retained evidence, reuse and the next value test
-    accDescr: Closed-loop Lift experiments require fresh task confirmation. The native Python SDK checks declared software relations and owner-file reads. Separate upstream studies qualify exact source and training recipes. All retain scoped evidence and costs. Procedure, observation and verdict reuse have different requirements. Owner savings and a separate untouched owner incident remain unproved; expansion depends on those results.
+    accDescr: Closed-loop Lift experiments require fresh task confirmation. The native Python SDK checks declared software relations and owner-file reads. Native episode capture checks recorded physics and task measurements. Separate upstream studies qualify exact source and training recipes. A bounded investigation worker proposes follow-up work for review. All retain scoped evidence and costs. Procedure, observation and verdict reuse have different requirements. Owner savings and a separate untouched owner incident remain unproved; expansion depends on those results.
     subgraph W["Implemented paths"]
         T["Closed-loop Lift<br/>fixed policy<br/>changed deployment"] --> F["Fresh task confirmation<br/>correction and reference pairs"]
         N["Native Python SDK + CLI<br/>source · data<br/>environment"] --> S["Software qualification<br/>call and read witnesses<br/>reference · control · candidate"]
+        L["Native episode capture<br/>actions · physics · observations"] --> M["Replay and task measurement checks<br/>frozen completion rules"]
     end
+    M --> H
     D["Offline decision probes<br/>declared hypotheses<br/>and choices"] -. "experimental native bridge" .-> N
+    I["Bounded upstream investigation<br/>retained evidence · checked proposal"] -. "separate review and execution" .-> X
     X["Native upstream studies<br/>training · checkpoints<br/>source-specific fixes"] --> H
     F --> H["Retained evidence<br/>identities · attempts · costs · unknowns"]
     S --> H
     H --> R["Inspect and scope reuse<br/>procedure · observations · verdict"]
-    R --> A["Explicit dependency model<br/>observations · scores · fresh checks<br/>unreleased SDK planner"]
+    R --> A["Explicit dependency model<br/>observations · scores · fresh checks<br/>current-source SDK planner"]
     subgraph V["Value still to establish"]
         direction LR
         O["Live owner comparison<br/>matched quality · full cost"]
@@ -131,6 +134,45 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**1 November — actual pi0.5 identity checks, with an unresolved parity result.**
+Four Linux/A100 starts and three full-checkpoint hashes completed. Both deliberately
+wrong identities were refused. The candidate added about 35.20 seconds to the
+specified startup endpoint in one ABBA block. All four action arrays differed,
+including repeated unchanged-base starts; the frozen exact-parity criterion
+failed. [The GPU addendum](https://gist.github.com/manfromnowhere143/45eb127aa8f4b776e10374c7dfef7781#file-gpu_check-md)
+retains the limits. This supports bounded backend checks, not unchanged robot
+behavior, owner savings or candidate adoption.
+
+**1 November — evidence-bound upstream investigation.** A manually invoked
+worker now produces a bounded, cited proposal from a retained thread and selected
+records. Repeat invocation of the same job does not call the model again.
+[Its controls and measured pilot](docs/ENGAGEMENT_INVESTIGATIONS.md) retain the
+failed canary and substantial context cost. Autonomous delivery and improved
+future investigation quality remain unestablished.
+
+**29 October — Long-WAM was merged upstream.** The author integrated the
+[LeRobot port](https://github.com/huggingface/lerobot/pull/5008), including the
+shared-weight loading and saved-processor corrections from this investigation.
+Merge is an upstream engineering outcome; matched checkpoint benefit and
+complete owner savings still require their own evidence.
+
+**28 October — missing measurements preserve uncertainty.** The
+[monitoring audit review](docs/experiments/results/monitoring-audit-review-2026-10-28/README.md)
+checks partial labels, undefined conditional rates and valid successes against
+an enumeration oracle. Its finite constructed controls support conservative
+bounds in scope; they do not establish correct real-world reference labels.
+
+**28 October — native capture cost reduced.** The
+[capture comparison](docs/experiments/results/native-capture-cost-2026-10-28/README.md)
+found 18–19% lower median full-process time against the previous Nisayon recorder
+on two exposed camera conditions. All six pairs were faster, recorded bytes
+matched, and both median-memory gates passed. The faster persistent-buffer
+candidate failed its memory gate and remains rejected. Both diagnostic
+controllers still failed their task. These are recorder improvements, not
+complete owner-workflow savings.
+
+
 
 **25 October — evidence applicability now has an explicit dependency model.**
 The unreleased SDK planner explains which checks code, data, runtime, scoring
@@ -293,8 +335,8 @@ a proposed changed-observation reset check, model identities and an offline
 report reader make the result inspectable. These are software checks with
 synthetic inputs, not physical task confirmation or measured owner savings.
 
-The public source includes selected native contributions through 20 October
-2026. Each packet records its source, qualification and review status. The
+The public source includes selected native contributions and qualification
+updates through 1 November 2026. Each packet records its source, qualification and review status. The
 [release notes](docs/RELEASE.md) identify earlier source snapshots.
 
 The latest research sharpens the question: which experiment could change the

@@ -67,3 +67,10 @@ The complete code map and scientific boundaries are in
 explains the verified interface gaps and the proposed next research step.
 General dependency inference, learned experiment selection, arbitrary robot
 adapters, cloud job execution and enterprise tenancy remain proposed.
+
+## Upstream investigation (current source)
+
+`python -m nisayon.engagement_agent` prepares a packet; `--run-once` invokes one
+bounded worker. Checked proposals remain subject to review. The
+[investigation guide](ENGAGEMENT_INVESTIGATIONS.md) describes citation limits,
+repeat-job handling, the executed pilot and the cost still to establish.
