@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import platform
 import subprocess
 import time
@@ -18,7 +19,8 @@ from . import continuity, engagements, records
 from .engine import bounded_agent
 from .engine.cli_identity import resolve_cli, unchanged
 
-VERSION = "nisayon.engagement-investigation.v1"
+LEGACY_VERSION = "nisayon.engagement-investigation.v1"
+VERSION = "nisayon.engagement-investigation.v2"
 MAX_BYTES = 256 * 1024
 PROMPT = """Read packet.json completely. Investigate the next useful decision for
 this GitHub thread using its current discussion, prior review and retained evidence.
@@ -40,6 +42,13 @@ For investigation, state a decision-relevant question, at least two competing
 answers and the different actions each would justify, the cheapest discriminating
 check, and its stop condition. A mandatory validity check may be justified on its
 own terms. Do not claim a calibrated value-of-information score without data.
+Supply one experiment_design for investigation, otherwise an empty array. Bind a
+predicted observation to each exact alternative answer. Name the minimum execution,
+the oracle's measurement and identity, its independence and limitations, and the
+unresolved assumptions. State estimated resource costs with their basis; use null
+with a reason when unknown, never an invented zero. Estimates are not measurements.
+An unavailable oracle can be named explicitly; review must resolve that obligation
+before execution or acceptance. Do not infer causal truth from matching quotations.
 For draft_reply, provide only a specific useful response grounded in cited facts.
 Use exact short quotes and the source IDs from packet.json for each factual claim.
 Citations establish inspectability, not truth. Drafts remain unapproved.
@@ -69,7 +78,7 @@ def _array(items: dict, maximum: int = 8) -> dict:
     return {"type": "array", "items": items, "maxItems": maximum}
 
 
-RESPONSE_SCHEMA = _object(
+LEGACY_RESPONSE_SCHEMA = _object(
     {
         "job_id": _text(64),
         "snapshot_fingerprint": _text(64),
@@ -105,6 +114,46 @@ RESPONSE_SCHEMA = _object(
     }
 )
 
+COST_RESOURCES = (
+    "wall_seconds",
+    "cpu_seconds",
+    "gpu_seconds",
+    "input_tokens",
+    "output_tokens",
+    "charges_usd",
+    "human_minutes",
+    "maintenance_minutes",
+)
+EXPERIMENT_DESIGN_SCHEMA = _object(
+    {
+        "predictions": _array(_object({"answer": _text(), "observation": _text()}), 4),
+        "oracle": _object(
+            {
+                "measurement": _text(),
+                "identity": _text(),
+                "independence": _text(),
+                "limitations": _text(),
+            }
+        ),
+        "minimum_execution": _text(),
+        "estimated_costs": _object(
+            {
+                resource: _object(
+                    {"value": {"type": ["number", "null"], "minimum": 0}, "basis": _text()}
+                )
+                for resource in COST_RESOURCES
+            }
+        ),
+        "unresolved_assumptions": _array(_text()),
+    }
+)
+RESPONSE_SCHEMA = _object(
+    {
+        **LEGACY_RESPONSE_SCHEMA["properties"],
+        "experiment_design": _array(EXPERIMENT_DESIGN_SCHEMA, 1),
+    }
+)
+
 
 def _validate_shape(value: object, schema: dict) -> None:
     kind = schema["type"]
@@ -118,6 +167,14 @@ def _validate_shape(value: object, schema: dict) -> None:
             raise ValueError("Invalid response array")
         for item in value:
             _validate_shape(item, schema["items"])
+    elif kind == ["number", "null"]:
+        if value is not None and (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or value < 0
+            or (isinstance(value, float) and not math.isfinite(value))
+        ):
+            raise ValueError("A cost estimate must be finite, nonnegative or explicitly unknown")
     elif not isinstance(value, str) or len(value) > schema.get("maxLength", 100):
         raise ValueError("Invalid response text")
     if "enum" in schema and value not in schema["enum"]:
@@ -126,7 +183,10 @@ def _validate_shape(value: object, schema: dict) -> None:
 
 def validate_response(response: dict, packet: dict) -> dict:
     """Check bindings and explicit obligations, not semantic truth or writing quality."""
-    _validate_shape(response, RESPONSE_SCHEMA)
+    version = packet.get("schema")
+    if version not in {LEGACY_VERSION, VERSION}:
+        raise ValueError("Unknown investigation packet version")
+    _validate_shape(response, RESPONSE_SCHEMA if version == VERSION else LEGACY_RESPONSE_SCHEMA)
     if (
         response["job_id"] != packet["job_id"]
         or response["snapshot_fingerprint"] != packet["fingerprint"]
@@ -163,6 +223,39 @@ def validate_response(response: dict, packet: dict) -> dict:
         raise ValueError("Only a reply proposal may contain a draft")
     if action == "draft_reply" and (not response["draft"].strip() or not response["claims"]):
         raise ValueError("Reply proposal needs a draft and source-bound claims")
+    design_status, cost_status = "not_required", "not_required"
+    if version == LEGACY_VERSION:
+        design_status = cost_status = "not_checked_legacy"
+    elif action == "investigate":
+        if len(response["experiment_design"]) != 1:
+            raise ValueError("Investigation needs one explicit experiment design")
+        design = response["experiment_design"][0]
+        predictions = design["predictions"]
+        answers = [x["answer"] for x in response["alternatives"]]
+        if (
+            len(set(answers)) != len(answers)
+            or sorted(x["answer"] for x in predictions) != sorted(answers)
+            or any(not x["observation"].strip() for x in predictions)
+            or len({x["observation"].strip().casefold() for x in predictions}) < 2
+        ):
+            raise ValueError("Predictions must bind and distinguish the declared alternatives")
+        if not design["minimum_execution"].strip() or any(
+            not x.strip() for x in design["oracle"].values()
+        ):
+            raise ValueError("Design needs minimum execution and explicit oracle obligations")
+        costs = design["estimated_costs"]
+        if any(not x["basis"].strip() for x in costs.values()):
+            raise ValueError("Every cost estimate or unknown needs a basis")
+        if any(not x.strip() for x in design["unresolved_assumptions"]):
+            raise ValueError("Unresolved assumptions cannot be blank")
+        design_status = "fields_checked_not_validated"
+        cost_status = (
+            "estimates_with_unknowns"
+            if any(x["value"] is None for x in costs.values())
+            else "estimates_not_measurements"
+        )
+    elif response["experiment_design"]:
+        raise ValueError("Only investigation may contain an experiment design")
     for lesson in response["lesson_proposals"]:
         if not all(
             lesson[k].strip()
@@ -174,6 +267,9 @@ def validate_response(response: dict, packet: dict) -> dict:
     return {
         "binding_and_citations": "checked",
         "semantic_correctness": "not_adjudicated",
+        "experiment_design": design_status,
+        "costs": cost_status,
+        "experiment_execution_authorized": False,
         "delivery_authorized": False,
         "lesson_promotion_authorized": False,
     }

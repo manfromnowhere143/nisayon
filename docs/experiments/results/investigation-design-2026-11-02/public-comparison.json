@@ -1,0 +1,560 @@
+{
+  "scope": "Exposed completeness controls, not semantic truth or agent superiority",
+  "original_source": "0727ba6cde880b1432f591aabd7b2f230f493f08",
+  "totals": {
+    "original_v1": {
+      "cases": 22,
+      "matches_completeness_reference": 3,
+      "incomplete_plans_admitted": 19,
+      "reviewable_plans_blocked": 0
+    },
+    "ordinary_schema_checklist": {
+      "cases": 22,
+      "matches_completeness_reference": 22,
+      "incomplete_plans_admitted": 0,
+      "reviewable_plans_blocked": 0
+    },
+    "nisayon_v2": {
+      "cases": 22,
+      "matches_completeness_reference": 22,
+      "incomplete_plans_admitted": 0,
+      "reviewable_plans_blocked": 0
+    }
+  },
+  "rows": [
+    {
+      "case": "explicit_unknown_costs",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 24125
+    },
+    {
+      "case": "explicit_unknown_costs",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 11705625
+    },
+    {
+      "case": "explicit_unknown_costs",
+      "arm": "nisayon_v2",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 33000
+    },
+    {
+      "case": "correct_quote_invalid_causal_claim",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 10333
+    },
+    {
+      "case": "correct_quote_invalid_causal_claim",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 11473916
+    },
+    {
+      "case": "correct_quote_invalid_causal_claim",
+      "arm": "nisayon_v2",
+      "reviewable": true,
+      "expected_reviewable": true,
+      "error": null,
+      "elapsed_ns": 24750
+    },
+    {
+      "case": "missing_design",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 8333
+    },
+    {
+      "case": "missing_design",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'experiment_design' is a required property\n\nFailed validating 'required' in schema:\n    {'type': 'object',\n     'properties': {'job_id': {'type': 'string', 'maxLength': 64},\n                    'snapshot_fingerprint': {'type': 'string',\n                                             'maxLength': 64},\n                    'action': {'type': 'string',\n                               'enum': ['wait',\n   ",
+      "elapsed_ns": 14416459
+    },
+    {
+      "case": "missing_design",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 6208
+    },
+    {
+      "case": "missing_predictions",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 17584
+    },
+    {
+      "case": "missing_predictions",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'predictions' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']:\n    {'type': 'object',\n     'properties': {'predictions': {'type': 'array',\n                                    'items': {'type': 'object',\n                                              'properties': {'answer': {'type': 'string',\n                                                ",
+      "elapsed_ns": 13169875
+    },
+    {
+      "case": "missing_predictions",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 12708
+    },
+    {
+      "case": "missing_oracle",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 12666
+    },
+    {
+      "case": "missing_oracle",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'oracle' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']:\n    {'type': 'object',\n     'properties': {'predictions': {'type': 'array',\n                                    'items': {'type': 'object',\n                                              'properties': {'answer': {'type': 'string',\n                                                     ",
+      "elapsed_ns": 12975500
+    },
+    {
+      "case": "missing_oracle",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 12459
+    },
+    {
+      "case": "missing_minimum_execution",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 12333
+    },
+    {
+      "case": "missing_minimum_execution",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'minimum_execution' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']:\n    {'type': 'object',\n     'properties': {'predictions': {'type': 'array',\n                                    'items': {'type': 'object',\n                                              'properties': {'answer': {'type': 'string',\n                                          ",
+      "elapsed_ns": 13165666
+    },
+    {
+      "case": "missing_minimum_execution",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 14125
+    },
+    {
+      "case": "missing_estimated_costs",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 18917
+    },
+    {
+      "case": "missing_estimated_costs",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'estimated_costs' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']:\n    {'type': 'object',\n     'properties': {'predictions': {'type': 'array',\n                                    'items': {'type': 'object',\n                                              'properties': {'answer': {'type': 'string',\n                                            ",
+      "elapsed_ns": 12257584
+    },
+    {
+      "case": "missing_estimated_costs",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 21375
+    },
+    {
+      "case": "missing_unresolved_assumptions",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 16250
+    },
+    {
+      "case": "missing_unresolved_assumptions",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'unresolved_assumptions' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']:\n    {'type': 'object',\n     'properties': {'predictions': {'type': 'array',\n                                    'items': {'type': 'object',\n                                              'properties': {'answer': {'type': 'string',\n                                     ",
+      "elapsed_ns": 12976791
+    },
+    {
+      "case": "missing_unresolved_assumptions",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 11541
+    },
+    {
+      "case": "missing_prediction",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 11500
+    },
+    {
+      "case": "missing_prediction",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11564000
+    },
+    {
+      "case": "missing_prediction",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Predictions must bind and distinguish the declared alternatives",
+      "elapsed_ns": 23875
+    },
+    {
+      "case": "unbound_prediction",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 9417
+    },
+    {
+      "case": "unbound_prediction",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11410459
+    },
+    {
+      "case": "unbound_prediction",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Predictions must bind and distinguish the declared alternatives",
+      "elapsed_ns": 21708
+    },
+    {
+      "case": "nondiscriminating_predictions",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 8583
+    },
+    {
+      "case": "nondiscriminating_predictions",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11399625
+    },
+    {
+      "case": "nondiscriminating_predictions",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Predictions must bind and distinguish the declared alternatives",
+      "elapsed_ns": 24000
+    },
+    {
+      "case": "blank_oracle_identity",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 8959
+    },
+    {
+      "case": "blank_oracle_identity",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11309917
+    },
+    {
+      "case": "blank_oracle_identity",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Design needs minimum execution and explicit oracle obligations",
+      "elapsed_ns": 21917
+    },
+    {
+      "case": "blank_oracle_independence",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 8000
+    },
+    {
+      "case": "blank_oracle_independence",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11467250
+    },
+    {
+      "case": "blank_oracle_independence",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Design needs minimum execution and explicit oracle obligations",
+      "elapsed_ns": 29333
+    },
+    {
+      "case": "blank_oracle_limitations",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 9875
+    },
+    {
+      "case": "blank_oracle_limitations",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11714125
+    },
+    {
+      "case": "blank_oracle_limitations",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Design needs minimum execution and explicit oracle obligations",
+      "elapsed_ns": 22500
+    },
+    {
+      "case": "blank_oracle_measurement",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 7792
+    },
+    {
+      "case": "blank_oracle_measurement",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11269500
+    },
+    {
+      "case": "blank_oracle_measurement",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Design needs minimum execution and explicit oracle obligations",
+      "elapsed_ns": 19500
+    },
+    {
+      "case": "missing_human_cost",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 7750
+    },
+    {
+      "case": "missing_human_cost",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "'human_minutes' is a required property\n\nFailed validating 'required' in schema['properties']['experiment_design']['items']['properties']['estimated_costs']:\n    {'type': 'object',\n     'properties': {'wall_seconds': {'type': 'object',\n                                     'properties': {'value': {'type': ['number',\n                                                                       'null'],\n    ",
+      "elapsed_ns": 11908208
+    },
+    {
+      "case": "missing_human_cost",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Response has missing or undeclared fields",
+      "elapsed_ns": 13208
+    },
+    {
+      "case": "unexplained_unknown_cost",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 10167
+    },
+    {
+      "case": "unexplained_unknown_cost",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 11927542
+    },
+    {
+      "case": "unexplained_unknown_cost",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Every cost estimate or unknown needs a basis",
+      "elapsed_ns": 27000
+    },
+    {
+      "case": "negative_cost",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 9917
+    },
+    {
+      "case": "negative_cost",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "-1 is less than the minimum of 0\n\nFailed validating 'minimum' in schema['properties']['experiment_design']['items']['properties']['estimated_costs']['properties']['wall_seconds']['properties']['value']:\n    {'type': ['number', 'null'], 'minimum': 0}\n\nOn instance['experiment_design'][0]['estimated_costs']['wall_seconds']['value']:\n    -1",
+      "elapsed_ns": 11573375
+    },
+    {
+      "case": "negative_cost",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "A cost estimate must be finite, nonnegative or explicitly unknown",
+      "elapsed_ns": 15458
+    },
+    {
+      "case": "boolean_cost",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 11542
+    },
+    {
+      "case": "boolean_cost",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "True is not of type 'number', 'null'\n\nFailed validating 'type' in schema['properties']['experiment_design']['items']['properties']['estimated_costs']['properties']['wall_seconds']['properties']['value']:\n    {'type': ['number', 'null'], 'minimum': 0}\n\nOn instance['experiment_design'][0]['estimated_costs']['wall_seconds']['value']:\n    True",
+      "elapsed_ns": 11480208
+    },
+    {
+      "case": "boolean_cost",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "A cost estimate must be finite, nonnegative or explicitly unknown",
+      "elapsed_ns": 20500
+    },
+    {
+      "case": "empty_execution",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 15875
+    },
+    {
+      "case": "empty_execution",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 12005708
+    },
+    {
+      "case": "empty_execution",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Design needs minimum execution and explicit oracle obligations",
+      "elapsed_ns": 25375
+    },
+    {
+      "case": "blank_assumption",
+      "arm": "original_v1",
+      "reviewable": true,
+      "expected_reviewable": false,
+      "error": null,
+      "elapsed_ns": 9416
+    },
+    {
+      "case": "blank_assumption",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "",
+      "elapsed_ns": 13471583
+    },
+    {
+      "case": "blank_assumption",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Unresolved assumptions cannot be blank",
+      "elapsed_ns": 26333
+    },
+    {
+      "case": "fabricated_quote",
+      "arm": "original_v1",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Citation is absent from the bound source",
+      "elapsed_ns": 8458
+    },
+    {
+      "case": "fabricated_quote",
+      "arm": "ordinary_schema_checklist",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Citation is absent from the bound source",
+      "elapsed_ns": 11476250
+    },
+    {
+      "case": "fabricated_quote",
+      "arm": "nisayon_v2",
+      "reviewable": false,
+      "expected_reviewable": false,
+      "error": "Citation is absent from the bound source",
+      "elapsed_ns": 16958
+    }
+  ],
+  "complete_cost_advantage": "not_established",
+  "limits": [
+    "Same investigator authors implementation and cases",
+    "Checklist is an ordinary capable component, not a live engineering agent",
+    "Correct-quote invalid-causality control stays unadjudicated in every arm"
+  ]
+}

@@ -1,5 +1,19 @@
 # Research source and releases
 
+## Explicit investigation designs · 2 November 2026
+
+The bounded investigation worker now requires predictions, oracle obligations,
+minimum execution, estimated resource costs and unresolved assumptions in a v2
+proposal. Historical v1 records remain readable with absent checks labeled.
+Checked fields do not establish semantic correctness or authorize execution.
+
+The [reproduction packet](experiments/results/investigation-design-2026-11-02/README.md)
+retains the failing regression and a 22-case completeness comparison: the change
+rejects 19 incomplete plans admitted by v1 and ties an ordinary checklist.
+The separate live-agent pilot stopped after its first arm exceeded the frozen
+token threshold. No complete-cost or learning advantage is established.
+This updates current source; the tagged SDK release remains unchanged.
+
 ## Bounded native episodes and composed qualification · 27 October 2026
 
 Current source can retain the actual LIBERO/LeRobot terminal observation,

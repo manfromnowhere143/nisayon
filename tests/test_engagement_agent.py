@@ -79,6 +79,26 @@ def response(public):
             {"answer": "They agree", "resulting_action": "Inspect runtime and stochastic state."},
         ],
         "experiment": "Compare retained transformed-input identities before buying more compute.",
+        "experiment_design": [
+            {
+                "predictions": [
+                    {"answer": "They differ", "observation": "At least one input digest differs."},
+                    {"answer": "They agree", "observation": "All input digests match."},
+                ],
+                "oracle": {
+                    "measurement": "Compare serialized tensors bytewise and recompute digests.",
+                    "identity": "Requested original transformed-input files and their manifests.",
+                    "independence": "Byte comparison independent of the policy's action outputs.",
+                    "limitations": "Equal inputs do not establish runtime or RNG equivalence.",
+                },
+                "minimum_execution": "Two retained input reads; no policy or GPU execution.",
+                "estimated_costs": {
+                    k: {"value": None, "basis": "Not measured; resolve before budgeting execution."}
+                    for k in agent.COST_RESOURCES
+                },
+                "unresolved_assumptions": ["Original input bytes may not have been retained."],
+            }
+        ],
         "stop_condition": "If transformed inputs were not retained, report that missing evidence.",
         "draft": "",
         "lesson_proposals": [],
@@ -288,6 +308,157 @@ def test_missing_usage_does_not_trigger_an_unbudgeted_retry(inbox):
     assert worker.calls == 1
 
 
+def test_cited_run_more_tests_is_not_a_reviewable_experiment(inbox):
+    """Exact citations and differing actions do not supply an experimental design."""
+
+    def incomplete(result, public):
+        result["response"].pop("experiment_design", None)
+        result["response"]["experiment"] = "Run more tests."
+
+    worker = Worker(incomplete)
+    result = run(inbox, worker)
+    assert result["status"] == "blocked"
+    assert run(inbox, worker)["reused"] and worker.calls == 1
+
+
+@pytest.mark.parametrize(
+    "mode",
+    [
+        "no_design",
+        "no_prediction",
+        "duplicate_prediction",
+        "unbound_prediction",
+        "same_prediction",
+        "blank_prediction",
+        "no_oracle",
+        "blank_oracle_identity",
+        "no_execution",
+        "missing_cost",
+        "unexplained_unknown",
+        "negative_cost",
+        "infinite_cost",
+        "nan_cost",
+        "boolean_cost",
+        "blank_assumption",
+    ],
+)
+def test_experiment_obligation_failures_block_without_retry(inbox, mode):
+    def mutate(result, public):
+        r = result["response"]
+        d = r["experiment_design"][0]
+        if mode == "no_design":
+            r["experiment_design"] = []
+        elif mode == "no_prediction":
+            d["predictions"].pop()
+        elif mode == "duplicate_prediction":
+            d["predictions"][1] = d["predictions"][0].copy()
+        elif mode == "unbound_prediction":
+            d["predictions"][0]["answer"] = "A third explanation"
+        elif mode == "same_prediction":
+            d["predictions"][1]["observation"] = d["predictions"][0]["observation"]
+        elif mode == "blank_prediction":
+            d["predictions"][0]["observation"] = " "
+        elif mode == "no_oracle":
+            d["oracle"]["independence"] = ""
+        elif mode == "blank_oracle_identity":
+            d["oracle"]["identity"] = " "
+        elif mode == "no_execution":
+            d["minimum_execution"] = " "
+        elif mode == "missing_cost":
+            d["estimated_costs"].pop("human_minutes")
+        elif mode == "unexplained_unknown":
+            d["estimated_costs"]["charges_usd"]["basis"] = " "
+        elif mode == "blank_assumption":
+            d["unresolved_assumptions"] = [""]
+        else:
+            d["estimated_costs"]["wall_seconds"]["value"] = {
+                "negative_cost": -1,
+                "infinite_cost": float("inf"),
+                "nan_cost": float("nan"),
+                "boolean_cost": True,
+            }[mode]
+
+    worker = Worker(mutate)
+    assert run(inbox, worker)["status"] == "blocked"
+    assert run(inbox, worker)["reused"] and worker.calls == 1
+
+
+def test_explicit_unknowns_preserve_a_useful_difficult_investigation(inbox):
+    result = run(inbox, Worker())
+    assert result["status"] == "review_required"
+    assert result["validation"]["costs"] == "estimates_with_unknowns"
+    assert result["validation"]["experiment_design"] == "fields_checked_not_validated"
+    assert result["validation"]["semantic_correctness"] == "not_adjudicated"
+    assert result["validation"]["experiment_execution_authorized"] is False
+
+
+def test_correct_quote_cannot_certify_an_invalid_causal_interpretation(inbox):
+    def mutate(result, public):
+        result["response"]["claims"][0]["statement"] = (
+            "Baseline action parity failed, therefore the checkpoint correction is proven."
+        )
+
+    result = run(inbox, Worker(mutate))
+    assert result["status"] == "review_required"
+    assert result["validation"]["semantic_correctness"] == "not_adjudicated"
+    assert not result["validation"]["delivery_authorized"]
+
+
+def test_legacy_readback_never_invents_missing_design_or_cost_checks(inbox, tmp_path):
+    p = packet(inbox)
+    (tmp_path / "packet.json").write_text(json.dumps(p))
+    r = response(tmp_path)
+    r.pop("experiment_design")
+    p["schema"] = agent.LEGACY_VERSION
+    result = agent.validate_response(r, p)
+    assert result["experiment_design"] == "not_checked_legacy"
+    assert result["costs"] == "not_checked_legacy"
+    for version in ["nisayon.engagement-investigation.v99", None]:
+        p["schema"] = version
+        with pytest.raises(ValueError, match="version"):
+            agent.validate_response(r, p)
+
+
+def test_complete_estimates_are_still_not_measured_costs(inbox):
+    def mutate(result, public):
+        for cost in result["response"]["experiment_design"][0]["estimated_costs"].values():
+            cost.update(value=0, basis="Declared zero for this synthetic control only.")
+
+    result = run(inbox, Worker(mutate))
+    assert result["status"] == "review_required"
+    assert result["validation"]["costs"] == "estimates_not_measurements"
+
+
+@pytest.mark.parametrize("action", ["wait", "draft_reply"])
+def test_design_cannot_be_hidden_in_another_action(inbox, action):
+    def mutate(result, public):
+        result["response"].update(
+            action=action,
+            question="",
+            alternatives=[],
+            experiment="",
+            stop_condition="",
+            draft="A source-bound draft for review only." if action == "draft_reply" else "",
+        )
+
+    assert run(inbox, Worker(mutate))["status"] == "blocked"
+
+
+def test_unavailable_oracle_can_be_retained_without_inventing_validation(inbox):
+    def mutate(result, public):
+        d = result["response"]["experiment_design"][0]
+        d["oracle"].update(
+            identity="Unavailable: original tensor archive was not supplied.",
+            independence="Requires an independently retained input witness; not established.",
+        )
+        d["unresolved_assumptions"].append("Request the original archive before execution.")
+
+    result = run(inbox, Worker(mutate))
+    assert result["status"] == "review_required"
+    assert result["validation"]["experiment_design"] == "fields_checked_not_validated"
+    assert result["validation"]["experiment_execution_authorized"] is False
+
+
 def test_duplicate_worker_sees_the_durable_running_claim(inbox):
     other = Worker()
 
@@ -334,6 +505,7 @@ def test_valid_wait_and_unpromoted_lesson_remain_proposals(inbox):
             question="",
             alternatives=[],
             experiment="",
+            experiment_design=[],
             stop_condition="",
             lesson_proposals=[
                 {

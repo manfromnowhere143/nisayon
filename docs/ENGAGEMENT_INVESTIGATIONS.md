@@ -50,6 +50,27 @@ exact quoted substrings. It checks inspectability, not whether a quote entails
 the claim. A reviewer must still check factual interpretation, source freshness,
 duplication, experimental validity and authority before acting.
 
+### Versioned experiment proposals
+
+New packets use `nisayon.engagement-investigation.v2`. An investigation includes
+one `experiment_design`: predictions bound to its alternative answers, an oracle
+measurement/identity/independence/limitations, minimum execution, estimated costs
+with a basis for every value or explicit unknown, and unresolved assumptions.
+Wait and reply proposals carry an empty design array. Historical v1 responses
+remain readable with design and cost checks marked `not_checked_legacy`.
+
+The checker rejects missing obligations and malformed estimates; it does not
+validate the oracle, causal interpretation, source completeness or estimated
+cost. A deliberately wrong interpretation with a matching quote still requires
+semantic review. Explicit unavailable evidence can remain in a useful proposal.
+No checked design authorizes experiment execution, delivery or lesson promotion.
+Changing the policy produces a new immutable job, not permission to rerun it.
+
+The [2 November audit and comparison](experiments/results/investigation-design-2026-11-02/README.md)
+retains the original failing test, adverse controls, ordinary-checklist parity
+and the incomplete live-model comparison. No economic or learning advantage is
+established.
+
 ## Executed qualification, 1 November 2026
 
 The integration's 64 related deterministic controls passed. One real XPolicyLab

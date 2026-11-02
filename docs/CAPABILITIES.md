@@ -74,3 +74,9 @@ adapters, cloud job execution and enterprise tenancy remain proposed.
 bounded worker. Checked proposals remain subject to review. The
 [investigation guide](ENGAGEMENT_INVESTIGATIONS.md) describes citation limits,
 repeat-job handling, the executed pilot and the cost still to establish.
+
+V2 proposals require predicted observations, oracle obligations, minimum execution
+and cost estimates with explicit unknowns. These are completeness checks;
+semantic correctness and experimental validity remain unadjudicated. The
+[exposed comparison](experiments/results/investigation-design-2026-11-02/README.md)
+matches a competent ordinary checklist and establishes no cost advantage.

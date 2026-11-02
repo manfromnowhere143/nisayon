@@ -1,0 +1,2029 @@
+{
+  "packet": {
+    "schema": "nisayon.engagement-investigation.v2",
+    "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "sources": [
+      {
+        "id": "thread",
+        "text": "The baseline action parity check failed."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "name": "explicit_unknown_costs",
+      "expected_reviewable": true,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "correct_quote_invalid_causal_claim",
+      "expected_reviewable": true,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The baseline failed, so the patch is proven correct.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_design",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": []
+      }
+    },
+    {
+      "name": "missing_predictions",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_oracle",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_minimum_execution",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_estimated_costs",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_unresolved_assumptions",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_prediction",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "unbound_prediction",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "third answer",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "nondiscriminating_predictions",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "At least one byte differs."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blank_oracle_identity",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": " ",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blank_oracle_independence",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": " ",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blank_oracle_limitations",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": " "
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blank_oracle_measurement",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": " ",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing_human_cost",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "unexplained_unknown_cost",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": " "
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "negative_cost",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": -1,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "boolean_cost",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": true,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty_execution",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": " ",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blank_assumption",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The baseline action parity check failed."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              " "
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "fabricated_quote",
+      "expected_reviewable": false,
+      "response": {
+        "job_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "snapshot_fingerprint": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "action": "investigate",
+        "reason": "Separate input mismatch from equal-input variability.",
+        "claims": [
+          {
+            "statement": "The report records a failed baseline parity check.",
+            "citations": [
+              {
+                "source_id": "thread",
+                "quote": "The real robot passed every task."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "Input witnesses are not yet supplied."
+        ],
+        "question": "Were the transformed inputs equal?",
+        "alternatives": [
+          {
+            "answer": "different",
+            "resulting_action": "Check input preparation."
+          },
+          {
+            "answer": "equal",
+            "resulting_action": "Check runtime and random state."
+          }
+        ],
+        "experiment": "Compare retained input bytes and digests before any new policy run.",
+        "stop_condition": "If original inputs are absent, request evidence and stop.",
+        "draft": "",
+        "lesson_proposals": [],
+        "experiment_design": [
+          {
+            "predictions": [
+              {
+                "answer": "different",
+                "observation": "At least one byte differs."
+              },
+              {
+                "answer": "equal",
+                "observation": "Every retained input byte agrees."
+              }
+            ],
+            "oracle": {
+              "measurement": "Byte comparison and independent digest recomputation.",
+              "identity": "Original input witnesses requested from the owner.",
+              "independence": "Does not use the policy output as its answer.",
+              "limitations": "Does not test state/RNG equality or robot outcomes."
+            },
+            "minimum_execution": "Read two artifacts; no policy execution.",
+            "estimated_costs": {
+              "wall_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "cpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "gpu_seconds": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "input_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "output_tokens": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "charges_usd": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "human_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              },
+              "maintenance_minutes": {
+                "value": null,
+                "basis": "Unknown until input volume and reviewer are known."
+              }
+            },
+            "unresolved_assumptions": [
+              "Witnesses describe actual inputs used in both starts."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

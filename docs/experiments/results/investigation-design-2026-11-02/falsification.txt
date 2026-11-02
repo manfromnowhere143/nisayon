@@ -1,0 +1,24 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_cited_run_more_tests_is_not_a_reviewable_experiment ___________
+
+inbox = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-720/test_cited_run_more_tests_is_n0')
+
+    def test_cited_run_more_tests_is_not_a_reviewable_experiment(inbox):
+        """Exact citations and differing actions do not supply an experimental design."""
+    
+        def incomplete(result, public):
+            result["response"].pop("experiment_design", None)
+            result["response"]["experiment"] = "Run more tests."
+    
+        worker = Worker(incomplete)
+        result = run(inbox, worker)
+>       assert result["status"] == "blocked"
+E       AssertionError: assert 'review_required' == 'blocked'
+E         
+E         - blocked
+E         + review_required
+
+tests/test_engagement_agent.py:300: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engagement_agent.py::test_cited_run_more_tests_is_not_a_reviewable_experiment
