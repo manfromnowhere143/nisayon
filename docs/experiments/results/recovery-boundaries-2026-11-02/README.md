@@ -32,6 +32,8 @@ unknowns; it is not a full cost measurement. [evidence.zip](evidence.zip) retain
 the original observations, separate request/effect journals, command receipts,
 failed no-op assertion and successful controls. [manifest.json](manifest.json)
 binds the included bytes; integrity does not authenticate experimental truth.
+The [publication correction](PUBLICATION_CORRECTION.md) preserves an initially
+invalid inventory of ignored cache files and its Git-object validation fix.
 All cases are investigator-selected development cases, excluded from a future
 untouched evaluation. No independent external scoring, owner enrollment, physical
 execution, paid infrastructure or model API call is represented by these tests.
@@ -42,6 +44,7 @@ From the repository root, using a new output directory:
 
 ```sh
 NISAYON_PACKET=docs/experiments/results/recovery-boundaries-2026-11-02
+python3 "$NISAYON_PACKET/verify_git.py" HEAD
 python3 -m zipfile -e "$NISAYON_PACKET/evidence.zip" artifacts/recovery-evidence
 python3 "$NISAYON_PACKET/audit_mcp.py" artifacts/recovery-evidence/mcp-final
 ```
