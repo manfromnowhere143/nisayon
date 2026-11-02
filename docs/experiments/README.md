@@ -20,6 +20,11 @@ connect the trajectory to its retained evidence.
 
 ## Results and what changed
 
+The [2 November recovery-boundary probes](results/recovery-boundaries-2026-11-02/README.md)
+distinguish finite weights from a skipped Adam update, and an acknowledged MCP
+retry from a single committed effect. Source-bound CPU reproductions and ordinary
+controls support those narrow contracts; independent owner value remains unmeasured.
+
 The [fixed-budget episode audit](results/monitoring-audit-2026-10-28/README.md)
 adds prospective sampling and exact finite-frame bounds alongside the descriptive
 monitoring summary. Its constructed controls and budget calculation qualify the
