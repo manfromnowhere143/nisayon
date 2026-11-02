@@ -1,7 +1,23 @@
 # Keep a score with its evaluation phase
 
-20 October 2026. Review of [dafahaha's RLE-Bench PR #9](https://github.com/RLE-Bench/RLE-Bench/pull/9)
-at `272a3a0`. The proposed correction has not been adopted.
+**Status, 2 November 2026.** [dafahaha adopted the correction](https://github.com/RLE-Bench/RLE-Bench/pull/9#issuecomment-6321374574)
+at `b55f2e190bbafa6f0b8053254f404290a5d0eb9b` on 21 October.
+The [subsequent recheck](https://github.com/RLE-Bench/RLE-Bench/pull/9#issuecomment-6321568270)
+passed 12 native summary tests and the unchanged 12-case CLI probe; all four
+author regressions failed against the previous draft. These remain constructed
+CPU reporting checks.
+
+On 2 November, [typoverflow reported a favorable review and a real trial in progress](https://github.com/RLE-Bench/RLE-Bench/pull/9#issuecomment-6585604121).
+The head is still `b55f2e1`, and all ten jobs in the
+[current upstream CI run](https://github.com/RLE-Bench/RLE-Bench/actions/runs/39635864538)
+report success. That CI status is separate from the pending real-trial result.
+The PR is still open at this readback. Merge, a verified real-trial reporting
+outcome and an economic benefit are not established by this update.
+
+The original experiment below records the **20 October 2026** review of
+[dafahaha's RLE-Bench PR #9](https://github.com/RLE-Bench/RLE-Bench/pull/9)
+at `272a3a0`, before author adoption. Its source identities and measurements are
+unchanged.
 
 A completed step can retain its reward in `result.json` while its detailed
 report and gate flag live under `steps/<name>/verifier/`. The summary reader
