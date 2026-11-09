@@ -1,0 +1,26 @@
+/* One small glass control layer. The scene remains a single persistent canvas. */
+.choice-trigger { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; max-width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 11px; background: var(--ground-2); color: var(--ink); font: inherit; font-size: 0.8rem; text-align: left; cursor: pointer; touch-action: manipulation; transition: background 120ms ease, border-color 120ms ease; }
+.choice-trigger:hover, .choice-trigger[aria-expanded="true"] { background: var(--selected); border-color: var(--mark-quiet); }
+.choice-trigger:disabled { opacity: 0.45; cursor: default; }
+.choice-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.choice-chevron { flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.1; transition: transform 120ms var(--ease-damped); }
+.choice-trigger[aria-expanded="true"] .choice-chevron { transform: rotate(180deg); }
+.choice-popup { position: fixed; inset: auto; margin: 0; padding: 6px; min-width: 0; border: 1px solid var(--glass-rim); border-radius: 14px; background: var(--glass-opaque); color: var(--ink); box-shadow: inset 0 1px var(--glass-sheen), var(--glass-shadow); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--rule-strong) transparent; z-index: 90; isolation: isolate; font-size: 0.8rem; line-height: 1.35; transform-origin: top center; animation: choice-arrive 130ms var(--ease-damped); touch-action: pan-y; }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .choice-popup { background: color-mix(in srgb, var(--glass-opaque) 86%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.12); backdrop-filter: blur(14px) saturate(1.12); }
+}
+.choice-popup::backdrop { background: transparent; }
+.choice-option { display: flex; align-items: center; gap: 9px; min-height: 44px; padding: 10px 10px 10px 6px; border-radius: 8px; color: var(--ink-2); cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; overflow-wrap: anywhere; }
+.choice-option[data-active="true"] { background: var(--selected); color: var(--ink); }
+.choice-option[data-current="true"] { color: var(--ink); }
+.choice-check { flex: 0 0 14px; font-size: 0.73rem; }
+.choice-group-start:not(:first-child) { margin-top: 6px; border-top: 1px solid var(--rule); border-top-left-radius: 0; border-top-right-radius: 0; }
+.case-select .choice-trigger { border-radius: 999px; background: transparent; }
+.case-select[data-pending="true"]::after { display: none; }
+.choice-pending { display: flex; align-items: center; gap: 8px; position: absolute; top: calc(100% + 6px); right: 0; z-index: 5; min-width: 230px; max-width: min(340px, calc(100vw - 28px)); padding: 9px 12px; border: 1px solid var(--glass-rim); border-radius: 10px; background: var(--glass-opaque); box-shadow: var(--glass-shadow); font-size: 0.7rem; color: var(--ink-2); pointer-events: none; }
+.choice-pending::before { content: ""; flex: 0 0 5px; height: 5px; border-radius: 50%; background: var(--ink-2); }
+.part-picker .choice-trigger { max-width: 250px; flex: 1; }
+@keyframes choice-arrive { from { opacity: 0.5; transform: translateY(-3px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 1023px) { .case-select .choice-trigger { width: 100%; font-size: 0.73rem; } .part-picker .choice-trigger { font-size: 0.72rem; } }
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) { .choice-popup { background: var(--glass-opaque); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+@media (forced-colors: active) { .choice-option[data-active="true"] { outline: 1px solid Highlight; outline-offset: -2px; } }

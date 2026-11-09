@@ -133,6 +133,105 @@ bytes, and the review is decoded from those same verified bytes. A later
 consumer must verify the expected digest again before consuming an artifact.
 The planner does not lock mutable directories or provide a hostile-file sandbox.
 
+## Progress while an input is unknown
+
+`execute_checks(..., allow_partial=True)` may execute checks whose transitive
+inputs are all known while withholding the affected checks. For example, when
+the reviewed model puts population only in confirmation's dependencies, an
+unknown population can leave observation and scoring available. If population
+also affects observation, observation is withheld. The graph's completeness
+remains a reviewed premise.
+
+This option does not waive missing model review, uncovered dependency kinds,
+missing confirmation declarations or acquisition failures. It applies only to
+explicit `None` inputs; an unreadable declared file still fails acquisition and
+produces no check receipts. The default continues to run nothing when an input
+is unknown. The option is bound into the procedure identity, so switching modes
+conservatively invalidates procedure-dependent receipts.
+
+The execution stays `unresolved`. Errors such as
+`withheld_check:confirm:unknown_input:population` identify what is withheld and
+why. Supply the missing input and execute into a new output directory, passing
+the previous `EvidenceState`. Applicable receipts are verified again; changed
+inputs and tampered artifacts require recomputation, and confirmation executes
+anew. A partial portable review returns no verified result artifacts and grants
+no decision. Its retained attempt records remain available for inspection.
+
+Read-only review reconstructs completed receipts even when the execution remains
+unresolved. Attempt order, intent, completion, result bytes, dependency bindings
+and finite nonnegative attempt durations must agree. A failed, interrupted or
+started attempt may only end the recorded prefix and supplies no completed
+receipt. Valid empty prefixes remain supported when acquisition or applicability
+blocked execution. Missing or contradictory records fail review and export.
+Native failure files remain retained without becoming successful check results.
+An interruption before required records are written can still make the prefix
+unreviewable; this does not promise recovery from hard kills or failed writes.
+
+This validates record consistency, not authentic execution or handler semantics.
+The existing exact-checker identity rule remains: use the recorded implementation
+to review historical evidence, or execute a new qualification under this checker.
+
+The [SDK example](../examples/qualification/executable_checks/README.md#staged-inputs)
+shows this sequence. It is conditional evidence retention, not automatic
+dependency discovery or a demonstrated saving over native tools.
+
+## Continue with a transported evidence root
+
+`import_check_bundle` validates a prospectively supplied archive digest and the
+existing portable review, then writes the captured evidence bytes into a new
+private directory. It shares the same bounded parser and receipt reconstruction
+as `inspect_check_bundle`; conflicting saved assessments are not admitted.
+The [portable continuation example](../examples/qualification/executable_checks/README.md#continue-from-a-portable-packet)
+shows passing its retained `EvidenceState` into a new execution.
+
+Import does not establish applicability to a new deployment. Current inputs,
+trusted handlers, reviewed dependencies and actual fresh confirmation remain
+necessary. Relocating the evidence files does not qualify a changed execution
+environment or unknown implicit dependencies. The existing checker identity
+rule is unchanged. An expected digest binds bytes, not authentic measurements.
+Import grants no new export permission and does not run bundled code. A failed
+write may leave an incomplete destination; it is not a crash-durable transaction.
+
+## Prospective file admission
+
+The [calibration example](../examples/qualification/executable_checks/README.md#pinned-external-calibration)
+uses the existing `execute_checks` input mechanism. An ordinary admission input
+names an expected SHA-256, supplied provenance, permitted computation and export
+permission. A handler verifies and parses the same immutable
+`CheckContext.input_bytes` value. Updating a declaration does not upgrade an old
+observation: a new execution acquires and checks the newly declared bytes.
+
+The executor opens inputs without following a leaf symlink, uses a nonblocking
+open, and checks that the acquired descriptor is a regular file. This rejects
+the tested leaf-symlink and FIFO substitutions after pathname inspection. The
+supported platform must provide these open flags. Parent-directory aliases,
+source authenticity and atomic filesystem versions are not established. A
+concurrent write can produce mixed bytes; the example refuses them unless their
+complete digest matches the prospective pin. The handler consumes the captured
+bytes, and the existing live-input stability checks remain in force.
+
+New executions use `nisayon.qualification.check_execution.v2`. A failed initial
+acquisition retains an unresolved record with no input identities or check
+receipts. Its `acquisition` object identifies the resource, reason code and
+`rebind_input_and_execute_new_output` action. Graceful interruption retains the
+same prefix before propagating `KeyboardInterrupt`; hard-kill durability is not
+promised. Invalid invocation and size-limit errors retain their exception
+behavior. Output directories remain create-only.
+
+The reader accepts v1 and v2 record shapes under the existing exact-checker
+identity rule. `checker_source_mismatch` asks for the recorded SDK when reviewing
+historical evidence, or a new qualification with the current SDK. Rewriting a
+historical checker identity is not migration.
+
+Generic check export is unredacted. The example adds a permission check for the
+current snapshot and every included prior result, then exports the same captured
+packet that was authorized. Private or unknown history requires a fresh run
+without that previous state before export. A packet without frozen permission
+cannot use this example's export path. This is a narrow example-level boundary,
+not a general privacy filter. Subprocess/native-library reads, environment and
+network state remain outside this calibration contract; neither hashes nor the
+dependency graph discover omitted inputs.
+
 ## What remains to establish
 
 The five required input kinds do not make the graph complete. In particular,

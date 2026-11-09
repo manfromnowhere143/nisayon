@@ -1,0 +1,18 @@
+{
+  "schema": "nisayon.ui-integration-check.v1",
+  "interface_commit": "340519973164cc9fb89e7d772bf4af3a00f7a557",
+  "integration_commit": "53f5da38d0d1116134500321abc89f95fafe9844",
+  "worktree": "nisayon-ui-codex",
+  "commands": [
+    {"command": "npm ci", "cwd": "apps/instrument", "result": "passed"},
+    {"command": "npm run check", "cwd": "apps/instrument", "result": "failed", "exit_code": 2, "failed_stage": "typecheck"}
+  ],
+  "failure": {
+    "code": "TS2307",
+    "missing_committed_sources": ["apps/instrument/src/data/loader.ts", "apps/instrument/src/data/digest.ts"],
+    "ignore_rule": ".gitignore:13:data/",
+    "request": "Interface owner to commit the required source directory and retain a narrow ignore exception, then name the corrected commit."
+  },
+  "tests_and_build": "not reached in the clean integrated worktree",
+  "browser": "unavailable; no rendered acceptance or performance measurements"
+}

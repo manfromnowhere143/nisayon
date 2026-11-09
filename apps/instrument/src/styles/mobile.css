@@ -1,0 +1,108 @@
+/* The image reaches the screen edge; controls respect cutouts in either
+   orientation. No fixed device model or user-agent sniffing is involved. */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --opening-gutter: clamp(24px, 5vw, 88px);
+  --workspace-header: 76px;
+}
+.opening-stage {
+  box-sizing: border-box;
+  height: auto;
+  min-height: max(640px, 100svh);
+  grid-template-rows: 92px minmax(min-content, 1fr) auto 130px;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  padding-left: max(var(--opening-gutter), var(--safe-left));
+  padding-right: max(var(--opening-gutter), var(--safe-right));
+}
+.film-header {
+  padding-left: max(clamp(20px, 3vw, 48px), var(--safe-left));
+  padding-right: max(clamp(20px, 3vw, 48px), var(--safe-right));
+}
+.film-information > div {
+  left: max(16px, var(--safe-left));
+  right: max(16px, var(--safe-right));
+  margin-left: auto;
+  max-height: calc(100dvh - 96px - var(--safe-top) - var(--safe-bottom));
+}
+.research-header, .retained-lab .identity {
+  height: calc(var(--workspace-header) + var(--safe-top));
+  min-height: calc(var(--workspace-header) + var(--safe-top));
+  padding-top: calc(16px + var(--safe-top));
+  padding-left: max(32px, var(--safe-left));
+  padding-right: max(32px, var(--safe-right));
+}
+.investigate-mode {
+  margin-top: var(--safe-top);
+  left: calc(50% + (var(--safe-left) - var(--safe-right)) / 2);
+}
+.retained-lab .stage { margin-left: var(--safe-left); margin-right: var(--safe-right); }
+.research-workspace .research-body {
+  margin-left: var(--safe-left);
+  margin-right: var(--safe-right);
+}
+.research-glass-card {
+  inset: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  max-width: calc(100vw - 24px - var(--safe-left) - var(--safe-right));
+  max-height: calc(100dvh - 24px - var(--safe-top) - var(--safe-bottom));
+}
+.app-access-reading { overflow-y: auto; overscroll-behavior: contain; }
+.app-access-reading a { text-underline-offset: .2em; }
+.opening-skip { top: max(12px, var(--safe-top)); left: max(20px, var(--safe-left)); }
+@media (max-width: 700px) {
+  :root { --opening-gutter: 24px; }
+  .opening-stage { grid-template-rows: 76px minmax(min-content, 1fr) auto 116px; }
+  .opening-caption, .opening-motion-control { font-size: 10px !important; }
+  .opening-evidence-label, .opening-evidence-scope { font-size: 10px; }
+}
+@media (max-width: 640px) {
+  :root { --workspace-header: 64px; }
+  .research-header, .retained-lab .identity {
+    padding-top: calc(10px + var(--safe-top));
+    padding-left: max(16px, var(--safe-left));
+    padding-right: max(16px, var(--safe-right));
+  }
+}
+@media (max-width: 370px) { :root { --opening-gutter: 20px; } }
+/* A short phone screen still offers all three entry points. At larger text
+   sizes the opening may scroll instead of clipping or shrinking its content. */
+@media (max-width: 700px) and (max-height: 700px) {
+  .opening-stage {
+    min-height: max(calc(568px + var(--safe-top) + var(--safe-bottom)), 100svh);
+    grid-template-rows: 64px minmax(min-content, 1fr) auto 100px;
+  }
+  .opening-copy { padding-top: 20px; padding-bottom: 12px; }
+  .opening-kicker { margin-bottom: 16px; }
+  .opening h1 { margin-bottom: 16px; }
+  .opening-image { top: 180px; }
+}
+@media (min-width: 701px) and (max-height: 700px) {
+  .opening-stage { min-height: max(560px, 100svh); grid-template-rows: 72px minmax(min-content, 1fr) auto 100px; }
+}
+@media (min-width: 701px) and (max-height: 500px) {
+  .opening-stage { min-height: max(calc(390px + var(--safe-top) + var(--safe-bottom)), 100svh); grid-template-rows: 56px minmax(min-content, 1fr) auto 88px; }
+  .opening-copy { padding-block: 4px; }
+  .opening-kicker { font-size: 8px; margin-bottom: 8px; }
+  .opening h1 { font-size: 30px; margin-bottom: 12px; }
+  .opening-intro { font-size: 13px; margin-bottom: 8px; }
+  .opening-caption-row { padding-bottom: 0; }
+}
+/* Native text controls stay at a readable size on touch screens, avoiding
+   Safari's automatic text-entry zoom. Browser pinch zoom remains available. */
+@media (pointer: coarse) {
+  .instrument-root :is(input:not([type="range"]), select, textarea) { font-size: max(16px, 1rem); }
+  .research-variant button, .workspace-tabs button { min-height: 44px; }
+}
+
+/* The centered investigation switch needs its own space. At narrow widths,
+   use the same compact controls entry as the robot workspace. */
+.research-workspace-menu { display: none; }
+.research-workspace-tools { display: flex; align-items: center; gap: 12px; }
+.research-workspace-tools .research-icon { width: 44px; height: 44px; }
+@media (max-width: 900px) {
+  .research-workspace[data-view="qualify"] .research-header-tools { display: none; }
+  .research-workspace-menu { display: grid; margin-left: auto; }
+}

@@ -1,0 +1,1520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Case": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-case.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "case_key": {
+          "title": "Case Key",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "arm": {
+          "title": "Arm",
+          "type": "string"
+        },
+        "task": {
+          "title": "Task",
+          "type": "string"
+        },
+        "predicates": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Predicates",
+          "type": "object"
+        },
+        "runs": {
+          "items": {
+            "$ref": "#/$defs/Run"
+          },
+          "title": "Runs",
+          "type": "array"
+        },
+        "decisions": {
+          "items": {
+            "$ref": "#/$defs/FileRef"
+          },
+          "title": "Decisions",
+          "type": "array"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/Finding"
+          },
+          "title": "Findings",
+          "type": "array"
+        },
+        "trial": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Trial"
+        },
+        "confirmation": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Confirmation",
+          "type": "object"
+        },
+        "comparison_alignment": {
+          "title": "Comparison Alignment",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "case_key",
+        "case_id",
+        "experiment_id",
+        "arm",
+        "task",
+        "predicates",
+        "runs",
+        "decisions",
+        "findings",
+        "trial",
+        "confirmation",
+        "comparison_alignment",
+        "limitations"
+      ],
+      "title": "Case",
+      "type": "object"
+    },
+    "CaseRef": {
+      "additionalProperties": false,
+      "properties": {
+        "case_key": {
+          "title": "Case Key",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "object": {
+          "$ref": "#/$defs/FileRef"
+        }
+      },
+      "required": [
+        "case_key",
+        "case_id",
+        "object"
+      ],
+      "title": "CaseRef",
+      "type": "object"
+    },
+    "Convention": {
+      "additionalProperties": false,
+      "properties": {
+        "handedness": {
+          "const": "right",
+          "default": "right",
+          "title": "Handedness",
+          "type": "string"
+        },
+        "up": {
+          "const": "Z",
+          "default": "Z",
+          "title": "Up",
+          "type": "string"
+        },
+        "length_unit": {
+          "const": "m",
+          "default": "m",
+          "title": "Length Unit",
+          "type": "string"
+        },
+        "quaternion_order": {
+          "const": "wxyz",
+          "default": "wxyz",
+          "title": "Quaternion Order",
+          "type": "string"
+        },
+        "pose_layout": {
+          "const": "x,y,z,qw,qx,qy,qz",
+          "default": "x,y,z,qw,qx,qy,qz",
+          "title": "Pose Layout",
+          "type": "string"
+        },
+        "clock": {
+          "const": "simulation",
+          "default": "simulation",
+          "title": "Clock",
+          "type": "string"
+        }
+      },
+      "title": "Convention",
+      "type": "object"
+    },
+    "Decision": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-decision.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/Locator"
+        },
+        "bundle_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Bundle Sha256",
+          "type": "string"
+        },
+        "execution_bundle_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Execution Bundle Sha256"
+        },
+        "source_canonical_bundle_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Source Canonical Bundle Sha256",
+          "type": "string"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "decision": {
+          "title": "Decision",
+          "type": "string"
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "premises": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Premises",
+          "type": "object"
+        },
+        "evaluator": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Evaluator",
+          "type": "object"
+        },
+        "runs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Runs",
+          "type": "object"
+        },
+        "projection_redactions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Projection Redactions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "source",
+        "bundle_sha256",
+        "source_canonical_bundle_sha256",
+        "stage",
+        "decision",
+        "scope",
+        "reasons",
+        "premises",
+        "evaluator",
+        "runs",
+        "projection_redactions"
+      ],
+      "title": "Decision",
+      "type": "object"
+    },
+    "Discovery": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-discovery.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "manifest": {
+          "$ref": "#/$defs/FileRef"
+        }
+      },
+      "required": [
+        "schema",
+        "manifest"
+      ],
+      "title": "Discovery",
+      "type": "object"
+    },
+    "FileRef": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "pattern": "^(objects|generations)/[0-9a-f]{64}\\.json$",
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "byte_length": {
+          "exclusiveMinimum": 0,
+          "maximum": 16777216,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "media_type": {
+          "const": "application/json",
+          "default": "application/json",
+          "title": "Media Type",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "manifest",
+            "case",
+            "samples",
+            "reconstruction",
+            "model",
+            "decision"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "byte_length",
+        "kind"
+      ],
+      "title": "FileRef",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "descriptive",
+          "default": "descriptive",
+          "title": "Kind",
+          "type": "string"
+        },
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "run": {
+          "$ref": "#/$defs/RunKey"
+        },
+        "row_index": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Row Index",
+          "type": "integer"
+        },
+        "phase": {
+          "enum": [
+            "before",
+            "after"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "step": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Step",
+          "type": "integer"
+        },
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "number"
+        },
+        "source": {
+          "$ref": "#/$defs/Locator"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "detail",
+        "run",
+        "row_index",
+        "phase",
+        "step",
+        "definition",
+        "threshold",
+        "source"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Frame": {
+      "additionalProperties": false,
+      "properties": {
+        "row_index": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Row Index",
+          "type": "integer"
+        },
+        "phase": {
+          "enum": [
+            "before",
+            "after"
+          ],
+          "title": "Phase",
+          "type": "string"
+        },
+        "stored_time_s": {
+          "title": "Stored Time S",
+          "type": "number"
+        },
+        "state_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "State Sha256",
+          "type": "string"
+        },
+        "bodies": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "type": "array"
+          },
+          "title": "Bodies",
+          "type": "array"
+        },
+        "sites": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "type": "array"
+          },
+          "title": "Sites",
+          "type": "array"
+        },
+        "geoms": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "maxItems": 7,
+            "minItems": 7,
+            "type": "array"
+          },
+          "title": "Geoms",
+          "type": "array"
+        },
+        "residuals": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "title": "Residuals",
+          "type": "object"
+        },
+        "physical": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Physical"
+        }
+      },
+      "required": [
+        "row_index",
+        "phase",
+        "stored_time_s",
+        "state_sha256",
+        "bodies",
+        "sites",
+        "geoms",
+        "residuals"
+      ],
+      "title": "Frame",
+      "type": "object"
+    },
+    "Geom": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Id",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "body_id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Body Id",
+          "type": "integer"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "size": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "title": "Size",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "body_id",
+        "type",
+        "size"
+      ],
+      "title": "Geom",
+      "type": "object"
+    },
+    "Integrity": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-integrity.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "manifest": {
+          "$ref": "#/$defs/FileRef"
+        }
+      },
+      "required": [
+        "schema",
+        "manifest"
+      ],
+      "title": "Integrity",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Library": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-library.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "default_case_key": {
+          "title": "Default Case Key",
+          "type": "string"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/LibraryEntry"
+          },
+          "maxItems": 6,
+          "minItems": 1,
+          "title": "Cases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "default_case_key",
+        "cases"
+      ],
+      "title": "Library",
+      "type": "object"
+    },
+    "LibraryEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "case_key": {
+          "title": "Case Key",
+          "type": "string"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        },
+        "directory": {
+          "pattern": "^D(01|03|05|06|08|10)-[a-z-]+$",
+          "title": "Directory",
+          "type": "string"
+        },
+        "manifest": {
+          "$ref": "#/$defs/FileRef"
+        }
+      },
+      "required": [
+        "case_key",
+        "case_id",
+        "directory",
+        "manifest"
+      ],
+      "title": "LibraryEntry",
+      "type": "object"
+    },
+    "Locator": {
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "pointer": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pointer"
+        },
+        "line": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Line"
+        }
+      },
+      "required": [
+        "source_id"
+      ],
+      "title": "Locator",
+      "type": "object"
+    },
+    "Manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-generation.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "adapter": {
+          "title": "Adapter",
+          "type": "string"
+        },
+        "experiment_id": {
+          "title": "Experiment Id",
+          "type": "string"
+        },
+        "capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Capabilities",
+          "type": "array"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "title": "Sources",
+          "type": "array"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/CaseRef"
+          },
+          "title": "Cases",
+          "type": "array"
+        },
+        "files": {
+          "items": {
+            "$ref": "#/$defs/FileRef"
+          },
+          "title": "Files",
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "adapter",
+        "experiment_id",
+        "capabilities",
+        "sources",
+        "cases",
+        "files",
+        "limitations"
+      ],
+      "title": "Manifest",
+      "type": "object"
+    },
+    "Memory": {
+      "additionalProperties": false,
+      "properties": {
+        "before": {
+          "enum": [
+            "initialized_none",
+            "present",
+            "unavailable"
+          ],
+          "title": "Before",
+          "type": "string"
+        },
+        "after": {
+          "enum": [
+            "initialized_none",
+            "present",
+            "unavailable"
+          ],
+          "title": "After",
+          "type": "string"
+        },
+        "before_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Before Sha256"
+        },
+        "after_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "After Sha256"
+        },
+        "episode_reset": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Episode Reset"
+        },
+        "reset_before_inference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reset Before Inference"
+        }
+      },
+      "required": [
+        "before",
+        "after",
+        "before_sha256",
+        "after_sha256",
+        "episode_reset",
+        "reset_before_inference"
+      ],
+      "title": "Memory",
+      "type": "object"
+    },
+    "Model": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-model.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "nq": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Nq",
+          "type": "integer"
+        },
+        "nmocap": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Nmocap",
+          "type": "integer"
+        },
+        "nv": {
+          "anyOf": [
+            {
+              "maximum": 1000000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nv"
+        },
+        "nu": {
+          "anyOf": [
+            {
+              "maximum": 1000000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nu"
+        },
+        "joints": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Joints",
+          "type": "array"
+        },
+        "actuators": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Actuators",
+          "type": "array"
+        },
+        "bodies": {
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "title": "Bodies",
+          "type": "array"
+        },
+        "sites": {
+          "items": {
+            "$ref": "#/$defs/Site"
+          },
+          "title": "Sites",
+          "type": "array"
+        },
+        "geoms": {
+          "items": {
+            "$ref": "#/$defs/Geom"
+          },
+          "title": "Geoms",
+          "type": "array"
+        },
+        "omitted_mesh_count": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Omitted Mesh Count",
+          "type": "integer"
+        },
+        "representation": {
+          "const": "articulated_schematic",
+          "title": "Representation",
+          "type": "string"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Limitations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "source_id",
+        "nq",
+        "nmocap",
+        "bodies",
+        "sites",
+        "geoms",
+        "omitted_mesh_count",
+        "representation",
+        "limitations"
+      ],
+      "title": "Model",
+      "type": "object"
+    },
+    "Node": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Id",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "parent_id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Parent Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "parent_id"
+      ],
+      "title": "Node",
+      "type": "object"
+    },
+    "Reconstruction": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-reconstruction.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "run": {
+          "$ref": "#/$defs/RunKey"
+        },
+        "model": {
+          "$ref": "#/$defs/FileRef"
+        },
+        "raw_source_id": {
+          "title": "Raw Source Id",
+          "type": "string"
+        },
+        "method": {
+          "const": "mj_kinematics",
+          "title": "Method",
+          "type": "string"
+        },
+        "mujoco_version": {
+          "const": "3.2.7",
+          "title": "Mujoco Version",
+          "type": "string"
+        },
+        "numpy_version": {
+          "title": "Numpy Version",
+          "type": "string"
+        },
+        "convention": {
+          "$ref": "#/$defs/Convention"
+        },
+        "frames": {
+          "items": {
+            "$ref": "#/$defs/Frame"
+          },
+          "maxItems": 200000,
+          "title": "Frames",
+          "type": "array"
+        },
+        "maximum_residuals": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Maximum Residuals",
+          "type": "object"
+        }
+      },
+      "required": [
+        "schema",
+        "run",
+        "model",
+        "raw_source_id",
+        "method",
+        "mujoco_version",
+        "numpy_version",
+        "convention",
+        "frames",
+        "maximum_residuals"
+      ],
+      "title": "Reconstruction",
+      "type": "object"
+    },
+    "Run": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "$ref": "#/$defs/RunKey"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan Id"
+        },
+        "plan": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Plan"
+        },
+        "execution": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Execution"
+        },
+        "stage": {
+          "title": "Stage",
+          "type": "string"
+        },
+        "condition_id": {
+          "title": "Condition Id",
+          "type": "string"
+        },
+        "process_status": {
+          "title": "Process Status",
+          "type": "string"
+        },
+        "measurement_status": {
+          "title": "Measurement Status",
+          "type": "string"
+        },
+        "task_outcome": {
+          "title": "Task Outcome",
+          "type": "string"
+        },
+        "samples": {
+          "$ref": "#/$defs/FileRef"
+        },
+        "reconstruction": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FileRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FileRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/Locator"
+        },
+        "raw_source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Raw Source Id"
+        },
+        "sample_count": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "last_next_sim_time_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Next Sim Time S"
+        },
+        "reset": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Reset",
+          "type": "object"
+        },
+        "costs": {
+          "items": {
+            "additionalProperties": {
+              "$ref": "#/$defs/JsonValue"
+            },
+            "type": "object"
+          },
+          "title": "Costs",
+          "type": "array"
+        },
+        "cost_parent_run_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cost Parent Run Id"
+        },
+        "evaluator": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Evaluator"
+        },
+        "indexes": {
+          "additionalProperties": {
+            "items": {
+              "maximum": 1000000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "title": "Indexes",
+          "type": "object"
+        }
+      },
+      "required": [
+        "key",
+        "role",
+        "stage",
+        "condition_id",
+        "process_status",
+        "measurement_status",
+        "task_outcome",
+        "samples",
+        "reconstruction",
+        "model",
+        "source",
+        "raw_source_id",
+        "sample_count",
+        "reset",
+        "costs",
+        "cost_parent_run_id",
+        "evaluator"
+      ],
+      "title": "Run",
+      "type": "object"
+    },
+    "RunKey": {
+      "additionalProperties": false,
+      "properties": {
+        "bundle_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Bundle Sha256",
+          "type": "string"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "bundle_sha256",
+        "run_id"
+      ],
+      "title": "RunKey",
+      "type": "object"
+    },
+    "Sample": {
+      "additionalProperties": false,
+      "properties": {
+        "row_index": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Row Index",
+          "type": "integer"
+        },
+        "step": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Step",
+          "type": "integer"
+        },
+        "action_sim_time_s": {
+          "title": "Action Sim Time S",
+          "type": "number"
+        },
+        "next_sim_time_s": {
+          "title": "Next Sim Time S",
+          "type": "number"
+        },
+        "observation_sim_time_s": {
+          "title": "Observation Sim Time S",
+          "type": "number"
+        },
+        "observation_age_s": {
+          "title": "Observation Age S",
+          "type": "number"
+        },
+        "original": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "title": "Original",
+          "type": "object"
+        },
+        "observations": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observations"
+        },
+        "memory": {
+          "$ref": "#/$defs/Memory"
+        },
+        "source": {
+          "$ref": "#/$defs/Locator"
+        },
+        "raw_source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Locator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "row_index",
+        "step",
+        "action_sim_time_s",
+        "next_sim_time_s",
+        "observation_sim_time_s",
+        "observation_age_s",
+        "original",
+        "observations",
+        "memory",
+        "source",
+        "raw_source"
+      ],
+      "title": "Sample",
+      "type": "object"
+    },
+    "Samples": {
+      "additionalProperties": false,
+      "properties": {
+        "schema": {
+          "const": "nisayon.ui-samples.v1",
+          "title": "Schema",
+          "type": "string"
+        },
+        "run": {
+          "$ref": "#/$defs/RunKey"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/Sample"
+          },
+          "maxItems": 100000,
+          "title": "Rows",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "run",
+        "rows"
+      ],
+      "title": "Samples",
+      "type": "object"
+    },
+    "Site": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Id",
+          "type": "integer"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "body_id": {
+          "maximum": 1000000,
+          "minimum": 0,
+          "title": "Body Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "body_id"
+      ],
+      "title": "Site",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "byte_length": {
+          "exclusiveMinimum": 0,
+          "maximum": 1073741824,
+          "title": "Byte Length",
+          "type": "integer"
+        },
+        "encoding": {
+          "enum": [
+            "json",
+            "gzip-json",
+            "gzip-jsonl",
+            "mjcf",
+            "asset",
+            "python"
+          ],
+          "title": "Encoding",
+          "type": "string"
+        },
+        "canonical_json_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Canonical Json Sha256"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "sha256",
+        "byte_length",
+        "encoding"
+      ],
+      "title": "Source",
+      "type": "object"
+    }
+  },
+  "discriminator": {
+    "mapping": {
+      "nisayon.ui-case.v1": "#/$defs/Case",
+      "nisayon.ui-decision.v1": "#/$defs/Decision",
+      "nisayon.ui-discovery.v1": "#/$defs/Discovery",
+      "nisayon.ui-generation.v1": "#/$defs/Manifest",
+      "nisayon.ui-integrity.v1": "#/$defs/Integrity",
+      "nisayon.ui-library.v1": "#/$defs/Library",
+      "nisayon.ui-model.v1": "#/$defs/Model",
+      "nisayon.ui-reconstruction.v1": "#/$defs/Reconstruction",
+      "nisayon.ui-samples.v1": "#/$defs/Samples"
+    },
+    "propertyName": "schema"
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Manifest"
+    },
+    {
+      "$ref": "#/$defs/Case"
+    },
+    {
+      "$ref": "#/$defs/Samples"
+    },
+    {
+      "$ref": "#/$defs/Model"
+    },
+    {
+      "$ref": "#/$defs/Reconstruction"
+    },
+    {
+      "$ref": "#/$defs/Decision"
+    },
+    {
+      "$ref": "#/$defs/Discovery"
+    },
+    {
+      "$ref": "#/$defs/Integrity"
+    },
+    {
+      "$ref": "#/$defs/Library"
+    }
+  ]
+}

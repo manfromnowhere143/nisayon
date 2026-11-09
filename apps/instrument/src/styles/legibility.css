@@ -1,0 +1,46 @@
+/* Final presentation policy: dark-theme text stays opaque white. Size, weight
+   and spacing carry hierarchy. Semantic colour remains on graphical marks.
+   Let the operating system choose text colours in forced-colour modes. */
+@media (forced-colors: none) {
+  :root[data-ground="black"] :is(
+    .quiet:disabled,
+    .tbtn:active,
+    .view-controls .segment:disabled,
+    .choice-trigger:disabled,
+    .overlay-tools button:disabled,
+    .study-path button:disabled,
+    .segment[aria-busy="true"],
+    .segment-id,
+    .lane-end-ghost text,
+    .study-detail[aria-busy="true"] .study-detail-content,
+    .research-footer,
+    .record-breadcrumb button:disabled,
+    .review-pagination button:disabled,
+    .develop-terminal nav button span,
+    .command-pages button:disabled
+  ) { opacity: 1; }
+
+  :root[data-ground="black"] :is(input, textarea)::placeholder {
+    color: var(--ink);
+    opacity: 1;
+  }
+  :root[data-ground="black"] :is(button, input, select, textarea):disabled {
+    -webkit-text-fill-color: var(--ink);
+  }
+  :root[data-ground="black"] :is(svg text, svg tspan) {
+    color: var(--ink);
+    fill: var(--ink);
+    fill-opacity: 1;
+  }
+  :root[data-ground="black"] :is(.pair-dot, .test-field button) {
+    color: var(--ink);
+  }
+  :root[data-ground="black"] .pair-dot.is-passed { border-color: var(--correction); }
+  :root[data-ground="black"] .pair-dot.is-failed { border-color: var(--rejected); }
+
+  :root[data-ground="black"] .research-action {
+    color: var(--ink);
+    background: var(--selected);
+    border-color: var(--ink);
+  }
+}

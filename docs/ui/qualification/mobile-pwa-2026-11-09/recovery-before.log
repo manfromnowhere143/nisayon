@@ -1,0 +1,34 @@
+
+> nisayon-instrument@0.1.0 pretest
+> node scripts/make_failure_fixtures.mjs
+
+
+> nisayon-instrument@0.1.0 test
+> vitest run --maxWorkers=2 test/offlineRuntime.test.ts
+
+
+ RUN  v4.1.12 /Users/danielwahnich/workspace/nisayon-cinematic-main-integration-2026-11-09/apps/instrument
+
+ ❯ test/offlineRuntime.test.ts (6 tests | 1 failed) 35ms
+   × retries a failed first registration when connectivity returns 29ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/offlineRuntime.test.ts > retries a failed first registration when connectivity returns
+AssertionError: expected "vi.fn()" to be called 2 times, but got 1 times
+ ❯ test/offlineRuntime.test.ts:45:34
+     43|   window.dispatchEvent(new Event("online"));
+     44|   await vi.advanceTimersByTimeAsync(0);
+     45|   expect(serviceWorker.register).toHaveBeenCalledTimes(2);
+       |                                  ^
+     46|   expect(runtime.offlineSnapshot().status).toBe("ready");
+     47| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  22:40:36
+   Duration  570ms (transform 50ms, setup 27ms, import 17ms, tests 35ms, environment 395ms)
+

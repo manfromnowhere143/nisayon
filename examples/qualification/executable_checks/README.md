@@ -30,10 +30,10 @@ use its own explicit timeouts. Inspectable handler source and declared helper
 sources enter the procedure identity. The graph must bind every check to it.
 
 These are trusted Python handlers, not isolated plugins. Mutable closures,
-undeclared reads, adversarial races, remote state and missing implementation
+undeclared reads, general adversarial races, remote state and missing implementation
 dependencies are unsupported. The API restricts its own reads; it cannot prevent
 arbitrary Python or C I/O. Inputs are limited to 16 MiB each and 64 MiB together.
-Unknown inputs block execution; failures retain prefixes and stop dependent work.
+Unknown inputs block execution by default; failures retain prefixes and stop further work.
 Completed checks can contain rejection or uncertainty. No automatic acceptance
 or independent execution attestation follows from completion.
 
@@ -47,9 +47,177 @@ dependency completeness and trusted loaded code remain premises.
 
 Reconstruction rejects unsupported execution schemas, statuses and authority
 fields, and a claimed completed execution with retained errors. A valid unfinished
-prefix remains unresolved. The planner and receipts bind the checker identity:
+prefix remains unresolved, after checking its completed receipts and recorded
+attempts. A terminal failed, interrupted or started attempt cannot supply a
+completed receipt, and no later attempt may follow it. Corrupt incomplete records
+fail review and export. Native failure files remain inspectable as failure data.
+The planner and receipts bind the checker identity:
 historical records require the matching SDK source and distribution metadata.
 An upgraded checker is not silently substituted for that historical source.
+
+## Staged inputs
+
+For a reviewed model where an unknown input affects only some checks, opt in to
+partial execution. The following uses the handlers and source declared above:
+
+```python
+from nisayon.qualification import EvidenceState
+
+shared = dict(
+    handlers={"observe": observe, "score": score, "confirm": confirm, "review": review},
+    implementation_files=[adapter_source],
+    evidence_root=evidence_root,
+    allow_partial=True,
+)
+pending = {**input_files, "population": None}
+first = execute_checks(model, **shared, inputs=pending, output=evidence_root / "pending-population")
+assert first["status"] == "unresolved"
+
+# Obtain the population input prospectively. Keep the original evidence intact.
+# input_files now supplies the actual acquired file for every required input.
+second = execute_checks(
+    model,
+    **shared,
+    inputs=input_files,
+    output=evidence_root / "population-bound",
+    previous=EvidenceState.from_dict(first["state"]),
+)
+```
+
+Only checks independent of the unknown input may finish. An unknown population
+does not spare observations if the model declares that they depend on it. Missing
+model review, incomplete dependency-kind coverage, absent confirmation and failed
+file acquisition still block every check. Withheld reasons identify each affected
+check and input. The next execution revalidates receipts and runs confirmation;
+it never fills in missing bytes or approval retroactively. Keep `allow_partial`
+consistent across stages to preserve procedure identity.
+
+`inspect_checks` and portable review keep the first result unresolved, with no
+verified result artifacts. A completed second execution still needs its normal
+semantic assessment and owner decision. Partial export uses the same unredacted
+permission boundary as any other export. These are trusted-handler guarantees,
+not proof that undeclared dependencies were discovered.
+
+## Continue from a portable packet
+
+`import_check_bundle` connects portable review to the same execution API. Give it
+the expected archive digest from the export receipt and a new destination:
+
+```python
+from pathlib import Path
+from nisayon.qualification import EvidenceState, import_check_bundle
+
+admitted = import_check_bundle(
+    Path("checks.zip"),
+    expected_sha256=export_receipt["bundle_sha256"],
+    output=Path("continued-evidence"),  # must not exist
+)
+root = Path(admitted["evidence_root"])
+prior = EvidenceState.read(Path(admitted["state_path"]))
+result = execute_checks(
+    model,
+    inputs=current_input_files,
+    handlers=current_handlers,
+    implementation_files=current_source_files,
+    evidence_root=root,
+    output=root / "new-decision",
+    previous=prior,
+    allow_partial=True,  # keep the original procedure mode
+)
+```
+
+The CLI equivalent is `nisayon-qualify import-check-bundle checks.zip --sha256
+EXPECTED_DIGEST --out continued-evidence`. Exit 0 means import completed; the
+returned deployment decision remains unresolved. Import executes no handler and
+does not restore a robot or accept a correction. Supply the current reviewed
+model, trusted code and inputs explicitly. The executor decides which receipts
+remain applicable and executes required confirmation anew.
+
+The archive is captured once: the expected digest, reconstructed records and
+written files all refer to those bytes. A digest is not source authentication.
+Conflicting saved assessments and corrupt evidence refuse import before the
+destination is created. The existing exact-checker rule applies; old packets
+cannot gain newer guarantees through import. Review them with their recorded
+SDK or reacquire evidence prospectively.
+
+The destination is a new private directory in a trusted parent. Existing files,
+directories and leaf symlinks are refused, including a destination created during
+review. A write failure can leave an incomplete directory without a success
+result; use a fresh destination to retry. This is not atomic crash recovery or a
+hostile-filesystem sandbox. Imported contents remain unredacted, and import grants
+no new sharing permission. Include import and review work in any cost comparison.
+
+## Pinned external calibration
+
+`calibration.py` qualifies one local regular JSON file of at most 64 KiB through
+the same API. It binds a prospective pin and supplied provenance as ordinary
+inputs, hashes and parses the same captured bytes, retains unaffected diagnostic
+observations, and actually executes confirmation on each decision. It supports
+only the shown stateless scalar computation. Its `adopt` result is a software
+relation, with deployment acceptance still unresolved.
+
+Create an exposed example input and its prospective contract in a new directory:
+
+```sh
+uv run --frozen python - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+
+root = Path('artifacts/calibration-input')
+root.mkdir(parents=True, exist_ok=False)
+raw = b'{"center":10}'
+(root / 'calibration.json').write_bytes(raw)
+contract = {
+    'schema': 'nisayon.example.calibration_admission.v1',
+    'resource': 'calibration',
+    'sha256': hashlib.sha256(raw).hexdigest(),
+    'provenance': 'Authored example; no physical calibration claim',
+    'permitted_use': 'scalar-normalization-v1',
+    'consumption': 'check_context_snapshot',
+    'export_contents': True,
+}
+(root / 'admission.json').write_text(json.dumps(contract))
+PY
+uv run --frozen python examples/qualification/executable_checks/calibration.py \
+  --root artifacts/calibration-evidence --case initial \
+  --calibration artifacts/calibration-input/calibration.json \
+  --admission artifacts/calibration-input/admission.json \
+  --bundle artifacts/calibration-initial.zip
+uv run --frozen python examples/qualification/executable_checks/calibration.py \
+  --root artifacts/calibration-evidence --case next --confirmation-position 26 \
+  --calibration artifacts/calibration-input/calibration.json \
+  --admission artifacts/calibration-input/admission.json \
+  --previous-state artifacts/calibration-evidence/initial/state.json \
+  --bundle artifacts/calibration-next.zip
+```
+
+The second run reuses the unchanged observation and score, then executes
+confirmation and review. Changed calibration bytes fail the old pin even at the
+same path, size and timestamp. A prospectively updated pin allows a new
+measurement; it does not make the changed candidate correct. Unsupported
+consumption channels return an unresolved reason naming the calibration and
+required rebind. Missing acquisition retains a v2 unresolved prefix and requires
+a new output directory; it does not retain partial input identities.
+
+The pin binds the actual returned bytes, not a pre-run pathname hash alone. It
+does not attest provenance, complete dependencies, truth, physical adequacy or
+atomic file versions. Loaded code must match the declared source; the handlers
+must remain stateless and within their reviewed scope. Parent-path aliases are
+only a byte-identity case. No subprocess, native-library, environment or network
+calibration is admitted by this example.
+
+`--bundle` is optional. The existing exporter retains original values without
+redaction, so this example requires explicit permission for current bytes and
+included historical results. It refuses unknown/private history, mismatched
+pins and missing frozen permission. Authorizing a new revision does not authorize
+private old observations: execute without `--previous-state` to acquire a fresh
+exportable packet. The example checks and exports the same collected snapshot;
+it does not add a general privacy guarantee to `export_checks`.
+
+The [retained qualification packet](../../../docs/experiments/results/main-refresh-2026-11-09/README.md#declared-calibration-and-portable-continuation)
+freezes the exposed controls and limits. The attempted cost comparison stopped
+on recording defects; no comparative efficiency result was established.
 
 MeasurementContract separately binds metric names, units, accounting boundary,
 required conditions and the `all` aggregation. Numeric relations use exact
@@ -84,9 +252,11 @@ It compares whole tracked memory and six sampled payloads. The solver was
 unconverged, and task/deployment acceptance remains unresolved.
 
 Keep the complete evidence root for replay, including model review and prior
-states, or use [portable check export](../../../docs/PORTABLE_REVIEW.md#executable-check-records).
+states, or use the implemented [portable check export](../../../docs/EVIDENCE_APPLICABILITY.md#continue-with-a-transported-evidence-root).
 `nisayon-qualify export-checks` retains the needed records and
-`review-check-bundle` reconstructs them without running native handlers.
-Instrument display and browser/device acceptance remain separately qualified.
-Source identities must match for reconstruction; an SDK upgrade does not
-silently grant historical records a new assessment.
+`review-check-bundle` reconstructs them without running native handlers. The
+instrument extension is implemented locally on `ui/executable-check-review-2026-10-25`;
+it still awaits actual browser/device acceptance and deployment authorization.
+The [record-consistency continuation](../../../docs/EVIDENCE_APPLICABILITY.md#progress-while-an-input-is-unknown)
+retains current guards, exact-source limits and the Inspect transfer into that
+existing review interface. Original execution evidence remains unchanged.

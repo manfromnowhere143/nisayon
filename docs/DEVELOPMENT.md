@@ -1,7 +1,7 @@
 # Development
 
-The repository contains workspace tools and a bounded CPU Lift experiment
-engine. The first joint case and two development comparisons are implemented
+The repository contains workspace tools, bounded experiment engines, the native
+qualification SDK and a browser instrument. The first joint case and two development comparisons are implemented
 and measured. Neither comparison demonstrates an efficiency advantage; the
 reserved screen remains unrun. See the [release scope](RELEASE.md).
 
@@ -129,6 +129,15 @@ The script refuses to overwrite an unrelated command with the same name.
 On another machine, add `~/.local/bin` to the shell PATH if needed. The launcher
 resolves its repository from the installed script, so the checkout can live at
 a different path. Moving it requires reinstalling the symlinks deliberately.
+
+## Instrument checks
+
+The frontend is included in current source with its lockfile and retained public
+fixtures. From `apps/instrument`, run `npm ci`, then `npm run check` using the
+pinned CI Node version. The Python `make check` and frontend checks run on both
+Linux and macOS CI. Native MuJoCo controls use the separate locked native group.
+See the [application guide](../apps/instrument/README.md) for local preview and
+for the difference between recorded evidence and cinematic imagery.
 
 ## Launch and resume
 

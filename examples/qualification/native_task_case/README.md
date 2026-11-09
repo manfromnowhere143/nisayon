@@ -1,7 +1,6 @@
 # Retained native bowl-placement comparison
 
-These 20 files are an unmodified subset of the
-[published N100 observations](https://gist.github.com/manfromnowhere143/d76ce08ce521b36bcf4c15383d71a6f3/67283ffad2d72ccb42b73096b3daac4401646dcb).
+These 20 files are an unmodified subset of the published N100 observations.
 [SOURCE.json](SOURCE.json) records every original byte identity and source path.
 The selected pilot groups are `matched-baseline-01/libero_spatial` and
 `matched-evaluation-01/float32-libero_spatial`: five pairs, with 390 reference and

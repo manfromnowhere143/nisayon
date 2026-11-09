@@ -1,0 +1,398 @@
+F.F.............................F....................................... [ 56%]
+....................................F..F..F..F..F..F..F                  [100%]
+=================================== FAILURES ===================================
+______________ test_checked_real_d01_readings_frames_and_findings ______________
+
+generation = {'generation_sha256': '0ee415adfbca09e60a090a2f545c4e9d1193cc8a057a7648b1486148207e93c7', 'manifest': {'adapter': 'nis...0005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...}
+
+    def test_checked_real_d01_readings_frames_and_findings(generation):
+        case = next(iter(generation["cases"].values()))
+        assert sum(r["sample_count"] for r in case["runs"]) == 488
+        assert [(f["code"], f["run"]["run_id"], f["step"]) for f in case["findings"]] == [
+            ("gripper_transport_mismatch", "regression-0", 0)
+        ]
+>       original = json.loads(gzip.decompress(COMPACT.read_bytes()))
+                                              ^^^^^^^^^^^^^^^^^^^^
+
+tests/ui_export/test_boundary.py:111: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+________ test_source_distinguishes_compressed_exact_and_canonical_bytes ________
+
+generation = {'generation_sha256': '0ee415adfbca09e60a090a2f545c4e9d1193cc8a057a7648b1486148207e93c7', 'manifest': {'adapter': 'nis...0005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...}
+
+    def test_source_distinguishes_compressed_exact_and_canonical_bytes(generation):
+>       data = COMPACT.read_bytes()
+               ^^^^^^^^^^^^^^^^^^^^
+
+tests/ui_export/test_boundary.py:131: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_____________________ test_missing_bound_state_is_rejected _____________________
+
+    def test_missing_bound_state_is_rejected():
+>       compact = json.loads(gzip.decompress(COMPACT.read_bytes()))["runs"][0]["trace"][0]
+                                             ^^^^^^^^^^^^^^^^^^^^
+
+tests/ui_export/test_boundary.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+___ test_every_recorded_original_matches_its_exact_bundle[D01-gripper-sign] ____
+
+recorded = ('D01-gripper-sign', {'generation_sha256': 'fba337e414878fa2e2896c1085abfc278891e1214b5d78f955910f8cacd547a4', 'manife...005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/confirmation/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D01-gripper-sign/B/confirmation/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_every_recorded_original_matches_its_exact_bundle[D03-observation-backlog] _
+
+recorded = ('D03-observation-backlog', {'generation_sha256': 'c00fb8dedcd6e528ab7b58a99ab43bd2bb19bb373ed2da90e5482ecd5d37497f', ...005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D03-observation-backlog/B/confirmation/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D03-observation-backlog/B/confirmation/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+__ test_every_recorded_original_matches_its_exact_bundle[D05-recurrent-carry] __
+
+recorded = ('D05-recurrent-carry', {'generation_sha256': '7a0679b8a7d85ff88ae94de8959f41d59d4c5aafec4f301c9757621aa667ef36', 'man...0005579655658479732, 'eef_coordinate_difference_m': 0.000314130100422777}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D05-recurrent-carry/B/confirmation/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D05-recurrent-carry/B/confirmation/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_every_recorded_original_matches_its_exact_bundle[D06-stateless-inference] _
+
+recorded = ('D06-stateless-inference', {'generation_sha256': 'a3e869ddd06674db53b9b0d115c2194a581ef05d15682e6d8f4598cd86ae1fcd', ...005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D06-stateless-inference/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D06-stateless-inference/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_every_recorded_original_matches_its_exact_bundle[D08-old-future-replay] _
+
+recorded = ('D08-old-future-replay', {'generation_sha256': '01aed2c073ff679978633c9b5ecad38e0325b9a4e449a32cab2b3ecc10456e20', 'm...005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D08-old-future-replay/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D08-old-future-replay/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+_ test_every_recorded_original_matches_its_exact_bundle[D10-opaque-policy-state] _
+
+recorded = ('D10-opaque-policy-state', {'generation_sha256': '1f4ea1a8e9fe6ec3a4702e049969718dd8ddb3010cb60a16ce49157ff8e11452', ...005579657636821667, 'eef_coordinate_difference_m': 0.0003949704604507831}, 'method': 'mj_kinematics', ...}, ...}, ...})
+
+    def test_every_recorded_original_matches_its_exact_bundle(recorded):
+        case_id, generation = recorded
+        case = next(iter(generation["cases"].values()))
+        stages = {run["stage"] for run in case["runs"]}
+        originals = {}
+        for stage in stages:
+            bundle = json.loads(
+                gzip.decompress(
+>                   (COMPACT / case_id / "B" / stage / "execution/bundle.json.gz").read_bytes()
+                )
+            )
+
+tests/ui_export/test_recorded.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1019: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D10-opaque-policy-state/B/diagnostic/execution/bundle.json.gz')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/D10-opaque-policy-state/B/diagnostic/execution/bundle.json.gz'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/pathlib.py:1013: FileNotFoundError
+____________________ test_changed_archive_child_is_rejected ____________________
+
+tmp_path = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-24/test_changed_archive_child_is_0')
+
+    def test_changed_archive_child_is_rejected(tmp_path):
+        import shutil
+    
+>       shutil.copy(COMPACT / "archive-manifest.json", tmp_path / "archive-manifest.json")
+
+tests/ui_export/test_recorded.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/shutil.py:435: in copy
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+src = PosixPath('/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/archive-manifest.json')
+dst = PosixPath('/private/var/folders/fl/_txhnxc90xl00n3xtq0r4nq40000gn/T/pytest-of-danielwahnich/pytest-24/test_changed_archive_child_is_0/archive-manifest.json')
+follow_symlinks = True
+
+    def copyfile(src, dst, *, follow_symlinks=True):
+        """Copy data from src to dst in the most efficient way possible.
+    
+        If follow_symlinks is not set and src is a symbolic link, a new
+        symlink will be created instead of copying the file it points to.
+    
+        """
+        sys.audit("shutil.copyfile", src, dst)
+    
+        if _samefile(src, dst):
+            raise SameFileError("{!r} and {!r} are the same file".format(src, dst))
+    
+        file_size = 0
+        for i, fn in enumerate([src, dst]):
+            try:
+                st = _stat(fn)
+            except OSError:
+                # File most likely does not exist
+                pass
+            else:
+                # XXX What about other special files? (sockets, devices...)
+                if stat.S_ISFIFO(st.st_mode):
+                    fn = fn.path if isinstance(fn, os.DirEntry) else fn
+                    raise SpecialFileError("`%s` is a named pipe" % fn)
+                if _WINDOWS and i == 0:
+                    file_size = st.st_size
+    
+        if not follow_symlinks and _islink(src):
+            os.symlink(os.readlink(src), dst)
+        else:
+>           with open(src, 'rb') as fsrc:
+                 ^^^^^^^^^^^^^^^
+E           FileNotFoundError: [Errno 2] No such file or directory: '/Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/docs/experiments/results/development-ablation-001/archive-manifest.json'
+
+../../.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/shutil.py:260: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/ui_export/test_boundary.py::test_checked_real_d01_readings_frames_and_findings
+FAILED tests/ui_export/test_boundary.py::test_source_distinguishes_compressed_exact_and_canonical_bytes
+FAILED tests/ui_export/test_boundary.py::test_missing_bound_state_is_rejected
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D01-gripper-sign]
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D03-observation-backlog]
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D05-recurrent-carry]
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D06-stateless-inference]
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D08-old-future-replay]
+FAILED tests/ui_export/test_recorded.py::test_every_recorded_original_matches_its_exact_bundle[D10-opaque-policy-state]
+FAILED tests/ui_export/test_recorded.py::test_changed_archive_child_is_rejected

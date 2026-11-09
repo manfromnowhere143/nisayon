@@ -170,7 +170,10 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
             errors.extend(
                 f"{issue}:{name}"
                 for issue in check_read_witness(
-                    observed.get("read_witness"), plan["sources"], target["path"]
+                    observed.get("read_witness"),
+                    plan["sources"],
+                    target["path"],
+                    policy=plan["read_policy"],
                 )
             )
         runtimes.add(digest(observed["runtime"]))

@@ -90,6 +90,19 @@ read-only transfer, with software and deployment decisions still separate.
 
 ## Python interface
 
+Current-source plans use `cpython_bound_reads_v2`. If the bounded Python audit
+hook observes an external read that is not bound by the plan, the result stays
+unresolved with `unbound_external_read`. Legacy plans retain their explicit
+policy and are not granted this newer guarantee. The hook does not cover every
+native-library, subprocess, environment or network input.
+
+For a reviewed external calibration file, use the existing
+[declared-check example](../examples/qualification/executable_checks/README.md):
+declare provenance and permitted use prospectively, pin the expected bytes,
+and consume the captured snapshot. Its observation reuse and portable
+continuation preserve required fresh confirmation. This path does not infer
+dependencies or convert a software result into robot deployment acceptance.
+
 ```python
 from nisayon.qualification import (
     CaseSpec,

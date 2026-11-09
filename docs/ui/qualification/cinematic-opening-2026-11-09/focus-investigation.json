@@ -1,0 +1,27 @@
+{
+  "schema": "nisayon.ui-focus-investigation.v1",
+  "checked_at": "2026-11-09T20:27:53.453360+00:00",
+  "runtime_commit": "82e9f69f581611de6201a609650466295da7ffff",
+  "report": "Intermittent rectangular border around Watch intro, cleared by another click.",
+  "observed": [
+    "Live Safari opening had no rectangle around Watch intro at the last screenshot.",
+    "Escape return from the intro restored focus to Watch intro during the preceding browser verification.",
+    "Source already installs shared pointer/keyboard presentation in the instrument shell; pointer suppression has greater CSS specificity than the opening focus rule.",
+    "Existing focus and film tests: 2 files, 21 passed."
+  ],
+  "unresolved": [
+    "The exact user interaction preceding the rectangle is unconfirmed.",
+    "Native coordinate pointer automation failed with noWindowsAvailable. Accessibility activation does not establish physical mouse behavior."
+  ],
+  "explanation_status": "Keyboard/assistive focus is a supported explanation, not a demonstrated diagnosis of the user report. No evidence established stale CSS.",
+  "decision": "No focus or production style change; no blanket outline removal or forced blur.",
+  "references": [
+    "apps/instrument/src/ui/focusPresentation.ts",
+    "apps/instrument/src/styles/focus.css",
+    "apps/instrument/src/styles/opening.css",
+    "apps/instrument/src/research/Film.tsx",
+    "https://www.w3.org/WAI/WCAG22/Techniques/css/C45",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:focus-visible"
+  ],
+  "next": "Reproduce the exact pointer/keyboard sequence before any corrective focus change."
+}

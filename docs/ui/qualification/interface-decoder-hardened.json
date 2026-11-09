@@ -1,0 +1,544 @@
+{
+  "schema": "nisayon.ui-interface-decoder-readback.v1",
+  "original_interface_commit": "340519973164cc9fb89e7d772bf4af3a00f7a557",
+  "decoder_source_sha256": "879ed9b278b0e1b707b295ec0cdba6fd25aea8cd348d7cb6ece22b75188edc61",
+  "checked_head": "af0b178c29c87f511bea6d257ec2deca09778139",
+  "node": "v20.18.3",
+  "script_sha256": "8752611005ca0a7e0a5dcbe067b5e57822edb5535381f335002c19b7b84bd517",
+  "strict_json_source_sha256": "06806c9519ee42d7a47895d26e3772dadee6557c182450bb10f46e19d0d5182b",
+  "scope": "Committed interface decoders and findings, called directly in Node; no fetch loader, browser, renderer, interaction or performance acceptance.",
+  "cases": [
+    {
+      "case_id": "D01-gripper-sign",
+      "runs": 70,
+      "rows": 3748,
+      "frames": 7496,
+      "generation_sha256": "5bf5b6d7c61324aac501b04292168e9cbb58ec16ce3da940c25ac52d5e48192a",
+      "trial_status": "confirmed",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "runs": 70,
+      "rows": 3090,
+      "frames": 6180,
+      "generation_sha256": "39727a47ef84aa835145f3eaf81c9ddcc43c0f6b83d5ad561ce12114b19b4e67",
+      "trial_status": "confirmed",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "runs": 140,
+      "rows": 6048,
+      "frames": 12096,
+      "generation_sha256": "9c0e4bf557d0688febc900852fc732f50f15c52fec8effbd3a38db7f39c4f9f4",
+      "trial_status": "rejected",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "runs": 2,
+      "rows": 90,
+      "frames": 180,
+      "generation_sha256": "f0426472a47ad6d183ecff0b99765b03f027d221fb59179dd6a0452b4ef091b8",
+      "trial_status": "unsupported",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "runs": 2,
+      "rows": 444,
+      "frames": 888,
+      "generation_sha256": "59804f73db474a7340d581689cbd950ece30d94d69f44fec32cf75d9f165a924",
+      "trial_status": "invalid",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "runs": 2,
+      "rows": 444,
+      "frames": 888,
+      "generation_sha256": "3b4e15909585504cc1f016e3cb2ea430713549d4c286eb0d0d654fe8bedf26b4",
+      "trial_status": "unresolved",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    }
+  ],
+  "findings": [
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "observation_age_violation",
+          "definition": "action_sim_time_s - observation_sim_time_s > max_observation_age_s",
+          "detail": "Consumed observation exceeds the recorded age obligation.",
+          "id": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387/regression-0/observation_age_violation",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 1,
+          "run": {
+            "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/1",
+            "source_id": "bundle:f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387"
+          },
+          "step": 1,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "reference-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "regression-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0000306367874146,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "correction-exploration-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "run": {
+        "bundle_sha256": "100c7c30eeeca6f5d462238660a232014b6ceb3a15f52329b99b3e4fa99a5656",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "run": {
+        "bundle_sha256": "100c7c30eeeca6f5d462238660a232014b6ceb3a15f52329b99b3e4fa99a5656",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "run": {
+        "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "run": {
+        "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "run": {
+        "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "run": {
+        "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    }
+  ],
+  "trial_source_probes": [
+    {
+      "case_id": "D01-gripper-sign",
+      "bound": {
+        "sha256": "f0d552dd0218d9e2c31821a88efe6014318a793954448b055a6eb364cfe2fb93",
+        "byte_length": 3516,
+        "label": "development-ablation-001/D01-gripper-sign/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "f0d552dd0218d9e2c31821a88efe6014318a793954448b055a6eb364cfe2fb93",
+        "byte_length": 3516,
+        "path": "development-ablation-001/D01-gripper-sign/B/trial.json"
+      },
+      "exact_source_identity": true
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "bound": {
+        "sha256": "996606542d3c3f935b6346146cd5b1af9d95e5912ccb1d568c5beb7810b3e9f3",
+        "byte_length": 3538,
+        "label": "development-ablation-001/D03-observation-backlog/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "996606542d3c3f935b6346146cd5b1af9d95e5912ccb1d568c5beb7810b3e9f3",
+        "byte_length": 3538,
+        "path": "development-ablation-001/D03-observation-backlog/B/trial.json"
+      },
+      "exact_source_identity": true
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "bound": {
+        "sha256": "d90039d8a88a1a7996f52642fcc8c21395fd1a572bc650b69ad842383ce726fb",
+        "byte_length": 3522,
+        "label": "development-ablation-001/D05-recurrent-carry/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "d90039d8a88a1a7996f52642fcc8c21395fd1a572bc650b69ad842383ce726fb",
+        "byte_length": 3522,
+        "path": "development-ablation-001/D05-recurrent-carry/B/trial.json"
+      },
+      "exact_source_identity": true
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "bound": {
+        "sha256": "5a10e99cc4d25e7fcd249f08c97cd2e9121136b3f8a6af37fcc626ac242aa965",
+        "byte_length": 2292,
+        "label": "development-ablation-001/D06-stateless-inference/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "5a10e99cc4d25e7fcd249f08c97cd2e9121136b3f8a6af37fcc626ac242aa965",
+        "byte_length": 2292,
+        "path": "development-ablation-001/D06-stateless-inference/B/trial.json"
+      },
+      "exact_source_identity": true
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "bound": {
+        "sha256": "a33d1def55a788b5d676325567ce346154941e4f9ed17d6eb2eda4f2b6b118d0",
+        "byte_length": 2563,
+        "label": "development-ablation-001/D08-old-future-replay/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "a33d1def55a788b5d676325567ce346154941e4f9ed17d6eb2eda4f2b6b118d0",
+        "byte_length": 2563,
+        "path": "development-ablation-001/D08-old-future-replay/B/trial.json"
+      },
+      "exact_source_identity": true
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "bound": {
+        "sha256": "e468112870393fca96b20826bc15f400f2fd7a37b92557d1da07bfec4ddb7efb",
+        "byte_length": 2291,
+        "label": "development-ablation-001/D10-opaque-policy-state/B/trial.json"
+      },
+      "decoded": {
+        "sha256": "e468112870393fca96b20826bc15f400f2fd7a37b92557d1da07bfec4ddb7efb",
+        "byte_length": 2291,
+        "path": "development-ablation-001/D10-opaque-policy-state/B/trial.json"
+      },
+      "exact_source_identity": true
+    }
+  ],
+  "d05_pairing_probe": {
+    "selected": {
+      "bundle_sha256": "3c9ccd073556053f3900f240b85972b5f657138b1b1e8e62dda8d841959b2b0b",
+      "run_id": "confirmation-correction-10423"
+    },
+    "selected_condition": "seed-10423-prefix-10-21",
+    "paired": {
+      "bundle_sha256": "3c9ccd073556053f3900f240b85972b5f657138b1b1e8e62dda8d841959b2b0b",
+      "run_id": "confirmation-reference-10423"
+    },
+    "paired_condition": "seed-10423-prefix-10-21",
+    "same_condition": true
+  },
+  "total_rows_checked": 13864,
+  "total_frames_checked": 27728,
+  "command_wall_seconds": 6.540227375
+}

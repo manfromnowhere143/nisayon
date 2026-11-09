@@ -373,6 +373,60 @@ def prepare(root: Path, key: str, evidence: list[str], *, clock=time.time) -> di
     return packet
 
 
+def decision_inputs(packet: dict) -> str:
+    """Identify selected inputs, without treating discovery previews as new evidence.
+
+    This is exact input deduplication, not recognition of paraphrased questions.
+    Material evidence, voice, policy, review and thread changes remain distinct.
+    """
+    return engagements.digest(
+        {key: value for key, value in packet.items() if key not in {"job_id", "continuity"}}
+    )
+
+
+def _retained(job: Path, packet: dict) -> dict:
+    current = engagements.read_json(job / "state.json", {})
+    if (
+        current.get("job_id") != packet["job_id"]
+        or job.name != packet["job_id"]
+        or engagements.digest({k: v for k, v in packet.items() if k != "job_id"}) != job.name
+        or engagements.read_json(job / "public/packet.json", {}) != packet
+    ):
+        raise ValueError("Retained investigation binding changed")
+    if current.get("status") not in {"preflight", "running", "blocked", "review_required"}:
+        raise ValueError("Unknown retained investigation status")
+    if current["status"] == "review_required":
+        proposal = engagements.read_json(job / "proposal.json", {})
+        if engagements.digest(proposal) != current.get("proposal_sha256"):
+            raise ValueError("Retained proposal changed")
+        validate_response(proposal, packet)
+    return {
+        **current,
+        "reused": True,
+        "worker_calls_this_invocation": 0,
+        "live_source_rechecked": False,
+    }
+
+
+def verify_live_source(packet: dict, folder: Path) -> dict:
+    """Read one complete available thread before dispatch; never update monitor state."""
+    reader = engagements.GitHubReader(folder)
+    receipt = {"started_at": records.now(), "complete": False, "fingerprint": None}
+    try:
+        snapshot = engagements.snapshot(reader, packet["key"])
+        records.atomic_json(folder / "snapshot.json", snapshot)
+        receipt.update(complete=True, fingerprint=engagements.digest(snapshot))
+    except Exception as error:
+        receipt["error"] = f"{type(error).__name__}: {error}"
+    receipt.update(
+        finished_at=records.now(),
+        requests=reader.requests,
+        scope="Available GitHub streams at this read, not semantic truth or future freshness. Re-read before delivery.",
+    )
+    records.atomic_json(folder / "receipt.json", receipt)
+    return receipt
+
+
 def qualify_runtime(public: Path) -> dict:
     """Observe direct file operations, rather than trusting an agent's self-report.
 
@@ -480,19 +534,32 @@ def run_once(
     with engagements.locked(queue):
         current = engagements.read_json(job / "state.json", {})
         if current:
-            if (
-                current.get("job_id") != packet["job_id"]
-                or engagements.read_json(job / "public/packet.json", {}) != packet
-            ):
-                raise ValueError("Retained investigation binding changed")
-            if current.get("status") not in {"preflight", "running", "blocked", "review_required"}:
-                raise ValueError("Unknown retained investigation status")
-            if current["status"] == "review_required":
-                proposal = engagements.read_json(job / "proposal.json", {})
-                if engagements.digest(proposal) != current.get("proposal_sha256"):
-                    raise ValueError("Retained proposal changed")
-                validate_response(proposal, packet)
-            return {**current, "reused": True, "worker_calls_this_invocation": 0}
+            return _retained(job, packet)
+        # The writer lock also covers discovery-only wakeups with different job IDs.
+        # Preserve the original packet and uncertain state; do not manufacture a retry.
+        for previous_job in sorted(queue.iterdir()):
+            if not previous_job.is_dir():
+                continue
+            previous = engagements.read_json(previous_job / "state.json", {})
+            old = engagements.read_json(previous_job / "public/packet.json", {})
+            if not previous and not old:
+                raise ValueError(
+                    "Retained investigation history is missing; reconcile before dispatch"
+                )
+            if key not in {previous.get("key"), old.get("key")}:
+                continue
+            if not previous or not old or previous.get("key") != old.get("key"):
+                raise ValueError(
+                    "Retained investigation history is incomplete; reconcile before dispatch"
+                )
+            retained = _retained(previous_job, old)
+            if decision_inputs(old) == decision_inputs(packet):
+                return {
+                    **retained,
+                    "requested_job_id": packet["job_id"],
+                    "discovery_review_required": True,
+                    "reuse_scope": "Selected inputs match. Review new discovery context and explicitly select material evidence before another investigation.",
+                }
         public = job / "public"
         records.atomic_json(public / "packet.json", packet)
         current = {
@@ -513,10 +580,25 @@ def run_once(
         records.atomic_json(job / "boundary.json", boundary)
         if not boundary.get("qualified"):
             raise ValueError("Current runtime file boundary did not qualify")
+        fresh = prepare(root, key, evidence, clock=clock)
+        if decision_inputs(fresh) != decision_inputs(packet):
+            raise ValueError("Source, evidence, voice or policy changed during preflight")
+        live = verify_live_source(packet, job / "live-source")
+        records.atomic_json(job / "live-source.json", live)
+        if not live.get("complete") or live.get("fingerprint") != packet["fingerprint"]:
+            raise ValueError(
+                "Live thread is changed or incomplete; refresh and reconcile before dispatch"
+            )
+        fresh = prepare(root, key, evidence, clock=clock)
+        if decision_inputs(fresh) != decision_inputs(packet):
+            raise ValueError("Source, evidence, voice or policy changed during live verification")
         current.update(
             status="running",
             worker_calls_this_invocation=1,
             boundary_reference=str(job / "boundary.json"),
+            live_source_reference=str(job / "live-source.json"),
+            live_source_rechecked=True,
+            discovery_review_required=fresh["continuity"] != packet["continuity"],
         )
         with engagements.locked(queue):
             records.atomic_json(job / "state.json", current, replace=True)
@@ -537,7 +619,7 @@ def run_once(
             raise ValueError("Worker input packet changed during execution")
         validation = validate_response(result.get("response"), packet)
         fresh = prepare(root, key, evidence, clock=clock)
-        if fresh["job_id"] != packet["job_id"]:
+        if decision_inputs(fresh) != decision_inputs(packet):
             raise ValueError("Source, evidence, voice or policy changed during investigation")
         records.atomic_json(job / "proposal.json", result["response"])
         current.update(
@@ -547,6 +629,7 @@ def run_once(
             usage_events=result.get("usage_events", []),
             proposal_sha256=engagements.digest(result["response"]),
             command_record=result["command_record"],
+            discovery_review_required=fresh["continuity"] != packet["continuity"],
         )
     except Exception as error:
         current.update(status="blocked", error=f"{type(error).__name__}: {error}")

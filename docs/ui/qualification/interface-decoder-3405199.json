@@ -1,0 +1,456 @@
+{
+  "schema": "nisayon.ui-interface-decoder-readback.v1",
+  "interface_commit": "340519973164cc9fb89e7d772bf4af3a00f7a557",
+  "checked_head": "6cba1a5e05a12bddf9c0415ec2de747ddf323840",
+  "node": "v20.18.3",
+  "script_sha256": "0a85d5663d8de40686ffd10366531f287a36a366e4c6ce603caddaad87929206",
+  "scope": "Committed interface decoders and findings, called directly in Node; no fetch loader, browser, renderer, interaction or performance acceptance.",
+  "cases": [
+    {
+      "case_id": "D01-gripper-sign",
+      "runs": 70,
+      "rows": 3748,
+      "frames": 7496,
+      "generation_sha256": "b00dc078144955b224a3556a5db99a658010c43b2c7ad09af747172aebe84bd6",
+      "trial_status": "confirmed",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "runs": 70,
+      "rows": 3090,
+      "frames": 6180,
+      "generation_sha256": "71b0606dbff85bf55743f219d419a68ebfa44809bc1f93a6526124d71221bc26",
+      "trial_status": "confirmed",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "runs": 140,
+      "rows": 6048,
+      "frames": 12096,
+      "generation_sha256": "46a374606072ed759bfa54e6d867b940933af6c8d6338fc4fb4e118312cfc307",
+      "trial_status": "rejected",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "runs": 2,
+      "rows": 90,
+      "frames": 180,
+      "generation_sha256": "a919d8046197c18951981674569482553a9aa2d835670eb2210cbd42ebf2d048",
+      "trial_status": "unsupported",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "runs": 2,
+      "rows": 444,
+      "frames": 888,
+      "generation_sha256": "e6766a4456839c7ba8e85d53d9bfd75a600db74b19209bd8516bf592232f2267",
+      "trial_status": "invalid",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "runs": 2,
+      "rows": 444,
+      "frames": 888,
+      "generation_sha256": "2f05210611542fd8b37afb4a470aab02a32cbdcd6f76f43d92f0be327d18526e",
+      "trial_status": "unresolved",
+      "confirmation_status": null,
+      "status": "exact_readback_passed"
+    }
+  ],
+  "findings": [
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D01-gripper-sign",
+      "run": {
+        "bundle_sha256": "373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "observation_age_violation",
+          "definition": "action_sim_time_s - observation_sim_time_s > max_observation_age_s",
+          "detail": "Consumed observation exceeds the recorded age obligation.",
+          "id": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387/regression-0/observation_age_violation",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 1,
+          "run": {
+            "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/1",
+            "source_id": "bundle:f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387"
+          },
+          "step": 1,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D03-observation-backlog",
+      "run": {
+        "bundle_sha256": "f72b04073108e3c4cf327d2226612036178dafec3e8547a7827a73e56b61d387",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "reference-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "regression-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0000306367874146,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "correction-exploration-0-prefix"
+      },
+      "exact_action_difference": {
+        "row_index": 1,
+        "step": 1,
+        "component": 6,
+        "intended": -1.0000616312026978,
+        "executed": -1,
+        "action_sim_time_s": 0.05000000000000003
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D05-recurrent-carry",
+      "run": {
+        "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+        "run_id": "correction-exploration-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "run": {
+        "bundle_sha256": "100c7c30eeeca6f5d462238660a232014b6ceb3a15f52329b99b3e4fa99a5656",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D06-stateless-inference",
+      "run": {
+        "bundle_sha256": "100c7c30eeeca6f5d462238660a232014b6ceb3a15f52329b99b3e4fa99a5656",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "run": {
+        "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D08-old-future-replay",
+      "run": {
+        "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:ebc11eca7d47c322bf10360f022762138e2329fdc4650b1496228aef279daada"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "run": {
+        "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+        "run_id": "reference-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": -1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": []
+    },
+    {
+      "case_id": "D10-opaque-policy-state",
+      "run": {
+        "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+        "run_id": "regression-0"
+      },
+      "exact_action_difference": {
+        "row_index": 0,
+        "step": 0,
+        "component": 6,
+        "intended": -1.0001353025436401,
+        "executed": 1,
+        "action_sim_time_s": 0
+      },
+      "export_findings": [
+        {
+          "code": "gripper_transport_mismatch",
+          "definition": "abs(clip(intended_action[6], -max_abs_executed_action, max_abs_executed_action) - executed_action[6]) > threshold",
+          "detail": "Gripper command differs after normalized clipping.",
+          "id": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2/regression-0/gripper_transport_mismatch",
+          "kind": "descriptive",
+          "phase": "before",
+          "row_index": 0,
+          "run": {
+            "bundle_sha256": "4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2",
+            "run_id": "regression-0"
+          },
+          "source": {
+            "pointer": "/runs/1/trace/0",
+            "source_id": "bundle:4a15fc97202bef1f0e4f7668469b230296c39d6e86392771537a39853fabc3f2"
+          },
+          "step": 0,
+          "threshold": 1e-9
+        }
+      ]
+    }
+  ],
+  "d05_pairing_probe": {
+    "selected": {
+      "bundle_sha256": "3c9ccd073556053f3900f240b85972b5f657138b1b1e8e62dda8d841959b2b0b",
+      "run_id": "confirmation-correction-10423"
+    },
+    "selected_condition": "seed-10423-prefix-10-21",
+    "paired": {
+      "bundle_sha256": "60925cf935b16e490aed27e884b359bbec49a62ef3831b0a6520eee9032bafdb",
+      "run_id": "reference-0"
+    },
+    "paired_condition": "seed-0-prefix-10-21",
+    "same_condition": false
+  },
+  "total_rows_checked": 13864,
+  "total_frames_checked": 27728,
+  "command_wall_seconds": 3.4577224579999997
+}

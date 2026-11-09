@@ -1,0 +1,39 @@
+{
+  "name": "nisayon-instrument",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Nisayon instrument: one persistent moment of a retained robot experiment, reconstructed from stored configuration with original readings kept separate.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "pretest": "node scripts/make_failure_fixtures.mjs",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "prebuild": "python3 ../../tools/ui/build_system_catalog.py"
+  },
+  "dependencies": {
+    "hls.js": "1.7.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.186.0",
+    "three-gpu-pathtracer": "0.0.24",
+    "three-mesh-bvh": "0.9.15",
+    "xatlas-web": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.186.0",
+    "@vitejs/plugin-react": "4.7.0",
+    "jsdom": "26.1.0",
+    "typescript": "5.9.3",
+    "vite": "6.4.5",
+    "vitest": "4.1.12"
+  }
+}

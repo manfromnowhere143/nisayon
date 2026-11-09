@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Nisayon" />
+    <title>Nisayon — An experiment engine for physical AI</title>
+    <meta name="description" content="Nisayon is an experiment engine for physical AI. Inspect robot experiments, qualify software changes with native checks, and review portable evidence." />
+    <script>
+      // Start the first-paint image before the application module. Deep links
+      // into the instrument do not pay for cinematic media.
+      (() => {
+        const view = new URLSearchParams(location.hash.slice(1)).get('view');
+        if (view === 'home' || (!view && !location.search)) {
+          const image = document.createElement('link');
+          image.rel = 'preload'; image.as = 'image'; image.fetchPriority = 'high';
+          image.href = '/media/cinematic/hall-1600.webp';
+          image.imageSrcset = '/media/cinematic/hall-960.webp 960w, /media/cinematic/hall-1600.webp 1600w';
+          image.imageSizes = '(max-width: 700px) 120vw, 100vw';
+          document.head.append(image);
+        }
+      })();
+    </script>
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#08090b" />
+    <link rel="canonical" href="https://nisayon.danielwahnich.dev/" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- native-launch-start -->
+    <link rel="apple-touch-startup-image" href="/startup/640-1136-light.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/640-1136-dark.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1136-640-light.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1136-640-dark.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/750-1334-light.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/750-1334-dark.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1334-750-light.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1334-750-dark.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1242-2208-light.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1242-2208-dark.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2208-1242-light.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2208-1242-dark.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1125-2436-light.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1125-2436-dark.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2436-1125-light.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2436-1125-dark.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1170-2532-light.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1170-2532-dark.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2532-1170-light.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2532-1170-dark.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1179-2556-light.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1179-2556-dark.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2556-1179-light.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2556-1179-dark.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1206-2622-light.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1206-2622-dark.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2622-1206-light.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2622-1206-dark.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/828-1792-light.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/828-1792-dark.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1792-828-light.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1792-828-dark.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1242-2688-light.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1242-2688-dark.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2688-1242-light.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2688-1242-dark.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1284-2778-light.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1284-2778-dark.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2778-1284-light.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2778-1284-dark.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1290-2796-light.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1290-2796-dark.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2796-1290-light.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2796-1290-dark.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1320-2868-light.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1320-2868-dark.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2868-1320-light.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2868-1320-dark.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1536-2048-light.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1536-2048-dark.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2048-1536-light.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2048-1536-dark.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1640-2360-light.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1640-2360-dark.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2360-1640-light.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2360-1640-dark.png" media="(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/1668-2388-light.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/1668-2388-dark.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2388-1668-light.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2388-1668-dark.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2048-2732-light.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2048-2732-dark.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait) and (prefers-color-scheme: dark)" />
+    <link rel="apple-touch-startup-image" href="/startup/2732-2048-light.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: light)" />
+    <link rel="apple-touch-startup-image" href="/startup/2732-2048-dark.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) and (prefers-color-scheme: dark)" />
+    <!-- native-launch-end -->
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nisayon" />
+    <meta property="og:title" content="Nisayon — An experiment engine for physical AI" />
+    <meta property="og:description" content="Native checks, retained robot experiments, and portable evidence review." />
+    <meta property="og:url" content="https://nisayon.danielwahnich.dev/" />
+    <meta property="og:image" content="https://nisayon.danielwahnich.dev/brand/nisayon-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nisayon: a continuous geometric N with two opposing curved turns." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:alt" content="Nisayon — An experiment engine for physical AI" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nisayon.danielwahnich.dev/#website","url":"https://nisayon.danielwahnich.dev/","name":"Nisayon","description":"An experiment engine for physical AI.","inLanguage":"en","publisher":{"@id":"https://nisayon.danielwahnich.dev/#creator"}},{"@type":"Person","@id":"https://nisayon.danielwahnich.dev/#creator","name":"Daniel Wahnich","url":"https://danielwahnich.dev/"},{"@type":"WebPage","@id":"https://nisayon.danielwahnich.dev/#webpage","url":"https://nisayon.danielwahnich.dev/","name":"Nisayon — An experiment engine for physical AI","description":"Nisayon is an experiment engine for physical AI. Inspect robot experiments, qualify software changes with native checks, and review portable evidence.","isPartOf":{"@id":"https://nisayon.danielwahnich.dev/#website"},"inLanguage":"en","primaryImageOfPage":{"@type":"ImageObject","url":"https://nisayon.danielwahnich.dev/brand/nisayon-share.png","width":1200,"height":630},"about":{"@id":"https://nisayon.danielwahnich.dev/#software"}},{"@type":"SoftwareApplication","@id":"https://nisayon.danielwahnich.dev/#software","name":"Nisayon","url":"https://nisayon.danielwahnich.dev/","description":"Nisayon is an experiment engine for physical AI. Inspect robot experiments, qualify software changes with native checks, and review portable evidence.","applicationCategory":"DeveloperApplication","author":{"@id":"https://nisayon.danielwahnich.dev/#creator"},"featureList":["Recorded robot experiment inspection","Native Python software qualification","Portable evidence review"]}]}
+    </script>
+    <style id="site-opening-styles">
+      :root{background:#050506;color-scheme:dark}:root[data-ground=paper]{background:#f8f9fb;color-scheme:light}body{margin:0}
+      .boot-screen{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;background:#050506;color:#fff;font-family:-apple-system,"SF Pro Text","Helvetica Neue","Segoe UI",Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+      .boot-signature{display:grid;justify-items:center;gap:16px}.boot-mark{display:block;width:64px;height:64px}.boot-wordmark{margin:0;font-size:1.75rem;font-weight:500;letter-spacing:-.045em;line-height:1}
+      [data-ground=paper] .boot-screen{background:#f8f9fb;color:#17171a}.boot-announcement{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+      .boot-noscript{max-width:390px;padding:0 24px;font-size:13px;line-height:1.6}.boot-noscript p{margin:16px 0 0}.boot-noscript a{color:inherit}
+    </style>
+    <script>
+      // Select the ground before first paint. The choice is view state, kept
+      // in this browser only; it never changes evidence.
+      (function () {
+        var text = Number(new URLSearchParams(window.location.search).get("text") || "100");
+        if (Number.isFinite(text) && text >= 50 && text <= 400 && text !== 100) {
+          document.documentElement.style.fontSize = text + "%";
+        }
+        try {
+          var stored = window.localStorage.getItem("nisayon.ground");
+          var ground =
+            stored === "paper" || stored === "black"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: light)").matches
+                ? "paper"
+                : "black";
+          document.documentElement.setAttribute("data-ground", ground);
+          document.querySelector('meta[name="theme-color"]').content = ground === "paper" ? "#f8f9fb" : "#050506";
+        } catch (error) {
+          document.documentElement.setAttribute("data-ground", "black");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="site-opening" class="boot-screen" role="status" aria-live="polite" aria-busy="true" data-revealed="false">
+      <div class="boot-signature">
+        <svg class="boot-mark" viewBox="0 0 96 96" width="64" height="64" aria-hidden="true" focusable="false"><path d="M21 76V34A13 13 0 0 1 45.2583 27.5L61.0718 54.89A8 8 0 0 0 76 50.89V21" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <h1 class="boot-wordmark">Nisayon</h1>
+        <noscript><div class="boot-noscript"><p>Nisayon is an experiment engine for physical AI. Inspect recorded robot experiments, qualify software changes with native checks, and review portable evidence.</p><p>Enable JavaScript to use the instrument. <a href="/about/">Read about Nisayon</a>, <a href="/sdk/">explore the SDK</a>, <a href="/portable-review/">read the portable review guide</a>, or <a href="/fixtures/ui/recorded/library.json">open the evidence catalog</a>.</p></div></noscript>
+      </div>
+      <span class="boot-announcement">Opening the instrument</span>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

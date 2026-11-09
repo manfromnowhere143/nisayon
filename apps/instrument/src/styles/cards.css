@@ -1,0 +1,65 @@
+/* Evidence has one opaque surface. A simple scrim separates the stage without
+   stacking backdrop-filter surfaces over its WebGL canvas. */
+:root {
+  --card-surface: #16181c;
+  --card-raised: #202227;
+  --card-rule: #ffffff0c;
+  --card-shadow: 0 24px 72px #0005, 0 4px 16px #0002;
+}
+:root[data-ground="paper"] {
+  --card-surface: #ffffff;
+  --card-raised: #f2f3f5;
+  --card-rule: #11141809;
+  --card-shadow: 0 24px 72px #1118271c, 0 4px 16px #1118270a;
+}
+:root[data-ground] .research-glass-card {
+  --ground: var(--card-surface);
+  --ground-2: var(--card-raised);
+  border: 0;
+  background: var(--card-surface);
+  box-shadow: inset 0 0 0 1px var(--card-rule), var(--card-shadow);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  opacity: 1;
+  transform: none;
+}
+:root[data-ground] .research-glass-card::backdrop {
+  background: #00000052;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+:root[data-ground="paper"] .research-glass-card::backdrop { background: #13172020; }
+.research-glass-card .inspector { background: transparent; }
+.research-glass-card .analysis-nav {
+  border: 0;
+  background: var(--card-raised);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.research-glass-card .analysis-tab[aria-pressed="true"] { box-shadow: none; }
+.research-glass-card .glass-card-close {
+  border: 0;
+  background: var(--selected);
+}
+.research-glass-card[data-closing="true"] { pointer-events: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .research-glass-card[open] { animation: nisayon-card-enter 180ms var(--ease-damped) both; }
+  .research-glass-card[open]::backdrop { animation: nisayon-scrim-enter 180ms ease-out both; }
+  .research-glass-card[open][data-closing="true"] { animation: nisayon-card-leave 160ms ease-in both; }
+  .research-glass-card[open][data-closing="true"]::backdrop { animation: nisayon-scrim-leave 160ms ease-in both; }
+  @keyframes nisayon-card-enter {
+    from { opacity: 0; transform: translateY(6px) scale(.99); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes nisayon-card-leave {
+    from { opacity: 1; transform: none; }
+    to { opacity: 0; transform: translateY(4px) scale(.995); }
+  }
+  @keyframes nisayon-scrim-enter { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes nisayon-scrim-leave { from { opacity: 1; } to { opacity: 0; } }
+}
+@media (forced-colors: active) {
+  :root[data-ground] { --card-surface: Canvas; --card-raised: Canvas; }
+  :root[data-ground] .research-glass-card { border: 1px solid CanvasText; background: Canvas; box-shadow: none; }
+}

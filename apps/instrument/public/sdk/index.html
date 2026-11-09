@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#08090b" />
+    <title>Nisayon SDK — Native software qualification for physical AI</title>
+    <meta name="description" content="Freeze a deployment change, run native Python checks, retain failures, and carry the evidence into a software decision with the Nisayon SDK." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://nisayon.danielwahnich.dev/sdk/" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/about/about.css" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nisayon" />
+    <meta property="og:title" content="Nisayon SDK — Native software qualification for physical AI" />
+    <meta property="og:description" content="Freeze a deployment change, run native Python checks, retain failures, and carry the evidence into a software decision with the Nisayon SDK." />
+    <meta property="og:url" content="https://nisayon.danielwahnich.dev/sdk/" />
+    <meta property="og:image" content="https://nisayon.danielwahnich.dev/brand/nisayon-share.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Nisayon — An experiment engine for physical AI" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:alt" content="Nisayon — An experiment engine for physical AI" />
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://nisayon.danielwahnich.dev/sdk/#article","url":"https://nisayon.danielwahnich.dev/sdk/","headline":"Nisayon SDK — Native software qualification for physical AI","description":"Freeze a deployment change, run native Python checks, retain failures, and carry the evidence into a software decision with the Nisayon SDK.","inLanguage":"en","dateModified":"2026-10-25","author":{"@id":"https://nisayon.danielwahnich.dev/#creator"},"isPartOf":{"@id":"https://nisayon.danielwahnich.dev/#website"},"about":{"@id":"https://nisayon.danielwahnich.dev/#software"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Nisayon","item":"https://nisayon.danielwahnich.dev/"},{"@type":"ListItem","position":2,"name":"Nisayon SDK","item":"https://nisayon.danielwahnich.dev/sdk/"}]}]}
+</script>
+  </head>
+<body>
+<header><a class="brand" href="/"><img src="/brand/nisayon-mark-light.svg" width="30" height="30" alt="" /><span>Nisayon</span></a><a class="open" href="/#view=develop">Open the instrument <span aria-hidden="true">↗</span></a></header>
+<main><section class="intro"><p class="eyebrow">SDK / Python</p><h1>The experiment stays<br />in your environment.</h1><p class="lede">Nisayon qualifies a declared software change against native checks. Freeze the question and its inputs, execute in the owner's environment, and retain the evidence behind the decision.</p></section>
+<section class="access"><h2>Install the developer preview</h2><p>Use Python 3.12 on macOS or Linux in a new directory. No Git checkout, model, simulator or GPU is needed. The installation file pins the SDK wheel and runtime dependencies with hashes.</p><pre><code>python3.12 -m venv .venv
+.venv/bin/python -m pip install --require-hashes -r \
+  https://github.com/manfromnowhere143/nisayon/releases/download/v0.2.0/requirements-install.txt
+.venv/bin/nisayon-qualify example owner-project</code></pre><p><a href="https://github.com/manfromnowhere143/nisayon/releases/tag/v0.2.0">Release, checksums and source ↗</a> · <a href="https://github.com/manfromnowhere143/nisayon/blob/main/docs/QUICKSTART.md">Complete quickstart ↗</a></p></section>
+<div class="guide">
+<section><span class="number">01</span><h2>Freeze the comparison</h2><p>The installed example contains a reference, candidate and deliberately wrong control, two exposed inputs, and an exact expected relation. Inspect <code>owner-project/policy.py</code> and <code>case.json</code> before running them.</p><pre><code>.venv/bin/nisayon-qualify plan owner-project/case.json \
+  --project owner-project --out run-001 --plan plan-001.json</code></pre><p>Planning does not run the owner code or create the run directory.</p></section>
+<section><span class="number">02</span><h2>Run and inspect</h2><pre><code>.venv/bin/nisayon-qualify run plan-001.json
+.venv/bin/nisayon-qualify inspect run-001</code></pre><p>Expect a valid software <code>adopt</code> and an unresolved deployment decision. The deliberate wrong-sign control must be detected. This is a software demonstration, not a robot task benchmark.</p></section>
+<section><span class="number">03</span><h2>Carry the evidence</h2><pre><code>.venv/bin/nisayon-qualify export run-001 --out review-001.nisayon.zip
+.venv/bin/nisayon-qualify review review-001.nisayon.zip</code></pre><p>Python review recomputes the assessment without the original owner environment. The browser checks transport bytes and displays the saved assessment. Neither executes owner code during review.</p><p><a class="text-action" href="/#view=qualify">Inspect a real example or open your review ↗</a></p></section>
+</div>
+<section class="access"><h2>Use the Python SDK</h2><p>The example includes a complete executable Python script:</p><pre><code>.venv/bin/python owner-project/sdk_example.py --out python-result-001</code></pre><p>Its core imports are ordinary Python:</p><pre><code>from nisayon.qualification import (
+    CaseSpec, ExecutionContext, plan_change, run_plan, assess_change,
+)
+
+case = CaseSpec.read("owner-project/case.json")
+context = ExecutionContext.from_project("owner-project", output_dir="python-run-002")
+plan = plan_change(case, context=context)
+evidence = run_plan(plan, context=context)
+assessment = assess_change(case, evidence)
+print(assessment.record())</code></pre></section>
+<section class="access"><h2>What the run retains</h2><p><code>plan.json</code> binds the question, probes, code and environment. Each of six attempt directories contains the request, pre-execution intent, observations, native-call and read witnesses, completion record and original logs. <code>completion.json</code>, <code>manifest.json</code> and <code>seal.json</code> bind the completed store. Inspect computes its scoped assessment.</p><p>Keep new assessments and exported reviews outside that sealed directory. Missing human effort and provider costs stay unknown; nested time measurements must not be added together.</p></section>
+<section class="access"><h2>Prepare your own comparison</h2><p>Declare trusted synchronous Python functions, source and data dependencies, a competent reference, a deliberate failure control, justified expected outputs and the population the claim covers. The current adapter supports exact or numerical software relations. Robot deployment acceptance remains unresolved. General dependency discovery, complete-cost savings and enterprise tenancy remain unestablished.</p><p><a href="https://github.com/manfromnowhere143/nisayon/blob/main/docs/CAPABILITIES.md">All available operations and research interfaces ↗</a> · <a href="/portable-review/">Review format and privacy boundary ↗</a></p><p>Review files contain original logs, inputs and paths. Opening one in the instrument stays in browser memory; exporting does not redact it. Inspect your own package before sharing.</p></section></main>
+<footer><p>By <a href="https://danielwahnich.dev/">Daniel Wahnich</a></p><nav aria-label="Project resources"><a href="/about/">About Nisayon</a><a href="/sdk/">SDK guide</a><a href="/portable-review/">Portable review</a><a href="/fixtures/ui/recorded/library.json">Evidence catalog ↗</a></nav></footer>
+</body>
+</html>

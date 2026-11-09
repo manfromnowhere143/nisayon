@@ -41,6 +41,18 @@ jobs:
       - run: rg --version
       - run: uv sync --frozen
       - run: make check
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "20.18.3"
+          cache: npm
+          cache-dependency-path: apps/instrument/package-lock.json
+      - name: Check the instrument source
+        working-directory: apps/instrument
+        run: |
+          npm ci
+          npm run typecheck
+          npm test -- --maxWorkers=1
+          npm run build
       - name: Check the native MuJoCo recorder and replay
         run: |
           uv sync --frozen --group native

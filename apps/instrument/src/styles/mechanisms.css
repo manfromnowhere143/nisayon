@@ -1,0 +1,52 @@
+.mechanism-view { display: grid; gap: 18px; padding-block: 10px 24px; max-width: 1100px; margin: auto; }
+.mechanism-intro { max-width: 850px; }
+.mechanism-intro h3 { font-size: clamp(1.5rem, 3vw, 2.35rem); line-height: 1.15; letter-spacing: -.045em; margin: 8px 0 16px; text-wrap: balance; }
+.mechanism-intro p:not(.eyebrow) { color: var(--ink-2); max-width: 80ch; }
+.mechanism-picker { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: 12px; }
+.mechanism-picker .choice, .mechanism-picker button { width: 100%; min-width: 0; }
+.mechanism-facts { display: flex; flex-wrap: wrap; gap: 12px 28px; border-block: 1px solid var(--rule); padding: 18px 0; margin: 0; }
+.mechanism-facts > div { flex: 1 1 150px; min-width: 0; }
+.mechanism-facts dt { color: var(--ink-3); font-size: .72rem; margin-bottom: 6px; }
+.mechanism-facts dd { margin: 0; font-size: .93rem; font-weight: 500; overflow-wrap: anywhere; }
+.mechanism-scope { display: flex; gap: 8px 22px; flex-wrap: wrap; color: var(--ink-3); font-size: .71rem; }
+.mechanism-view h4 { margin: 6px 0 0; }
+.mechanism-view p { margin: 0; }
+.mechanism-view > details { padding-block: 8px; }
+.mechanism-view details p { padding-block: 8px; }
+.opportunity-axes { display: grid; gap: 16px; }
+.opportunity-axes svg { width: 100%; height: auto; min-height: 60px; overflow: visible; }
+.opportunity-rule { stroke: var(--rule-strong); vector-effect: non-scaling-stroke; stroke-width: 1; }
+.opportunity-point { fill: var(--ground); stroke: var(--ink-2); vector-effect: non-scaling-stroke; stroke-width: 1; }
+[aria-pressed="true"] > .opportunity-point { fill: var(--ink); stroke: var(--ink); }
+.opportunity-axes svg text { fill: var(--ink-3); font-size: 11px; font-variant-numeric: tabular-nums; }
+.opportunity-axes [role="button"] { cursor: pointer; }
+.opportunity-axes [role="button"]:focus-visible > .opportunity-point { stroke-width: 3; }
+.mechanism-reason { padding: 14px 18px; border-left: 2px solid var(--rule-strong); display: grid; gap: 10px; background: var(--ground-2); border-radius: 0 10px 10px 0; }
+.mechanism-comparison { padding-top: 12px; border-top: 1px solid var(--rule); display: grid; gap: 18px; }
+.mechanism-candidates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.mechanism-candidates button { display: grid; gap: 6px; align-content: start; text-align: left; padding: 16px; color: var(--ink-2); background: transparent; border: 1px solid var(--rule); border-radius: 13px; font: inherit; cursor: pointer; }
+.mechanism-candidates button[aria-pressed="true"] { background: var(--selected); color: var(--ink); border-color: var(--rule-strong); }
+.mechanism-candidates strong { font-size: .86rem; font-weight: 500; }
+.mechanism-candidates span, .mechanism-candidates small { font-size: .66rem; font-weight: 400; }
+.processor-witnesses { display: grid; }
+.processor-witnesses article { padding-block: 20px; border-bottom: 1px solid var(--rule); display: grid; grid-template-columns: minmax(150px, .7fr) minmax(0, 1fr); gap: 14px 24px; }
+.processor-witnesses article > div:first-child { display: grid; gap: 4px; align-content: start; }
+.processor-witnesses strong, .processor-result { font-weight: 500; font-size: .9rem; }
+.processor-witnesses dl { grid-column: 1 / -1; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: .71rem; }
+.processor-witnesses dl > div { display: flex; gap: 10px; }
+.processor-witnesses dt { color: var(--ink-3); }
+.processor-witnesses dd { margin: 0; }
+.processor-witnesses details { grid-column: 1 / -1; font-size: .73rem; }
+.mechanism-costs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.mechanism-costs > div { display: grid; gap: 8px; }
+.mechanism-costs span { font-size: .72rem; color: var(--ink-3); }
+.mechanism-costs strong { font-size: 1.8rem; font-variant-numeric: tabular-nums; letter-spacing: -.04em; font-weight: 500; }
+.mechanism-costs small { font-size: .85rem; color: var(--ink-3); }
+@media (max-width: 640px) {
+  .mechanism-picker, .processor-witnesses article { grid-template-columns: minmax(0, 1fr); }
+  .mechanism-candidates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mechanism-candidates button { padding: 12px; }
+  .mechanism-facts { gap: 16px 18px; }
+  .mechanism-facts > div { flex-basis: 120px; }
+  .mechanism-costs strong { font-size: 1.4rem; }
+}

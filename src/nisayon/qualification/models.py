@@ -12,7 +12,8 @@ from nisayon.engine.io import canonical_bytes, decode_json, digest
 CASE_SCHEMA = "nisayon.qualification.case.v1"
 LEGACY_PLAN_SCHEMA = "nisayon.qualification.plan.v1"
 PLAN_SCHEMA = "nisayon.qualification.plan.v2"
-READ_POLICY = "cpython_owner_reads_v1"
+LEGACY_READ_POLICY = "cpython_owner_reads_v1"
+READ_POLICY = "cpython_bound_reads_v2"
 ROLES = ("reference", "negative_control", "candidate")
 
 
@@ -175,7 +176,7 @@ class ExperimentPlan:
         required = {"schema", "case", "context", "sources", "tool", "obligations", "assignments"}
         if value["schema"] == PLAN_SCHEMA:
             required.add("read_policy")
-            if value.get("read_policy") != READ_POLICY:
+            if value.get("read_policy") not in {LEGACY_READ_POLICY, READ_POLICY}:
                 raise ValueError("Unsupported native read observation policy")
         fields(value, required)
         CaseSpec.from_dict(value["case"])

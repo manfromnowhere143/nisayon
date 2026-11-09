@@ -1,0 +1,94 @@
+
+> nisayon-instrument@0.1.0 check
+> npm run typecheck && npm run test && npm run build
+
+
+> nisayon-instrument@0.1.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> nisayon-instrument@0.1.0 pretest
+> node scripts/make_failure_fixtures.mjs
+
+
+> nisayon-instrument@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /Users/danielwahnich/workspace/nisayon-ui-codex/apps/instrument
+
+ ✓ test/exports.test.ts (8 tests) 103ms
+ ✓ test/focusPresentation.test.ts (5 tests) 41ms
+ ✓ test/locator.test.ts (4 tests) 5ms
+ ✓ test/playback.test.tsx (3 tests) 31ms
+stdout | test/visualAssets.test.ts
+[visual-decode-node-only] {"bytes":13772768,"decode_ms":101.79079100000001}
+
+ ✓ test/sourceAgreement.test.ts (6 tests) 219ms
+ ✓ test/real.test.ts (1 test) 293ms
+stdout | test/timing.test.ts > decode cost of the real regression run (node proxy) > records hash, parse and decode wall times
+[decode-cost] {"samples_hash_ms":1.392832999999996,"samples_parse_ms":59.261042,"samples_decode_ms":18.801832999999988,"samples_bytes":2654425,"reconstruction_hash_ms":1.7648340000000076,"reconstruction_parse_ms":103.099625,"reconstruction_decode_ms":43.580291999999986,"reconstruction_bytes":4010956}
+
+ ✓ test/timing.test.ts (1 test) 236ms
+ ✓ test/decodeV1.test.ts (16 tests) 141ms
+ ✓ test/visualAssets.test.ts (4 tests) 960ms
+   ✓ optional native visual geometry > pins the exact package bytes and the original D01 model and assets  303ms
+ ✓ test/loader.test.ts (9 tests) 117ms
+ ✓ test/decode.test.ts (10 tests) 88ms
+ ✓ test/findings.test.ts (5 tests) 64ms
+ ✓ test/convert.test.ts (5 tests) 3ms
+ ✓ test/framing.test.ts (9 tests) 12ms
+ ✓ test/strictJson.test.ts (12 tests) 4ms
+ ✓ test/room.test.ts (2 tests) 2ms
+ ✓ test/loading.test.tsx (4 tests) 1667ms
+   ✓ shows the site opening once, then reveals verified data without a staged visual sequence  664ms
+   ✓ keeps the dashboard mounted across delayed case changes, browser history and failed selections  948ms
+ ✓ test/sceneReadiness.test.tsx (4 tests) 1621ms
+   ✓ never reveals the transient schematic while detailed geometry is pending, including after decode but before paint  321ms
+   ✓ requalifies and keeps the native mesh visible across case and paired-view changes, presenting each replacement with its own pose  909ms
+ ✓ test/spatialInteraction.test.tsx (12 tests) 1995ms
+   ✓ selects the drawn sample and phase on Gripper command lane, including a CSS-scaled plot  311ms
+ ✓ test/spatial.test.ts (6 tests) 2766ms
+   ✓ agrees with each zero-age frame's own exported coordinate residual, without a new tolerance  2684ms
+ ✓ test/recorded.test.ts (5 tests) 3542ms
+   ✓ recorded library integration > binds D05 condition 10423 to its frozen pair, rejection and real trial bytes  382ms
+   ✓ recorded library integration > keeps unsupported, invalid and unavailable separate  391ms
+   ✓ recorded library integration > loads the six-case discovery and bounds the cache over 20 switches (Node only)  2684ms
+ ✓ test/app.test.tsx (26 tests) 6198ms
+   ✓ the instrument in a DOM > opens the computed first mismatch of the regression run and pins it in the URL  535ms
+   ✓ the instrument in a DOM > keeps display, transport and inspector on the same row, phase and clock  588ms
+   ✓ the instrument in a DOM > returns keyboard focus to the inspector opener without changing the moment  476ms
+   ✓ the instrument in a DOM > switches to an actual aligned sample, reports a shorter recording and reloads the same view  358ms
+   ✓ the instrument in a DOM > opens Fork with the paired run as a ghost and returns with Back  302ms
+   ✓ interrupted transitions > switches to D05, exposes the exact 10423 reason and opens its paired execution  603ms
+
+ Test Files  22 passed (22)
+      Tests  157 passed (157)
+   Start at  21:01:15
+   Duration  7.47s (transform 1.01s, setup 106ms, collect 3.85s, tests 20.11s, environment 3.47s, prepare 1.35s)
+
+
+> nisayon-instrument@0.1.0 prebuild
+> python3 ../../tools/ui/build_system_catalog.py
+
+Engine inventory: 13 MCP interfaces, 54 source modules
+
+> nisayon-instrument@0.1.0 build
+> vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 81 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         6.34 kB │ gzip:   2.44 kB
+dist/assets/visualWorker-d3c6GIsj.js    7.88 kB
+dist/assets/index-CLMTQmY1.css         42.86 kB │ gzip:   9.30 kB
+dist/assets/index-C5uTcPCi.js         439.77 kB │ gzip: 133.47 kB
+dist/assets/three-Co53-Q8n.js         540.42 kB │ gzip: 134.90 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.27s

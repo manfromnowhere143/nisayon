@@ -20,6 +20,7 @@ from . import (
     evidence_at,
     export_checks,
     export_run,
+    import_check_bundle,
     inspect_bundle,
     inspect_check_bundle,
     inspect_checks,
@@ -142,6 +143,15 @@ def parser() -> argparse.ArgumentParser:
         "review-check-bundle", help="Reconstruct portable check records without native execution"
     )
     checks_bundle.add_argument("bundle", type=Path)
+    checks_import = commands.add_parser(
+        "import-check-bundle",
+        help="Admit pinned check evidence into a new directory without execution",
+    )
+    checks_import.add_argument("bundle", type=Path)
+    checks_import.add_argument("--sha256", required=True, help="Expected archive SHA-256")
+    checks_import.add_argument(
+        "--out", type=Path, required=True, help="New private evidence directory"
+    )
     native = commands.add_parser(
         "native-task", help="Reconstruct paired N100-format retained task records"
     )
@@ -216,6 +226,9 @@ def main() -> None:
         elif args.command == "review-check-bundle":
             result = inspect_check_bundle(args.bundle)
             code = 0 if result["review_status"] == "verified" else 3
+        elif args.command == "import-check-bundle":
+            result = import_check_bundle(args.bundle, expected_sha256=args.sha256, output=args.out)
+            code = 0
         elif args.command == "native-task":
             result = run_native_task(
                 args.protocol,

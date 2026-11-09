@@ -1,5 +1,41 @@
 # Research direction and experiments
 
+## Current decision · 9 November 2026
+
+The next engine expansion depends on a consequential owner case under the
+[existing comparison protocol](OWNER_COMPARISON.md), including its four-hour
+intake ceiling. No owner case is admitted in the current reconciliation.
+The [frontier assessment](FRONTIER_REVIEW_2026-11-09.md) considers strong harness,
+scoped-memory and evaluation alternatives; a generic agent loop is insufficient
+differentiation. Native tools plus a capable agent receive equal information,
+execution opportunity and a comparable review deliverable.
+
+Current source supports declared calibration snapshots, scoped applicability,
+partial execution, interrupted-record reconstruction and pinned portable
+continuation. The [source update](experiments/results/main-refresh-2026-11-09/README.md)
+records controls and limits. These capabilities do not establish complete
+physical dependencies or economic advantage. The recent staged-input controls
+matched native decisions without showing less work; the earlier calibration
+comparison remains stopped on measurement defects.
+
+The LongWAM five-pair task subset is complete with no observed improvement, the
+inference screen missed its target, and the rank-recovery campaign completed its
+declared software scope while preserving CUDA-state omissions as failures.
+Do not treat historical continuation wording as a new execution order.
+The earlier A/B/C agent pilot remains stopped after its first arm; design
+completeness matched a plain checklist and semantic correctness stayed open.
+
+Freeze the question, population, identities, exposure, baselines, quality and
+costs before a new experiment. Preserve acceptance, rejection and abstention.
+Fresh task confirmation remains mandatory wherever the protocol requires it.
+Only a qualifying comparison followed by a separately selected untouched
+incident supports expansion beyond the current integration hypothesis.
+
+## Historical protocols and results
+
+The sections below retain their original dates and scope. They do not supersede
+the current owner intake or reopen completed or stopped work.
+
 **Proposed comparison protocol · 17 September 2026; status updated 16 October
 2026.** The [first execution case](experiments/LIFT_PROTOCOL_V3.md) and two bounded
 development comparisons are complete. Both comparisons reached parity with the

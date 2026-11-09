@@ -8,7 +8,7 @@ from .applicability import DependencyModel, EvidenceState, plan_applicability, r
 from .assessment import assess_change, inspect_run
 from .bundle import export_run, inspect_bundle
 from .change import inspect_change, qualify_change
-from .check_bundle import export_checks, inspect_check_bundle
+from .check_bundle import export_checks, import_check_bundle, inspect_check_bundle
 from .checks import CheckContext, CheckImplementation, execute_checks, inspect_checks
 from .context import ExecutionContext
 from .libero_capture import capture_libero_success
@@ -24,6 +24,7 @@ from .native_execution import execute_libero_window, reassess_native_execution
 from .native_measurements import MujocoOnRecorder, reassess_native_measurements
 from .native_task_workflow import reassess_native_task_bundle, run_native_task
 from .native_tasks import NativeTaskProtocol, assess_native_task, task_measurement_contract
+from .reference_audit import assess_reference_sensitivity
 from .reuse import assess_reuse
 from .runner import evidence_at, plan_change, run_plan
 
@@ -53,11 +54,13 @@ __all__ = [
     "assess_measurements",
     "summarize_monitoring",
     "assess_monitoring_audit",
+    "assess_reference_sensitivity",
     "freeze_monitoring_audit",
     "monitoring_audit_panel",
     "evidence_at",
     "export_run",
     "export_checks",
+    "import_check_bundle",
     "execute_checks",
     "inspect_bundle",
     "inspect_change",

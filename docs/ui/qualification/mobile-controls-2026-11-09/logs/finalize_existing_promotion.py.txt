@@ -1,0 +1,65 @@
+"""Finalize only the already-promoted, exact mobile package after public propagation."""
+import fcntl
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / "tools/ui"))
+import release_cinematic_interface as r
+
+r.REPORT = ROOT / "docs/ui/qualification/mobile-controls-2026-11-09"
+r.PACKAGE = ROOT / "artifacts/site-mobile-controls-2026-11-09"
+r.BUILD = ROOT / "artifacts/mobile-controls/dist"
+runtime = "61b91bea92abe107bf70c61605f03bc497e65023"
+deployment = "https://nisayon-pf4rs6d5l-daniels-projects-ca65133a.vercel.app"
+
+with (r.STATE / "publisher.lock").open("a") as lock:
+    fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    release = json.loads((r.REPORT / "release.json").read_bytes())
+    stage = json.loads((r.REPORT / "stage.json").read_bytes())
+    pending_raw = (r.STATE / "pending-promotion.json").read_bytes()
+    pending = json.loads(pending_raw)
+    config_raw = (r.STATE / "config.json").read_bytes()
+    prior_raw = (r.STATE / "last-success.json").read_bytes()
+    config, prior = json.loads(config_raw), json.loads(prior_raw)
+    r.require(release["runtime_commit"] == stage["runtime_commit"] == runtime, "Runtime differs")
+    r.require(stage["deployment"] == pending["deployment"] == deployment, "Deployment differs")
+    r.require(pending["runtime_only"] and pending["release_record"] == str(r.REPORT / "release.json"), "Pending release differs")
+    r.require(stage["receipt_sha256"] == release["package_receipt_sha256"], "Staged receipt differs")
+    r.require(r.digest(config_raw) == release["prior_configuration_sha256"], "Configuration advanced")
+    r.require(r.digest(prior_raw) == release["prior_success_sha256"], "Prior publication advanced")
+    r.require(r.digest((r.REPORT / "source-check.json").read_bytes()) == release["qualification_sha256"], "Qualification changed")
+    r.source_check(runtime)
+    r.current(config, prior)
+    candidate = {**config, "package": str(r.PACKAGE), "runtime_commit": runtime,
+                 "package_receipt_sha256": release["package_receipt_sha256"]}
+    r.verify_runtime(candidate)
+    fingerprint = r.digest(r.encoded({"runtime": runtime, "previous_fingerprint": prior["fingerprint"],
+                                      "package": release["package_receipt_sha256"]}))
+    r.require(pending["fingerprint"] == fingerprint, "Pending fingerprint differs")
+    static = r.PACKAGE / ".vercel/output/static"
+    paths = sorted(set(r.live_paths(static) + release["changed_paths"] +
+                       [p for p in r.refs_map(static) if p.startswith("assets/")]))
+    r.readback(config["origin"], static, paths)
+    r.read_film(config["origin"], static)
+    checks = r.verify(None, config["origin"], retained_study=release["evidence_generation"]["sha256"])
+    r.write(r.REPORT / "public-check.json", checks)
+    r.verify_runtime(candidate)
+    r.require((r.STATE / "config.json").read_bytes() == config_raw and
+              (r.STATE / "last-success.json").read_bytes() == prior_raw and
+              (r.STATE / "pending-promotion.json").read_bytes() == pending_raw, "Publication state changed")
+    success = {**prior, "status": "published", "fingerprint": fingerprint,
+               "deployment": deployment, "published_at": r.now(), "package": str(r.PACKAGE),
+               "runtime_commit": runtime, "runtime_only": True}
+    r.write(r.STATE / "config.json", candidate)
+    r.write(r.STATE / "last-success.json", success)
+    (r.STATE / "pending-promotion.json").unlink()
+    result = {**success, "public_origin": config["origin"], "readback_files": len(paths),
+              "public_checks_passed": checks["checks_passed"], "all_readbacks_match": True,
+              "evidence_bytes_preserved": True, "scientific_admission_changed": False,
+              "rollback_deployment": prior["deployment"],
+              "finalization": "First immediate public readback still returned previous api/publication.json bytes. The same promoted deployment subsequently passed all exact public comparisons and the complete site verifier before state adoption. No second deployment or promotion."}
+    r.write(r.REPORT / "deployment.json", result)
+    print(json.dumps({"status": "published", "origin": config["origin"],
+                      "readback_files": len(paths), "public_checks": checks["checks_passed"]}), flush=True)

@@ -1,10 +1,11 @@
 # Nisayon
 
-**Experiments for robot-policy integration.**
+**Qualification under change for physical AI.**
 
 Nisayon is building an experiment engine for physical AI: given a working
-deployment, a changed deployment and a failed task, choose a correction, test it
-on fresh conditions, and retain the regression. The intended advantage is a
+deployment, a changed deployment and a failed task, determine what to change,
+what must be tested, and which earlier evidence still applies. Test a selected
+correction on fresh conditions and retain the regression. The intended advantage is a
 better deployment decision with less complete engineering work. That advantage
 has not yet been demonstrated.
 
@@ -38,6 +39,14 @@ retain call and owner-file read witnesses. Another machine can inspect the
 evidence without executing owner code. Reusing a procedure, reusing observations
 and carrying forward a verdict are separate decisions.
 
+The current-source check executor binds declared input snapshots, explains which
+checks a change invalidates, and can preserve independent work while another
+input remains unknown. A digest-pinned portable packet can continue in a new
+workspace. Current inputs are bound again and required confirmation executes;
+importing evidence never grants acceptance. The
+[calibration example](examples/qualification/executable_checks/README.md) makes
+that path executable, including stale-input refusal and an adverse correction.
+
 Current source also captures bounded LIBERO/LeRobot episodes, preserves terminal
 observations and checks recorded physics and success calls in replay. The
 [native episode guide](docs/NATIVE_EXECUTION.md) separates these checks from
@@ -47,7 +56,8 @@ follow-up work from retained upstream evidence; experiments and public responses
 still require separate review.
 
 [Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
-[SDK and interface review](docs/SDK_REVIEW_2026-10-25.md)
+[Current research assessment](docs/FRONTIER_REVIEW_2026-11-09.md) ·
+[Open the instrument](https://nisayon.danielwahnich.dev/)
 
 [System map](#the-system-and-the-next-proof) · [Results](#what-the-experiments-found) ·
 [Code and review](#inspect-the-work) ·
@@ -68,31 +78,26 @@ proposed.
 
 ```mermaid
 flowchart TB
-    accTitle: Nisayon execution, retained evidence, reuse and the next value test
-    accDescr: Closed-loop Lift experiments require fresh task confirmation. The native Python SDK checks declared software relations and owner-file reads. Native episode capture checks recorded physics and task measurements. Separate upstream studies qualify exact source and training recipes. A bounded investigation worker proposes follow-up work for review. All retain scoped evidence and costs. Procedure, observation and verdict reuse have different requirements. Owner savings and a separate untouched owner incident remain unproved; expansion depends on those results.
-    subgraph W["Implemented paths"]
-        T["Closed-loop Lift<br/>fixed policy<br/>changed deployment"] --> F["Fresh task confirmation<br/>correction and reference pairs"]
-        N["Native Python SDK + CLI<br/>source · data<br/>environment"] --> S["Software qualification<br/>call and read witnesses<br/>reference · control · candidate"]
-        L["Native episode capture<br/>actions · physics · observations"] --> M["Replay and task measurement checks<br/>frozen completion rules"]
+    accTitle: Implemented qualification paths and the next value test
+    accDescr: Three bounded paths retain their own evidence: closed-loop task experiments, native software comparisons, and declared dependency checks. Records support scoped portable review and browser inspection. Declared-check packets can continue through pinned import, current input binding and required fresh confirmation. Owner savings and repeat use on an untouched incident remain to establish.
+    subgraph B["Implemented paths · distinct acceptance rules"]
+        L["Closed-loop task experiments<br/>fresh paired confirmation"]
+        N["Native software comparisons<br/>source, inputs and read witnesses"]
+        Q["Declared dependency checks<br/>capture · reuse · recompute<br/>withhold affected checks"]
     end
-    M --> H
-    D["Offline decision probes<br/>declared hypotheses<br/>and choices"] -. "experimental native bridge" .-> N
-    I["Bounded upstream investigation<br/>retained evidence · checked proposal"] -. "separate review and execution" .-> X
-    X["Native upstream studies<br/>training · checkpoints<br/>source-specific fixes"] --> H
-    F --> H["Retained evidence<br/>identities · attempts · costs · unknowns"]
-    S --> H
-    H --> R["Inspect and scope reuse<br/>procedure · observations · verdict"]
-    R --> A["Explicit dependency model<br/>observations · scores · fresh checks<br/>current-source SDK planner"]
-    subgraph V["Value still to establish"]
-        direction LR
-        O["Live owner comparison<br/>matched quality · full cost"]
-        O --> U["Untouched owner incident<br/>measure setup and review saved"]
-        U --> P["Expand on evidence<br/>compiler · selector<br/>additional backends"]
-    end
-    A -. "twofold complete-cost target unproven" .-> V
+    L --> H["Retained evidence<br/>attempts · costs · obligations"]
+    N --> H
+    Q --> H
+    H --> R["Portable review<br/>scoped result or unresolved"]
+    H --> V["Browser instrument<br/>recorded evidence and local review"]
+    R --> I["Continue declared-check packets<br/>pinned import · bind current inputs<br/>execute required fresh confirmation"]
+    R -. "next value test" .-> O["Owner comparison<br/>matched decisions · complete costs"]
+    O -. "freeze procedure, then test" .-> T["Separately selected untouched incident"]
 ```
 
-The paths have different acceptance rules. A native software verdict does not
+The diagram connects existing interfaces; it does not imply a general autonomous
+dispatch service. Native episode capture and source-specific upstream studies
+also retain their own evidence contracts. The paths have different acceptance rules. A native software verdict does not
 grant task acceptance; upstream training studies are separate experiments, not
 general SDK backends. Scripted temporal tests cover queues, timing and resets
 without learned inference. Prediction-audit research remains separate from
@@ -108,15 +113,13 @@ setup, failed attempts, diagnosis, confirmation, adoption, review and maintenanc
 Equal or lower conventional cost at matched quality rejects the value claim
 on that case. A separate untouched incident must then establish repeat use.
 
-The Orin intake concerns a deployment failure with a reported working laptop
-reference. Existing outputs and a live owner decision have been requested.
-Two additional researched invitations have been sent and verified. An invited
-engineer has since expressed interest; the current question and permitted
-records remain needed. No prospect is enrolled in the comparison. The
-[research direction](docs/RESEARCH_PLAN.md) and [architecture](docs/ARCHITECTURE.md)
-describe what would justify expansion. Useful upstream contributions give us
-testable engineering evidence and contact with real problems; they do not by
-themselves establish product demand.
+The current owner gate remains open: no participating owner case is admitted
+for the prospective matched comparison. Existing interest and upstream adoption
+are distinct from enrollment, permitted evidence and a live decision. Initial
+intake has a four-engineering-hour ceiling. The
+[owner protocol](docs/OWNER_COMPARISON.md) and
+[9 November research assessment](docs/FRONTIER_REVIEW_2026-11-09.md) specify the
+competent baseline, complete costs and conditions that would reject expansion.
 
 ## Inspect the work
 
@@ -130,10 +133,63 @@ have distinct scopes.
 | What makes a correction acceptable? | [Fresh-confirmation obligation](docs/evaluation/CONFIRMATION_OBLIGATION.md), [assessment code](src/nisayon/evaluation/confirmation.py) and [failure paths](tests/evaluation/). |
 | What did the comparisons actually show? | [Results below](#what-the-experiments-found), [complete experiment index](docs/experiments/README.md), and each result's protocol, retained failures and reproduction commands. |
 | Can this checkout reproduce the software checks? | [Development setup](docs/DEVELOPMENT.md), [locked dependencies](uv.lock) and [Linux/macOS checks](.github/workflows/ci.yml). Optional-stack and private-store skips remain explicit. |
-| What did the current repository review verify? | [24 October source and diagram audit](docs/experiments/results/main-refresh-2026-10-24/README.md), [native SDK comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), and [earlier clean-clone checks](docs/experiments/results/main-refresh-2026-10-16/README.md). |
-| What remains unproved? | [Current research decision](docs/FRONTIER_DECISION_2026-10-14.md) and [next value test](#what-would-justify-the-next-experiment). |
+| What did the current repository review verify? | [9 November source and diagram reconciliation](docs/experiments/results/main-refresh-2026-11-09/README.md), [native SDK comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), and [earlier clean-clone checks](docs/experiments/results/main-refresh-2026-10-16/README.md). |
+| What remains unproved? | [Current research decision](docs/FRONTIER_REVIEW_2026-11-09.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**9 November — declared dependencies, partial work and portable continuation.**
+New plans stay unresolved when the bounded Python witness observes an unbound
+external read. The calibration example declares a prospective digest, permitted
+use and export permission; handlers consume captured bytes. Partial execution
+can retain independent observations while missing inputs withhold affected
+checks. Review now reconstructs completed receipts inside unfinished runs.
+Pinned import reconnects a portable packet to a new execution with current
+inputs and mandatory fresh confirmation.
+
+The complete qualification suite passed 974 tests with zero skips before this
+source publication. Three exposed calibration continuations distinguish valid
+reuse, stale-pin refusal and a freshly tested rejected candidate. These controls
+do not establish complete dependency discovery, owner savings or deployment
+acceptance. [Inspect the implementation, controls and limits](docs/experiments/results/main-refresh-2026-11-09/README.md).
+
+**9 November — the instrument source joins the public tree.** The browser
+application, data-export code, contracts, tests and retained display fixtures
+are now alongside the engine. Mobile controls, offline setup recovery and local
+portable review have retained qualification. Cinematic imagery communicates a
+future vision; recorded evidence remains separately identified. Source publication
+and website deployment have distinct receipts.
+[Run the instrument](apps/instrument/README.md) · [Current interface status](docs/ui/README.md).
+
+**9 November — research narrows the next build.** RoboArchitect, PyRUA-REAL,
+AdaptiTest and current robotic evaluation infrastructure overlap generic
+improvement loops, memory and simulation orchestration. The useful open question
+is whether scoped qualification under change improves defensible decisions and
+complete work against an equally capable native workflow. The staged-input
+controls matched native decisions without showing a work reduction; the earlier
+calibration cost comparison remains stopped on measurement defects. No learned
+selector, new backend or owner trial is implied.
+[Read the source-pinned assessment](docs/FRONTIER_REVIEW_2026-11-09.md).
+
+**Completed investigations stay closed.** The five-pair LongWAM task subset had
+success in every condition for both deployments and no observed improvement.
+The inference screen missed its frozen target. The rank-recovery campaign
+completed its declared software scope and retained the omitted-CUDA-state
+failure. These results do not create a new GPU allocation or a pending rerun.
+[Current reconciliation](docs/experiments/results/main-refresh-2026-11-09/README.md#research-and-closed-campaigns).
+
+**1–9 November — reference uncertainty, cost feasibility and dispatch.**
+[Reference sensitivity](docs/REFERENCE_SENSITIVITY.md) widens a finite audit under
+supplied bounds on wrong labels; it does not establish reference truth.
+[Cost opportunity](docs/COST_TARGET.md#screen-the-opportunity-before-building--1-november-2026)
+can rule out an optimistic savings target when too little work is removable.
+The [investigation worker](docs/ENGAGEMENT_INVESTIGATIONS.md) now checks selected
+inputs and live thread evidence before dispatch and preserves existing jobs on
+discovery-only changes. Its structure and exact-citation checks remain separate
+from semantic correctness.
+
+The dated findings below retain their original source and measurement scope.
+They are not all new validations of the current checkout.
 
 **1 November — actual pi0.5 identity checks, with an unresolved parity result.**
 Four Linux/A100 starts and three full-checkpoint hashes completed. Both deliberately
@@ -175,7 +231,7 @@ complete owner-workflow savings.
 
 
 **25 October — evidence applicability now has an explicit dependency model.**
-The unreleased SDK planner explains which checks code, data, runtime, scoring
+The current-source SDK planner explains which checks code, data, runtime, scoring
 and population changes require. One reviewed model matches a competent native
 workflow on six exposed normalization decisions, including three unsuitable
 controls; the unchanged procedure repeats the result on new confirmation
@@ -287,7 +343,7 @@ its required owner records remain outstanding.
 LeRobot corrections: [completed accumulation windows](https://github.com/huggingface/lerobot/pull/5061)
 and [interrupted checkpoint publication and EMA recovery](https://github.com/huggingface/lerobot/pull/5062).
 Their finite CPU evidence and failed checks are described in the submissions.
-The accumulation change remains a draft pending native distributed qualification;
+At the date of that entry, the accumulation change remained a draft pending native distributed qualification;
 maintainer adoption and full-weight training quality are not established.
 
 20 October: an [evidence-transfer review](docs/experiments/results/evidence-transfer-2026-10-20/README.md)
@@ -335,8 +391,8 @@ a proposed changed-observation reset check, model identities and an offline
 report reader make the result inspectable. These are software checks with
 synthetic inputs, not physical task confirmation or measured owner savings.
 
-The public source includes selected native contributions and qualification
-updates through 1 November 2026. Each packet records its source, qualification and review status. The
+The public source includes validated engine and instrument source through
+9 November 2026, alongside the selected native contribution packets. Each packet records its source, qualification and review status. The
 [release notes](docs/RELEASE.md) identify earlier source snapshots.
 
 The latest research sharpens the question: which experiment could change the
@@ -382,7 +438,7 @@ cannot replace fresh task confirmation.
 ## External corrections and open decisions
 
 The five pull requests linked in the table were checked on 24 October and
-remain open. Results and adoption claims stay bound to their retained revisions;
+were open at that observation. Results and adoption claims stay bound to their retained revisions;
 this status read did not rerun the experiments.
 
 A finding from Nisayon's evaluation work was adopted in **arisole-eval 0.1.3**.
@@ -716,7 +772,7 @@ software screen alone establishes neither task reliability nor a cost saving.
 
 The [current owner procedure](docs/OWNER_COMPARISON.md) prioritizes a live
 integration decision with substantial setup, adaptation or review work. It
-preserves the [research decision](docs/FRONTIER_DECISION_2026-10-14.md): experiments
+preserves the [current research decision](docs/FRONTIER_REVIEW_2026-11-09.md): experiments
 must be able to alter a real correction choice. The finite
 probe module makes that distinction explicit, under supplied model and label
 premises. Its next useful test is an independently owned incident with a live

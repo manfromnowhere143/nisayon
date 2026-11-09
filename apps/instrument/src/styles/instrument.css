@@ -1,0 +1,479 @@
+/* One stable control surface across the instrument. Playback belongs to the
+   lab; navigation remains available during its first load and error states. */
+.instrument-dock {
+  position: fixed;
+  z-index: 110;
+  left: 50%;
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  width: 346px;
+  max-width: calc(
+    100% - 24px - env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+  );
+  padding: 4px;
+  border: 1px solid var(--glass-rim);
+  border-radius: 30px;
+  background: var(--glass);
+  color: var(--ink);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  backdrop-filter: blur(24px) saturate(1.1);
+  box-shadow:
+    inset 0 1px 0 var(--glass-sheen),
+    0 8px 28px #0002;
+}
+.instrument-dock[data-playback="true"]:has(.transport) {
+  width: 650px;
+  border-radius: 26px;
+}
+.research-dock {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  width: min(100%, 336px);
+  margin: 0 auto;
+}
+.research-dock::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc((100% - 4px) / 3);
+  border: 1px solid var(--glass-rim);
+  border-radius: 999px;
+  background: var(--selected);
+  box-shadow: inset 0 1px 0 var(--glass-sheen);
+  transform: translateX(0);
+  transition: transform 0.42s var(--ease-damped);
+  pointer-events: none;
+}
+.instrument-dock[data-view="research"] .research-dock::before {
+  transform: translateX(calc(100% + 2px));
+}
+.instrument-dock[data-view="lab"] .research-dock::before {
+  transform: translateX(calc(200% + 4px));
+}
+.research-dock > button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  border: 0;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: none;
+  color: var(--ink);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.research-dock svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+.instrument-dock :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.instrument-playback {
+  padding: 0 8px 5px;
+  margin: 0 4px 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.instrument-playback:empty {
+  display: none;
+}
+.instrument-playback .transport-dock {
+  position: static;
+  transform: none;
+  width: 100%;
+  max-height: none;
+  display: grid;
+  grid-template-columns: minmax(80px, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+.instrument-playback .glass {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.instrument-playback .transport-rail {
+  padding: 0;
+  width: 100%;
+  height: 44px;
+}
+.instrument-playback .transport {
+  padding: 0;
+  flex-wrap: nowrap;
+  min-height: 48px;
+}
+.instrument-playback .transport-readout {
+  min-width: 85px;
+  padding: 0 7px;
+}
+.retained-lab .app {
+  --transport-reserve: max(
+    var(--instrument-dock-reserve, 0px),
+    calc(126px + max(12px, env(safe-area-inset-bottom, 0px)))
+  );
+}
+.lab-loading {
+  z-index: 90;
+}
+.lab-loading .boot-signature {
+  align-self: center;
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+.lab-loading-detail {
+  position: absolute;
+  top: calc(50% + 78px);
+  width: min(460px, 80%);
+  text-align: center;
+  font: 0.6875rem/1.6 var(--mono);
+}
+.lab-unavailable {
+  width: min(560px, calc(100% - 48px));
+  margin: auto;
+  padding-top: max(80px, 20dvh);
+}
+.lab-unavailable h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.035em;
+}
+.lab-unavailable p {
+  line-height: 1.7;
+}
+.app-access-reading {
+  padding-top: 24px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+.app-access-reading h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0 0 18px;
+}
+.app-install-paths {
+  margin-top: 24px;
+}
+.app-install-paths > div {
+  padding-block: 10px;
+  border-top: 1px solid var(--research-rule);
+}
+.app-install-paths dt {
+  font-weight: 550;
+}
+.app-install-paths dd {
+  margin: 3px 0 0;
+}
+.app-update-state {
+  border-top: 1px solid var(--research-rule);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.system-core-position {
+  transition: transform 0.6s var(--ease-damped);
+}
+.research-variant {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-radius: 999px;
+}
+.research-variant::before {
+  content: "";
+  position: absolute;
+  inset: 2px auto 2px 2px;
+  width: calc((100% - 6px) / 2);
+  border-radius: 999px;
+  background: var(--selected);
+  border: 1px solid var(--glass-rim);
+  transform: translateX(0);
+  transition: transform 0.4s var(--ease-damped);
+  pointer-events: none;
+}
+.research-variant[data-variant="corrected"]::before {
+  transform: translateX(calc(100% + 2px));
+}
+.research-variant button {
+  position: relative;
+  min-height: 40px;
+  border-radius: 999px;
+  color: var(--ink);
+}
+.research-variant button[aria-pressed="true"] {
+  background: none;
+}
+.attention-cell rect {
+  transition:
+    fill 0.35s ease,
+    stroke 0.35s ease;
+}
+.promotion-connection,
+.dispatch-connection {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+.promotion-gate,
+.dispatch-gate {
+  fill: var(--research-surface);
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+.promotion-decision,
+.dispatch-command {
+  font: 17px var(--mono);
+}
+.promotion-drawing .is-original,
+.dispatch-drawing .is-original {
+  color: var(--rejected);
+}
+.promotion-drawing .is-corrected,
+.dispatch-drawing .is-corrected {
+  color: var(--correction);
+}
+.research-visual[data-visual-page="evidence"][data-case="promotion"]
+  .diagram-note {
+  display: none;
+}
+.upstream-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: min(100%, 520px);
+  min-width: 0;
+  margin: 10px auto 0;
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--ink) 3%, transparent);
+  flex: 0 0 auto;
+}
+.upstream-line a {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+  padding: 8px 14px;
+  min-height: 44px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.upstream-status {
+  font: 0.5rem/1.3 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.upstream-title {
+  font-size: 0.6875rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.upstream-line button {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 14px;
+  color: var(--ink);
+}
+.upstream-line button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+/* Formation is finite and diagrammatic. No render loop, moving blur, noisy
+   texture, or numerical value is used to suggest a live experiment. */
+@media (prefers-reduced-motion: no-preference) {
+  .upstream-line a {
+    animation: upstream-arrive 0.45s var(--ease-damped) both;
+  }
+  @keyframes upstream-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  .system-assembly {
+    animation: layer-assemble 850ms var(--ease-damped) var(--assembly-delay)
+      backwards;
+  }
+  .system-perimeter {
+    animation: layer-trace 900ms cubic-bezier(0.2, 0.7, 0.2, 1)
+      var(--assembly-delay) backwards;
+  }
+  .system-scaffold,
+  .system-core {
+    animation: scaffold-arrive 1.2s ease-out both;
+  }
+  @keyframes layer-assemble {
+    from {
+      opacity: 0;
+      transform: translateY(var(--assembly-rise));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes layer-trace {
+    from {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes scaffold-arrive {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+/* Safe areas belong to the application surface, including a standalone web
+   app and landscape phones. Dynamic viewport units follow browser chrome. */
+.research-workspace {
+  height: 100dvh;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.research-header {
+  padding-inline: max(24px, env(safe-area-inset-left, 0px))
+    max(24px, env(safe-area-inset-right, 0px));
+}
+.retained-lab .app {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.research-icon,
+.glass-card-close {
+  min-width: 44px;
+  min-height: 44px;
+}
+.research-glass-card {
+  max-height: calc(
+    100dvh - 24px - env(safe-area-inset-top, 0px) -
+      env(safe-area-inset-bottom, 0px)
+  );
+  max-width: calc(
+    100vw - 24px - env(safe-area-inset-left, 0px) -
+      env(safe-area-inset-right, 0px)
+  );
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .investigation-rail {
+    display: none;
+  }
+  .investigation-picker {
+    display: block;
+    padding-block: 8px;
+  }
+  .investigation-picker select {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+@media (max-width: 760px) {
+  .app-access-reading {
+    font-size: 0.75rem;
+    padding-top: 18px;
+  }
+  .research-header {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px))
+      max(16px, env(safe-area-inset-right, 0px));
+  }
+  .research-body {
+    padding-inline: max(16px, env(safe-area-inset-left, 0px))
+      max(16px, env(safe-area-inset-right, 0px));
+    margin-bottom: var(--instrument-dock-reserve, 78px);
+  }
+  .retained-lab .app {
+    padding-inline: max(14px, env(safe-area-inset-left, 0px))
+      max(14px, env(safe-area-inset-right, 0px));
+  }
+  .research-glass-card input:not([type="range"]),
+  .research-glass-card select,
+  .investigation-picker select,
+  .case-select select {
+    font-size: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .retained-lab .app {
+    --transport-reserve: max(
+      var(--instrument-dock-reserve, 0px),
+      calc(164px + max(12px, env(safe-area-inset-bottom, 0px)))
+    );
+  }
+  .instrument-dock[data-playback="true"]:has(.transport) {
+    width: 440px;
+  }
+  .instrument-playback .transport-dock {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .instrument-playback .transport-rail {
+    height: 32px;
+    margin-block: 4px;
+  }
+  .instrument-playback .transport {
+    min-height: 44px;
+  }
+  .instrument-playback
+    .tbtn:is([aria-label="Previous row"], [aria-label="Next row"]) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .instrument-dock *,
+  .instrument-dock *::before,
+  .system-core-position {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
+  .instrument-dock {
+    background: var(--ground);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .instrument-dock {
+    background: var(--glass-opaque);
+  }
+}
+.scene-recovery {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px;
+  text-align: center;
+  color: var(--ink);
+  background: var(--ground);
+}
+.scene-recovery p { max-width: 44ch; margin: 0; font-size: 0.86rem; line-height: 1.5; }
+.scene-recovery .scene-recovery-title { font-size: 1.1rem; font-weight: 560; }
+.scene-recovery button { min-height: 44px; margin-top: 6px; }

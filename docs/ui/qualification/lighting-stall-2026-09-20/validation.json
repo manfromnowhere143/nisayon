@@ -1,0 +1,56 @@
+{
+  "schema": "nisayon.ui-lighting-stall-qualification.v1",
+  "checked_at": "2026-09-20T18:25:37.784166+00:00",
+  "scope": "Local renderer repair; no engine execution or graphics deployment.",
+  "browser_log": {
+    "path": "browser-attempts.json",
+    "sha256": "594cc79869b46005b114e0cc75ebc4fb539e87f80d496166335de3409e09ef5c",
+    "scope": "Browser-reported development events after catalog isolation and before adaptive tracing resolution. This is not a controlled device benchmark or visual acceptance."
+  },
+  "reproduced_before_repair": {
+    "test": "sceneReadiness.test.tsx: automatic catalog refresh",
+    "result": "failed",
+    "expected_spatial_calls": 2,
+    "observed_spatial_calls": 4
+  },
+  "checks": {
+    "typescript": {
+      "command": "npm run typecheck",
+      "exit_code": 0
+    },
+    "frontend": {
+      "command": "npx vitest run --reporter=json --outputFile=../../artifacts/lighting-runtime/frontend-tests.json",
+      "exit_code": 0,
+      "files": 35,
+      "passed": 210,
+      "failed": 0
+    },
+    "build": {
+      "command": "npx vite build",
+      "exit_code": 0,
+      "warnings": [
+        "Two chunks exceed the existing 500 kB warning threshold."
+      ]
+    },
+    "diff_check": {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    "local_http": {
+      "url": "http://127.0.0.1:5174/src/scene/refinedLight.ts",
+      "status": 200,
+      "observed": [
+        "lightScale import",
+        "calibrate callback",
+        "traceWidth diagnostic"
+      ]
+    }
+  },
+  "not_verified": [
+    "A completed still from the new calibrated renderer on the user GPU",
+    "Image quality in both themes",
+    "Real phone and installed PWA behavior",
+    "A before/after performance comparison on a named device, browser and pinned moment"
+  ],
+  "publication": "The existing automatic evidence publisher and graphics runtime were not promoted by this repair."
+}

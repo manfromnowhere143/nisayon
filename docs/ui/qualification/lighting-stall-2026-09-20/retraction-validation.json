@@ -1,0 +1,85 @@
+{
+  "schema": "nisayon.ui-lighting-retraction.v1",
+  "checked_at": "2026-09-20T18:54:25.751224+00:00",
+  "previous_runtime": "e41de659e839b8b99764f2c79643cd49760c91b2",
+  "decision": "Reject completed path-tracing preview; disconnect all application entry points. Retain experiment for diagnosis only.",
+  "events": {
+    "path": "completed-attempts.json",
+    "sha256": "455e2055feca7ab5e3491e97eb79f8bb1b8b1b406301fbb92cabdcbf722c308f"
+  },
+  "checks": {
+    "frontend": {
+      "command": "npm test -- --reporter=json --outputFile=../../artifacts/lighting-runtime/retraction-tests.json",
+      "exit_code": 0,
+      "files": 35,
+      "passed": 210,
+      "failed": 0,
+      "report_sha256": "c039f073acb773ec3c5e8a4c550104b0f8e349e2fb690bb49edccc851372fe4f"
+    },
+    "typecheck": {
+      "command": "npm run typecheck",
+      "exit_code": 0
+    },
+    "build": {
+      "command": "npx vite build",
+      "exit_code": 0,
+      "warnings": [
+        "Two existing chunks exceed 500 kB."
+      ],
+      "excluded_experiment_markers": {
+        "Refine lighting": [],
+        "scene-refined-canvas": [],
+        "Lighting preview unavailable.": [],
+        "Still geometry exceeds": []
+      },
+      "assets": [
+        {
+          "name": "frameWorker-CP0fiI6G.js",
+          "bytes": 11749,
+          "sha256": "02927821c882b6e45bd3d3aa0c73fa75d3f026f8e94278c6395321cefd79fa42"
+        },
+        {
+          "name": "index-BnB85VDP.js",
+          "bytes": 526955,
+          "sha256": "3e1ec68133ea01fccdd7b33ded28122bc494cbc5631ac13d13bb2c9e7eb14601"
+        },
+        {
+          "name": "index-NTA5TK16.css",
+          "bytes": 63611,
+          "sha256": "fc65b73be6cbed6330687d4431b5d68b6c3577f9e80ba5cf0db0bd3e6336bfb8"
+        },
+        {
+          "name": "three-d84UcZ0d.js",
+          "bytes": 541521,
+          "sha256": "a3c3b495581e201c187cf814bc48cb5951a5b20f18f3eea876f08952a4657c72"
+        },
+        {
+          "name": "visualWorker-CdSBMvjH.js",
+          "bytes": 8170,
+          "sha256": "102e83191a57ba96185b476cd4327ee16f4b154beb4324fade4cecc0bf28f2ef"
+        }
+      ]
+    },
+    "local_http": {
+      "origin": "http://127.0.0.1:5174",
+      "status": 200,
+      "verified_modules": [
+        "src/App.tsx",
+        "src/scene/Scene.tsx",
+        "src/scene/renderer.ts",
+        "src/ui/Diagnostics.tsx"
+      ],
+      "experiment_entry_points_found": false
+    },
+    "publisher_pins": {
+      "runtime": "0eb32f52f89231dda3d7e132038914058ab30205",
+      "implementation_changed": []
+    }
+  },
+  "limits": [
+    "No connected browser for new visual acceptance.",
+    "No controlled before/after device benchmark.",
+    "Precise contributions of sampling variance, accumulation and filtering remain unisolated.",
+    "No new real-time lighting effect or production deployment. The previous public diagnostics-only experiment remains in the older production runtime."
+  ]
+}

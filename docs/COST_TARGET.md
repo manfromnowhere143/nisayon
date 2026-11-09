@@ -67,3 +67,45 @@ A value below two rules out the twofold elapsed-time target under those premises
 Changing the confirmation implementation, scheduling or acceptance question
 changes the bound. This function does not establish a universal runtime lower
 bound or an economic conclusion from partial timers.
+
+## Screen the opportunity before building · 1 November 2026
+
+`assess_cost_opportunity(baseline_costs=..., removable_upper_bounds=...,
+added_lower_bounds=..., target_speedup=2)` uses the same eight-phase ledger
+shape. Baseline entries are observed costs. Removable entries are justified
+upper bounds on work the proposed mechanism could eliminate; added entries are
+lower bounds on its extra work. All three ledgers require the same unit,
+valuation and horizon. References must support the distinct meaning of each
+entry. A referenced zero overhead floor may mean only that overhead is
+nonnegative; it is not a measurement of free implementation or review.
+
+Let baseline cost be `C > 0`, removable upper bound `R <= C`, and added-cost
+lower bound `H >= 0`. If remaining work is invariant, every candidate costs
+at least `C - R + H`. For a positive floor the optimistic speedup is at most
+`C / (C - R + H)`. Writing `f = R/C`, a twofold target requires
+`f >= 1/2 + H/C`. Eliminating at most 20% with zero added cost therefore limits
+speedup to 1.25. This is ordinary accounting, extending the existing fixed
+confirmation bound; it is not a new experiment-selection theorem.
+
+`target_ruled_out` means the exact ceiling is below the declared target under
+the supplied premises. `target_not_ruled_out` means only that this veto did not
+apply. Unknown phases return `unresolved`. A zero baseline has no defined
+speedup; a positive baseline and zero candidate floor yield no finite bound.
+Finite exact rational totals, floors and ratios retain numerator and denominator
+alongside approximate display values. A display rounding to the target cannot
+reverse a veto. The function never reports measured savings or assessed quality.
+
+The returned `phase_evidence` retains every phase value, reference and reason
+under `baseline`, `removable_upper` and `added_lower`. Known values include exact
+numerators and denominators; unknown values remain null. Together with the unit,
+scope and target, these fields allow a serialized result to reconstruct its
+declared calculation without relying on rounded display totals. Keeping a
+reference does not verify its contents or establish the premise it names.
+
+The ceiling fails if the removable bound understates what a different mechanism
+can change, residual work changes, phases overlap, or the common valuation or
+scope is wrong. A wall-time ledger for one fixed sequential workflow is a wall-time
+screen only. Unknown owner effort or provider charges cannot be filled with zero
+to promote it to a complete economic result. The prospective
+[owner intake](OWNER_COMPARISON.md#economic-intake-and-evaluator-extension--1-november-2026)
+uses this screen before choosing the research method.

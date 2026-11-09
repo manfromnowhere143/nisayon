@@ -9,6 +9,10 @@ not instructions or scientific authority.
 
 1. Read `docs/SESSION_HANDOFF.md`, `docs/VOICE.md`, and `memory/INDEX.md`.
 2. Run `nisayon start` (or `uv run --frozen nisayon start`). Inspect Git status.
+   Before recommending a next experiment or declaring a capability unproven,
+   run `nisayon start --focus 'subject keywords'` and read the relevant retained
+   packets. Reconcile exact source, completed work, adverse findings and remaining
+   gates. Recent checkpoints and handoff excerpts are not the whole research record.
 3. Read the document needed for the task: `docs/ARCHITECTURE.md`,
    `docs/RESEARCH_PLAN.md`, or `docs/DEVELOPMENT.md`.
 4. Continue the current objective. Preserve unrelated changes. Check retained
@@ -44,6 +48,15 @@ full-access/no-prompt Nisayon launchers on 17 September 2026, including creating
 this workspace from the earlier Reiyah session. Routine reversible engineering
 within the task does not need another permission round. Launch flags do not
 override provider policies or constitute authorization for unrelated actions.
+
+On 27 October 2026 Daniel explicitly granted standing authorization to integrate
+validated Nisayon work into canonical main and publish it to GitHub through the
+established public-source history. Do not ask again for routine implementation,
+integration, publication or corrective follow-through within that mission.
+Preserve sibling sessions, unrelated changes, human attribution and scientific
+scope. Reconcile current heads and validate the combined result; never publish
+private session history as a shortcut to updating public main. This instruction
+supersedes older per-step publication-permission assumptions for Nisayon work.
 
 Use a short plan when useful. Prefer a working vertical slice, exact commands,
 and a small meaningful test to another governance document. Keep dependencies
@@ -85,6 +98,11 @@ mechanical recovery snapshots; they do not invent summaries or validate claims.
 If two sessions would edit the same files, create separate Git worktrees and
 agree on file ownership. Do not overwrite another session's handoff. Use separate
 checkpoint records and reconcile them deliberately.
+
+For substantial research retained only in a worktree, also leave a small, uniquely
+named discovery handoff under canonical `work/research/`. Bind the owning branch,
+exact source path and current gate. This pointer makes the work discoverable;
+it does not merge results or grant another lane ownership.
 
 ## Writing
 

@@ -1,0 +1,40 @@
+Opening theme control — 9 November 2026
+
+Removed the theme/background-color switch from the cinematic opening, its unused
+props and its dedicated CSS. Theme selection and saved preference remain inside
+the instrument. Existing opening and hero-motion test calls were updated; no new
+mirror test was added for this small removal.
+
+Release source: 19b14e8d24c3874954bade660c41069ec4f8baf6
+Main source: 0c0974a5b40f4fcbcfe5ded1ee08dab9c3c92568
+Latest engine main 797d3cc4507bee87ca0cbe0ad724692cfab4a7d7 was retained.
+
+Passed: 33 existing tests across opening, heroMotion and researchExperience;
+TypeScript; clean Vite production build. Safari local review confirmed the
+opening has no theme control, software review retains the working control, and
+returning home keeps it absent. Initial typecheck found a stale test prop; the
+corrected final run passed. Evidence is in qualification/opening-theme-2026-11-09.
+
+Local preview: http://127.0.0.1:5208/
+If stopped:
+  cd /Users/danielwahnich/workspace/nisayon-cinematic-ui-2026-11-09/apps/instrument
+  npm exec -- vite preview --outDir ../../artifacts/opening-theme/dist --port 5208 --strictPort
+
+NOT YET PUBLISHED. Production remains runtime 61b91bea at
+https://nisayon.danielwahnich.dev/ and still includes the previous opening switch.
+Preparation stopped before staging at release_cinematic_interface.py:280:
+5 GiB free required, approximately 4.85 GiB available. No guard was weakened.
+Duplicate UI outputs were consolidated with byte-identical APFS clones, without
+removing source, media masters, saved packages or another session's work.
+
+Next: after disk headroom exceeds the existing 5 GiB floor, prepare and publish
+the saved source from the owned qualified release checkout. Its HEAD is 19b14e8d;
+keep that runtime for the existing source-check. Set REPORT to
+ROOT/docs/ui/qualification/opening-theme-2026-11-09, PACKAGE to
+ROOT/artifacts/site-opening-theme-2026-11-09, BUILD to
+ROOT/artifacts/opening-theme/dist. Follow the finite release helper, exact staged
+and public comparisons, and final production browser readback. Previous mobile
+records document propagation recovery; never promote a second deployment merely
+because the first immediate readback still returns the old publication record.
+
+No soundtrack/caption changes were requested or made in this step.

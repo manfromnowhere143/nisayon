@@ -1,0 +1,66 @@
+{
+  "schema": "nisayon.ui-interface-checks.v1",
+  "checked_at": "2026-09-19T09:04:00.478546+00:00",
+  "base_commit": "af0b178c29c87f511bea6d257ec2deca09778139",
+  "source_sha256": {
+    "apps/instrument/src/data/loader.ts": "2c7dd493419cdad9d63bb82a44d4a36750ce15a8e4e55e3689c8457ddf259376",
+    "apps/instrument/src/data/strictJson.ts": "06806c9519ee42d7a47895d26e3772dadee6557c182450bb10f46e19d0d5182b",
+    "apps/instrument/src/model/decode.ts": "c5be163731dc056e82c009c68638e085a8b5e5620945e5fae590062a2297f5a0",
+    "apps/instrument/src/model/decodeV1.ts": "879ed9b278b0e1b707b295ec0cdba6fd25aea8cd348d7cb6ece22b75188edc61",
+    "apps/instrument/src/model/types.ts": "2cbe8c6ecf1afd9be37e2faee78178feee456a0d94eb6a9b0fb4efff016a4b39",
+    "apps/instrument/src/styles/app.css": "e827ec39237c91deca4fce2e6ae1d1015d1b512230c16f99314dcf1b8f02ac54",
+    "apps/instrument/src/styles/tokens.css": "55ffadd0656664e0008b765092427ccd062aba3987f97ecf1d779ba5e614633a",
+    "apps/instrument/dev/exports.ts": "b19e953058127c75e27d6ee6e4b6537eaafe2c68fe2f3a085cb2c3ada41cc959",
+    "apps/instrument/vite.config.ts": "cc171715a39a9aef07a3ffc42aa078a054ceef732382379488d73cd3bffaa012"
+  },
+  "host": {
+    "cpu": "Apple M1 Pro",
+    "memory_bytes": 17179869184,
+    "node": "20.18.3",
+    "platform": "macOS arm64"
+  },
+  "checks": [
+    {
+      "command": "npm --prefix apps/instrument run check",
+      "frontend_tests": 123,
+      "test_wall_s": 6.03,
+      "typecheck": "passed",
+      "production_build": "passed",
+      "build_wall_s": 1.45,
+      "warning": "Three.js chunk remains 532.74 kB minified; 132.66 kB gzip."
+    },
+    {
+      "command": "apps/instrument/node_modules/.bin/vite-node --script tools/ui/check_interface_decoder.ts docs/ui/qualification/interface-decoder-hardened.json",
+      "runs": 286,
+      "samples": 13864,
+      "frames": 27728,
+      "wall_s": 6.540227375,
+      "result": "exact readback passed; D05 10423 pairs correctly"
+    }
+  ],
+  "cost_conditions": "The full suite and readback overlapped; command walls must not be added as elapsed session duration. Node timing probes ran under that CPU contention, not a browser.",
+  "node_decode_probe_ms": {
+    "samples_strict_parse": 67.42316699999998,
+    "samples_decode": 9.219291999999996,
+    "frames_strict_parse": 93.37758400000001,
+    "frames_decode": 60.61149999999998
+  },
+  "performance_limit": "These are serialization costs, not control p95. Combined reconstruction parsing/decoding exceeded 100 ms in this concurrent Node probe; the actual browser target remains unqualified and requires profiling. Geometry decoding already uses a worker.",
+  "preview_http": "GET /, the recorded library and exact source license returned 200 at 127.0.0.1:5174. This verifies serving, not rendered behavior.",
+  "browser": {
+    "available": false,
+    "approved_list": [],
+    "computer_use_fallback": "Sky Computer Use native pipe startup failed",
+    "unverified": [
+      "Latest wall cutaway and zoom composition",
+      "Pointer focus on actual browsers",
+      "Black/paper captures at all required sizes and 200% text",
+      "Touch and keyboard workflows",
+      "Graphics context recovery",
+      "20-case-switch GPU lifetime",
+      "First useful view within 2 s and p95 control response below 100 ms"
+    ]
+  },
+  "preserved": "No scientific generation, outcome, evaluation rule, canonical main, sibling checkout or public ref changed.",
+  "after_test_style_adjustment": "App grid aligns content to start so unused viewport height cannot enlarge the observed identity row and feed back into scene sizing. Production build rechecked; actual browser layout remains open."
+}

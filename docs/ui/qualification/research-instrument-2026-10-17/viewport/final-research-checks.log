@@ -1,0 +1,51 @@
+
+> nisayon-instrument@0.1.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> nisayon-instrument@0.1.0 pretest
+> node scripts/make_failure_fixtures.mjs
+
+
+> nisayon-instrument@0.1.0 test
+> vitest run --run test/research.test.ts test/researchExperience.test.tsx
+
+
+ RUN  v3.2.7 /Users/danielwahnich/workspace/nisayon-ui-codex/apps/instrument
+
+ ✓ test/research.test.ts (23 tests) 37ms
+ ✓ test/researchExperience.test.tsx (13 tests) 1227ms
+   ✓ keeps robot selection, theme and playback isolated while moving through research  751ms
+
+ Test Files  2 passed (2)
+      Tests  36 passed (36)
+   Start at  21:22:35
+   Duration  1.95s (transform 475ms, setup 20ms, collect 272ms, tests 1.26s, environment 637ms, prepare 88ms)
+
+
+> nisayon-instrument@0.1.0 prebuild
+> python3 ../../tools/ui/build_system_catalog.py
+
+Engine inventory: 13 MCP interfaces, 91 source modules
+
+> nisayon-instrument@0.1.0 build
+> vite build
+
+vite v6.4.3 building for production...
+transforming...
+✓ 133 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/assets/visualWorker-CdSBMvjH.js    8.17 kB
+dist/assets/frameWorker-CP0fiI6G.js    11.75 kB
+dist/index.html                        21.69 kB │ gzip:   3.33 kB
+dist/assets/index-B2el7BzU.css        116.34 kB │ gzip:  22.06 kB
+dist/assets/index-CLCepWst.js         293.94 kB │ gzip:  89.78 kB
+dist/assets/App-4FpdHOgS.js           310.68 kB │ gzip:  92.14 kB
+dist/assets/three-d84UcZ0d.js         541.52 kB │ gzip: 135.22 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.54s

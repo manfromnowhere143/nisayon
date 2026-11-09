@@ -1,0 +1,40 @@
+"""Complete readback of an already promoted release; never deploy or promote."""
+import fcntl,json,sys,time
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()/'tools/ui'))
+import release_research_interface as release
+runtime='c56476b8f5e6bdc4e033232da2208318c6a9fa86'
+state,report,package=release.STATE,release.REPORT,release.PACKAGE
+with (state/'publisher.lock').open('a') as lock:
+ deadline=time.monotonic()+50
+ while True:
+  try:
+   fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);break
+  except BlockingIOError:
+   if time.monotonic()>deadline:raise
+   time.sleep(.25)
+ prepared=json.loads((report/'release.json').read_bytes());stage=json.loads((report/'stage.json').read_bytes());pending=json.loads((state/'pending-promotion.json').read_bytes())
+ raw=(state/'config.json').read_bytes();config=json.loads(raw);prior=json.loads((state/'last-success.json').read_bytes())
+ release.require(release.digest(raw)==prepared['prior_configuration_sha256'],'Publisher configuration changed')
+ release.require(prepared['runtime_commit']==runtime==stage['runtime_commit'],'Runtime identity differs')
+ release.require(pending['deployment']==stage['deployment'] and pending['runtime_only'] is True,'Pending promotion differs')
+ expected=release.digest(release.encoded({'runtime':runtime,'previous_fingerprint':prior['fingerprint'],'package':prepared['package_receipt_sha256']}))
+ release.require(pending['fingerprint']==expected,'Pending fingerprint differs')
+ release.require(release.digest((report/'source-check.json').read_bytes())==prepared['qualification_sha256'],'Qualification changed')
+ release.source_check(runtime)
+ candidate=release.candidate_config(config,runtime,prepared['package_receipt_sha256']);release.verify_runtime(candidate)
+ static=package/'.vercel/output/static';receipt=json.loads((package/'package-receipt.json').read_bytes())
+ paths=sorted(set(release.live_paths(static)+prepared['changed_paths']+[r['path'] for r in receipt['files'] if r['path'].startswith(('assets/','fixtures/ui/visual/','fixtures/ui/collision/'))]))
+ print('Verifying the already promoted release; no upload or promotion',flush=True)
+ release.readback(config['origin'],static,paths)
+ checks=release.verify(None,config['origin'],retained_study=release.STUDY)
+ release.verify_runtime(candidate)
+ release.require((state/'config.json').read_bytes()==raw,'Configuration moved during recovery')
+ release.write(report/'public-check.json',checks)
+ success={**prior,'status':'published','fingerprint':expected,'deployment':stage['deployment'],'published_at':release.now(),'package':str(package),'runtime_commit':runtime,'runtime_only':True}
+ release.write(state/'config.json',candidate);release.write(state/'last-success.json',success)
+ (state/'pending-promotion.json').unlink()
+ recovery={'initial_failure':'Immediate post-promotion readback mismatch on THIRD_PARTY_NOTICES.txt','subsequent_readback':'Every runtime, catalog, geometry and worker resource matches exactly; public site verification passed.','second_upload':False,'second_promotion':False,'source_admission_changed':False}
+ release.write(report/'deployment.json',{**success,'public_origin':config['origin'],'all_readbacks_match':True,'readback_files':len(paths),'public_checks_passed':checks['checks_passed'],'evidence_bytes_preserved':True,'new_study_result_accepted':False,'package_receipt_sha256':prepared['package_receipt_sha256'],'automated_browser_review':False,'device_gpu_review':False,'recovery':recovery})
+ release.write(report/'promotion-recovery.json',{**recovery,'completed_at':release.now(),'finalizer_sha256':release.digest(Path(__file__).read_bytes())})
+ print(json.dumps({'status':'published','origin':config['origin'],'runtime':runtime,'readback_files':len(paths),'public_checks_passed':checks['checks_passed']}),flush=True)

@@ -1,5 +1,25 @@
 # Research source and releases
 
+## Engine and instrument source reconciliation · 9 November 2026
+
+Current source now includes observed external-read refusal, prospective calibration
+admission, optional partial checks, unfinished-record validation and pinned
+portable continuation. The instrument, export contracts, tests and recorded
+fixtures join the same public source tree. The README, implementation diagrams,
+capability guide and research direction now describe that state together.
+
+The [source and validation record](experiments/results/main-refresh-2026-11-09/README.md)
+separates current checks from historical outcomes. This is a source update from
+existing public ancestry. Private session history and correspondence remain
+excluded; historical evidence and third-party attribution are retained. The
+v0.2.0 wheel and existing tags are unchanged. Website releases have their own
+qualification and publication records.
+
+The [current research decision](FRONTIER_REVIEW_2026-11-09.md) keeps complete
+owner cost and a separate untouched incident as open gates. Declared dependencies,
+portable integrity and passing software tests do not establish physical truth,
+competitive superiority or an economic win.
+
 ## Explicit investigation designs · 2 November 2026
 
 The bounded investigation worker now requires predictions, oracle obligations,

@@ -1,0 +1,57 @@
+/* Inspection unfolds around the selected sample; it never moves the camera. */
+.scene-inspect-action { color: var(--ink) !important; }
+.moment-inspection { display: flex; flex-direction: column; gap: clamp(14px, 2.3vh, 26px); min-width: 0; min-height: 0; height: 100%; overflow: clip; padding: 6px 4px 12px; }
+.inspection-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.inspection-heading h2 { margin: 6px 0 0; font-size: clamp(1.25rem, 2vw, 1.8rem); letter-spacing: -0.045em; font-weight: 500; }
+.inspection-heading .ibtn { font-size: 1.5rem; flex: 0 0 auto; }
+.inspection-steps { display: flex; gap: 0; border-bottom: 1px solid var(--rule); }
+.inspection-steps button { flex: 1; text-align: left; min-height: 44px; background: transparent; border: 0; border-bottom: 1px solid transparent; padding: 8px 6px; cursor: pointer; font-size: 0.8rem; color: var(--ink-3); }
+.inspection-steps button > span { margin-right: 9px; font-size: 0.63rem; font-variant-numeric: tabular-nums; }
+.inspection-steps button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.moment-clock-values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.moment-clock-values > div { display: grid; gap: 5px; }
+.moment-clock-values > div:nth-child(2) { text-align: center; }
+.moment-clock-values > div:last-child { text-align: right; }
+.moment-clock-values span { font-size: 0.68rem; color: var(--ink-3); }
+.moment-clock-values b { font-size: 0.95rem; font-weight: 450; color: var(--ink-2); }
+.moment-clock svg { display: block; width: 100%; height: 32px; margin-top: 5px; overflow: visible; }
+.moment-clock svg line, .moment-clock svg path, .moment-clock svg circle { vector-effect: non-scaling-stroke; stroke-width: 1; }
+.clock-rule { stroke: var(--rule-strong); }
+.clock-capture { stroke: var(--ink-2); fill: var(--ground); }
+.clock-action { stroke: var(--ink); }
+.clock-result { fill: var(--ink); }
+.inspection-body { display: grid; align-content: start; gap: 20px; }
+.inspection-context { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 12px; color: var(--ink-3); font-size: 0.75rem; }
+.inspection-context select { max-width: 100%; min-height: 44px; padding: 6px 9px; border: 1px solid var(--rule); border-radius: 9px; font: inherit; color: var(--ink); background: var(--ground-2); }
+.inspection-measures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.inspection-measures > div { display: grid; align-content: start; gap: 10px; min-width: 0; }
+.inspection-measures span, .inspection-command > div > span { font-size: 0.72rem; color: var(--ink-3); }
+.inspection-measures strong { font-size: clamp(1.4rem, 2.4vw, 2.5rem); font-weight: 450; letter-spacing: -0.045em; line-height: 1.15; overflow-wrap: anywhere; }
+.inspection-measures small { font-size: 0.46em; color: var(--ink-2); letter-spacing: 0; }
+.inspection-command { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; }
+.inspection-command > div { display: grid; gap: 10px; }
+.inspection-command strong { font-size: clamp(1.1rem, 1.8vw, 1.85rem); font-weight: 450; letter-spacing: -0.045em; overflow-wrap: anywhere; }
+.command-arrow { color: var(--ink-3); }
+.inspection-explanation { margin: 0; max-width: 60ch; font-size: 0.79rem; line-height: 1.7; color: var(--ink-2); }
+.inspection-source { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px 12px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 0.68rem; line-height: 1.6; color: var(--ink-3); }
+.inspection-source a { color: var(--ink-2); text-underline-offset: 4px; text-decoration-color: var(--rule-strong); }
+.inspection-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.inspection-actions .quiet { font-size: 0.76rem; }
+.inspection-next { justify-content: space-between; gap: 28px; }
+@media (max-width: 1023px) {
+  .moment-inspection { gap: 9px; padding: 12px 14px; }
+  .inspection-heading h2 { font-size: 1.1rem; margin-top: 3px; }
+  .inspection-heading .eyebrow { font-size: 0.59rem; }
+  .inspection-steps button { min-height: 44px; padding-block: 6px; font-size: 0.74rem; }
+  .inspection-steps button > span { margin-right: 6px; }
+  .moment-clock-values { gap: 6px; }
+  .moment-clock-values b { font-size: 0.82rem; }
+  .moment-clock svg { height: 19px; margin-top: 2px; }
+  .inspection-body { gap: 10px; }
+  .inspection-context { font-size: 0.68rem; }
+  .inspection-measures > div { gap: 5px; }
+  .inspection-measures strong { font-size: 1.5rem; }
+  .inspection-explanation { font-size: 0.69rem; line-height: 1.6; }
+  .inspection-source { padding-top: 8px; font-size: 0.61rem; gap: 3px 10px; }
+  .inspection-actions .quiet { font-size: 0.7rem; }
+}

@@ -10,6 +10,8 @@ from __future__ import annotations
 import hashlib
 import inspect
 import math
+import os
+import stat
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -35,13 +37,32 @@ from .models import fields
 MAX_INPUT_BYTES = 64 * 1024 * 1024
 
 
+class _InputLimitError(ValueError):
+    """An unsupported resource request remains an invocation error."""
+
+
 def _read(path: Path) -> bytes:
     if path.is_symlink() or not path.is_file():
         raise ValueError(f"Input must be a regular nonsymlink file: {path}")
-    with path.open("rb") as stream:
-        raw = stream.read(MAX_RECORD_BYTES + 1)
+    if not all(hasattr(os, flag) for flag in ("O_NOFOLLOW", "O_NONBLOCK")):
+        raise ValueError("Regular-file acquisition requires nonfollowing, nonblocking opens")
+    # The path check above is diagnostic only. Validate the object actually
+    # opened; a substituted FIFO must not wait for a writer, nor a symlink follow.
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    except OSError as error:
+        raise ValueError(
+            f"Could not acquire a regular nonsymlink input: {path} ({error.strerror})"
+        ) from error
+    try:
+        if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+            raise ValueError(f"Acquired input is not a regular file: {path}")
+        with os.fdopen(descriptor, "rb", closefd=False) as stream:
+            raw = stream.read(MAX_RECORD_BYTES + 1)
+    finally:
+        os.close(descriptor)
     if len(raw) > MAX_RECORD_BYTES:
-        raise ValueError("Check input exceeds 16 MiB")
+        raise _InputLimitError("Check input exceeds 16 MiB")
     return raw
 
 
@@ -81,6 +102,14 @@ class CheckContext:
         return decode_json(self._upstream[key])
 
 
+def _unknown_obligations(declaration: dict, unknown: set[str]) -> set[str]:
+    return {f"unknown_input:{key}" for key in unknown} | {
+        f"{decision}:unknown_input:{key}"
+        for decision in declaration["decisions"]
+        for key in unknown
+    }
+
+
 def execute_checks(
     model: DependencyModel,
     *,
@@ -92,6 +121,7 @@ def execute_checks(
     previous: EvidenceState | None = None,
     implementation_input: str = "procedure",
     check_implementations: dict[str, CheckImplementation] | None = None,
+    allow_partial: bool = False,
 ) -> dict:
     """Freeze, select, execute and retain checks, without accepting their claims.
 
@@ -102,8 +132,14 @@ def execute_checks(
     procedure and directly on its own binding. Other inputs are file bytes or
     explicit unknowns. Mutable closures and undeclared state are unsupported.
     Negative scientific results are completed outputs, not execution failures.
+    With allow_partial=True, checks independent of explicit unknowns may finish
+    while the overall execution remains unresolved. Other planning obligations
+    still block execution. Rebind unknown inputs in a new execution; prior
+    receipts are rechecked and mandatory confirmation still executes.
     """
     started = time.perf_counter()
+    if type(allow_partial) is not bool:
+        raise ValueError("allow_partial must be a boolean")
     root, out = evidence_root.resolve(), output.absolute()
     declaration = model.record()
     if not out.is_relative_to(root) or out == root or out.resolve() != out:
@@ -162,20 +198,27 @@ def execute_checks(
     if any(path.is_relative_to(out) for path in files | {p for p in paths.values() if p}):
         raise ValueError("Inputs and implementation must precede this output")
 
+    acquiring = None
+
     def freeze():
+        nonlocal acquiring
         raw, size = {}, 0
         for key, path in paths.items():
+            acquiring = key
             data = _read(path) if path is not None else None
             size += len(data) if data is not None else 0
             if size > MAX_INPUT_BYTES:
-                raise ValueError("Aggregate check inputs exceed 64 MiB")
+                raise _InputLimitError("Aggregate check inputs exceed 64 MiB")
             raw[key] = data
+        acquiring = implementation_input
         source_ids = {path: hashlib.sha256(_read(path)).hexdigest() for path in sorted(files)}
         procedure = {
             "tool": tool_identity(),
             "sources": {str(path): source_ids[path] for path in sorted(shared_files)},
             "handlers": symbols,
         }
+        if allow_partial:
+            procedure["allow_partial"] = True
         if check_implementations is not None:
             procedure["check_implementations"] = assignments
             for code, dependencies in scoped_files.items():
@@ -187,19 +230,51 @@ def execute_checks(
                 )
         raw[implementation_input] = canonical_bytes(procedure)
         if any(len(raw[key]) > MAX_RECORD_BYTES for key in {implementation_input, *scoped_files}):
-            raise ValueError("Implementation manifest exceeds 16 MiB")
+            raise _InputLimitError("Implementation manifest exceeds 16 MiB")
         if (
             check_implementations is not None
             and sum(len(v) for v in raw.values() if v) > MAX_INPUT_BYTES
         ):
-            raise ValueError("Aggregate check inputs and implementation manifests exceed 64 MiB")
+            raise _InputLimitError(
+                "Aggregate check inputs and implementation manifests exceed 64 MiB"
+            )
         identities = {
             key: hashlib.sha256(data).hexdigest() if data is not None else None
             for key, data in raw.items()
         }
         return raw, identities
 
-    raw_inputs, identities = freeze()
+    # Invalid invocations retain their existing exception behavior. A failed
+    # acquisition is recorded below, without promoting partially acquired bytes.
+    if out.exists() or out.is_symlink():
+        raise FileExistsError(out)
+    acquisition = {
+        "status": "completed",
+        "resource": None,
+        "reason_code": None,
+        "required_action": None,
+        "error_type": None,
+        "detail": None,
+    }
+    acquisition_error = None
+    try:
+        raw_inputs, identities = freeze()
+    except _InputLimitError:
+        raise
+    except (OSError, ValueError, KeyboardInterrupt) as error:
+        acquisition_error = error
+        raw_inputs = {}
+        identities = dict.fromkeys(declaration["inputs"])
+        acquisition = {
+            "status": "interrupted" if isinstance(error, KeyboardInterrupt) else "failed",
+            "resource": acquiring,
+            "reason_code": "input_acquisition_interrupted"
+            if isinstance(error, KeyboardInterrupt)
+            else "input_acquisition_failed",
+            "required_action": "rebind_input_and_execute_new_output",
+            "error_type": type(error).__name__,
+            "detail": str(error)[:1000],
+        }
     prior = previous or EvidenceState.from_dict(
         {"schema": STATE_SCHEMA, "model_sha256": model.sha256, "inputs": identities, "checks": {}}
     )
@@ -221,10 +296,26 @@ def execute_checks(
         {"schema": STATE_SCHEMA, "model_sha256": model.sha256, "inputs": identities, "checks": {}}
     )
     attempts, errors = [], list(plan["obligations"])
-    interrupted = False
+    if acquisition_error is not None:
+        errors.insert(0, f"{acquisition['reason_code']}:{acquiring}")
+    unknown = {key for key, identity in identities.items() if identity is None}
+    partial_permitted = (
+        allow_partial
+        and acquisition_error is None
+        and set(errors) <= _unknown_obligations(declaration, unknown)
+    )
+    interrupted = isinstance(acquisition_error, KeyboardInterrupt)
     try:
-        if not errors:
+        if not errors or partial_permitted:
             for key, selection in plan["checks"].items():
+                unavailable = unknown & _closure(
+                    declaration, declaration["checks"][key]["depends_on"]
+                )
+                if unavailable:
+                    errors.extend(
+                        f"withheld_check:{key}:unknown_input:{dep}" for dep in sorted(unavailable)
+                    )
+                    continue
                 begin = time.perf_counter()
                 attempt = {"check": key, "action": selection["action"], "status": "started"}
                 attempts.append(attempt)
@@ -287,14 +378,15 @@ def execute_checks(
                 finally:
                     attempt["wall_seconds"] = time.perf_counter() - begin
                     write_json(directory / "completion.json", attempt)
-                if errors:
+                if attempt["status"] != "completed":
                     break
             if not errors and _receipt_issues(model, state.record(), root):
                 errors.append("Final evidence failed integrity or dependency checking")
     finally:
         write_json(out / "state.json", state.record())
         report = {
-            "schema": "nisayon.qualification.check_execution.v1",
+            "schema": "nisayon.qualification.check_execution.v2",
+            "acquisition": acquisition,
             "status": "completed"
             if not errors
             and len(attempts) == len(handlers)
@@ -333,8 +425,12 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
     def read(name):
         return decode_json(_artifact_bytes(root, (out / name).relative_to(root).as_posix()))
 
+    report = read("execution.json")
+    current = isinstance(report, dict) and report.get("schema") == (
+        "nisayon.qualification.check_execution.v2"
+    )
     report = fields(
-        read("execution.json"),
+        report,
         {
             "schema",
             "status",
@@ -345,10 +441,16 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             "deployment_decision",
             "costs",
             "limit",
-        },
+        }
+        | ({"acquisition"} if current else set()),
     )
     if (
-        report["schema"] != "nisayon.qualification.check_execution.v1"
+        not isinstance(report["schema"], str)
+        or report["schema"]
+        not in {
+            "nisayon.qualification.check_execution.v1",
+            "nisayon.qualification.check_execution.v2",
+        }
         or report["status"] not in ("completed", "unresolved")
         or report["automatic_acceptance"] is not False
         or report["deployment_decision"] != "unresolved"
@@ -365,6 +467,46 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
     if report["state"] != state.record() or state.record()["model_sha256"] != model.sha256:
         raise ValueError("Saved execution state mismatch")
     ids = state.record()["inputs"]
+    if current:
+        admission = fields(
+            report["acquisition"],
+            {"status", "resource", "reason_code", "required_action", "error_type", "detail"},
+        )
+        if admission["status"] == "completed":
+            if any(
+                admission[key] is not None
+                for key in ("resource", "reason_code", "required_action", "error_type", "detail")
+            ):
+                raise ValueError("Completed acquisition cannot retain a failure")
+        elif admission["status"] in ("failed", "interrupted"):
+            reason = (
+                "input_acquisition_interrupted"
+                if admission["status"] == "interrupted"
+                else "input_acquisition_failed"
+            )
+            if (
+                report["status"] != "unresolved"
+                or report["attempts"]
+                or state.record()["checks"]
+                or any(identity is not None for identity in ids.values())
+                or (
+                    admission["resource"] is not None
+                    and (
+                        not isinstance(admission["resource"], str)
+                        or admission["resource"] not in model.record()["inputs"]
+                    )
+                )
+                or admission["reason_code"] != reason
+                or admission["required_action"] != "rebind_input_and_execute_new_output"
+                or f"{reason}:{admission['resource']}" not in report["errors"]
+                or not isinstance(admission["error_type"], str)
+                or not 1 <= len(admission["error_type"]) <= 100
+                or not isinstance(admission["detail"], str)
+                or len(admission["detail"]) > 1000
+            ):
+                raise ValueError("Failed acquisition cannot supply executed evidence")
+        else:
+            raise ValueError("Unsupported acquisition status")
     for key, identity in ids.items():
         path = out / "inputs" / key
         if identity is None:
@@ -375,29 +517,52 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             != identity
         ):
             raise ValueError("Frozen input bytes changed")
+    saved_plan = read("applicability.json")
+    if isinstance(saved_plan, dict) and saved_plan.get("planner_tool") != tool_identity():
+        raise ValueError(
+            "checker_source_mismatch: review with the recorded SDK implementation "
+            "or execute a new qualification; historical evidence cannot be upgraded"
+        )
     plan = plan_applicability(model, prior, ids, evidence_root=root)
-    if plan != read("applicability.json"):
+    if plan != saved_plan:
         raise ValueError("Applicability plan no longer reconstructs")
-    if report["status"] != "completed":
-        return {
-            "status": "unresolved",
-            "errors": report["errors"],
-            "artifacts": {},
-            "automatic_acceptance": False,
-        }
-    _verify_review(model, root)
-    if plan["status"] != "planned" or _receipt_issues(model, state.record(), root):
-        raise ValueError("Completed check receipts no longer reconstruct")
-    if set(state.record()["checks"]) != set(plan["checks"]):
-        raise ValueError("Completed execution omitted checks")
+    complete = report["status"] == "completed"
+    if not set(plan["obligations"]) <= set(report["errors"]):
+        raise ValueError("Execution omitted planning obligations")
+    if complete:
+        if plan["status"] != "planned" or _receipt_issues(model, state.record(), root):
+            raise ValueError("Completed check receipts no longer reconstruct")
+        if set(state.record()["checks"]) != set(plan["checks"]):
+            raise ValueError("Completed execution omitted checks")
     attempts = report["attempts"]
-    if [row["check"] for row in attempts] != list(plan["checks"]):
+    declaration = model.record()
+    unknown = {key for key, identity in ids.items() if identity is None}
+    runnable = [
+        key
+        for key in plan["checks"]
+        if not unknown & _closure(declaration, declaration["checks"][key]["depends_on"])
+    ]
+    if set(plan["obligations"]) - _unknown_obligations(declaration, unknown):
+        runnable = []
+    for row in attempts:
+        fields(row, {"check", "action", "status", "wall_seconds"}, {"error"})
+        if (
+            not isinstance(row["check"], str)
+            or row["check"] not in plan["checks"]
+            or row["status"] not in ("completed", "failed", "interrupted", "started")
+        ):
+            raise ValueError("Unsupported execution attempt")
+    if [row["check"] for row in attempts] != runnable[: len(attempts)] or (
+        complete and len(attempts) != len(runnable)
+    ):
         raise ValueError("Attempt membership or ordering changed")
+    if attempts:
+        _verify_review(model, root)
     prefix = EvidenceState.from_dict(
         {"schema": STATE_SCHEMA, "model_sha256": model.sha256, "inputs": ids, "checks": {}}
     )
     artifacts = {}
-    for row in attempts:
+    for index, row in enumerate(attempts):
         key = row["check"]
         seconds = row["wall_seconds"]
         if type(seconds) not in (int, float) or not math.isfinite(seconds) or seconds < 0:
@@ -411,12 +576,26 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             "state_sha256": prefix.sha256,
         }
         if (
-            row["status"] != "completed"
-            or row["action"] != plan["checks"][key]["action"]
+            row["action"] != plan["checks"][key]["action"]
             or intent != expected_intent
             or read(f"checks/{key}/completion.json") != row
         ):
             raise ValueError("Execution attempt does not match its frozen plan")
+        failed = row["status"] in ("failed", "interrupted")
+        if failed:
+            if (
+                not isinstance(row.get("error"), str)
+                or not row["error"]
+                or f"{key}:{row['error']}" not in report["errors"]
+            ):
+                raise ValueError("Failed attempt must retain its execution error")
+        elif "error" in row:
+            raise ValueError("Only a failed or interrupted attempt can retain an error")
+        if row["status"] != "completed":
+            if complete or index != len(attempts) - 1:
+                raise ValueError("Incomplete attempt must end an unresolved execution")
+            # A terminal failure/start may retain native files, but no receipt.
+            continue
         artifact = (out / "checks" / key / "result.json").relative_to(root).as_posix()
         prefix = record_check(model, prefix, key, evidence_root=root, artifact=artifact)
         result_bytes = _artifact_bytes(root, artifact)
@@ -434,6 +613,14 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             raise ValueError("Reused result differs from its prior evidence")
     if prefix.record() != state.record():
         raise ValueError("Reconstructed execution state differs")
+    if not complete:
+        return {
+            "status": "unresolved",
+            "errors": report["errors"],
+            "artifacts": {},
+            "automatic_acceptance": False,
+            **({"acquisition": report["acquisition"]} if current else {}),
+        }
     return {
         "status": "verified_execution_records",
         "artifacts": artifacts,

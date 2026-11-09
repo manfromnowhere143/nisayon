@@ -10,7 +10,7 @@ The [prospective comparison](../../../docs/OWNER_COMPARISON.md) remains unenroll
 The [measurement result and research](../../../docs/experiments/results/owner-effort-2026-10-24/README.md)
 describe the checks and current evidence boundary. The qualification SDK and the frozen
 Kornia contract are unchanged. The
-[exact cost calculation](../../../docs/COST_TARGET.md)
+[cost-boundary repair](../../../docs/OWNER_COMPARISON.md)
 supersedes the original floating-point aggregation in this example. It uses the existing
 [finite cost evaluator](../../../src/nisayon/engine/cost_target.py).
 

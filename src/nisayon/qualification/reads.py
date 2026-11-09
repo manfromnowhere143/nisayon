@@ -1,4 +1,4 @@
-"""Bounded CPython owner-file read attempts; neither a sandbox nor full tracing.
+"""Bounded CPython file-read attempts; neither a sandbox nor full tracing.
 
 An audit event precedes the open operation. It does not establish successful
 access or bytes consumed. Native library I/O, remote state and environment
@@ -12,34 +12,46 @@ import sys
 import threading
 from pathlib import Path
 
-from .models import fields, relative_file
+from .models import LEGACY_READ_POLICY, READ_POLICY, fields, relative_file
 
-READ_SCHEMA = "nisayon.qualification.reads.v1"
+LEGACY_READ_SCHEMA = "nisayon.qualification.reads.v1"
+READ_SCHEMA = "nisayon.qualification.reads.v2"
 MAX_OPENS = 32768
 MAX_PATHS = 1024
 COUNTERS = ("outside_owner_reads", "environment_reads", "write_only_opens", "unresolved_opens")
+CURRENT_COUNTERS = (*COUNTERS, "bytecode_cache_misses")
 
 
 class OwnerReadWitness:
-    def __init__(self, root: Path, declared: dict, library_roots: list[str]):
+    def __init__(
+        self,
+        root: Path,
+        declared: dict,
+        library_roots: list[str],
+        *,
+        bytecode_cache: Path | None = None,
+    ):
         self.root = root
         self.declared = declared
-        self.libraries = [
-            Path(name)
-            for name in library_roots
-            if Path(name) != root and Path(name).is_relative_to(root)
-        ]
+        self.libraries = [Path(name) for name in library_roots if Path(name) != root]
+        self.bytecode_cache = bytecode_cache
         self.active = False
         self.checks = 0
         self.events = 0
         self.reads: dict[str, int] = {}
-        self.counts = dict.fromkeys(COUNTERS, 0)
+        self.counts = dict.fromkeys(CURRENT_COUNTERS, 0)
         self.issues: set[str] = set()
         self.thread = threading.get_ident()
 
     def __enter__(self):
         if sys.implementation.name != "cpython":
             raise ValueError("Owner read witness requires CPython")
+        if self.bytecode_cache is not None and (
+            self.bytecode_cache.exists()
+            or self.bytecode_cache.is_symlink()
+            or self.bytecode_cache.resolve() != self.bytecode_cache
+        ):
+            raise ValueError("Worker bytecode cache must be absent and unaliased")
         sys.addaudithook(self._audit)
         sys.audit("nisayon.read_witness.check", self)
         if self.checks != 1:
@@ -49,6 +61,10 @@ class OwnerReadWitness:
 
     def __exit__(self, *exc):
         self.active = False
+        if self.bytecode_cache is not None and (
+            self.bytecode_cache.exists() or self.bytecode_cache.is_symlink()
+        ):
+            self.issues.add("worker_bytecode_cache_materialized")
         sys.audit("nisayon.read_witness.check", self)
 
     def _unresolved(self, issue):
@@ -91,11 +107,25 @@ class OwnerReadWitness:
             resolved_inside = resolved.is_relative_to(self.root)
             name = lexical.relative_to(self.root).as_posix() if inside else None
             real_name = resolved.relative_to(self.root).as_posix() if resolved_inside else None
+            # -B still attempts cache reads. The runner gives each fresh worker
+            # its own absent prefix; never exempt materialized or aliased bytes.
+            if (
+                self.bytecode_cache is not None
+                and lexical == resolved
+                and lexical.is_relative_to(self.bytecode_cache)
+                and lexical.suffix == ".pyc"
+                and not self.bytecode_cache.exists()
+                and not self.bytecode_cache.is_symlink()
+            ):
+                self.counts["bytecode_cache_misses"] += 1
+                return
             if (
                 name not in self.declared
                 and real_name not in self.declared
                 and any(
-                    lexical.is_relative_to(lib) or resolved.is_relative_to(lib)
+                    lexical.is_relative_to(lib)
+                    and resolved.is_relative_to(lib)
+                    and (not (inside or resolved_inside) or lib.is_relative_to(self.root))
                     for lib in self.libraries
                 )
             ):
@@ -135,17 +165,24 @@ class OwnerReadWitness:
         }
 
 
-def check_read_witness(value: object, sources: dict, entry: str) -> list[str]:
+def check_read_witness(
+    value: object, sources: dict, entry: str, *, policy: str = READ_POLICY
+) -> list[str]:
     """Validate retained observations without reopening the owner or its data."""
+    if policy not in {LEGACY_READ_POLICY, READ_POLICY}:
+        raise ValueError("Unsupported read witness policy")
+    current = policy == READ_POLICY
+    counters = CURRENT_COUNTERS if current else COUNTERS
+    schema = READ_SCHEMA if current else LEGACY_READ_SCHEMA
     value = fields(
         value,
-        {"schema", "status", "self_checks", "open_events", "owner_reads", "issues", *COUNTERS},
+        {"schema", "status", "self_checks", "open_events", "owner_reads", "issues", *counters},
     )
-    if value["schema"] != READ_SCHEMA or value["status"] not in {"complete", "incomplete"}:
+    if value["schema"] != schema or value["status"] not in {"complete", "incomplete"}:
         raise ValueError("Unsupported read witness")
     if type(value["self_checks"]) is not int or value["self_checks"] != 2:
         raise ValueError("Read witness self-checks are missing")
-    for key in ("open_events", *COUNTERS):
+    for key in ("open_events", *counters):
         if type(value[key]) is not int or not 0 <= value[key] <= MAX_OPENS + 1:
             raise ValueError("Invalid read witness count")
     reads = value["owner_reads"]
@@ -155,7 +192,7 @@ def check_read_witness(value: object, sources: dict, entry: str) -> list[str]:
         relative_file(path)
         if len(path) > 4096 or type(count) is not int or not 1 <= count <= MAX_OPENS:
             raise ValueError("Invalid owner read count")
-    if sum(reads.values()) + sum(value[key] for key in COUNTERS) != value["open_events"]:
+    if sum(reads.values()) + sum(value[key] for key in counters) != value["open_events"]:
         raise ValueError("Inconsistent read witness accounting")
     issues = value["issues"]
     if not isinstance(issues, list) or any(not isinstance(issue, str) for issue in issues):
@@ -166,4 +203,6 @@ def check_read_witness(value: object, sources: dict, entry: str) -> list[str]:
         raise ValueError("Read witness exceeds event limit")
     if entry not in reads:
         return ["entry_source_read_not_observed"]
-    return [f"undeclared_owner_read:{path}" for path in sorted(set(reads) - set(sources))]
+    return [f"undeclared_owner_read:{path}" for path in sorted(set(reads) - set(sources))] + (
+        ["unbound_external_read"] if current and value["outside_owner_reads"] else []
+    )

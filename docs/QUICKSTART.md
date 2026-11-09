@@ -6,6 +6,25 @@ comparisons, not a robot deployment service. Use a new directory and Python 3.12
 on macOS or Linux. Python 3.13 is allowed by the adapter; this release's retained
 installation check uses 3.12.
 
+## Current-source dependency qualification
+
+The tagged wheel below stays at v0.2.0. Declared calibration snapshots, partial
+checks and pinned portable continuation require the current source checkout:
+
+```sh
+uv sync --frozen
+uv run --frozen nisayon-qualify --help
+```
+
+Follow the [executable calibration and continuation example](../examples/qualification/executable_checks/README.md).
+It includes expected refusal and rejection paths, permitted export and actual new
+confirmation. [Capability boundaries](CAPABILITIES.md) distinguish these software
+checks from native robot experiments and deployment acceptance.
+
+The [browser instrument](../apps/instrument/README.md) has its own locked Node
+environment and local file review. Neither installation starts a robot, a paid
+job or a persistent service.
+
 ## Install v0.2.0
 
 The [release](https://github.com/manfromnowhere143/nisayon/releases/tag/v0.2.0)

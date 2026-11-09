@@ -134,3 +134,71 @@ the separate selector's exposure and applicability record before subsequent use.
 The historical twofold complete-cost target and fresh-confirmation obligations
 remain unchanged. The measurement tool is ready; owner enrollment, active effort
 observations and an accepted deployment decision remain outstanding.
+
+## Economic intake and evaluator extension · 1 November 2026
+
+This prospective amendment precedes any owner enrollment. It does not change
+earlier outcomes, the historical twofold target, the four-hour intake limit,
+fresh-confirmation obligations, reviewer-carryover controls or untouched transfer.
+
+Use intake to identify the complete-work bottleneck before selecting a new
+mechanism. Retain the baseline's exclusive phase costs, supporting observations,
+valuation, comparison horizon, and upper bounds on eliminable work. Include
+candidate development, preparation, capture, review, integration and maintenance
+in the added-work account. The existing [cost module](COST_TARGET.md) now checks
+the optimistic ceiling `C / (C - R + H)`, where `R` is an upper bound on removable
+work and `H` a lower bound on added work. A zero overhead floor is an explicitly
+optimistic assumption. A 20% eliminable fraction cannot support more than 1.25×;
+twofold requires at least half the baseline plus the added-cost fraction.
+Unknown complete costs leave the economic ceiling unresolved. A ruled-out
+twofold target prevents building a mechanism on that business claim; a smaller
+target needs a separate prospective rationale, not a rewritten result.
+
+Select H2 only when repeated preparation, annotation or review accounts for
+enough justified removable work. Select H1 only when costly trials distinguish
+corrections whose selection changes the deployment decision. If the reference
+outcome is unreliable, validate the evaluator first. H3 requires evidence that
+autonomous improvement adds value beyond the equally capable agent's ordinary
+tools. These are conditional choices; no method is approved merely by its name.
+If intake cannot establish a testable case within four hours, retain unresolved
+and stop that intake. Do not spend the remaining budget on a different question.
+
+For the proposed research comparison, freeze four arms: (A) native tools and a
+capable agent, (B) the same plus ordinary experiment management, (C) the frozen
+existing Nisayon procedure, (D) the one selected research change. Give them equal
+initial information, model access, native tools, authority, preparation and
+execution ceilings, and quality-equivalent review deliverables. Charge every
+arm's preparation; preserve shared study costs separately. If resources cannot
+support these arms, a reduced comparison must be declared a narrower proxy.
+
+Ordinary valid deployment changes join the prospective population alongside
+regressions. Freeze their eligibility and owner-defined expected decisions
+before any arm sees outcomes. Report retained successful behavior, false
+acceptance, false rejection, unresolved decisions, coverage, review burden and
+complete cost on the full assigned population and specified subgroups. A system
+that rejects everything fails the retained-success criterion. A release-only
+case without a confirmed correction cannot pass the existing cost-target
+evaluator's replacement obligation; any distinct release-workflow gate must be
+registered separately rather than relaxing that evaluator after observation.
+
+A quality proposition may justify higher cost only in a separate prospective
+quality-and-budget comparison. Freeze the consequential failures of interest,
+reference adjudication, acceptable successful-task retention, error tolerances,
+unresolved treatment and maximum complete cost before the comparison. Report its
+outcome independently even if the cost-reduction test fails. Neither hypothetical
+avoided accidents nor unobserved owner losses count as measured savings.
+
+Evaluator validation under optimization needs ordered policy checkpoints and
+fresh, relevant rollouts scored by both the training verifier and a panel excluded
+from training and selection. Bind task populations, input protocols, checkpoint
+identities, exposures and panel versions. Retain adjudicated successful behavior
+and failure types, ambiguous labels, coverage, review effort, common errors and
+the fraction of proxy passes rejected by the panel. Panel agreement alone is not
+truth: document panel qualification, model/data dependencies and human-label
+uncertainty. Report proxy and panel changes separately; a gain ratio is undefined
+at zero proxy change and unstable near zero. Freeze sample counts and inspection
+times, or supply a valid sequential analysis; existing fixed-budget audit
+guarantees do not automatically cover optional stopping or changing policies.
+This follows the evaluation recommendation in
+[No Free Checker v2, §6](https://arxiv.org/html/2609.09250v2#S6), not a claim that
+our existing recorded-episode analysis establishes longitudinal reliability.

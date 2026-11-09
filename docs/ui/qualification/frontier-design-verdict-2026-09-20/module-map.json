@@ -1,0 +1,1276 @@
+{
+  "engine_commit": "f27e858f42b80ac24910b13ceb0ee7075b9d5cc7",
+  "modules": [
+    {
+      "path": "src/nisayon/__init__.py",
+      "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "lines": 3,
+      "docstring": "Nisayon's local engineering tools. Product experiments are a separate layer.",
+      "definitions": [],
+      "coverage_family": "package",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/cli.py",
+      "sha256": "492edafc83227f6cc37fd90236e1704d5dd899aa99a35556fd2e3526881815e2",
+      "lines": 126,
+      "docstring": "One command surface for humans and both coding clients.",
+      "definitions": [
+        "parser",
+        "main"
+      ],
+      "coverage_family": "workspace",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/engine/__init__.py",
+      "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "lines": 1,
+      "docstring": "Simulator execution; acceptance belongs to nisayon.evaluation.",
+      "definitions": [],
+      "coverage_family": "package",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/engine/agent_diagnostics.py",
+      "sha256": "622708370aa9873f65e1b917ea19f056dcd27454f0d5f1c3deadda76e26e4ef6",
+      "lines": 525,
+      "docstring": "Finite model-directed diagnostic requests over the existing Lift executor.",
+      "definitions": [
+        "response_schema",
+        "checked_repair",
+        "public_run",
+        "diagnose"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/assets.py",
+      "sha256": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9",
+      "lines": 57,
+      "docstring": "One public frozen policy; verify bytes before loading the upstream pickle.",
+      "definitions": [
+        "translate_checkpoint",
+        "prepare_policy"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/bounded_agent.py",
+      "sha256": "351067ab41d3482a259f103184968eb83a15c9efa2aa0aab95218f3ed0d926cb",
+      "lines": 173,
+      "docstring": "A finite JSON decision call for a development experiment, not a general planner.",
+      "definitions": [
+        "arguments",
+        "decide"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/budgets.py",
+      "sha256": "9905bb0fc79da3512d20bdc16cec5445827c0aae1ba2c2efa4ad175645f580e5",
+      "lines": 68,
+      "docstring": "Equal diagnostic ceilings, with attempted slots and observed time explicit.",
+      "definitions": [
+        "BudgetExceeded",
+        "DiagnosticLimits",
+        "DiagnosticBudget"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/cli_identity.py",
+      "sha256": "388d5cefe8a5c250951002c2890a06aa6157a43493aa2037853d20f97619359e",
+      "lines": 104,
+      "docstring": "Observe and bind the local Codex executable without making a model call.",
+      "definitions": [
+        "_file",
+        "resolve_cli",
+        "unchanged"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/comparison_recovery.py",
+      "sha256": "65779b18abfffc0393cdda6e49f78d913a7638469ddcf5840da4009a5ee4021d",
+      "lines": 139,
+      "docstring": "Inspect complete and interrupted comparison trials without resuming physics.",
+      "definitions": [
+        "inspect_comparison",
+        "main"
+      ],
+      "coverage_family": "recovery",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/conditions.py",
+      "sha256": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf",
+      "lines": 201,
+      "docstring": "Local development-condition reservations, not an evaluation isolation boundary.",
+      "definitions": [
+        "evidence_conditions",
+        "consumed_history",
+        "_reservation_directory",
+        "reserve_fresh",
+        "verify_reservation"
+      ],
+      "coverage_family": "confirmation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/configuration.py",
+      "sha256": "8a43db4a0e984a12982ad4a7d65ca9e18862b99e0d052353e158130e1d2f69dc",
+      "lines": 80,
+      "docstring": "Finite, inspectable deployment changes for development failure families.",
+      "definitions": [
+        "Deployment",
+        "EpisodePrefix"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_costs.py",
+      "sha256": "093bb80d0eee194c7b1458adfeae37fd2ecd3af62b757f6e7f6067e6d2db14fe",
+      "lines": 161,
+      "docstring": "Descriptive confirmation cost partitions; overlapping clocks are never added.",
+      "definitions": [
+        "measured",
+        "total",
+        "trial_costs",
+        "reconcile"
+      ],
+      "coverage_family": "costs",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_pairs.py",
+      "sha256": "77dec95ed8be825cbf9adc0e9f31204e4aeb48b030f62613104e0432439581fb",
+      "lines": 223,
+      "docstring": "Complete producer-assigned pairs, including unusable and unmatched evidence.",
+      "definitions": [
+        "run_observation",
+        "assigned_pairs",
+        "iter_pairs"
+      ],
+      "coverage_family": "confirmation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_service.py",
+      "sha256": "ecd1e1a5fc6c708afdae4acedbbee02423f4801e05a505c9978e406b0afa7d28",
+      "lines": 328,
+      "docstring": "Freeze and execute a shared finite confirmation obligation after selection.",
+      "definitions": [
+        "assignments_for",
+        "history_references",
+        "PreparedConfirmation",
+        "prepare_confirmation",
+        "execute_confirmation"
+      ],
+      "coverage_family": "confirmation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_view.py",
+      "sha256": "e74974ddb71dea90d4958b25f6d81284257f890161dc48b77eb1569e5a8a606b",
+      "lines": 489,
+      "docstring": "Read-only, source-bound confirmation evidence export. No robot execution.",
+      "definitions": [
+        "_json",
+        "dependencies",
+        "PinnedInputs",
+        "_bound_document",
+        "_raw_confirmation",
+        "_trial",
+        "build_view",
+        "validate_view",
+        "load_export",
+        "main"
+      ],
+      "coverage_family": "confirmation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/costs.py",
+      "sha256": "92979dfe563c44826b1728f8f3e869fb66d1154f053a580ab4cdd20056aca9e8",
+      "lines": 113,
+      "docstring": "Keep measured command costs, nested components and missing categories distinct.",
+      "definitions": [
+        "aggregate_commands",
+        "command_ledger"
+      ],
+      "coverage_family": "costs",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/declarations.py",
+      "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+      "lines": 574,
+      "docstring": "Retain one arm declaration before terminal evidence is consumed.",
+      "definitions": [
+        "DeclarationConflict",
+        "TerminalAlreadyStarted",
+        "DeclarationBinding",
+        "_now",
+        "_sha",
+        "_write_once",
+        "_root",
+        "_reference",
+        "_read_reference",
+        "_validate_payload",
+        "_attempt",
+        "_observed_time",
+        "_checked_declaration",
+        "_checked_start",
+        "_checked_result",
+        "declare",
+        "begin_terminal",
+        "finish_terminal",
+        "inspect_declaration"
+      ],
+      "coverage_family": "declarations",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/development.py",
+      "sha256": "29a3e3360edc3627a970093ece812c25664fd32410fd22f8c45bae390e46564d",
+      "lines": 492,
+      "docstring": "Run ten assigned development incidents with matched deterministic A/B procedures.",
+      "definitions": [
+        "shared_inputs",
+        "_unknown",
+        "trial_record",
+        "run_assigned_case",
+        "retained_history",
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/development_cases.py",
+      "sha256": "cbe87df824ee327bb93025f571380a663832dfff13236b70aa565788266f8f32",
+      "lines": 111,
+      "docstring": "Finite development assignments. Loading them never executes or scores a case.",
+      "definitions": [
+        "Incident",
+        "load_suite"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/development_diagnostics.py",
+      "sha256": "03f25f9cb58cc12840e61d001ade677990be02c72ec2b065ee07d8d1a45981c4",
+      "lines": 333,
+      "docstring": "Execute the same finite diagnostic procedure with ordinary or additional checks.",
+      "definitions": [
+        "plans_for",
+        "measured_run_costs",
+        "diagnostic_header",
+        "diagnose"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/diagnostics.py",
+      "sha256": "551d6dad0fc740b3d9e3b5732cf51bff71f62db4c685afceb3b91748fe46daef",
+      "lines": 283,
+      "docstring": "Competent ordinary diagnostics and a fixed, inspectable development selector.",
+      "definitions": [
+        "deployment_from_record",
+        "configuration_difference",
+        "known_correction",
+        "separating_probes",
+        "_finite",
+        "ordinary_checks",
+        "select_next"
+      ],
+      "coverage_family": "diagnosis",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/execution_store.py",
+      "sha256": "774529c3ddfd2674416e246e08f86a07e832191213cb63fd8e65c5a931417115",
+      "lines": 180,
+      "docstring": "Append execution intents before running, then seal immutable measured records.",
+      "definitions": [
+        "ExecutionStore"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/family_calibration.py",
+      "sha256": "aa8a16883acddc261420c3be3763fdfe8f8902236b30b8014932b97e118454e0",
+      "lines": 229,
+      "docstring": "Execute declared timing/reset calibration probes; no scored incident claims.",
+      "definitions": [
+        "assignments",
+        "summarize_run",
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/first_case.py",
+      "sha256": "76828320abf16175cfac8a646ebb57291d2465b3cd56d0a09c9bafe977023a0c",
+      "lines": 333,
+      "docstring": "Run the finite development case; external evaluation decides acceptance.",
+      "definitions": [
+        "qualification",
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/history.py",
+      "sha256": "7daee40bd7abbe121295602a9db4d48e1dc53af3d9572cc953b78312aeb3d6a0",
+      "lines": 78,
+      "docstring": "Retain explicitly supplied development history instead of ignoring missing inputs.",
+      "definitions": [
+        "retained_confirmation_sources",
+        "read_history",
+        "retain_history",
+        "verify_history"
+      ],
+      "coverage_family": "confirmation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/identity.py",
+      "sha256": "d5b96fc1cd04beeed40e2578244e95667405e8d568e9cd680cfdd800db152ac4",
+      "lines": 92,
+      "docstring": "Bind executions to measured local code, configuration and dependency identities.",
+      "definitions": [
+        "project_root",
+        "code_identity",
+        "dependencies",
+        "invocation"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/integrate.py",
+      "sha256": "69f674d06b2c670a499ce2d35f39caa4c72127f8adeceac4558f26931e7274ca",
+      "lines": 155,
+      "docstring": "Verify retained execution, then call the evaluation owner's public interface.",
+      "definitions": [
+        "evaluator_contract_probe",
+        "integrate",
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/io.py",
+      "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "lines": 28,
+      "docstring": "Strict, portable evidence serialization without a simulator dependency.",
+      "definitions": [
+        "canonical_bytes",
+        "digest",
+        "file_digest",
+        "write_json"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/joint_case.py",
+      "sha256": "d3b6069d4efafc59f24cac399dd549be74bc01afda10cfef7488b9c26bc6b98d",
+      "lines": 135,
+      "docstring": "One command executes the frozen Lift case, integrates decisions and binds costs.",
+      "definitions": [
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/lift.py",
+      "sha256": "e20d3dcf9d9edda71fd96a1420b75c52e9134d420265ee93d2560fe96e6561c1",
+      "lines": 478,
+      "docstring": "Headless CPU Lift execution with fresh full resets and retained feedback.",
+      "definitions": [
+        "candidate",
+        "execute_action",
+        "plain",
+        "state",
+        "recurrent_state",
+        "configure_controller_target",
+        "LiftExecutor"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/observations.py",
+      "sha256": "2f79aa8f80307aaa5703d9813c8c444ce880afb1e1e86d81f4915af09991fc14",
+      "lines": 108,
+      "docstring": "Timestamp actual robosuite sensor calls without changing their values.",
+      "definitions": [
+        "SensorStamp",
+        "CapturedObservation",
+        "SensorRecorder"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/qualification.py",
+      "sha256": "2b4a7513bd41b4d4429317c3a55c1899a400bc49071a485de75a8e95381ab47a",
+      "lines": 46,
+      "docstring": "Declared execution premises shared by the measured development families.",
+      "definitions": [
+        "execution_qualification"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/qualify_development.py",
+      "sha256": "10455333d464c1aebe4e4aa17d560c69fc59ab4abb51653656164f7c00d1f5d3",
+      "lines": 82,
+      "docstring": "Qualify selected diagnostic paths on known development conditions, without confirmation.",
+      "definitions": [
+        "main"
+      ],
+      "coverage_family": "development",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/records.py",
+      "sha256": "24efc2daace5bb412e2c8a60852170dfc36b6f9e7d92c3150c1326ccb5165f96",
+      "lines": 135,
+      "docstring": "First-case JSON interface. These types describe evidence, not its acceptance.",
+      "definitions": [
+        "Cost",
+        "Artifact",
+        "TraceStep",
+        "Run",
+        "Plan",
+        "Case",
+        "Confirmation",
+        "Bundle"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/recovery.py",
+      "sha256": "0ae37c53e19cdb66cbe372913daf37bdba06c4716f04be69959bd4b7bcd2b52f",
+      "lines": 159,
+      "docstring": "Inspect retained complete and interrupted assignments without rerunning them.",
+      "definitions": [
+        "inspect_execution",
+        "main"
+      ],
+      "coverage_family": "recovery",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/retained_declarations.py",
+      "sha256": "1a0b4e08dedef4da1afa3d7d56af89b9e64359c19fbe43ddc3ae1acfc5118766",
+      "lines": 582,
+      "docstring": "Exercise declaration ordering on exposed native development records.",
+      "definitions": [
+        "_bytes",
+        "_read",
+        "_ref",
+        "_bound",
+        "_copy",
+        "_name",
+        "run_demo",
+        "render_packet",
+        "render_costs",
+        "inspect_demo",
+        "render_recovery",
+        "main"
+      ],
+      "coverage_family": "declarations",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/robolab_record.py",
+      "sha256": "754c2066f97527a8af9e270ece35e2df073b08cfddd5fd35a8b3dd375f38c5cf",
+      "lines": 524,
+      "docstring": "Bounded numeric reader for the pinned RoboLab demonstration, without Isaac Sim.",
+      "definitions": [
+        "_dependencies",
+        "_json_value",
+        "_attributes",
+        "_mapping",
+        "read_record",
+        "read_sample",
+        "compact_record",
+        "main"
+      ],
+      "coverage_family": "external",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/screen.py",
+      "sha256": "e876ba3d02c2bd24b57ed93d7e9394d2068085bf8fd04f6754c63f6dcc510f7a",
+      "lines": 176,
+      "docstring": "Freeze the public execution harness; keep reserved trials closed without custody.",
+      "definitions": [
+        "runtime_capabilities",
+        "prepare_package",
+        "reserved_readiness",
+        "main"
+      ],
+      "coverage_family": "reserved_screen",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/store.py",
+      "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "lines": 372,
+      "docstring": "Portable, content-bound execution stores with strict relative paths.",
+      "definitions": [
+        "resolve_member",
+        "create_manifest",
+        "verify_manifest",
+        "_require_equal",
+        "verify_execution"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/engine/telemetry.py",
+      "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "lines": 43,
+      "docstring": "Declared measurement availability at the policy execution boundary.",
+      "definitions": [
+        "configuration",
+        "capture_policy",
+        "policy_digest"
+      ],
+      "coverage_family": "execution",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/__init__.py",
+      "sha256": "25009d0b6caff69b3b3dd2b597cb5fca61d29cfa8aa97b5b40a073bdbd6b7200",
+      "lines": 27,
+      "docstring": "Evaluation of first-case exchange records: validity, outcome, confirmation, decision.",
+      "definitions": [],
+      "coverage_family": "package",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/evaluation/__main__.py",
+      "sha256": "1d92d8755980daa1f696ce210c17d70977319d27553c2d0c4969ae1d262fb7cc",
+      "lines": 376,
+      "docstring": "Entry point: ``python -m nisayon.evaluation``.",
+      "definitions": [
+        "parser",
+        "main"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/evaluation/bundle.py",
+      "sha256": "90771a4774104c22074b4ddfa74922c8cda22de8b76cd5b2b04f1b526c8826e1",
+      "lines": 77,
+      "docstring": "A bundle directory holds one case, its runs, artifacts and confirmation.",
+      "definitions": [
+        "Bundle",
+        "load_bundle"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/case.py",
+      "sha256": "97f766a14084a942fceb8a1f6dfe875ea16418d8de71d6ed86ba8af884f534e0",
+      "lines": 218,
+      "docstring": "The case record: identities, declared predicates and repair scope.",
+      "definitions": [
+        "Threshold",
+        "Progress",
+        "Timing",
+        "Case",
+        "_threshold",
+        "_identity",
+        "parse_case"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/checks.py",
+      "sha256": "817d4828ef6fff64f349b6857834efee399ce00923b958ebaee63d5f250e15b8",
+      "lines": 1031,
+      "docstring": "Per-run assessment: process, measurement validity, task outcome and cost.",
+      "definitions": [
+        "Finding",
+        "Step",
+        "Trace",
+        "ArtifactMissing",
+        "DigestMismatch",
+        "_parse_step",
+        "_parse_capture",
+        "_missing",
+        "parse_trace",
+        "TraceStore",
+        "RunAssessment",
+        "_identity_matches",
+        "_parse_header",
+        "_check_structure",
+        "_check_chunks",
+        "_check_continuation",
+        "_check_candidate",
+        "_series",
+        "_threshold_status",
+        "_check_predicates",
+        "_check_timing",
+        "assess_run"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/codes.py",
+      "sha256": "955373db8b09071a54b6439adac545abb61835e2a6f4eae41caf2764b04fc426",
+      "lines": 212,
+      "docstring": "Reason codes for evaluation findings.",
+      "definitions": [
+        "strongest"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/confirmation.py",
+      "sha256": "d7866db8aad8ac92062701cb41108b4b970c71fb0d371d2a227900896f450bb0",
+      "lines": 651,
+      "docstring": "The finite confirmation obligation for the first case.",
+      "definitions": [
+        "Pair",
+        "ConfirmationAssessment",
+        "_violates",
+        "_prior_conditions",
+        "assess_confirmation",
+        "_check_cancellation",
+        "_check_identity_binding"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/controls.py",
+      "sha256": "b973bff6879c59f193c6ff93069a913d90a89c7f2cc2b7802982b28dbddcfcbe",
+      "lines": 53,
+      "docstring": "Run every synthetic scenario through the evaluator and compare with its expectation.",
+      "definitions": [
+        "check_scenario",
+        "run_controls"
+      ],
+      "coverage_family": "development_controls",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/decision.py",
+      "sha256": "04584375d85cbb5413148a270c51dbb6ebe6edfcde8c70d370440eb437158e58",
+      "lines": 1045,
+      "docstring": "Combine run assessments and the confirmation into one scoped decision.",
+      "definitions": [
+        "_version",
+        "evaluator_sources_sha256",
+        "aggregate_costs",
+        "_limits",
+        "violates",
+        "candidate_verdicts",
+        "expand_history",
+        "_same_file",
+        "_traces_agree",
+        "_is_own_record",
+        "_parse_stamp",
+        "_frozen_after",
+        "_entry_frozen_at",
+        "_bare",
+        "_classify_history",
+        "retained_protocols",
+        "unreadable_history",
+        "consumed_from_history",
+        "history_consumption",
+        "inline_trace_digests",
+        "native_bundle_digest",
+        "_evidence_summary",
+        "evaluate_loaded",
+        "_evaluate_loaded",
+        "_evaluate_bundle",
+        "evaluate_bundle"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/external.py",
+      "sha256": "52ee99aa71265271ac89353b7bc2fc163dafaf132b84a0b20f5e687f57101d12",
+      "lines": 1098,
+      "docstring": "Field assessment of an execution record against the confirmation obligation.",
+      "definitions": [
+        "_sha256",
+        "_rows_agree",
+        "assess_inventory",
+        "render_assessment",
+        "native_inventory",
+        "inspect_robolab_hdf5",
+        "inventory_from_external_record"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/first_case.py",
+      "sha256": "45a21bee3331accaefb0537045a9724467bb17e73608be61932514c3a2af0a45",
+      "lines": 2288,
+      "docstring": "Adapter for execution-lane bundles (``nisayon.first_case.v1``).",
+      "definitions": [
+        "producer_digest",
+        "deployment",
+        "known_deployments",
+        "execute_action",
+        "_reject_constant",
+        "read_document",
+        "write_document",
+        "is_first_case",
+        "sim",
+        "wall",
+        "_finding",
+        "deployment_components",
+        "deployment_label",
+        "obligation_version",
+        "translate_predicates",
+        "_repair_paths",
+        "_failure_obligation",
+        "_cost",
+        "translate_case",
+        "_translate_capture",
+        "translate_steps",
+        "translate_step",
+        "_verify_raw_artifacts",
+        "_verify_raw_trace",
+        "_index",
+        "_check_carried_prefix",
+        "_run_identity",
+        "translate_run",
+        "_parse_wall",
+        "_frozen_identity",
+        "translate_confirmation",
+        "locate_frozen_protocol",
+        "verify_frozen_protocol",
+        "_check_frozen_run_configurations",
+        "load_manifest",
+        "load_cost_ledger",
+        "_bundle_checks",
+        "translate",
+        "_document_policy",
+        "evaluate_first_case",
+        "replay_control"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/fixtures.py",
+      "sha256": "5382abedb9c9e2b6348f3c7cc81304fa4d3351d1d4768be10d7bf1714e334aaf",
+      "lines": 1345,
+      "docstring": "Synthetic development fixtures for the evaluator.",
+      "definitions": [
+        "candidate_record",
+        "wall",
+        "sim",
+        "height_profile",
+        "make_trace",
+        "make_case",
+        "make_run",
+        "BundleData",
+        "positive_bundle",
+        "pretty",
+        "trace_bytes",
+        "write_bundle",
+        "rewrite_trace",
+        "Scenario",
+        "_chunked",
+        "_reference_fails_one",
+        "_valid_prefix_reuse",
+        "_invalid_replay",
+        "_stale_unrepaired",
+        "_clock_after_action",
+        "_chunk_inconsistent",
+        "_reset_incomplete",
+        "_reset_mismatch",
+        "_suppression",
+        "_nan_after_write",
+        "_unit_mismatch",
+        "_missing_clock",
+        "_missing_measurement",
+        "_condition_reused",
+        "_dropped_failure",
+        "_unassigned_condition",
+        "_not_frozen",
+        "_precedes_freeze",
+        "_oracle",
+        "_outside_scope",
+        "_regresses_fresh",
+        "_constraint_violation",
+        "_corrupt_after_write",
+        "_remove_after_write",
+        "_relabelled_as_simulator",
+        "_timeout",
+        "_no_confirmation",
+        "_regression_not_reproduced",
+        "_identity_mismatch",
+        "_multiple_runs",
+        "_derived_control_on_confirmation_condition",
+        "_prior_consumed",
+        "_strict",
+        "_timing_unmeasured",
+        "_capture_inconsistent",
+        "_capture_after_action",
+        "_carried_policy_state",
+        "_strict_identity_unbound",
+        "_strict_identity_mismatch",
+        "_strict_reproduction_pre_freeze",
+        "_strict_deployability_undeclared",
+        "_legacy_deployability_assumed",
+        "_legacy_evaluator_added_predicate",
+        "_strict_evaluator_added_predicate",
+        "scenario",
+        "write_scenario",
+        "synthetic_trace_digests"
+      ],
+      "coverage_family": "development_controls",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/evaluation/ledger.py",
+      "sha256": "c9ce218ea26977097e91fc52478032a3f60cba7d7711cea81e12be288aa80e34",
+      "lines": 94,
+      "docstring": "The evaluation lane's own cost ledger: measured evaluation walls, nothing invented.",
+      "definitions": [
+        "evaluation_ledger"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/package.py",
+      "sha256": "a9d304ce4e2806cc7a9854ebb5c1274b3ee78c2fce73afa022dbced9e75ca557",
+      "lines": 195,
+      "docstring": "Checks on the execution lane's screen package (``nisayon.screen.execution-package.v1``).",
+      "definitions": [
+        "_finding",
+        "check_package",
+        "render_package"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/prospective.py",
+      "sha256": "44154b3ed1512da1c57472be69bf9029722643c8980c842a9663f13963dc3c3d",
+      "lines": 2032,
+      "docstring": "Prospective decision-quality scoring: an arm's declaration against a terminal reference.",
+      "definitions": [
+        "_norm",
+        "_reference",
+        "_load_bound",
+        "_wall",
+        "_rate",
+        "clopper_pearson",
+        "_writer_digest",
+        "_check_writer_reference",
+        "_check_observed",
+        "_check_assignment",
+        "_check_declaration_structure",
+        "_receipt",
+        "_derived",
+        "_link",
+        "_terminal_chain",
+        "_classify_reference",
+        "_adjudicate_refusal",
+        "_non_acceptance_state",
+        "_extra_receipts",
+        "score_prospective",
+        "_costs_by_scope",
+        "_reading",
+        "packet_ledger",
+        "score_prospective_packet",
+        "score_prospective_file",
+        "_fmt",
+        "render_prospective"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/prospective_fixtures.py",
+      "sha256": "bcafbe849643597cfb49f428cd7d615eb8d9adf2b4ec51423a23560af7764091",
+      "lines": 1579,
+      "docstring": "Labelled prospective-scoring fixtures: declaration receipts on the v1 scoring fixtures.",
+      "definitions": [
+        "configuration_for",
+        "_default_spec",
+        "prospective_ledger",
+        "_trial",
+        "receipt",
+        "terminal_records",
+        "bind_result",
+        "_plus",
+        "_write",
+        "write_prospective_ledger",
+        "ProspectiveScenario",
+        "_contradicted",
+        "_unsupported_unresolved",
+        "_unsupported_invalid",
+        "_reference_missing",
+        "_reference_corrupt",
+        "_tamper_a_d01",
+        "_correct_abstention",
+        "_missed_own_reference",
+        "_missed_paired_reference",
+        "_all_abstain",
+        "_zero_confirmed_claims",
+        "_missing_assigned_case",
+        "_candidate_mismatch",
+        "_declaration_ambiguous",
+        "_post_outcome_change",
+        "_retry_identical",
+        "_order_unverified",
+        "_terminal_binding_broken",
+        "_demonstration_scope",
+        "_partial_costs",
+        "_derived_v1",
+        "_arms",
+        "build_derived_control",
+        "binding_probe_control",
+        "required_field_omission_control",
+        "contract_mutation_control",
+        "_delete",
+        "_delete_in",
+        "_set",
+        "_set_in"
+      ],
+      "coverage_family": "development_controls",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/evaluation/report.py",
+      "sha256": "86a170d87f1e021b97ac81910a83c307327c11f5f884938be902308465a50477",
+      "lines": 128,
+      "docstring": "Plain-text rendering of decisions and control summaries.",
+      "definitions": [
+        "finding_codes",
+        "render_text",
+        "render_controls"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/reserved.py",
+      "sha256": "e933e81b0504e5c4ad6c148cc9985c1e701029c62bdef452c2f5cedcda7661e4",
+      "lines": 337,
+      "docstring": "Checks for a future reserved evaluation, on openly labelled development examples.",
+      "definitions": [
+        "_wall",
+        "parse_manifest",
+        "development_identifiers",
+        "_case_ids",
+        "check_reserved",
+        "render_reserved"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/reserved_fixtures.py",
+      "sha256": "b0d5f0e126f245b0d27e58f663fd7b67e0d99b2b8a3281f3380c4122cd959453",
+      "lines": 225,
+      "docstring": "Openly labelled development examples for the reserved-screen checks.",
+      "definitions": [
+        "_sha",
+        "case_bytes",
+        "development_manifest",
+        "development_ledger",
+        "write_cases",
+        "ReservedScenario",
+        "_ready",
+        "_shared_worktrees",
+        "_order_broken",
+        "_family_counts",
+        "_assignment_incomplete",
+        "_extra_case_in_ledger",
+        "scenario_files"
+      ],
+      "coverage_family": "development_controls",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/evaluation/retained.py",
+      "sha256": "15d8ca0612b59acedff0e1a9bcec7fd9e03eddf0dbdca3dd45c294cbbc711d36",
+      "lines": 222,
+      "docstring": "An index of the retained decisions and scores in a results directory.",
+      "definitions": [
+        "_premise",
+        "_codes",
+        "collect_index",
+        "render_index"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/schema.py",
+      "sha256": "5d9728911ec9376f9b321932596097b1eb567e7bc0b59b8c532833e0ce4f01a7",
+      "lines": 197,
+      "docstring": "Strict parsing helpers for exchange records.",
+      "definitions": [
+        "Malformed",
+        "_reject_constant",
+        "load_json",
+        "canonical_json",
+        "digest_of",
+        "sha256_bytes",
+        "mapping",
+        "sequence",
+        "require",
+        "string",
+        "optional_string",
+        "finite",
+        "integer",
+        "boolean",
+        "string_list",
+        "number_list",
+        "Quantity",
+        "parse_quantity",
+        "parse_duration",
+        "parse_sim_time",
+        "parse_wall_time"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/scoring.py",
+      "sha256": "7adab1539c83e6eae0b7382de41cecccf21f5e3fae315aacb61f992297aeb9a4",
+      "lines": 989,
+      "docstring": "Score an arm comparison ledger (``nisayon.comparison.v1``) without re-running anything.",
+      "definitions": [
+        "_digest_matches",
+        "_parse_trial",
+        "_interval",
+        "_same_digest",
+        "_verify_record",
+        "_binding_problem",
+        "_verify_decision",
+        "parse_ledger",
+        "verify_trial_decision",
+        "score_comparison",
+        "score_file",
+        "render_score"
+      ],
+      "coverage_family": "evaluation",
+      "listed_in_public_module_inventory": true
+    },
+    {
+      "path": "src/nisayon/evaluation/scoring_fixtures.py",
+      "sha256": "ee045fc093a1c5bc314cc7f8ea92d973bb72ef464cf386bbeb48adf07fadc7f2",
+      "lines": 491,
+      "docstring": "Labelled scoring fixtures: one fair ledger and its adversarial variants.",
+      "definitions": [
+        "frozen",
+        "decision_record",
+        "stamp",
+        "trial",
+        "fair_ledger",
+        "write_ledger",
+        "ScoringScenario",
+        "_dropped_trial",
+        "_duplicated_trial",
+        "_frozen_differs",
+        "_unmatched_agents",
+        "_agent_not_isolated",
+        "_agent_undeclared",
+        "_budget_exceeded",
+        "_confirmed_without_acceptance",
+        "_claimed_against_decision",
+        "_invalid_control_confirmed",
+        "_unit_conflict",
+        "_nothing_confirmed"
+      ],
+      "coverage_family": "development_controls",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/mcp_server.py",
+      "sha256": "d4e8f3400d6e30070634d6db23886106527d56859f312cdbc7c1e415f96eb47f",
+      "lines": 133,
+      "docstring": "The official MCP SDK exposes the same functions as the local CLI.",
+      "definitions": [
+        "project_context",
+        "project_map",
+        "project_search",
+        "project_read",
+        "memory_add",
+        "memory_search",
+        "checkpoint_save",
+        "checkpoint_list",
+        "run_list",
+        "run_inspect",
+        "workspace_doctor",
+        "context_resource",
+        "architecture_resource",
+        "main"
+      ],
+      "coverage_family": "workspace",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/records.py",
+      "sha256": "4c5ce945dc8b7eaa677da91ed2f59779888917fdd69eb5ce71b72f1dcf04a582",
+      "lines": 148,
+      "docstring": "Portable, append-only notes and checkpoints. No hidden memory service.",
+      "definitions": [
+        "now",
+        "atomic_json",
+        "validate_id",
+        "load_records",
+        "memory_add",
+        "memory_search",
+        "checkpoint_save",
+        "context"
+      ],
+      "coverage_family": "workspace",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/runs.py",
+      "sha256": "76cafe6e0ced1f0d38b5d26172ef14199dda15a754014fdcd6b1b23e2d0e6dce",
+      "lines": 132,
+      "docstring": "Run commands with recoverable process records, not scientific verdicts.",
+      "definitions": [
+        "_stop_group",
+        "run_command",
+        "run_list",
+        "run_inspect"
+      ],
+      "coverage_family": "workspace",
+      "listed_in_public_module_inventory": false
+    },
+    {
+      "path": "src/nisayon/workspace.py",
+      "sha256": "968cb35868444add2725ae2e163055c0f6e60281ce18c99943a0f95ba8fc4fd9",
+      "lines": 177,
+      "docstring": "Project identity, bounded navigation, and current-state inspection.",
+      "definitions": [
+        "git",
+        "project_root",
+        "local_path",
+        "read_file",
+        "git_state",
+        "project_map",
+        "search",
+        "doctor"
+      ],
+      "coverage_family": "workspace",
+      "listed_in_public_module_inventory": false
+    }
+  ],
+  "reviewed_on": "2026-09-20",
+  "method": "Canonical file SHA-256 and AST docstring/definition inventory; targeted mechanism reading. Not a line-by-line correctness proof. No reserved expected answers or new executions.",
+  "families": {
+    "workspace": {
+      "surface": "Engine inventory for local MCP; CLI, command records and memory stay local.",
+      "boundary": "No browser command execution or workspace editing."
+    },
+    "package": {
+      "surface": "Package boundary, not an operator workflow.",
+      "boundary": "No distinct user control required."
+    },
+    "execution": {
+      "surface": "Recorded scene, plan metadata, observation/action/result lanes and physical inspector.",
+      "boundary": "No connected worker, public execution or hardware control; finite exported scene subset."
+    },
+    "diagnosis": {
+      "surface": "Study Diagnostics and retained candidate/decision records.",
+      "boundary": "No interactive hypothesis authoring or diagnostic launch; generic nested detail fields remain."
+    },
+    "development": {
+      "surface": "Study trial assignments and selected scene catalog.",
+      "boundary": "Development/calibration procedures remain local; no general workflow launcher."
+    },
+    "confirmation": {
+      "surface": "Study paired conditions, execution roles, protocol and source-bound manifest.",
+      "boundary": "Read-only; no public reservation or confirmation execution. Study selection is not URL-pinned or joined to scenes."
+    },
+    "declarations": {
+      "surface": "Study Declaration and retained declaration-adjudication report.",
+      "boundary": "No prospective authoring or custody service; retrospective status remains explicit."
+    },
+    "costs": {
+      "surface": "Study Costs, separate phase and nested values, original ledger.",
+      "boundary": "No unmeasured savings or online resource accounting implied."
+    },
+    "recovery": {
+      "surface": "Study Recovery and partial/restored reference demonstration.",
+      "boundary": "No live resumption or exactly-once execution guarantee."
+    },
+    "external": {
+      "surface": "Study External evidence, positive observables and unestablished obligations.",
+      "boundary": "No external repair comparison or sensor stream is invented."
+    },
+    "reserved_screen": {
+      "surface": "Engine inventory and explicit unsupported boundary.",
+      "boundary": "No reserved answers read; not an active public reserved-experiment service."
+    },
+    "evaluation": {
+      "surface": "Retained decisions/reasons, paired predicates, DC01 and declaration adjudication.",
+      "boundary": "Recorded evaluator output; no evaluator launch or arbitrary prospective acceptance workflow."
+    },
+    "development_controls": {
+      "surface": "Development validation source inventory only, not a user workflow.",
+      "boundary": "AST metadata only in this inventory; no expected-answer analysis or reserved execution."
+    }
+  },
+  "counts": {
+    "canonical_python_files": 67,
+    "canonical_lines": 24019,
+    "public_inventory_canonical_modules": 54,
+    "public_inventory_instrument_modules": 9,
+    "public_inventory_local_mcp_interfaces": 13,
+    "by_coverage_family": {
+      "package": 3,
+      "workspace": 5,
+      "diagnosis": 6,
+      "execution": 11,
+      "recovery": 2,
+      "confirmation": 5,
+      "costs": 2,
+      "declarations": 2,
+      "development": 7,
+      "external": 1,
+      "reserved_screen": 1,
+      "evaluation": 17,
+      "development_controls": 5
+    }
+  }
+}

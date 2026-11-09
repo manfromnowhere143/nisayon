@@ -40,6 +40,17 @@ def inbox(tmp_path, monkeypatch):
         "comments": [],
     }
     change_snapshot(tmp_path, snapshot)
+    monkeypatch.setattr(
+        agent,
+        "verify_live_source",
+        lambda packet, folder: {
+            "complete": True,
+            "fingerprint": packet["fingerprint"],
+            "requests": 0,
+            "scope": "Constructed test receipt, not a GitHub observation",
+        },
+        raising=False,
+    )
     return tmp_path
 
 
@@ -299,6 +310,191 @@ def test_evidence_changed_during_reasoning_invalidates_the_output(inbox):
 
     result = run(inbox, Worker(mutate))
     assert result["status"] == "blocked" and "changed during" in result["error"]
+
+
+def test_discovery_only_change_does_not_spend_another_worker_call(inbox, monkeypatch):
+    worker = Worker()
+    first = run(inbox, worker)
+    original = agent.continuity.research_context
+
+    def changed(*args, **kwargs):
+        value = original(*args, **kwargs)
+        value["scope"] += " A discovery-only index update; selected evidence is unchanged."
+        return value
+
+    monkeypatch.setattr(agent.continuity, "research_context", changed)
+    requested = packet(inbox)
+    assert requested["job_id"] != first["job_id"]
+    second = run(inbox, worker)
+    assert second["reused"] and second["job_id"] == first["job_id"]
+    assert second["requested_job_id"] == requested["job_id"]
+    assert second["discovery_review_required"] is True
+    assert second["worker_calls_this_invocation"] == 0 and worker.calls == 1
+
+
+@pytest.mark.parametrize("missing", ["state.json", "public/packet.json", "proposal.json"])
+def test_discovery_wakeup_with_missing_history_does_not_retry(inbox, monkeypatch, missing):
+    worker = Worker()
+    first = run(inbox, worker)
+    job = e.store_path(inbox) / "investigations" / first["job_id"]
+    (job / missing).unlink()
+    original = agent.continuity.research_context
+
+    def changed(*args, **kwargs):
+        value = original(*args, **kwargs)
+        value["scope"] += " A discovery index update."
+        return value
+
+    monkeypatch.setattr(agent.continuity, "research_context", changed)
+    with pytest.raises(ValueError, match="Retained"):
+        run(inbox, worker)
+    assert worker.calls == 1
+
+
+@pytest.mark.parametrize("status", ["blocked", "running"])
+def test_discovery_change_preserves_an_uncertain_attempt(inbox, monkeypatch, status):
+    worker = Worker()
+    first = run(inbox, worker)
+    state_path = e.store_path(inbox) / "investigations" / first["job_id"] / "state.json"
+    state = json.loads(state_path.read_text())
+    state["status"] = status
+    e.records.atomic_json(state_path, state, replace=True)
+    original = agent.continuity.research_context
+
+    def changed(*args, **kwargs):
+        context = original(*args, **kwargs)
+        context["scope"] += " New discovery preview."
+        return context
+
+    monkeypatch.setattr(agent.continuity, "research_context", changed)
+    result = run(inbox, worker)
+    assert result["status"] == status and result["reused"]
+    assert result["worker_calls_this_invocation"] == 0 and worker.calls == 1
+    assert result["live_source_rechecked"] is False
+
+
+def test_discovery_drift_does_not_discard_valid_selected_evidence(inbox, monkeypatch):
+    original = agent.continuity.research_context
+
+    def mutate(result, public):
+        def changed(*args, **kwargs):
+            value = original(*args, **kwargs)
+            value["scope"] += " New discovery preview; selected source bytes remain unchanged."
+            return value
+
+        monkeypatch.setattr(agent.continuity, "research_context", changed)
+
+    worker = Worker(mutate)
+    result = run(inbox, worker)
+    assert result["status"] == "review_required" and worker.calls == 1
+    assert result["discovery_review_required"] is True
+
+
+def test_new_selected_evidence_retains_a_valid_next_investigation(inbox):
+    worker = Worker()
+    first = run(inbox, worker)
+    with (inbox / "evidence.md").open("a") as stream:
+        stream.write(" A newly retained input digest distinguishes the two preparations.")
+    second = run(inbox, worker)
+    assert first["job_id"] != second["job_id"]
+    assert second["status"] == "review_required" and not second["reused"]
+    assert worker.calls == 2
+
+
+@pytest.mark.parametrize("change", ["evidence", "thread", "voice"])
+def test_preflight_source_change_is_checked_before_spending(inbox, change):
+    worker = Worker()
+
+    def qualify(public):
+        if change == "thread":
+            snapshot = json.loads(packet(inbox)["sources"][0]["text"])
+            snapshot["head"] = "c" * 40
+            change_snapshot(inbox, snapshot)
+        else:
+            path = "evidence.md" if change == "evidence" else "docs/VOICE.md"
+            (inbox / path).write_text("A material source correction arrived during preflight.")
+        return {"qualified": True, "cli": {"identity_sha256": "fixture-runtime"}}
+
+    result = agent.run_once(
+        inbox, KEY, ["evidence.md"], decide=worker, qualify=qualify, clock=lambda: NOW
+    )
+    assert result["status"] == "blocked"
+    assert worker.calls == 0 and result["worker_calls_this_invocation"] == 0
+
+
+@pytest.mark.parametrize("failure", ["changed", "missing", "unavailable"])
+def test_live_source_gate_refuses_uncertain_source_before_worker(inbox, monkeypatch, failure):
+    def verify(packet, folder):
+        if failure == "unavailable":
+            raise e.ReadFailure("Live second page is unavailable")
+        if failure == "missing":
+            return {}
+        return {"complete": True, "fingerprint": "f" * 64, "requests": 6}
+
+    monkeypatch.setattr(agent, "verify_live_source", verify, raising=False)
+    worker = Worker()
+    result = run(inbox, worker)
+    assert result["status"] == "blocked"
+    assert worker.calls == 0 and result["worker_calls_this_invocation"] == 0
+
+
+@pytest.mark.parametrize("mode", ["same", "changed", "missing_page", "moving_head"])
+def test_live_receipt_uses_complete_thread_reads(tmp_path, monkeypatch, mode):
+    responses = {
+        "repos/org/repo/issues/1": {
+            "html_url": "https://github.com/org/repo/pull/1",
+            "title": "A request",
+            "body": "Current obligation",
+            "state": "open",
+            "user": {"login": "author"},
+            "pull_request": {"url": "present"},
+        },
+        "repos/org/repo/issues/1/comments?per_page=100": [],
+        "repos/org/repo/pulls/1": {
+            "head": {"sha": "a" * 40},
+            "base": {"sha": "b" * 40},
+            "state": "open",
+            "draft": False,
+            "merged": False,
+        },
+        "repos/org/repo/pulls/1/comments?per_page=100": [],
+        "repos/org/repo/pulls/1/reviews?per_page=100": [],
+    }
+    active_mode = "same"
+    pr_reads = 0
+
+    def request(endpoint, etag):
+        nonlocal pr_reads
+        if endpoint == "missing-page":
+            return 500, {}, ""
+        data = json.loads(json.dumps(responses[endpoint]))
+        headers = {}
+        if endpoint == "repos/org/repo/issues/1":
+            if active_mode == "changed":
+                data["body"] = "A revised actionable obligation"
+        if active_mode == "missing_page" and endpoint.endswith("reviews?per_page=100"):
+            headers["link"] = '<missing-page>; rel="next"'
+        if endpoint == "repos/org/repo/pulls/1":
+            pr_reads += 1
+            if active_mode == "moving_head" and pr_reads == 2:
+                data["head"]["sha"] = "c" * 40
+        return 200, headers, json.dumps(data)
+
+    before = e.snapshot(e.GitHubReader(tmp_path / "before", request=request), KEY)
+    active_mode, pr_reads = mode, 0
+    folder = tmp_path / "live"
+    reader = e.GitHubReader(folder, request=request)
+    monkeypatch.setattr(e, "GitHubReader", lambda folder: reader)
+    result = agent.verify_live_source({"key": KEY}, folder)
+    assert json.loads((folder / "receipt.json").read_text()) == result
+    assert result["requests"] == reader.requests
+    assert result["complete"] == (mode in {"same", "changed"})
+    if result["complete"]:
+        assert (result["fingerprint"] == e.digest(before)) == (mode == "same")
+        assert (folder / "snapshot.json").is_file()
+    else:
+        assert result["fingerprint"] is None and result["error"]
+        assert not (folder / "snapshot.json").exists()
 
 
 def test_missing_usage_does_not_trigger_an_unbudgeted_retry(inbox):

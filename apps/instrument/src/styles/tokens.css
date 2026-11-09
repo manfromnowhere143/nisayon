@@ -1,0 +1,73 @@
+/* Two grounds, equally finished. Colour is never the active state; light is.
+   The three semantic colours are reserved: steel blue for a correction,
+   restrained red for a rejected obligation, an open amber for unresolved. */
+
+:root {
+  --ease-damped: cubic-bezier(0.32, 0.72, 0, 1);
+  --transport-h: 56px;
+  --transport-inset: 14px;
+  --transport-breath: env(safe-area-inset-bottom, 0px);
+  --transport-reserve: calc(var(--transport-inset) + var(--transport-breath) + var(--transport-h) + 54px + 22px);
+  --radius: 14px;
+  --hairline: 1px;
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", "Segoe UI", Inter, system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (max-width: 560px) {
+  :root {
+    --transport-breath: max(env(safe-area-inset-bottom, 0px), 20px);
+  }
+}
+
+:root[data-ground="black"] {
+  color-scheme: dark;
+  --ground: #050506;
+  --ground-2: #0b0b0d;
+  --ink: #fff;
+  --ink-2: var(--ink);
+  --ink-3: var(--ink);
+  --ink-4: var(--ink);
+  --mark-quiet: rgba(242, 242, 238, 0.22);
+  --rule: rgba(255, 255, 255, 0.1);
+  --rule-strong: rgba(255, 255, 255, 0.22);
+  --glass: rgba(20, 20, 24, 0.62);
+  --glass-opaque: #17171a;
+  --glass-rim: rgba(255, 255, 255, 0.18);
+  --glass-sheen: rgba(255, 255, 255, 0.22);
+  --glass-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.4);
+  --selected: rgba(255, 255, 255, 0.12);
+  --correction: #8fb0d6;
+  --rejected: #d0625d;
+  --unresolved: #d1a24a;
+  --correction-text: var(--ink);
+  --rejected-text: var(--ink);
+  --unresolved-text: var(--ink);
+  --scene-fog: radial-gradient(80% 70% at 50% 46%, rgba(255, 255, 255, 0.045), transparent 70%);
+}
+
+:root[data-ground="paper"] {
+  color-scheme: light;
+  --ground: #f8f9fb;
+  --ground-2: #edf0f4;
+  --ink: #17171a;
+  --ink-2: rgba(23, 23, 26, 0.72);
+  --ink-3: rgba(23, 23, 26, 0.66);
+  --ink-4: rgba(23, 23, 26, 0.24);
+  --mark-quiet: rgba(23, 23, 26, 0.24);
+  --rule: rgba(23, 23, 26, 0.1);
+  --rule-strong: rgba(23, 23, 26, 0.24);
+  --glass: rgba(255, 255, 255, 0.88);
+  --glass-opaque: #ffffff;
+  --glass-rim: rgba(255, 255, 255, 0.85);
+  --glass-sheen: rgba(255, 255, 255, 0.9);
+  --glass-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 10px 28px rgba(20, 20, 20, 0.12);
+  --selected: rgba(23, 23, 26, 0.08);
+  --correction: #3f6087;
+  --rejected: #a33a36;
+  --unresolved: #8a6a1f;
+  --correction-text: var(--correction);
+  --rejected-text: var(--rejected);
+  --unresolved-text: var(--unresolved);
+  --scene-fog: radial-gradient(80% 70% at 50% 46%, rgba(0, 0, 0, 0.04), transparent 70%);
+}

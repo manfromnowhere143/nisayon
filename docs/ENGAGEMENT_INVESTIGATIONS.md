@@ -14,10 +14,12 @@ flowchart TB
     B --> C{"Previously attempted?"}
     C -- yes --> D["Return retained state<br/>no automatic retry"]
     C -- no --> E["Check current runtime boundary"]
-    E --> F["One bounded worker call"]
+    E --> L["Check selected inputs and live thread"]
+    L --> F["One bounded worker call"]
     F --> G["Validate structure and exact citations"]
     G --> H["Review required<br/>wait · investigate · draft"]
     E -- failure --> I["Blocked; retain failure"]
+    L -- changed or incomplete --> I
     F -- failure --> I
     G -- failure --> I
     H -. "separate reviewed action" .-> J["Technical experiment or delivery"]
@@ -42,8 +44,29 @@ guarantee of cleanup after host failure or parent-process termination.
 The packet binds the thread, prior review, selected evidence, voice, worker
 implementation and runtime identity. A repeated immutable job returns its
 retained state without another preflight or model call. Interrupted or uncertain
-jobs require reconciliation. A changed source produces a different job; this
-mechanism does not itself impose an account-wide spending limit.
+jobs require reconciliation. A material selected source produces a different
+job. A change confined to continuity discovery previews returns the original
+job with `discovery_review_required=true`; the reviewer must inspect the new
+preview and explicitly select any material evidence before another investigation.
+The original packet is retained. Missing same-thread job history requires
+reconciliation rather than another worker call. This is exact selected-input
+reuse, not semantic detection of the same question across different evidence or
+threads, and it does not impose an account-wide spending limit.
+
+For a new job, execution checks the selected inputs after runtime preflight,
+then reads the live issue/PR and all available comment, inline-comment and review
+pages through the existing GitHub reader. Changed or incomplete reads block
+dispatch. The receipt records the read times, request count and fingerprint;
+the monitor store is unchanged. Selected sources are checked again after that
+read and after the worker returns. A discovery-only update does not discard a
+valid proposal but requires review. Reusing an old job makes no live request and
+returns `live_source_rechecked=false`.
+
+This read is not an atomic GitHub snapshot: an edit after a page was fetched can
+escape detection. CI, commit lineage, resolved-thread state and semantic truth
+are outside this dispatch check. The thread can also change during reasoning.
+Review current sources again before any separately authorized delivery. The
+worker timeout does not cover the reader's separately bounded HTTP requests.
 
 The response checker enforces a schema, bounded fields, source identities and
 exact quoted substrings. It checks inspectability, not whether a quote entails
@@ -70,6 +93,11 @@ The [2 November audit and comparison](experiments/results/investigation-design-2
 retains the original failing test, adverse controls, ordinary-checklist parity
 and the incomplete live-model comparison. No economic or learning advantage is
 established.
+
+The [9 November forensic packet](experiments/results/main-refresh-2026-11-09/README.md#upstream-investigation-boundary)
+retains the unchanged-agent failures, the local freshness/reuse correction and
+its conventional-workflow comparison boundary. Historical public examples are
+development cases; deterministic controls do not establish better owner decisions.
 
 ## Executed qualification, 1 November 2026
 

@@ -1,7 +1,17 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 1 November
+**Design v0.1 · 17 September 2026; implementation status updated 9 November
 2026.** The general product architecture remains proposed.
+
+The current-source qualification path now admits declared calibration snapshots,
+retains independent checks while inputs are unknown, validates unfinished receipt
+prefixes and imports pinned portable evidence for a new execution. Read the
+[applicability contract](EVIDENCE_APPLICABILITY.md) and
+[9 November qualification record](experiments/results/main-refresh-2026-11-09/README.md).
+The [browser instrument](../apps/instrument/README.md) reviews retained evidence;
+it is not a live robot controller or a general execution backend. The source
+[research assessment](FRONTIER_REVIEW_2026-11-09.md) keeps the owner-cost comparison
+and untouched incident ahead of broader compiler or selector work.
 
 The 27 October [native execution interface](NATIVE_EXECUTION.md) adds bounded
 LIBERO/LeRobot capture with frozen completion rules, actual terminal observations,
@@ -188,6 +198,47 @@ flowchart TB
 | Declared decision probes | [Finite API](../src/nisayon/engine/identifiability.py), [controls](../tests/engine/test_decision_probes.py) | Exact bounded enumeration; supplied models and labels are premises. |
 | Confirmation research | [Prediction-audit qualification](../scripts/experiments/qualify_prediction_audit.py), [cost challenge](../scripts/experiments/challenge_prediction_audit_cost.py) | Exposed finite arithmetic, separate from the production confirmation service. |
 | Upstream investigation | [Bounded worker](../src/nisayon/engagement_agent.py), [controls](../tests/test_engagement_agent.py) | [Manual invocation and review](ENGAGEMENT_INVESTIGATIONS.md); no automatic delivery, experiment execution or lesson promotion. |
+
+### Declared checks and portable continuation
+
+This implemented path uses trusted handlers and an explicitly reviewed dependency
+model. It does not infer complete dependencies. Inputs, earlier observations,
+scoring and required confirmation have separate roles.
+
+```mermaid
+flowchart TB
+    accTitle: Declared check execution and portable continuation
+    accDescr: The executor captures current declared inputs and checks prior receipts against a reviewed dependency model. Missing inputs withhold dependent checks; invalid acquisition stops execution. Eligible work is reused or executed, mandatory confirmation runs, and record inspection checks every completed receipt. Portable import verifies a supplied digest and reconstructs records without executing handlers; a new execution is still required.
+    M["Reviewed model and trusted handlers"] --> B["Capture declared current inputs"]
+    B --> Z["Failed acquisition<br/>retain failure; execute no checks"]
+    P["Previous evidence state"] --> A["Recompute applicability"]
+    B --> A
+    A --> K["Run or reuse eligible checks"]
+    A --> U["Unknown input<br/>withhold affected checks"]
+    K --> F["Execute required fresh confirmation"]
+    K --> E["Retain attempts and receipts"]
+    F --> E
+    U --> E
+    Z --> E
+    E --> R["Inspect complete or unfinished records"]
+    R --> X["Export permitted evidence<br/>local portable packet"]
+    X --> I["Verify expected digest and records<br/>import into a new private root"]
+    I -. "new execution with current inputs" .-> B
+    R --> D["Scoped result or unresolved<br/>deployment authority remains separate"]
+```
+
+| Mechanism | Source and controls |
+| --- | --- |
+| Explicit applicability and receipts | [Planner](../src/nisayon/qualification/applicability.py), [controls](../tests/qualification/test_applicability.py) |
+| Snapshot acquisition and partial checks | [Executor](../src/nisayon/qualification/checks.py), [acquisition](../tests/qualification/test_check_acquisition.py), [unknown-input controls](../tests/qualification/test_partial_inputs.py) |
+| Unfinished record reconstruction | [Prefix controls](../tests/qualification/test_check_prefix_review.py); incomplete execution cannot hide a corrupted completed receipt |
+| Pinned portable continuation | [Transport and import](../src/nisayon/qualification/check_bundle.py), [import controls](../tests/qualification/test_check_import.py), [calibration continuation](../tests/qualification/test_import_calibration.py) |
+| Evidence instrument | [Application](../apps/instrument/README.md), [export contracts](../src/nisayon/ui_export/contract.py), [tests](../tests/ui_export/) |
+
+The expected digest establishes byte identity, not truth or permission. A new
+execution supplies current inputs and trusted code; importing a bundle does not
+transfer a decision. Native/subprocess I/O, mutable state, environment, timing,
+reset semantics and exogenous inputs still need an adequate declared contract.
 
 The proposed architecture below describes what further components would need to
 do. Its compiler and general selector are not additional implemented services.

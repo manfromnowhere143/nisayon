@@ -1,0 +1,333 @@
+{
+  "assignments": [
+    {
+      "id": "reference-offset",
+      "probe": "offset",
+      "role": "reference"
+    },
+    {
+      "id": "negative_control-offset",
+      "probe": "offset",
+      "role": "negative_control"
+    },
+    {
+      "id": "candidate-offset",
+      "probe": "offset",
+      "role": "candidate"
+    }
+  ],
+  "case": {
+    "contract": {
+      "kind": "exact"
+    },
+    "id": "external-calibration",
+    "premises": {
+      "environment": "Trusted local CPython with recorded package metadata",
+      "oracle": "Exposed exact arithmetic fixture",
+      "population": "This single software input only",
+      "state": "fresh_process"
+    },
+    "probes": [
+      {
+        "expected": {
+          "action": [
+            0.5
+          ]
+        },
+        "id": "offset",
+        "input": {
+          "position": [
+            15
+          ]
+        }
+      }
+    ],
+    "question": "Does the candidate preserve normalization with all relevant reads bound?",
+    "schema": "nisayon.qualification.case.v1",
+    "source_files": [
+      "policy.py"
+    ],
+    "targets": {
+      "candidate": {
+        "callable": "candidate",
+        "path": "policy.py",
+        "required_calls": [
+          "normalize"
+        ]
+      },
+      "negative_control": {
+        "callable": "bad",
+        "path": "policy.py",
+        "required_calls": [
+          "normalize"
+        ]
+      },
+      "reference": {
+        "callable": "reference",
+        "path": "policy.py",
+        "required_calls": [
+          "normalize"
+        ]
+      }
+    }
+  },
+  "context": {
+    "native_environment": {
+      "library_roots": [
+        "/Users/danielwahnich/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12",
+        "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/.venv/lib/python3.12",
+        "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/.venv/lib/python3.12/site-packages"
+      ],
+      "packages": [
+        {
+          "name": "PyJWT",
+          "record_sha256": "ae76231695b82bfadbd250bada0ff5040fa7edcfaebceb1f75f812b5e5704a95",
+          "version": "2.14.0"
+        },
+        {
+          "name": "Pygments",
+          "record_sha256": "83a7aa079772251da82112127163255524a91b1eede1d7392a1eaa2f4119c86d",
+          "version": "2.21.0"
+        },
+        {
+          "name": "annotated-types",
+          "record_sha256": "8191d3aa1ac93480688819b4db2385606219a3f7a453b85e086646134ded4f96",
+          "version": "0.8.0"
+        },
+        {
+          "name": "anyio",
+          "record_sha256": "61566393fe741ef449f387182a94956cc11dda629cdea4a5823b89f6eb9dc6b3",
+          "version": "4.15.1"
+        },
+        {
+          "name": "attrs",
+          "record_sha256": "6b0b326d4b4ee0fac27909ac7cbb066fc4bdf8e93d87031e27e770db059e5a04",
+          "version": "26.1.0"
+        },
+        {
+          "name": "cffi",
+          "record_sha256": "97f87de024c3822a59c75117b98bb706ed1711c65e698e8cc1fafc20d87fce9d",
+          "version": "2.1.1"
+        },
+        {
+          "name": "click",
+          "record_sha256": "924078ec3a47b97192425dbc0c3693085af7a7b863afcf6b4e110cf0bd97dea4",
+          "version": "8.5.0"
+        },
+        {
+          "name": "cryptography",
+          "record_sha256": "c7999396b380e7c2945b24fb03ad9c28af17709138fbdbabab6ecea8c35db1f5",
+          "version": "50.0.1"
+        },
+        {
+          "name": "h11",
+          "record_sha256": "3779e13c17d8e21c769ed9ee8780af123cc3f8656185f5f8d3af258ff5639b3e",
+          "version": "0.16.0"
+        },
+        {
+          "name": "h5py",
+          "record_sha256": "93282dda6d698593e7ce4bafe19e81670021b7d827c8967f6e6afb53b445f4e7",
+          "version": "3.16.0"
+        },
+        {
+          "name": "httpcore2",
+          "record_sha256": "5fa455f2ed1e80034aa1d8616d6f39a2450b9af93eb7d2a307c4cd6dbd5058e7",
+          "version": "2.13.0"
+        },
+        {
+          "name": "httpx2",
+          "record_sha256": "5c78ffa8e94e37de8fa4ed6eeabde2576645afc456b031969f7edb3d129eada6",
+          "version": "2.13.0"
+        },
+        {
+          "name": "idna",
+          "record_sha256": "ded4e57eddbd16854a9a4296c88b01c6e61f4592bf27514a025fc2882713bd8b",
+          "version": "3.20"
+        },
+        {
+          "name": "iniconfig",
+          "record_sha256": "4b560f65489a4dc0f32d8403da676d2e6338c371fe844160934b3fe469785185",
+          "version": "2.3.0"
+        },
+        {
+          "name": "jsonschema",
+          "record_sha256": "15108f77ec0df489916549722cb4dc355f7bbeda2ab2d58ffb769e08e29bd8b2",
+          "version": "4.26.0"
+        },
+        {
+          "name": "jsonschema-specifications",
+          "record_sha256": "0b1047ee6c7d5d7c242b642d689820f4572860ecf7886b2074f821ed85cbe7b6",
+          "version": "2025.9.1"
+        },
+        {
+          "name": "mcp",
+          "record_sha256": "c927f78617ada52c373c37519190f0dbe8c76bccbe068049e74c8f6a28982ec5",
+          "version": "2.2.0"
+        },
+        {
+          "name": "mcp-types",
+          "record_sha256": "cc1f63d5d9f23eea46dec25e8166656fa43b91655a7477dbdadcde2dec9f2271",
+          "version": "2.2.0"
+        },
+        {
+          "name": "nisayon-workspace",
+          "record_sha256": "a4e4315d3f65929a4830f3628e6f174fe2587617c7cedba178261f8b77ccc789",
+          "version": "0.2.0"
+        },
+        {
+          "name": "numpy",
+          "record_sha256": "d074f59b670db79cbaccef0043bb7a1e617fa958635b2d0463aa2991bd5b3ea5",
+          "version": "1.26.4"
+        },
+        {
+          "name": "opentelemetry-api",
+          "record_sha256": "8fc686374999a083eb0efe08cee273ba623863153834268ed6233eca624d92f3",
+          "version": "1.44.0"
+        },
+        {
+          "name": "packaging",
+          "record_sha256": "1b8655965b0d83e9a067fd7f84b977bd1e117e0fb9f2874b2572781bdc9e2147",
+          "version": "26.3"
+        },
+        {
+          "name": "pluggy",
+          "record_sha256": "a42a63bcba12ddb7e7db19158c8d05d8fc41d51f48686b411ad3a0213fbd7721",
+          "version": "1.6.0"
+        },
+        {
+          "name": "psutil",
+          "record_sha256": "82a0585abe618fd6b841c095e45a9970cb4c8ace9aab3209d3602a8a1233ed49",
+          "version": "7.2.2"
+        },
+        {
+          "name": "pycparser",
+          "record_sha256": "e752c5c64ce06f508a80e0edeef0c165df849587b829cb9a7b7bb22ac43b0c7e",
+          "version": "3.0"
+        },
+        {
+          "name": "pydantic",
+          "record_sha256": "93253f807bd8a0440d58d159ffeef610528e8a687b948095955114275c16881f",
+          "version": "2.13.5"
+        },
+        {
+          "name": "pydantic_core",
+          "record_sha256": "3bb720afa0c851ac1de4ee46ab9d1e0a3e2cdcf08407f70770a23324b219565a",
+          "version": "2.46.5"
+        },
+        {
+          "name": "pytest",
+          "record_sha256": "683e7fae281bad1a44d79c1cc0973ba45fb432206d402891358c3f2c6e1cbb0d",
+          "version": "9.1.1"
+        },
+        {
+          "name": "python-multipart",
+          "record_sha256": "5c11c391e44fdc2dbec56603265b8af273dae504ee2e6143d3b9d3bab2bc12df",
+          "version": "0.0.32"
+        },
+        {
+          "name": "referencing",
+          "record_sha256": "d7ecf9906a4a4ea4837d16e324e344f9f00b328570cf695a96a8de46b8766982",
+          "version": "0.37.0"
+        },
+        {
+          "name": "rpds-py",
+          "record_sha256": "cf51339b8614a754dd87c7c0f2f94e3b589d33d1a4279316d14471cd3850d1e6",
+          "version": "2026.6.3"
+        },
+        {
+          "name": "ruff",
+          "record_sha256": "7b80b43134e84bf0c8fc3fdb4dff6d818cdb25a5e2b0674b1fa6259d15a42f59",
+          "version": "0.16.8"
+        },
+        {
+          "name": "sse-starlette",
+          "record_sha256": "e690620ac8d7d2f0228746cb7477df608297f7307c4e944ba713c9d92d3f4dc0",
+          "version": "3.4.11"
+        },
+        {
+          "name": "starlette",
+          "record_sha256": "ce00b84cd91bcb3a3c9d05d0acb8d879ad8f28232ef1941cf82e2cb0661e4be1",
+          "version": "1.6.0"
+        },
+        {
+          "name": "truststore",
+          "record_sha256": "78e60fe51ee9228a9a31d401f4cf7dcca5b7363a893b65f30e957de919e9f01a",
+          "version": "0.10.4"
+        },
+        {
+          "name": "typing-inspection",
+          "record_sha256": "83fc23669db31500d06056b13ecebe4f088f56a81c1ea86e3b68f1de3b8c7d95",
+          "version": "0.4.4"
+        },
+        {
+          "name": "typing_extensions",
+          "record_sha256": "9e07fea845cac76293d927afa7157a14ecba39b318bc8af236b8de530b7656c1",
+          "version": "4.16.0"
+        },
+        {
+          "name": "uvicorn",
+          "record_sha256": "e0cc89edbb168f1e0545aadbb5be9186608b17a1a5fd222ae93f588a51b86d93",
+          "version": "0.53.0"
+        }
+      ],
+      "platform": "macOS-14.4-arm64-arm-64bit",
+      "prefix": "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/.venv",
+      "python": "3.12.13 (main, Jun 23 2026, 15:44:24) [Clang 22.1.3 ]",
+      "version_info": [
+        3,
+        12,
+        13
+      ]
+    },
+    "output_dir": "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/work/experiments/external-read-boundary-2026-11-09/baseline/original",
+    "project": "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/work/experiments/external-read-boundary-2026-11-09/baseline/owner",
+    "python": "/Users/danielwahnich/workspace/nisayon-engine-2026-11-09/.venv/bin/python3",
+    "python_sha256": "7b05d803bbc1bbfc81644af4faf2b88f0a37b8de96b9f42c1e08033e2cd0848a",
+    "timeout_seconds": 10,
+    "total_seconds": 120
+  },
+  "obligations": [],
+  "read_policy": "cpython_owner_reads_v1",
+  "schema": "nisayon.qualification.plan.v2",
+  "sources": {
+    "policy.py": "9b7fdb3ddb4b996b840cbcf823aba25c3e3c178c2f608fd1525e8cc645ab702a"
+  },
+  "tool": {
+    "distribution": "nisayon-workspace",
+    "sources": {
+      "__init__.py": "65ac1a0057b2203e9c9ba39c33ff43099469d1f7ea08ade821791e85a037c300",
+      "__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "applicability.py": "fbc34763d2a3a04a81cb06e7b321252799f4aab43e2f05b40b0429d82bd52234",
+      "assessment.py": "1b13d5b73d9f50a4f2ea6da3b80cb6009369c56fdac30253879fb487acc6602f",
+      "bundle.py": "abb0e4003916b46a829da2d7c0eef7f76c62edc7f61e1c58179864a8b965b934",
+      "change.py": "fb4b948441f1e3f3f0f06db24c1547120e70d20a05f9eb1b85c54e7122efc131",
+      "check_bundle.py": "d895944339baa84d93b181a63a54c04806fbe81170c653d5a5c131da66b749b8",
+      "checks.py": "5cce37d41213a8db22100fcf1253bd213fd999056fb6407961546d533c430b67",
+      "cli.py": "0820fe35a022f3c8c8e9d04b50d25f26ab13e32a34548fa4da691c7bb1b74d8a",
+      "compare.py": "91ead665ee3ee8c8ee8d09096f0486ebddc83548a62eb5837e8b219bb18ea4ce",
+      "conditions.py": "f747d1635c17aa660b840f037f3650f2d558eaa1af529ae629c7edaae6d17f85",
+      "context.py": "5654c0f48637e35479f0b1295467aab3fb527d7c7881a0c1afcff7e277d4ef83",
+      "engine/__init__.py": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "engine/io.py": "e2d2ce9ec6c43c2f37cdf2622c06ef313ee5772b0cc1e478e7e297ae4bb110b4",
+      "example.py": "a5e876ed603316003d0d0982125f5e3d5f05921ec7e61c139e941f90db67c89b",
+      "libero_capture.py": "f5749dac85f635e86e56c24094cc13b2a9028db67dd5974b2816232d384ec9cc",
+      "measurements.py": "d92aa70f5c67e3e351c28a63cfdf037726f1a095dcca54b8ef95e54551dacb56",
+      "models.py": "2f9571fdafcf0e4d4305e06dd5d386a3dd03efcda4605f61a885e369ce00df2e",
+      "monitoring.py": "a6530442aa66704f8bc792943b62c11749548dd3ca65fb157dc1e7257075333c",
+      "monitoring_audit.py": "4b337cdec8423c4c7f6ca2de81efaa4aa1761cad76037327b5ab59d80c7901c2",
+      "native_execution.py": "96feda29441cd01f550a8b980f17a226f90bdbdba90eeb7f88625902d8428914",
+      "native_measurements.py": "474854f89365907dd0a45ca4918eecf150f6028a2653f5f1752192156c7b9e89",
+      "native_observations.py": "a91d2a50b5f5f58c2bef4d773e323a0b37cca8861a8b94a97ced4259dcd45561",
+      "native_task_workflow.py": "7c6b8099ff1df17f61a0c473b41da38c66cb95db87c8d8d6f8659301c8e43056",
+      "native_tasks.py": "8ddd3f991a2f38a8294315129256fae535c9348585efa4da0c3ccf4ff5a1ab8c",
+      "nisayon/__init__.py": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "reads.py": "ffb4c890742baa9aae1255f5e82817ed2c0643c699bfe7cda8038e9d33f29556",
+      "reference_audit.py": "d34bbb17dc777bd3fe63aed3e47e5cbec21c0502cdacf3bba81d6f9c4ae26f26",
+      "reuse.py": "8bd1209e7c8dac8399ad7ef0d1af0836d4a501483517f2c511d57504c157a787",
+      "runner.py": "55c6a954506237931b0f4f2d47cb5917ce93d8409df2ffa41f3b4409e709bb4b",
+      "worker.py": "f9b7187266550e30e94ab5d0fe3e24e39c1f65edea4b38c50f53f0f1742597d2",
+      "workflow.py": "eabcb1790fb4eff541464224ddb467c02ae631ed472dd546714c87f8cdbf778b"
+    },
+    "version": "0.2.0"
+  }
+}

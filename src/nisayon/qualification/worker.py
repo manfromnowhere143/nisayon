@@ -45,7 +45,12 @@ def observe(request: dict) -> dict:
     random.seed(0)
     # Use the frozen environment roots. Collecting metadata here could import
     # an owner module (e.g. platform.py) before observation starts and hide its reads.
-    with OwnerReadWitness(root, before, request["read_library_roots"]) as reads:
+    with OwnerReadWitness(
+        root,
+        before,
+        request["read_library_roots"],
+        bytecode_cache=Path(sys.pycache_prefix) if sys.pycache_prefix else None,
+    ) as reads:
         spec = importlib.util.spec_from_file_location("_nisayon_native_target", source)
         if spec is None or spec.loader is None:
             raise ValueError("Cannot import the declared native entry point")
@@ -107,7 +112,7 @@ def observe(request: dict) -> dict:
         "read_witness": reads.record(),
         "value": value,
         "runtime": runtime,
-        "boundary": "Synchronous Python calls and CPython owner-file open attempts during import/call. No full dependency discovery, sandbox, kernel tracing or physical adequacy claim.",
+        "boundary": "Synchronous Python calls and bounded CPython open attempts during import/call. Unbound external reads prevent qualification. Interpreter libraries and absent isolated bytecode caches retain explicit exceptions. No full dependency discovery, sandbox, kernel tracing or physical adequacy claim.",
     }
 
 

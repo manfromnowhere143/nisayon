@@ -1,0 +1,187 @@
+/* Roomy workspaces page evidence in a definite rectangle. Compact workspaces
+   have one native reading surface; the records inside it grow naturally. */
+.reading-content { overflow: clip; display: flex; flex-direction: column; padding-bottom: 0; }
+.moment-view, .context-view, .engine-panel, .depth, .spatial-panel,
+.section-deck, .deck-content, .deck-panel, .inspector-section, .physical-inspector {
+  display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; min-width: 0;
+}
+.moment-view > :not(.section-deck), .section-tabs, .depth-bar, .engine-heading,
+.spatial-heading, .inspection-heading, .inspection-steps, .inspector-section-title { flex: 0 0 auto; }
+.physical-inspector > :not(.section-deck), .spatial-panel > .choice-trigger { flex: 0 0 auto; }
+.spatial-panel > .choice-trigger { align-self: flex-start; }
+.physical-inspector { gap: 12px; }
+.physical-inspector > p { margin: 0; }
+.section-deck { gap: 12px; container-type: inline-size; container-name: evidence-deck; }
+.section-compact { display: none; flex: 0 0 auto; }
+.section-compact .choice-trigger { width: 100%; }
+@container evidence-deck (max-width: 380px) {
+  .section-deck > .section-tabs { display: none; }
+  .section-deck > .section-compact { display: block; }
+}
+.deck-panel { gap: 12px; }
+.engine-heading { margin-bottom: 12px; }
+.inspector-content { overflow: clip; display: flex; flex: 1 1 0; padding: 0; }
+.inspector-section { border: 0; padding: 0; margin: 0; }
+.inspector-section-title { margin: 0 0 12px; }
+.part-details { white-space: nowrap; min-height: 44px; padding-inline: 10px; font-size: .75rem; }
+.part-picker .choice-trigger { min-width: 0; }
+.engine-connection { font-size: .65rem; color: var(--ink-3); line-height: 1.6; margin: 6px 0 0; }
+.engine-connection code { font: inherit; }
+.module-picker { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+.module-picker .choice-trigger { flex: 1; }
+.module-picker .fine { white-space: nowrap; margin: 0; }
+.module-search { flex: 0 0 auto; }
+.field-navigator { padding-block: 8px; min-width: 0; }
+.field-navigation { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.field-navigation .quiet { min-height: 44px; }
+.field-pointer { display: block; padding-block: 12px; font-size: .75rem; color: var(--ink-2); overflow-wrap: anywhere; }
+.field-descend { display: flex; justify-content: space-between; gap: 20px; width: 100%; min-height: 44px; text-align: left; border: 1px solid var(--rule); border-radius: 8px; background: transparent; color: var(--ink); font: inherit; padding: 10px 12px; cursor: pointer; }
+.field-value { font-family: var(--mono); font-size: .79rem; line-height: 1.7; margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.study-trials, .study-detail-content, .study-report { overflow: clip; display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; padding: 0; }
+.study-report { gap: 12px; }
+.study-detail { overflow: clip; }
+.study-detail > .study-detail-content { flex: 1 1 0; }
+.study-report-heading { flex: 0 0 auto; }
+.diag { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; padding: 0; border: 0; }
+.diag-heading { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.mechanism-view { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; min-width: 0; gap: 12px; padding: 0; margin: 0; max-width: none; }
+.mechanism-picker, .mechanism-candidates, .mechanism-scope { flex: 0 0 auto; }
+.study-instrument-choice, .study-section-choice { display: none; }
+
+.evidence-flow { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; min-width: 0; gap: 8px; }
+.evidence-viewport { position: relative; flex: 1 1 0; min-height: 0; min-width: 0; overflow: clip; container-type: size; container-name: evidence-page; }
+.evidence-columns {
+  /* The workspace owns page geometry. Fragmented content must not participate
+     in its parent's intrinsic sizing; columns start only at a usable height. */
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  columns: auto; column-gap: 32px; column-fill: auto;
+  /* No movement between pages, no rasterisation of text into a canvas. */
+  transition: none; overflow-wrap: anywhere; padding-top: 1px;
+}
+@container evidence-page (min-height: 100px) {
+  .evidence-columns { columns: 1; }
+}
+.evidence-columns > * { margin-block: 0 16px; }
+.evidence-columns > :last-child { margin-bottom: 0; }
+.evidence-columns :is(p,li) { orphans: 2; widows: 2; }
+.evidence-columns :is(h2,h3,h4,dt,summary) { break-after: avoid; }
+.evidence-columns :is(.spatial-context,.inspection-context,.path-window) { break-after: avoid; }
+.evidence-columns .field-navigator { break-inside: avoid; }
+.evidence-columns :is(button,svg,img,tr,.coordinate-grid,.spatial-metrics,.observation-cards,.inspection-measures,.inspection-command,.physical-range,.physical-velocity,.study-run-metrics > div,.facts > div,.study-facts > div,.mechanism-facts > div,.body-tree > li,.study-trial,.reason,.endpoint-record,.module-entry) { break-inside: avoid; }
+/* Lists can fragment; the label and value of each fact stay together. */
+.evidence-columns :is(.flow-records,.facts,.study-facts,.depth-body,.decision-body,.decision-block,.decision-run,.physical-inspector,.physical-joints,.physical-joint,.physical-controller,.physical-histories,.inspection-body,.study-reasons,.study-decision,.study-run,.study-run-metrics,.study-obligations,.study-obligation,.study-chronology,.mechanism-view,.mechanism-comparison,.processor-witnesses,.interface-record,.endpoint-links,.acquisition-components,.cost-composition) { display: block; height: auto; }
+.evidence-columns :is(.flow-records,.physical-inspector,.physical-joint,.physical-controller,.physical-histories,.inspection-body,.study-decision,.study-run,.mechanism-view,.mechanism-comparison,.interface-record) > * { margin-block: 0 16px; }
+.evidence-columns :is(.facts,.study-facts) > div { margin-bottom: 0; }
+.evidence-columns .flow-records > [role="listitem"] { margin-bottom: 16px; }
+.evidence-columns .cond-field .flow-records { display: grid; grid-template-columns: repeat(auto-fit, minmax(52px, 1fr)); gap: 6px; }
+.evidence-columns .cond-field .flow-records > [role="listitem"] { margin: 0; }
+.evidence-columns :is(.flow-records,.facts,.study-facts) > :last-child { margin-bottom: 0; }
+.evidence-columns .facts dd { min-width: 0; }
+.evidence-columns .study-reasons > li { margin-bottom: 16px; }
+.evidence-columns .study-pair { display: block; }
+.evidence-columns .study-pair > * { margin-bottom: 24px; }
+.evidence-columns .processor-witnesses article { display: block; }
+.evidence-columns .processor-witnesses article > * { margin-block: 0 12px; }
+.evidence-columns .study-trial { margin-bottom: 4px; }
+.evidence-columns .lane, .evidence-columns .trace-group, .evidence-columns .physical-history { break-inside: avoid; }
+.evidence-columns .lanes { display: block; }
+.evidence-columns .trace-group { margin-bottom: 18px; }
+.evidence-columns .physical-history { margin-bottom: 20px; }
+.evidence-columns .status-matrix { break-inside: avoid; }
+.evidence-columns :is(code,pre) { white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
+.evidence-columns table { max-width: 100%; table-layout: fixed; }
+.evidence-columns .study-facts > div { grid-template-columns: minmax(90px,.65fr) minmax(0,1fr); }
+
+.evidence-pagination { display: flex; flex: 0 0 auto; gap: 8px; align-items: center; justify-content: space-between; min-height: 44px; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: .72rem; }
+.evidence-page-navigation { display: flex; align-items: center; gap: 2px; min-width: 0; }
+.evidence-pagination .ibtn { width: 44px; height: 44px; font-size: 1.2rem; }
+.full-reading-link { border: 0; background: transparent; color: var(--ink-2); font: inherit; cursor: pointer; min-height: 44px; padding: 4px 6px 4px 0; text-align: left; }
+.evidence-page-number { display: flex; gap: 3px; align-items: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.evidence-page-number input { appearance: textfield; width: 3.2em; min-height: 44px; padding: 4px; font: inherit; text-align: center; border: 1px solid transparent; border-radius: 8px; color: var(--ink); background: transparent; }
+.evidence-page-number input::-webkit-inner-spin-button, .evidence-page-number input::-webkit-outer-spin-button { appearance: none; margin: 0; }
+.evidence-page-number input:focus-visible { border-color: var(--rule-strong); }
+.evidence-page-count { font-variant-numeric: tabular-nums; padding-right: 4px; }
+.evidence-full-prompt { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; justify-content: center; background: var(--ground); color: var(--ink-2); padding: 16px 0; }
+.evidence-full-prompt p { font-size: .85rem; line-height: 1.6; max-width: 40ch; margin: 0; }
+.evidence-flow[data-oversize="true"] .evidence-columns { visibility: hidden; }
+
+/* Same retained nodes, full viewport. No transport or lab overlay covers the
+   document; returning restores the page anchor and the originating control. */
+.evidence-flow[data-full-reading="true"] { position: fixed; inset: 0; z-index: 100; width: auto; height: auto; max-width: none; max-height: none; margin: 0; border: 0; color: var(--ink); overflow: visible; padding: max(16px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); background: var(--ground); gap: 16px; }
+.evidence-flow[data-full-reading="true"]::backdrop { background: var(--ground); }
+/* Fallback for a browser without the top-layer Popover API. */
+.section-deck:has([data-full-reading="true"]) { container-type: normal; }
+.full-reading-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; flex: 0 0 auto; width: min(100%, 960px); margin-inline: auto; border-bottom: 1px solid var(--rule); padding-bottom: 12px; }
+.full-reading-heading { font-size: 1rem; margin: 0; font-weight: 500; }
+.full-reading-bar .quiet { min-height: 44px; font-size: .8rem; }
+.evidence-flow[data-full-reading="true"] .evidence-viewport { overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; container-type: normal; }
+.evidence-flow[data-full-reading="true"] .evidence-columns { position: relative; inset: auto; columns: auto; height: auto; max-width: 960px; margin-inline: auto; transform: none; padding-bottom: 24px; }
+.evidence-flow[data-full-reading="true"] .evidence-columns > :last-child { margin-bottom: 0; }
+@media (max-width: 560px) {
+  .part-picker { flex: 1 1 100%; }
+  .part-picker .choice-trigger { flex: 1; max-width: none; }
+  .evidence-columns .study-facts > div { display: block; }
+  .evidence-columns .study-facts dt { margin-bottom: 6px; }
+  .evidence-flow[data-full-reading="true"] { padding-inline: 16px; }
+}
+@media (max-width: 1023px), (max-height: 620px) {
+  .study-instrument-choice, .study-section-choice { display: block; flex: 0 0 auto; }
+  .study-instrument-choice .choice-trigger, .study-section-choice .choice-trigger { width: 100%; }
+  .study-views, .study-detail > .section-tabs { display: none; }
+}
+@media (max-height: 620px) {
+  .study-detail > .study-detail-content { flex-shrink: 1; padding: 0; }
+  .study-scope { display: block; }
+}
+
+/* A phone has one reading document, not a stack of independently clipped
+   cards. Keep this breakpoint aligned with useDocumentEvidence. In particular,
+   no column measurement, size containment or inert overflow survives here. */
+.evidence-flow[data-evidence-layout="document"]:not([data-full-reading="true"]) {
+  display: block; flex: 0 0 auto; height: auto; overflow: visible;
+}
+.evidence-flow[data-evidence-layout="document"]:not([data-full-reading="true"]) > .evidence-viewport {
+  position: static; height: auto; overflow: visible; container-type: normal;
+}
+.evidence-flow[data-evidence-layout="document"]:not([data-full-reading="true"]) > .evidence-viewport > .evidence-columns {
+  position: static; inset: auto; height: auto; columns: auto; transform: none;
+}
+@media (max-width: 1023px), (max-height: 620px) {
+  .study-workspace {
+    width: calc(100vw - 16px); height: calc(100dvh - 16px);
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  }
+  .study-workspace[open] { gap: 12px; }
+  .study-header { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 4px 10px; align-items: center; }
+  .study-header > div { grid-area: 1 / 1; margin: 0; }
+  .study-header .eyebrow { display: none; }
+  .study-header h2 { margin: 0; font-size: 1.4rem; }
+  .study-mode { grid-area: 2 / 1 / 3 / -1; max-width: none; font-size: .72rem; }
+  .study-copy { grid-area: 1 / 2; }
+  .study-header > .ibtn { grid-area: 1 / 3; }
+  .study-body, .reading, .inspector {
+    overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain;
+    scroll-behavior: auto; scroll-padding-block: 12px;
+  }
+  .study-body { gap: 16px; padding-bottom: 12px; }
+  .study-body > * { flex: 0 0 auto; }
+  .study-body .study-grid { display: block; flex: 0 0 auto; }
+  .study-library, .study-detail, .study-trials, .study-detail-content, .study-report,
+  .reading-content, .moment-view, .moment-inspection, .context-view, .engine-panel, .depth, .spatial-panel,
+  .section-deck, .deck-content, .deck-panel, .inspector-content, .inspector-section,
+  .physical-inspector, .diag, .mechanism-view {
+    flex: 0 0 auto; height: auto; max-height: none; overflow: visible;
+  }
+  .study-detail > .study-detail-content { flex: 0 0 auto; }
+  .study-detail { display: none; }
+  .study-grid[data-detail="true"] .study-library { display: none; }
+  .study-grid[data-detail="true"] .study-detail { display: flex; }
+  .study-mobile-back { display: block; align-self: flex-start; min-height: 44px; }
+  .study-pending:empty { display: none; }
+  .study-freshness, .study-scope { display: block; }
+  .study-pair, .study-obligations { grid-template-columns: minmax(0, 1fr); }
+  .reading-content { padding-bottom: 16px; }
+  .analysis-nav, .inspector-bar {
+    position: sticky; top: 0; z-index: 2; flex-shrink: 0; background: var(--ground);
+  }
+}

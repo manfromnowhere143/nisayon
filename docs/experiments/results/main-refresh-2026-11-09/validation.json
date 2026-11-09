@@ -1,0 +1,140 @@
+{
+  "status": "local_checks_complete_aggregate_ci_required",
+  "as_of_utc": "2026-11-09T21:58:26.779327+00:00",
+  "canonical_source": "3347beb4862b12ff17a995fc8b999ab7b257e1ef",
+  "public_parent": "d6fe9b24191c27cb6455a6baf05a86da99513f14",
+  "scope": "Integrated public candidate; code and docs source hashes below. Existing Linux/macOS CI must pass before public main advances.",
+  "passed": [
+    {
+      "command": "python -m pytest tests/qualification/test_check_import.py tests/qualification/test_import_calibration.py tests/ui_export/test_system_catalog.py -ra --tb=short",
+      "passed": 37,
+      "skipped": 0,
+      "seconds": 4.16
+    },
+    {
+      "command": "python -m pytest tests/ui_export/test_system_catalog.py -ra --tb=short",
+      "passed": 4,
+      "skipped": 0,
+      "seconds": 0.02,
+      "overlaps": "Final metadata-label assertion, all four also in the 37-test group"
+    },
+    {
+      "command": "ruff check .",
+      "result": "passed"
+    },
+    {
+      "command": "ruff format --check .",
+      "files": 915,
+      "result": "passed"
+    },
+    {
+      "command": "python scripts/check_docs.py",
+      "documents": 337,
+      "mermaid_blocks": 17,
+      "errors": []
+    },
+    {
+      "name": "typecheck",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 6.6954389169986825
+    },
+    {
+      "name": "instrument-tests",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--maxWorkers=1"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 46.28272908300278
+    },
+    {
+      "name": "instrument-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 3.2269667079963256
+    }
+  ],
+  "diagrams": {
+    "mermaid_cli": "11.4.2",
+    "themes": [
+      "neutral",
+      "dark"
+    ],
+    "blocks": 17,
+    "renders_passed": 34,
+    "visual_review": [
+      "README overview, simplified after first render",
+      "architecture declared checks and continuation",
+      "evidence applicability",
+      "native qualification",
+      "investigation dispatch"
+    ],
+    "rejected_render": "Initial README cycle was legible but unnecessarily sprawling; replaced with a compact overview. Detailed continuation remains in architecture."
+  },
+  "incomplete_or_unrun": [
+    {
+      "check": "broader local Python suite",
+      "result": "interrupted",
+      "elapsed_seconds": 135.9949125830026,
+      "reason": "disk_floor",
+      "minimum_free_bytes": 4264472576,
+      "disk_floor_bytes": 4294967296
+    },
+    {
+      "check": "first focused attempt",
+      "result": "not_started",
+      "reason": "initial_disk_floor",
+      "initial_free_bytes": 4268871680
+    },
+    {
+      "check": "full local project suite",
+      "result": "not_started",
+      "reason": "6 GiB launch headroom unavailable"
+    },
+    {
+      "check": "Linux/macOS public-source CI",
+      "result": "required_after_candidate_push_before_main_advances"
+    }
+  ],
+  "warnings": [
+    "Existing Vite chunks over 500 kB",
+    "Raw whole-diff whitespace findings in retained output and upstream license; scoped editable-source/prose check passed; original output not rewritten"
+  ],
+  "fixture_generator_equivalence": "AST equivalent after removing explicit existing zip(strict=False) default",
+  "node_dependencies": "Reused existing installed tree with identical committed lockfile; no dependency installation or synchronization",
+  "resource_measurement": {
+    "instrument_seconds": 56.60728424999979,
+    "instrument_peak_group_rss_bytes": 631947264,
+    "diagram_render_seconds": 53.54955583400442,
+    "diagram_peak_group_rss_bytes": 151683072,
+    "sampling": "0.5 second process-group sampling; instantaneous peaks not guaranteed",
+    "cpu_time": "unknown",
+    "human_effort": "unknown",
+    "model_usage_and_money": "unknown"
+  },
+  "limits": [
+    "Exposed software controls, not independent task samples",
+    "No owner-cost advantage or deployment acceptance established",
+    "No new hardware, GPU or website deployment"
+  ],
+  "source_sha256": {
+    "tools/ui/build_system_catalog.py": "2bf39d2ba589e3c9038eca11bd21edb5858d2b0d0698140247479922bf7c0892",
+    "tests/ui_export/test_system_catalog.py": "dd555c5f622b15d29a92b661789eb4f77883b12337a7e12379160a1a54646eee",
+    "apps/instrument/package-lock.json": "90fd726b1cb6edd21249de0fb91ec214ecd570310694a2dec32fd27954093a37",
+    "README.md": "bac75cc85b4431e7c71aa1700677bee3128db5bf4b22de90fa9548aa83dffd37",
+    "docs/ARCHITECTURE.md": "d2cb1993cc7f4ed234757317de9d558fa97cb2dc259ab714a51ffdbaa7b0d978",
+    "src/nisayon/qualification/checks.py": "3844d424f8ae8114c8427815e8336083c2f3267c7ae8f2201e09831e8cdb13f6",
+    "src/nisayon/qualification/check_bundle.py": "b41d8f99501fc5f15ef06961ae9d7d5efd68d8cc5f3ed3805adb6bc2788bd3e8"
+  }
+}

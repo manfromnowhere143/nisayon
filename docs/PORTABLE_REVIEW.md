@@ -1,5 +1,13 @@
 # Review a qualification without its native environment
 
+Two existing record families have separate readers. Native software comparisons
+use `export` and `review` below. Reviewed dependency-check executions use
+`export-checks`, `review-check-bundle` and, in current source, `import-check-bundle`.
+The [check continuation contract](EVIDENCE_APPLICABILITY.md#continue-with-a-transported-evidence-root)
+requires an expected digest and a new private destination. Import executes no
+handler; a new execution must bind current inputs and perform required
+confirmation. Historical check packets still need their recorded checker.
+
 An engineer can run a native check locally and pass its evidence to a reviewer
 who has neither the owner project nor its robotics dependencies. The local SDK
 now exports that store into one file and recomputes its assessment from a

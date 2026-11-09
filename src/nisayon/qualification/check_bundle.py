@@ -9,6 +9,7 @@ from pathlib import Path
 from nisayon.engine.io import canonical_bytes, decode_json
 
 from .applicability import DependencyModel, EvidenceState, _artifact_bytes
+from .applicability import _sha as _validate_sha256
 from .bundle import (
     MAX_ARCHIVE_BYTES,
     MAX_FILE_BYTES,
@@ -143,11 +144,9 @@ def export_checks(*, evidence_root: Path, execution: Path, output: Path) -> dict
     }
 
 
-def inspect_check_bundle(path: Path) -> dict:
-    """Reconstruct the packaged records without native code or original paths."""
-    index, files, archive_sha = _read_bundle(path, schema=SCHEMA, identity_field="model_sha256")
+def _inspect_captured(index: dict, files: dict[str, bytes], archive_sha: str) -> dict:
     recorded = fields(
-        decode_json(files.pop("assessment.json")),
+        decode_json(files["assessment.json"]),
         {
             "schema",
             "execution_path",
@@ -166,7 +165,7 @@ def inspect_check_bundle(path: Path) -> dict:
         raise ValueError("Unsupported or mismatched check review identity")
     with tempfile.TemporaryDirectory(prefix="nisayon-check-review-") as temporary:
         root = Path(temporary)
-        _materialize(files, root)
+        _materialize({name: raw for name, raw in files.items() if name != "assessment.json"}, root)
         assessment = _review(root / "evidence", _name(recorded["execution_path"]))
     if assessment["model_sha256"] != index["model_sha256"]:
         raise ValueError("Check model identity mismatch")
@@ -180,4 +179,57 @@ def inspect_check_bundle(path: Path) -> dict:
         "assessment": assessment,
         "deployment_decision": "unresolved",
         "automatic_acceptance": False,
+    }
+
+
+def inspect_check_bundle(path: Path) -> dict:
+    """Reconstruct the packaged records without native code or original paths."""
+    return _inspect_captured(*_read_bundle(path, schema=SCHEMA, identity_field="model_sha256"))
+
+
+def import_check_bundle(path: Path, *, expected_sha256: str, output: Path) -> dict:
+    """Admit a pinned, reconstructed packet into a new private evidence root.
+
+    Only captured bytes are written; no owner code or original input path is
+    used. The caller must supply current inputs/model/handlers to execute anew.
+    A trusted destination parent is required. Failed writes may leave a partial
+    directory without a success result; choose a new destination for a retry.
+    This is not atomic crash recovery, authenticity or deployment acceptance.
+    """
+    _validate_sha256(expected_sha256)
+    target = output.absolute()
+    if target.exists() or target.is_symlink():
+        raise FileExistsError(target)
+    index, files, archive_sha = _read_bundle(path, schema=SCHEMA, identity_field="model_sha256")
+    if archive_sha != expected_sha256:
+        raise ValueError(
+            "check_bundle_digest_mismatch: captured archive differs from expected_sha256"
+        )
+    reviewed = _inspect_captured(index, files, archive_sha)
+    if reviewed["review_status"] != "verified":
+        raise ValueError(
+            "check_bundle_assessment_mismatch: recorded and reconstructed review differ"
+        )
+    assessment = reviewed["assessment"]
+    relative = assessment["execution_path"]
+    evidence = {
+        name.removeprefix("evidence/"): raw
+        for name, raw in files.items()
+        if name != "assessment.json"
+    }
+    # Exclusive creation also refuses a destination that appeared during review.
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.mkdir(mode=0o700)
+    _materialize(evidence, target)
+    return {
+        "schema": "nisayon.qualification.check_import.v1",
+        "bundle_sha256": archive_sha,
+        "model_sha256": assessment["model_sha256"],
+        "evidence_root": str(target),
+        "execution": str(target / relative),
+        "state_path": str(target / relative / "state.json"),
+        "record_review": assessment["review"]["status"],
+        "deployment_decision": "unresolved",
+        "automatic_acceptance": False,
+        "required_action": "bind_current_inputs_and_execute_new_output",
     }

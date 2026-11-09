@@ -1,0 +1,3742 @@
+{
+  "canonical": [
+    {
+      "path": "src/nisayon/__init__.py",
+      "sha256": "cbfdeedd1c89c6e07ed65060d7a11349cafd49fa392e25b1ecbafeaa20c047c6",
+      "bytes": 106,
+      "lines": 3,
+      "purpose": "Nisayon's local engineering tools. Product experiments are a separate layer.",
+      "entries": [],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/cli.py",
+      "sha256": "492edafc83227f6cc37fd90236e1704d5dd899aa99a35556fd2e3526881815e2",
+      "bytes": 5391,
+      "lines": 126,
+      "purpose": "One command surface for humans and both coding clients.",
+      "entries": [
+        {
+          "name": "parser",
+          "line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 53,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/__init__.py",
+      "sha256": "5dff8d4f2816a83bb555749ccdd0fe85d5be4275ed1f0911f85f40b07f9e740e",
+      "bytes": 69,
+      "lines": 1,
+      "purpose": "Simulator execution; acceptance belongs to nisayon.evaluation.",
+      "entries": [],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/agent_diagnostics.py",
+      "sha256": "622708370aa9873f65e1b917ea19f056dcd27454f0d5f1c3deadda76e26e4ef6",
+      "bytes": 24320,
+      "lines": 525,
+      "purpose": "Finite model-directed diagnostic requests over the existing Lift executor.",
+      "entries": [
+        {
+          "name": "response_schema",
+          "line": 43,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "checked_repair",
+          "line": 86,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "public_run",
+          "line": 109,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "diagnose",
+          "line": 123,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/assets.py",
+      "sha256": "abe702190c390bee65d3cb52b8887006ffaf1718f5082b4d061c528b09a645a9",
+      "bytes": 2356,
+      "lines": 57,
+      "purpose": "One public frozen policy; verify bytes before loading the upstream pickle.",
+      "entries": [
+        {
+          "name": "translate_checkpoint",
+          "line": 17,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "prepare_policy",
+          "line": 34,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/bounded_agent.py",
+      "sha256": "351067ab41d3482a259f103184968eb83a15c9efa2aa0aab95218f3ed0d926cb",
+      "bytes": 5837,
+      "lines": 173,
+      "purpose": "A finite JSON decision call for a development experiment, not a general planner.",
+      "entries": [
+        {
+          "name": "arguments",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "decide",
+          "line": 91,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/budgets.py",
+      "sha256": "9905bb0fc79da3512d20bdc16cec5445827c0aae1ba2c2efa4ad175645f580e5",
+      "bytes": 2714,
+      "lines": 68,
+      "purpose": "Equal diagnostic ceilings, with attempted slots and observed time explicit.",
+      "entries": [
+        {
+          "name": "BudgetExceeded",
+          "line": 11,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "DiagnosticLimits",
+          "line": 16,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "DiagnosticBudget",
+          "line": 35,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/cli_identity.py",
+      "sha256": "388d5cefe8a5c250951002c2890a06aa6157a43493aa2037853d20f97619359e",
+      "bytes": 4210,
+      "lines": 104,
+      "purpose": "Observe and bind the local Codex executable without making a model call.",
+      "entries": [
+        {
+          "name": "_file",
+          "line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "resolve_cli",
+          "line": 21,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "unchanged",
+          "line": 97,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/comparison_recovery.py",
+      "sha256": "65779b18abfffc0393cdda6e49f78d913a7638469ddcf5840da4009a5ee4021d",
+      "bytes": 6783,
+      "lines": 139,
+      "purpose": "Inspect complete and interrupted comparison trials without resuming physics.",
+      "entries": [
+        {
+          "name": "inspect_comparison",
+          "line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 126,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/conditions.py",
+      "sha256": "8126377b8826c83e6bbf8dd8133cea1e2fe75d6960c9b3cf462cad21c236b4bf",
+      "bytes": 8804,
+      "lines": 201,
+      "purpose": "Local development-condition reservations, not an evaluation isolation boundary.",
+      "entries": [
+        {
+          "name": "evidence_conditions",
+          "line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "consumed_history",
+          "line": 43,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reservation_directory",
+          "line": 104,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "reserve_fresh",
+          "line": 119,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_reservation",
+          "line": 171,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/configuration.py",
+      "sha256": "8a43db4a0e984a12982ad4a7d65ca9e18862b99e0d052353e158130e1d2f69dc",
+      "bytes": 3543,
+      "lines": 80,
+      "purpose": "Finite, inspectable deployment changes for development failure families.",
+      "entries": [
+        {
+          "name": "Deployment",
+          "line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "EpisodePrefix",
+          "line": 72,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_costs.py",
+      "sha256": "093bb80d0eee194c7b1458adfeae37fd2ecd3af62b757f6e7f6067e6d2db14fe",
+      "bytes": 6816,
+      "lines": 161,
+      "purpose": "Descriptive confirmation cost partitions; overlapping clocks are never added.",
+      "entries": [
+        {
+          "name": "measured",
+          "line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "total",
+          "line": 17,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "trial_costs",
+          "line": 26,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "reconcile",
+          "line": 69,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_pairs.py",
+      "sha256": "77dec95ed8be825cbf9adc0e9f31204e4aeb48b030f62613104e0432439581fb",
+      "bytes": 10293,
+      "lines": 223,
+      "purpose": "Complete producer-assigned pairs, including unusable and unmatched evidence.",
+      "entries": [
+        {
+          "name": "run_observation",
+          "line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "assigned_pairs",
+          "line": 83,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "iter_pairs",
+          "line": 207,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_service.py",
+      "sha256": "ecd1e1a5fc6c708afdae4acedbbee02423f4801e05a505c9978e406b0afa7d28",
+      "bytes": 14467,
+      "lines": 328,
+      "purpose": "Freeze and execute a shared finite confirmation obligation after selection.",
+      "entries": [
+        {
+          "name": "assignments_for",
+          "line": 26,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "history_references",
+          "line": 66,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "PreparedConfirmation",
+          "line": 82,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "prepare_confirmation",
+          "line": 92,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "execute_confirmation",
+          "line": 226,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/confirmation_view.py",
+      "sha256": "e74974ddb71dea90d4958b25f6d81284257f890161dc48b77eb1569e5a8a606b",
+      "bytes": 22653,
+      "lines": 489,
+      "purpose": "Read-only, source-bound confirmation evidence export. No robot execution.",
+      "entries": [
+        {
+          "name": "_json",
+          "line": 24,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "dependencies",
+          "line": 39,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "PinnedInputs",
+          "line": 57,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_bound_document",
+          "line": 96,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_raw_confirmation",
+          "line": 104,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_trial",
+          "line": 173,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "build_view",
+          "line": 312,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "validate_view",
+          "line": 398,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_export",
+          "line": 432,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 445,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/costs.py",
+      "sha256": "92979dfe563c44826b1728f8f3e869fb66d1154f053a580ab4cdd20056aca9e8",
+      "bytes": 4633,
+      "lines": 113,
+      "purpose": "Keep measured command costs, nested components and missing categories distinct.",
+      "entries": [
+        {
+          "name": "aggregate_commands",
+          "line": 38,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "command_ledger",
+          "line": 86,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/declarations.py",
+      "sha256": "5ab97c3232197ba9b627a0574329993d29573e981e5d195410d718f5748e7b16",
+      "bytes": 25253,
+      "lines": 574,
+      "purpose": "Retain one arm declaration before terminal evidence is consumed.",
+      "entries": [
+        {
+          "name": "DeclarationConflict",
+          "line": 41,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TerminalAlreadyStarted",
+          "line": 45,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "DeclarationBinding",
+          "line": 50,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_now",
+          "line": 72,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_sha",
+          "line": 76,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_write_once",
+          "line": 80,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_root",
+          "line": 101,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reference",
+          "line": 118,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_read_reference",
+          "line": 122,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_validate_payload",
+          "line": 135,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_attempt",
+          "line": 186,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_observed_time",
+          "line": 240,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_checked_declaration",
+          "line": 255,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_checked_start",
+          "line": 271,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_checked_result",
+          "line": 287,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "declare",
+          "line": 310,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "begin_terminal",
+          "line": 342,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "finish_terminal",
+          "line": 365,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inspect_declaration",
+          "line": 403,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/development.py",
+      "sha256": "29a3e3360edc3627a970093ece812c25664fd32410fd22f8c45bae390e46564d",
+      "bytes": 20931,
+      "lines": 492,
+      "purpose": "Run ten assigned development incidents with matched deterministic A/B procedures.",
+      "entries": [
+        {
+          "name": "shared_inputs",
+          "line": 36,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unknown",
+          "line": 62,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "trial_record",
+          "line": 66,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_assigned_case",
+          "line": 197,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "retained_history",
+          "line": 342,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 349,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/development_cases.py",
+      "sha256": "cbe87df824ee327bb93025f571380a663832dfff13236b70aa565788266f8f32",
+      "bytes": 4206,
+      "lines": 111,
+      "purpose": "Finite development assignments. Loading them never executes or scores a case.",
+      "entries": [
+        {
+          "name": "Incident",
+          "line": 19,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "load_suite",
+          "line": 95,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/development_diagnostics.py",
+      "sha256": "03f25f9cb58cc12840e61d001ade677990be02c72ec2b065ee07d8d1a45981c4",
+      "bytes": 13489,
+      "lines": 333,
+      "purpose": "Execute the same finite diagnostic procedure with ordinary or additional checks.",
+      "entries": [
+        {
+          "name": "plans_for",
+          "line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "measured_run_costs",
+          "line": 53,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "diagnostic_header",
+          "line": 93,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "diagnose",
+          "line": 122,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/diagnostics.py",
+      "sha256": "551d6dad0fc740b3d9e3b5732cf51bff71f62db4c685afceb3b91748fe46daef",
+      "bytes": 11264,
+      "lines": 283,
+      "purpose": "Competent ordinary diagnostics and a fixed, inspectable development selector.",
+      "entries": [
+        {
+          "name": "deployment_from_record",
+          "line": 25,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "configuration_difference",
+          "line": 35,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "known_correction",
+          "line": 47,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "separating_probes",
+          "line": 65,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_finite",
+          "line": 86,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "ordinary_checks",
+          "line": 90,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "select_next",
+          "line": 247,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/execution_store.py",
+      "sha256": "774529c3ddfd2674416e246e08f86a07e832191213cb63fd8e65c5a931417115",
+      "bytes": 7130,
+      "lines": 180,
+      "purpose": "Append execution intents before running, then seal immutable measured records.",
+      "entries": [
+        {
+          "name": "ExecutionStore",
+          "line": 20,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/family_calibration.py",
+      "sha256": "aa8a16883acddc261420c3be3763fdfe8f8902236b30b8014932b97e118454e0",
+      "bytes": 8967,
+      "lines": 229,
+      "purpose": "Execute declared timing/reset calibration probes; no scored incident claims.",
+      "entries": [
+        {
+          "name": "assignments",
+          "line": 24,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "summarize_run",
+          "line": 80,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 99,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/first_case.py",
+      "sha256": "76828320abf16175cfac8a646ebb57291d2465b3cd56d0a09c9bafe977023a0c",
+      "bytes": 13383,
+      "lines": 333,
+      "purpose": "Run the finite development case; external evaluation decides acceptance.",
+      "entries": [
+        {
+          "name": "qualification",
+          "line": 43,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 95,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/history.py",
+      "sha256": "7daee40bd7abbe121295602a9db4d48e1dc53af3d9572cc953b78312aeb3d6a0",
+      "bytes": 3054,
+      "lines": 78,
+      "purpose": "Retain explicitly supplied development history instead of ignoring missing inputs.",
+      "entries": [
+        {
+          "name": "retained_confirmation_sources",
+          "line": 13,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read_history",
+          "line": 35,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "retain_history",
+          "line": 47,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_history",
+          "line": 67,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/identity.py",
+      "sha256": "d5b96fc1cd04beeed40e2578244e95667405e8d568e9cd680cfdd800db152ac4",
+      "bytes": 3222,
+      "lines": 92,
+      "purpose": "Bind executions to measured local code, configuration and dependency identities.",
+      "entries": [
+        {
+          "name": "project_root",
+          "line": 21,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "code_identity",
+          "line": 25,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "dependencies",
+          "line": 53,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "invocation",
+          "line": 77,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/integrate.py",
+      "sha256": "69f674d06b2c670a499ce2d35f39caa4c72127f8adeceac4558f26931e7274ca",
+      "bytes": 6878,
+      "lines": 155,
+      "purpose": "Verify retained execution, then call the evaluation owner's public interface.",
+      "entries": [
+        {
+          "name": "evaluator_contract_probe",
+          "line": 19,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "integrate",
+          "line": 65,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 140,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/io.py",
+      "sha256": "b2a78c9358f2f4bcc0561761cb7c8fd15c85e58e3626853ece009df48ef684fb",
+      "bytes": 869,
+      "lines": 28,
+      "purpose": "Strict, portable evidence serialization without a simulator dependency.",
+      "entries": [
+        {
+          "name": "canonical_bytes",
+          "line": 8,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "digest",
+          "line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "file_digest",
+          "line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_json",
+          "line": 24,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/joint_case.py",
+      "sha256": "d3b6069d4efafc59f24cac399dd549be74bc01afda10cfef7488b9c26bc6b98d",
+      "bytes": 4813,
+      "lines": 135,
+      "purpose": "One command executes the frozen Lift case, integrates decisions and binds costs.",
+      "entries": [
+        {
+          "name": "main",
+          "line": 19,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/lift.py",
+      "sha256": "e20d3dcf9d9edda71fd96a1420b75c52e9134d420265ee93d2560fe96e6561c1",
+      "bytes": 21914,
+      "lines": 478,
+      "purpose": "Headless CPU Lift execution with fresh full resets and retained feedback.",
+      "entries": [
+        {
+          "name": "candidate",
+          "line": 38,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "execute_action",
+          "line": 50,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "plain",
+          "line": 65,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "state",
+          "line": 79,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "recurrent_state",
+          "line": 103,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "configure_controller_target",
+          "line": 110,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "LiftExecutor",
+          "line": 139,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/observations.py",
+      "sha256": "2f79aa8f80307aaa5703d9813c8c444ce880afb1e1e86d81f4915af09991fc14",
+      "bytes": 4009,
+      "lines": 108,
+      "purpose": "Timestamp actual robosuite sensor calls without changing their values.",
+      "entries": [
+        {
+          "name": "SensorStamp",
+          "line": 17,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "CapturedObservation",
+          "line": 25,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "SensorRecorder",
+          "line": 46,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/qualification.py",
+      "sha256": "2b4a7513bd41b4d4429317c3a55c1899a400bc49071a485de75a8e95381ab47a",
+      "bytes": 1877,
+      "lines": 46,
+      "purpose": "Declared execution premises shared by the measured development families.",
+      "entries": [
+        {
+          "name": "execution_qualification",
+          "line": 6,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/qualify_development.py",
+      "sha256": "10455333d464c1aebe4e4aa17d560c69fc59ab4abb51653656164f7c00d1f5d3",
+      "bytes": 2971,
+      "lines": 82,
+      "purpose": "Qualify selected diagnostic paths on known development conditions, without confirmation.",
+      "entries": [
+        {
+          "name": "main",
+          "line": 18,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/records.py",
+      "sha256": "24efc2daace5bb412e2c8a60852170dfc36b6f9e7d92c3150c1326ccb5165f96",
+      "bytes": 3772,
+      "lines": 135,
+      "purpose": "First-case JSON interface. These types describe evidence, not its acceptance.",
+      "entries": [
+        {
+          "name": "Cost",
+          "line": 12,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Artifact",
+          "line": 19,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TraceStep",
+          "line": 24,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Run",
+          "line": 55,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Plan",
+          "line": 95,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Case",
+          "line": 106,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Confirmation",
+          "line": 117,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Bundle",
+          "line": 127,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/recovery.py",
+      "sha256": "0ae37c53e19cdb66cbe372913daf37bdba06c4716f04be69959bd4b7bcd2b52f",
+      "bytes": 6993,
+      "lines": 159,
+      "purpose": "Inspect retained complete and interrupted assignments without rerunning them.",
+      "entries": [
+        {
+          "name": "inspect_execution",
+          "line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 138,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/retained_declarations.py",
+      "sha256": "1a0b4e08dedef4da1afa3d7d56af89b9e64359c19fbe43ddc3ae1acfc5118766",
+      "bytes": 25324,
+      "lines": 582,
+      "purpose": "Exercise declaration ordering on exposed native development records.",
+      "entries": [
+        {
+          "name": "_bytes",
+          "line": 34,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_read",
+          "line": 42,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_ref",
+          "line": 50,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_bound",
+          "line": 54,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_copy",
+          "line": 64,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_name",
+          "line": 76,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_demo",
+          "line": 82,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_packet",
+          "line": 274,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_costs",
+          "line": 304,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inspect_demo",
+          "line": 431,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_recovery",
+          "line": 531,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 549,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/robolab_record.py",
+      "sha256": "754c2066f97527a8af9e270ece35e2df073b08cfddd5fd35a8b3dd375f38c5cf",
+      "bytes": 24764,
+      "lines": 524,
+      "purpose": "Bounded numeric reader for the pinned RoboLab demonstration, without Isaac Sim.",
+      "entries": [
+        {
+          "name": "_dependencies",
+          "line": 52,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_json_value",
+          "line": 63,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_attributes",
+          "line": 77,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_mapping",
+          "line": 81,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read_record",
+          "line": 167,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read_sample",
+          "line": 437,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "compact_record",
+          "line": 484,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 495,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/screen.py",
+      "sha256": "e876ba3d02c2bd24b57ed93d7e9394d2068085bf8fd04f6754c63f6dcc510f7a",
+      "bytes": 8074,
+      "lines": 176,
+      "purpose": "Freeze the public execution harness; keep reserved trials closed without custody.",
+      "entries": [
+        {
+          "name": "runtime_capabilities",
+          "line": 39,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "prepare_package",
+          "line": 48,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "reserved_readiness",
+          "line": 95,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 143,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/store.py",
+      "sha256": "47ca92d0526cbd8a8298786d1dd20404a6cacb8099e7f536b60d77e869ef8776",
+      "bytes": 17899,
+      "lines": 372,
+      "purpose": "Portable, content-bound execution stores with strict relative paths.",
+      "entries": [
+        {
+          "name": "resolve_member",
+          "line": 15,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "create_manifest",
+          "line": 36,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_manifest",
+          "line": 53,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_require_equal",
+          "line": 91,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_execution",
+          "line": 96,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/engine/telemetry.py",
+      "sha256": "0eb2668b57167e7da68a02fbcb84b00be3a8cf7e3cde747ff94ed994f379df0e",
+      "bytes": 1656,
+      "lines": 43,
+      "purpose": "Declared measurement availability at the policy execution boundary.",
+      "entries": [
+        {
+          "name": "configuration",
+          "line": 18,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "capture_policy",
+          "line": 28,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "policy_digest",
+          "line": 35,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/__init__.py",
+      "sha256": "25009d0b6caff69b3b3dd2b597cb5fca61d29cfa8aa97b5b40a073bdbd6b7200",
+      "bytes": 821,
+      "lines": 27,
+      "purpose": "Evaluation of first-case exchange records: validity, outcome, confirmation, decision.",
+      "entries": [],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/__main__.py",
+      "sha256": "1d92d8755980daa1f696ce210c17d70977319d27553c2d0c4969ae1d262fb7cc",
+      "bytes": 15871,
+      "lines": 376,
+      "purpose": "Entry point: ``python -m nisayon.evaluation``.",
+      "entries": [
+        {
+          "name": "parser",
+          "line": 37,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 182,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/bundle.py",
+      "sha256": "90771a4774104c22074b4ddfa74922c8cda22de8b76cd5b2b04f1b526c8826e1",
+      "bytes": 2895,
+      "lines": 77,
+      "purpose": "A bundle directory holds one case, its runs, artifacts and confirmation.",
+      "entries": [
+        {
+          "name": "Bundle",
+          "line": 24,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "load_bundle",
+          "line": 36,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/case.py",
+      "sha256": "97f766a14084a942fceb8a1f6dfe875ea16418d8de71d6ed86ba8af884f534e0",
+      "bytes": 8032,
+      "lines": 218,
+      "purpose": "The case record: identities, declared predicates and repair scope.",
+      "entries": [
+        {
+          "name": "Threshold",
+          "line": 32,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Progress",
+          "line": 55,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Timing",
+          "line": 64,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Case",
+          "line": 73,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_threshold",
+          "line": 104,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_identity",
+          "line": 117,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_case",
+          "line": 127,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/checks.py",
+      "sha256": "817d4828ef6fff64f349b6857834efee399ce00923b958ebaee63d5f250e15b8",
+      "bytes": 42534,
+      "lines": 1031,
+      "purpose": "Per-run assessment: process, measurement validity, task outcome and cost.",
+      "entries": [
+        {
+          "name": "Finding",
+          "line": 78,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Step",
+          "line": 99,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Trace",
+          "line": 119,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "ArtifactMissing",
+          "line": 126,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "DigestMismatch",
+          "line": 130,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_parse_step",
+          "line": 134,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_parse_capture",
+          "line": 211,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missing",
+          "line": 241,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_trace",
+          "line": 250,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "TraceStore",
+          "line": 274,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "RunAssessment",
+          "line": 315,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_identity_matches",
+          "line": 391,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_parse_header",
+          "line": 395,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_structure",
+          "line": 548,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_chunks",
+          "line": 583,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_continuation",
+          "line": 622,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_candidate",
+          "line": 703,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_series",
+          "line": 750,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_threshold_status",
+          "line": 779,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_predicates",
+          "line": 791,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_timing",
+          "line": 849,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "assess_run",
+          "line": 968,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/codes.py",
+      "sha256": "955373db8b09071a54b6439adac545abb61835e2a6f4eae41caf2764b04fc426",
+      "bytes": 9105,
+      "lines": 212,
+      "purpose": "Reason codes for evaluation findings.",
+      "entries": [
+        {
+          "name": "strongest",
+          "line": 210,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/confirmation.py",
+      "sha256": "d7866db8aad8ac92062701cb41108b4b970c71fb0d371d2a227900896f450bb0",
+      "bytes": 27791,
+      "lines": 651,
+      "purpose": "The finite confirmation obligation for the first case.",
+      "entries": [
+        {
+          "name": "Pair",
+          "line": 51,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "ConfirmationAssessment",
+          "line": 67,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_violates",
+          "line": 107,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_prior_conditions",
+          "line": 121,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "assess_confirmation",
+          "line": 138,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_cancellation",
+          "line": 509,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_identity_binding",
+          "line": 554,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/controls.py",
+      "sha256": "b973bff6879c59f193c6ff93069a913d90a89c7f2cc2b7802982b28dbddcfcbe",
+      "bytes": 2143,
+      "lines": 53,
+      "purpose": "Run every synthetic scenario through the evaluator and compare with its expectation.",
+      "entries": [
+        {
+          "name": "check_scenario",
+          "line": 12,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_controls",
+          "line": 39,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/decision.py",
+      "sha256": "04584375d85cbb5413148a270c51dbb6ebe6edfcde8c70d370440eb437158e58",
+      "bytes": 44786,
+      "lines": 1045,
+      "purpose": "Combine run assessments and the confirmation into one scoped decision.",
+      "entries": [
+        {
+          "name": "_version",
+          "line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "evaluator_sources_sha256",
+          "line": 29,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "aggregate_costs",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_limits",
+          "line": 113,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "violates",
+          "line": 140,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "candidate_verdicts",
+          "line": 156,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "expand_history",
+          "line": 204,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_same_file",
+          "line": 224,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_traces_agree",
+          "line": 233,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_is_own_record",
+          "line": 251,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_parse_stamp",
+          "line": 281,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_frozen_after",
+          "line": 291,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_entry_frozen_at",
+          "line": 302,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_bare",
+          "line": 314,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_classify_history",
+          "line": 319,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "retained_protocols",
+          "line": 438,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "unreadable_history",
+          "line": 470,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "consumed_from_history",
+          "line": 498,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "history_consumption",
+          "line": 503,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inline_trace_digests",
+          "line": 550,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "native_bundle_digest",
+          "line": 563,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_evidence_summary",
+          "line": 573,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "evaluate_loaded",
+          "line": 644,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_evaluate_loaded",
+          "line": 673,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_evaluate_bundle",
+          "line": 986,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "evaluate_bundle",
+          "line": 1035,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/external.py",
+      "sha256": "52ee99aa71265271ac89353b7bc2fc163dafaf132b84a0b20f5e687f57101d12",
+      "bytes": 46382,
+      "lines": 1098,
+      "purpose": "Field assessment of an execution record against the confirmation obligation.",
+      "entries": [
+        {
+          "name": "_sha256",
+          "line": 61,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_rows_agree",
+          "line": 65,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "assess_inventory",
+          "line": 75,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_assessment",
+          "line": 535,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "native_inventory",
+          "line": 559,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inspect_robolab_hdf5",
+          "line": 660,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inventory_from_external_record",
+          "line": 915,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/first_case.py",
+      "sha256": "45a21bee3331accaefb0537045a9724467bb17e73608be61932514c3a2af0a45",
+      "bytes": 92712,
+      "lines": 2288,
+      "purpose": "Adapter for execution-lane bundles (``nisayon.first_case.v1``).",
+      "entries": [
+        {
+          "name": "producer_digest",
+          "line": 133,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "deployment",
+          "line": 140,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "known_deployments",
+          "line": 153,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "execute_action",
+          "line": 157,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reject_constant",
+          "line": 169,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read_document",
+          "line": 173,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_document",
+          "line": 186,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "is_first_case",
+          "line": 198,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sim",
+          "line": 208,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "wall",
+          "line": 212,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_finding",
+          "line": 216,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "deployment_components",
+          "line": 220,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "deployment_label",
+          "line": 266,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "obligation_version",
+          "line": 275,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_predicates",
+          "line": 289,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_repair_paths",
+          "line": 398,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_failure_obligation",
+          "line": 410,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_cost",
+          "line": 420,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_case",
+          "line": 428,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_translate_capture",
+          "line": 497,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_steps",
+          "line": 514,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_step",
+          "line": 646,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_verify_raw_artifacts",
+          "line": 651,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_verify_raw_trace",
+          "line": 736,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_index",
+          "line": 840,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_carried_prefix",
+          "line": 845,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_run_identity",
+          "line": 904,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_run",
+          "line": 935,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_parse_wall",
+          "line": 1341,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_frozen_identity",
+          "line": 1349,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate_confirmation",
+          "line": 1372,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "locate_frozen_protocol",
+          "line": 1572,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_frozen_protocol",
+          "line": 1579,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_frozen_run_configurations",
+          "line": 1690,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_manifest",
+          "line": 1734,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_cost_ledger",
+          "line": 1839,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_bundle_checks",
+          "line": 1883,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "translate",
+          "line": 1962,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_document_policy",
+          "line": 2165,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "evaluate_first_case",
+          "line": 2172,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "replay_control",
+          "line": 2213,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/fixtures.py",
+      "sha256": "5382abedb9c9e2b6348f3c7cc81304fa4d3351d1d4768be10d7bf1714e334aaf",
+      "bytes": 43442,
+      "lines": 1345,
+      "purpose": "Synthetic development fixtures for the evaluator.",
+      "entries": [
+        {
+          "name": "candidate_record",
+          "line": 59,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "wall",
+          "line": 83,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sim",
+          "line": 87,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "height_profile",
+          "line": 91,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "make_trace",
+          "line": 113,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "make_case",
+          "line": 193,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "make_run",
+          "line": 268,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "BundleData",
+          "line": 336,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "positive_bundle",
+          "line": 381,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "pretty",
+          "line": 479,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "trace_bytes",
+          "line": 483,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_bundle",
+          "line": 487,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "rewrite_trace",
+          "line": 508,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "Scenario",
+          "line": 520,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_chunked",
+          "line": 530,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reference_fails_one",
+          "line": 534,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_valid_prefix_reuse",
+          "line": 541,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_invalid_replay",
+          "line": 568,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_stale_unrepaired",
+          "line": 591,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_clock_after_action",
+          "line": 598,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_chunk_inconsistent",
+          "line": 605,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reset_incomplete",
+          "line": 612,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reset_mismatch",
+          "line": 618,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_suppression",
+          "line": 637,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_nan_after_write",
+          "line": 646,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unit_mismatch",
+          "line": 654,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missing_clock",
+          "line": 660,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missing_measurement",
+          "line": 666,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_condition_reused",
+          "line": 673,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_dropped_failure",
+          "line": 689,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unassigned_condition",
+          "line": 696,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_not_frozen",
+          "line": 708,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_precedes_freeze",
+          "line": 718,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_oracle",
+          "line": 738,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_outside_scope",
+          "line": 757,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_regresses_fresh",
+          "line": 763,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_constraint_violation",
+          "line": 769,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_corrupt_after_write",
+          "line": 776,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_remove_after_write",
+          "line": 781,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_relabelled_as_simulator",
+          "line": 785,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_timeout",
+          "line": 794,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_no_confirmation",
+          "line": 801,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_regression_not_reproduced",
+          "line": 815,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_identity_mismatch",
+          "line": 821,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_multiple_runs",
+          "line": 827,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_derived_control_on_confirmation_condition",
+          "line": 843,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_prior_consumed",
+          "line": 874,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict",
+          "line": 896,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_timing_unmeasured",
+          "line": 900,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_capture_inconsistent",
+          "line": 907,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_capture_after_action",
+          "line": 914,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_carried_policy_state",
+          "line": 923,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict_identity_unbound",
+          "line": 933,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict_identity_mismatch",
+          "line": 939,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict_reproduction_pre_freeze",
+          "line": 945,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict_deployability_undeclared",
+          "line": 955,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_legacy_deployability_assumed",
+          "line": 962,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_legacy_evaluator_added_predicate",
+          "line": 969,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_strict_evaluator_added_predicate",
+          "line": 976,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "scenario",
+          "line": 1325,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_scenario",
+          "line": 1332,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "synthetic_trace_digests",
+          "line": 1339,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/ledger.py",
+      "sha256": "c9ce218ea26977097e91fc52478032a3f60cba7d7711cea81e12be288aa80e34",
+      "bytes": 3801,
+      "lines": 94,
+      "purpose": "The evaluation lane's own cost ledger: measured evaluation walls, nothing invented.",
+      "entries": [
+        {
+          "name": "evaluation_ledger",
+          "line": 30,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/package.py",
+      "sha256": "a9d304ce4e2806cc7a9854ebb5c1274b3ee78c2fce73afa022dbced9e75ca557",
+      "bytes": 8094,
+      "lines": 195,
+      "purpose": "Checks on the execution lane's screen package (``nisayon.screen.execution-package.v1``).",
+      "entries": [
+        {
+          "name": "_finding",
+          "line": 41,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "check_package",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_package",
+          "line": 174,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/prospective.py",
+      "sha256": "44154b3ed1512da1c57472be69bf9029722643c8980c842a9663f13963dc3c3d",
+      "bytes": 93649,
+      "lines": 2032,
+      "purpose": "Prospective decision-quality scoring: an arm's declaration against a terminal reference.",
+      "entries": [
+        {
+          "name": "_norm",
+          "line": 130,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reference",
+          "line": 137,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_load_bound",
+          "line": 143,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_wall",
+          "line": 157,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_rate",
+          "line": 166,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "clopper_pearson",
+          "line": 170,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_writer_digest",
+          "line": 206,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_writer_reference",
+          "line": 429,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_observed",
+          "line": 441,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_assignment",
+          "line": 469,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_check_declaration_structure",
+          "line": 493,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_receipt",
+          "line": 556,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_derived",
+          "line": 606,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_link",
+          "line": 642,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_terminal_chain",
+          "line": 661,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_classify_reference",
+          "line": 802,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_adjudicate_refusal",
+          "line": 842,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_non_acceptance_state",
+          "line": 878,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_extra_receipts",
+          "line": 892,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "score_prospective",
+          "line": 973,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_costs_by_scope",
+          "line": 1561,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reading",
+          "line": 1699,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "packet_ledger",
+          "line": 1717,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "score_prospective_packet",
+          "line": 1820,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "score_prospective_file",
+          "line": 1842,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_fmt",
+          "line": 1854,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_prospective",
+          "line": 1864,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/prospective_fixtures.py",
+      "sha256": "bcafbe849643597cfb49f428cd7d615eb8d9adf2b4ec51423a23560af7764091",
+      "bytes": 53125,
+      "lines": 1579,
+      "purpose": "Labelled prospective-scoring fixtures: declaration receipts on the v1 scoring fixtures.",
+      "entries": [
+        {
+          "name": "configuration_for",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_default_spec",
+          "line": 66,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "prospective_ledger",
+          "line": 88,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_trial",
+          "line": 97,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "receipt",
+          "line": 101,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "terminal_records",
+          "line": 150,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "bind_result",
+          "line": 180,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_plus",
+          "line": 193,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_write",
+          "line": 199,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_prospective_ledger",
+          "line": 207,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "ProspectiveScenario",
+          "line": 251,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_contradicted",
+          "line": 261,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unsupported_unresolved",
+          "line": 268,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unsupported_invalid",
+          "line": 278,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reference_missing",
+          "line": 308,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_reference_corrupt",
+          "line": 320,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_tamper_a_d01",
+          "line": 324,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_correct_abstention",
+          "line": 331,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missed_own_reference",
+          "line": 341,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missed_paired_reference",
+          "line": 350,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_all_abstain",
+          "line": 361,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_zero_confirmed_claims",
+          "line": 375,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_missing_assigned_case",
+          "line": 383,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_candidate_mismatch",
+          "line": 391,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_declaration_ambiguous",
+          "line": 398,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_post_outcome_change",
+          "line": 405,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_retry_identical",
+          "line": 420,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_order_unverified",
+          "line": 427,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_terminal_binding_broken",
+          "line": 434,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_demonstration_scope",
+          "line": 440,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_partial_costs",
+          "line": 447,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_derived_v1",
+          "line": 456,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_arms",
+          "line": 460,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "build_derived_control",
+          "line": 640,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "binding_probe_control",
+          "line": 770,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "required_field_omission_control",
+          "line": 854,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "contract_mutation_control",
+          "line": 916,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_delete",
+          "line": 985,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_delete_in",
+          "line": 992,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_set",
+          "line": 999,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_set_in",
+          "line": 1006,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/report.py",
+      "sha256": "86a170d87f1e021b97ac81910a83c307327c11f5f884938be902308465a50477",
+      "bytes": 5990,
+      "lines": 128,
+      "purpose": "Plain-text rendering of decisions and control summaries.",
+      "entries": [
+        {
+          "name": "finding_codes",
+          "line": 6,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_text",
+          "line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_controls",
+          "line": 112,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/reserved.py",
+      "sha256": "e933e81b0504e5c4ad6c148cc9985c1e701029c62bdef452c2f5cedcda7661e4",
+      "bytes": 12995,
+      "lines": 337,
+      "purpose": "Checks for a future reserved evaluation, on openly labelled development examples.",
+      "entries": [
+        {
+          "name": "_wall",
+          "line": 50,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_manifest",
+          "line": 54,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "development_identifiers",
+          "line": 112,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_case_ids",
+          "line": 138,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "check_reserved",
+          "line": 156,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_reserved",
+          "line": 324,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/reserved_fixtures.py",
+      "sha256": "b0d5f0e126f245b0d27e58f663fd7b67e0d99b2b8a3281f3380c4122cd959453",
+      "bytes": 6906,
+      "lines": 225,
+      "purpose": "Openly labelled development examples for the reserved-screen checks.",
+      "entries": [
+        {
+          "name": "_sha",
+          "line": 21,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "case_bytes",
+          "line": 25,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "development_manifest",
+          "line": 40,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "development_ledger",
+          "line": 91,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_cases",
+          "line": 104,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "ReservedScenario",
+          "line": 112,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_ready",
+          "line": 120,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_shared_worktrees",
+          "line": 125,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_order_broken",
+          "line": 130,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_family_counts",
+          "line": 136,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_assignment_incomplete",
+          "line": 142,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_extra_case_in_ledger",
+          "line": 151,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "scenario_files",
+          "line": 204,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/retained.py",
+      "sha256": "15d8ca0612b59acedff0e1a9bcec7fd9e03eddf0dbdca3dd45c294cbbc711d36",
+      "bytes": 9016,
+      "lines": 222,
+      "purpose": "An index of the retained decisions and scores in a results directory.",
+      "entries": [
+        {
+          "name": "_premise",
+          "line": 14,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_codes",
+          "line": 24,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "collect_index",
+          "line": 34,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_index",
+          "line": 153,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/schema.py",
+      "sha256": "5d9728911ec9376f9b321932596097b1eb567e7bc0b59b8c532833e0ce4f01a7",
+      "bytes": 6930,
+      "lines": 197,
+      "purpose": "Strict parsing helpers for exchange records.",
+      "entries": [
+        {
+          "name": "Malformed",
+          "line": 22,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_reject_constant",
+          "line": 31,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_json",
+          "line": 35,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "canonical_json",
+          "line": 51,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "digest_of",
+          "line": 58,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sha256_bytes",
+          "line": 62,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "mapping",
+          "line": 66,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sequence",
+          "line": 72,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "require",
+          "line": 78,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "string",
+          "line": 84,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "optional_string",
+          "line": 93,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "finite",
+          "line": 101,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "integer",
+          "line": 109,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "boolean",
+          "line": 117,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "string_list",
+          "line": 124,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "number_list",
+          "line": 132,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "Quantity",
+          "line": 137,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "parse_quantity",
+          "line": 151,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_duration",
+          "line": 169,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_sim_time",
+          "line": 177,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_wall_time",
+          "line": 187,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/scoring.py",
+      "sha256": "7adab1539c83e6eae0b7382de41cecccf21f5e3fae315aacb61f992297aeb9a4",
+      "bytes": 43121,
+      "lines": 989,
+      "purpose": "Score an arm comparison ledger (``nisayon.comparison.v1``) without re-running anything.",
+      "entries": [
+        {
+          "name": "_digest_matches",
+          "line": 65,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_parse_trial",
+          "line": 71,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_interval",
+          "line": 186,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_same_digest",
+          "line": 201,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_verify_record",
+          "line": 207,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_binding_problem",
+          "line": 223,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_verify_decision",
+          "line": 277,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse_ledger",
+          "line": 361,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "verify_trial_decision",
+          "line": 443,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "score_comparison",
+          "line": 457,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "score_file",
+          "line": 916,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "render_score",
+          "line": 922,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/evaluation/scoring_fixtures.py",
+      "sha256": "ee045fc093a1c5bc314cc7f8ea92d973bb72ef464cf386bbeb48adf07fadc7f2",
+      "bytes": 14485,
+      "lines": 491,
+      "purpose": "Labelled scoring fixtures: one fair ledger and its adversarial variants.",
+      "entries": [
+        {
+          "name": "frozen",
+          "line": 27,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "decision_record",
+          "line": 38,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "stamp",
+          "line": 62,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "trial",
+          "line": 67,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "fair_ledger",
+          "line": 134,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "write_ledger",
+          "line": 266,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "ScoringScenario",
+          "line": 291,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_dropped_trial",
+          "line": 299,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_duplicated_trial",
+          "line": 309,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_frozen_differs",
+          "line": 315,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unmatched_agents",
+          "line": 321,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_agent_not_isolated",
+          "line": 334,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_agent_undeclared",
+          "line": 344,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_budget_exceeded",
+          "line": 351,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_confirmed_without_acceptance",
+          "line": 357,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_claimed_against_decision",
+          "line": 363,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_invalid_control_confirmed",
+          "line": 369,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unit_conflict",
+          "line": 383,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_nothing_confirmed",
+          "line": 389,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/mcp_server.py",
+      "sha256": "d4e8f3400d6e30070634d6db23886106527d56859f312cdbc7c1e415f96eb47f",
+      "bytes": 4629,
+      "lines": 133,
+      "purpose": "The official MCP SDK exposes the same functions as the local CLI.",
+      "entries": [
+        {
+          "name": "project_context",
+          "line": 33,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_map",
+          "line": 39,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_search",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_read",
+          "line": 51,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "memory_add",
+          "line": 57,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "memory_search",
+          "line": 72,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "checkpoint_save",
+          "line": 80,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "checkpoint_list",
+          "line": 94,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_list",
+          "line": 100,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_inspect",
+          "line": 106,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "workspace_doctor",
+          "line": 112,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "context_resource",
+          "line": 118,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "architecture_resource",
+          "line": 123,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "main",
+          "line": 127,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/records.py",
+      "sha256": "4c5ce945dc8b7eaa677da91ed2f59779888917fdd69eb5ce71b72f1dcf04a582",
+      "bytes": 5216,
+      "lines": 148,
+      "purpose": "Portable, append-only notes and checkpoints. No hidden memory service.",
+      "entries": [
+        {
+          "name": "now",
+          "line": 19,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "atomic_json",
+          "line": 23,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "validate_id",
+          "line": 40,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_records",
+          "line": 46,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "memory_add",
+          "line": 59,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "memory_search",
+          "line": 93,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "checkpoint_save",
+          "line": 111,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "context",
+          "line": 136,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/runs.py",
+      "sha256": "76cafe6e0ced1f0d38b5d26172ef14199dda15a754014fdcd6b1b23e2d0e6dce",
+      "bytes": 4900,
+      "lines": 132,
+      "purpose": "Run commands with recoverable process records, not scientific verdicts.",
+      "entries": [
+        {
+          "name": "_stop_group",
+          "line": 19,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_command",
+          "line": 36,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_list",
+          "line": 109,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "run_inspect",
+          "line": 120,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/workspace.py",
+      "sha256": "968cb35868444add2725ae2e163055c0f6e60281ce18c99943a0f95ba8fc4fd9",
+      "bytes": 6887,
+      "lines": 177,
+      "purpose": "Project identity, bounded navigation, and current-state inspection.",
+      "entries": [
+        {
+          "name": "git",
+          "line": 16,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_root",
+          "line": 27,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "local_path",
+          "line": 44,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read_file",
+          "line": 56,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "git_state",
+          "line": 79,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_map",
+          "line": 89,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "search",
+          "line": 111,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "doctor",
+          "line": 150,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    }
+  ],
+  "ui_export": [
+    {
+      "path": "src/nisayon/ui_export/__init__.py",
+      "sha256": "19a695e24b3ecbcee01e17cc588cacb2324c01e055c127247f170e9989594ef1",
+      "bytes": 107,
+      "lines": 3,
+      "purpose": "Read-only projections of retained experiments for the Nisayon instrument.",
+      "entries": [],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/bytes.py",
+      "sha256": "239120ba4a8e8ba2b0bacb58ec9c3f2cca1455d5889cf4a1d7afc632ddedd615",
+      "bytes": 2993,
+      "lines": 99,
+      "purpose": "Bounded bytes, exact-byte identities and strict JSON for the static boundary.",
+      "entries": [
+        {
+          "name": "ExportError",
+          "line": 14,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "sha256",
+          "line": 18,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "canonical",
+          "line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "finite",
+          "line": 29,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_pairs",
+          "line": 44,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "parse",
+          "line": 53,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "read",
+          "line": 64,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "decompress",
+          "line": 72,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "inside",
+          "line": 80,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "check_bytes",
+          "line": 95,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/contract.py",
+      "sha256": "b3fa8434fd6b32340ce852dde0a4abd230974c385a7dab6975af2bab281a2864",
+      "bytes": 6737,
+      "lines": 259,
+      "purpose": "Version-one wire objects. Numerical readings retain their source precision.",
+      "entries": [
+        {
+          "name": "Wire",
+          "line": 14,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "FileRef",
+          "line": 18,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Source",
+          "line": 27,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Locator",
+          "line": 36,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "RunKey",
+          "line": 42,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Memory",
+          "line": 47,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Sample",
+          "line": 56,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Samples",
+          "line": 70,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Node",
+          "line": 76,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Site",
+          "line": 82,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Geom",
+          "line": 88,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Model",
+          "line": 96,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Convention",
+          "line": 109,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Frame",
+          "line": 118,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Reconstruction",
+          "line": 129,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Finding",
+          "line": 142,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Run",
+          "line": 156,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Decision",
+          "line": 178,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Case",
+          "line": 194,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "CaseRef",
+          "line": 211,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Manifest",
+          "line": 217,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Discovery",
+          "line": 228,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Integrity",
+          "line": 233,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "LibraryEntry",
+          "line": 238,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "Library",
+          "line": 245,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "json_schema",
+          "line": 258,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/exporter.py",
+      "sha256": "1e5aaa60e65ffc9469407cca36461a46ad0531c2a272fc9cdad0af6f991f00a8",
+      "bytes": 12781,
+      "lines": 323,
+      "purpose": "Export a small real generation before extending the recorded case library.",
+      "entries": [
+        {
+          "name": "Store",
+          "line": 15,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "memory_state",
+          "line": 64,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sample",
+          "line": 72,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "findings",
+          "line": 106,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "sample_indexes",
+          "line": 157,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "export_runs",
+          "line": 179,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "export_d01",
+          "line": 236,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/kinematics.py",
+      "sha256": "f5bdf6efad8c8e205f6dd2b82d272cd9c2de60657b6889a67e7b4676027bb117",
+      "bytes": 7868,
+      "lines": 167,
+      "purpose": "Configuration-only MuJoCo derivation; no simulation, collision or inference.",
+      "entries": [
+        {
+          "name": "Kinematics",
+          "line": 11,
+          "kind": "ClassDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/library.py",
+      "sha256": "e69d2619ec2a1439b637866300e53fe39eb8e9c52a77d5e7307a122c72c311eb",
+      "bytes": 15582,
+      "lines": 380,
+      "purpose": "The six admitted, already observed development cases and their frozen decisions.",
+      "entries": [
+        {
+          "name": "Archive",
+          "line": 29,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_equal",
+          "line": 62,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_trial_bindings",
+          "line": 67,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "confirmation_projection",
+          "line": 109,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "replay_decision_source",
+          "line": 200,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "export_case",
+          "line": 251,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/selection.py",
+      "sha256": "878696504e83c52379e2c387c58c0100cba3c0a581946aa55ffaf4fd4a3cb0ec",
+      "bytes": 1587,
+      "lines": 38,
+      "purpose": "Exact recorded-time comparison. No interpolation, clamping or future extension.",
+      "entries": [
+        {
+          "name": "align",
+          "line": 7,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/semantics.py",
+      "sha256": "c1ae8592c018064a2ea71dd7cc18d1f0a650a7658a4657570859e2d8057086b4",
+      "bytes": 5341,
+      "lines": 118,
+      "purpose": "Cross-object bindings. These checks never choose an experiment decision.",
+      "entries": [
+        {
+          "name": "require",
+          "line": 6,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "check_context",
+          "line": 11,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/source.py",
+      "sha256": "d19710878c09d48787615c8ad20cced52526c22a97bba6b6ecf293832900044c",
+      "bytes": 7607,
+      "lines": 186,
+      "purpose": "Admit retained bytes before deriving a display. No acceptance logic lives here.",
+      "entries": [
+        {
+          "name": "producer_digest",
+          "line": 21,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "Sources",
+          "line": 27,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "admit_bundle",
+          "line": 50,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "admit_raw",
+          "line": 78,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "admit_row",
+          "line": 111,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "project_private_paths",
+          "line": 146,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "admit_decision",
+          "line": 162,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    },
+    {
+      "path": "src/nisayon/ui_export/validate.py",
+      "sha256": "843aed34147ee358c579e219ae813f9b707f2b218069b995ce00821f428d5f3f",
+      "bytes": 17638,
+      "lines": 413,
+      "purpose": "Validate the static trust boundary and exact moment locators, without a simulator.",
+      "entries": [
+        {
+          "name": "_require",
+          "line": 22,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_unique",
+          "line": 27,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "load_object",
+          "line": 31,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "validate_generation",
+          "line": 45,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_validate_sample",
+          "line": 230,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_validate_model",
+          "line": 333,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_validate_reconstruction",
+          "line": 357,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "select",
+          "line": 391,
+          "kind": "FunctionDef"
+        }
+      ],
+      "review_scope": "AST inventory; targeted interface and data-flow review described in README"
+    }
+  ]
+}
