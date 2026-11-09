@@ -46,7 +46,7 @@ an existing robotics environment by these commands.
 
 ## Run with the CLI
 
-Current GitHub source also provides a complete workflow command:
+Current source also provides a complete workflow command:
 
 ```sh
 .venv/bin/nisayon qualify owner-project/case.json \
@@ -90,9 +90,12 @@ of two inputs. The expected result is `software_decision: adopt`,
 `execution_validity: valid`, and `deployment_decision: unresolved`. The negative
 control reverses one action component; the assessor must detect it.
 
-Open `review-001.nisayon.zip` in the
+Tagged v0.2.0 packets and older `cpython_owner_reads_v1` plans can open in the
 [software review interface](https://nisayon.danielwahnich.dev/#view=qualify).
-The browser checks transport bytes and shows the saved assessment. The Python
+The current browser reader rejects `cpython_bound_reads_v2` and declared-check
+bundles. Review those with the current Python/CLI commands; their import into the
+browser needs separate qualification. For supported packets, the browser checks
+transport bytes and shows the saved assessment. The Python
 `review` command independently recomputes the assessment from retained records;
 this means a separate calculation, not an independent person or organization.
 Neither executes the owner project during review. Local file import is not an

@@ -7,6 +7,8 @@ admission, optional partial checks, unfinished-record validation and pinned
 portable continuation. The instrument, export contracts, tests and recorded
 fixtures join the same public source tree. The README, implementation diagrams,
 capability guide and research direction now describe that state together.
+Local main is reconciled; public main has not been advanced. Hosted operations
+are stopped at the operator's request, and the local Actions workflow is manual-only.
 
 The [source and validation record](experiments/results/main-refresh-2026-11-09/README.md)
 separates current checks from historical outcomes. This is a source update from

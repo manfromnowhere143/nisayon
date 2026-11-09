@@ -1,10 +1,58 @@
 {
-  "status": "local_checks_complete_aggregate_ci_required",
-  "as_of_utc": "2026-11-09T21:58:26.779327+00:00",
-  "canonical_source": "3347beb4862b12ff17a995fc8b999ab7b257e1ef",
+  "status": "local_qualification_record_hosted_operations_stopped",
+  "as_of_utc": "2026-11-09T22:26:30.497707+00:00",
+  "scope": "Curated public-source candidate; local updates after the published release branch are not pushed. Latest UI release archives require reconciliation before any later publication.",
+  "source_parent_before_local_integration": "e23faf1401f647200dc2e1eb66ee6671cd2a4a55",
   "public_parent": "d6fe9b24191c27cb6455a6baf05a86da99513f14",
-  "scope": "Integrated public candidate; code and docs source hashes below. Existing Linux/macOS CI must pass before public main advances.",
-  "passed": [
+  "source_sha256": {
+    "tools/ui/build_system_catalog.py": "2bf39d2ba589e3c9038eca11bd21edb5858d2b0d0698140247479922bf7c0892",
+    "tests/ui_export/test_system_catalog.py": "dd555c5f622b15d29a92b661789eb4f77883b12337a7e12379160a1a54646eee",
+    "apps/instrument/package-lock.json": "90fd726b1cb6edd21249de0fb91ec214ecd570310694a2dec32fd27954093a37",
+    "README.md": "a574f5d83185cc82557d1d438d33fa288bbb2f89c94b252e36ddde57c2ed402e",
+    "docs/ARCHITECTURE.md": "d0e772ed228a34024a68a807d14cf2c9ff42ccc74847169d93591d8e0830038d",
+    "src/nisayon/qualification/checks.py": "3844d424f8ae8114c8427815e8336083c2f3267c7ae8f2201e09831e8cdb13f6",
+    "src/nisayon/qualification/check_bundle.py": "b41d8f99501fc5f15ef06961ae9d7d5efd68d8cc5f3ed3805adb6bc2788bd3e8",
+    ".github/workflows/ci.yml": "36ab73690c0df85ed1d949ef660186333ec720659c24f4d100f1e3105634a178",
+    "docs/NATIVE_QUALIFICATION.md": "d423b02cd89cd9c99f984dfe1acc19db9bded6c8fa5bb4f80290c1a94bdda1d7",
+    "docs/PORTABLE_REVIEW.md": "0c6b70eee9e4c53099e38ff720760438540b498ab2328e855848bd16a1606d29",
+    "apps/instrument/src/qualification/bundle.ts": "f19e269eeeed2b44540a6f4be76b4f15916c0bf55b25ca6ef7ef08ba3d29b3e0",
+    "apps/instrument/src/research/navigation.ts": "9fb0c3d0196c078e7c7608310968f26ca1181e5a36e4812eceaf20bc1984a095",
+    "apps/instrument/src/ui/Identity.tsx": "8303c34640741cd0b9672618c8330d1ad685fb530782ccda78a16c45b8818922",
+    "apps/instrument/test/researchExperience.test.tsx": "ce370050244edd389248a509d40f0cc30db6f4d1e1ac34eeed3fef01b85c75f4",
+    "apps/instrument/src/styles/opening.css": "1ba7b9b2409d17b79a160889bbe116c1ad45129a7fe95d702fad428370aceaf5"
+  },
+  "project_suite": {
+    "assigned": 2649,
+    "outcomes": {
+      "passed": 2573,
+      "skipped": 76
+    },
+    "unique_assignment": true,
+    "all_collections_match_frozen_plan": true,
+    "group_wall_seconds": 526.7530544589972,
+    "peak_group_rss_bytes": 698384384,
+    "minimum_free_bytes": 5920870400,
+    "all_guards_completed": true,
+    "scope": "Full collected project suite in five disjoint sequential Python processes; not hosted CI or a single-process suite invocation",
+    "skip_summary": [
+      "SKIPPED [1] tests/engine/test_a1_runtime_assessor_integration.py:38: could not import 'torch': No module named 'torch'",
+      "SKIPPED [5] tests/evaluation/test_evaluation_a1_runtime_assessor.py:161: could not import 'torch': No module named 'torch'",
+      "SKIPPED [1] tests/engine/test_confirmation_view.py:288: Original raw store is local evidence, not a copied test fixture",
+      "SKIPPED [1] tests/engine/test_controller_target.py:69: could not import 'robosuite': No module named 'robosuite'",
+      "SKIPPED [1] tests/engine/test_processor_case.py:267: requires the locked simulation extra",
+      "SKIPPED [1] tests/engine/test_processor_case.py:339: requires the locked simulation extra",
+      "SKIPPED [36] tests/engine/test_rtc_followthrough_probe.py:22: source probe uses real CPU tensors",
+      "SKIPPED [12] tests/engine/test_rtc_snapshot_probe.py:32: source probe uses real CPU tensors",
+      "SKIPPED [2] tests/engine/test_rtc_snapshot_probe.py:46: source probe uses real CPU tensors",
+      "SKIPPED [1] tests/engine/test_rtc_snapshot_probe.py:56: source probe uses real CPU tensors",
+      "SKIPPED [1] tests/engine/test_run_a1_runtime.py:413: requires the locked simulation extra",
+      "SKIPPED [13] tests/evaluation/test_evaluation_a1_runtime_assessor.py:161: could not import 'torch': No module named 'torch'",
+      "SKIPPED [1] tests/evaluation/test_evaluation_processor_reference.py:95: could not import 'torch': No module named 'torch'"
+    ],
+    "model_tokens": "unknown; the planning ceiling was not instrumented",
+    "cpu_time_and_money": "unknown"
+  },
+  "focused_checks": [
     {
       "command": "python -m pytest tests/qualification/test_check_import.py tests/qualification/test_import_calibration.py tests/ui_export/test_system_catalog.py -ra --tb=short",
       "passed": 37,
@@ -16,71 +64,129 @@
       "passed": 4,
       "skipped": 0,
       "seconds": 0.02,
-      "overlaps": "Final metadata-label assertion, all four also in the 37-test group"
-    },
-    {
-      "command": "ruff check .",
-      "result": "passed"
-    },
-    {
-      "command": "ruff format --check .",
-      "files": 915,
-      "result": "passed"
-    },
-    {
-      "command": "python scripts/check_docs.py",
-      "documents": 337,
-      "mermaid_blocks": 17,
-      "errors": []
-    },
-    {
-      "name": "typecheck",
-      "command": [
-        "npm",
-        "run",
-        "typecheck"
-      ],
-      "returncode": 0,
-      "elapsed_seconds": 6.6954389169986825
-    },
-    {
-      "name": "instrument-tests",
-      "command": [
-        "npm",
-        "test",
-        "--",
-        "--maxWorkers=1"
-      ],
-      "returncode": 0,
-      "elapsed_seconds": 46.28272908300278
-    },
-    {
-      "name": "instrument-build",
-      "command": [
-        "npm",
-        "run",
-        "build"
-      ],
-      "returncode": 0,
-      "elapsed_seconds": 3.2269667079963256
+      "scope": "Final metadata-label assertion"
     }
   ],
+  "overlap": "Focused checks are part of the full project collection. Repeated frontend runs are regressions, not independent task samples.",
+  "instrument": {
+    "passed": 444,
+    "skipped": 0,
+    "checks": [
+      {
+        "name": "typecheck",
+        "command": [
+          "npm",
+          "run",
+          "typecheck"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 5.129617790982593
+      },
+      {
+        "name": "instrument-tests",
+        "command": [
+          "npm",
+          "test",
+          "--",
+          "--maxWorkers=1"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 43.008045333001064
+      },
+      {
+        "name": "instrument-build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "returncode": 0,
+        "elapsed_seconds": 2.978887041012058
+      }
+    ],
+    "resources": {
+      "disk_floor_bytes": 4294967296,
+      "rss_limit_bytes": 1073741824,
+      "seconds_limit": 480.0,
+      "initial_free_bytes": 6034923520,
+      "peak_group_rss_bytes": 822296576,
+      "minimum_free_bytes": 6027812864,
+      "stop_reason": null,
+      "returncode": 0,
+      "elapsed_seconds": 51.49821066702134,
+      "sampling_limit": "0.5 s polling; instantaneous peaks are not guaranteed"
+    },
+    "source_parent": "e23faf1401f647200dc2e1eb66ee6671cd2a4a55",
+    "last_runtime_change": "fd200b13d59d8904f4da199c6332eb590767886d"
+  },
+  "static_checks": [
+    {
+      "command": [
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.054186208988539875,
+      "result": "passed"
+    },
+    {
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "seconds": 0.047780666005564854,
+      "result": "passed"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/check_docs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.206133832980413,
+      "result": "passed"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.047954624984413385,
+      "result": "passed"
+    }
+  ],
+  "documentation": {
+    "documents": 337,
+    "mermaid_blocks": 17,
+    "errors": [],
+    "scope": "local file links and code fences; Mermaid rendering is separate"
+  },
   "diagrams": {
-    "mermaid_cli": "11.4.2",
+    "renderer": "mermaid-cli 11.4.2 with local Chrome",
     "themes": [
       "neutral",
       "dark"
     ],
     "blocks": 17,
     "renders_passed": 34,
+    "source_and_render_hashes_verified": true,
     "visual_review": [
-      "README overview, simplified after first render",
+      "Final README overview in both themes",
       "architecture declared checks and continuation",
       "evidence applicability",
       "native qualification",
       "investigation dispatch"
     ],
-    "rejected_render": "Initial README cycle was legible but unnecessarily sprawling; replaced with a compact overview. Detailed continuation remains in architecture."
+    "retained_rejected_renders": [
+      "Sprawling first overview",
+      "Wrapped overview cluster label overlapped nodes; shortened and rerendered"
+    ]
   },
   "incomplete_or_unrun": [
     {
@@ -98,45 +204,49 @@
       "initial_free_bytes": 4268871680
     },
     {
-      "check": "full local project suite",
+      "check": "single-process full local project suite",
       "result": "not_started",
-      "reason": "6 GiB launch headroom unavailable"
+      "reason": "6 GiB launch planning headroom unavailable; the complete collection was subsequently covered by five disjoint bounded groups"
     },
     {
       "check": "Linux/macOS public-source CI",
-      "result": "required_after_candidate_push_before_main_advances"
+      "result": "blocked_before_execution_then_operator_stopped_hosted_operations"
     }
   ],
+  "hosted_checks": {
+    "result": "blocked_before_execution",
+    "run_id": 42708040479,
+    "message": "The job was not started because your account is locked due to a billing issue.",
+    "operator_disposition": "Stop GitHub operations; finish and merge locally; make hosted workflow manual-only to avoid automatic failed runs. No hosted pass or removal of old results is claimed."
+  },
   "warnings": [
     "Existing Vite chunks over 500 kB",
     "Raw whole-diff whitespace findings in retained output and upstream license; scoped editable-source/prose check passed; original output not rewritten"
   ],
   "fixture_generator_equivalence": "AST equivalent after removing explicit existing zip(strict=False) default",
   "node_dependencies": "Reused existing installed tree with identical committed lockfile; no dependency installation or synchronization",
-  "resource_measurement": {
-    "instrument_seconds": 56.60728424999979,
-    "instrument_peak_group_rss_bytes": 631947264,
-    "diagram_render_seconds": 53.54955583400442,
-    "diagram_peak_group_rss_bytes": 151683072,
-    "sampling": "0.5 second process-group sampling; instantaneous peaks not guaranteed",
-    "cpu_time": "unknown",
-    "human_effort": "unknown",
-    "model_usage_and_money": "unknown"
+  "source_equivalence": {
+    "engine_test_and_core_scripts": 468,
+    "instrument_source_test_and_locks": 231,
+    "mismatches": []
   },
+  "costs": {
+    "project_group_wall_seconds": 526.7530544589972,
+    "final_instrument_wall_seconds": 51.49821066702134,
+    "all_attempts": "Earlier failed acquisition of headroom, interrupted suite, repeated instrument tests and diagram corrections remain retained separately. No complete cost or economic comparison is inferred.",
+    "human_effort": "unknown",
+    "model_usage_and_money": "unknown",
+    "cpu_time": "unknown"
+  },
+  "compatibility_limits": [
+    "Browser reader supports native bundle v1 with plan v1 or legacy owner_reads_v1; bound_reads_v2/check bundles require Python or CLI review.",
+    "No new Linux native-stack or physical device run."
+  ],
   "limits": [
     "Exposed software controls, not independent task samples",
     "No owner-cost advantage or deployment acceptance established",
-    "No new hardware, GPU or website deployment"
+    "No new hardware, GPU, native Linux environment or website deployment by the engine session",
+    "Current browser parser does not accept bound_reads_v2 or declared-check bundles; Python/CLI review remains the supported path"
   ],
-  "source_sha256": {
-    "tools/ui/build_system_catalog.py": "2bf39d2ba589e3c9038eca11bd21edb5858d2b0d0698140247479922bf7c0892",
-    "tests/ui_export/test_system_catalog.py": "dd555c5f622b15d29a92b661789eb4f77883b12337a7e12379160a1a54646eee",
-    "apps/instrument/package-lock.json": "90fd726b1cb6edd21249de0fb91ec214ecd570310694a2dec32fd27954093a37",
-    "README.md": "bac75cc85b4431e7c71aa1700677bee3128db5bf4b22de90fa9548aa83dffd37",
-    "docs/ARCHITECTURE.md": "d2cb1993cc7f4ed234757317de9d558fa97cb2dc259ab714a51ffdbaa7b0d978",
-    "src/nisayon/qualification/checks.py": "3844d424f8ae8114c8427815e8336083c2f3267c7ae8f2201e09831e8cdb13f6",
-    "src/nisayon/qualification/check_bundle.py": "b41d8f99501fc5f15ef06961ae9d7d5efd68d8cc5f3ed3805adb6bc2788bd3e8"
-  },
-  "public_source_revision": "15c1d362cd1b994d046140b1dbfe49af6ba6953e",
-  "inventory_identity": "The committed inventory identifies this source revision; subsequent build regenerates it for its current checkout. Every listed module also carries its content digest."
+  "inventory_identity": "The generated inventory is refreshed after committing the source. Every listed module also carries its content digest."
 }

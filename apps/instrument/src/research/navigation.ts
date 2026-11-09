@@ -103,8 +103,8 @@ export function researchHash(route: ResearchRoute): string {
   }
   return `#${p}`;
 }
-export function openResearch(): void {
+export function openResearch(surface: ResearchRoute["surface"] = "research"): void {
   window.dispatchEvent(
-    new CustomEvent("nisayon:navigate", { detail: "research" }),
+    new CustomEvent("nisayon:navigate", { detail: surface }),
   );
 }

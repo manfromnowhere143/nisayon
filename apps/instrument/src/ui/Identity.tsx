@@ -52,7 +52,7 @@ export function Identity({ generation, caseRecord, active = true }: Props) {
       ) : null;
   return (
     <header ref={header} className="identity">
-      <a className="identity-brand" href="/" aria-label="Nisayon home" onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) { event.preventDefault(); store.setDepth("moment"); } }}><BrandMark /><span>Nisayon</span></a>
+      <a className="identity-brand" href="/" aria-label="Nisayon home" onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) { event.preventDefault(); openResearch("home"); } }}><BrandMark /><span>Nisayon</span></a>
       <div className="identity-main">
         <span className="identity-case">
           {caseRecord.case_id}
@@ -74,7 +74,7 @@ export function Identity({ generation, caseRecord, active = true }: Props) {
       {active && controls ? <GlassCard title="Workspace controls" onClose={() => setControls(false)}><div className="identity-side">
         {caseSelector ? <section className="workspace-recording" aria-label="Choose a recorded experiment"><p className="eyebrow">Recorded experiment</p>{caseSelector}</section> : null}
         <AppAccessButton />
-        <button type="button" className="chip research-open" onClick={openResearch}>Investigate ↗</button>
+        <button type="button" className="chip research-open" onClick={() => openResearch()}>Investigate ↗</button>
         <button type="button" className="chip study-open" aria-haspopup="dialog" onClick={() => store.openStudy()}>{state.study?.pin ? "Return to study ↗" : "Study ↗"}</button>
         {currentExport && currentExport.generation !== generation.sha256 ? <button type="button" className="chip export-update" onClick={() => store.selectLibraryCase(currentExport.caseKey)} title="Open the generation currently listed by the export catalog. Back returns to this pinned moment.">Open current export ↗</button> : null}
         {fixture ? (

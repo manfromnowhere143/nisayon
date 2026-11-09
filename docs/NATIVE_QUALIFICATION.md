@@ -16,7 +16,7 @@ outputs on CPython 3.12 or 3.13. It can qualify exact or numerical relations on
 the frozen probes. Deployment acceptance remains `unresolved`: this adapter
 does not execute a policy in a closed loop or satisfy a fresh task obligation.
 The [implementation and comparison record](experiments/results/native-sdk-2026-10-23/README.md)
-retains the measured results and limits. The [owner comparison](OWNER_COMPARISON.md)
+retains measured results and limits. The [owner comparison](OWNER_COMPARISON.md)
 sets out the separate prospective value test.
 
 ## Reuse an executable domain contract
@@ -28,7 +28,7 @@ These interfaces are absent from the tagged v0.2.0 wheel. Native task records
 and native execution have distinct measurement premises; neither grants
 deployment acceptance.
 
-The unreleased [explicit applicability planner](EVIDENCE_APPLICABILITY.md)
+The current-source [explicit applicability planner](EVIDENCE_APPLICABILITY.md)
 connects observations, scores, confirmation and review to their declared
 dependencies. It explains required checks without changing `assess_reuse` or
 granting acceptance. The published v0.2.0 wheel does not include this addition.
@@ -90,12 +90,6 @@ read-only transfer, with software and deployment decisions still separate.
 
 ## Python interface
 
-Current-source plans use `cpython_bound_reads_v2`. If the bounded Python audit
-hook observes an external read that is not bound by the plan, the result stays
-unresolved with `unbound_external_read`. Legacy plans retain their explicit
-policy and are not granted this newer guarantee. The hook does not cover every
-native-library, subprocess, environment or network input.
-
 For a reviewed external calibration file, use the existing
 [declared-check example](../examples/qualification/executable_checks/README.md):
 declare provenance and permitted use prospectively, pin the expected bytes,
@@ -147,7 +141,8 @@ flowchart TB
     A --> T["Deployment: unresolved<br/>fresh task obligation remains"]
 ```
 
-An undeclared owner read or an incomplete read witness prevents acceptance.
+An undeclared owner read, an unbound external read or an incomplete read witness
+prevents acceptance under the current read policy.
 A declared input change invalidates reuse of the old observations and verdict;
 it can leave the procedure reusable. The witness covers bounded CPython read
 attempts under the [stated premises](#declare-a-checkable-question), not every
@@ -173,12 +168,32 @@ ambiguous relative `os.open` paths, owner-path aliases, observed owner reads fro
 another thread and exceeded event/path limits return `unresolved`. Ordinary
 relative Python `open` paths use the worker's current directory. Write-only
 opens are counted separately. The bound is 32,768 open events and 1,024 distinct
-owner read paths per call. A project-local Python environment remains excluded
-unless its files were explicitly declared; environment identity still applies.
+owner read paths per call. Files within the frozen interpreter library roots,
+including a project-local environment, remain covered by the environment premise
+unless explicitly declared. Both the opened path and its resolved destination
+must stay within the library root. A library root containing the owner project
+does not exempt the owner's own files.
 
-Dependency completeness remains a premise. File access outside the owner root
-is counted without retaining private host filenames. Native C I/O, variables,
-remote services, child processes and device state are not traced. Background
+New plans use `cpython_bound_reads_v2`. Observed read attempts outside both the
+owner directory and the frozen interpreter library roots now return
+`unbound_external_read`, including missing-file attempts. Private host paths and
+contents are not copied into the witness. To qualify an external data dependency,
+make it an explicit input within the owner project and execute a new plan.
+
+The worker uses a separate, initially absent bytecode-cache prefix. Python's
+attempts to read missing `.pyc` files there are counted separately. The prefix
+must remain absent; creating or aliasing it invalidates the witness. This permits
+ordinary imports without exempting actual data placed in the cache.
+
+Legacy `cpython_owner_reads_v1` packets remain readable under their original
+owner-only scope, which counted external opens without refusing them. They cannot
+supply evidence for the new read policy. Portable review reports the retained
+policy; an old `adopt` must not be described as satisfying the newer boundary.
+
+Dependency completeness remains a premise. Library identity still covers package
+records rather than verifying every library file. Native C I/O, variables,
+metadata-only filesystem queries, remote services, child processes and device
+state are not traced. Background
 work after the synchronous call is outside the observation window. Before/after
 hashes do not establish an atomic snapshot or detect a transient change that is
 restored before the final hash. Inputs must remain stable during the call.

@@ -1,8 +1,9 @@
 # Current engine, instrument and source review
 
-9 November 2026. This update reconciles the validated local engine and instrument
-with public source, updates their diagrams and preserves the original research
-boundaries. Public history continues from `d6fe9b24191c27cb6455a6baf05a86da99513f14`.
+Prepared 9 November and qualified locally on 10 November 2026. This public-source
+candidate reconciles the engine and instrument, updates their diagrams and
+preserves the original research boundaries. Its history descends from
+`d6fe9b24191c27cb6455a6baf05a86da99513f14`; public main was not advanced.
 Private development ancestry, correspondence, session memory, credentials and
 reserved answers are not part of the publication.
 
@@ -80,6 +81,11 @@ Recorded motion, reconstructed geometry and cinematic imagery have distinct
 meanings. The instrument has no live robot-control or general experiment-launch
 connection. Display geometry retains its upstream license and attribution.
 
+The current browser reader supports the older native bundle and read-policy
+formats. It explicitly refuses bound-read v2 and declared-check bundles; these
+use Python/CLI review. The architecture and quickstart now state this integration
+boundary. No unqualified browser acceptance was added.
+
 The retained mobile release passed 443 frontend tests, TypeScript and production
 build checks. Its production readback verified 85 exact files and 432 checks.
 The later removal of the opening theme control passed 33 relevant tests and
@@ -119,8 +125,17 @@ explicit `--engine` without silently falling back. Four controls cover those
 paths, including an unrelated older sibling and a missing explicit source.
 The actual standalone production build now succeeds.
 
-Local candidate checks passed: 37 focused Python tests, all 443 instrument tests,
-TypeScript, production build, Ruff lint/format and documentation links. The final
+The final local project collection contains 2,649 cases. Five disjoint sequential
+Python processes completed **2,573 passes and 76 explicit skips**, with no omitted
+or duplicate assignments and every group matching its frozen collection. This
+is a complete grouped run, not a single-process invocation or hosted CI. The
+latest integrated instrument passed **444 tests**, TypeScript and its production
+build. The [assignment](test-partitions.json) and [results](test-results.json)
+retain the exact scope; earlier focused counts below overlap this run.
+
+Earlier candidate checks passed 37 focused Python tests and 443 instrument tests;
+these overlap the complete and later 444-test runs. TypeScript, production build,
+Ruff lint/format and documentation links pass in this curated source tree. The final
 catalog-only repeat passed four tests; these overlap the 37. All 17 Mermaid
 blocks rendered in light and dark themes. The overview and changed mechanism
 diagrams received visual inspection. The build retains its existing warning for
@@ -128,13 +143,15 @@ two chunks larger than 500 kB.
 
 The broader local Python attempt was interrupted by the unchanged 4 GiB disk
 floor; its first focused retry was refused before execution for the same reason.
-Neither is a test pass. The full project suite remains a separate Linux/macOS CI
-gate before advancing public main. Raw whitespace findings are confined to
+Neither is a test pass. The hosted Linux/macOS jobs could not start because of an account billing
+lock. At the operator’s instruction, GitHub operations stopped; local integration
+and resource-bounded qualification continue. The local workflow is manual-only;
+no hosted CI pass or removal of historical failures is claimed. Raw whitespace findings are confined to
 retained output and the supplied license; source and edited prose pass the
 scoped diff check. Historical output bytes are preserved.
 
 No new robot experiments, owner trial, GPU allocation, package release or website
-deployment occurred. Human effort, model usage, CPU time and monetary cost were
+deployment were performed by this engine session. Human effort, model usage, CPU time and monetary cost were
 not completely measured; unknown quantities are not zero. See the
 [machine-readable local validation](validation.json) for commands, resource
 measurements and source boundaries.
@@ -155,7 +172,8 @@ npm run check
 ```
 
 The base Python profile reports optional runtime and unavailable historical-store
-skips. The CI native group separately exercises its pinned MuJoCo profile.
+skips. The manual CI native group is configured for its pinned MuJoCo profile; it did
+not execute in this cycle.
 The application build regenerates its current source inventory; it does not
 reproduce old robot trials. Local source integration, public Git publication,
 package tagging, website deployment and scientific acceptance remain separate.

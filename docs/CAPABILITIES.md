@@ -66,7 +66,7 @@ records controls, failures, costs and remaining assumptions. The
 | Complete-cost comparison | `nisayon.engine.cost_target`, evaluation cost modules and [cost target](COST_TARGET.md) | Unknowns and false acceptances retained; twofold savings unproven |
 | Training continuation investigations | [retained continuation](experiments/results/native-continuation-2026-10-24/README.md) | Source-specific experiments; no generic training service in the SDK |
 | Workspace and shared memory | `nisayon`, `nisayon-mcp` | Repository context, retained command attempts, notes and checkpoints |
-| Browser instrument | [Nisayon](https://nisayon.danielwahnich.dev/) | Recorded experiments and local review; no live execution connection |
+| Browser instrument | [Nisayon](https://nisayon.danielwahnich.dev/) | Recorded scenes and older native packets; current bound-read/check bundles require Python/CLI review |
 
 The complete code map and scientific boundaries are in
 [architecture](ARCHITECTURE.md). The [9 November research assessment](FRONTIER_REVIEW_2026-11-09.md)

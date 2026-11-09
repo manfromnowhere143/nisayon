@@ -266,6 +266,34 @@ it("leaves an invalid view explicit instead of showing a different investigation
   expect(document.documentElement.dataset.surface).toBe("research");
 });
 
+it("returns from the lab logo to the opening and preserves the recorded moment through history", async () => {
+  vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
+  await mount();
+  await click(button("Investigate"));
+  await waitFor(() => !!host.querySelector(".transport"));
+  await act(async () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true })));
+  const moment = location.search;
+  const app = host.querySelector(".app");
+  await act(async () => host.querySelector<HTMLAnchorElement>(".identity-brand")!.click());
+  expect(host.querySelector(".opening")).not.toBeNull();
+  expect(new URLSearchParams(location.hash.slice(1)).get("view")).toBe("home");
+  expect(location.search).toBe(moment);
+  expect(host.querySelector(".retained-lab")?.hasAttribute("inert")).toBe(true);
+  expect(host.querySelector(".app")).toBe(app);
+  expect(document.activeElement).toBe(host.querySelector(".opening h1"));
+  await act(async () => history.back());
+  await waitFor(() => !host.querySelector(".opening"));
+  expect(location.search).toBe(moment);
+  expect(host.querySelector(".retained-lab")?.hasAttribute("inert")).toBe(false);
+  await act(async () => history.forward());
+  await waitFor(() => !!host.querySelector(".opening"));
+  await click(button("Open Nisayon"));
+  expect(host.querySelector(".opening")).toBeNull();
+  expect(host.querySelector(".app")).toBe(app);
+  expect(location.search).toBe(moment);
+  expect(host.querySelector(".transport-row")?.textContent).toContain("1");
+});
+
 it("hides a previous catalog immediately and ignores a superseded load", async () => {
   let resolveOld!: (value: ResearchCatalog) => void;
   const pending = new Promise<ResearchCatalog>((resolve) => {

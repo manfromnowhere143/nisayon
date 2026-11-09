@@ -1,5 +1,11 @@
 # Development
 
+Hosted checks currently run only through manual dispatch, following the operator's
+10 November instruction to stop automatic Actions runs. Pushes and pull requests
+do not trigger them. Use the local checks below; a missing hosted result is not
+a passing result. Restore automatic triggers only when hosted execution is available
+and the operator resumes it.
+
 The repository contains workspace tools, bounded experiment engines, the native
 qualification SDK and a browser instrument. The first joint case and two development comparisons are implemented
 and measured. Neither comparison demonstrates an efficiency advantage; the
@@ -134,8 +140,9 @@ a different path. Moving it requires reinstalling the symlinks deliberately.
 
 The frontend is included in current source with its lockfile and retained public
 fixtures. From `apps/instrument`, run `npm ci`, then `npm run check` using the
-pinned CI Node version. The Python `make check` and frontend checks run on both
-Linux and macOS CI. Native MuJoCo controls use the separate locked native group.
+pinned CI Node version. The manual workflow configures Python `make check` and frontend checks on both
+Linux and macOS. Its native MuJoCo controls use the separate locked native group.
+These hosted jobs did not execute in the current reconciliation.
 See the [application guide](../apps/instrument/README.md) for local preview and
 for the difference between recorded evidence and cinematic imagery.
 

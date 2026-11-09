@@ -80,7 +80,7 @@ proposed.
 flowchart TB
     accTitle: Implemented qualification paths and the next value test
     accDescr: Three bounded paths retain their own evidence: closed-loop task experiments, native software comparisons, and declared dependency checks. Records support scoped portable review and browser inspection. Declared-check packets can continue through pinned import, current input binding and required fresh confirmation. Owner savings and repeat use on an untouched incident remain to establish.
-    subgraph B["Implemented paths · distinct acceptance rules"]
+    subgraph B["Implemented paths"]
         L["Closed-loop task experiments<br/>fresh paired confirmation"]
         N["Native software comparisons<br/>source, inputs and read witnesses"]
         Q["Declared dependency checks<br/>capture · reuse · recompute<br/>withhold affected checks"]
@@ -89,7 +89,7 @@ flowchart TB
     N --> H
     Q --> H
     H --> R["Portable review<br/>scoped result or unresolved"]
-    H --> V["Browser instrument<br/>recorded evidence and local review"]
+    H -- "supported record formats" --> V["Browser instrument<br/>recorded scenes and legacy native review"]
     R --> I["Continue declared-check packets<br/>pinned import · bind current inputs<br/>execute required fresh confirmation"]
     R -. "next value test" .-> O["Owner comparison<br/>matched decisions · complete costs"]
     O -. "freeze procedure, then test" .-> T["Separately selected untouched incident"]
@@ -148,7 +148,7 @@ Pinned import reconnects a portable packet to a new execution with current
 inputs and mandatory fresh confirmation.
 
 The complete qualification suite passed 974 tests with zero skips before this
-source publication. Three exposed calibration continuations distinguish valid
+source refresh. Three exposed calibration continuations distinguish valid
 reuse, stale-pin refusal and a freshly tested rejected candidate. These controls
 do not establish complete dependency discovery, owner savings or deployment
 acceptance. [Inspect the implementation, controls and limits](docs/experiments/results/main-refresh-2026-11-09/README.md).

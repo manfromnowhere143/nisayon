@@ -235,6 +235,10 @@ flowchart TB
 | Pinned portable continuation | [Transport and import](../src/nisayon/qualification/check_bundle.py), [import controls](../tests/qualification/test_check_import.py), [calibration continuation](../tests/qualification/test_import_calibration.py) |
 | Evidence instrument | [Application](../apps/instrument/README.md), [export contracts](../src/nisayon/ui_export/contract.py), [tests](../tests/ui_export/) |
 
+The browser currently displays recorded scenes and older native comparison
+packets. Bound-read v2 and check bundles remain Python/CLI review paths; see
+[the browser format boundary](PORTABLE_REVIEW.md#connect-the-instrument).
+
 The expected digest establishes byte identity, not truth or permission. A new
 execution supplies current inputs and trusted code; importing a bundle does not
 transfer a decision. Native/subprocess I/O, mutable state, environment, timing,

@@ -91,14 +91,14 @@ procedures across deployment changes. Applicability checks, fresh task
 confirmation and complete owner effort remain required; no new acceptance
 rule or independent reuse result follows.
 
-## Current roadmap
+## Retained roadmap and later corrections
 
 | Stage | State and decision |
 |---|---|
-| Bounded execution, confirmation and native software qualification | Implemented and tested within the retained scopes. N020–N039 and N041–N045 are complete; N040 invitations await interest. No product advantage is established. |
+| Bounded execution, confirmation and native software qualification | Implemented and tested within the retained scopes. N020–N039 and N041–N045 are complete; N040 received interest later, but no current owner case is admitted. No product advantage is established. |
 | Whole-system and current-frontier reassessment, N038 | [Completed](FRONTIER_DECISION_2026-10-14.md): advantage unresolved; qualify specific changes within the owner's native workflow. Arisole 0.1.5 identity coverage improves from 34/56 to 56/56 software controls with a local patch; 38 original tests pass. Adoption and economic value remain unproved. |
 | Reusable distinguishing experiments, N039 | [Bounded mechanism implemented](experiments/results/identifiability-001/README.md): preserve ambiguous declared hypotheses and choose exact minimum-cost separating probes from a finite pool. Six constructed mechanisms identified; competent conventional selection ties at six software observations. Reuse and complete-cost value need a new owner case. |
-| Targeted owner recruitment, N040 | Two researched, approved invitations sent and verified. Awaiting interest and existing records; neither prospect is enrolled. No task comparison or reuse result. |
+| Targeted owner recruitment, N040 | Two researched, approved invitations sent and verified. Interest was received after this table’s original observation; current permitted records and enrollment remain outstanding. No task comparison or reuse result. |
 | Current primary research and proxy qualification, N041 | [Completed](experiments/results/n041-decision-value-2026-10-15/README.md): nine papers, revisions through 14 October; CureWM's unchanged 20 checks and 11 independent controls pass, with all 12 published scalar cells matched. A low failure-optimism score can also reject nearly all successful actions. Retain decision value and fresh confirmation; no robot result or economic advantage follows. |
 | Bounded probes for a declared correction choice, N042 | [Implemented](experiments/results/decision-probes-001/README.md): distinguish different decision labels and preserve causal ambiguity. All 25 new and 20 existing controls pass. Constructed decision cost one versus four for full cause identification; competent conventional decision calculation ties at one. No owner savings or reuse evidence. |
 | Presentation and continuation, N043 | README, diagrams and experiment index reconciled through N042. The current handoff separates completed work, pending engagements and the next owner evidence; historical assignments remain archived. Documentation adds no scientific result. |
@@ -114,7 +114,7 @@ engineers. Their adoption does not by itself establish demand for that broader
 engine. The reassessment must be willing to narrow, redirect or reject a product
 premise while preserving useful capabilities and the broader mission.
 
-The latest retained readback covers the prior 19 GitHub threads on **16 October**,
+The historical readback covers 19 GitHub threads on **16 October**,
 completed at **06:55 UTC** after two targeted retries. No substantive changes;
 one synthetic merge preview hash changed with PR head and unmerged state unchanged.
 The two additional owner discussions were unchanged at **06:53 UTC**; both email
@@ -165,7 +165,11 @@ the documented seven-value schema and existing native validator. Original:
 9/22 declared controls pass; a four-line correction passes 22/22 and preserves
 all six joint-space outputs. One import failure is retained as invalid setup,
 with no case executed. A correction and executed reproduction were delivered in
-one verified issue; adoption remains unknown. This is source-derived software
+one verified issue. The later retained 17 October observation records the
+maintainer’s merge of [PR 181](https://github.com/XPolicyLab/XPolicyLab/pull/181)
+at `94dbf9505f2f87cf59c3ee8ba5912cd236781771`, with all 22 exposed CPU
+controls passing again. Adoption supersedes the earlier unknown state; this is
+source-derived software
 coverage that ordinary inspection can also supply. It does not establish a
 robot outcome, a novel method or lower complete cost. The [decision packet](experiments/results/pose-contract-001/DECISION.md)
 retains N015's owner-decision dependency and defers general platform expansion.
