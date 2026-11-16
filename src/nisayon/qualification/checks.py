@@ -411,6 +411,42 @@ def execute_checks(
     return report
 
 
+def _check_seconds(value: object) -> None:
+    try:
+        valid = type(value) in (int, float) and math.isfinite(value) and value >= 0
+    except OverflowError:
+        valid = False
+    if not valid:
+        raise ValueError("Invalid check cost")
+
+
+def _verify_execution_costs(report: dict) -> None:
+    try:
+        costs = fields(
+            report["costs"],
+            {"workflow_wall_seconds", "human_engineering_seconds", "complete_cost", "boundary"},
+        )
+    except ValueError as error:
+        raise ValueError("Malformed execution costs") from error
+    wall = costs["workflow_wall_seconds"]
+    _check_seconds(wall)
+    if (
+        costs["human_engineering_seconds"] is not None
+        or costs["complete_cost"] is not None
+        or not isinstance(costs["boundary"], str)
+        or not 1 <= len(costs["boundary"]) <= 1000
+    ):
+        raise ValueError("Execution costs cannot invent complete or human measurements")
+    try:
+        nested = math.fsum(row["wall_seconds"] for row in report["attempts"])
+    except OverflowError as error:
+        raise ValueError("Invalid aggregate check cost") from error
+    # Attempt clocks are sequential intervals nested in workflow time. Permit
+    # float serialization/summation roundoff, not a shorter enclosing interval.
+    if nested - wall > max(1e-9, wall * 1e-12):
+        raise ValueError("Nested check costs exceed recorded workflow time")
+
+
 def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
     """Reconstruct local completion and bindings without calling a handler.
 
@@ -565,8 +601,7 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
     for index, row in enumerate(attempts):
         key = row["check"]
         seconds = row["wall_seconds"]
-        if type(seconds) not in (int, float) or not math.isfinite(seconds) or seconds < 0:
-            raise ValueError("Invalid check cost")
+        _check_seconds(seconds)
         intent = read(f"checks/{key}/intent.json")
         expected_intent = {
             "check": key,
@@ -613,6 +648,7 @@ def inspect_checks(*, evidence_root: Path, output: Path) -> dict:
             raise ValueError("Reused result differs from its prior evidence")
     if prefix.record() != state.record():
         raise ValueError("Reconstructed execution state differs")
+    _verify_execution_costs(report)
     if not complete:
         return {
             "status": "unresolved",

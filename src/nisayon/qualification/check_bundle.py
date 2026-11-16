@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import stat
 import tempfile
 from pathlib import Path
 
@@ -31,6 +32,29 @@ SCHEMA = "nisayon.qualification.check_bundle.v1"
 REVIEW_SCHEMA = "nisayon.qualification.check_review.v1"
 
 
+def _dependency_present(root: Path, name: str) -> bool:
+    """Allow absent history without hiding permissions or following symlinks.
+
+    The caller supplies a validated relative name and a trusted local root.
+    A later disappearance still fails the read; it is not silently omitted.
+    This check is not an isolation boundary against concurrent filesystem edits.
+    """
+    path = root
+    parts = Path(name).parts
+    for index, part in enumerate(parts):
+        path = path / part
+        try:
+            mode = path.lstat().st_mode
+        except FileNotFoundError:
+            return False
+        if stat.S_ISLNK(mode):
+            raise ValueError(f"Check dependency contains a symlink: {name}")
+        expected = stat.S_ISREG if index == len(parts) - 1 else stat.S_ISDIR
+        if not expected(mode):
+            raise ValueError(f"Check dependency has an unsupported file type: {name}")
+    return True
+
+
 def _collect(root: Path, execution: Path) -> dict[str, bytes]:
     prefix = _name(execution.relative_to(root).as_posix())
     files = {prefix + "/" + name: data for name, data in _snapshot(execution).items()}
@@ -43,10 +67,9 @@ def _collect(root: Path, execution: Path) -> dict[str, bytes]:
         name = _name(dependency["path"])
         # Retain changed prior bytes as they stand: the planner must decide that
         # stale evidence cannot be reused. A missing prior artifact stays missing.
-        try:
-            raw = _artifact_bytes(root, name)
-        except FileNotFoundError:
+        if not _dependency_present(root, name):
             continue
+        raw = _artifact_bytes(root, name)
         if name in files and files[name] != raw:
             raise ValueError("Dependency changed while collecting execution")
         files[name] = raw

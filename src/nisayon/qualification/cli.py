@@ -28,6 +28,7 @@ from . import (
     plan_applicability,
     plan_change,
     run_plan,
+    summarize_check_bundle,
 )
 from .change import inspect_change, qualify_change
 from .example import create_example
@@ -143,6 +144,12 @@ def parser() -> argparse.ArgumentParser:
         "review-check-bundle", help="Reconstruct portable check records without native execution"
     )
     checks_bundle.add_argument("bundle", type=Path)
+    checks_summary = commands.add_parser(
+        "summarize-check-bundle",
+        help="Project a pinned check packet without executing or accepting its claims",
+    )
+    checks_summary.add_argument("bundle", type=Path)
+    checks_summary.add_argument("--sha256", required=True, help="Expected archive SHA-256")
     checks_import = commands.add_parser(
         "import-check-bundle",
         help="Admit pinned check evidence into a new directory without execution",
@@ -226,6 +233,9 @@ def main() -> None:
         elif args.command == "review-check-bundle":
             result = inspect_check_bundle(args.bundle)
             code = 0 if result["review_status"] == "verified" else 3
+        elif args.command == "summarize-check-bundle":
+            result = summarize_check_bundle(args.bundle, expected_sha256=args.sha256)
+            code = 0 if result["execution"]["status"] == "completed" else 3
         elif args.command == "import-check-bundle":
             result = import_check_bundle(args.bundle, expected_sha256=args.sha256, output=args.out)
             code = 0
