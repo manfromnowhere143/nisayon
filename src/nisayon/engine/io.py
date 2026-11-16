@@ -23,14 +23,21 @@ def _finite_float(value: str) -> float:
     number = float(value)
     if not math.isfinite(number):
         _reject_constant(value)
+    if number == 0.0 and any(digit in "123456789" for digit in value.lower().split("e", 1)[0]):
+        # A nonzero token must not become zero before a measured relation is
+        # assessed. Exponent digits do not change a literal zero's value.
+        raise ValueError("Nonzero JSON number underflows to zero")
     return number
 
 
 def decode_json(data: str | bytes | bytearray) -> object:
-    """Decode evidence without losing duplicate declarations or admitting infinities.
+    """Decode evidence without duplicate declarations or silent numeric range loss.
 
     Exponent overflow needs its own check: ``parse_constant`` does not see
-    otherwise valid numeric tokens such as ``1e999``. Explicit nulls remain null.
+    otherwise valid numeric tokens such as ``1e999``. Nonzero tokens that round
+    to zero are refused too; literal signed zeros and nonzero subnormals remain
+    supported. Other finite tokens retain Python's binary-float rounding.
+    Explicit nulls remain null.
     This is a decoding boundary, not schema validation or an authenticity check.
     """
     try:

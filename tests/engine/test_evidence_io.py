@@ -38,6 +38,29 @@ def test_decoding_rejects_nonfinite_numbers_including_exponent_overflow(number):
         decode_json('{"measurements": [' + number + "]}")
 
 
+@pytest.mark.parametrize("encoding", [str, bytes, bytearray])
+@pytest.mark.parametrize(
+    "number",
+    ["1e-400", "-1e-400", "1E-324", "-2.4e-324", "0." + "0" * 400 + "1"],
+)
+def test_nonzero_json_underflow_is_refused_before_it_becomes_zero(number, encoding):
+    source = '{"measurements": [' + number + "]}"
+    data = source if encoding is str else encoding(source, "utf-8")
+    with pytest.raises(ValueError, match="underflows to zero"):
+        decode_json(data)
+
+
+@pytest.mark.parametrize(
+    "number",
+    ["0.0", "-0.0", "0e-400", "-0.00E+9999", "0.0e9999", "3e-324", "-5e-324", "0.1"],
+)
+def test_literal_zeros_and_nonzero_binary_floats_keep_their_representation(number):
+    restored = decode_json(number)
+    assert type(restored) is float
+    assert restored.hex() == float(number).hex()
+    assert canonical_bytes(restored) == canonical_bytes(json.loads(number))
+
+
 def test_valid_numbers_missingness_and_strings_keep_their_existing_digest():
     source = b'{"observed": false, "value": null, "count": 0, "finite": 1e300, "label": "NaN"}'
     decoded = decode_json(source)

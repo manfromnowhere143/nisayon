@@ -81,6 +81,21 @@ def test_zero_subnormal_and_tolerance_edges_have_distinct_contracts():
     assert difference(0.1 + 0.2, 0.3, {**strict, "atol": math.ulp(0.3)}) is None
 
 
+@pytest.mark.parametrize("field", ["expected", "atol"])
+@pytest.mark.parametrize("token", ["1e-400", "-1e-400"])
+def test_case_loading_refuses_nonzero_tokens_lost_before_contract_validation(native, field, token):
+    declaration, context = native
+    declaration["contract"] = {"kind": "numerical", "atol": 0, "rtol": 0}
+    if field == "expected":
+        declaration["probes"][0]["expected"] = "raw-token"
+    else:
+        declaration["contract"]["atol"] = "raw-token"
+    path = context.project / "case.json"
+    path.write_text(json.dumps(declaration).replace('"raw-token"', token))
+    with pytest.raises(ValueError, match="underflows to zero"):
+        CaseSpec.read(path)
+
+
 def test_overlong_integer_is_refused_within_a_bounded_process():
     # 100 KB is deliberately small enough to avoid exhausting the host. The
     # worker's Python JSON boundary must refuse excessive integer conversion.

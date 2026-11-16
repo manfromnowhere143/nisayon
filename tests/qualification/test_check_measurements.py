@@ -129,6 +129,44 @@ def test_record_integrity_does_not_establish_a_saved_measurement_verdict(measure
 
 
 @pytest.mark.parametrize(
+    "token,verdict",
+    [
+        ("1e-400", None),
+        ("-1e-400", None),
+        ("0e-400", "supported"),
+        ("-0.00e9999", "supported"),
+        ("3e-324", "rejected"),
+    ],
+)
+def test_raw_measurement_underflow_cannot_become_supported_equality(
+    measured_case, records, token, verdict
+):
+    contract, reference, candidate = records
+    contract["metrics"]["memory"]["relation"] = "equal"
+    reference["metrics"]["memory"]["values"]["end"] = 0
+    candidate["metrics"]["memory"]["values"]["end"] = "raw-token"
+    change(measured_case, "scoring", contract)
+    raw = json.dumps({"reference": reference, "candidate": candidate}).replace('"raw-token"', token)
+    measured_case["inputs"]["data"].write_text(raw)
+    path, receipt, report = packet(measured_case)
+    result = reassess(path, receipt)
+    assert report["deployment_decision"] == result["deployment_decision"] == "unresolved"
+    if verdict is None:
+        assert report["status"] == "unresolved"
+        attempt = next(row for row in report["attempts"] if row["check"] == "observe")
+        assert attempt["status"] == "failed"
+        assert "underflows to zero" in attempt["error"]
+        assert not (measured_case["evidence_root"] / "run/checks/score/result.json").exists()
+        assert result["review_status"] == "unresolved"
+        assert result["assessment"] is None
+    else:
+        assert report["status"] == "completed"
+        assert result["review_status"] == "verified"
+        assert result["assessment_matches"] is True
+        assert result["assessment"]["verdict"] == verdict
+
+
+@pytest.mark.parametrize(
     "scenario,verdict",
     [
         ("supported", "supported"),
