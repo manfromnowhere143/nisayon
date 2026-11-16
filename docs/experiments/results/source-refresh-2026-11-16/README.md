@@ -137,3 +137,9 @@ advantage, general dependency inference, independent physical validation or
 humanoid hardware qualification. The next scientific gate remains a consequential
 owner decision with a competent conventional baseline, fresh task confirmation
 and complete comparable costs, followed by a separately selected untouched case.
+
+Hosted qualification was attempted once after publication. GitHub admitted no
+test steps; the remaining queued job was cancelled after the infrastructure
+refusal. The [hosted receipt](hosted-check.json) and
+[original workflow](https://github.com/manfromnowhere143/nisayon/actions/runs/43882001631)
+retain that outcome. Local passes are not reported as a hosted pass.

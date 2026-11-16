@@ -17,7 +17,8 @@ reused. Final browser, physical-device and GPU observations remain open.
 Publication follows existing public history and keeps private development
 ancestors out of GitHub. The v0.2.0 wheel and tags remain unchanged. Website
 publication is separate. Hosted status must be read from its actual workflow
-receipt; local checks are not a hosted pass.
+receipt; local checks are not a hosted pass. The [16 November attempt](experiments/results/source-refresh-2026-11-16/hosted-check.json)
+was refused before test execution; automatic triggers remain paused.
 
 ## Engine and instrument source reconciliation · 9 November 2026
 
