@@ -1,0 +1,13 @@
+flowchart TB
+    R[Retained bundles, raw state, model, decisions] --> E[Offline export adapter]
+    E --> K[MuJoCo kinematic derivation]
+    E --> O[Original observation and decision projection]
+    K --> G[Immutable generation manifest]
+    O --> G
+    G --> W[Browser validation and indexing worker]
+    W --> S[One selected moment]
+    S --> V[Custom scene and trace lanes]
+    S --> I[DOM inspector and exact readings]
+    S --> P[Phone or desktop composition]
+    P --> H[Local workspace or public library wrapper]
+    L[Later sealed-run event adapter] -. new generation .-> G

@@ -21,7 +21,7 @@ interface Props {
 }
 
 const PARENT: Record<Depth, Depth | null> = { moment: null, fork: "moment", conditions: "fork", decision: "moment" };
-const TITLE: Record<Depth, string> = { moment: "Moment", fork: "Fork", conditions: "Conditions", decision: "Decision" };
+const TITLE: Record<Depth, string> = { moment: "Readings", fork: "Compare", conditions: "Conditions", decision: "Decision" };
 
 export function DepthSurface({ caseRecord, run, ghost, ghostIssue, moment, depth, condition }: Props) {
   const store = useStore();
@@ -44,7 +44,7 @@ export function DepthSurface({ caseRecord, run, ghost, ghostIssue, moment, depth
           {run.record.run.run_id} · row {moment.row_index} · {moment.phase}
         </span>
       </div>
-      {depth === "fork" ? <EvidenceFlow label="Fork comparison"><Fork caseRecord={caseRecord} run={run} ghost={ghost} ghostIssue={ghostIssue} /></EvidenceFlow> : null}
+      {depth === "fork" ? <EvidenceFlow label="Run comparison"><Fork caseRecord={caseRecord} run={run} ghost={ghost} ghostIssue={ghostIssue} /></EvidenceFlow> : null}
       {depth === "conditions" ? <EvidenceFlow label="Conditions"><Conditions caseRecord={caseRecord} condition={condition} /></EvidenceFlow> : null}
       {depth === "decision" ? <Decision caseRecord={caseRecord} run={run} /> : null}
     </section>

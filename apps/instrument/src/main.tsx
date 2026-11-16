@@ -18,6 +18,7 @@ import "./styles/focus.css";
 import "./styles/legibility.css";
 import "./styles/opening.css";
 import "./styles/mobile.css";
+import "./styles/laboratory.css";
 
 const root = document.getElementById("root");
 if (!root) throw new Error("missing #root");

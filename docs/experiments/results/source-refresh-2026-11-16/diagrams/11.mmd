@@ -1,0 +1,13 @@
+flowchart LR
+    accTitle: Evidence applicability and mandatory fresh confirmation
+    accDescr: Code, calibration data, runtime and reset assumptions feed observations. A scoring rule feeds analysis of those observations. Population and current inputs also constrain fresh confirmation. Analysis and confirmation feed review. Every decision retains its explicit premises and no planner output grants acceptance.
+    C["Code · data · runtime · reset"] --> O["Retained observations"]
+    O --> S["Recompute score when its dependencies change"]
+    R["Scoring rule"] --> S
+    C --> F["Fresh confirmation for every decision"]
+    R --> F
+    P["Population · new confirmation inputs"] --> F
+    S --> V["Decision review"]
+    F --> V
+    P --> V
+    V --> D["Scoped software decision<br/>deployment remains unresolved"]

@@ -13,6 +13,7 @@ import { SectionDeck } from "./ui/RecordPages";
 import { GlassCard } from "./research/GlassCard";
 import { Diagnostics } from "./ui/Diagnostics";
 import { Finding } from "./ui/Finding";
+import { CaseBrief } from "./ui/CaseBrief";
 import { Identity } from "./ui/Identity";
 import { Inspector } from "./ui/Inspector";
 import { Lanes } from "./ui/Lanes";
@@ -87,7 +88,16 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
     return () => query.removeEventListener("change", update);
   }, []);
   const [engineOpen, setEngineOpen] = useState(false);
+  const [briefOpen, setBriefOpen] = useState(false);
+  const briefNavigation = useRef(false);
+  useLayoutEffect(() => {
+    if (!briefOpen && briefNavigation.current) {
+      briefNavigation.current = false;
+      readingRef.current?.querySelector<HTMLElement>('.analysis-tab[aria-pressed="true"]')?.focus({ preventScroll: true });
+    }
+  }, [briefOpen]);
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [labSetting, setLabSetting] = useState<"architecture" | "source">("architecture");
   const [inspection, setInspection] = useState<InspectionStep | null>(null);
   const inspectionOrigin = useRef<HTMLElement | null>(null);
   const inspectionOriginPane = useRef<"scene" | "evidence">("scene");
@@ -102,7 +112,7 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
     if (!active) { setToolsOpen(false); setMobilePane("scene"); setInspection(null); setEngineOpen(false); store.toggleInspector(false); if (store.getState().study?.open) store.closeStudy(); }
   }, [active, store]);
   const selectedDepth = state.screen.kind === "ready" ? state.screen.depth : "moment";
-  useEffect(() => { if (selectedDepth !== "moment" || state.diagnostics) setMobilePane("evidence"); }, [selectedDepth, state.diagnostics]);
+  useEffect(() => { if (selectedDepth !== "moment" || state.diagnostics) { setMobilePane("evidence"); setBriefOpen(false); } }, [selectedDepth, state.diagnostics]);
   const readingRef = useRef<HTMLElement>(null);
   const focusPartDetails = useRef(false);
   const partDetailsButton = useRef<HTMLButtonElement>(null);
@@ -121,13 +131,13 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
   const priorCase = useRef(caseIdentity);
   useLayoutEffect(() => {
     if (caseIdentity && priorCase.current && caseIdentity !== priorCase.current) {
-      setEngineOpen(false); setInspection(null); setReadingsSection("signals"); store.toggleInspector(false);
+      setEngineOpen(false); setBriefOpen(false); setInspection(null); setReadingsSection("signals"); store.toggleInspector(false);
     }
     priorCase.current = caseIdentity;
   }, [caseIdentity, store]);
   useSurfaceArrival(readingRef, caseIdentity ? `${caseIdentity}:${state.screen.kind === "ready" ? state.screen.depth : ""}:${state.part?.name ?? ""}:${engineOpen}:${inspection}:${readingsSection}:${mobilePane}` : "", state.reducedMotion);
   const openInspection = (origin: HTMLElement) => {
-    setToolsOpen(false);
+    setToolsOpen(false); setBriefOpen(false);
     inspectionOrigin.current = origin;
     inspectionOriginPane.current = mobilePane;
     store.pause(); store.toggleInspector(false); store.setDepth("moment");
@@ -280,6 +290,7 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
   const inspecting = inspection !== null && depth === "moment" && !engineOpen && !state.inspector;
   const spatial: SpatialLayerState = { row, before: frameFor(run, moment.row_index, "before"), pose: bodyPose(frame, inspectedBody), path, count: pathCount(moment.row_index, moment.phase, path), start: pathStart(primaryFrames, moment.row_index, moment.phase, pathSeconds), target: observationTarget, options: inspecting ? { ...spatialOptions, observations: inspection === "capture", goal: inspection === "command" } : spatialOptions, selectedBody };
   const inspectPart = (name: string | null) => {
+    setBriefOpen(false);
     setInspection(null);
     setEngineOpen(false); setReadingsSection("spatial");
     if (name) setObservationTarget(name === "cube_main" ? "cube" : "eef");
@@ -290,22 +301,23 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
     setReadingsSection(id);
     if (id === "spatial") setSpatialOptions((options) => ({ ...options, observations: true }));
   };
-  const openPartDetails = () => { setToolsOpen(false); store.pause(); returnToPart.current = true; focusPartDetails.current = true; setInspection(null); setEngineOpen(false); setReadingsSection("spatial"); setMobilePane("evidence"); store.setDepth("moment"); };
+  const openPartDetails = () => { setBriefOpen(false); setToolsOpen(false); store.pause(); returnToPart.current = true; focusPartDetails.current = true; setInspection(null); setEngineOpen(false); setReadingsSection("spatial"); setMobilePane("evidence"); store.setDepth("moment"); };
+  const selectAnalysis = (value: typeof depth) => { setBriefOpen(false); setEngineOpen(false); store.setDepth(value); };
   const signals = <><Lanes primary={run} ghost={null} moment={moment} predicates={caseRecord.predicates} expanded={state.lanesExpanded} onSelectRow={(r, phase) => store.selectSample(r, phase)} /><div className="lanes-more"><button type="button" className="quiet" aria-expanded={state.lanesExpanded} onClick={() => store.toggleLanes()}>{state.lanesExpanded ? "Task signals" : "Timing & memory"}</button></div></>;
   const spatialPanel = <SpatialPanel run={run} generation={generation} moment={moment} body={inspectedBody} partSelected={state.part !== null} target={observationTarget} onTarget={setObservationTarget} pathActive={spatialOptions.path} pathSeconds={pathSeconds} onPathSeconds={setPathSeconds} />;
 
   return (
-    <EvidenceIdentity.Provider value={`${generation.sha256}:${run.record.run.bundle_sha256}:${run.record.run.run_id}`}><div className="app" data-depth={depth} data-mobile-pane={mobilePane} data-inspecting={inspecting} data-inspector={state.inspector ? "open" : "closed"}>
+    <EvidenceIdentity.Provider value={`${generation.sha256}:${run.record.run.bundle_sha256}:${run.record.run.run_id}`}><div className="app" data-setting={labSetting} data-destination={state.sceneFocus} data-depth={depth} data-mobile-pane={mobilePane} data-inspecting={inspecting} data-inspector={state.inspector ? "open" : "closed"}>
       <Identity generation={generation} caseRecord={caseRecord} active={active} />
       <nav className="workspace-actions" aria-label="Experiment workspace">
-        <button onClick={() => { store.pause(); setInspection(null); setEngineOpen(false); setMobilePane("evidence"); }}>Evidence <span aria-hidden="true">↗</span></button>
+        <button onClick={() => { store.pause(); setInspection(null); setEngineOpen(false); setBriefOpen(depth === "moment" && !state.diagnostics); setMobilePane("evidence"); }}>Evidence <span aria-hidden="true">↗</span></button>
         <button className="scene-inspect-action" disabled={!row} onClick={event => openInspection(event.currentTarget)}>Moment <span aria-hidden="true">↗</span></button>
         <button onClick={() => { store.pause(); setToolsOpen(true); }}>Scene <span aria-hidden="true">↗</span></button>
         <button onClick={() => { store.pause(); store.toggleInspector(true); }}>Sources <span aria-hidden="true">↗</span></button>
       </nav>
       <main className="stage">
         <section className="scene-area" aria-label="Reconstruction">
-          <div className="scene-heading"><span className="research-micro">RECORDED EXPERIMENT</span><h1>{caseRecord.task ?? caseRecord.case_id}</h1><p>{run.record.role.replaceAll("_", " ")}<span> / </span>{caseRecord.case_id}</p></div>
+          <div className="scene-heading"><span className="lab-location">LABORATORY <span>/</span> BAY 01</span><h1>{caseRecord.task ?? caseRecord.case_id}</h1><span className="research-micro">{run.record.evidence_origin === "simulator" ? "RECORDED SIMULATION" : "RECORDED EXPERIMENT"}</span><p>{run.record.role.replaceAll("_", " ")}<span> / </span>{caseRecord.case_id}</p><p className="scene-outcome">Task outcome · {run.record.task_outcome || "not recorded"}</p></div>
           <button ref={partDetailsButton} type="button" className="selected-part-control" aria-label="Show selected part details" onClick={openPartDetails}><span>{state.part ? bodyLabel(state.part.name) : "End effector"}</span><span aria-hidden="true">↗</span></button>
           {active && toolsOpen ? <GlassCard title="Scene controls" eyebrow="RECONSTRUCTION" onClose={() => setToolsOpen(false)}>
           <SectionDeck label="Scene tools" sections={[{ id: "layers", label: "Body & layers", content: <div className="scene-tools" aria-label="Spatial tools">
@@ -313,7 +325,7 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
             <div className="overlay-tools" role="group" aria-label="Recorded overlays">{([['path', 'Path'], ['axes', 'Axes'], ['goal', 'Goal'], ['collision', 'Collision']] as const).map(([key, label]) => <button key={key} type="button" aria-pressed={!!spatialOptions[key]} disabled={!run.frames || (key === 'goal' && !frame?.physical?.goal_pos)} onClick={() => setSpatialOptions((options) => ({ ...options, [key]: !options[key] }))}>{label}</button>)}</div>
           </div> }, { id: "camera", label: "Camera", content: <div className="scene-camera-tools"><p className="fine">Camera controls change the view. The retained configuration stays exact.</p><div className="overlay-tools" role="group" aria-label="Camera angle">{SCENE_VIEWS.map(view => <button key={view} aria-pressed={state.view === view} onClick={() => store.setView(view)}>{VIEW_LABEL[view]}</button>)}</div><button className="quiet" onClick={() => { store.setSceneFocus("lab"); store.setView("three-quarter"); scene?.resetView(); setToolsOpen(false); }}>Reset camera</button></div> }]} /></GlassCard> : null}
           {run.model && run.frames ? (
-            <Scene frame={frame} ghostFrame={ghostFrame} model={run.model} modelSha={run.record.model!.sha256} generation={generation} ghostModel={depth === "fork" ? ghost?.model ?? null : null} ghostModelSha={depth === "fork" ? ghost?.record.model?.sha256 ?? null : null} recordings={recordings} focus={state.sceneFocus} view={state.view} ground={state.ground} tone={tone} reducedMotion={state.reducedMotion} onFirstFrame={onFirstFrame} onUnavailable={onSceneReady} onLoadProgress={onSceneProgress} onHandle={onHandle} spatial={spatial} observationBounds={observationBounds} onPick={(index) => { const body = run.model?.bodies[index]; if (body) inspectPart(body.name); }} />
+            <Scene frame={frame} ghostFrame={ghostFrame} model={run.model} modelSha={run.record.model!.sha256} generation={generation} ghostModel={depth === "fork" ? ghost?.model ?? null : null} ghostModelSha={depth === "fork" ? ghost?.record.model?.sha256 ?? null : null} recordings={recordings} focus={state.sceneFocus} setting={labSetting} view={state.view} ground={state.ground} tone={tone} reducedMotion={state.reducedMotion} onFirstFrame={onFirstFrame} onUnavailable={onSceneReady} onLoadProgress={onSceneProgress} onHandle={onHandle} spatial={spatial} observationBounds={observationBounds} onPick={(index) => { const body = run.model?.bodies[index]; if (body) inspectPart(body.name); }} />
           ) : (
             <div className="scene-box scene-unavailable" role="status">
               <p className="scene-unavailable-title">Reconstruction unavailable</p>
@@ -324,7 +336,7 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
           )}
           <div className="scene-caption">
             <span>
-              {run.frames ? "reconstruction from retained configuration" : "no reconstruction"}
+              {run.frames ? labSetting === "architecture" ? "Conceptual architecture · recorded robot & task" : "Source room · retained configuration" : "no reconstruction"}
               {depth === "fork" && ghost ? ` · ghost: ${ghost.record.run.run_id}` : ""}
               {depth === "fork" && ghost && !ghostRow ? " · no paired sample at this time" : ""}
             </span>
@@ -333,7 +345,8 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
             </span>
           </div>
           <div className="view-controls" role="group" aria-label="Camera view">
-            {(["lab", "workspace", "grasp"] as const).map(focus => <button key={focus} className="segment" aria-pressed={state.sceneFocus === focus} onClick={() => store.setSceneFocus(focus)}>{focus === "lab" ? "Lab" : focus === "workspace" ? "Workspace" : "Grasp"}</button>)}
+            {(["lab", "workspace", "grasp"] as const).map(focus => <button key={focus} className="segment" aria-pressed={state.sceneFocus === focus} onClick={() => store.setSceneFocus(focus)}>{focus === "lab" ? "Hall" : focus === "workspace" ? "Bay" : "Grasp"}</button>)}
+            <button className="segment source-room-toggle" aria-pressed={labSetting === "source"} onClick={() => setLabSetting(value => value === "source" ? "architecture" : "source")}>Source room</button>
             <button type="button" className="segment camera-preset" aria-label={`Camera: ${VIEW_LABEL[state.view]}. Change view`} onClick={() => store.setView(SCENE_VIEWS[(SCENE_VIEWS.indexOf(state.view) + 1) % SCENE_VIEWS.length]!)}>{VIEW_LABEL[state.view]}</button>
             <button type="button" className="segment camera-reset" aria-label="Reset camera" onClick={() => { store.setSceneFocus("lab"); store.setView("three-quarter"); scene?.resetView(); }}>↺</button>
             <button type="button" className="segment" aria-label="Zoom in on reconstruction" onClick={() => scene?.zoom(0.85)} disabled={!scene}>+</button>
@@ -351,11 +364,13 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
         {active && (mobilePane === "evidence" || inspecting || engineOpen) ? <GlassCard title={inspecting ? "Inspect this moment" : "Experiment evidence"} eyebrow={`${caseRecord.case_id} · ROW ${moment.row_index} · ${moment.phase.toUpperCase()}`} wide onClose={() => { store.pause(); setMobilePane("scene"); setInspection(null); setEngineOpen(false); }}><section ref={readingRef} className="reading" aria-label="Experiment analysis">
           {inspecting ? <MomentInspection run={run} generation={generation} caseRecord={caseRecord} moment={moment} step={inspection} onStep={setInspection} target={observationTarget} onTarget={setObservationTarget} onClose={closeInspection} onCompare={() => { inspectionReturn.current = "analysis"; setInspection(null); setMobilePane("evidence"); store.setDepth("fork"); }} onDecision={() => { inspectionReturn.current = "analysis"; setInspection(null); setMobilePane("evidence"); store.setDepth("decision"); }} /> : null}
           <nav className="analysis-nav" aria-label="Analysis view" hidden={inspecting}>
-            {([['moment', 'Readings'], ['fork', 'Fork'], ['conditions', 'Conditions'], ['decision', 'Decision']] as const).map(([value, label]) => <button key={value} type="button" className="analysis-tab" aria-pressed={!engineOpen && depth === value} onClick={() => { setEngineOpen(false); store.setDepth(value); }}>{label}</button>)}
-            <button type="button" className="analysis-tab" aria-pressed={engineOpen} onClick={() => setEngineOpen(true)}>Engine</button>
+            <button type="button" className="analysis-tab" aria-pressed={briefOpen && !engineOpen} onClick={() => { setEngineOpen(false); store.setDepth("moment"); setBriefOpen(true); }}>Case brief</button>
+            {([['moment', 'Readings'], ['fork', 'Compare'], ['conditions', 'Conditions'], ['decision', 'Decision']] as const).map(([value, label]) => <button key={value} type="button" className="analysis-tab" aria-pressed={!briefOpen && !engineOpen && depth === value} onClick={() => selectAnalysis(value)}>{label}</button>)}
+            <button type="button" className="analysis-tab" aria-pressed={engineOpen} onClick={() => { setBriefOpen(false); setEngineOpen(true); }}>Engine</button>
           </nav>
           <div className="reading-content" hidden={inspecting}>
-            <div className="moment-view" hidden={state.diagnostics || engineOpen || depth !== "moment"}>
+            {briefOpen && !engineOpen && !state.diagnostics ? <CaseBrief generation={generation} caseRecord={caseRecord} run={run} onNavigate={(value) => { briefNavigation.current = true; selectAnalysis(value); }} /> : null}
+            <div className="moment-view" hidden={briefOpen || state.diagnostics || engineOpen || depth !== "moment"}>
               {state.partNote ? <p className="selection-note fine" role="status">{state.partNote}</p> : null}
               {compact ? <SectionDeck label="Recorded detail" selected={readingsSection === "signals" ? "overview" : readingsSection} onSelect={selectReadings} sections={[
                 { id: "overview", label: "Overview", content: <>
@@ -373,7 +388,7 @@ function Instrument({ onSceneReady, onSceneProgress, transportHost, active }: { 
               <SectionDeck label="Recorded detail" selected={readingsSection === "spatial" ? "spatial" : "signals"} onSelect={selectReadings} sections={[{ id: "signals", label: "Signals", content: signals }, { id: "spatial", label: "Spatial", fit: false, content: spatialPanel }]} />
               </>}
             </div>
-            <div className="context-view" hidden={state.diagnostics || engineOpen || depth === "moment"}>
+            <div className="context-view" hidden={briefOpen || state.diagnostics || engineOpen || depth === "moment"}>
               {depth === "fork" ? <SectionDeck label="Comparison detail" sections={[
                 { id: "comparison", label: "Comparison", fit: false, content: <DepthSurface caseRecord={caseRecord} run={run} ghost={ghost} ghostIssue={ghostIssue} moment={moment} depth={depth} condition={condition} /> },
                 { id: "signals", label: "Aligned signals", content: <><RunSelector caseRecord={caseRecord} selected={moment.run} pending={pendingRun} notice={notice} /><Lanes primary={run} ghost={ghost} moment={moment} predicates={caseRecord.predicates} expanded={state.lanesExpanded} onSelectRow={(r, phase) => store.selectSample(r, phase)} /></> },

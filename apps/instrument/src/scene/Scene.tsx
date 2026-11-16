@@ -11,6 +11,7 @@ import { sameSpatialLayer, type SpatialLayerState } from "./evidenceLayer";
 import type { Vec3 } from "../model/pose";
 import { corners } from "./framing";
 import { loadCollisionView, type CollisionView } from "./collisionAssets";
+import type { LabSetting } from "./architecture";
 
 interface Props {
   frame: FramePhase | null;
@@ -22,6 +23,7 @@ interface Props {
   ghostModelSha: string | null;
   recordings: readonly Frames[];
   focus: "workspace" | "grasp" | "lab";
+  setting?: LabSetting;
   view: SceneView;
   ground: Ground;
   tone: Tone;
@@ -37,7 +39,7 @@ interface Props {
 
 type Mode = "webgl" | "webgl-unavailable" | "webgl-lost";
 
-export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostModel, ghostModelSha, recordings, focus, view, ground, tone, reducedMotion, onFirstFrame, onUnavailable, onLoadProgress, onHandle, spatial, observationBounds, onPick }: Props) {
+export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostModel, ghostModelSha, recordings, focus, setting = "architecture", view, ground, tone, reducedMotion, onFirstFrame, onUnavailable, onLoadProgress, onHandle, spatial, observationBounds, onPick }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<SceneHandle | null>(null);
@@ -62,7 +64,7 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
   }, [visual, model, modelSha, generation, ghostModel, ghostModelSha]);
   const asset = mode === "webgl" ? qualified.asset : null;
   const bounds = useMemo(() => {
-    const bounds = trajectoryBounds(model, recordings, focus, asset);
+    const bounds = trajectoryBounds(model, recordings, focus === "lab" && setting === "architecture" ? "workspace" : focus, asset);
     if (!spatial.options.observations || !observationBounds.length) return bounds;
     const points = [...(bounds.fitPoints ?? corners(bounds))];
     const min = [...bounds.min] as Vec3, max = [...bounds.max] as Vec3;
@@ -71,7 +73,7 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
       for (let i = 0; i < 3; i++) { min[i] = Math.min(min[i]!, p[i]!); max[i] = Math.max(max[i]!, p[i]!); }
     }
     return { min, max, fitPoints: points };
-  }, [model, recordings, focus, asset, spatial.options.observations, observationBounds]);
+  }, [model, recordings, focus, setting, asset, spatial.options.observations, observationBounds]);
   const firstFrameRef = useRef(onFirstFrame);
   firstFrameRef.current = onFirstFrame;
   const unavailableRef = useRef(onUnavailable);
@@ -151,7 +153,11 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
   }, [model, modelSha, generation, spatial.options.collision, collision?.model]);
   useLayoutEffect(() => { if (asset) handleRef.current?.setCollision(collisionView); }, [model, collisionView, asset]);
 
-  useLayoutEffect(() => { if (asset) handleRef.current?.setBounds(bounds); }, [bounds, asset]);
+  useLayoutEffect(() => {
+    if (!asset) return;
+    handleRef.current?.setSetting(setting, focus);
+    handleRef.current?.setBounds(bounds, !reducedMotion);
+  }, [bounds, asset, setting, focus, reducedMotion]);
 
   useLayoutEffect(() => {
     if (asset) handleRef.current?.setPrimary(frame, tone);
@@ -246,7 +252,20 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
   }, []);
 
   return (
-    <div ref={boxRef} className="scene-box" data-mode={mode} data-focus={focus} data-presentation={sceneIssue ? "unavailable" : asset && painted ? "ready" : "preparing"}>
+    <div ref={boxRef} className="scene-box" data-mode={mode} data-focus={focus} data-setting={setting} data-presentation={sceneIssue ? "unavailable" : asset && painted ? "ready" : "preparing"}
+      tabIndex={0} role="group" aria-label="Interactive laboratory. Arrow keys orbit, plus and minus zoom, Home resets the camera. Select a body from Scene controls."
+      onKeyDown={event => {
+        if (event.target !== event.currentTarget) return;
+        const handle = handleRef.current;
+        if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home", "Escape"].includes(event.key)) event.preventDefault();
+        if (event.key === "ArrowLeft") handle?.orbit(-.12, 0);
+        if (event.key === "ArrowRight") handle?.orbit(.12, 0);
+        if (event.key === "ArrowUp") handle?.orbit(0, -.08);
+        if (event.key === "ArrowDown") handle?.orbit(0, .08);
+        if (event.key === "+" || event.key === "=") handle?.zoom(.88);
+        if (event.key === "-") handle?.zoom(1.12);
+        if (event.key === "Home" || event.key === "Escape") handle?.resetView();
+      }}>
       <div className="scene-model-label">
         <span>Panda</span>
         <span className="scene-model-kind" title={qualified.issue ?? "Reconstruction of retained configuration; lighting is illustrative."}>

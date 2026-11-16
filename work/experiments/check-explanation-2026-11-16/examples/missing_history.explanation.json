@@ -1,0 +1,215 @@
+{
+  "schema": "nisayon.qualification.check_explanation.v1",
+  "source": {
+    "bundle_sha256": "5034003b10cda25e2e766155a44c2b5a9a04774f32ce5b748ba39b1c239bc14f",
+    "bundle_schema": "nisayon.qualification.check_bundle.v1",
+    "execution_schema": "nisayon.qualification.check_execution.v2",
+    "model_sha256": "f816a50b120f0219884d75bd6a57754ea5f3042259c236de5a0b0b1793b9f6c4",
+    "checker_sha256": "0651a9d55fc2626d20a42c73a234fc57dc105254fc64bb2d9a4afa0781961a69",
+    "applicability_record_sha256": "105c42b00b20628b28937f96c3b8f812e64bb05c09dd6029fc6552c7f34a1364",
+    "previous_record_sha256": "5b70fa055d31212e0a9f78a61136e91c1ac981e2014a7c530ffa8490b063f8b9"
+  },
+  "record_review": {
+    "integrity": "verified",
+    "reconstruction": "verified_execution_records",
+    "independent_execution_attestation": false
+  },
+  "execution_status": "completed",
+  "planning": {
+    "status": "planned",
+    "obligation_count": 0,
+    "basis": "recorded_previous_state_not_a_new_experiment"
+  },
+  "change": {
+    "input_ids": [],
+    "previous_model_sha256": "f816a50b120f0219884d75bd6a57754ea5f3042259c236de5a0b0b1793b9f6c4",
+    "model_changed": false,
+    "previous_check_count": 4
+  },
+  "inputs": [
+    {
+      "id": "code",
+      "kind": "code",
+      "sha256": "1c70560929ac8a747cf81fd15a932664a2d9c8a87475858035cd8b5043dd45d1",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "1c70560929ac8a747cf81fd15a932664a2d9c8a87475858035cd8b5043dd45d1"
+    },
+    {
+      "id": "data",
+      "kind": "data",
+      "sha256": "31e92163f9f0eab9853da0615c7489145dc0dab24b8b317ba71811bc917f8fa7",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "31e92163f9f0eab9853da0615c7489145dc0dab24b8b317ba71811bc917f8fa7"
+    },
+    {
+      "id": "population",
+      "kind": "population",
+      "sha256": "11fadba6cb15bad7b6a3e702af7c2a8a781f2d45b956639bcf466102479fcb69",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "11fadba6cb15bad7b6a3e702af7c2a8a781f2d45b956639bcf466102479fcb69"
+    },
+    {
+      "id": "procedure",
+      "kind": "protocol",
+      "sha256": "14f8fcf4a019502c6102ac35a43df9dc20f0a815aca740d26c339d3d904481a9",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "14f8fcf4a019502c6102ac35a43df9dc20f0a815aca740d26c339d3d904481a9"
+    },
+    {
+      "id": "runtime",
+      "kind": "runtime",
+      "sha256": "4d6b9c1b1a8da3c392b98be42844bdbdb3d4f1853d0acdb63f551652074fced6",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "4d6b9c1b1a8da3c392b98be42844bdbdb3d4f1853d0acdb63f551652074fced6"
+    },
+    {
+      "id": "scoring",
+      "kind": "scoring",
+      "sha256": "6a3d6a4fa23378c7a7f0a6ff94a97f7dc981bdde099ee4858243a7963cc71e78",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "6a3d6a4fa23378c7a7f0a6ff94a97f7dc981bdde099ee4858243a7963cc71e78"
+    }
+  ],
+  "checks": [
+    {
+      "id": "confirm",
+      "kind": "confirmation",
+      "refresh": "always",
+      "depends_on": [
+        "data",
+        "scoring",
+        "code",
+        "runtime",
+        "population",
+        "procedure"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "f710b1dcc52dd3a90bcce2bb253fe11acf8c745f7cff6169dad6ea28ed3a65ed",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "f710b1dcc52dd3a90bcce2bb253fe11acf8c745f7cff6169dad6ea28ed3a65ed",
+      "reasons": [
+        {
+          "code": "fresh_check_required",
+          "check": null
+        }
+      ],
+      "affected_inputs": []
+    },
+    {
+      "id": "observe",
+      "kind": "observation",
+      "refresh": "on_change",
+      "depends_on": [
+        "data",
+        "code",
+        "runtime",
+        "procedure"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "31e92163f9f0eab9853da0615c7489145dc0dab24b8b317ba71811bc917f8fa7",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "31e92163f9f0eab9853da0615c7489145dc0dab24b8b317ba71811bc917f8fa7",
+      "reasons": [
+        {
+          "code": "recorded_reason_detail_withheld",
+          "check": null
+        }
+      ],
+      "affected_inputs": []
+    },
+    {
+      "id": "score",
+      "kind": "analysis",
+      "refresh": "on_change",
+      "depends_on": [
+        "observe",
+        "scoring"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "c750fcd9f524ff1eca8885e00aa513112c84dfcc4289aca7fe61b6a75727350d",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "c750fcd9f524ff1eca8885e00aa513112c84dfcc4289aca7fe61b6a75727350d",
+      "reasons": [
+        {
+          "code": "unavailable_upstream_evidence",
+          "check": null
+        },
+        {
+          "code": "upstream_requires_check",
+          "check": "observe"
+        }
+      ],
+      "affected_inputs": []
+    },
+    {
+      "id": "review",
+      "kind": "review",
+      "refresh": "on_change",
+      "depends_on": [
+        "score",
+        "confirm"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "00969c9f586d1e49085df61b32d837b332328f39fd1d8818b07cefa7315f0bc4",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "00969c9f586d1e49085df61b32d837b332328f39fd1d8818b07cefa7315f0bc4",
+      "reasons": [
+        {
+          "code": "unavailable_upstream_evidence",
+          "check": null
+        },
+        {
+          "code": "upstream_requires_check",
+          "check": "confirm"
+        },
+        {
+          "code": "upstream_requires_check",
+          "check": "score"
+        }
+      ],
+      "affected_inputs": []
+    }
+  ],
+  "decisions": [
+    {
+      "id": "relation",
+      "depends_on": [
+        "review"
+      ],
+      "applicability": "requires_checks",
+      "required_checks": [
+        "confirm",
+        "observe",
+        "score",
+        "review"
+      ],
+      "reusable_checks": [],
+      "obligations": []
+    }
+  ],
+  "outcome": "not_adjudicated",
+  "deployment_decision": "unresolved",
+  "automatic_acceptance": false,
+  "limitations": [
+    "Explains the recorded declared graph, not physical causation or an optimal experiment.",
+    "Previous receipt presence or equal hashes do not establish valid reusable evidence.",
+    "Planned reuse is not attempted reuse; required checks are historical plan obligations.",
+    "Always-refresh confirmation is a program obligation, not proof of fresh physical data.",
+    "IDs and digests may be sensitive; omitted diagnostics remain available in local source records.",
+    "Re-verify the pinned archive with its recorded checker; unsigned JSON is not authenticated evidence."
+  ]
+}

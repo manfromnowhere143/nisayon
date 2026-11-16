@@ -25,6 +25,24 @@ The [browser instrument](../apps/instrument/README.md) has its own locked Node
 environment and local file review. Neither installation starts a robot, a paid
 job or a persistent service.
 
+## Read an exported check packet (current source)
+
+Use the archive's actual expected digest and the exact checker that produced it.
+These commands execute no owner handler. The measurement selectors name the
+archived model's actual scoring input and checks; they are not universal defaults.
+
+```sh
+nisayon-qualify summarize-check-bundle checks.zip --sha256 EXPECTED_DIGEST
+nisayon-qualify explain-check-bundle checks.zip --sha256 EXPECTED_DIGEST
+nisayon-qualify review-check-measurements checks.zip --sha256 EXPECTED_DIGEST \
+  --contract-input scoring --observation-check observe --assessment-check score
+```
+
+Read the [summary](CHECK_SUMMARY.md), [explanation](CHECK_EXPLANATION.md) and
+[measurement](CHECK_MEASUREMENTS.md) contracts for exit codes and scope. A
+completed process is not acceptance. Historical archives retain their recorded
+checker; changing the installed source does not migrate them.
+
 ## Install v0.2.0
 
 The [release](https://github.com/manfromnowhere143/nisayon/releases/tag/v0.2.0)
@@ -94,7 +112,9 @@ Tagged v0.2.0 packets and older `cpython_owner_reads_v1` plans can open in the
 [software review interface](https://nisayon.danielwahnich.dev/#view=qualify).
 The current browser reader rejects `cpython_bound_reads_v2` and declared-check
 bundles. Review those with the current Python/CLI commands; their import into the
-browser needs separate qualification. For supported packets, the browser checks
+browser remains unsupported. Current browser source separately reads the
+[bounded summary, measurement and explanation JSON projections](PORTABLE_REVIEW.md#connect-the-instrument).
+Those saved records do not authenticate themselves. For supported native packets, the browser checks
 transport bytes and shows the saved assessment. The Python
 `review` command independently recomputes the assessment from retained records;
 this means a separate calculation, not an independent person or organization.

@@ -147,6 +147,27 @@ result; use a fresh destination to retry. This is not atomic crash recovery or a
 hostile-filesystem sandbox. Imported contents remain unredacted, and import grants
 no new sharing permission. Include import and review work in any cost comparison.
 
+For a compact read-only view, use `summarize_check_bundle(path,
+expected_sha256=...)` or `nisayon-qualify summarize-check-bundle checks.zip
+--sha256 EXPECTED_DIGEST`. The [versioned projection](../../../docs/CHECK_SUMMARY.md)
+separates recorded execution, input identities, check actions and incomplete
+costs. It omits raw payloads and host paths. Task outcome and scientific/deployment
+acceptance remain unresolved; a saved handler claim is not promoted to approval.
+
+To inspect why each check ran or reused evidence, use `explain_check_bundle` or
+`nisayon-qualify explain-check-bundle checks.zip --sha256 EXPECTED_DIGEST`.
+The [recorded explanation](../../../docs/CHECK_EXPLANATION.md) adds declared graph
+edges, previous input identities, selection reasons and actual attempts as a
+separate companion. It describes the historical plan, not a new instruction to
+rerun completed checks or an explanation of physical causation.
+
+For the explicit measurement-contract pattern used by the Newton example below,
+`reassess_check_measurements` recomputes the captured relation and compares the
+complete saved assessment. The [measurement review guide](../../../docs/CHECK_MEASUREMENTS.md)
+gives the pinned SDK/CLI invocation, required graph bindings and exit meanings.
+It checks recorded measurements without executing a handler; task truth and
+fresh confirmation remain separate domain obligations.
+
 ## Pinned external calibration
 
 `calibration.py` qualifies one local regular JSON file of at most 64 KiB through
@@ -215,7 +236,7 @@ private old observations: execute without `--previous-state` to acquire a fresh
 exportable packet. The example checks and exports the same collected snapshot;
 it does not add a general privacy guarantee to `export_checks`.
 
-The [retained qualification packet](../../../docs/experiments/results/main-refresh-2026-11-09/README.md#declared-calibration-and-portable-continuation)
+The [retained qualification packet](../../../docs/experiments/results/main-refresh-2026-11-09/README.md)
 freezes the exposed controls and limits. The attempted cost comparison stopped
 on recording defects; no comparative efficiency result was established.
 
@@ -252,11 +273,20 @@ It compares whole tracked memory and six sampled payloads. The solver was
 unconverged, and task/deployment acceptance remains unresolved.
 
 Keep the complete evidence root for replay, including model review and prior
-states, or use the implemented [portable check export](../../../docs/EVIDENCE_APPLICABILITY.md#continue-with-a-transported-evidence-root).
+states, or use the implemented [portable check export](../../../docs/PORTABLE_REVIEW.md).
 `nisayon-qualify export-checks` retains the needed records and
 `review-check-bundle` reconstructs them without running native handlers. The
-instrument extension is implemented locally on `ui/executable-check-review-2026-10-25`;
-it still awaits actual browser/device acceptance and deployment authorization.
-The [record-consistency continuation](../../../docs/EVIDENCE_APPLICABILITY.md#progress-while-an-input-is-unknown)
+browser reader accepts check-bundle v1 with execution v1; use Python/CLI for
+current execution v2 packets. Portable review does not grant deployment acceptance.
+The [record-consistency continuation](../../../docs/EVIDENCE_APPLICABILITY.md)
 retains current guards, exact-source limits and the Inspect transfer into that
 existing review interface. Original execution evidence remains unchanged.
+
+If an old result is missing **before** a new execution, the executor reruns the
+affected checks and still performs fresh confirmation. That new execution can
+be exported with the historical absence preserved. If the old result disappears
+**after** the saved plan relied on it, export refuses the inconsistent record;
+start a new execution with current inputs instead of rewriting the old plan.
+Missing current results, permission failures, symlinks (including ancestor links)
+and nonregular files still refuse export. Use a trusted local evidence root;
+these checks are not isolation from a hostile concurrent filesystem writer.

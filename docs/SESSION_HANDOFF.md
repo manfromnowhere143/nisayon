@@ -1,43 +1,44 @@
-# Continue Nisayon
+# Continue Nisayon · 16 November 2026
 
-This is a public-source candidate updated locally on 10 November 2026. Read
-[AGENTS.md](../AGENTS.md), [the voice policy](VOICE.md), the
-[current source record](experiments/results/main-refresh-2026-11-09/README.md),
-[architecture](ARCHITECTURE.md), [research decision](FRONTIER_REVIEW_2026-11-09.md)
-and [owner protocol](OWNER_COMPARISON.md). Use `nisayon start --focus 'subject keywords'`
-and read the relevant retained evidence before proposing another experiment.
+Read [AGENTS.md](../AGENTS.md), [voice](VOICE.md), the
+[current source record](experiments/results/source-refresh-2026-11-16/README.md),
+[capabilities](CAPABILITIES.md), [architecture](ARCHITECTURE.md),
+[research assessment](FRONTIER_REVIEW_2026-11-16.md) and
+[owner protocol](OWNER_COMPARISON.md). Run `nisayon start --focus 'subject keywords'`
+and reconcile relevant retained source before proposing another experiment.
 
-Current source supports declared calibration snapshots, partial checks,
-unfinished-record reconstruction and pinned portable continuation. Import grants
-no decision; current inputs and mandatory confirmation still execute. New native
-plans with observed unbound external reads remain unresolved. Historical evidence
-retains its original checker and scope. The tagged v0.2.0 wheel is unchanged.
+Current source implements digest-pinned check summaries, measured-claim
+reconstruction, dependency explanations and nonzero JSON-underflow refusal.
+The browser source accepts the three bounded JSON projections, preserves exact
+numeric tokens and checks companion association. Imported JSON is unsigned;
+matching identities do not authenticate a producer. Native bound-read v2 and
+check archives remain Python/CLI paths. No import grants deployment acceptance.
+The [public checker history](experiments/results/source-refresh-2026-11-16/source-history.json)
+retains exact source versions for historical packets without private Git ancestors.
 
-The public tree includes the browser instrument and its data/export contracts.
-Source integration, GitHub publication and website deployment are separate.
-The engine source and current UI source pass 2,573 Python tests (76 skips) and
-444 instrument tests, TypeScript and production build. The complete Python
-collection ran in five frozen disjoint processes. All 17 public-candidate
-diagrams rendered in both themes. Exact scope and failures are in the source
-record; these are exposed software controls, not an owner trial.
+The combined public candidate passed 2,830 Python tests with 80 explicit skips,
+622 frontend tests, TypeScript and production build using existing installations.
+All 17 diagrams rendered in two themes. The
+[integration receipt](experiments/results/source-refresh-2026-11-16/integration-validation.json)
+records hashes, original failures, resources and limits. Optional-stack skips,
+large Three/HLS chunks, final live-browser/accessibility/GPU checks and physical
+hardware validation remain distinct from those software passes.
 
-Hosted jobs were blocked before execution. At Daniel's instruction, GitHub
-operations stopped and the local workflow is manual-only. Public main was not
-advanced; no hosted pass or removal of historical failures is claimed. Newer
-local commits are not pushed. Before any later publication, reconcile the UI
-lane's latest release archives with this candidate; its tested runtime code is
-already included, but its newer release-record packet is still on canonical main.
-The latest dated UI status is under [docs/ui](ui/README.md). Do not replace its
-retained data with generated imagery or infer a live robot-control connection.
+The brighter laboratory and Ricci are presentation concepts, not a measured
+laboratory, validated digital twin, actuator design or physical prototype.
+Recorded robot evidence remains separately identified. Website deployment is
+separate from source publication. The tagged v0.2.0 wheel is unchanged.
 
-Owner intake remains unadmitted. Use the existing four-hour ceiling and equal
-native tools plus a capable agent. Complete costs and untouched reuse remain
-unestablished. The stopped calibration/agent comparisons, completed LongWAM task
-subset, below-target inference screen and completed rank-recovery campaign stay
-closed unless a new discriminating question has a prospective allocation.
+Daniel resumed GitHub publication for this repository update on 16 November.
+Use existing public ancestry, never private canonical main, and verify the remote
+readback. Hosted Actions status requires its actual receipt; local tests are not
+hosted execution. The manual workflow preserves the earlier automation pause
+until hosted availability is verified. No tag/history rewrite or removal of
+historical failures is authorized by ordinary source publication.
 
-The current engine follow-up is to reproduce a candidate missing-prior-artifact
-export mismatch before changing implementation. Static inspection alone did not
-establish the defect. Do not add another API, selector or backend to replace an
-admitted owner decision. Preserve failed attempts, unknown costs, scientific
-boundaries, private history and sibling ownership.
+The next scientific gate is an admitted consequential owner decision, a competent
+conventional baseline, fresh task confirmation and complete costs, followed by a
+separately selected untouched case. No complete-cost advantage, general dependency
+inference, independent physical replication or competitor superiority is established.
+Retain the four-hour intake ceiling and keep stopped/null campaigns closed unless
+a new discriminating question has its own prospective allocation.

@@ -1,0 +1,9 @@
+flowchart TB
+    accTitle: Nisayon's implemented experiment path
+    accDescr: Reproduce the reference and regression, execute diagnostic reruns, freeze a candidate and its rule, then confirm on fresh conditions. The separate offline probe tool can inform a proposal but is not integrated with execution or acceptance. Diagnostic gaps stop the path. Every outcome is retained.
+    R["Reference and regression"] --> D["Diagnostic reruns"]
+    P["Offline cause or decision probes<br/>caller-supplied models and labels"] -. "proposal only" .-> D
+    D --> F["Freeze candidate<br/>and acceptance rule"]
+    D --> U["Stop with a retained reason<br/>invalid · unsupported · unresolved"]
+    F --> C["Fresh reference<br/>and correction pairs"]
+    C --> V["Accept, reject<br/>or leave unresolved"]

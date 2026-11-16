@@ -1,5 +1,24 @@
 # Research source and releases
 
+## Check-packet readers and instrument integration · 16 November 2026
+
+Current source includes pinned summaries, measured-claim reconstruction,
+dependency explanations and JSON-underflow refusal. The instrument consumes all
+three JSON projections and preserves their different checker generations. Native
+ZIP support has its separate boundary. The README and architecture diagrams now
+match these interfaces; earlier progress is retained in the linked journal.
+
+The [source and validation record](experiments/results/source-refresh-2026-11-16/README.md)
+binds the combined snapshot and exact historical reader versions. Local validation
+passed 2,830 Python tests with 80 explicit skips, 622 frontend tests, TypeScript,
+production build and all 17 diagrams in both themes. Existing installations were
+reused. Final browser, physical-device and GPU observations remain open.
+
+Publication follows existing public history and keeps private development
+ancestors out of GitHub. The v0.2.0 wheel and tags remain unchanged. Website
+publication is separate. Hosted status must be read from its actual workflow
+receipt; local checks are not a hosted pass.
+
 ## Engine and instrument source reconciliation · 9 November 2026
 
 Current source now includes observed external-read refusal, prospective calibration
@@ -7,8 +26,10 @@ admission, optional partial checks, unfinished-record validation and pinned
 portable continuation. The instrument, export contracts, tests and recorded
 fixtures join the same public source tree. The README, implementation diagrams,
 capability guide and research direction now describe that state together.
-Local main is reconciled; public main has not been advanced. Hosted operations
-are stopped at the operator's request, and the local Actions workflow is manual-only.
+At that checkpoint, local main was reconciled and public main had not advanced.
+Hosted operations were then stopped at the operator's request. The 16 November
+repository update resumes authorized publication; the workflow remains manual-only
+until its hosted execution is checked.
 
 The [source and validation record](experiments/results/main-refresh-2026-11-09/README.md)
 separates current checks from historical outcomes. This is a source update from

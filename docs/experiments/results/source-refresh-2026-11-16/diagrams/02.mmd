@@ -1,0 +1,19 @@
+flowchart TB
+    accTitle: A1 normalized-policy evidence ladder
+    accDescr: Dataset custody, normalized training and checkpoint recovery are supported. The runtime passes its declared qualification checks, but the A1 checkpoint succeeds in only one of ten development episodes against the required eight. That normalized checkpoint remains rejected; the separate B2 legacy-policy repair does not change this result.
+    subgraph P["A1 preparation"]
+        direction LR
+        D["Rights-qualified data<br/>supported"] --> T["100 normalized updates<br/>supported"]
+        T --> C["Checkpoint recovery<br/>supported"]
+    end
+    subgraph Q["A1 task qualification"]
+        direction LR
+        R["Robosuite 1.5.1 runtime<br/>declared checks pass"] --> K["Checkpoint competence<br/>1/10 · needs 8/10<br/>rejected"]
+    end
+    subgraph N["A1 repair not established"]
+        direction LR
+        I["Fixed-weight normalizer edit<br/>not assigned"] --> V["Confirmed repair and value<br/>unproved"]
+    end
+    P --> Q
+    Q -. "competence requirement failed" .-> N
+    F["Producer and loader failures<br/>retained with corrections"] -. "prospective amendments" .-> Q

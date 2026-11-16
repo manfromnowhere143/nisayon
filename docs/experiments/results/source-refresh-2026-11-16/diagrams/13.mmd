@@ -1,0 +1,12 @@
+flowchart TB
+    accTitle: Full-weight continuation checks the next computation on both ranks
+    accDescr: For each synthetic seed, the unchanged declared recipe performs two optimizer updates and retains a step-one checkpoint. A fresh process loads that checkpoint and repeats update two. Both ranks' next-update witnesses must agree exactly with the uninterrupted run. Missing-optimizer and altered-evidence controls challenge the boundary. Training quality and changed topology remain unqualified.
+    I["Freeze combined source and recipe<br/>published IDM weights · two A100 GPUs"]
+    I --> A["Update 1<br/>retain checkpoint and state"]
+    A --> B["Uninterrupted update 2<br/>both-rank witnesses"]
+    A --> C["Fresh process<br/>restore step-one checkpoint"]
+    C --> D["Resumed update 2<br/>both-rank witnesses"]
+    B --> E["Compare next computation<br/>inputs · gradients · model · optimizer<br/>scheduler · RNG · metrics"]
+    D --> E
+    E --> F["Scoped continuation supported<br/>synthetic seeds 401 and 449"]
+    F --> G["Retain all attempts and checkpoints<br/>training quality remains unmeasured"]

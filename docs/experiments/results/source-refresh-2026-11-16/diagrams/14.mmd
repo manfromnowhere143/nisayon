@@ -1,0 +1,9 @@
+flowchart LR
+    M[Moment: stored configuration and readings] --> F[Fork: compare actual executions]
+    F --> C[Conditions: inspect paired confirmation]
+    C --> D[Decision: follow the evaluator reason]
+    D --> M
+    S[Persistent selection: generation, bundle, run, row, phase, clock] --- M
+    S --- F
+    S --- C
+    S --- D

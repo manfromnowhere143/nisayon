@@ -287,8 +287,18 @@ be reduced silently to the last one. Each decoded invocation, frozen protocol,
 attempt, run and compressed trace is checked against its manifest's bytes and
 digest at consumption, after the initial manifest scan. The manifest itself is
 decoded from the bytes whose digest was checked. Confirmation metadata uses the
-same decoder; the B2 reader keeps its equivalent decoder within the single file
-identified by `verifier_sha256`. Serialization and valid-record digests are unchanged.
+same shared decoder. The sealed historical B2 profile keeps its decoder within
+the single file identified by `verifier_sha256`.
+
+The shared decoder also refuses a nonzero floating token that rounds to zero,
+such as `1e-400`, before it can support a measured equality against zero. Literal
+signed zeros and nonzero subnormals remain supported. Other finite tokens keep
+Python's binary-float rounding; this is not decimal-exact arithmetic. The
+separate B2 decoder retains its historical policy. Serialization and digests of
+still-supported records are unchanged, but the qualification checker source
+identity changes: review old check archives with their recorded checker.
+The [underflow correction](experiments/results/source-refresh-2026-11-16/README.md)
+retains the exposed before/after controls and precise scope.
 
 The [record-boundary controls](../tests/engine/test_native_record_decoding.py)
 exercise conflicting keys, non-finite metadata and changes between the manifest

@@ -104,12 +104,20 @@ qualification is limited to the recorded environment.
 
 ## Connect the instrument
 
-The current [browser reader](../apps/instrument/src/qualification/bundle.ts)
+The native ZIP [browser reader](../apps/instrument/src/qualification/bundle.ts)
 accepts the native bundle v1 family with plan v1 or the legacy
 `cpython_owner_reads_v1` policy. It refuses newer `cpython_bound_reads_v2` plans
 and the separate check-bundle family. Use Python/CLI review for those packets;
-adding browser support requires its own qualified interpretation of the new
-records. Transport integrity alone does not extend the supported policy.
+transport integrity alone does not extend the supported policy.
+
+Current browser source separately imports [check-summary JSON](CHECK_SUMMARY.md)
+with optional [measurement-review JSON](CHECK_MEASUREMENTS.md) and
+[dependency-explanation JSON](CHECK_EXPLANATION.md). It validates
+versions and bounds, preserves numeric tokens, and associates companion records
+only when their source identities agree. These are unsigned saved projections,
+not native-archive re-verification or a browser implementation of the measurement
+checker. File import stays local. Use the Python readers with the original archive
+and its expected digest when checking the claim. A deployed website can lag source.
 
 The UI can open `bundle.json`, verify each member's bytes and read the case from
 `evidence/plan.json`. Plan assignments identify the role, probe and attempt

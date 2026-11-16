@@ -19,7 +19,7 @@ const options: LoaderOptions = {
 let container: HTMLDivElement | undefined;
 let root: Root | undefined;
 
-async function mount(search: string): Promise<void> {
+async function mount(search: string, readings = true): Promise<void> {
   if (root) { await act(async () => root!.unmount()); container?.remove(); }
   window.history.replaceState(null, "", `${window.location.origin}/${search}`);
   const el = document.createElement("div");
@@ -35,6 +35,9 @@ async function mount(search: string): Promise<void> {
   // evidence-agreement controls by opening it through its public affordance.
   const evidence = container!.querySelector<HTMLButtonElement>('.workspace-actions button');
   if (evidence) await act(async () => evidence.click());
+  if (readings && container!.querySelector('.case-brief')) await act(async () => {
+    Array.from(container!.querySelectorAll<HTMLButtonElement>('.analysis-tab')).find((button) => button.textContent === "Readings")!.click();
+  });
 }
 
 async function waitFor(predicate: () => boolean, timeout = 4000): Promise<void> {
@@ -74,6 +77,26 @@ afterEach(async () => {
 });
 
 describe("the instrument in a DOM", () => {
+  it("opens a case brief without changing the moment, then moves focus to the requested reading view", async () => {
+    await mount("", false);
+    const selected = window.location.search;
+    expect(container!.querySelector(".case-brief")).not.toBeNull();
+    expect(text(".scene-heading")).toContain("RECORDED SIMULATION");
+    const inspect = Array.from(container!.querySelectorAll<HTMLButtonElement>(".case-brief button")).find((button) => button.textContent?.startsWith("Inspect readings"))!;
+    inspect.focus();
+    await act(async () => inspect.click());
+    expect(container!.querySelector(".case-brief")).toBeNull();
+    expect(document.activeElement?.textContent).toBe("Readings");
+    expect(window.location.search).toBe(selected);
+  });
+
+  it("keeps a deep-linked comparison open instead of replacing it with a brief", async () => {
+    await mount("?d=fork", false);
+    expect(container!.querySelector(".case-brief")).toBeNull();
+    expect(text(".depth-title")).toBe("Compare");
+    expect(new URLSearchParams(window.location.search).get("d")).toBe("fork");
+  });
+
   it("opens the computed first mismatch of the regression run and pins it in the URL", async () => {
     await mount("");
     expect(text(".finding-headline")).toBe("Gripper command reversed at step 0.");
@@ -151,10 +174,10 @@ describe("the instrument in a DOM", () => {
     expect(text(".transport-row")).toBe("row 43");
   });
 
-  it("opens Fork with the paired run as a ghost and returns with Back", async () => {
+  it("opens Compare with the paired run as a ghost and preserves the fork locator", async () => {
     await mount("");
     await act(async () => {
-      (Array.from(container!.querySelectorAll(".depth-open")).find((b) => b.textContent?.startsWith("Fork")) as HTMLButtonElement).click();
+      (Array.from(container!.querySelectorAll(".depth-open")).find((b) => b.textContent?.startsWith("Compare")) as HTMLButtonElement).click();
     });
     await waitFor(() => text(".depth-lede").includes("ghost"));
     expect(new URLSearchParams(window.location.search).get("d")).toBe("fork");

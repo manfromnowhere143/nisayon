@@ -1,5 +1,10 @@
 # Experiments
 
+The [16 November source review](results/source-refresh-2026-11-16/README.md)
+adds pinned summaries, measured-claim reconstruction, dependency explanations and
+JSON-underflow refusal. Software qualification remains separate from the
+historical task outcomes below.
+
 Nisayon began with a deployment regression that could be reproduced and
 corrected in a simulator. The next question was whether its checks improved
 the work of finding and confirming a repair. Two comparisons have now tested

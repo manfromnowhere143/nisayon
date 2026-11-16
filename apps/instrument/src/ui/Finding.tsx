@@ -45,7 +45,7 @@ export function Finding({ caseRecord, run, moment, depth, onInspect }: Props) {
         {depth === "moment" ? (
           <>
             <button type="button" className="quiet depth-open" onClick={() => store.setDepth("fork")}>
-              Fork <Icon name="open" />
+              Compare <Icon name="open" />
             </button>
             <button type="button" className="quiet depth-open" onClick={() => store.setDepth("decision")}>
               Decision <Icon name="open" />

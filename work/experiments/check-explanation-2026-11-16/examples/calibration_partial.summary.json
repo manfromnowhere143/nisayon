@@ -1,0 +1,154 @@
+{
+  "schema": "nisayon.qualification.check_summary.v1",
+  "source": {
+    "bundle_sha256": "d00c98f02722d8a4e1ad69a0b42394579a3635531f496081a5c97299236a7be6",
+    "bundle_schema": "nisayon.qualification.check_bundle.v1",
+    "execution_schema": "nisayon.qualification.check_execution.v2",
+    "model_sha256": "ca693a958ac869254dcd1d5458df7c99332c72f655c988c93c288637e78b6a4e",
+    "checker_sha256": "0651a9d55fc2626d20a42c73a234fc57dc105254fc64bb2d9a4afa0781961a69"
+  },
+  "record_review": {
+    "integrity": "verified",
+    "reconstruction": "unresolved",
+    "independent_execution_attestation": false
+  },
+  "execution": {
+    "status": "unresolved",
+    "error_count": 4,
+    "acquisition": {
+      "status": "completed",
+      "resource": null,
+      "reason_code": null
+    }
+  },
+  "context": {
+    "question": null,
+    "comparison_arms": null,
+    "physical_or_simulation_provenance": null,
+    "missing_reason": "not_bound_by_check_execution_schema"
+  },
+  "change": {
+    "input_ids": [],
+    "basis": "recorded_previous_state",
+    "previous_check_count": 0,
+    "model_changed": false
+  },
+  "inputs": [
+    {
+      "id": "admission",
+      "kind": "protocol",
+      "sha256": "d2a16f2babd0e86cfde9a5818f405f19c25f45ddb8d69eed2fa9444d286a0c39",
+      "status": "bound"
+    },
+    {
+      "id": "calibration",
+      "kind": "data",
+      "sha256": "02987f81d1feffd7884be2fff9cd43d681eb10f7dd7dfbd894a3e8dfbf10fdc1",
+      "status": "bound"
+    },
+    {
+      "id": "code",
+      "kind": "code",
+      "sha256": "7c17e991c6f815388c2fb63df73e23153ba5fc6de9a852e29122c6deda11f58c",
+      "status": "bound"
+    },
+    {
+      "id": "confirmation",
+      "kind": "data",
+      "sha256": null,
+      "status": "unknown"
+    },
+    {
+      "id": "diagnostic",
+      "kind": "data",
+      "sha256": "ab1229a04faa0bdc8137e7ee371120064018588a25fe07254fa91a091fc904f1",
+      "status": "bound"
+    },
+    {
+      "id": "population",
+      "kind": "population",
+      "sha256": "4f7ec2a8bad94a3cc00773ba72fe8e67f4729e1ffbba80f3ed31db61eec7733a",
+      "status": "bound"
+    },
+    {
+      "id": "procedure",
+      "kind": "protocol",
+      "sha256": "8d242fb18661f9871ffa63168a9084224fa8927fd70dbbf39108f7227e9193a5",
+      "status": "bound"
+    },
+    {
+      "id": "runtime",
+      "kind": "runtime",
+      "sha256": "830615e6e27288c6f72d0681976bd89483252fc291608943840c41a37dc9ffbc",
+      "status": "bound"
+    },
+    {
+      "id": "scoring",
+      "kind": "scoring",
+      "sha256": "cda578a907c69ba353d108a36e35b48cede74fbee8789d1aa5f1586b13f82dee",
+      "status": "bound"
+    }
+  ],
+  "checks": [
+    {
+      "id": "confirm",
+      "kind": "confirmation",
+      "planned_action": "run",
+      "attempted_action": null,
+      "execution_status": "not_attempted",
+      "elapsed_seconds": null,
+      "artifact_sha256": null
+    },
+    {
+      "id": "observe",
+      "kind": "observation",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.010415791010018438,
+      "artifact_sha256": "11786fc0546a1d4f2cb6af9514f409533f1fcbb115640149a997660d5b447690"
+    },
+    {
+      "id": "score",
+      "kind": "analysis",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.010138749988982454,
+      "artifact_sha256": "3f38de193dd86bd316208b2fedba775b131afed2229018b3f640015e4c4a75c3"
+    },
+    {
+      "id": "review",
+      "kind": "review",
+      "planned_action": "run",
+      "attempted_action": null,
+      "execution_status": "not_attempted",
+      "elapsed_seconds": null,
+      "artifact_sha256": null
+    }
+  ],
+  "costs": {
+    "workflow_wall_seconds": 0.029582374991150573,
+    "human_engineering_seconds": null,
+    "complete_cost": null,
+    "basis": "recorded_process_timing_not_independent_measurement",
+    "boundary": "Attempt times are nested; setup, review, retries and maintenance are incomplete."
+  },
+  "outcome": {
+    "status": "not_adjudicated",
+    "reason": "handler_claims_require_a_semantic_checker"
+  },
+  "decision": {
+    "status": "unresolved",
+    "automatic_acceptance": false
+  },
+  "deployment_decision": "unresolved",
+  "limitations": [
+    "Reviewed declarations and trusted stateless handlers remain premises.",
+    "Hashes bind bytes, not physical truth, permission or authenticity.",
+    "A complete process does not establish scientific acceptance or complete cost.",
+    "This projection does not classify hardware, simulation or historical provenance.",
+    "IDs and digests remain visible; raw payloads, host paths and free text are omitted.",
+    "Re-verify the pinned source archive; this saved summary is not signed authority."
+  ]
+}

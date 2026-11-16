@@ -16,7 +16,7 @@ import { VISUAL_ASSET } from "../src/scene/visualAssetPin";
 
 // Exercise the detailed-scene interaction contract without claiming GPU paint.
 // The old SVG substitution is intentionally unavailable in the application.
-const scene = vi.hoisted(() => ({ spatial: null as SpatialLayerState | null, pick: vi.fn(() => 14), orbit: vi.fn() }));
+const scene = vi.hoisted(() => ({ spatial: null as SpatialLayerState | null, pick: vi.fn(() => 14), orbit: vi.fn(), zoom: vi.fn(), resetView: vi.fn(), setSetting: vi.fn(), setBounds: vi.fn() }));
 const nativeAsset = decodeVisualAsset(JSON.parse(readFileSync(join(REPO_ROOT, VISUAL_ASSET.path), "utf8")), VISUAL_ASSET.sha256);
 vi.mock("../src/scene/visualAssets", async (original) => ({
   ...(await original<typeof import("../src/scene/visualAssets")>()),
@@ -27,10 +27,10 @@ vi.mock("../src/scene/renderer", async (original) => ({
   createSceneRenderer: (_canvas: unknown, _ground: unknown, callbacks: SceneCallbacks) => {
     let presented = false;
     return {
-      setModel: vi.fn(), setPrimary: vi.fn(), setGhost: vi.fn(), setBounds: vi.fn(),
+      setModel: vi.fn(), setPrimary: vi.fn(), setGhost: vi.fn(), setBounds: scene.setBounds, setSetting: scene.setSetting,
       setCollision: vi.fn(), setView: vi.fn(), setGround: vi.fn(), resize: vi.fn(), dispose: vi.fn(),
       setSpatial: (state: SpatialLayerState) => { scene.spatial = state; },
-      pick: scene.pick, orbit: scene.orbit,
+      pick: scene.pick, orbit: scene.orbit, zoom: scene.zoom, resetView: scene.resetView,
       present: () => { if (!presented) { presented = true; callbacks.onFirstFrame(); } },
     };
   },
@@ -102,6 +102,30 @@ it("keeps recording selection available inside Workspace controls", async () => 
   await click(choice);
   expect(document.querySelectorAll('[role="option"]').length).toBeGreaterThan(0);
   expect(ready().moment).toEqual(moment);
+});
+
+it("changes architecture and camera by keyboard without changing the recorded source or moment, and honours reduced motion", async () => {
+  await mount();
+  await click(container.querySelector(".glass-card-close")!);
+  const moment = { ...ready().moment }, record = ready().run.record;
+  await act(async () => store().setReducedMotion(true));
+  const controls = [...container.querySelectorAll<HTMLButtonElement>(".view-controls button")];
+  await click(controls.find(button => button.textContent === "Hall")!);
+  expect(scene.setSetting).toHaveBeenLastCalledWith("architecture", "lab");
+  expect(scene.setBounds.mock.calls.at(-1)?.[1]).toBe(false);
+  await click(controls.find(button => button.textContent === "Source room")!);
+  expect(scene.setSetting).toHaveBeenLastCalledWith("source", "lab");
+  const stage = container.querySelector<HTMLElement>(".scene-box")!;
+  expect(stage.tabIndex).toBe(0);
+  await act(async () => {
+    stage.focus();
+    for (const key of ["ArrowRight", "+", "Home"]) stage.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true }));
+  });
+  expect(scene.orbit).toHaveBeenLastCalledWith(.12, 0);
+  expect(scene.zoom).toHaveBeenLastCalledWith(.88);
+  expect(scene.resetView).toHaveBeenCalled();
+  expect(ready().moment).toEqual(moment);
+  expect(ready().run.record).toBe(record);
 });
 
 it.each([

@@ -2,7 +2,7 @@ import { CATALOG_SHA } from "./catalogPin";
 import { CASE_IDS, type CaseId } from "./catalog";
 
 export interface ResearchRoute {
-  surface: "home" | "system" | "research" | "lab" | "qualify" | "develop";
+  surface: "home" | "system" | "research" | "lab" | "qualify" | "develop" | "concepts" | "checks";
   caseId: CaseId;
   variant: "original" | "corrected";
   sample: number;
@@ -43,7 +43,7 @@ export function readResearchRoute(
   }
   if (!p.has("view")) return route;
   const view = p.get("view");
-  if (view !== "home" && view !== "system" && view !== "research" && view !== "lab" && view !== "qualify" && view !== "develop")
+  if (view !== "home" && view !== "system" && view !== "research" && view !== "lab" && view !== "qualify" && view !== "develop" && view !== "concepts" && view !== "checks")
     route.issue = "This link names an unknown instrument view.";
   else route.surface = view;
   const id = p.get("case");

@@ -1,0 +1,1420 @@
+FFFFFFFFFFFFFFFFFFFFFFFF..                                               [100%]
+=================================== FAILURES ===================================
+_______ test_malformed_or_invented_costs_cannot_verify[not_object-False] _______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'not_object'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_______ test_malformed_or_invented_costs_cannot_verify[not_object-True] ________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'not_object'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_____ test_malformed_or_invented_costs_cannot_verify[missing_field-False] ______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'missing_field'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+______ test_malformed_or_invented_costs_cannot_verify[missing_field-True] ______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'missing_field'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+______ test_malformed_or_invented_costs_cannot_verify[extra_field-False] _______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'extra_field'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_______ test_malformed_or_invented_costs_cannot_verify[extra_field-True] _______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'extra_field'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+________ test_malformed_or_invented_costs_cannot_verify[negative-False] ________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'negative'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+________ test_malformed_or_invented_costs_cannot_verify[negative-True] _________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'negative'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+________ test_malformed_or_invented_costs_cannot_verify[boolean-False] _________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'boolean'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_________ test_malformed_or_invented_costs_cannot_verify[boolean-True] _________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'boolean'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+__________ test_malformed_or_invented_costs_cannot_verify[text-False] __________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'text'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+__________ test_malformed_or_invented_costs_cannot_verify[text-True] ___________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'text'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+__________ test_malformed_or_invented_costs_cannot_verify[null-False] __________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'null'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+__________ test_malformed_or_invented_costs_cannot_verify[null-True] ___________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'null'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_______ test_malformed_or_invented_costs_cannot_verify[human_cost-False] _______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'human_cost'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_______ test_malformed_or_invented_costs_cannot_verify[human_cost-True] ________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'human_cost'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_____ test_malformed_or_invented_costs_cannot_verify[complete_cost-False] ______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'complete_cost'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+______ test_malformed_or_invented_costs_cannot_verify[complete_cost-True] ______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'complete_cost'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+____ test_malformed_or_invented_costs_cannot_verify[missing_boundary-False] ____
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'missing_boundary'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+____ test_malformed_or_invented_costs_cannot_verify[missing_boundary-True] _____
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'missing_boundary'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_____ test_malformed_or_invented_costs_cannot_verify[empty_boundary-False] _____
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'empty_boundary'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_____ test_malformed_or_invented_costs_cannot_verify[empty_boundary-True] ______
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'empty_boundary'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+_______ test_malformed_or_invented_costs_cannot_verify[too_short-False] ________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = False, damage = 'too_short'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+________ test_malformed_or_invented_costs_cannot_verify[too_short-True] ________
+
+case = {'model': DependencyModel(_bytes=b'{"checks":{"confirm":{"depends_on":["data","scoring","code","runtime","population",... 'implementation_files': [PosixPath('/Users/danielwahnich/workspace/nisayon/tests/qualification/test_checks.py')], ...}
+legacy = True, damage = 'too_short'
+
+    @pytest.mark.parametrize("legacy", [False, True])
+    @pytest.mark.parametrize(
+        "damage",
+        [
+            "not_object",
+            "missing_field",
+            "extra_field",
+            "negative",
+            "boolean",
+            "text",
+            "null",
+            "human_cost",
+            "complete_cost",
+            "missing_boundary",
+            "empty_boundary",
+            "too_short",
+        ],
+    )
+    def test_malformed_or_invented_costs_cannot_verify(case, legacy, damage):
+        report = run(case)
+        if legacy:
+            report["schema"] = "nisayon.qualification.check_execution.v1"
+            report.pop("acquisition")
+        costs = report["costs"]
+        if damage == "not_object":
+            report["costs"] = []
+        elif damage == "missing_field":
+            del costs["complete_cost"]
+        elif damage == "extra_field":
+            costs["verified_saving"] = 2.0
+        elif damage in {"negative", "boolean", "text", "null"}:
+            costs["workflow_wall_seconds"] = {
+                "negative": -1,
+                "boolean": True,
+                "text": "1.0",
+                "null": None,
+            }[damage]
+        elif damage == "human_cost":
+            costs["human_engineering_seconds"] = 0
+        elif damage == "complete_cost":
+            costs["complete_cost"] = 0
+        elif damage == "missing_boundary":
+            costs["boundary"] = None
+        elif damage == "empty_boundary":
+            costs["boundary"] = ""
+        else:
+            costs["workflow_wall_seconds"] = sum(row["wall_seconds"] for row in report["attempts"]) / 2
+        (case["evidence_root"] / "run/execution.json").write_text(json.dumps(report))
+>       with pytest.raises(ValueError, match="cost|Cost"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/qualification/test_check_cost_records.py:60: Failed
+=========================== short test summary info ============================
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[not_object-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[not_object-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[missing_field-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[missing_field-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[extra_field-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[extra_field-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[negative-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[negative-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[boolean-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[boolean-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[text-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[text-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[null-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[null-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[human_cost-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[human_cost-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[complete_cost-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[complete_cost-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[missing_boundary-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[missing_boundary-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[empty_boundary-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[empty_boundary-True]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[too_short-False]
+FAILED tests/qualification/test_check_cost_records.py::test_malformed_or_invented_costs_cannot_verify[too_short-True]
+24 failed, 2 passed in 2.19s

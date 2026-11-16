@@ -1,0 +1,58 @@
+/* A readable document inside the existing evidence surface. No new scene cost. */
+.research-glass-card .case-brief {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding: 4px 12px 16px 2px;
+  scroll-padding-block: 12px;
+  color: var(--ink);
+}
+.case-brief :is(p, h3, h4, dl) { margin: 0; }
+.case-brief p { font-size: .88rem; line-height: 1.6; color: var(--ink-2); }
+.case-brief .research-micro { font-size: .65rem; margin-bottom: 10px; }
+.case-brief-heading h3 { max-width: 24em; font-size: clamp(1.35rem, 2.3vw, 1.85rem); font-weight: 450; letter-spacing: -.04em; line-height: 1.2; margin-bottom: 12px; text-wrap: balance; }
+.case-brief :is(h4, .case-brief-path > button > span) { font-size: 1rem; font-weight: 550; line-height: 1.4; }
+.case-brief > section, .case-brief-records > section { border-top: 1px solid var(--rule); margin-top: 22px; padding-top: 18px; }
+.case-brief-records { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.case-brief-records > section { min-width: 0; }
+.case-brief .case-brief-label { font-size: .75rem; margin-bottom: 8px; }
+.case-brief .case-brief-detail { margin-top: 8px; }
+.case-brief .case-brief-run { font-size: .72rem; margin-top: 12px; overflow-wrap: anywhere; }
+.case-brief dl { display: grid; gap: 16px; margin-block: 18px 12px; }
+.case-brief-status { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.case-brief-decisions dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.case-brief dt { font-size: .72rem; color: var(--ink-2); margin-bottom: 4px; }
+.case-brief dd { margin: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.case-brief-decisions > p, .case-brief-scope > p { margin-top: 10px; }
+.case-brief :is(button, a, summary) { min-height: 44px; }
+.case-brief .quiet { margin-top: 4px; }
+.case-brief-path { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.case-brief-path > button { display: flex; flex-direction: column; gap: 8px; padding: 16px; text-align: left; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 12px; }
+.case-brief-path > button:hover { background: var(--selected); }
+.case-brief-path small { font-size: .73rem; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.case-brief-scope summary { display: list-item; align-content: center; cursor: pointer; font-size: .82rem; padding-block: 12px; }
+.case-brief-scope ul { padding-left: 20px; margin: 0 0 12px; }
+.case-brief-scope li { font-size: .82rem; line-height: 1.6; margin-bottom: 10px; color: var(--ink-2); }
+.case-brief-sources { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 8px; }
+.case-brief-sources a { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; color: var(--ink); text-underline-offset: .25em; }
+.case-brief :is(button, a, summary):focus-visible, .case-brief:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.case-brief:focus-visible { outline-offset: -2px; }
+.scene-heading .scene-outcome { margin-top: 8px; }
+@media (max-width: 600px) {
+  .research-glass-card .analysis-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .research-glass-card .case-brief { padding-right: 8px; }
+  .case-brief-path { grid-template-columns: 1fr; }
+  .case-brief-status { gap: 10px; }
+}
+@media (max-width: 800px) {
+  .case-brief-records { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 360px) {
+  .case-brief-status, .case-brief-decisions dl { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (forced-colors: active) {
+  .case-brief { --ink: CanvasText; --ink-2: CanvasText; --rule: CanvasText; }
+  .case-brief a { color: LinkText; }
+}

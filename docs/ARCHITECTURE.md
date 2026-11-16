@@ -1,6 +1,6 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 9 November
+**Design v0.1 · 17 September 2026; implementation status updated 16 November
 2026.** The general product architecture remains proposed.
 
 The current-source qualification path now admits declared calibration snapshots,
@@ -8,19 +8,14 @@ retains independent checks while inputs are unknown, validates unfinished receip
 prefixes and imports pinned portable evidence for a new execution. Read the
 [applicability contract](EVIDENCE_APPLICABILITY.md) and
 [9 November qualification record](experiments/results/main-refresh-2026-11-09/README.md).
+Read-only [summaries](CHECK_SUMMARY.md), [measurement reassessment](CHECK_MEASUREMENTS.md)
+and [dependency explanations](CHECK_EXPLANATION.md) now reconstruct pinned
+check packets. The JSON reader refuses nonzero values that underflow to zero;
+ordinary finite floating-point rounding remains part of the declared representation.
 The [browser instrument](../apps/instrument/README.md) reviews retained evidence;
 it is not a live robot controller or a general execution backend. The source
 [research assessment](FRONTIER_REVIEW_2026-11-09.md) keeps the owner-cost comparison
 and untouched incident ahead of broader compiler or selector work.
-
-The 27 October [native execution interface](NATIVE_EXECUTION.md) adds bounded
-LIBERO/LeRobot capture with frozen completion rules, actual terminal observations,
-physics replay and measured native success calls. The
-[task-record adapter](NATIVE_TASK_OUTCOMES.md) separately reconstructs exposed
-paired outcomes. The [composed software workflow](QUICKSTART.md#compose-reuse-and-confirmation-current-source)
-freezes investigation and confirmation together and tracks local condition
-consumption. Source-specific qualification and unresolved deployment authority
-remain explicit; these are not general simulator or policy dispatch services.
 
 The [bounded upstream investigation](ENGAGEMENT_INVESTIGATIONS.md) adds one
 manually invoked worker over retained thread evidence. It proposes a response
@@ -47,6 +42,25 @@ with a virtual clock and a reference assessment. Its
 [interface](experiments/TEMPORAL_INTERFACE.md) preserves missing evidence and
 interrupted attempts. Robot dynamics and learned inference are outside this
 software experiment's scope.
+
+The local [native execution window](NATIVE_EXECUTION.md) now records selected
+actions, actual MuJoCo physics inputs/successors, returned observations and
+[native success measurements](NATIVE_MEASUREMENTS.md) through a real LIBERO
+step path. Separate replay checks 200 retained physics transitions across two
+diagnostic controllers, preserves their exact ordinary execution, rejects an
+incompatible old successor and retains incomplete prefixes. Any-time and
+terminal completion are explicit. Both full-scene diagnostic controllers still
+fail their task. This implements bounded execution evidence; learned-policy
+repair, independent sensing, controller reexecution and deployment acceptance
+remain outside that result. The existing B2 and N100 evidence retains its
+original scope.
+
+The [bounded episode extension](experiments/results/native-episodes-2026-10-27/README.md)
+adds the historical LeRobot three-call path and a predeclared first-success
+ending. The maximum plan stays frozen; all calls and the terminal observation
+must join to executed physics. Camera arrays retain exact typed bytes, and the
+native horizon and complete-model integrity checks are preserved. This extends
+execution evidence; it does not itself select or confirm a learned correction.
 
 The A1 line has retained evidence for rights-qualified offline data,
 100 normalized CPU optimizer updates and checkpoint state recovery. Its separate
@@ -222,6 +236,9 @@ flowchart TB
     Z --> E
     E --> R["Inspect complete or unfinished records"]
     R --> X["Export permitted evidence<br/>local portable packet"]
+    X --> J["Capture once · verify expected digest<br/>reconstruct with recorded checker"]
+    J --> S["Summary · measured relation · dependency explanation<br/>read-only; no handler execution"]
+    S --> V["Bounded JSON display<br/>unsigned; original packet required for verification"]
     X --> I["Verify expected digest and records<br/>import into a new private root"]
     I -. "new execution with current inputs" .-> B
     R --> D["Scoped result or unresolved<br/>deployment authority remains separate"]
@@ -233,10 +250,17 @@ flowchart TB
 | Snapshot acquisition and partial checks | [Executor](../src/nisayon/qualification/checks.py), [acquisition](../tests/qualification/test_check_acquisition.py), [unknown-input controls](../tests/qualification/test_partial_inputs.py) |
 | Unfinished record reconstruction | [Prefix controls](../tests/qualification/test_check_prefix_review.py); incomplete execution cannot hide a corrupted completed receipt |
 | Pinned portable continuation | [Transport and import](../src/nisayon/qualification/check_bundle.py), [import controls](../tests/qualification/test_check_import.py), [calibration continuation](../tests/qualification/test_import_calibration.py) |
+| Packet summary | [Reader contract](CHECK_SUMMARY.md), [source](../src/nisayon/qualification/check_summary.py); outcome remains unadjudicated |
+| Measurement reassessment | [Contract](CHECK_MEASUREMENTS.md), [source](../src/nisayon/qualification/check_measurements.py); only explicitly selected captured relations |
+| Recorded dependency explanation | [Contract](CHECK_EXPLANATION.md), [source](../src/nisayon/qualification/check_explanation.py); declared graph, no physical causality |
 | Evidence instrument | [Application](../apps/instrument/README.md), [export contracts](../src/nisayon/ui_export/contract.py), [tests](../tests/ui_export/) |
 
-The browser currently displays recorded scenes and older native comparison
-packets. Bound-read v2 and check bundles remain Python/CLI review paths; see
+The browser source displays recorded scenes, older native comparison packets,
+and check-summary JSON with optional measurement and dependency-explanation
+companions. The consumer checks bounded schemas and source association; it does
+not execute the dependency planner or measurement checker. A saved projection
+is not authenticated by its own source fields. Native bound-read v2 and check
+archives still require Python/CLI review; see
 [the browser format boundary](PORTABLE_REVIEW.md#connect-the-instrument).
 
 The expected digest establishes byte identity, not truth or permission. A new

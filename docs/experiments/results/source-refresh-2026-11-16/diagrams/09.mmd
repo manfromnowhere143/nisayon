@@ -1,0 +1,12 @@
+flowchart TB
+    accTitle: Implemented offline decision assessment and probe planning
+    accDescr: Caller-supplied predictions, error bounds and labels determine a finite set of consistent hypotheses. No survivors means model mismatch. Agreement on one label can coexist with several possible causes. Different labels motivate a finite separating-probe calculation, which returns a plan or unresolved pairs. No branch executes probes or grants task confirmation.
+    I["Declared models and observation<br/>error bound · correction/confirmation labels"] --> H["Retain every consistent hypothesis"]
+    H -->|none| M["Model mismatch<br/>no decision label"]
+    H -->|one label| A["Declared decision agrees<br/>cause may remain uncertain"]
+    H -->|different labels| D["Decision unresolved"]
+    D --> P["Supplied probe pool and costs<br/>minimum separating subset"]
+    P -->|separable| S["Proposed probes and witnesses<br/>execution remains separate"]
+    P -->|not separable| U["Unresolved within the pool<br/>retain indistinguishable pairs"]
+    A -. "candidate only" .-> F["Fresh task confirmation still required<br/>not assessed by this module"]
+    S -. "after separately valid execution" .-> F

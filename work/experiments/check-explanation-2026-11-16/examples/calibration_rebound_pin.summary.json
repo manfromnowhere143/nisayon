@@ -1,0 +1,158 @@
+{
+  "schema": "nisayon.qualification.check_summary.v1",
+  "source": {
+    "bundle_sha256": "c9cc03c1fd6a74e04c3d7d4bf69a366bee6271bb69a61b8be2bbfe5fe8db5c9b",
+    "bundle_schema": "nisayon.qualification.check_bundle.v1",
+    "execution_schema": "nisayon.qualification.check_execution.v2",
+    "model_sha256": "ca693a958ac869254dcd1d5458df7c99332c72f655c988c93c288637e78b6a4e",
+    "checker_sha256": "0651a9d55fc2626d20a42c73a234fc57dc105254fc64bb2d9a4afa0781961a69"
+  },
+  "record_review": {
+    "integrity": "verified",
+    "reconstruction": "verified_execution_records",
+    "independent_execution_attestation": false
+  },
+  "execution": {
+    "status": "completed",
+    "error_count": 0,
+    "acquisition": {
+      "status": "completed",
+      "resource": null,
+      "reason_code": null
+    }
+  },
+  "context": {
+    "question": null,
+    "comparison_arms": null,
+    "physical_or_simulation_provenance": null,
+    "missing_reason": "not_bound_by_check_execution_schema"
+  },
+  "change": {
+    "input_ids": [
+      "admission",
+      "calibration",
+      "confirmation"
+    ],
+    "basis": "recorded_previous_state",
+    "previous_check_count": 2,
+    "model_changed": false
+  },
+  "inputs": [
+    {
+      "id": "admission",
+      "kind": "protocol",
+      "sha256": "938c4d7928265b3b8811d6a6ffbcb5ad32ad1379ef7006858f15d82167c1b32d",
+      "status": "bound"
+    },
+    {
+      "id": "calibration",
+      "kind": "data",
+      "sha256": "39cc80bd98025d38bbf096753af7003314e05277faf6b61e5b1cf8e15da88fe9",
+      "status": "bound"
+    },
+    {
+      "id": "code",
+      "kind": "code",
+      "sha256": "7c17e991c6f815388c2fb63df73e23153ba5fc6de9a852e29122c6deda11f58c",
+      "status": "bound"
+    },
+    {
+      "id": "confirmation",
+      "kind": "data",
+      "sha256": "250c414917c88d437ffd5960f4bbf1579177fc75dcfbc08acc94995a3ebbc388",
+      "status": "bound"
+    },
+    {
+      "id": "diagnostic",
+      "kind": "data",
+      "sha256": "ab1229a04faa0bdc8137e7ee371120064018588a25fe07254fa91a091fc904f1",
+      "status": "bound"
+    },
+    {
+      "id": "population",
+      "kind": "population",
+      "sha256": "4f7ec2a8bad94a3cc00773ba72fe8e67f4729e1ffbba80f3ed31db61eec7733a",
+      "status": "bound"
+    },
+    {
+      "id": "procedure",
+      "kind": "protocol",
+      "sha256": "8d242fb18661f9871ffa63168a9084224fa8927fd70dbbf39108f7227e9193a5",
+      "status": "bound"
+    },
+    {
+      "id": "runtime",
+      "kind": "runtime",
+      "sha256": "830615e6e27288c6f72d0681976bd89483252fc291608943840c41a37dc9ffbc",
+      "status": "bound"
+    },
+    {
+      "id": "scoring",
+      "kind": "scoring",
+      "sha256": "cda578a907c69ba353d108a36e35b48cede74fbee8789d1aa5f1586b13f82dee",
+      "status": "bound"
+    }
+  ],
+  "checks": [
+    {
+      "id": "confirm",
+      "kind": "confirmation",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.006411416979972273,
+      "artifact_sha256": "14ae4d21fc4bcda4e3cd80b01ff6ae5501800b11bd22b21b3de0e820a980e63b"
+    },
+    {
+      "id": "observe",
+      "kind": "observation",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.010829250008100644,
+      "artifact_sha256": "c7ea5f7048e087aec092c8f277800b402e8f83dc8ed71c1bd440695d58681474"
+    },
+    {
+      "id": "score",
+      "kind": "analysis",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.013705833989661187,
+      "artifact_sha256": "31a831f3d6a9f82c80e122fe479399c8871ffd8ee141fc8612c8e674fea06de1"
+    },
+    {
+      "id": "review",
+      "kind": "review",
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "elapsed_seconds": 0.017459249997045845,
+      "artifact_sha256": "945ba4fceadc8c62fe5635314f93c6cf8de37d45f3d9966c6777e09fcfcb3873"
+    }
+  ],
+  "costs": {
+    "workflow_wall_seconds": 0.06853020898415707,
+    "human_engineering_seconds": null,
+    "complete_cost": null,
+    "basis": "recorded_process_timing_not_independent_measurement",
+    "boundary": "Attempt times are nested; setup, review, retries and maintenance are incomplete."
+  },
+  "outcome": {
+    "status": "not_adjudicated",
+    "reason": "handler_claims_require_a_semantic_checker"
+  },
+  "decision": {
+    "status": "unresolved",
+    "automatic_acceptance": false
+  },
+  "deployment_decision": "unresolved",
+  "limitations": [
+    "Reviewed declarations and trusted stateless handlers remain premises.",
+    "Hashes bind bytes, not physical truth, permission or authenticity.",
+    "A complete process does not establish scientific acceptance or complete cost.",
+    "This projection does not classify hardware, simulation or historical provenance.",
+    "IDs and digests remain visible; raw payloads, host paths and free text are omitted.",
+    "Re-verify the pinned source archive; this saved summary is not signed authority."
+  ]
+}

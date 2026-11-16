@@ -1,0 +1,57 @@
+{
+  "schema": "nisayon.qualification.check_measurement_review.v1",
+  "source": {
+    "bundle_sha256": "9be72d392483be7483d385cfaf9cab947517cad7e83701634befb46100b9a1f6",
+    "model_sha256": "f816a50b120f0219884d75bd6a57754ea5f3042259c236de5a0b0b1793b9f6c4",
+    "checker_sha256": "06b0d278a534dde20b92ebbcc4f9d959f9777a5f9816e8ffef756a4cf147fab1",
+    "contract_input_sha256": "bdd3d2164446d89c900a29ad223396e8cdc54323f8fc9894d3ad62c2a6195aa3",
+    "observation_sha256": "cf77b3b45fcad6fb2f8284c6d71a26445c4c72c80133469cb3bbef84cfa89329",
+    "saved_assessment_sha256": "0af8e8131d6c137b60546cabaa3c8d3a693557e5ec868238843a17872310bd29"
+  },
+  "selection": {
+    "contract_input": "scoring",
+    "observation_check": "observe",
+    "assessment_check": "score",
+    "basis": "caller_selected_recorded_bindings_not_preregistration"
+  },
+  "integrity": "verified",
+  "execution_status": "completed",
+  "review_status": "claim_mismatch",
+  "reason": "saved_assessment_differs",
+  "assessment_matches": false,
+  "recorded_verdict": "supported",
+  "assessment": {
+    "schema": "nisayon.qualification.measurement_assessment.v1",
+    "contract_sha256": "88791e5bd835c5aad9b3c24f4c221a0efc82047842a062f9b0379045011fca6e",
+    "verdict": "rejected",
+    "scope": "Two exposed conditions only",
+    "checks": [
+      {
+        "metric": "memory",
+        "condition": "end",
+        "holds": false
+      },
+      {
+        "metric": "state",
+        "condition": "world0",
+        "holds": true
+      },
+      {
+        "metric": "state",
+        "condition": "world1",
+        "holds": true
+      }
+    ],
+    "failures": [
+      "memory:end"
+    ],
+    "errors": [],
+    "deployment_decision": "unresolved",
+    "limit": "Explicit recorded conditions and producer-declared semantics only. No fresh execution, statistical generalization, independent truth or deployment authorization is implied."
+  },
+  "confirmation": "not_assessed",
+  "task_outcome": "not_adjudicated",
+  "deployment_decision": "unresolved",
+  "automatic_acceptance": false,
+  "limit": "Recomputes explicit recorded relations with producer-declared semantics. No independent measurement, fresh confirmation, population inference or deployment authority. Selectors do not prove prospective selection; hashes do not authenticate producers."
+}

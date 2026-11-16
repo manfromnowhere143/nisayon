@@ -1,0 +1,309 @@
+{
+  "schema": "nisayon.qualification.check_explanation.v1",
+  "source": {
+    "bundle_sha256": "c9cc03c1fd6a74e04c3d7d4bf69a366bee6271bb69a61b8be2bbfe5fe8db5c9b",
+    "bundle_schema": "nisayon.qualification.check_bundle.v1",
+    "execution_schema": "nisayon.qualification.check_execution.v2",
+    "model_sha256": "ca693a958ac869254dcd1d5458df7c99332c72f655c988c93c288637e78b6a4e",
+    "checker_sha256": "0651a9d55fc2626d20a42c73a234fc57dc105254fc64bb2d9a4afa0781961a69",
+    "applicability_record_sha256": "d07996d5b4e8664f2a5175ad018a9a894c74416e06a0909dc61ec0ae6a573ab7",
+    "previous_record_sha256": "975399de534a2667524bec5b2a4240890b7dba49e5132a6834a0e5ed71b8bc4f"
+  },
+  "record_review": {
+    "integrity": "verified",
+    "reconstruction": "verified_execution_records",
+    "independent_execution_attestation": false
+  },
+  "execution_status": "completed",
+  "planning": {
+    "status": "planned",
+    "obligation_count": 0,
+    "basis": "recorded_previous_state_not_a_new_experiment"
+  },
+  "change": {
+    "input_ids": [
+      "admission",
+      "calibration",
+      "confirmation"
+    ],
+    "previous_model_sha256": "ca693a958ac869254dcd1d5458df7c99332c72f655c988c93c288637e78b6a4e",
+    "model_changed": false,
+    "previous_check_count": 2
+  },
+  "inputs": [
+    {
+      "id": "admission",
+      "kind": "protocol",
+      "sha256": "938c4d7928265b3b8811d6a6ffbcb5ad32ad1379ef7006858f15d82167c1b32d",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "d2a16f2babd0e86cfde9a5818f405f19c25f45ddb8d69eed2fa9444d286a0c39"
+    },
+    {
+      "id": "calibration",
+      "kind": "data",
+      "sha256": "39cc80bd98025d38bbf096753af7003314e05277faf6b61e5b1cf8e15da88fe9",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "02987f81d1feffd7884be2fff9cd43d681eb10f7dd7dfbd894a3e8dfbf10fdc1"
+    },
+    {
+      "id": "code",
+      "kind": "code",
+      "sha256": "7c17e991c6f815388c2fb63df73e23153ba5fc6de9a852e29122c6deda11f58c",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "7c17e991c6f815388c2fb63df73e23153ba5fc6de9a852e29122c6deda11f58c"
+    },
+    {
+      "id": "confirmation",
+      "kind": "data",
+      "sha256": "250c414917c88d437ffd5960f4bbf1579177fc75dcfbc08acc94995a3ebbc388",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": null
+    },
+    {
+      "id": "diagnostic",
+      "kind": "data",
+      "sha256": "ab1229a04faa0bdc8137e7ee371120064018588a25fe07254fa91a091fc904f1",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "ab1229a04faa0bdc8137e7ee371120064018588a25fe07254fa91a091fc904f1"
+    },
+    {
+      "id": "population",
+      "kind": "population",
+      "sha256": "4f7ec2a8bad94a3cc00773ba72fe8e67f4729e1ffbba80f3ed31db61eec7733a",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "4f7ec2a8bad94a3cc00773ba72fe8e67f4729e1ffbba80f3ed31db61eec7733a"
+    },
+    {
+      "id": "procedure",
+      "kind": "protocol",
+      "sha256": "8d242fb18661f9871ffa63168a9084224fa8927fd70dbbf39108f7227e9193a5",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "8d242fb18661f9871ffa63168a9084224fa8927fd70dbbf39108f7227e9193a5"
+    },
+    {
+      "id": "runtime",
+      "kind": "runtime",
+      "sha256": "830615e6e27288c6f72d0681976bd89483252fc291608943840c41a37dc9ffbc",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "830615e6e27288c6f72d0681976bd89483252fc291608943840c41a37dc9ffbc"
+    },
+    {
+      "id": "scoring",
+      "kind": "scoring",
+      "sha256": "cda578a907c69ba353d108a36e35b48cede74fbee8789d1aa5f1586b13f82dee",
+      "status": "bound",
+      "previous_present": true,
+      "previous_sha256": "cda578a907c69ba353d108a36e35b48cede74fbee8789d1aa5f1586b13f82dee"
+    }
+  ],
+  "checks": [
+    {
+      "id": "confirm",
+      "kind": "confirmation",
+      "refresh": "always",
+      "depends_on": [
+        "procedure",
+        "code",
+        "runtime",
+        "population",
+        "calibration",
+        "admission",
+        "confirmation",
+        "scoring"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "14ae4d21fc4bcda4e3cd80b01ff6ae5501800b11bd22b21b3de0e820a980e63b",
+      "previous_receipt_present": false,
+      "previous_artifact_sha256": null,
+      "reasons": [
+        {
+          "code": "fresh_check_required",
+          "check": null
+        },
+        {
+          "code": "missing_receipt",
+          "check": null
+        }
+      ],
+      "affected_inputs": [
+        {
+          "input": "admission",
+          "reason": "changed",
+          "via": "admission"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "calibration"
+        },
+        {
+          "input": "confirmation",
+          "reason": "unknown",
+          "via": "confirmation"
+        }
+      ]
+    },
+    {
+      "id": "observe",
+      "kind": "observation",
+      "refresh": "on_change",
+      "depends_on": [
+        "procedure",
+        "code",
+        "runtime",
+        "population",
+        "calibration",
+        "admission",
+        "diagnostic"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "c7ea5f7048e087aec092c8f277800b402e8f83dc8ed71c1bd440695d58681474",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "11786fc0546a1d4f2cb6af9514f409533f1fcbb115640149a997660d5b447690",
+      "reasons": [],
+      "affected_inputs": [
+        {
+          "input": "admission",
+          "reason": "changed",
+          "via": "admission"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "calibration"
+        }
+      ]
+    },
+    {
+      "id": "score",
+      "kind": "analysis",
+      "refresh": "on_change",
+      "depends_on": [
+        "procedure",
+        "observe",
+        "scoring"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "31a831f3d6a9f82c80e122fe479399c8871ffd8ee141fc8612c8e674fea06de1",
+      "previous_receipt_present": true,
+      "previous_artifact_sha256": "3f38de193dd86bd316208b2fedba775b131afed2229018b3f640015e4c4a75c3",
+      "reasons": [
+        {
+          "code": "upstream_requires_check",
+          "check": "observe"
+        }
+      ],
+      "affected_inputs": [
+        {
+          "input": "admission",
+          "reason": "changed",
+          "via": "observe"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "observe"
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "kind": "review",
+      "refresh": "on_change",
+      "depends_on": [
+        "procedure",
+        "score",
+        "confirm"
+      ],
+      "planned_action": "run",
+      "attempted_action": "run",
+      "execution_status": "completed",
+      "artifact_sha256": "945ba4fceadc8c62fe5635314f93c6cf8de37d45f3d9966c6777e09fcfcb3873",
+      "previous_receipt_present": false,
+      "previous_artifact_sha256": null,
+      "reasons": [
+        {
+          "code": "missing_receipt",
+          "check": null
+        },
+        {
+          "code": "upstream_requires_check",
+          "check": "confirm"
+        },
+        {
+          "code": "upstream_requires_check",
+          "check": "score"
+        }
+      ],
+      "affected_inputs": [
+        {
+          "input": "admission",
+          "reason": "changed",
+          "via": "confirm"
+        },
+        {
+          "input": "admission",
+          "reason": "changed",
+          "via": "score"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "confirm"
+        },
+        {
+          "input": "calibration",
+          "reason": "changed",
+          "via": "score"
+        },
+        {
+          "input": "confirmation",
+          "reason": "unknown",
+          "via": "confirm"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "id": "relation",
+      "depends_on": [
+        "review"
+      ],
+      "applicability": "requires_checks",
+      "required_checks": [
+        "confirm",
+        "observe",
+        "score",
+        "review"
+      ],
+      "reusable_checks": [],
+      "obligations": []
+    }
+  ],
+  "outcome": "not_adjudicated",
+  "deployment_decision": "unresolved",
+  "automatic_acceptance": false,
+  "limitations": [
+    "Explains the recorded declared graph, not physical causation or an optimal experiment.",
+    "Previous receipt presence or equal hashes do not establish valid reusable evidence.",
+    "Planned reuse is not attempted reuse; required checks are historical plan obligations.",
+    "Always-refresh confirmation is a program obligation, not proof of fresh physical data.",
+    "IDs and digests may be sensitive; omitted diagnostics remain available in local source records.",
+    "Re-verify the pinned archive with its recorded checker; unsigned JSON is not authenticated evidence."
+  ]
+}

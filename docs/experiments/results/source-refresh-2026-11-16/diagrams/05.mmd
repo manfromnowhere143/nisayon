@@ -1,0 +1,22 @@
+flowchart TB
+    accTitle: Declared check execution and portable continuation
+    accDescr: The executor captures current declared inputs and checks prior receipts against a reviewed dependency model. Missing inputs withhold dependent checks; invalid acquisition stops execution. Eligible work is reused or executed, mandatory confirmation runs, and record inspection checks every completed receipt. Portable import verifies a supplied digest and reconstructs records without executing handlers; a new execution is still required.
+    M["Reviewed model and trusted handlers"] --> B["Capture declared current inputs"]
+    B --> Z["Failed acquisition<br/>retain failure; execute no checks"]
+    P["Previous evidence state"] --> A["Recompute applicability"]
+    B --> A
+    A --> K["Run or reuse eligible checks"]
+    A --> U["Unknown input<br/>withhold affected checks"]
+    K --> F["Execute required fresh confirmation"]
+    K --> E["Retain attempts and receipts"]
+    F --> E
+    U --> E
+    Z --> E
+    E --> R["Inspect complete or unfinished records"]
+    R --> X["Export permitted evidence<br/>local portable packet"]
+    X --> J["Capture once · verify expected digest<br/>reconstruct with recorded checker"]
+    J --> S["Summary · measured relation · dependency explanation<br/>read-only; no handler execution"]
+    S --> V["Bounded JSON display<br/>unsigned; original packet required for verification"]
+    X --> I["Verify expected digest and records<br/>import into a new private root"]
+    I -. "new execution with current inputs" .-> B
+    R --> D["Scoped result or unresolved<br/>deployment authority remains separate"]

@@ -41,6 +41,9 @@ v0.2.0 wheel.
 | Compose investigation and confirmation | `qualify_change`, `qualify --confirmation`, `review-change` | Frozen matched criteria and local condition non-reuse; not blinding or independent adjudication |
 | Execute reviewed dependency checks | `execute_checks`, `inspect_checks`, `export-checks`, `review-check-bundle` | Bound snapshots and optional partial execution; unknown dependencies withhold affected checks; trusted handlers |
 | Continue portable check evidence | `import_check_bundle`, `import-check-bundle` | Required expected digest, exact-checker reconstruction, new evidence root; current inputs and fresh confirmation still required |
+| Summarize a pinned check packet | `summarize_check_bundle`, `summarize-check-bundle` | Reconstructed execution and costs; semantic outcome unadjudicated |
+| Recompute a measured relation | `reassess_check_measurements`, `review-check-measurements` | Frozen explicit contract and complete saved-assessment comparison; no task acceptance |
+| Explain recorded check selection | `explain_check_bundle`, `explain-check-bundle` | Declared graph, prior/current identities, planned versus attempted work; no causal inference |
 | Reconstruct paired task records | `assess_native_task`, `native-task`, `review-native-task` | Exposed N100-format records; shared-producer measurement limits |
 | Capture native goal measurements | `MujocoOnRecorder`, `capture_libero_success`, `review-native-measurement` | Qualified serial MuJoCo/LIBERO `On` profile and explicit numerical runtime |
 | Execute and replay bounded episodes | `execute_libero_window`, `review-native-execution` | LIBERO/LeRobot step paths, Euler physics and frozen endings; no independent policy/controller rerun |
@@ -66,10 +69,10 @@ records controls, failures, costs and remaining assumptions. The
 | Complete-cost comparison | `nisayon.engine.cost_target`, evaluation cost modules and [cost target](COST_TARGET.md) | Unknowns and false acceptances retained; twofold savings unproven |
 | Training continuation investigations | [retained continuation](experiments/results/native-continuation-2026-10-24/README.md) | Source-specific experiments; no generic training service in the SDK |
 | Workspace and shared memory | `nisayon`, `nisayon-mcp` | Repository context, retained command attempts, notes and checkpoints |
-| Browser instrument | [Nisayon](https://nisayon.danielwahnich.dev/) | Recorded scenes and older native packets; current bound-read/check bundles require Python/CLI review |
+| Browser instrument | [Nisayon](https://nisayon.danielwahnich.dev/) | Recorded scenes, older native packets and summary/measurement/explanation JSON in current source; native bound-read/check archives require Python/CLI review |
 
 The complete code map and scientific boundaries are in
-[architecture](ARCHITECTURE.md). The [9 November research assessment](FRONTIER_REVIEW_2026-11-09.md)
+[architecture](ARCHITECTURE.md). The [16 November research assessment](FRONTIER_REVIEW_2026-11-16.md)
 explains the current comparison and the evidence still needed.
 General dependency inference, learned experiment selection, arbitrary robot
 adapters, cloud job execution and enterprise tenancy remain proposed.

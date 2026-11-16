@@ -32,6 +32,7 @@ import { Develop } from "../qualification/Develop";
 import { Opening } from "./Opening";
 import { startOfflineSupport } from "../pwa/runtime";
 import type { ReviewBundle } from "../qualification/checkBundle";
+import type { ProjectionSelection } from "../qualification/projectionClient";
 import {
   readResearchRoute,
   researchHash,
@@ -41,6 +42,8 @@ import {
 const RecordedLab = lazy(() =>
   import("../App").then((module) => ({ default: module.App })),
 );
+const Concepts = lazy(() => import("../concepts/ConceptStudio").then(module => ({ default: module.ConceptStudio })));
+const ProjectionReview = lazy(() => import("../qualification/ProjectionReview"));
 const CASE_LABEL: Record<CaseId, string> = {
   transfer: "Transfer",
   terminal: "Episode",
@@ -111,6 +114,7 @@ export function Experience({
   const [workspaceControls, setWorkspaceControls] = useState(false);
   useEffect(() => { setWorkspaceControls(false); }, [route.surface]);
   const [review, setReview] = useState<ReviewBundle | null>(null);
+  const [projection, setProjection] = useState<ProjectionSelection | null>(null);
   const [requestedExample, setRequestedExample] = useState<"rejected" | null>(null);
   const [visualPage, setVisualPage] = useState("mechanism");
   const [mobilePanel, setMobilePanel] = useState("visual");
@@ -194,7 +198,7 @@ export function Experience({
           ? document.activeElement
           : null;
       const surface = (event as CustomEvent<string>).detail;
-      navigate({ surface: ["home", "system", "lab", "qualify", "develop"].includes(surface) ? surface as ResearchRoute["surface"] : "research" });
+      navigate({ surface: ["home", "system", "lab", "qualify", "develop", "concepts", "checks"].includes(surface) ? surface as ResearchRoute["surface"] : "research" });
     };
     window.addEventListener("popstate", read);
     window.addEventListener("hashchange", read);
@@ -425,18 +429,18 @@ export function Experience({
               <BrandMark />
               <span>Nisayon</span>
             </button>
-            {route.surface !== "qualify" ? <span className="research-edition">
+            {route.surface !== "qualify" && route.surface !== "checks" ? <span className="research-edition">
               EXPERIMENT ENGINE / PHYSICAL AI
             </span> : null}
             <div className="research-header-tools">{headerTools}</div>
-            {route.surface === "qualify" ? <button
+            {route.surface === "qualify" || route.surface === "checks" ? <button
               className="workspace-menu research-workspace-menu"
               aria-label="Workspace controls"
               aria-haspopup="dialog"
               onClick={() => setWorkspaceControls(true)}
             ><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" /><circle cx="9" cy="7" r="2" /><circle cx="15" cy="17" r="2" /></svg></button> : null}
           </header>
-          {route.surface === "qualify" && workspaceControls ? <GlassCard
+          {(route.surface === "qualify" || route.surface === "checks") && workspaceControls ? <GlassCard
             title="Workspace controls"
             onClose={() => setWorkspaceControls(false)}
           ><div className="research-workspace-tools">{headerTools}</div></GlassCard> : null}
@@ -467,7 +471,7 @@ export function Experience({
                   Open the system
                 </button>
               </main>
-            ) : route.surface === "qualify" ? <Qualification active develop={() => navigate({ surface: "develop" })} bundle={review} setBundle={setReview} initialExample={requestedExample} onExampleConsumed={() => setRequestedExample(null)} /> : route.surface === "lab" || route.surface === "home" ? null : route.surface === "develop" ? <Develop review={() => navigate({ surface: "qualify" })} /> : catalog.kind === "error" ? (
+            ) : route.surface === "checks" ? <Suspense fallback={<p role="status">Opening recorded engine checks…</p>}><ProjectionReview heading={heading} selection={projection} setSelection={setProjection} archives={() => navigate({ surface: "qualify" })} /></Suspense> : route.surface === "concepts" ? <Suspense fallback={<p role="status">Opening the concept studio…</p>}><Concepts heading={heading} laboratory={lab} /></Suspense> : route.surface === "qualify" ? <Qualification active develop={() => navigate({ surface: "develop" })} bundle={review} setBundle={setReview} initialExample={requestedExample} onExampleConsumed={() => setRequestedExample(null)} /> : route.surface === "lab" || route.surface === "home" ? null : route.surface === "develop" ? <Develop review={() => navigate({ surface: "qualify" })} /> : catalog.kind === "error" ? (
               <main className="research-error">
                 <p className="research-micro">Evidence unavailable</p>
                 <h1 ref={heading} tabIndex={-1}>
@@ -682,11 +686,11 @@ export function Experience({
           </div>
           <footer className="research-footer">
             <a href="/about/" target="_blank" rel="noopener">We let experiments overturn our explanations.</a>
-            <span>Recorded evidence · no execution connection</span>
+            <span>{route.surface === "concepts" ? "Research concept · no hardware validation" : "Recorded evidence · no execution connection"}</span>
           </footer>
         </div>
       )}
-      {!route.issue && (route.surface === "lab" || route.surface === "qualify") ? <nav className="investigate-mode" aria-label="Investigation type"><button aria-pressed={route.surface === "lab"} onClick={() => navigate({ surface: "lab" })}>Robot</button><button aria-pressed={route.surface === "qualify"} onClick={() => navigate({ surface: "qualify" })}>Software</button></nav> : null}
+      {!route.issue && ["lab", "qualify", "checks"].includes(route.surface) ? <nav className="investigate-mode" aria-label="Investigation type"><button aria-pressed={route.surface === "lab"} onClick={() => navigate({ surface: "lab" })}>Robot</button><button aria-pressed={route.surface === "qualify"} onClick={() => navigate({ surface: "qualify" })}>Software</button><button aria-pressed={route.surface === "checks"} onClick={() => navigate({ surface: "checks" })}>Records</button></nav> : null}
       {route.surface !== "home" || route.issue ? <InstrumentDock
         surface={
           showResearch && route.surface === "lab" ? "research" : route.surface

@@ -67,6 +67,7 @@ vi.mock("../src/scene/renderer", async (importOriginal) => ({
         });
       },
       setBounds: vi.fn(),
+      setSetting: vi.fn(),
       setGhost: vi.fn(),
       setSpatial: (...args: unknown[]) => {
         controlled.spatial(...args);

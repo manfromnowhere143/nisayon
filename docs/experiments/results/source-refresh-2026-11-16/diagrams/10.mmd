@@ -1,0 +1,16 @@
+flowchart TB
+    accTitle: Bounded engagement investigation
+    accDescr: A retained thread and selected local evidence form an immutable job. Preparation does not invoke a model. A separately invoked worker runs after a local boundary check. Checked proposals still require review; delivery and experiments remain separate actions.
+    A["Versioned GitHub snapshot<br/>prior review + selected evidence"] --> B["Immutable packet and job identity"]
+    B --> C{"Previously attempted?"}
+    C -- yes --> D["Return retained state<br/>no automatic retry"]
+    C -- no --> E["Check current runtime boundary"]
+    E --> L["Check selected inputs and live thread"]
+    L --> F["One bounded worker call"]
+    F --> G["Validate structure and exact citations"]
+    G --> H["Review required<br/>wait · investigate · draft"]
+    E -- failure --> I["Blocked; retain failure"]
+    L -- changed or incomplete --> I
+    F -- failure --> I
+    G -- failure --> I
+    H -. "separate reviewed action" .-> J["Technical experiment or delivery"]

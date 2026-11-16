@@ -56,7 +56,7 @@ export function InstrumentDock({
       />
       <nav className="research-dock" aria-label="Instrument navigation">
         <button
-          aria-pressed={surface === "lab" || surface === "qualify"}
+          aria-pressed={surface === "lab" || surface === "qualify" || surface === "checks"}
           onClick={() => navigate("lab")}
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -73,6 +73,10 @@ export function InstrumentDock({
             <path d="m3 8 9-5 9 5-9 5ZM3 12l9 5 9-5M3 16l9 5 9-5" />
           </svg>
           <span>Library</span>
+        </button>
+        <button aria-pressed={surface === "concepts"} onClick={() => navigate("concepts")}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8 5v10l-8 5-8-5V7ZM4 7l8 5 8-5M12 12v10" /></svg>
+          <span>Concepts</span>
         </button>
         <button
           aria-pressed={surface === "develop"}

@@ -1,0 +1,16 @@
+flowchart TB
+    accTitle: Proposed Nisayon architecture
+    accDescr: The general architecture is proposed. Existing bounded adapters, confirmation and case records provide its foundation. A proposed general compiler checks intervention dependencies before a worker executes them. Every result includes uncertainty and cost; an owner comparison and separate repeat-use case must justify expansion.
+    I[Versioned case<br/>Working and changed deployments] --> A[Engineer or agent<br/>Hypotheses and candidate corrections]
+    Q[Qualified backend capabilities<br/>State, reset, clocks and replay] --> C
+    A --> C[Proposed general compiler<br/>Intervention and dependency checks]
+    C --> W[Backend worker<br/>Execute valid plan in closed loop]
+    C --> U[Unresolved<br/>Required observation or capability]
+    W -->|observed outcome and cost| A
+    A -->|frozen correction| F[Confirmation evaluator<br/>Fresh reserved conditions]
+    F --> R[Scoped result<br/>Accepted, rejected or unresolved]
+    W --> H[Case history<br/>Attempts, evidence and regressions]
+    R --> H
+    U --> H
+    H -. "value still unproved" .-> V[Owner comparison<br/>Matched quality and complete cost]
+    V -. "then qualify reuse" .-> N[Separate untouched incident]
