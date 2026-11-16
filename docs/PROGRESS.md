@@ -303,4 +303,3 @@ with rejection of 329/331 successful conditions. The authors already report this
 limitation. This is a check of exposed scalar records, with no new policy or
 simulator execution. A cheap proxy needs decision-specific qualification and
 cannot replace fresh task confirmation.
-
