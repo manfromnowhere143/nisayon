@@ -9,6 +9,7 @@ from .assessment import assess_change, inspect_run
 from .bundle import export_run, inspect_bundle
 from .change import inspect_change, qualify_change
 from .check_bundle import export_checks, import_check_bundle, inspect_check_bundle
+from .check_explanation import explain_check_bundle
 from .check_measurements import reassess_check_measurements
 from .check_summary import summarize_check_bundle
 from .checks import CheckContext, CheckImplementation, execute_checks, inspect_checks
@@ -62,6 +63,7 @@ __all__ = [
     "evidence_at",
     "export_run",
     "export_checks",
+    "explain_check_bundle",
     "import_check_bundle",
     "execute_checks",
     "inspect_bundle",

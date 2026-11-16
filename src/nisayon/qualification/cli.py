@@ -18,6 +18,7 @@ from . import (
     assess_change,
     assess_reuse,
     evidence_at,
+    explain_check_bundle,
     export_checks,
     export_run,
     import_check_bundle,
@@ -151,6 +152,12 @@ def parser() -> argparse.ArgumentParser:
     )
     checks_summary.add_argument("bundle", type=Path)
     checks_summary.add_argument("--sha256", required=True, help="Expected archive SHA-256")
+    explanation = commands.add_parser(
+        "explain-check-bundle",
+        help="Explain recorded dependency selection and attempts from a pinned check packet",
+    )
+    explanation.add_argument("bundle", type=Path)
+    explanation.add_argument("--sha256", required=True, help="Expected archive SHA-256")
     measurements = commands.add_parser(
         "review-check-measurements",
         help="Recompute a recorded measured relation from a pinned check packet",
@@ -246,6 +253,9 @@ def main() -> None:
         elif args.command == "summarize-check-bundle":
             result = summarize_check_bundle(args.bundle, expected_sha256=args.sha256)
             code = 0 if result["execution"]["status"] == "completed" else 3
+        elif args.command == "explain-check-bundle":
+            result = explain_check_bundle(args.bundle, expected_sha256=args.sha256)
+            code = 0 if result["execution_status"] == "completed" else 3
         elif args.command == "review-check-measurements":
             result = reassess_check_measurements(
                 args.bundle,
