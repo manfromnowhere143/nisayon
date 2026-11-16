@@ -27,6 +27,7 @@ from . import (
     inspect_run,
     plan_applicability,
     plan_change,
+    reassess_check_measurements,
     run_plan,
     summarize_check_bundle,
 )
@@ -150,6 +151,15 @@ def parser() -> argparse.ArgumentParser:
     )
     checks_summary.add_argument("bundle", type=Path)
     checks_summary.add_argument("--sha256", required=True, help="Expected archive SHA-256")
+    measurements = commands.add_parser(
+        "review-check-measurements",
+        help="Recompute a recorded measured relation from a pinned check packet",
+    )
+    measurements.add_argument("bundle", type=Path)
+    measurements.add_argument("--sha256", required=True, help="Expected archive SHA-256")
+    measurements.add_argument("--contract-input", required=True)
+    measurements.add_argument("--observation-check", required=True)
+    measurements.add_argument("--assessment-check", required=True)
     checks_import = commands.add_parser(
         "import-check-bundle",
         help="Admit pinned check evidence into a new directory without execution",
@@ -236,6 +246,19 @@ def main() -> None:
         elif args.command == "summarize-check-bundle":
             result = summarize_check_bundle(args.bundle, expected_sha256=args.sha256)
             code = 0 if result["execution"]["status"] == "completed" else 3
+        elif args.command == "review-check-measurements":
+            result = reassess_check_measurements(
+                args.bundle,
+                expected_sha256=args.sha256,
+                contract_input=args.contract_input,
+                observation_check=args.observation_check,
+                assessment_check=args.assessment_check,
+            )
+            code = (
+                {"supported": 0, "rejected": 1}[result["assessment"]["verdict"]]
+                if result["review_status"] == "verified"
+                else 3
+            )
         elif args.command == "import-check-bundle":
             result = import_check_bundle(args.bundle, expected_sha256=args.sha256, output=args.out)
             code = 0
