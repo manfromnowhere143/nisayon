@@ -1,0 +1,74 @@
+{
+  "probe_sha256": "819d4dd58194f910423e04480835314a9385ba05aa3acaab083a9fe0eabfcec0",
+  "scorer_sha256": "7fb78c81decfa82e6ef2a7ec833c279335da47db9a878d25c6f2418e2065a0ab",
+  "runner_sha256": "6c10ffd6911832a1d4cf9a6367c5ff3940d16a1b04b2174e9fc4b16128cd0263",
+  "readback": "verify.py passed: frozen identities, exact source Git blobs, all native outcomes and reader controls",
+  "native": {
+    "base-development": {
+      "status": "unresolved",
+      "failure_observations": 0,
+      "rank_observations": 0,
+      "seconds": 27.488364042015746
+    },
+    "base-development-ipv4": {
+      "status": "rejected",
+      "failure_observations": 16,
+      "rank_observations": 40,
+      "seconds": 3.1623092090012506
+    },
+    "base-confirmation": {
+      "status": "rejected",
+      "failure_observations": 8,
+      "rank_observations": 16,
+      "seconds": 3.137904582894407
+    },
+    "candidate-development": {
+      "status": "supported_cpu_loader_contract",
+      "failure_observations": 0,
+      "rank_observations": 40,
+      "seconds": 2.764181416016072
+    },
+    "candidate-confirmation": {
+      "status": "supported_cpu_loader_contract",
+      "failure_observations": 0,
+      "rank_observations": 16,
+      "seconds": 2.773394624935463
+    },
+    "late-clear-development": {
+      "status": "rejected",
+      "failure_observations": 16,
+      "rank_observations": 40,
+      "seconds": 2.97043454204686
+    },
+    "published-composition": {
+      "status": "unresolved",
+      "failure_observations": 0,
+      "rank_observations": 2,
+      "seconds": 3.07271837501321
+    }
+  },
+  "native_stage_seconds_including_failed_launcher": 45.36930679192301,
+  "quality": {
+    "python_AST": "candidate parses; only two intended top-level symbols differ",
+    "ruff": "all five authored scripts pass check and format",
+    "initial_lint_failure": "receipt.py unused hashlib import; removed without changing frozen probe/scorer or native candidate",
+    "whitespace": "git diff --no-index --check produced no diagnostics; exit 1 denotes source difference",
+    "whole_packet_diff_check": "Reports whitespace in preserved native log/text captures, unified-diff context lines and the deliberate tampered-observation control. Those evidence bytes were not rewritten to make this check green. Authored code/report and actual candidate-file checks are separate."
+  },
+  "blocked_or_never_run": [
+    "CUDA CPUOffloadPolicy and pinned memory",
+    "full fsdp2_prepare_model integration",
+    "forward/backward/optimizer/training",
+    "Linux",
+    "hosted CI",
+    "hardware",
+    "independent owner and total-cost study"
+  ],
+  "claims": {
+    "cpu_loader_contract": "supported for frozen cases",
+    "full_integration": "unresolved",
+    "gpu_memory": "unresolved",
+    "complete_cost_advantage": "unresolved"
+  },
+  "external_write": false
+}

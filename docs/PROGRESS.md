@@ -1,5 +1,17 @@
 # Engineering progress
 
+
+## 23 November · evidence reuse, current-source FSDP and contribution audit
+
+The [byte-preserving reuse correction](experiments/results/evidence-reuse-2026-11-23/README.md)
+repairs review/export after valid native observations are reused. Eleven independent
+controls pass; the matched dependency-aware native comparator is faster on these
+exposed scalar cases. The [FSDP source-transition proof](experiments/results/fsdp-source-transition-2026-11-23/README.md)
+uses actual CPU/Gloo loading with current ignored-parameter/buffer paths and
+keeps full preparation/GPU gates open. The [historical retrospective](contributions/retrospective-2026-11-23.md)
+reconciles 58 attributable PR records, including LeRobot #5295's final executed
+regressions and retained merge. These are distinct evidence scopes.
+
 This preserves the previously reviewed public progress entries. Dated statements
 retain their original scope. Private operational followups remain outside the
 public source history. See [current capabilities](CAPABILITIES.md) and the

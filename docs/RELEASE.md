@@ -1,5 +1,20 @@
 # Research source and releases
 
+
+## Evidence reuse and source-transition proof · 23 November 2026
+
+Current source preserves producer bytes when reusing a recorded check observation.
+The unchanged regression went from eight failures and three passes to 11 passes;
+newly executed results keep their prior serialization. Source also retains the
+bounded native FSDP proof, contribution retrospective and refreshed system diagrams.
+The [source record](experiments/results/source-refresh-2026-11-23/README.md)
+binds combined validation, publication scope and remaining gates.
+
+The tagged v0.2.0 wheel and website are unchanged. Ricci's newer uncommitted
+catalog remains in its owned lane. Public source continues from existing public
+ancestry; private development history is excluded. No complete-cost or robot
+performance improvement follows from this software update.
+
 ## Check-packet readers and instrument integration · 16 November 2026
 
 Current source includes pinned summaries, measured-claim reconstruction,

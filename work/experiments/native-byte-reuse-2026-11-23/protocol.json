@@ -1,0 +1,58 @@
+{
+  "frozen_at_utc": "2026-11-23T09:37:23.790906+00:00",
+  "base": "ba22db393344e8990e673c8dc14c069ff963a02c",
+  "branch": "build/engine-triage-2026-11-23",
+  "hypothesis": "A valid JSON observation recorded through record_check loses byte identity on execute_checks reuse because it is serialized again; subsequent review refuses the completed execution.",
+  "invariant": "A reuse action consumes and retains the bytes whose digest was verified. Changed calibration or artifact invalidates observation; confirmation always executes; unknown is unresolved.",
+  "candidate": "Only preserve verified reused result bytes in src/nisayon/qualification/checks.py. No change if hypothesis does not reproduce.",
+  "observation": "Existing calibration.observe and calibration_policy.observe; authored scalar data, center 10/11, diagnostic 15; fresh confirmation positions 26 and 27.",
+  "scorer": "Existing calibration.evaluate/review; independent expected identity from native JSON bytes and analytic normalization (position-center)/10; center 10 adopt, center 11 reject.",
+  "control_matrix": [
+    "unchanged dependencies except fresh confirmation",
+    "scoring tolerance 0.01 to 0.001: observation remains reusable",
+    "calibration center 10 to 11 plus new admission digest: rerun and reject",
+    "changed artifact: reacquire",
+    "unknown calibration: no checks and unresolved"
+  ],
+  "regression": "11 authored controls, eight formatting/reuse combinations and three adverse/applicability controls; fixed before product edit. No monkeypatch of planner/serializer.",
+  "comparison": "Three exposed revision cells for base SDK, candidate SDK and existing dependency-aware native_calibration/native_selector. Same inputs, available observation, policy, scoring, fresh confirmation and local portable readback. Native setup and reviews included. Not a DVC or vendor benchmark.",
+  "acceptance": [
+    "before test must reproduce byte mismatch, not setup failure",
+    "all 11 regressions pass after with unchanged test hash",
+    "unchanged/scorer controls preserve producer bytes through export/import and fresh confirmation",
+    "changed calibration invalidates and rejects; unknown never accepts",
+    "candidate and native decisions/actions agree on 3 cells; costs reported without production-savings claim",
+    "focused qualification tests plus lint/format"
+  ],
+  "budget": {
+    "local_cpu_only": true,
+    "paid_compute": false,
+    "hardware": false,
+    "network_for_experiment": false,
+    "test_timeout_seconds": 600,
+    "comparison_timeout_seconds": 180,
+    "max_experiment_artifact_bytes": 536870912,
+    "minimum_disk_headroom_bytes": 5368709120,
+    "max_comparison_cells_per_arm": 3,
+    "human_review_seconds": null
+  },
+  "allowed_claim": "Bounded public-API correctness and software decision equivalence on exposed scalar cases. No generalization, authenticity, owner savings, new theory or deployment acceptance.",
+  "environment": {
+    "python": "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+    "source_import": "explicit lane/src via PYTHONPATH",
+    "python_version": "3.12.13",
+    "platform": "macOS-14.4-arm64",
+    "free_disk_bytes": 52460044288
+  },
+  "sources": {
+    "src/nisayon/qualification/checks.py": "32cd5c3e1bee8d6ef36e0aa5f606f3bb48f9247a9be581bf8da8d602581f46eb",
+    "src/nisayon/qualification/applicability.py": "fbc34763d2a3a04a81cb06e7b321252799f4aab43e2f05b40b0429d82bd52234",
+    "src/nisayon/qualification/check_bundle.py": "3432ffa75b2aae8db0c7e9eea58ecefd0a29bd76f99dcc75af8859c4b2d4cd95",
+    "tests/qualification/test_reused_native_bytes.py": "ad5f984f9c011c34bb413a68a8044b27b96e162d11856c34df899e68eefba9ad",
+    "examples/qualification/executable_checks/calibration.py": "d25ba5d2c2fbc89b1a6d78222bbcdc639e92495dfabe888aa90c60dc9356390f",
+    "examples/qualification/executable_checks/calibration_policy.py": "7c17e991c6f815388c2fb63df73e23153ba5fc6de9a852e29122c6deda11f58c",
+    "work/experiments/native-comparator-review-2026-11-09/native_calibration.py": "712ae080ad4a99c434259963a0b4163c6ca20bc6dd469e2211d2977e9d6a8205",
+    "examples/qualification/applicability/native_selector.py": "36f09cc14ecc5436232c6b45f3ce3f836f0bacdbeac5889495a600e80f8f3ebe",
+    "uv.lock": "cbfd094eaa86b81885658a44cdc5440dab79d79ea8c77d91b9efae9a8ac12edb"
+  }
+}

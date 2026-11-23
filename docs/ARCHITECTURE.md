@@ -1,6 +1,6 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 16 November
+**Design v0.1 · 17 September 2026; implementation status updated 23 November
 2026.** The general product architecture remains proposed.
 
 The current-source qualification path now admits declared calibration snapshots,
@@ -215,6 +215,12 @@ flowchart TB
 
 ### Declared checks and portable continuation
 
+Reused observations retain their exact verified producer bytes. Decoding a value
+does not authorize changing the bytes bound by its receipt. The
+[23 November regression](experiments/results/evidence-reuse-2026-11-23/README.md)
+covers ordinary JSON encodings through review, export/import and continued
+execution, with calibration invalidation and unknown-input controls.
+
 This implemented path uses trusted handlers and an explicitly reviewed dependency
 model. It does not infer complete dependencies. Inputs, earlier observations,
 scoring and required confirmation have separate roles.
@@ -248,6 +254,7 @@ flowchart TB
 | --- | --- |
 | Explicit applicability and receipts | [Planner](../src/nisayon/qualification/applicability.py), [controls](../tests/qualification/test_applicability.py) |
 | Snapshot acquisition and partial checks | [Executor](../src/nisayon/qualification/checks.py), [acquisition](../tests/qualification/test_check_acquisition.py), [unknown-input controls](../tests/qualification/test_partial_inputs.py) |
+| Exact-byte reuse | [Executor](../src/nisayon/qualification/checks.py), [independent regression](../tests/qualification/test_reused_native_bytes.py); reuse preserves verified bytes, not a newly serialized equivalent |
 | Unfinished record reconstruction | [Prefix controls](../tests/qualification/test_check_prefix_review.py); incomplete execution cannot hide a corrupted completed receipt |
 | Pinned portable continuation | [Transport and import](../src/nisayon/qualification/check_bundle.py), [import controls](../tests/qualification/test_check_import.py), [calibration continuation](../tests/qualification/test_import_calibration.py) |
 | Packet summary | [Reader contract](CHECK_SUMMARY.md), [source](../src/nisayon/qualification/check_summary.py); outcome remains unadjudicated |

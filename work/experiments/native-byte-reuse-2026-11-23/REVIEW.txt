@@ -1,0 +1,22 @@
+Preserve producer bytes when reusing recorded check evidence
+
+A valid JSON observation recorded through record_check could execute as reused
+but fail subsequent review: execute_checks reserialized the observation, changing
+the byte identity required by its receipt. Preserve the already verified bytes
+for reused results. Newly executed results keep their existing serialization.
+
+An independent regression covers compact, CRLF, reordered/indented and unterminated
+JSON through review, portable export/import and continued execution. All eight
+reuse cases failed before and pass after. Calibration invalidation, changed-artifact
+reacquisition and unknown-input refusal remain effective. All 11 controls pass;
+the qualification directory has 1,089 passes and eight native-module skips.
+Ruff and diff checks pass. The three-cell dependency-aware native comparison
+reaches identical decisions/actions after the correction, with no observed cost
+advantage. No UI, schema, dependency or CI change. No hosted or device validation.
+
+Base ba22db393344e8990e673c8dc14c069ff963a02c
+Head 2d14f3960f20b6a353c22c53f0327789f090222c
+Review: src/nisayon/qualification/checks.py:338 and :364;
+tests/qualification/test_reused_native_bytes.py.
+Evidence: work/experiments/native-byte-reuse-2026-11-23/RESULTS.txt.
+This description is local; it has not been posted or used to open a PR.

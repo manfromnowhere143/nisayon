@@ -1,0 +1,108 @@
+Recorded native observation bytes survive reuse and portable continuation
+23 November 2026. Local correction; no publication or deployment.
+
+Base: ba22db393344e8990e673c8dc14c069ff963a02c
+Engine head: 2d14f3960f20b6a353c22c53f0327789f090222c
+Branch: build/engine-triage-2026-11-23
+Worktree: /Users/danielwahnich/workspace/nisayon-engine-triage-2026-11-23
+
+Observed failure
+record_check accepts a valid native-produced JSON observation and binds its exact
+bytes. execute_checks verified those bytes, decoded them, then serialized them
+again. Ordinary compact JSON, CRLF, key order/indentation and a missing terminal
+newline therefore changed the retained digest. Execution reported completed,
+but inspect_checks rejected the reused observation as different from its prior
+evidence. Portable export consequently failed. This is lost reviewability and
+continuation, not demonstrated false scientific acceptance.
+
+The correction copies the already verified producer bytes into the new exclusive
+result file when the action is reuse. Newly executed handlers retain existing
+serialization. No dependency, schema, scorer, applicability rule, confirmation
+requirement or acceptance authority changes. Only checks.py and a new test file
+are in the engine commit. Existing fixtures and sibling files were not edited.
+
+Frozen experiment
+protocol.json preceded the before run and production edit (09:37:23 UTC).
+Protocol SHA256: 6cacd5ba1fee7f2b6abcaf985840bda8a7ae403a99c866f2de00723d65b5e14c
+Test SHA256 before/after: ad5f984f9c011c34bb413a68a8044b27b96e162d11856c34df899e68eefba9ad
+The independent oracle is exact producer bytes plus the authored scalar relation
+(position-center)/10. The tests do not copy the executor's serializer or replace
+its planner. They create a separate, valid native-format artifact through the
+public record_check API; existing observations and receipts remain intact.
+This is an independent regression/oracle, not an independent person or owner.
+
+Before: eight failures at the exact-byte assertion, three controls passed,
+1.91 seconds. After: all 11 passed, 4.26 seconds. before.log/xml and after.log/xml
+retain outcomes. The same eight formatting/reuse cases cover an unchanged
+calibration and a scorer-tolerance change. They then review, export, import and
+continue with fresh confirmation positions 26 and 27. Calibration center 10→11
+invalidates the observation and rejects the correction. Altered old artifacts
+force new observation. Unknown calibration is unresolved with no attempted check.
+Automatic acceptance remains false and deployment_decision remains unresolved.
+
+Matched comparison
+compare.py and comparison-freeze.json were fixed before the patch/comparison.
+This reuses the retained native_calibration.py and dependency-aware native_selector.py
+workflow from 9 November. It is a strong manifest/dependency baseline, not rerun-all
+and not a benchmark of installed DVC, Ekstazi or a commercial service. Each cell
+has identical input hashes, the same available observation, scorer, policy,
+confirmation scope and local portable readback. Only the observe receipt is
+available at continuation; neither arm inherits an unrecorded score or verdict.
+Each arm pays four initial setup checks. New checks include score, confirmation
+and review; calibration change also requires observation. The SDK's general
+portable envelope and the native comparator's simpler manifest differ in scope.
+
+Cell          Base SDK/native    Candidate SDK/native    New checks each
+unchanged     unresolved/adopt   adopt/adopt             3
+calibration   reject/reject      reject/reject           4
+scorer-only   unresolved/adopt   adopt/adopt             3
+
+Candidate/native wall seconds, including setup, execution and automated review:
+Cell          SDK setup execute review total    Native setup execute review total
+unchanged     .114711 .076110 .139581 .330402    .005233 .002081 .002612 .009928
+calibration   .105969 .069636 .145810 .321415    .004861 .002153 .004321 .011335
+scorer-only   .108501 .133809 .191374 .433684    .005442 .002746 .002926 .011114
+
+All three candidate decisions and action maps match the native comparator.
+The base's reuse cells finish execution but fail review, so their lower incomplete
+costs are not equal-decision results. Raw before/after comparisons and portable
+artifacts are retained, including failed review messages. Each arm/cell ran once
+in fixed order. Small local test work overlapped the candidate timing run.
+Interpreter/tool installation was reused; no installation cost was measured.
+Human preparation/review, reviewer wall time and independent owner effort are
+unknown. Total complete cost is therefore unknown. Observed machine work favors
+the native baseline; this experiment establishes no savings or production benefit.
+
+Reuse distinctions
+An unchanged procedure may execute again. Observation reuse preserves measured
+bytes only under the declared dependency/review contract. A scoring-only change
+rescored that applicable observation; it did not reuse a verdict. Fresh
+confirmation and review still ran. The imported continuation additionally tests
+legitimate score reuse under unchanged scorer dependencies. No changed-action
+trajectory or recorded future observation is presented as a counterfactual run.
+
+Checks
+Qualification directory: 1,089 passed; eight native modules skipped at collection,
+317.39 seconds. validation.json names them. Optional MuJoCo is absent in the
+reused interpreter; these native runner stages did not execute. Full project,
+UI/Ricci, Linux, GPU, physics simulator, installed wheel, hosted CI and devices
+were never run in this task. Ruff lint/format and git diff --check passed.
+Experiment files total about 3.34 MB before these reports (budget 512 MiB).
+No dependency installation, paid compute or untrusted upstream execution occurred.
+
+Review limits and next gate
+Dependency declarations and supplied provenance remain owner assertions; hashes
+prove byte consistency, not truth. The native example is authored scalar data,
+not a physical calibration measurement. This repairs one public-API boundary.
+For a future economic claim, enroll one independent deployment owner and reserve
+one untouched incident with a real calibration/reset dependency change. Have the
+owner compare this workflow with their competent manifest/selective checks at
+equal information, paying setup, rechecks and reviewer effort. Neither enrollment
+nor that experiment occurred here. Historical prepared owner comparisons and a
+twofold improvement remain unestablished.
+
+Reproduce within this worktree, using an existing locked environment:
+PYTHONPATH=$PWD/src /Users/danielwahnich/workspace/nisayon/.venv/bin/python -m pytest tests/qualification/test_reused_native_bytes.py
+The before source and candidate hashes are in protocol.json/comparison records;
+do not change the canonical checkout to reconstruct the before run. compare.py
+--help describes the retained comparison harness. All raw failures are kept.

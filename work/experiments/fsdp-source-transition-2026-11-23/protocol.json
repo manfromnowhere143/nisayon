@@ -1,0 +1,74 @@
+{
+  "schema": "nisayon.fsdp_source_transition.protocol.v1",
+  "frozen_at": "2026-11-23T10:20:07.373024+00:00",
+  "nisayon_head": "2d14f3960f20b6a353c22c53f0327789f090222c",
+  "upstream_base": "bd0703e3390ebb2b4eb1db5a0f1283f8edbc6091",
+  "published_candidate": "8023c5ff621e07a3f8e8a25baf496de728f89e8e",
+  "candidate_plan": "Reapply only the published optional owned-source dictionary consumption to current loader and its owning prepare_model caller. Preserve new managed/ignored/buffer handling. Candidate bytes bound separately after the base regression; no other loader algorithm change.",
+  "invariant": "At actual load_state_dict(assign=True), owned source dictionary is empty; borrowed source objects/values stay unchanged; exact rank-0 values, target dtypes, managed sharding and ignored/buffer state preserved.",
+  "proof_scope": "Reviewed loader function AST only, actual installed native PyTorch Gloo/DTensor/assignment. Full upstream module/package never executed. Full prepare_model/caller is inspected but not run.",
+  "development": "20 conditions per rank: 12 inherited source-layout boundary conditions plus 8 mixed ignored/buffer/dtype/CPU-loader-flag cases.",
+  "confirmation": "8 conditions per rank: new row count 3 and value offset 30; mixed state, two dtypes, ownership and flag controls.",
+  "controls": [
+    "Current base, including unchanged borrowed cases",
+    "Published old function on mixed state: applicability/composition check, no assumption of pass",
+    "Late-clear candidate: identical final dictionary can still violate assignment-boundary ownership",
+    "Fresh confirmation conditions",
+    "Unchanged source/PR-metadata-only reuse; changed loader must recheck",
+    "Missing rank/source mismatch must remain unresolved"
+  ],
+  "scorer": "score.py frozen before candidate modification; no authoritative upstream test mirrors",
+  "environment": {
+    "python": "3.12.13",
+    "torch": "2.11.0",
+    "interpreter": "/Users/danielwahnich/workspace/nisayon/artifacts/accelerate-4447-env-2026-11-14/bin/python",
+    "platform": "macOS arm64",
+    "native": "2 processes, Gloo, CPU",
+    "cuda_available": false,
+    "installation": "Reused unchanged November14 environment; no install or network package execution"
+  },
+  "budget": {
+    "seconds_per_native_run": 90,
+    "aggregate_native_run_seconds": 600,
+    "sampled_process_tree_rss_bytes": 2147483648,
+    "artifacts_max_bytes": 536870912,
+    "devices": 0,
+    "paid_compute": 0,
+    "external_write": false
+  },
+  "acceptance": "Base must reproduce ownership failure with borrowed/value controls intact; candidate all assigned CPU conditions and fresh confirmation pass; late-clear rejected. No full pass if native stages absent. GPU offload memory and full integration remain explicitly not tested.",
+  "allowed_claims": [
+    "bounded CPU loader correctness",
+    "exact source transition makes earlier observations inapplicable",
+    "no production/generalization or complete-cost advantage inferred"
+  ],
+  "frozen_files": {
+    "probe.py": {
+      "sha256": "819d4dd58194f910423e04480835314a9385ba05aa3acaab083a9fe0eabfcec0",
+      "bytes": 10203
+    },
+    "score.py": {
+      "sha256": "7fb78c81decfa82e6ef2a7ec833c279335da47db9a878d25c6f2418e2065a0ab",
+      "bytes": 4107
+    },
+    "sources/CONTRIBUTING.md.txt": {
+      "sha256": "75e107eb2b599e35af4e6eea975ceb5d47e9242b53afe4cb48bdc4a193de0ad9",
+      "bytes": 10622
+    },
+    "sources/current-fsdp_utils.py.txt": {
+      "sha256": "17b1ea8cc5c7646ad797b6eeb8d674ddb3191631634865a351edc6383e0ac660",
+      "bytes": 50855,
+      "git_blob": "05b9a9353786e1f17d14dc49eedec20038701507"
+    },
+    "sources/current-test_fsdp.py.txt": {
+      "sha256": "9fc4a299f09dd1de31b38b965e31d8e29a4371292b7aa2ee62130d2ccdf49989",
+      "bytes": 50919
+    },
+    "sources/published-fsdp_utils.py.txt": {
+      "sha256": "7ad098be900a2dda81b8eb18bd10e8c211de5359facdb0530052ffca1c9a24e0",
+      "bytes": 51371,
+      "git_blob": "c3576dd5b92886d3b57337aea8d85eed0f24a9c3"
+    }
+  },
+  "pre_execution_source_correction": "The prior text retention added one trailing LF. Before any native run or candidate edit, restored exact Git blobs and verified unchanged AST. Original freeze retained separately. Ancillary documentation/test-source reads were not executed and retain text transport normalization."
+}

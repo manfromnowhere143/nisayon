@@ -1,44 +1,48 @@
-# Continue Nisayon · 16 November 2026
+# Continue Nisayon · 23 November 2026
 
 Read [AGENTS.md](../AGENTS.md), [voice](VOICE.md), the
-[current source record](experiments/results/source-refresh-2026-11-16/README.md),
-[capabilities](CAPABILITIES.md), [architecture](ARCHITECTURE.md),
-[research assessment](FRONTIER_REVIEW_2026-11-16.md) and
+[current source record](experiments/results/source-refresh-2026-11-23/README.md),
+[architecture](ARCHITECTURE.md), [capabilities](CAPABILITIES.md),
+[contribution audit](contributions/retrospective-2026-11-23.md) and
 [owner protocol](OWNER_COMPARISON.md). Run `nisayon start --focus 'subject keywords'`
-and reconcile relevant retained source before proposing another experiment.
+and inspect retained source before proposing another experiment.
 
-Current source implements digest-pinned check summaries, measured-claim
-reconstruction, dependency explanations and nonzero JSON-underflow refusal.
-The browser source accepts the three bounded JSON projections, preserves exact
-numeric tokens and checks companion association. Imported JSON is unsigned;
-matching identities do not authenticate a producer. Native bound-read v2 and
-check archives remain Python/CLI paths. No import grants deployment acceptance.
-The [public checker history](experiments/results/source-refresh-2026-11-16/source-history.json)
-retains exact source versions for historical packets without private Git ancestors.
+Current check execution preserves exact verified producer bytes during reuse.
+The independent regression went from eight failures / three passes to 11 passes.
+Changed calibration invalidates; tampered artifacts reacquire; unknown inputs
+remain unresolved. Portable import cannot skip required fresh confirmation.
+The three-cell native selective-check comparison reaches the same decisions but
+favors the native baseline in observed machine time. Complete costs are unknown.
 
-The combined public candidate passed 2,830 Python tests with 80 explicit skips,
-622 frontend tests, TypeScript and production build using existing installations.
-All 17 diagrams rendered in two themes. The
-[integration receipt](experiments/results/source-refresh-2026-11-16/integration-validation.json)
-records hashes, original failures, resources and limits. Optional-stack skips,
-large Three/HLS chunks, final live-browser/accessibility/GPU checks and physical
-hardware validation remain distinct from those software passes.
+The FSDP source-transition packet qualifies the reviewed current loader on two
+CPU/Gloo ranks. It preserves mixed-state values and borrowed dictionaries while
+releasing an explicitly owned source before assignment. A late-clear control
+fails. Full preparation, CUDA offload, GPU memory and training remain unrun.
+Use the exact-byte archive and offline verifier; do not transfer older GPU claims.
+Existing Accelerate #4447 is the follow-through path, not a new PR opportunity.
+Upstream communication or reopening still needs specific authorization.
 
-The brighter laboratory and Ricci are presentation concepts, not a measured
-laboratory, validated digital twin, actuator design or physical prototype.
-Recorded robot evidence remains separately identified. Website deployment is
-separate from source publication. The tagged v0.2.0 wheel is unchanged.
+Combined local public-source validation: 2,841 Python passes / 80 explicit skips
+across all 180 test files, 622 frontend passes, strict types and production build.
+Forty-five catalog-related UI controls passed after regeneration. All 325 tested
+Python source/test/config hashes, 13 interfaces and 122 catalog module hashes
+verify. All 18 diagrams render in both themes; changed diagrams were inspected.
+The source record retains failed invocations and exact limits. Hosted Actions
+remain manual-only and were not dispatched; local tests are not a hosted pass.
 
-Daniel resumed GitHub publication for this repository update on 16 November.
-Use existing public ancestry, never private canonical main, and verify the remote
-readback. Hosted Actions status requires its actual receipt; local tests are not
-hosted execution. The manual workflow preserves the earlier automation pause
-until hosted availability is verified. No tag/history rewrite or removal of
-historical failures is authorized by ordinary source publication.
+Ricci is a sibling concept surface, not a validated robot or live controller.
+Its active uncommitted UI work is excluded from this release; its owner retains
+reference and visual acceptance. Keep that worktree intact. Website deployment
+and the tagged v0.2.0 wheel are unchanged. Public source descends from existing
+public ancestry; never push private canonical main or all refs.
 
-The next scientific gate is an admitted consequential owner decision, a competent
-conventional baseline, fresh task confirmation and complete costs, followed by a
-separately selected untouched case. No complete-cost advantage, general dependency
-inference, independent physical replication or competitor superiority is established.
-Retain the four-hour intake ceiling and keep stopped/null campaigns closed unless
-a new discriminating question has its own prospective allocation.
+The historical audit reconciles 58 attributable PR records, with three explicit
+reference-only records. LeRobot #5295 is merged with all four final signal tests
+executed and the fix retained; that is not LongWAM model validation. Merge,
+author-branch adoption and internal incorporation remain separate outcomes.
+
+The next scientific gate is an independent owner with a consequential decision,
+matched information, competent selective checks, fresh task confirmation and
+complete costs, then a separately selected untouched case. Prepared protocols,
+upstream adoption and correspondence do not establish owner enrollment, a
+completed economic comparison, generalization or competitive superiority.

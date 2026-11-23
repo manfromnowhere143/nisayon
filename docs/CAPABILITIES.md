@@ -48,6 +48,11 @@ v0.2.0 wheel.
 | Capture native goal measurements | `MujocoOnRecorder`, `capture_libero_success`, `review-native-measurement` | Qualified serial MuJoCo/LIBERO `On` profile and explicit numerical runtime |
 | Execute and replay bounded episodes | `execute_libero_window`, `review-native-execution` | LIBERO/LeRobot step paths, Euler physics and frozen endings; no independent policy/controller rerun |
 
+Reused check observations now preserve the exact verified producer bytes through
+review and portable continuation. The [independent regression](experiments/results/evidence-reuse-2026-11-23/README.md)
+checks valid JSON representations, calibration invalidation, tamper reacquisition
+and unknown-input refusal. Dependency completeness remains an owner premise.
+
 New native plans use `cpython_bound_reads_v2`: an observed unbound external
 read leaves qualification unresolved. Legacy evidence retains its recorded
 policy. The Python hook is not universal I/O coverage. See the

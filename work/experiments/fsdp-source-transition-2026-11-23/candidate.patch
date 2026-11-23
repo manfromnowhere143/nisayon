@@ -1,0 +1,50 @@
+--- a/src/accelerate/utils/fsdp_utils.py
++++ b/src/accelerate/utils/fsdp_utils.py
+@@ -581,7 +581,13 @@
+     return param_init_fn_tied_param
+ 
+ 
+-def fsdp2_load_full_state_dict(accelerator, model: torch.nn.Module, full_sd: dict, cpu_offload: bool = False):
++def fsdp2_load_full_state_dict(
++    accelerator,
++    model: torch.nn.Module,
++    full_sd: dict,
++    cpu_offload: bool = False,
++    consume_full_state_dict: bool = False,
++):
+     """
+     Loads the full state dict (could be only on rank 0) into the sharded model. This is done by broadcasting the
+     parameters from rank 0 to all other ranks. This function modifies the model in-place.
+@@ -594,6 +600,10 @@
+         cpu_offload (`bool`, defaults to `False`):
+             If True, move sharded parameters to CPU after distribution. Required when FSDP CPU offloading is enabled.
+             Buffers and ignored parameters remain on the accelerator device.
++        consume_full_state_dict (`bool`, defaults to `False`):
++            Clear the source dictionary after distribution, before assigning the shards. Only enable this when the
++            caller owns the dictionary and no longer needs its values. This releases the source before CPU-offload
++            assignment may allocate pinned copies of the local shards.
+     """
+     import torch.distributed as dist
+     from torch.distributed.tensor import DTensor, distribute_tensor
+@@ -650,6 +660,8 @@
+             tensor = tensor.to("cpu")
+         sharded_sd[param_name] = tensor
+ 
++    if consume_full_state_dict:
++        full_sd.clear()
+     # we set `assign=True` because our params are on meta device
+     model.load_state_dict(sharded_sd, assign=True)
+     return model
+@@ -910,7 +922,11 @@
+         from torch.distributed.fsdp import CPUOffloadPolicy
+ 
+         fsdp2_load_full_state_dict(
+-            accelerator, model, original_sd, cpu_offload=isinstance(fsdp2_plugin.cpu_offload, CPUOffloadPolicy)
++            accelerator,
++            model,
++            original_sd,
++            cpu_offload=isinstance(fsdp2_plugin.cpu_offload, CPUOffloadPolicy),
++            consume_full_state_dict=True,
+         )
+ 
+     if fsdp2_plugin.cpu_ram_efficient_loading and not model_has_params4bit:

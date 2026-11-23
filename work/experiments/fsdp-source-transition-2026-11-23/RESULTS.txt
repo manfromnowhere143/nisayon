@@ -1,0 +1,149 @@
+FSDP source ownership after the upstream loader change
+23 November 2026. Local Nisayon qualification; no external write.
+
+Result
+The published ownership correction can be carried onto the newer loader while
+preserving its ignored-parameter and buffer support. Current unpatched code
+retains the owned dictionary at the actual assignment boundary. The narrow
+candidate clears it before assignment and leaves borrowed dictionaries intact.
+The base failures concern the proposed internal owned-source contract. Its
+borrowed-source behavior passes and stays intact; arbitrary callers do not grant
+permission to consume their dictionaries.
+
+Base upstream: bd0703e3390ebb2b4eb1db5a0f1283f8edbc6091.
+Published prior candidate: 8023c5ff621e07a3f8e8a25baf496de728f89e8e.
+Closed PR metadata still names 8c5efdca48fe03796171004c07a9c03461bfdbd2.
+Nisayon implementation base for this packet: 2d14f3960f20b6a353c22c53f0327789f090222c.
+Local candidate file SHA256:
+5d1d652939fbdb1f6c3b2bdf1aeef33f506049b35fe5b12510950d6db5e38bae.
+candidate.patch changes one upstream file: optional consumption, dictionary clear
+and the owning prepare_model call. It preserves the current distribution logic.
+
+Executed results
+                                  Conditions/rank   Rank observations  Result
+Current base, development                 20                40         16 ownership failures
+Candidate, same development               20                40         all pass
+Current base, paired confirmation          8                16          8 ownership failures
+Candidate, fresh confirmation             8                16         all pass
+Candidate with clear moved after assign   20                40         16 ownership failures
+Published old loader, mixed state          1                 2         native errors / unresolved
+
+Development includes the retained source-layout controls plus mixed managed and
+ignored parameters, floating and integer buffers, float32/bfloat16, empty and
+uneven shards, and empty/meta/different non-main sources. All current-base value
+checks passed: 64 exact tensor checks on each rank; all ten borrowed conditions
+per rank preserved their objects and values. Candidate confirmation uses a new
+row count and value offset frozen before its implementation.
+
+These counts are assigned finite conditions with two rank observations each,
+not 56 independent deployments. The probe executes real Gloo broadcasts, DTensor
+distribution and load_state_dict(assign=True). It observes the dictionary just
+before delegating to actual assignment. It does not replace native assignment.
+The independent value oracle is deterministic tensor arithmetic and explicit
+shard/ignored-state expectations, not the patch's dictionary-clear implementation.
+
+The late-clear control is essential: its final dictionary is empty, but it still
+fails before-assignment ownership. The older published loader errors on an
+ordinary buffer with Tensor.device_mesh missing. Earlier successful qualification
+therefore cannot cover the new mixed-state composition. That is a limitation of
+the older implementation/declared scope, not a newly attributed upstream defect.
+
+Scope and architecture
+Reviewed owning path:
+ src/accelerate/utils/fsdp_utils.py:fsdp2_prepare_model
+   capture original_sd after dtype upcast; move model to meta; establish ignored
+   parameters and native sharding
+ → fsdp2_load_full_state_dict
+   rank-0 values → actual broadcast → managed DTensor / ignored tensor or buffer
+   → preserve target dtype/contiguity → optional owned dictionary consumption
+ → native model.load_state_dict(assign=True).
+
+The caller owns original_sd and does not use it after this call. Borrowed callers
+retain the default False behavior. Ownership is opt-in. Nonpersistent buffers have
+a separate restoration path. Source inspection covered these callers/consumers,
+the current function and relevant tests; it did not execute full prepare_model.
+The protocol, source pins, scorer identity and conditions were frozen before the
+base regression and candidate edit. Probe and scorer hashes stayed unchanged.
+
+Only the reviewed loader AST is executed, with installed native torch as its
+global dependency. No upstream package initialization, remote script, downloaded
+checkpoint, build script or full upstream repository was executed. The sources
+retain their licenses and exact Git blobs. A text transport initially added one
+terminal LF; that was corrected and AST equivalence verified before any native
+run. The original protocol and the correction remain visible.
+
+The pre-existing Python 3.12.13 / Torch 2.11.0 environment was reused without an
+installation or modification by this task. Runs use two CPU/Gloo processes on
+macOS arm64. A CPU loader flag is exercised in both states; this is not execution
+of CUDA CPUOffloadPolicy or pinned CUDA-to-CPU transfers.
+
+Not run: CUDA offload/pinned memory, GPU peak memory, full Accelerate preparation,
+forward/backward/optimizer steps, model training, real devices, Linux, CI, or an
+independent owner trial. Dictionary lifetime does not establish that every backing
+storage allocation is freed; local tensors and retained shards can share storage.
+The old combined GPU RSS result is not a result for this new candidate.
+
+Applicability and matched native selection
+receipt.py uses the existing Nisayon dependency/receipt API and the retained
+native_selector.py with equal identities, artifacts and dependency knowledge.
+
+Transition                  Observation  Score  Confirmation  Review
+Unchanged base              reuse        reuse  run           run
+Changed loader              run          run    run           run
+Description-only change     reuse        reuse  run           run
+
+The same choices result from the competent native selector. Unknown source is
+unresolved; altered retained observation bytes require observation/score rechecks.
+The JSON plans are prospective, not execution records. The receipt reader runs no
+native stage and does not manufacture confirmation. A new decision still needs
+its required fresh confirmation. Readback of the completed historical CPU proof
+is separate from accepting a new deployment.
+
+Scorer controls refuse a missing rank and wrong source identity. verify.py
+recomputes scores and checks producer digests, frozen source/probe/scorer pins and
+source Git blobs without importing torch or running native code. The reader
+reports both the supported CPU result and unqualified GPU/full-integration gates.
+
+Costs and failed execution
+Seven native-stage invocations consumed 45.369 seconds, including a 27.488-second
+launcher failure. The first standalone rendezvous could not resolve an IPv6
+reverse name; I terminated that owned process before any rank observation existed.
+It is unresolved, not a test pass. The successful launcher uses numeric IPv4
+loopback; the probe and assertions did not change. Each completed invocation took
+2.76–3.16 seconds. Sampled process-tree RSS stayed below 757 MB; that is a resource
+guard, not a comparison of model memory, and shared pages may be counted twice.
+
+Readback took about 0.014 seconds in one local sample. SDK plan checks took about
+4.6–4.7 ms per cell; the narrower native hash/selection took about 0.1–0.2 ms.
+These scopes differ and each ran once. Reused environment setup, source inspection,
+engineering, human review and total owner cost are unmeasured. Native plans have
+the same necessary work; this demonstrates no economic or production advantage.
+No “state of the art,” generalization or twofold improvement claim follows.
+
+Review
+candidate.patch is the local upstream correction; PR_DESCRIPTION.txt is a
+<=250-word local draft for the existing contribution, not a new PR.
+Its bounded CPU evidence now supports review of the source transition. It does
+not justify a GPU-memory claim or automatic publication. Original authorship,
+current upstream behavior and the old public fork are preserved.
+
+One-command offline readback from this worktree:
+ python3 work/experiments/fsdp-source-transition-2026-11-23/verify.py
+
+Fresh local native reproduction, in a new output directory:
+ /Users/danielwahnich/workspace/nisayon/artifacts/accelerate-4447-env-2026-11-14/bin/python \
+   work/experiments/fsdp-source-transition-2026-11-23/run_probe.py \
+   --source work/experiments/fsdp-source-transition-2026-11-23/candidate/src/accelerate/utils/fsdp_utils.py \
+   --phase development --out /tmp/nisayon-fsdp-REPLACE-WITH-UNIQUE-NAME
+
+Use --phase confirmation for the separate fixed confirmation set. Output paths
+are create-only. These exposed conditions are regression replays on a later run,
+not untouched independent confirmation. receipt.py --out NEW_DIRECTORY rebuilds
+the applicability artifact with PYTHONPATH pointed at this worktree's src.
+
+Next gate
+The authorized local follow-through is complete. Preserve the closed PR/fork
+identity distinction. GPU-offload/full-integration validation and any external
+write need their own concrete authorization; none was performed here. The
+company-level claim still requires an independent owner, an untouched incident
+and complete decision cost against the owner's competent native workflow.

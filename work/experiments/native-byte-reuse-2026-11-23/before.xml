@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="11" time="1.907" timestamp="2026-11-23T11:37:24.552507+02:00" hostname="daniels-MacBook-Pro-2.local"><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.01-compact]" time="0.163"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{&quot;executed&quot;...ntext_bytes&quot;}'&#10;  &#10;  At index 1 diff: b'\n' != b'&quot;'&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus0')
+encoding = 'compact', tolerance = 0.01
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{"executed"...ntext_bytes"}'
+E         
+E         At index 1 diff: b'\n' != b'"'
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.01-spaces]" time="0.162"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{&quot;executed&quot;...t_bytes&quot;}\r\n'&#10;  &#10;  At index 1 diff: b'\n' != b'&quot;'&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus1')
+encoding = 'spaces', tolerance = 0.01
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{"executed"...t_bytes"}\r\n'
+E         
+E         At index 1 diff: b'\n' != b'"'
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.01-reordered]" time="0.161"><failure message="assert b'{\n  &quot;consu...d&quot;: true\n}\n' == b'{\n    &quot;con...d&quot;: true\n}\n'&#10;  &#10;  At index 4 diff: b'&quot;' != b' '&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus2')
+encoding = 'reordered', tolerance = 0.01
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "consu...d": true\n}\n' == b'{\n    "con...d": true\n}\n'
+E         
+E         At index 4 diff: b'"' != b' '
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.01-no_newline]" time="0.161"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{\n  &quot;execu...ext_bytes&quot;\n}'&#10;  &#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus3')
+encoding = 'no_newline', tolerance = 0.01
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{\n  "execu...ext_bytes"\n}'
+E         
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.001-compact]" time="0.158"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{&quot;executed&quot;...ntext_bytes&quot;}'&#10;  &#10;  At index 1 diff: b'\n' != b'&quot;'&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus4')
+encoding = 'compact', tolerance = 0.001
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{"executed"...ntext_bytes"}'
+E         
+E         At index 1 diff: b'\n' != b'"'
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.001-spaces]" time="0.160"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{&quot;executed&quot;...t_bytes&quot;}\r\n'&#10;  &#10;  At index 1 diff: b'\n' != b'&quot;'&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus5')
+encoding = 'spaces', tolerance = 0.001
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{"executed"...t_bytes"}\r\n'
+E         
+E         At index 1 diff: b'\n' != b'"'
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.001-reordered]" time="0.159"><failure message="assert b'{\n  &quot;consu...d&quot;: true\n}\n' == b'{\n    &quot;con...d&quot;: true\n}\n'&#10;  &#10;  At index 4 diff: b'&quot;' != b' '&#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus6')
+encoding = 'reordered', tolerance = 0.001
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "consu...d": true\n}\n' == b'{\n    "con...d": true\n}\n'
+E         
+E         At index 4 diff: b'"' != b' '
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_native_bytes_survive_reuse_review_and_continuation[0.001-no_newline]" time="0.168"><failure message="assert b'{\n  &quot;execu...t_bytes&quot;\n}\n' == b'{\n  &quot;execu...ext_bytes&quot;\n}'&#10;  &#10;  Use -v to get more diff">tmp_path = PosixPath('/private/tmp/nisayon-engine-triage-20261123/before-tests/test_native_bytes_survive_reus7')
+encoding = 'no_newline', tolerance = 0.001
+
+    @pytest.mark.parametrize("encoding", ["compact", "spaces", "reordered", "no_newline"])
+    @pytest.mark.parametrize("tolerance", [0.01, 0.001])
+    def test_native_bytes_survive_reuse_review_and_continuation(tmp_path, encoding, tolerance):
+        root = tmp_path / "evidence"
+        shared, inputs, prior, raw = prepare(root, encoding)
+        current = next_inputs(root, inputs, tolerance=tolerance)
+        result = execute_checks(**shared, inputs=current, previous=prior, output=root / "next")
+        assert result["status"] == "completed"
+        assert {row["check"]: row["action"] for row in result["attempts"]} == {
+            "observe": "reuse",
+            "score": "run",
+            "confirm": "run",
+            "review": "run",
+        }
+&gt;       assert (root / "next/checks/observe/result.json").read_bytes() == raw
+E       assert b'{\n  "execu...t_bytes"\n}\n' == b'{\n  "execu...ext_bytes"\n}'
+E         
+E         Use -v to get more diff
+
+tests/qualification/test_reused_native_bytes.py:110: AssertionError</failure></testcase><testcase classname="tests.qualification.test_reused_native_bytes" name="test_calibration_change_invalidates_the_native_observation" time="0.206" /><testcase classname="tests.qualification.test_reused_native_bytes" name="test_changed_native_artifact_requires_new_observation" time="0.225" /><testcase classname="tests.qualification.test_reused_native_bytes" name="test_unknown_calibration_cannot_reuse_or_accept" time="0.124" /></testsuite></testsuites>

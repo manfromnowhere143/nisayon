@@ -1,5 +1,11 @@
 # Experiments
 
+
+Latest: [23 November source reconciliation](results/source-refresh-2026-11-23/README.md),
+[producer-byte reuse regression](results/evidence-reuse-2026-11-23/README.md), and
+[current FSDP source-transition proof](results/fsdp-source-transition-2026-11-23/README.md).
+Each record separates executed observations, historical evidence and unrun gates.
+
 The [16 November source review](results/source-refresh-2026-11-16/README.md)
 adds pinned summaries, measured-claim reconstruction, dependency explanations and
 JSON-underflow refusal. Software qualification remains separate from the

@@ -1,0 +1,17 @@
+## Use case
+
+My LongWAM FSDP2 loading and recovery work uses CPU offload. The temporary full state dictionary can remain referenced while assignment prepares local shards. This follows the ownership correction in #4447.
+
+## Change
+
+Carry the optional consume_full_state_dict behavior onto upstream bd0703e3390ebb2b4eb1db5a0f1283f8edbc6091. Only the owning preparation call enables it. Borrowed dictionaries remain unchanged. Preserve the newer managed-parameter, ignored-parameter and buffer loading behavior.
+
+## Validation
+
+A frozen two-process CPU/Gloo probe executes the exact reviewed loader function, native broadcasts, DTensor distribution and actual assignment. Twenty development conditions per rank cover source layouts, empty/uneven shards, mixed state, float32/bfloat16 and borrowed ownership.
+
+Unchanged upstream produces 16 rank-level ownership failures while preserving values; the candidate passes. Eight fresh confirmation conditions per rank also pass. Clearing after assignment produces the same 16 failures. The old published loader errors on the new mixed-state control.
+
+The source, probe, scorer, raw observations and offline readback are retained in the accompanying qualification packet. run_probe.py accepts --phase development or --phase confirmation; verify.py reads existing evidence without native execution.
+
+CUDA offload/pinned memory, full prepare_model integration, training and memory-performance measurements were not run. Historical GPU/RSS results do not qualify this revision.

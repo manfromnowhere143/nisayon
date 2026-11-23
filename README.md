@@ -2,58 +2,49 @@
 
 **Qualification under change for physical AI.**
 
-Nisayon is building an experiment engine for physical AI: given a working
-deployment, a changed deployment and a failed task, determine what to change,
-what must be tested, and which earlier evidence still applies. Test a selected
-correction on fresh conditions and retain the regression. The intended advantage is a
-better deployment decision with less complete engineering work. That advantage
-has not yet been demonstrated.
+A robot policy can fail after a calibration update, a delayed observation or a
+reset, even when its learned weights are unchanged. Recovering the task requires
+more than a successful rerun: the correction must address the failure, preserve
+task progress and survive fresh confirmation.
 
-A robot policy can fail after a deployment change while its learned weights
-stay fixed. An observation arrives late, an action changes meaning, or recurrent
-state survives a reset. Each suggests a different correction. A successful
-rerun alone does not tell us whether that correction deserves acceptance.
+Nisayon is an experiment engine for that work. Given a working deployment, a
+changed deployment and a failed task, it binds the relevant source and inputs,
+executes bounded experiments, tests a frozen correction on fresh conditions and
+retains the regression. When the evidence cannot support a decision, the result
+stays unresolved.
 
-Nisayon executes bounded experiments, checks the evidence and tests a frozen
-correction on fresh conditions. It keeps failed attempts and returns unresolved
-when the observations cannot support a decision. The established Lift case runs
-one frozen robomimic BC-RNN policy in a headless CPU robosuite/MuJoCo simulator.
-A separate line qualified a robosuite 1.5.1 runtime, rejected its normalized pilot
-checkpoint at 1/10 task success, and confirmed a narrowly scoped input-convention
-correction for a legacy policy at 9/10 versus 0/10 unchanged. These systems and
-their claims remain separate.
+The central question is **what must be checked again after this particular
+change?** Current software can track declared dependencies, preserve applicable
+observations, rerun affected checks and require fresh confirmation. A reviewer
+can inspect a pinned portable packet without executing its producer's code.
+Procedures, observations and verdicts have different reuse requirements.
 
-A separate software harness exercises action chunks, late responses, clock
-uncertainty and resets with scripted inputs. It runs queue and lifecycle code,
-including a pinned historical LeRobot reset defect and its fix. It does not run
-robot dynamics or learned inference.
+The implemented system has three execution paths with distinct contracts:
 
-A bounded offline tool now selects observations that distinguish either causes
-or declared correction choices. Several causes can remain possible while
-agreeing on one choice. The tool preserves that uncertainty; its answer still
-needs a valid correction and fresh task confirmation.
+| Path | What runs | What the result can establish |
+| --- | --- | --- |
+| Closed-loop task experiments | A frozen learned policy in a pinned headless CPU robosuite/MuJoCo runtime, with paired confirmation | Task outcomes for the declared policy, intervention, conditions and simulator |
+| Native software qualification | Source-bound reference, control and candidate functions; captured calls and owner-file reads | The declared software obligation in the recorded environment |
+| Declared dependency checks | Input acquisition, check selection, partial reuse, scoring and required confirmation | Applicability and a scoped decision under an explicitly reviewed dependency model |
 
-For native software changes, the Python SDK and `nisayon-qualify` bind source,
-data and environment identities, run reference/control/candidate functions, and
-retain call and owner-file read witnesses. Another machine can inspect the
-evidence without executing owner code. Reusing a procedure, reusing observations
-and carrying forward a verdict are separate decisions.
+Temporal tests exercise action chunks, late responses, clock uncertainty and
+reset state. Native episode capture records LIBERO/LeRobot transitions, terminal
+observations and physics/success calls for replay. Finite offline probes select
+observations that distinguish declared causes or correction choices. These tools
+have separate entry points and acceptance rules; the implementation map below
+shows their boundaries.
 
-The current-source check executor binds declared input snapshots, explains which
-checks a change invalidates, and can preserve independent work while another
-input remains unknown. A digest-pinned portable packet can continue in a new
-workspace. Current inputs are bound again and required confirmation executes;
-importing evidence never grants acceptance. The
-[calibration example](examples/qualification/executable_checks/README.md) makes
-that path executable, including stale-input refusal and an adverse correction.
+The browser instrument makes retained evidence inspectable through recorded
+scenes and bounded JSON projections. **Ricci is a sibling concept surface within
+Nisayon**, with its own UI work and reference gates. It is not a validated robot
+or a live control connection. Source publication and website deployment are
+separate releases.
 
-Current source also captures bounded LIBERO/LeRobot episodes, preserves terminal
-observations and checks recorded physics and success calls in replay. The
-[native episode guide](docs/NATIVE_EXECUTION.md) separates these checks from
-learned task repair and deployment acceptance. A
-[bounded investigation worker](docs/ENGAGEMENT_INVESTIGATIONS.md) can propose
-follow-up work from retained upstream evidence; experiments and public responses
-still require separate review.
+The intended advantage is the same defensible engineering decision with less
+complete work. Setup, failed attempts, rechecks, confirmation and review all
+count. The retained comparisons have **not established that advantage**. The
+next proof is an independently owned consequential change, followed by an
+untouched case using the frozen procedure.
 
 [Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
 [Current research assessment](docs/FRONTIER_REVIEW_2026-11-16.md) ·
@@ -78,22 +69,26 @@ proposed.
 
 ```mermaid
 flowchart TB
-    accTitle: Implemented qualification paths and the next value test
-    accDescr: Three bounded paths retain their own evidence: closed-loop task experiments, native software comparisons, and declared dependency checks. Records support scoped portable review and browser inspection. Declared-check packets can continue through pinned import, current input binding and required fresh confirmation. Owner savings and repeat use on an untouched incident remain to establish.
-    subgraph B["Implemented paths"]
-        L["Closed-loop task experiments<br/>fresh paired confirmation"]
-        N["Native software comparisons<br/>source, inputs and read witnesses"]
-        Q["Declared dependency checks<br/>capture · reuse · recompute<br/>withhold affected checks"]
-    end
-    L --> H["Retained evidence<br/>attempts · costs · obligations"]
-    N --> H
-    Q --> H
-    H --> R["Portable review<br/>scoped result or unresolved"]
-    R -- "bounded JSON projection" --> V["Browser instrument<br/>recorded scenes · JSON projections<br/>legacy native ZIP review"]
-    R --> I["Continue declared-check packets<br/>pinned import · bind current inputs<br/>execute required fresh confirmation"]
-    R -. "next value test" .-> O["Owner comparison<br/>matched decisions · complete costs"]
-    O -. "freeze procedure, then test" .-> T["Separately selected untouched incident"]
+    accTitle: Nisayon implementation, ownership and evidence boundaries
+    accDescr: An engineer owns the deployment, dependency declarations and acceptance rule. Explicit commands enter one of three implemented execution paths. Each retains its own records. Scoped readers inspect those records without executing owner code; the browser displays bounded projections. These paths do not form a general autonomous dispatcher, and none grants deployment acceptance by itself.
+    O["ENGINEER / OWNER<br/>deployment · change · acceptance rule"]:::contract
+    L["Closed-loop task pairs<br/>policy + simulator"]:::execution
+    N["Native comparisons<br/>reference · control · candidate"]:::execution
+    Q["Declared checks<br/>bind · select · run or reuse"]:::execution
+    O --> L
+    O --> N
+    O --> Q
+    L --> E[("RETAIN<br/>source · observations · failures<br/>receipts · measured costs")]:::record
+    N --> E
+    Q --> E
+    E --> R["REVIEW<br/>integrity + scoped obligations<br/>supported · rejected · unresolved"]:::contract
+    R --> P["Portable continuation<br/>bind current inputs<br/>run required fresh confirmation"]:::execution
+    R -- "bounded projection" --> U["Browser instrument<br/>inspect recorded evidence"]:::record
+    classDef contract fill:#e8f1f8,stroke:#496985,color:#13283b,stroke-width:1.5px
+    classDef execution fill:#14364b,stroke:#168aad,color:#ffffff,stroke-width:1.5px
+    classDef record fill:#eef5f4,stroke:#2c7a7b,color:#123b3c,stroke-width:1.5px
 ```
+
 
 The diagram connects existing interfaces; it does not imply a general autonomous
 dispatch service. Native episode capture and source-specific upstream studies
@@ -121,6 +116,61 @@ intake has a four-engineering-hour ceiling. The
 [9 November research assessment](docs/FRONTIER_REVIEW_2026-11-09.md) specify the
 competent baseline, complete costs and conditions that would reject expansion.
 
+## What survives a change
+
+Reuse is a claim about a particular observation and its dependencies. The
+engine binds current inputs before execution and verifies the exact bytes it
+later reviews. A changed calibration invalidates its dependent observations;
+an unrelated change can preserve them. A scoring-only change can reuse an
+applicable observation while requiring a new score. Missing dependencies withhold
+affected work. Required confirmation still runs.
+
+```mermaid
+sequenceDiagram
+    accTitle: Evidence applicability across a change and a restart
+    accDescr: The owner supplies current inputs and a reviewed dependency model. The executor checks prior receipts and bytes. Applicable observations may be reused; changed dependencies require acquisition and unknown dependencies withhold affected checks. Scoring follows its own dependencies. Required confirmation runs before a scoped review. Portable import cannot bypass this sequence.
+    actor Owner
+    participant Run as Executor
+    participant Prior as Prior records
+    participant Native as Native handlers
+    participant Review as Reviewer
+    Owner->>Run: Bind current inputs<br/>model + frozen rule
+    Run->>Prior: Check identities<br/>receipts + bytes
+    alt Applicable observation
+        Prior-->>Run: Exact producer bytes
+    else Relevant dependency changed
+        Run->>Native: Acquire observation
+        Native-->>Run: Result + record
+    else Required dependency unknown
+        Run-->>Owner: Withhold affected work<br/>decision unresolved
+    end
+    Note over Run,Native: Independent eligible work<br/>can continue.
+    Run->>Native: Execute eligible<br/>scoring rechecks
+    opt Confirmation inputs available
+        Run->>Native: Execute required<br/>fresh confirmation
+        Native-->>Run: Retain attempt + cost
+    end
+    Note over Run,Review: Missing required confirmation<br/>leaves the decision unresolved.
+    Run->>Review: Bound records<br/>actual execution status
+    Review-->>Owner: Scoped decision + reasons<br/>remaining obligations
+```
+
+The owner supplies dependency completeness and trusted handlers. Digests establish
+byte identity, not physical truth. Actions that change a trajectory require fresh
+closed-loop execution; observations from the old future cannot answer that
+counterfactual. The [applicability contract](docs/EVIDENCE_APPLICABILITY.md),
+[executor](src/nisayon/qualification/checks.py),
+[portable continuation](docs/PORTABLE_REVIEW.md) and
+[dependency explanation](docs/CHECK_EXPLANATION.md) expose these rules.
+
+On 23 November, an independent regression found that reused JSON was decoded
+and serialized again, changing its bytes and breaking later review and export.
+The [narrow correction](docs/experiments/results/evidence-reuse-2026-11-23/README.md)
+preserves already verified producer bytes. All eight failing reuse cases now
+pass; calibration invalidation, tamper reacquisition and unknown-input refusal
+remain effective. This repaired continuation and reviewability. It did not
+demonstrate a false task acceptance or a cost saving.
+
 ## Inspect the work
 
 The review path follows the claim from implementation to evidence. Current
@@ -133,57 +183,86 @@ have distinct scopes.
 | What makes a correction acceptable? | [Fresh-confirmation obligation](docs/evaluation/CONFIRMATION_OBLIGATION.md), [assessment code](src/nisayon/evaluation/confirmation.py) and [failure paths](tests/evaluation/). |
 | What did the comparisons actually show? | [Results below](#what-the-experiments-found), [complete experiment index](docs/experiments/README.md), and each result's protocol, retained failures and reproduction commands. |
 | Can this checkout reproduce the software checks? | [Development setup](docs/DEVELOPMENT.md), [locked dependencies](uv.lock) and [Linux/macOS checks](.github/workflows/ci.yml). Optional-stack and private-store skips remain explicit. |
-| What did the current repository review verify? | [16 November source and diagram reconciliation](docs/experiments/results/source-refresh-2026-11-16/README.md), [native SDK comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), and [earlier clean-clone checks](docs/experiments/results/main-refresh-2026-10-16/README.md). |
+| What did the current repository review verify? | [23 November source and diagram reconciliation](docs/experiments/results/source-refresh-2026-11-23/README.md), [native SDK comparison](docs/experiments/results/native-sdk-2026-10-23/README.md), and [earlier clean-clone checks](docs/experiments/results/main-refresh-2026-10-16/README.md). |
 | What remains unproved? | [Current research decision](docs/FRONTIER_REVIEW_2026-11-16.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
 
-**16 November — review actual evidence and explain recorded reuse.** Three
-read-only interfaces now operate on one digest-pinned check packet: a bounded
-[summary](docs/CHECK_SUMMARY.md), a [measurement reassessment](docs/CHECK_MEASUREMENTS.md)
-that compares the complete saved claim, and a [dependency explanation](docs/CHECK_EXPLANATION.md)
-that distinguishes planned work from attempted work. They execute no owner code.
-A saved JSON projection remains unsigned display data; verification requires the
-original packet and its recorded checker. Deployment remains unresolved.
+**23 November — preserve valid evidence through reuse and source changes.**
+The check executor now preserves the exact bytes of reused observations through
+inspection, export, import and continued execution. The unchanged independent
+regression went from eight failures and three passes to **11 passes**. A
+three-case comparison against competent dependency-aware native checks reaches
+the same decisions after the correction. The native comparator was faster in
+these exposed scalar cases; no production or complete-cost saving is claimed.
+[Failure, controls and comparison](docs/experiments/results/evidence-reuse-2026-11-23/README.md).
 
-The JSON reader now refuses a nonzero number that would underflow to zero.
-The 32 regression controls went from 21 failures and 11 passes on the old reader
-to 32 passes. The current engine qualification completed **2,830 Python tests
-with 80 explicit skips**. Optional robotics stacks and the original private raw
-store remain outside that run. These are software checks, not new robot results.
+A separate **native FSDP qualification** retested a source-ownership correction
+against Accelerate's newer loader, including ignored parameters and buffers.
+Two real CPU/Gloo ranks passed the candidate's 20 development and eight fresh
+confirmation conditions per rank. The base and a late-clear control fail the
+owned-source lifetime obligation; borrowed inputs and tensor values stay intact.
+The old candidate fails on mixed state, so its earlier evidence cannot simply
+transfer. GPU memory, full model preparation and training remain unqualified.
+[Source-bound result and offline verifier](docs/experiments/results/fsdp-source-transition-2026-11-23/README.md).
 
-A finite differential study also matched declared incremental results to an
-independently written full calculation across 64 four-node graphs and 236 SDK
-executions. It establishes neither complete dependencies in real deployments nor
-a cost advantage over conventional tools. The
-[16 November source record](docs/experiments/results/source-refresh-2026-11-16/README.md)
-retains source pins, failures, reproduction and remaining gates.
+**19 November — LeRobot shutdown correction merged.** The final upstream
+Full Tests job executed all four SIGINT/SIGTERM regressions successfully; the
+owner-loop correction and tests remain in the audited upstream source. This is
+a shutdown result, separate from LongWAM model qualification.
+[Contribution audit](docs/contributions/retrospective-2026-11-23.md).
 
-The browser source now accepts check-summary JSON with optional measurement
-and dependency-explanation companions. Its combined frontend passes **622 tests**,
-TypeScript and production build. Its native ZIP reader still has a separate, narrower format boundary.
-The [review guide](docs/PORTABLE_REVIEW.md#connect-the-instrument) distinguishes
-local display, Python recomputation and scientific acceptance. The website is a
-separately deployed build.
+**16 November — review actual evidence and explain recorded reuse.** Read-only
+[summary](docs/CHECK_SUMMARY.md), [measurement reassessment](docs/CHECK_MEASUREMENTS.md)
+and [dependency explanation](docs/CHECK_EXPLANATION.md) interfaces operate on a
+digest-pinned check packet. The reader refuses nonzero JSON numbers that underflow
+to zero. A finite differential study checks 64 four-node graphs and 236 SDK
+executions against an independently written full calculation. These results do
+not establish complete real-world dependencies or a selective-execution advantage.
+[Retained qualification](docs/experiments/results/source-refresh-2026-11-16/README.md).
 
-Earlier experiments, integration work and upstream outcomes remain in the
-[dated progress journal](docs/PROGRESS.md). Historical task results and adverse
-findings are also retained below.
+This source update passed **2,841 Python tests with 80 explicit skips** and
+**622 frontend tests**, strict TypeScript and production build. All 18 public
+Mermaid diagrams rendered in light and dark themes. The
+[current validation record](docs/experiments/results/source-refresh-2026-11-23/README.md)
+separates these local checks from historical experiments and unrun hosted CI. The
+integrated browser supports the three bounded JSON projections; its older native
+ZIP reader has a narrower contract. The newer Ricci catalog remains in its own
+uncommitted UI lane with reference and visual acceptance open. It is not part
+of this source release. Earlier progress remains in the
+[dated journal](docs/PROGRESS.md).
 
 ## External corrections and open decisions
 
-Upstream states below belong to their linked dated records; this is not a live
-issue queue. Repository qualification does not recheck every external project.
+The [23 November retrospective](docs/contributions/retrospective-2026-11-23.md)
+reconciles **58 attributable PR records**: 15 in Nisayon, 20 Daniel-authored
+external PRs and 23 other-author PRs with linked review, qualification or adopted
+issue reports. These are contribution records, not 58 independent discoveries.
+The ledger keeps author identity, exact revisions, tests, maintainer decisions
+and lasting upstream use separate. Private, deleted, inaccessible and unknown-account
+work remain coverage limits.
 
-The five pull requests linked in the table were checked on 24 October and
-were open on that date. Results and adoption claims stay bound to their retained revisions;
-this status read did not rerun the experiments.
+The strongest outcomes are retained fixes with executable failure evidence:
+LeRobot's shutdown path, N-SCORE's binary sequential test, and the integrated
+LongWAM corrections. GR00T's constant-statistics correction was incorporated
+outside its original PR. Conversely, a merged PR can leave a reviewed defect
+unchanged; the vla.cpp framing recommendation remains unadopted. Merge count
+alone does not measure contribution value.
 
-On 17 October, XPolicyLab's maintainer confirmed and merged the Cartesian pose
-correction. The Long-WAM, DreamZero, Tether and OpenWAM contributions are
-recorded in the latest-progress table. These are distinct upstream decisions, with their
-own tested scope and pending work. No prospect has become an enrolled owner
-for the matched comparison.
+| Contribution | Verified disposition at the audit | Evidence boundary |
+| --- | --- | --- |
+| [LeRobot #5295](https://github.com/huggingface/lerobot/pull/5295) · signal shutdown | Merged 19 November; owner-loop fix and four regressions retained | All four cases executed in final Full Tests. No model-validation claim. |
+| [N-SCORE #5](https://github.com/dasnyder5/nscore/pull/5) · binary sequential evidence | Merged; corrected discordance calculation retained | 284/4096 to 4/4096 exact null rejections in the constructed six-pair case; 95 native tests. The paper's continuous test is separate. |
+| [LeRobot #5008](https://github.com/huggingface/lerobot/pull/5008) · LongWAM integration | Merged; scoped processor/model corrections retained | Source-bound integration and native qualification; owner-reported task results retain their own provenance. |
+| [GR00T #796](https://github.com/NVIDIA/Isaac-GR00T/pull/796) · constant statistics | Closed; maintainer-linked internal adoption | Daniel supplied qualification on another author's patch. Later upstream extensions were not rerun in this audit. |
+| [Accelerate #4447](https://github.com/huggingface/accelerate/pull/4447) · owned FSDP source lifetime | Closed during a contribution-process transition; maintainer invited an update | Current-source CPU proof is local. Full integration and GPU claims remain open; no new submission is implied. |
+
+The immediate contribution recommendation is to finish the existing Accelerate
+review path with the narrow source-transition evidence, after its remaining
+integration gate. The [audit](docs/contributions/retrospective-2026-11-23.md)
+records why competing or already-owned issues were not selected. Upstream
+adoption and correspondence do not enroll an owner in Nisayon's prospective
+value comparison.
 
 A finding from Nisayon's evaluation work was adopted in **arisole-eval 0.1.3**.
 A constructed case had 30 seed-matched episode pairs but only one fully labelled
@@ -211,8 +290,8 @@ evidence, with task outcomes and comparative value unproved.
 | Terminal observations | [LeRobot](docs/experiments/results/terminal-observation-followthrough-001/README.md): same native CPU suite changes from 40 passes/eight failures to 48 passes. | [PR #4943](https://github.com/huggingface/lerobot/pull/4943) open. A contributor's Windows fixture correction was incorporated; another contributor reports the same contrast on Thor, CPU only, without raw logs. No robot-task result. |
 | Terminal action dispatch | [EXPO-FT](docs/experiments/results/terminal-dispatch-001/README.md): 8/24 to 24/24 selected native/source controls, continuing outputs preserved. | [PR #2](https://github.com/pd-perry/expo-ft/pull/2) open. Real sampler threads with explicit policy/environment doubles; no full training qualification. |
 | Replay identity and clock | [Retriever](docs/experiments/results/replay-identity-001/README.md): five to eight of eight session round-trips; restored clock reproduces a timing-sensitive decision. | [PR #3](https://github.com/openretriever/retriever/pull/3) open. Broader testing retains three shared optional-dependency failures; no clean full-suite or physical qualification. |
-| Sequential binary evidence | [N-SCORE](docs/experiments/results/sequential-confirmation-001/README.md): reverse test rejects 284/4096 exact null paths at alpha .05; corrected test rejects 4/4096 and passes 95 native tests. | [PR #5](https://github.com/dasnyder5/nscore/pull/5) open. Constructed six-pair IID Bernoulli(1/2) paths, not robot trials or a new statistical method. No runtime integration or measured savings. |
-| Async client identity | [vla.cpp](docs/experiments/results/native-routing-001/README.md): distinct binary envelopes collide and replace another client's pending request. Length framing passes all five transport controls and preserves same-client replacement. | [Report on PR #34](https://github.com/VinRobotics/vla.cpp/pull/34#issuecomment-6210116834) sent and verified. Extracted native transport and unchanged queue; full server, inference and robot tasks unqualified. |
+| Sequential binary evidence | [N-SCORE](docs/experiments/results/sequential-confirmation-001/README.md): reverse test rejects 284/4096 exact null paths at alpha .05; corrected test rejects 4/4096 and passes 95 native tests. | [PR #5](https://github.com/dasnyder5/nscore/pull/5) merged; the correction remains upstream at the 23 November audit. Constructed six-pair IID Bernoulli(1/2) paths, not robot trials or a new statistical method. No runtime integration or measured savings. |
+| Async client identity | [vla.cpp](docs/experiments/results/native-routing-001/README.md): distinct binary envelopes collide and replace another client's pending request. Length framing passes all five transport controls and preserves same-client replacement. | [Report on PR #34](https://github.com/VinRobotics/vla.cpp/pull/34#issuecomment-6210116834) retained. The PR merged, but the framing correction remains unadopted at the 23 November audit. Extracted native transport and unchanged queue; full server, inference and robot tasks unqualified. |
 
 Nisayon's own [cost correction](docs/experiments/results/cost-retention-001/README.md)
 also preserves a measured prefix when its parent measurement is missing, while
@@ -290,25 +369,27 @@ packet. It runs without the simulator stack and makes no new task-success claim.
 
 ```mermaid
 flowchart TB
-    accTitle: A1 normalized-policy evidence ladder
-    accDescr: Dataset custody, normalized training and checkpoint recovery are supported. The runtime passes its declared qualification checks, but the A1 checkpoint succeeds in only one of ten development episodes against the required eight. That normalized checkpoint remains rejected; the separate B2 legacy-policy repair does not change this result.
-    subgraph P["A1 preparation"]
-        direction LR
-        D["Rights-qualified data<br/>supported"] --> T["100 normalized updates<br/>supported"]
-        T --> C["Checkpoint recovery<br/>supported"]
+    accTitle: Two policy experiments, two distinct outcomes
+    accDescr: A1 trained a normalized pilot for 100 updates and qualified the runtime, but the checkpoint failed its competence gate at one success in ten. B2 used a separate frozen legacy policy, repaired a version-specific observation convention and confirmed nine successes in ten against zero unchanged. B2 does not repair A1 or establish generalization. Neither experiment establishes an owner-cost advantage.
+    subgraph A["A1 · NORMALIZED PILOT"]
+        A0["100 CPU updates<br/>checkpoint recovery verified"]:::record
+        A1["Robosuite 1.5.1<br/>runtime checks pass"]:::record
+        A2["Competence: 1 / 10<br/>required: 8 / 10<br/>reference rejected"]:::gate
+        A0 --> A1 --> A2
     end
-    subgraph Q["A1 task qualification"]
-        direction LR
-        R["Robosuite 1.5.1 runtime<br/>declared checks pass"] --> K["Checkpoint competence<br/>1/10 · needs 8/10<br/>rejected"]
+    subgraph B["B2 · LEGACY TRANSFER"]
+        B0["Frozen legacy weights<br/>relative-vector convention changed"]:::record
+        B1["Freeze input correction<br/>fresh paired closed-loop execution"]:::execution
+        B2["Unchanged: 0 / 10<br/>corrected: 9 / 10<br/>one failure retained"]:::record
+        B0 --> B1 --> B2
     end
-    subgraph N["A1 repair not established"]
-        direction LR
-        I["Fixed-weight normalizer edit<br/>not assigned"] --> V["Confirmed repair and value<br/>unproved"]
-    end
-    P --> Q
-    Q -. "competence requirement failed" .-> N
-    F["Producer and loader failures<br/>retained with corrections"] -. "prospective amendments" .-> Q
+    A2 -. "scope boundary" .-> G["Still open<br/>generalization · independent owner<br/>complete-cost advantage"]:::gate
+    B2 -. "scope boundary" .-> G
+    classDef execution fill:#14364b,stroke:#168aad,color:#ffffff,stroke-width:1.5px
+    classDef record fill:#eef5f4,stroke:#2c7a7b,color:#123b3c,stroke-width:1.5px
+    classDef gate fill:#fff3dd,stroke:#9c6a19,color:#533600,stroke-width:1.5px
 ```
+
 
 The later [controller-target probe](docs/experiments/results/decision-case-001/README.md)
 retained six executions across three exposed condition pairs. The observed
@@ -356,15 +437,24 @@ on the same executor and witnesses used by B. No model, simulator or robot ran.
 
 ```mermaid
 flowchart TB
-    accTitle: Nisayon's implemented experiment path
-    accDescr: Reproduce the reference and regression, execute diagnostic reruns, freeze a candidate and its rule, then confirm on fresh conditions. The separate offline probe tool can inform a proposal but is not integrated with execution or acceptance. Diagnostic gaps stop the path. Every outcome is retained.
-    R["Reference and regression"] --> D["Diagnostic reruns"]
-    P["Offline cause or decision probes<br/>caller-supplied models and labels"] -. "proposal only" .-> D
-    D --> F["Freeze candidate<br/>and acceptance rule"]
-    D --> U["Stop with a retained reason<br/>invalid · unsupported · unresolved"]
-    F --> C["Fresh reference<br/>and correction pairs"]
-    C --> V["Accept, reject<br/>or leave unresolved"]
+    accTitle: A correction earns acceptance through fresh confirmation
+    accDescr: Reproduce the reference and regression, use diagnostic experiments to choose a correction, and freeze the candidate, scorer and acceptance rule. Fresh paired execution must supply valid evidence and task progress. Missing or invalid evidence remains unresolved, a failed obligation rejects the correction, and only a satisfied frozen contract supports scoped acceptance. Every path retains its outcome and cost.
+    R["Reproduce<br/>working reference + regression"]:::execution
+    R --> D["Diagnose<br/>discriminating experiments"]:::execution
+    D --> F["Freeze<br/>candidate · scorer · acceptance rule"]:::contract
+    F --> C["Confirm<br/>fresh reference / correction pairs"]:::execution
+    C --> V{"Evidence valid<br/>and complete?"}:::contract
+    V -- "no" --> U["Unresolved<br/>retain missing or invalid evidence"]:::gate
+    V -- "yes" --> T{"Frozen task and<br/>progress obligations met?"}:::contract
+    T -- "no" --> J["Reject correction<br/>retain the failure"]:::gate
+    T -- "yes" --> A["Accept within scope<br/>retain the regression"]:::record
+    D -. "cannot support a candidate" .-> U
+    classDef contract fill:#e8f1f8,stroke:#496985,color:#13283b,stroke-width:1.5px
+    classDef execution fill:#14364b,stroke:#168aad,color:#ffffff,stroke-width:1.5px
+    classDef record fill:#eef5f4,stroke:#2c7a7b,color:#123b3c,stroke-width:1.5px
+    classDef gate fill:#fff3dd,stroke:#9c6a19,color:#533600,stroke-width:1.5px
 ```
+
 
 Changing an action requires recomputing its affected future state and
 observations. Replaying observations from the old trajectory cannot establish
