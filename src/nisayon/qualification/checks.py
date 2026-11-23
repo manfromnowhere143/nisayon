@@ -335,10 +335,10 @@ def execute_checks(
                         raise ValueError("Previously consumed check evidence changed")
                     if selection["action"] == "reuse":
                         artifact = prior.record()["checks"][key]["artifact"]
-                        result_bytes = _artifact_bytes(root, artifact["path"])
-                        if hashlib.sha256(result_bytes).hexdigest() != artifact["sha256"]:
+                        reused_bytes = _artifact_bytes(root, artifact["path"])
+                        if hashlib.sha256(reused_bytes).hexdigest() != artifact["sha256"]:
                             raise ValueError("Reused evidence changed before consumption")
-                        result = decode_json(result_bytes)
+                        result = decode_json(reused_bytes)
                     else:
                         dependencies = declaration["checks"][key]["depends_on"]
                         upstream = {}
@@ -361,7 +361,12 @@ def execute_checks(
                     decode_json(result_bytes)
                     if freeze()[1] != identities:
                         raise ValueError("Inputs or implementation changed during execution")
-                    write_json(directory / "result.json", result)
+                    if selection["action"] == "reuse":
+                        # Receipt identity covers producer bytes, including JSON formatting.
+                        with (directory / "result.json").open("xb") as stream:
+                            stream.write(reused_bytes)
+                    else:
+                        write_json(directory / "result.json", result)
                     state = record_check(
                         model,
                         state,
