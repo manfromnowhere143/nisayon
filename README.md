@@ -35,10 +35,13 @@ have separate entry points and acceptance rules; the implementation map below
 shows their boundaries.
 
 The browser instrument makes retained evidence inspectable through recorded
-scenes and bounded JSON projections. **Ricci is a sibling concept surface within
-Nisayon**, with its own UI work and reference gates. It is not a validated robot
-or a live control connection. Source publication and website deployment are
-separate releases.
+scenes and bounded JSON projections. **Ricci has separate exhibit and physical
+research paths within Nisayon.** Its authored Motion Study remains a design
+artifact. The [Ricci Brain 01 experiment](experiments/ricci_brain01/README.md)
+now tests contact/load decisions in a pinned G1 reference simulation, with a
+separate evidence adapter. Neither path establishes Ricci dynamics, validated
+hardware or a live control connection. Source publication and website deployment
+are separate releases.
 
 The intended advantage is the same defensible engineering decision with less
 complete work. Setup, failed attempts, rechecks, confirmation and review all
@@ -187,6 +190,16 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_REVIEW_2026-11-16.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**24 November — Ricci's first reproducible physical decision experiment.**
+The local CPU campaign completed 202 episodes after passing an 8/8 nominal gate.
+Baseline and candidate each completed 17/28 held-out cases; the candidate does
+not advance. Privileged information rescued one compound-fault case, exposing a
+specific action/timing question. All 84 pre-decision comparisons matched; eight
+selected success, failure and censored traces passed physics and sensor replay.
+The work remains a reference simulation, with contact-solver sensitivity and
+protective-terminal behavior unresolved. [Ricci architecture and reproduction](experiments/ricci_brain01/README.md) ·
+[Results and next engineering decision](work/experiments/ricci-brain-01-2026-11-24/RESULTS.md).
 
 **23 November — preserve valid evidence through reuse and source changes.**
 The check executor now preserves the exact bytes of reused observations through

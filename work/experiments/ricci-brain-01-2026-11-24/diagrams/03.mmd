@@ -1,0 +1,20 @@
+sequenceDiagram
+    accTitle: Sensor age, command delivery and independent evidence
+    accDescr: Ricci consumes a delayed sensor packet and computes a command. The plant continues under the previous command for the modeled 20 millisecond interval. Admitted commands become effective at the next boundary. Truth and controller records enter the evaluator separately; no truth returns to Ricci.
+    participant P as Reference plant
+    participant S as Sensor queue
+    participant R as Ricci
+    participant G as Command admission
+    participant E as Evidence evaluator
+    P->>S: Modeled measurements<br/>acquisition timestamps
+    S->>R: Newest delivered packet<br/>validity and delivery timestamp
+    R->>R: Estimate, predict to delivery<br/>choose action, solve and check QP
+    R->>G: Proposed torque and command tick
+    G->>G: Check freshness, deadline<br/>torque validity and solve status
+    Note over P,G: During the modeled 20 ms interval,<br/>physics advances under the previous command.
+    P->>P: Integrate 10 × 2 ms steps
+    G->>P: Next boundary: admitted command<br/>or bounded continuation
+    P-->>E: Separate truth and integration state
+    R-->>E: Observations, estimates, issued commands
+    G-->>E: Applied commands and timing
+    Note over R,E: Replay verifies recorded actions.<br/>A changed action requires a new closed-loop run.

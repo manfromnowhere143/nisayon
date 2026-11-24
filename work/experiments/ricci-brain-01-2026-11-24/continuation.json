@@ -1,0 +1,88 @@
+{
+  "schema": "ricci-brain01.public-continuation.v1",
+  "status": "evidence_review",
+  "candidate_advance": false,
+  "mission": "Build a general-purpose humanoid brain whose physical decisions remain useful under contact, load and timing uncertainty. The tray is a measuring instrument, not a product constraint.",
+  "experiment_source": "6181707e45c44eeb3ab5e6427821ff0d80c04f15",
+  "read_order": [
+    "AGENTS.md",
+    "docs/VOICE.md",
+    "experiments/ricci_brain01/README.md",
+    "work/experiments/ricci-brain-01-2026-11-24/RESULTS.md",
+    "work/experiments/ricci-brain-01-2026-11-24/DESIGN.md",
+    "work/experiments/ricci-brain-01-2026-11-24/MATHEMATICAL_DIRECTION.md",
+    "work/experiments/ricci-brain-01-2026-11-24/FRONTIER_REVIEW.md",
+    "work/experiments/ricci-brain-01-2026-11-24/DEVELOPMENT.md"
+  ],
+  "established": {
+    "nominal_development": "8/8",
+    "heldout_nominal_each_arm": "4/4",
+    "heldout_completion_baseline": 17,
+    "heldout_completion_candidate": 17,
+    "heldout_per_arm": 28,
+    "paired_difference": 0,
+    "conservative_95_interval": [
+      -0.1448692957305998,
+      0.1448692957305998
+    ],
+    "prefix_pairs_matched": 84,
+    "episodes": 202,
+    "selected_replays_verified": 8
+  },
+  "next_work": [
+    {
+      "priority": 1,
+      "question": "Why did early shared recovery rescue compound case 03 while candidate foot planting had no measured effect?",
+      "action": "Treat the now-exposed case as development. Factor action choice and information-arrival delay while retaining common prefixes, exact modeled timing and the same actuator/action budgets. Record useful effective-action windows without assuming monotonicity. Inspect whether the single-latch rule discards later compound evidence; distinguish that decision limitation from sensor delay.",
+      "gate": "Do not attribute the current rescue to latency alone or treat this case as fresh confirmation."
+    },
+    {
+      "priority": 2,
+      "question": "Which estimator, contact transition or numerical sensitivity causes nominal failure after contact-solver changes?",
+      "action": "Localize residuals and measured support transitions under the two failed stress regimes. Distinguish numerical nonqualification from physical infeasibility. Qualify the same nominal task across declared regimes before recovery claims transfer.",
+      "gate": "Keep task progress, physical thresholds and censoring distinct; never regain success by admitting unloaded support."
+    },
+    {
+      "priority": 3,
+      "question": "Does an improved belief/decision rule earn a useful action in time?",
+      "action": "Inspect residual histories and packet age on exposed development cases, then freeze a small physically motivated correction. Use newly reserved configuration tuples/seeds for paired confirmation.",
+      "gate": "Require a supported completion or constraint gain with no material nominal penalty; no probability language without calibration."
+    },
+    {
+      "priority": 4,
+      "question": "Would predictive contact/footstep control enlarge the useful action set?",
+      "action": "Compare an inspectable centroidal/contact planner with the existing WBC before learned residuals. Count full scheduling and solver costs; do not supply a privileged disturbance wrench.",
+      "gate": "New controller authority is a separate ablation, shared by baseline and candidate."
+    }
+  ],
+  "architecture_rules": [
+    "Immutable timestamped sensor interface; no truth/reset/seed/path labels in policy inputs.",
+    "Keep nominal, support, load, ambiguous, compound and degraded states explicit.",
+    "Unknown belief does not itself provide a safe terminal action.",
+    "Task confidence cannot override physical command checks.",
+    "Changed actions require new closed-loop futures.",
+    "Keep evaluator evidence independent of policy predictions.",
+    "Broader learned skills enter typed intent; no direct learned torque/VLA/active probing in this milestone."
+  ],
+  "freshness": "All campaign-06 held-out configurations are now exposed. They may support debugging and regression, never another claim of fresh confirmation.",
+  "limits": [
+    "G1 reference embodiment, not Ricci mass/inertia or hardware.",
+    "Fixture grasp and guided payload.",
+    "Known prescribed initial pose; ideal torque motors.",
+    "Contact-solver sensitivity remains.",
+    "Fixed modeled timing, no hardware real-time qualification.",
+    "Standalone adapter, not native Nisayon acceptance.",
+    "No superiority or novelty claim based on this benchmark.",
+    "First non-track recovery is latched; later belief updates cannot revise it."
+  ],
+  "authorization_boundary": "Source publication is authorized. This milestone ends at evidence review. No deployment, physical hardware, purchase, camera collection or cloud training follows from publication. Preserve sibling exhibit, Film, shared rendering and engine interfaces.",
+  "checks": [
+    "cd experiments/ricci_brain01 && OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 uv run --frozen python -m pytest",
+    "cd experiments/ricci_brain01 && uv run --frozen ruff check ricci_brain tests"
+  ],
+  "resume": "Run nisayon start --focus \"Ricci Brain 01 contact load recovery\" from the intended Nisayon checkout, reconcile exact retained packets, and read the handoff before choosing the next experiment.",
+  "source_snapshot": "6c8b84ea0e37274449d97f0b323ed694d38fa174",
+  "source_manifest": "reproduction/ricci-brain01-source-manifest.json",
+  "historical_source_boundary": "experiment_source identifies the original execution; public history excludes private ancestors. Executable source/config/tests are byte-identical to the qualified experiment.",
+  "raw_store_availability": "Original raw stores retained separately, not distributed. Run the README command to generate new replayable episodes."
+}

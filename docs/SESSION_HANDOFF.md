@@ -1,3 +1,25 @@
+# Ricci physical experiment · 24 November 2026
+
+Ricci Brain 01 now has a reproducible CPU reference simulation, an inspectable
+contact/load estimator and torque-limited whole-body controller, a separate
+evidence adapter, paired comparisons and a general-purpose architecture direction.
+Begin with the [Ricci README](../experiments/ricci_brain01/README.md) and
+[machine continuation](../work/experiments/ricci-brain-01-2026-11-24/continuation.json).
+The [research handoff](../work/experiments/ricci-brain-01-2026-11-24/HANDOFF.txt)
+states the next questions, source identities, freshness rules and acceptance gates.
+
+The 202-episode experiment passes nominal qualification but finds no candidate
+completion gain: 17/28 for both baseline and candidate. The candidate does not
+advance. Investigate action choice versus effective delay in the exposed compound
+rescue, and repair nominal sensitivity to contact-solver changes before broader
+claims. All published results retain the reference-model and grasp-fixture limits.
+
+This is a source update on existing public ancestry. Engine and UI code, the
+website and release tags are unchanged. Private session history is excluded.
+The earlier engine handoff remains below with its own evidence and open gates.
+
+---
+
 # Continue Nisayon · 23 November 2026
 
 Read [AGENTS.md](../AGENTS.md), [voice](VOICE.md), the

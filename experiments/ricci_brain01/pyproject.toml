@@ -1,0 +1,26 @@
+[project]
+name = "ricci-brain01-experiment"
+version = "0.1.0"
+description = "Local reference-embodiment experiment; not Ricci dynamics"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "mujoco==3.3.2",
+  "numpy==1.26.4",
+  "scipy==1.13.1",
+  "osqp==1.0.4",
+]
+
+[dependency-groups]
+dev = ["pytest==8.4.2", "ruff==0.14.6"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "B", "UP"]

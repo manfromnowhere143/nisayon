@@ -1,0 +1,227 @@
+{
+  "schema": "ricci-brain01.campaign.v2",
+  "purpose": "Local prerequisite and bounded diagnostic experiment; no superiority claim",
+  "nominal_development": [
+    [
+      11,
+      0.15,
+      0.6,
+      0.004,
+      1.0
+    ],
+    [
+      23,
+      0.25,
+      0.6,
+      0.004,
+      1.0
+    ],
+    [
+      37,
+      0.4,
+      0.5,
+      0.004,
+      1.0
+    ],
+    [
+      41,
+      0.15,
+      0.8,
+      0.008,
+      1.0
+    ],
+    [
+      53,
+      0.3,
+      0.55,
+      0.008,
+      1.5
+    ],
+    [
+      67,
+      0.15,
+      0.5,
+      0.004,
+      1.5
+    ],
+    [
+      79,
+      0.4,
+      0.8,
+      0.004,
+      1.0
+    ],
+    [
+      83,
+      0.25,
+      0.65,
+      0.008,
+      1.0
+    ]
+  ],
+  "nominal_columns": [
+    "sensor_seed",
+    "payload_mass",
+    "friction",
+    "latency_s",
+    "noise_scale"
+  ],
+  "shared_actions": [
+    "track",
+    "lower_load",
+    "plant_foot",
+    "shared"
+  ],
+  "development_selection": {
+    "scenarios": [
+      "nominal",
+      "slip",
+      "load",
+      "compound"
+    ],
+    "onset": 4.5,
+    "slip_friction": 0.12,
+    "rule": "Maximize completions, then minimize observed fall/drop, violations and censoring. Ties prefer the earlier shared_actions entry. No held-out data used."
+  },
+  "delay_sweep": {
+    "fixtures": [
+      [
+        "slip",
+        0.04
+      ],
+      [
+        "slip",
+        0.12
+      ],
+      [
+        "compound",
+        0.12
+      ]
+    ],
+    "onset": 4.5,
+    "delays_s": [
+      0.0,
+      0.1,
+      0.3,
+      0.6,
+      0.9
+    ],
+    "actions": [
+      "lower_load",
+      "plant_foot",
+      "shared"
+    ],
+    "rule": "Report every tested action/delay, including failures; no universal or optimal-controller bound. Nonmonotonic cells yield ranges, not a fitted deadline."
+  },
+  "heldout": {
+    "columns": [
+      "sensor_seed",
+      "payload_mass",
+      "friction",
+      "latency_s",
+      "noise_scale",
+      "onset",
+      "slip_friction"
+    ],
+    "configurations": [
+      [
+        2017,
+        0.17,
+        0.56,
+        0.006,
+        1.15,
+        3.6,
+        0.045
+      ],
+      [
+        2027,
+        0.24,
+        0.7,
+        0.008,
+        1.35,
+        4.9,
+        0.065
+      ],
+      [
+        2029,
+        0.31,
+        0.62,
+        0.006,
+        1.15,
+        5.6,
+        0.085
+      ],
+      [
+        2039,
+        0.38,
+        0.54,
+        0.008,
+        1.35,
+        6.6,
+        0.105
+      ]
+    ],
+    "families": [
+      "nominal",
+      "slip",
+      "load",
+      "shared_slip",
+      "compound",
+      "dropout",
+      "wrist_dropout"
+    ],
+    "shared_slip_friction": [
+      0.22,
+      0.26,
+      0.3,
+      0.34
+    ],
+    "arms": [
+      "none",
+      "baseline",
+      "candidate",
+      "privileged"
+    ],
+    "arm_order": "Common-policy prefix first; rotate the other three arms by configuration/family index to distribute host timing effects.",
+    "split": "Entire unseen configuration tuples and sensor seeds. No adjacent-frame split. Mechanism families remain known; this is configuration transfer, not unseen-mechanism generalization."
+  },
+  "stress": {
+    "scenarios": [
+      "nominal",
+      "slip",
+      "load"
+    ],
+    "variants": [
+      {
+        "timestep": 0.001,
+        "iterations": 80,
+        "contact_time_constant": 0.02
+      },
+      {
+        "timestep": 0.002,
+        "iterations": 40,
+        "contact_time_constant": 0.01
+      },
+      {
+        "timestep": 0.002,
+        "iterations": 80,
+        "contact_time_constant": 0.03,
+        "payload_mass": 0.4
+      }
+    ],
+    "arms": [
+      "baseline",
+      "candidate"
+    ],
+    "role": "Sensitivity checks, separate from held-out effect estimates. No retuning after these runs."
+  },
+  "analysis": {
+    "paired_completion_interval": "Conservative 95% paired risk-difference interval: exact binomial intervals for paired wins and losses, Bonferroni combined; no independence between frames assumed.",
+    "constraint_censoring": "Report observed violations and censoring separately; a terminated trajectory does not establish absence of later fall or constraint violation.",
+    "prefix_overlap": "Compare common-policy slip/load observations at matched timestamps, with RMS differences scaled by electronic noise and separately by declared modeling allowances. Three consecutive frames above 3 allowance units mark separation for this diagnostic only, not calibrated inference.",
+    "effective_action": "Use applied_command after explicit 20ms delivery delay, not issued command or classifier output; 0.1 Nm difference threshold and next physics step.",
+    "advance": "Require positive lower 95% completion-effect bound or positive lower bound on reduction in observed violations with no censoring; no lost nominal completions, no added nominal falls/violations/interventions, and completed nominal time penalty at most max(0.25 seconds, 5%). Otherwise do not advance. Require exact matched pre-decision histories for all compared arms."
+  },
+  "timing": "Fixed 20ms computation/delivery schedule advances physics on previous admitted command; host wall overruns recorded separately, never unpaired physical treatments. No hardware real-time qualification.",
+  "supersedes": "frozen-campaign-01: stopped for wall-scheduler confounding; its outcomes do not select the new baseline or establish paired effects."
+}

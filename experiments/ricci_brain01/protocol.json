@@ -1,0 +1,32 @@
+{
+  "schema": "ricci-brain01.nominal-protocol.v1",
+  "status": "development thresholds; recovery and held-out trials blocked until nominal gate",
+  "duration_s": 13.0,
+  "control_period_s": 0.02,
+  "physics_timestep_s": 0.002,
+  "nominal_gate": {"required_completions": 8, "episodes": 8, "constraint_violations": 0},
+  "thresholds": {
+    "lift_clearance_m": 0.035,
+    "lift_dwell_s": 0.4,
+    "swing_clearance_m": 0.025,
+    "step_progress_m": 0.075,
+    "right_foot_displacement_m": 0.025,
+    "max_torso_tilt_rad": 0.26,
+    "fall_pelvis_height_m": 0.45,
+    "max_joint_limit_excess_rad": 0.015,
+    "max_penetration_m": 0.008,
+    "setdown_height_tolerance_m": 0.006,
+    "setdown_speed_m_s": 0.05,
+    "setdown_dwell_s": 0.6,
+    "deadline_s": 0.02,
+    "stale_s": 0.04
+  },
+  "rationale": {
+    "duration": "13 seconds permits up to two seconds of measured-contact landing transition beyond the original 11-second development budget. Physical thresholds are unchanged; completion time and timeout remain reported.",
+    "lift": "35 mm clearance exceeds five tray half-thicknesses and requires sustained support separation; commanded lift is 60 mm.",
+    "step": "At least 75 mm of the 100 mm command and 25 mm swing clearance excludes shuffling without a step.",
+    "balance": "15 degree torso tilt and 25 mm stance drift are provisional margins for a slow nominal task, not physical safety limits.",
+    "setdown": "Released tray must remain supported and nearly stationary for 600 ms; a transient touch is insufficient.",
+    "gate": "All eight development configurations must pass before recovery comparisons. Eight runs establish a prerequisite, not population reliability."
+  }
+}

@@ -1,5 +1,21 @@
 # Research source and releases
 
+## Ricci Brain 01 reference experiment · 24 November 2026
+
+Current source adds the [Ricci physical research program](../experiments/ricci_brain01/README.md),
+with pinned CPU simulation, explicit observation/control boundaries, paired
+evaluation, failure retention and a documented mathematical direction. The
+[202-episode result](../work/experiments/ricci-brain-01-2026-11-24/RESULTS.md) is null
+for candidate completion gain: both arms finish 17/28 held-out cases. The
+candidate does not advance; one privileged compound rescue defines the next
+action/timing diagnostic. Contact-solver sensitivity remains unresolved.
+
+The [source boundary](../work/experiments/ricci-brain-01-2026-11-24/PUBLICATION.md)
+distinguishes compact evidence from the separately retained raw simulator stores.
+Public source continues existing ancestry. Engine/UI code, website and tagged
+wheel are unchanged. No hardware, independent replication or superiority claim.
+
+
 
 ## Evidence reuse and source-transition proof · 23 November 2026
 

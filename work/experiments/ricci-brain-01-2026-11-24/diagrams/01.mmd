@@ -1,0 +1,24 @@
+flowchart TB
+    accTitle: Ricci physical control and Nisayon evidence boundary
+    accDescr: Sensor packets enter physical belief and shared whole-body execution. Independent checks admit commands. The reference plant generates observations and a separate truth record. Retained episodes reach an evaluator with no truth or verdict path back into the policy.
+    subgraph Ricci["RICCI · PHYSICAL LOOP"]
+        O["OBSERVATIONS<br/>timestamp · frame · validity"]:::interface
+        E["PHYSICAL BELIEF<br/>contact filter<br/>competing explanations"]:::compute
+        C["TASK + WHOLE-BODY CONTROL<br/>contact-confirmed progress<br/>bounded inverse dynamics"]:::compute
+        G["INDEPENDENT ADMISSION<br/>freshness · deadline · feasibility"]:::boundary
+        O --> E
+        E --> C
+        C --> G
+        O --> G
+    end
+    I["TASK INTENT<br/>typed goal parameters"]:::interface --> C
+    G --> P["REFERENCE PLANT<br/>MuJoCo · G1 · tray"]:::plant
+    P -- "modeled sensors" --> O
+    P -- "separate truth" --> T[("RETAINED EPISODE<br/>source · model · signals · timing")]:::record
+    G -- "issued and applied commands" --> T
+    T --> N["EVIDENCE REVIEW<br/>replay · fixed outcomes · paired effects"]:::boundary
+    classDef interface fill:#eef3f7,stroke:#60798b,color:#192e40,stroke-width:1.5px
+    classDef compute fill:#16384b,stroke:#2c8196,color:#ffffff,stroke-width:1.5px
+    classDef boundary fill:#f5efe4,stroke:#8c713d,color:#3d3018,stroke-width:1.5px
+    classDef plant fill:#edf4f0,stroke:#4d7b66,color:#193d2b,stroke-width:1.5px
+    classDef record fill:#f0f1f4,stroke:#747b8e,color:#2a3042,stroke-width:1.5px
