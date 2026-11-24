@@ -1,0 +1,277 @@
+{
+  "schema": "ricci-brain01.public-validation.v1",
+  "tested_source": "f90391a6ee08dd8c410a31351175581d027addd4",
+  "status": "local_checks_passed",
+  "scope": "Public worktree, scoped experiment tests plus new nominal and replay; existing engine/UI source unchanged. This is not independent replication or a hardware test.",
+  "tests_passed": 48,
+  "lint": "passed",
+  "commands": [
+    {
+      "name": "public-tests",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "pytest"
+      ],
+      "returncode": 0,
+      "elapsed_s": 35.540969750029035,
+      "log": "public-tests.log"
+    },
+    {
+      "name": "public-lint",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "ruff",
+        "check",
+        "ricci_brain",
+        "tests"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.5155297499150038,
+      "log": "public-lint.log"
+    },
+    {
+      "name": "public-nominal",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "ricci_brain",
+        "nominal",
+        "--out",
+        "../../artifacts/ricci-brain-01/public-smoke-01"
+      ],
+      "returncode": 0,
+      "elapsed_s": 7.933031333028339,
+      "log": "public-nominal.log"
+    },
+    {
+      "name": "public-replay",
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "python",
+        "-m",
+        "ricci_brain",
+        "replay",
+        "../../artifacts/ricci-brain-01/public-smoke-01"
+      ],
+      "returncode": 0,
+      "elapsed_s": 3.7987978330347687,
+      "log": "public-replay.log"
+    }
+  ],
+  "nominal": {
+    "schema": "ricci-brain01.outcome.v1",
+    "outcome": "successful_setdown",
+    "completed": true,
+    "fall": false,
+    "drop": false,
+    "protective_stop": false,
+    "constraint_violations": [],
+    "censored": false,
+    "prerequisites": {
+      "lift": true,
+      "step_clearance": true,
+      "step_progress": true,
+      "setdown": true
+    },
+    "measurements": {
+      "lift_dwell_s": 7.42,
+      "max_lift_m": 0.0470191044521846,
+      "swing_clearance_m": 0.027689764478930314,
+      "step_progress_m": 0.09104408886674213,
+      "max_right_drift_m": 0.0013757735124448709,
+      "setdown_dwell_s": 1.8800000000000001,
+      "max_torso_tilt_rad": 0.09294531846406615,
+      "duration_s": 13.00000000000101,
+      "task_completion_s": 11.720000000000583
+    },
+    "scope": "reference simulation only; no hardware or recovery claim",
+    "execution_end": "horizon",
+    "timing": {
+      "startup_wall_s": 1.8717900840565562,
+      "total_wall_s": 7.481023250031285,
+      "policy_median_s": 0.0029065829585306346,
+      "policy_p99_s": 0.006789468460483476,
+      "missed_deadlines": 0,
+      "host_wall_deadline_misses": 1,
+      "modeled_command_delay_s": 0.02,
+      "hardware_realtime_qualified": false,
+      "fallback_steps": 3
+    }
+  },
+  "replay": {
+    "integrity": "verified",
+    "physics_replay": "matched",
+    "commands": 650,
+    "physics_steps": 6500,
+    "max_state_error": 0.0,
+    "evaluation": {
+      "schema": "ricci-brain01.outcome.v1",
+      "outcome": "successful_setdown",
+      "completed": true,
+      "fall": false,
+      "drop": false,
+      "protective_stop": false,
+      "constraint_violations": [],
+      "censored": false,
+      "prerequisites": {
+        "lift": true,
+        "step_clearance": true,
+        "step_progress": true,
+        "setdown": true
+      },
+      "measurements": {
+        "lift_dwell_s": 7.42,
+        "max_lift_m": 0.0470191044521846,
+        "swing_clearance_m": 0.027689764478930314,
+        "step_progress_m": 0.09104408886674213,
+        "max_right_drift_m": 0.0013757735124448709,
+        "setdown_dwell_s": 1.8800000000000001,
+        "max_torso_tilt_rad": 0.09294531846406615,
+        "duration_s": 13.00000000000101,
+        "task_completion_s": 11.720000000000583
+      },
+      "scope": "reference simulation only; no hardware or recovery claim"
+    },
+    "sensor_replay": "matched",
+    "boundary": "recorded-action physics replay; not a changed-policy counterfactual"
+  },
+  "diagram_sources_unchanged": 4,
+  "retained_renders_verified": 8,
+  "tested_files": [
+    {
+      "path": "experiments/ricci_brain01/README.md",
+      "sha256": "90e7491054d97ebaa2038df43ac8e4140594a971b6566c0fb39377fb0e4aea8a"
+    },
+    {
+      "path": "experiments/ricci_brain01/UNITREE_G1_LICENSE.txt",
+      "sha256": "98335465f43a20b5850e4651db6e74c4aa1e9fc8e8813d38f345178045c0da50"
+    },
+    {
+      "path": "experiments/ricci_brain01/campaign.json",
+      "sha256": "44fed3e541667b360fe4b811c8ecaffcb7f737d8e5a24a9fc72ec8c52f1bfff8"
+    },
+    {
+      "path": "experiments/ricci_brain01/protocol.json",
+      "sha256": "3d193a1fbc41389cc0b4efc5d4b73e5ec77bd6c8cd5fb11f08b7cde4f3ff194f"
+    },
+    {
+      "path": "experiments/ricci_brain01/pyproject.toml",
+      "sha256": "bef604f789cb18ec2c7b3a327f19992cbd7e0ba6b5513b77fac29dd9531ef612"
+    },
+    {
+      "path": "experiments/ricci_brain01/reference.json",
+      "sha256": "b5bc79792c936818f8c576f3540ea6d1bd4d1c79814bed1eb71cc0ca3e127975"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/__init__.py",
+      "sha256": "537a63c9d906502b7498f78efbaeb6a689ba7e7eb5d26ff37748f1c722c343af"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/__main__.py",
+      "sha256": "412df244334bacd77e72bcfb046c331e9a52f5ebc8bc40d824713cb07bfdc2af"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/analysis.py",
+      "sha256": "ba21e3c48fa1cb4aee62891457422a1cce15fa1daa280e4147291fa3ccc61069"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/belief.py",
+      "sha256": "ebc0741265befd40ba9188375520dd0ff7ca19d75a2dd9ad2fc2ca2a8ae1a095"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/campaign.py",
+      "sha256": "995c03e779afe3d5763a3a39a96ab86fec4333b42372dafa0a9bf07a05e9c764"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/control.py",
+      "sha256": "dc151a8524b7ca82c43f0b94870df159fd01c6807175ad6ba7905f90d0dd93fa"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/episode.py",
+      "sha256": "a4ad0088d33170a16b31c9b5c736880efdb300c776c0a1ffa83ffc989d54a752"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/estimator.py",
+      "sha256": "6791c1626d422e0089b19559d75e8559a445abf40980712b43412b080d3455e0"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/evaluation.py",
+      "sha256": "927340ea8178d668ba58b1125db9f22d2a63f25e5cb4ebd15f2bbedfb684c16a"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/interfaces.py",
+      "sha256": "01e56c6d133ff486ad80ee5df87d8eb1bb165570e84c18d7d19b2e690e74bab0"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/model.py",
+      "sha256": "7cf5e2d11c0e3cd7c07d03b3be13a82adac1799081672de0b2461ff477db011d"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/policy.py",
+      "sha256": "ef9b1741e62891413e25549c78f932bb595f8164ed2743a19e24fcb6074abafa"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/replay.py",
+      "sha256": "36c84ab139b83f5056b4d263748c515bd264f4a7b19b9146ceda72051b0f4d7d"
+    },
+    {
+      "path": "experiments/ricci_brain01/ricci_brain/sensing.py",
+      "sha256": "065d3df299e53d33db9ec9eb756ecd8146e278a153058fc51b5aa938904809d4"
+    },
+    {
+      "path": "experiments/ricci_brain01/tests/test_boundaries.py",
+      "sha256": "2cbf82b6a4892c936d428795c5f367fd8af111ed5a3596244d3c7a4ce1fae752"
+    },
+    {
+      "path": "experiments/ricci_brain01/tests/test_evidence.py",
+      "sha256": "5eef202fbf69c9e31604af0ad017a540c86ada7d42ae31e919d572ec298ce7b1"
+    },
+    {
+      "path": "experiments/ricci_brain01/uv.lock",
+      "sha256": "53418f986cb2e6cef14b101c1ba4d336830d147ee2973d7c2ec4c6d483a737a0"
+    }
+  ],
+  "full_202_episode_campaign": "Original frozen campaign retained; not rerun for publication. Runtime/config/test bytes match 6181707e45c44eeb3ab5e6427821ff0d80c04f15.",
+  "hosted_ci": "Not dispatched; local execution only. Remote checks are observed separately after publication.",
+  "documentation": {
+    "documents": 357,
+    "mermaid_blocks": 22,
+    "errors": [],
+    "scope": "local file links and code fences; Mermaid rendering is separate"
+  },
+  "commands_cwd": "experiments/ricci_brain01",
+  "logs_relative_to": "publication-checks",
+  "root_static_checks": [
+    {
+      "tool": "ruff 0.16.8 from root uv.lock",
+      "args": [
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "log": "publication-checks/public-root-lint-pinned.log"
+    },
+    {
+      "tool": "ruff 0.16.8 from root uv.lock",
+      "args": [
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "log": "publication-checks/public-root-format-pinned.log"
+    }
+  ],
+  "tool_invocation_correction": "An additional root lint was initially invoked with the isolated experiment Ruff 0.14.6 instead of the root lockfile version 0.16.8. It reported 89 F811 findings in unchanged imported-fixture tests. Rerunning with the root-pinned version passed without changing source, exclusions or lint rules. Both versions pass the scoped Ricci lint."
+}
