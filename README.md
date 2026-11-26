@@ -19,6 +19,13 @@ observations, rerun affected checks and require fresh confirmation. A reviewer
 can inspect a pinned portable packet without executing its producer's code.
 Procedures, observations and verdicts have different reuse requirements.
 
+The longer-term research aim is **physical intelligence that acquires and retains
+competence without weakening the evidence required to accept a change**. The
+[EDPI research direction](docs/EDPI_RESEARCH.md) connects evidence applicability,
+experimental economy, cumulative adaptation and the physical consequences of
+uncertainty. Each step has its own proof obligation; a better qualification
+mechanism has not yet been shown to produce a better learning system.
+
 The implemented system has three execution paths with distinct contracts:
 
 | Path | What runs | What the result can establish |
@@ -50,7 +57,8 @@ next proof is an independently owned consequential change, followed by an
 untouched case using the frozen procedure.
 
 [Try the SDK](docs/QUICKSTART.md) · [Available capabilities](docs/CAPABILITIES.md) ·
-[Current research assessment](docs/FRONTIER_REVIEW_2026-11-16.md) ·
+[Research direction](docs/EDPI_RESEARCH.md) ·
+[Latest qualification experiment](experiments/edpi_finite/README.md) ·
 [Open the instrument](https://nisayon.danielwahnich.dev/)
 
 [System map](#the-system-and-the-next-proof) · [Results](#what-the-experiments-found) ·
@@ -68,7 +76,9 @@ preserve incomplete attempts, check evidence, and confirm frozen corrections.
 Deployment-specific software investigations also run against native upstream
 implementations. These are concrete components and experiments; a general
 intervention compiler, adaptive selector and reusable deployment product remain
-proposed.
+proposed. A separate [finite active qualification study](experiments/edpi_finite/README.md)
+now executes a bounded selector and audits its results through the existing SDK;
+it is research code, with no demonstrated acquisition advantage.
 
 ```mermaid
 flowchart TB
@@ -190,6 +200,19 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_REVIEW_2026-11-16.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**26 November — reproduced evidence and a limit on active selection.** The
+[bounded EDPI study](experiments/edpi_finite/README.md) reproduces the frozen-policy
+cube result: 0/10 unchanged versus 9/10 corrected, with all twenty retained
+numerical traces matching the exposed historical conditions. Its new four-case
+qualification campaign retains 264 executions across seven methods and three
+budgets. The decision-directed selector ties cost-aware static, coverage and
+uncertainty selection; no comparative advantage is established. A subsequent
+[symmetry proof](experiments/edpi_finite/SYMMETRY.md) shows why those rules must
+agree under this acquisition model. The source, raw observations, independent
+model-relative auditor, retained audit defects and reproduction commands are
+published together. The [architecture direction](docs/EDPI_RESEARCH.md) keeps
+cumulative learning and embodiment research behind their unmet evidence gates.
 
 **24 November — Ricci's first reproducible physical decision experiment.**
 The local CPU campaign completed 202 episodes after passing an 8/8 nominal gate.

@@ -1,7 +1,20 @@
 # Architecture
 
-**Design v0.1 · 17 September 2026; implementation status updated 23 November
+**Design v0.1 · 17 September 2026; implementation status updated 26 November
 2026.** The general product architecture remains proposed.
+
+The [finite EDPI study](../experiments/edpi_finite/README.md) adds a research
+selector, a small CPU physical model and a separate rational reference audit.
+It integrates retained evidence through existing qualification checks and
+`.nisayon.zip` review. It adds no production API, execution backend or dependency.
+The selector receives permitted experiments and observations; frozen measurement
+and acceptance semantics remain outside its authority. The
+[responsibility diagram](EDPI_RESEARCH.md#the-architecture-follows-the-authority-boundary)
+distinguishes this narrow implementation from the proposed learning architecture.
+Its decision rule ties strong conventional alternatives. A
+[post-hoc symmetry proof](../experiments/edpi_finite/SYMMETRY.md) identifies the
+model assumption that forces the tie; adding a general planner would not resolve
+that limitation.
 
 The current-source qualification path now admits declared calibration snapshots,
 retains independent checks while inputs are unknown, validates unfinished receipt

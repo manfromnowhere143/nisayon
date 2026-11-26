@@ -1,0 +1,73 @@
+"""Re-execute exposed B2 conditions without consuming a fresh-confirmation allocation."""
+
+from __future__ import annotations
+
+import argparse
+import importlib.metadata
+import json
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+from scripts.experiments import run_b2_transfer as b2  # noqa: E402
+from nisayon.engine.assets import POLICY_SHA256, translate_checkpoint  # noqa: E402
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(__doc__)
+    parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--assets", type=Path, required=True)
+    args = parser.parse_args()
+    args.out.mkdir(parents=True, exist_ok=False)
+    a1 = b2.a1
+    policy_path = args.assets / "lift_ph_low_dim_epoch_1000_succ_100.pth"
+    data_path = args.assets / "lift/ph/low_dim_v15.hdf5"
+    a1.assert_file(policy_path, POLICY_SHA256, "policy")
+    a1.assert_file(data_path, a1.DATASET_SHA256, "dataset")
+    required = {"torch": "2.5.1", "robomimic": "0.3.0", "robosuite": "1.5.1",
+                "mujoco": "3.2.7", "numpy": "1.26.4"}
+    versions = {name: importlib.metadata.version(name) for name in required}
+    if versions != required:
+        raise ValueError(f"runtime mismatch: {versions}")
+    frozen = json.loads((Path(__file__).parent / "b2-source-freeze.json").read_text())
+    for path, expected in frozen["sha256"].items():
+        a1.assert_file(ROOT / path, expected, path)
+    import torch
+    import robomimic.utils.file_utils as file_utils
+
+    a1.seed_process(0, torch_required=True)
+    checkpoint = torch.load(policy_path, map_location="cpu", weights_only=False)
+    policy, _ = file_utils.policy_from_checkpoint(
+        ckpt_dict=translate_checkpoint(checkpoint), device=torch.device("cpu"), verbose=False
+    )
+    before = a1.parameter_digest(policy.policy.nets.state_dict())
+    if before != a1.parameter_digest(checkpoint["model"]) or policy.obs_normalization_stats is not None:
+        raise ValueError("unexpected weights or normalization")
+    counts = b2.b1.operations()
+    rows = []
+    for seed in b2.SEEDS:
+        for mode in ("unchanged", "corrected"):
+            row = b2.episode(policy, data_path, seed, mode, args.out, counts)
+            rows.append(row)
+            print(json.dumps({k: row[k] for k in ("seed", "mode", "outcome", "steps", "failure")}), flush=True)
+            if row["outcome"] == "execution_failure":
+                break
+        if rows[-1]["outcome"] == "execution_failure":
+            break
+    after = a1.parameter_digest(policy.policy.nets.state_dict())
+    record = {"schema": "nisayon.edpi.b2-reproduction.v1", "versions": versions,
+              "episodes": rows, "operations": counts, "weights_unchanged": before == after,
+              "parameter_sha256": before, "fresh_confirmation": False,
+              "historical_policy_sha256": POLICY_SHA256,
+              "verdict": b2.paired_verdict(rows) if len(rows) == 20 else None}
+    a1.write_json_create(args.out / "result.json", record)
+    if len(rows) != 20 or before != after:
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

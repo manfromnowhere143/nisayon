@@ -1,0 +1,218 @@
+{
+  "schema": "nisayon.edpi.fault-sensitivity.v1",
+  "valid_trials_checked": 264,
+  "controls": [
+    {
+      "control": "missing_confirmation",
+      "mutation_sha256": "1bd23ac2b48a667d589051cb46971e8773edf3e9fff1e9f7bc8f71dcd413f785",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "approval lacks mandatory confirmation"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "inconsistent experiment counts"
+      }
+    },
+    {
+      "control": "duplicate_probe",
+      "mutation_sha256": "a2380e7a699fd8bbdc5ae6eef9f8f731a50f5d8be7f97517d1412df7d5960c5d",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "duplicate or altered task"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "inconsistent experiment counts"
+      }
+    },
+    {
+      "control": "invalid_pair",
+      "mutation_sha256": "e90fbf85142230ea8d59dc51d3afbad867a9fae3b4247e23aba21b8a636ce507",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "invalid pairing"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "initial-state metadata differs from trajectory"
+      }
+    },
+    {
+      "control": "paired_false_reset_metadata",
+      "mutation_sha256": "ee041b46b77ac623876e48a6d6d9d5d9f4b5b254b874db75c287604539c7e996",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "initial-state metadata differs from trajectory"
+      }
+    },
+    {
+      "control": "incomplete_trajectory",
+      "mutation_sha256": "32d730fd0ee29118b815edbba39e70a419ce0887a5768e249f0fab993ed9a9d5",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "invalid execution prefix"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "invalid execution prefix"
+      }
+    },
+    {
+      "control": "changed_force_metadata",
+      "mutation_sha256": "81a419e01a74b4d5c790ec4e1da48b27eff298ac643dcd10e485f3bfc1ca5b7a",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "applied force identity differs"
+      }
+    },
+    {
+      "control": "changed_arm_cost",
+      "mutation_sha256": "92304b4eeb9a129eb211ab8a05844250b10c84217c804baaf40cad0bdf738b1f",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "arm control count mismatch"
+      }
+    },
+    {
+      "control": "changed_measurement",
+      "mutation_sha256": "997d5e2071f190351b0a7e5ec7d1d0f7bf8d5abd260a099236535719f2296e75",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "changed measurement semantics"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "changed measurement semantics"
+      }
+    },
+    {
+      "control": "bad_reading",
+      "mutation_sha256": "5abfc7533369f2798abefdcc7e572d5de404245624b0643b2f0b3686db15e980",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "measurement error premise violated"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "measurement error premise violated"
+      }
+    },
+    {
+      "control": "wrong_final_decision",
+      "mutation_sha256": "ae07856154517b07b8658cc908a8d178e6ac5a6c1b2b73fe0cb3688d4ebb9b56",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "decision or complete execution cost differs"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "decision or complete execution cost differs"
+      }
+    },
+    {
+      "control": "noninferiority_as_superiority",
+      "mutation_sha256": "b6fd38b56f42d71c63b8ea4f06656c1a858d2bc5598d83b09780a2672fdc2325",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "noninferiority promoted to superiority"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "claim scope or relation differs"
+      }
+    },
+    {
+      "control": "false_probe_count",
+      "mutation_sha256": "20fd0cd0c299d8f0da14fa71f17ced3be8daccb0c7d137706a51fd0c46c43cd1",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "inconsistent experiment counts"
+      }
+    },
+    {
+      "control": "false_total_cost",
+      "mutation_sha256": "8caf2f6b07e43d0594d9ba59d503bd5db3bb6b700cc331182e5203c6946e010e",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "decision or complete execution cost differs"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "decision or complete execution cost differs"
+      }
+    },
+    {
+      "control": "reused_confirmation_reset",
+      "mutation_sha256": "8b2c48f3409e8e6f70c2f0174cfbfd41e21867eae738854f73772b226a95efc6",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "reset identity or stage mismatch"
+      }
+    },
+    {
+      "control": "forged_available_evidence",
+      "mutation_sha256": "e2d540f3c1a91afc0f12ed3c45ee14e38ad6399ddbfd63c9be102eefea826ada",
+      "frozen_v1": {
+        "refused": false
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "acquisition trace does not match available evidence"
+      }
+    },
+    {
+      "control": "boolean_state",
+      "mutation_sha256": "2b1670b9bafc400967bb293a7602345ac105121710d98427bff081ae72f62464",
+      "frozen_v1": {
+        "refused": true,
+        "reason": "Invalid literal for Fraction: 'False'"
+      },
+      "supplement_v2": {
+        "refused": true,
+        "reason": "finite numeric value required, excluding booleans"
+      }
+    }
+  ],
+  "parser_controls_refused": [
+    true,
+    true,
+    true
+  ],
+  "frozen_v1_omissions": [
+    "paired_false_reset_metadata",
+    "changed_force_metadata",
+    "changed_arm_cost",
+    "false_probe_count",
+    "reused_confirmation_reset",
+    "forged_available_evidence"
+  ],
+  "all_supplement_controls_refused": true,
+  "missing_as_zero_ablation": {
+    "no_observation_decisions": {
+      "case-01": "supported",
+      "case-02": "supported",
+      "case-03": "supported",
+      "case-04": "supported"
+    },
+    "harmful_admissions": 1,
+    "unsupported_admissions": 4,
+    "scope": "deliberately unsafe inference mutation; no operational admission"
+  },
+  "scope": "Post-freeze validation repair, not threshold changes or new campaign outcomes. All original bytes retained; independent human review remains absent."
+}

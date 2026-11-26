@@ -1,0 +1,25 @@
+%%{init: {"htmlLabels": false}}%%
+flowchart TB
+    accTitle: Experimental choice and qualification authority
+    accDescr: An owner freezes the claim, measurement and acceptance rule. The research selector receives allowed experiments and observed evidence, while an executor produces raw records. A separate reference calculation audits results. Qualification requires the frozen rule and mandatory confirmation. Candidate generation and experiment choice have no write access to the acceptance rule in this logical design; the current finite process boundary is narrower than a general security guarantee.
+    O["Owner-defined claim<br/>domain · measurement · acceptance"]:::authority
+    C["Candidate proposal<br/>controller or deployment change"]:::work
+    S["Experiment selection<br/>observed evidence · allowed probes"]:::work
+    X["Bounded execution<br/>reset · paired run · measured cost"]:::work
+    E[("Raw evidence<br/>results · failures · missing observations")]:::evidence
+    R["Separate reference calculation<br/>model-relative audit"]:::authority
+    Q["Qualification authority<br/>frozen rule + required confirmation"]:::authority
+    D["Scoped outcome<br/>supported · contradicted · unresolved"]:::evidence
+    O --> S
+    O --> Q
+    C --> X
+    S --> X
+    X --> E
+    E --> S
+    E --> R
+    E --> Q
+    R --> Q
+    Q --> D
+    classDef authority fill:#263d56,stroke:#7297bd,color:#ffffff,stroke-width:1.5px
+    classDef work fill:#14364b,stroke:#168aad,color:#ffffff,stroke-width:1.5px
+    classDef evidence fill:#164847,stroke:#55a7a4,color:#ffffff,stroke-width:1.5px

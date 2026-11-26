@@ -1,3 +1,41 @@
+# EDPI qualification and structural limit · 26 November 2026
+
+Read the [finite experiment](../experiments/edpi_finite/README.md),
+[symmetry proof](../experiments/edpi_finite/SYMMETRY.md),
+[research direction](EDPI_RESEARCH.md) and
+[publication validation](../experiments/edpi_finite/evidence/publication-validation.json).
+The raw observations, exact frozen sources, reference audit and portable SDK
+review are included. The B2 reproduction matches all twenty exposed numerical
+traces, retaining 0/10 unchanged and 9/10 corrected outcomes and the remaining
+failed condition. This is not new fresh confirmation or hardware validation.
+
+The four-case active campaign makes the expected decisions at full budget, but
+its decision selector ties cost-aware static, coverage and uncertainty selection
+and adds computation. A later permutation argument proves that this acquisition
+model forces the tie. The executable audit verifies 16,331 state/budget examples
+and every relevant retained choice. Keep the corpus as a correctness and
+abstention control; do not promote it to evidence of comparative superiority.
+
+The public-source relocation executes all 264 frozen trials again. All fields
+other than measured timing agree with the retained trials. The 16 finite unit
+tests, 16 mutation refusals, three parser refusals, six SDK controls, five portable
+controls and B2 array readback pass. All 374 production source/test/lock files
+match the research checkout that ran the earlier regression group. This is not
+a fresh full-repository or hosted-CI claim. The first auditor's six omissions
+remain reproducible, and the supplemental audit is separate. New diagrams were
+rendered and inspected in both themes after correcting dark-theme label loss.
+
+The next value gate remains an independently owned consequential change under
+the [owner protocol](OWNER_COMPARISON.md). Before spending on another selector
+comparison, establish that justified hypotheses and observations can distinguish
+its experiment choices from competent selective checks. Charge complete costs
+and preserve mandatory fresh confirmation, then require an untouched incident.
+No owner was enrolled by this study. Cumulative adaptation and embodiment research
+remain downstream; the sigmoid is a candidate empirical model, not a universal
+physical law. Earlier source handoffs below retain their dated evidence scope.
+
+---
+
 # Ricci physical experiment · 24 November 2026
 
 Ricci Brain 01 now has a reproducible CPU reference simulation, an inspectable

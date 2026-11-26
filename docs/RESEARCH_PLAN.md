@@ -1,6 +1,25 @@
 # Research direction and experiments
 
-## Current decision · 9 November 2026
+## Current decision · 26 November 2026
+
+The [finite EDPI study](../experiments/edpi_finite/README.md) reproduces the
+exposed B2 semantic-transfer result and completes a four-case active qualification
+comparison. The decision selector ties cost-aware static, coverage and uncertainty
+selection at every case and budget. A [post-hoc proof](../experiments/edpi_finite/SYMMETRY.md)
+shows that the equal-weight completion model forces those rules to choose the
+same experiments. This is a correctness and abstention control, not positive
+evidence of comparative economy or cumulative learning.
+
+Before another acquisition comparison, verify that independently justified
+hypotheses and allowed measurements can actually distinguish the methods.
+The [owner comparison](OWNER_COMPARISON.md) remains the next value gate, followed
+by an untouched case only if warranted. No owner is admitted by this research
+packet. The [EDPI direction](EDPI_RESEARCH.md) connects the present work to
+cumulative competence and information/control/embodiment co-design, with later
+phases deferred. The frozen campaign, failed audit controls and previous negative
+comparisons remain retained; no threshold or metric was adjusted to produce a win.
+
+## Previous decision · 9 November 2026
 
 The next engine expansion depends on a consequential owner case under the
 [existing comparison protocol](OWNER_COMPARISON.md), including its four-hour

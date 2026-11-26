@@ -1,7 +1,12 @@
 # Experiments
 
 
-Latest: [23 November source reconciliation](results/source-refresh-2026-11-23/README.md),
+Latest: [26 November finite qualification and semantic-transfer reproduction](../../experiments/edpi_finite/README.md).
+The four-case campaign ties the strongest conventional selectors; its
+[post-hoc symmetry analysis](../../experiments/edpi_finite/SYMMETRY.md) explains why.
+Raw observations, frozen source, adversarial controls and commands are published.
+
+Earlier: [23 November source reconciliation](results/source-refresh-2026-11-23/README.md),
 [producer-byte reuse regression](results/evidence-reuse-2026-11-23/README.md), and
 [current FSDP source-transition proof](results/fsdp-source-transition-2026-11-23/README.md).
 Each record separates executed observations, historical evidence and unrun gates.
