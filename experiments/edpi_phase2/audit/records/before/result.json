@@ -1,0 +1,146 @@
+{
+  "original": {
+    "rows": 324,
+    "accepted_by_variant": {
+      "original": 20,
+      "synthetic_only": 24,
+      "all_visual_optional": 36
+    },
+    "mask_only_pairs": [
+      [
+        54,
+        58
+      ],
+      [
+        108,
+        112
+      ],
+      [
+        216,
+        220
+      ],
+      [
+        270,
+        274
+      ]
+    ],
+    "scope": "native feature and request preparation only; no deployment acceptance",
+    "independent_resize_reference": false,
+    "execution_authenticity": false,
+    "owner_acceptance": false,
+    "task_confirmation": false
+  },
+  "mutations": {
+    "native_rejected_nan_state": {
+      "accepted": true
+    },
+    "wrong_state_shape": {
+      "accepted": true
+    },
+    "wrong_state_dtype": {
+      "accepted": true
+    },
+    "unassigned_finite_state": {
+      "accepted": true
+    },
+    "coordinated_unassigned_camera": {
+      "accepted": true
+    },
+    "boolean_row_index": {
+      "accepted": true
+    },
+    "integer_mask_readback": {
+      "accepted": true
+    }
+  },
+  "native_witness": {
+    "accepted_row": {
+      "index": 0,
+      "resolution": [
+        8,
+        10
+      ],
+      "empty_cameras": 0,
+      "case": "all_supplied",
+      "variant": "original",
+      "expected_accept": true,
+      "stage": "complete",
+      "direct_match": true,
+      "images": [
+        {
+          "shape": [
+            1,
+            3,
+            8,
+            10
+          ],
+          "dtype": "float32",
+          "sha256": "87606d01ba618be0ee102b64e70a3efcaf7ab02b7d1c33e40d0d535762f73c30",
+          "values": null
+        },
+        {
+          "shape": [
+            1,
+            3,
+            8,
+            10
+          ],
+          "dtype": "float32",
+          "sha256": "f523a40146e6f4b997482b12c87ec0be2df126e8a3556e0fec9807a08e9fdfb0",
+          "values": null
+        }
+      ],
+      "masks": [
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "bool",
+          "sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "values": [
+            true
+          ]
+        },
+        {
+          "shape": [
+            1
+          ],
+          "dtype": "bool",
+          "sha256": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+          "values": [
+            true
+          ]
+        }
+      ],
+      "accepted": true,
+      "matches_frozen_expectation": true
+    },
+    "refused_row": {
+      "index": 51,
+      "resolution": [
+        8,
+        10
+      ],
+      "empty_cameras": 0,
+      "case": "request_nan",
+      "variant": "original",
+      "expected_accept": false,
+      "stage": "request",
+      "accepted": false,
+      "exception_type": "ValueError",
+      "error": "Observation contains non-finite values: observation.state.",
+      "matches_frozen_expectation": true
+    },
+    "camera_inputs_identical": true
+  },
+  "full_cli": {
+    "argv": [
+      "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/edpi-b2-venv/bin/python",
+      "work/reviews/edpi-serving-input-audit-2026-11-26/records/before/misleading-packet/verify.py",
+      "work/reviews/edpi-serving-input-audit-2026-11-26/records/before/misleading-packet"
+    ],
+    "returncode": 0,
+    "mutated_arrays_sha256": "852cd0bdfa69c8643b23a6042d677851654514c08db113e3b2b323b404ba6ed1",
+    "original_arrays_sha256": "5becf083898d085825f5b7f918b4f3426db8bb3e77d8c8668244ab076069079a"
+  }
+}

@@ -78,12 +78,16 @@ implementations. These are concrete components and experiments; a general
 intervention compiler, adaptive selector and reusable deployment product remain
 proposed. A separate [finite active qualification study](experiments/edpi_finite/README.md)
 now executes a bounded selector and audits its results through the existing SDK;
-it is research code, with no demonstrated acquisition advantage.
+it is research code, with no demonstrated acquisition advantage. The subsequent
+[Phase II probes](experiments/edpi_phase2/README.md) establish measurable physical
+and serving-contract differences and strengthen assigned-input verification.
+They stop before a new selector because owner-defined correction validity and
+complete-cost headroom are still missing.
 
 ```mermaid
 flowchart TB
     accTitle: Nisayon implementation, ownership and evidence boundaries
-    accDescr: An engineer owns the deployment, dependency declarations and acceptance rule. Explicit commands enter one of three implemented execution paths. Each retains its own records. Scoped readers inspect those records without executing owner code; the browser displays bounded projections. These paths do not form a general autonomous dispatcher, and none grants deployment acceptance by itself.
+    accDescr: An engineer owns the deployment, dependency declarations and acceptance rule. Explicit commands enter one of three implemented execution paths. Each retains its own records. Scoped readers inspect those records without executing owner code; the Phase II supplement checks its full frozen input assignment as well as outputs. The browser displays bounded projections. These paths do not form a general autonomous dispatcher, and none grants deployment acceptance by itself.
     O["ENGINEER / OWNER<br/>deployment · change · acceptance rule"]:::contract
     L["Closed-loop task pairs<br/>policy + simulator"]:::execution
     N["Native comparisons<br/>reference · control · candidate"]:::execution
@@ -94,7 +98,7 @@ flowchart TB
     L --> E[("RETAIN<br/>source · observations · failures<br/>receipts · measured costs")]:::record
     N --> E
     Q --> E
-    E --> R["REVIEW<br/>integrity + scoped obligations<br/>supported · rejected · unresolved"]:::contract
+    E --> R["REVIEW<br/>integrity + assigned inputs + scoped outputs<br/>supported · rejected · unresolved"]:::contract
     R --> P["Portable continuation<br/>bind current inputs<br/>run required fresh confirmation"]:::execution
     R -- "bounded projection" --> U["Browser instrument<br/>inspect recorded evidence"]:::record
     classDef contract fill:#e8f1f8,stroke:#496985,color:#13283b,stroke-width:1.5px
@@ -104,7 +108,9 @@ flowchart TB
 
 
 The diagram connects existing interfaces; it does not imply a general autonomous
-dispatch service. Native episode capture and source-specific upstream studies
+dispatch service. Assigned-input checks are protocol-specific: the serving
+supplement reconstructs its finite recipe; the production kernel does not infer
+arbitrary experimental input semantics. Native episode capture and source-specific upstream studies
 also retain their own evidence contracts. The paths have different acceptance rules. A native software verdict does not
 grant task acceptance; upstream training studies are separate experiments, not
 general SDK backends. Scripted temporal tests cover queues, timing and resets
@@ -169,7 +175,9 @@ sequenceDiagram
 ```
 
 The owner supplies dependency completeness and trusted handlers. Digests establish
-byte identity, not physical truth. Actions that change a trajectory require fresh
+byte identity, not physical truth. A coherent output for an unassigned input can
+still fail the promised experiment. The [serving-reader correction](experiments/edpi_phase2/README.md#failures-remain-part-of-the-result)
+checks that separate premise without changing the qualification kernel. Actions that change a trajectory require fresh
 closed-loop execution; observations from the old future cannot answer that
 counterfactual. The [applicability contract](docs/EVIDENCE_APPLICABILITY.md),
 [executor](src/nisayon/qualification/checks.py),
@@ -200,6 +208,25 @@ have distinct scopes.
 | What remains unproved? | [Current research decision](docs/FRONTIER_REVIEW_2026-11-16.md) and [next value test](#what-would-justify-the-next-experiment). |
 
 ## Latest progress
+
+**26 November — physical dependencies, serving contracts and a corrected reader.**
+The [Phase II evidence](experiments/edpi_phase2/README.md) reproduces a
+robosuite inertia/fluid mechanism and retains the failed XML identity check that
+led to a compiled-model-copy correction. A separate LeRobot serving study runs
+324 native software cases: the original validator accepts 20/108 requests,
+a generated-placeholder-only proposal 24/108, and a broader optional-visual
+proposal 36/108. All match their frozen contracts. No learned policy or physical
+task is executed in that serving study.
+
+Challenging those results found a defect in our own reader: it accepted seven
+misleading input/type mutations, including a native-rejected NaN state in a
+record labeled accepted. The supplement checks all 1,170 assigned input arrays,
+refuses those mutations and preserves every original outcome. The original
+reader and failures remain reproducible. **167 selected regression tests pass**;
+portable readback also agrees outside Git under optimized Python. These checks
+support the declared software evidence. Owner acceptance, fresh 32-pair task
+confirmation, comparative selection value and complete-cost savings remain open.
+[Reproduce the observations and counterexamples](experiments/edpi_phase2/REPRODUCE.md).
 
 **26 November — reproduced evidence and a limit on active selection.** The
 [bounded EDPI study](experiments/edpi_finite/README.md) reproduces the frozen-policy
@@ -257,15 +284,14 @@ executions against an independently written full calculation. These results do
 not establish complete real-world dependencies or a selective-execution advantage.
 [Retained qualification](docs/experiments/results/source-refresh-2026-11-16/README.md).
 
-This source update passed **2,841 Python tests with 80 explicit skips** and
+The **23 November source update** passed **2,841 Python tests with 80 explicit skips** and
 **622 frontend tests**, strict TypeScript and production build. All 18 public
 Mermaid diagrams rendered in light and dark themes. The
-[current validation record](docs/experiments/results/source-refresh-2026-11-23/README.md)
+[23 November validation record](docs/experiments/results/source-refresh-2026-11-23/README.md)
 separates these local checks from historical experiments and unrun hosted CI. The
 integrated browser supports the three bounded JSON projections; its older native
-ZIP reader has a narrower contract. The newer Ricci catalog remains in its own
-uncommitted UI lane with reference and visual acceptance open. It is not part
-of this source release. Earlier progress remains in the
+ZIP reader has a narrower contract. Later Ricci UI work has its own reference and visual acceptance records; this
+Phase II publication does not incorporate uncommitted UI work. Earlier progress remains in the
 [dated journal](docs/PROGRESS.md).
 
 ## External corrections and open decisions
@@ -369,6 +395,11 @@ fixed confirmation schedules. A broader three-arm screen remains a proposal in
 the [research plan](docs/RESEARCH_PLAN.md).
 
 ## Current evidence boundary
+
+The [Phase II physical and serving probes](experiments/edpi_phase2/README.md)
+add mechanism and input-contract evidence, with their own retained failures.
+Their task confirmation and owner-value gates are open. They do not extend the
+A1, B2, LongWAM or Ricci outcomes below beyond those experiments' declared scope.
 
 The A1 experiment asked whether an actively normalized policy could be
 bound to a compatible task runtime and then evaluated without confusing training,

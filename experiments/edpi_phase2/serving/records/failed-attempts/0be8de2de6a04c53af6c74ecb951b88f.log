@@ -1,0 +1,17 @@
+W1126 14:10:32.819000 75717 torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+Traceback (most recent call last):
+  File "/Users/danielwahnich/workspace/nisayon-edpi-phase2-2026-11-26/work/research/edpi-serving-intake-2026-11-26/matrix.py", line 272, in <module>
+    main()
+  File "/Users/danielwahnich/workspace/nisayon-edpi-phase2-2026-11-26/work/research/edpi-serving-intake-2026-11-26/matrix.py", line 212, in main
+    policy, features, request = setup(assignment)
+                                ^^^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-edpi-phase2-2026-11-26/work/research/edpi-serving-intake-2026-11-26/matrix.py", line 140, in setup
+    features = [spec(cfg, name) for name in names]
+                ^^^^^^^^^^^^^^^
+  File "/Users/danielwahnich/workspace/nisayon-edpi-phase2-2026-11-26/work/research/edpi-serving-intake-2026-11-26/matrix.py", line 97, in spec
+    return FeatureSpec(name, shape or (pf.shape[1], pf.shape[2], pf.shape[0]),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 9, in __init__
+  File "/Users/danielwahnich/workspace/nisayon-edpi-phase2-2026-11-26/artifacts/edpi-serving-intake-2026-11-26/source-02/src/lerobot/utils/feature_spec.py", line 42, in __post_init__
+    raise ValueError(f"{prefix}: an explicit semantic convention is required.")
+ValueError: Feature 'observation.images.image': an explicit semantic convention is required.

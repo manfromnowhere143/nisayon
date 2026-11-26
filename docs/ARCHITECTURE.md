@@ -188,6 +188,21 @@ fresh-process resume. This is an instrumented native training experiment, not
 a generic training backend in the SDK; training quality and owner value remain
 unmeasured.
 
+## Phase II: check the assigned experiment · 26 November 2026
+
+The [physical and serving probes](../experiments/edpi_phase2/README.md) add
+research adapters and retained observations without changing production contracts.
+The native serving matrix separates generated placeholders from required real
+camera inputs. Its revised reader checks the complete declared input assignment
+as well as outputs, after seven misleading records escaped the original reader.
+All 324 original decisions survive; the old reader and failures remain available.
+
+This is a protocol-specific verification obligation. Content identity, assigned
+input coverage, output semantics, evidence applicability and sufficiency are
+different checks. The production SDK still withholds deployment when fresh
+confirmation or required runtime/population/scoring dependencies are absent.
+A software contract cannot supply an owner's missing physical acceptance rule.
+
 ## Implemented code and data flow
 
 These components exist in the current Python package. The workspace CLI starts
@@ -199,7 +214,7 @@ connecting the offline probe planner to a robot.
 ```mermaid
 flowchart TB
     accTitle: Current implementation and its execution boundaries
-    accDescr: Workspace CLI commands and MCP navigation share development context and records. Bounded experiment entry points use configuration and condition identities, an execution store and the Lift adapter. The confirmation service prepares fresh paired assignments. Evaluation reads retained records and produces scoped decisions and costs. The separate tools in the table below do not add a general execution or acceptance connection.
+    accDescr: Workspace CLI commands and MCP navigation share development context and records. Bounded experiment entry points use configuration and condition identities, an execution store and the Lift adapter. The confirmation service prepares fresh paired assignments. Evaluation reads retained records and produces scoped decisions and costs. Separate native research probes retain physical and serving observations for protocol-specific input/output readback. They do not connect an autonomous planner to a robot or authorize deployment.
     W["CLI commands · MCP navigation<br/>workspace context and records"]
     W -. "explicit experiment command" .-> B["Bounded experiment entry points"]
     B --> I["configuration.py · conditions.py<br/>deployment and condition identities"]
@@ -207,6 +222,9 @@ flowchart TB
     C["confirmation_service.py<br/>frozen correction · fresh paired assignments"] --> X
     X --> R["Retained records<br/>history · manifest · measurements"]
     R --> E["evaluation/confirmation.py<br/>identity · freshness · task obligations"]
+    N["Separate native research probes<br/>physical dependencies · serving inputs"] --> P["Frozen source + raw arrays<br/>failed attempts retained"]
+    P --> A["Protocol-specific readback<br/>assigned inputs + scoped outputs"]
+    A --> U["Software / mechanism finding<br/>deployment gate still separate"]
     R --> K["evaluation/costs.py<br/>nested measurements · explicit unknowns"]
     E --> O["Scoped assessment and report"]
     K --> O
@@ -222,6 +240,7 @@ flowchart TB
 | Fresh task confirmation | [Producer service](../src/nisayon/engine/confirmation_service.py), [assessment](../src/nisayon/evaluation/confirmation.py) | [Frozen obligation](evaluation/CONFIRMATION_OBLIGATION.md); source identity and task progress must both hold. |
 | Cost accounting | [Reconciliation](../src/nisayon/evaluation/costs.py), [regressions](../tests/evaluation/test_evaluation_costs.py) | Nested measurements count once; invalid or unmeasured cost remains explicit. |
 | Bounded integration cases | [Temporal runtime](../src/nisayon/engine/temporal_runtime.py), [processor cases](../src/nisayon/engine/processor_case.py) | [Temporal interface](experiments/TEMPORAL_INTERFACE.md); constructed software execution and retained readback, with no robot-performance inference. |
+| Phase II research proxies | [Source and observations](../experiments/edpi_phase2/README.md), [assigned-input reader](../experiments/edpi_phase2/audit/verify_v2.py) | Native physical/serving distinctions and retained reader failures; no owner enrollment, task confirmation or acquisition advantage. |
 | Declared decision probes | [Finite API](../src/nisayon/engine/identifiability.py), [controls](../tests/engine/test_decision_probes.py) | Exact bounded enumeration; supplied models and labels are premises. |
 | Confirmation research | [Prediction-audit qualification](../scripts/experiments/qualify_prediction_audit.py), [cost challenge](../scripts/experiments/challenge_prediction_audit_cost.py) | Exposed finite arithmetic, separate from the production confirmation service. |
 | Upstream investigation | [Bounded worker](../src/nisayon/engagement_agent.py), [controls](../tests/test_engagement_agent.py) | [Manual invocation and review](ENGAGEMENT_INVESTIGATIONS.md); no automatic delivery, experiment execution or lesson promotion. |

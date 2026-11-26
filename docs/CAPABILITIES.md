@@ -68,6 +68,7 @@ records controls, failures, costs and remaining assumptions. The
 | --- | --- | --- |
 | Closed-loop robot experiments | `nisayon.engine` bounded runtime/adapter modules | Pinned protocols and assets; no general SDK simulator dispatch |
 | Fresh paired confirmation | `nisayon.engine.confirmation_service` | Existing finite obligation; no automatic sequential stopping |
+| Phase II physical and serving probes | [Frozen sources and raw observations](../experiments/edpi_phase2/README.md) | Scoped dependency/contract measurements and assigned-input readback; no general adapter, owner acceptance or new acquisition advantage |
 | Probe and correction-choice calculations | `nisayon.engine.identifiability` | Supplied finite hypotheses/predictions/costs; does not discover causes or run a robot |
 | Temporal and lifecycle checks | `nisayon.engine` temporal modules | Scripted clocks and source-bound native checks; not a universal timing backend |
 | Evidence and task assessments | `nisayon.evaluation` | Each assessor's declared protocol and data; not interchangeable success oracles |

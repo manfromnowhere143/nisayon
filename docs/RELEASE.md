@@ -1,5 +1,20 @@
 # Research source and releases
 
+## Phase II source and evidence · 26 November 2026
+
+This source update publishes the [physical and serving research proxies](../experiments/edpi_phase2/README.md),
+including failed attempts and the corrected assigned-input reader. Its scoped
+readback preserves all 324 original software outcomes and rejects seven mutations
+accepted by the old reader. Public-source validation is recorded separately in
+the [publication checks](../experiments/edpi_phase2/evidence/publication-validation.json).
+The README and architecture diagrams distinguish these findings from unrun task
+confirmation, owner acceptance and complete-cost value.
+
+The update continues existing public ancestry. Private session history, contact
+drafts, cloud account records and model weights are excluded. No package version,
+release tag, website deployment or hosted-workflow trigger changes.
+
+
 ## Ricci Brain 01 reference experiment · 24 November 2026
 
 Current source adds the [Ricci physical research program](../experiments/ricci_brain01/README.md),

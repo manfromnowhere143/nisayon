@@ -1,0 +1,36 @@
+--- a/src/lerobot/policies/pi05/modeling_pi05.py
++++ b/src/lerobot/policies/pi05/modeling_pi05.py
+@@ -50,6 +50,8 @@
+     sdpa_attention_forward = None
+     PaliGemmaForConditionalGenerationWithPiGemma = None
+ from lerobot.configs import PreTrainedConfig
++from lerobot.configs.types import FeatureType
++from lerobot.utils.feature_spec import FeatureSpec
+ from lerobot.utils.constants import (
+     ACTION,
+     OBS_LANGUAGE_ATTENTION_MASK,
+@@ -1069,6 +1071,24 @@
+     # Subclasses whose checkpoints are native LeRobot state dicts use the base loader.
+     use_native_pretrained_loader = False
+ 
++    def validate_chunk_input_features(self, features: tuple[FeatureSpec, ...]) -> None:
++        """Only generated placeholder features may be absent at negotiation."""
++        expected = self.config.input_features or {}
++        supplied = {feature.name for feature in features}
++        optional = {f"observation.images.empty_camera_{i}" for i in range(self.config.empty_cameras)}
++        if not expected.keys() - optional <= supplied or not supplied <= expected.keys():
++            raise ValueError("PI05 requires every non-placeholder input and only known features.")
++        for feature in features:
++            name = feature.name
++            policy_feature = expected[name]
++            if policy_feature.type == FeatureType.VISUAL:
++                shape = policy_feature.shape
++                if (len(shape) != 3 or feature.kind != "rgb"
++                        or feature.shape != (shape[1], shape[2], shape[0])):
++                    raise ValueError(f"RGB feature shape differs from checkpoint: {name}.")
++            elif feature.kind != "tensor" or feature.shape != tuple(policy_feature.shape):
++                raise ValueError(f"Tensor feature shape differs from checkpoint: {name}.")
++
+     def supports_rtc(self) -> bool:
+         return True
+ 

@@ -1,5 +1,15 @@
 # Engineering progress
 
+## 26 November · Phase II mechanisms and assigned-input verification
+
+The [Phase II packet](../experiments/edpi_phase2/README.md) publishes the physical
+fluid/inertia proxy, its failed XML identity control, 324 native serving cases
+and seven old-reader counterexamples. The supplement checks all 1,170 assigned
+inputs while preserving the original results. Raw observations, frozen sources
+and [reproduction commands](../experiments/edpi_phase2/REPRODUCE.md) are retained.
+No owner is enrolled; no new selector, fresh task confirmation or complete-cost
+advantage is claimed. The prior [finite comparison and symmetry result](../experiments/edpi_finite/README.md) remain negative.
+
 
 ## 23 November · evidence reuse, current-source FSDP and contribution audit
 

@@ -1,3 +1,29 @@
+# Phase II: review assigned inputs before claiming a correction · 26 November 2026
+
+Read the [Phase II packet](../experiments/edpi_phase2/README.md),
+[reproduction commands](../experiments/edpi_phase2/REPRODUCE.md) and
+[publication checks](../experiments/edpi_phase2/evidence/publication-validation.json).
+The physical proxy retains its failed XML identity control and corrected native
+copy. The serving matrix retains 324 native software outcomes and the proposed
+narrow validator. Its supplementary reader checks all 1,170 assigned input arrays
+and rejects seven mutations accepted by the old reader. Both readers and the
+before failures are included. No learned policy or task is run in this serving
+study. Original protocol/source/data identities are preserved by the projection.
+
+No owner is enrolled; fresh 32-pair task confirmation, complete-cost value and
+acquisition advantage remain open. The next action is an owner-defined serving
+acceptance contract and permitted raw reproducer, then economic preflight and
+prospective decision discriminability. Preserve the original finite symmetry
+result and avoid another nondiscriminating acquisition campaign. Cumulative
+adaptation and embodiment research retain their prerequisites.
+
+This public source follows the existing public ancestry. It excludes private
+session history, cloud account records, contact drafts and model weights. Website,
+package tags and hosted-workflow triggers have separate authority and receipts.
+The earlier dated source handoffs below retain their historical scope.
+
+---
+
 # EDPI qualification and structural limit · 26 November 2026
 
 Read the [finite experiment](../experiments/edpi_finite/README.md),

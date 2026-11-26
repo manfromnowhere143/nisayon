@@ -1,0 +1,294 @@
+{
+  "status": "retained_data_and_selected_regressions_passed",
+  "source_base": "caee53032a8fad14e4520d97b0af019ac8df2326",
+  "serving": {
+    "rows": 324,
+    "accepted_by_variant": {
+      "original": 20,
+      "synthetic_only": 24,
+      "all_visual_optional": 36
+    },
+    "mask_only_pairs": [
+      [
+        54,
+        58
+      ],
+      [
+        108,
+        112
+      ],
+      [
+        216,
+        220
+      ],
+      [
+        270,
+        274
+      ]
+    ],
+    "scope": "native feature and request preparation only; no deployment acceptance",
+    "independent_resize_reference": false,
+    "execution_authenticity": false,
+    "owner_acceptance": false,
+    "task_confirmation": false,
+    "reader": "assigned-input-supplement-v2",
+    "assigned_input_arrays_checked": 1170,
+    "input_nan_semantics": "only the declared request_nan state element; NaN payload bits unspecified"
+  },
+  "original_reader_controls": 10,
+  "added_reader_check_invocations": 17,
+  "physical": {
+    "review": {
+      "status": "verified_scoped_mechanism_records",
+      "analytic_controls": 10,
+      "max_analytic_residual_Nm": 4.440892098500626e-16,
+      "original_identity_failure_preserved": true,
+      "mass_matrix_difference_no_fluid": 0.0,
+      "mass_matrix_difference_diagnostic_inertia": 0.01999800000000107,
+      "joint7_fluid_Nm": {
+        "stock": -5.474594339067064,
+        "no_fluid": 0.0,
+        "diagnostic_inertia": -0.11575020306209419,
+        "both": 0.0
+      },
+      "task_confirmation": "not_run",
+      "deployment_acceptance": "unresolved",
+      "decision_discriminability": "not_established",
+      "execution_authenticity": "not_proven"
+    },
+    "refused_controls": 9
+  },
+  "transport": {
+    "controls_passed": 5,
+    "original_preserved": true
+  },
+  "public_regressions": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "167",
+    "time": "5.843",
+    "timestamp": "2026-11-26T16:27:42.107681+02:00",
+    "hostname": "daniels-MacBook-Pro-2.local"
+  },
+  "relocated": {
+    "rows": 324,
+    "accepted_by_variant": {
+      "original": 20,
+      "synthetic_only": 24,
+      "all_visual_optional": 36
+    },
+    "mask_only_pairs": [
+      [
+        54,
+        58
+      ],
+      [
+        108,
+        112
+      ],
+      [
+        216,
+        220
+      ],
+      [
+        270,
+        274
+      ]
+    ],
+    "scope": "native feature and request preparation only; no deployment acceptance",
+    "independent_resize_reference": false,
+    "execution_authenticity": false,
+    "owner_acceptance": false,
+    "task_confirmation": false,
+    "reader": "assigned-input-supplement-v2",
+    "assigned_input_arrays_checked": 1170,
+    "input_nan_semantics": "only the declared request_nan state element; NaN payload bits unspecified"
+  },
+  "commands": [
+    {
+      "label": "serving",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/edpi-b2-venv/bin/python",
+        "-O",
+        "experiments/edpi_phase2/audit/check.py",
+        "experiments/edpi_phase2/serving",
+        "experiments/edpi_phase2/audit/records/before"
+      ],
+      "returncode": 0,
+      "seconds": 8.966272916062735,
+      "stdout_sha256": "00685db76382c59fd56293e02aa37b67a704d6f2673034d88c07fda0b298502e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "physical",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "experiments/edpi_phase2/physical/audit_native.py",
+        "--records",
+        "experiments/edpi_phase2/physical/records",
+        "--out",
+        "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/public-edpi-2026-11-26/experiments/edpi_phase2/evidence/physical-readback.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.07073312508873641,
+      "stdout_sha256": "2f9315992c255183b5f3ca48d275e695aaf9ac9ac04caf4cf29c8c0bf20af246",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "transport",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "experiments/edpi_phase2/physical/verify_portable.py",
+        "--bundle",
+        "experiments/edpi_phase2/physical/mechanism.nisayon.zip",
+        "--out",
+        "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/public-edpi-2026-11-26/experiments/edpi_phase2/evidence/transport-readback.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.1250277500366792,
+      "stdout_sha256": "8492de140db472c51d3580f745d5722a33072f5df3963b0f7dcda59cacb0ed37",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "regressions",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_runs.py",
+        "tests/qualification/test_check_bundle.py",
+        "tests/qualification/test_check_import.py",
+        "tests/engine/test_cost_target.py",
+        "tests/engine/test_cost_opportunity.py",
+        "tests/engine/test_cost_opportunity_evidence.py",
+        "tests/engine/test_evidence_io.py",
+        "--junitxml=/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/public-edpi-2026-11-26/experiments/edpi_phase2/evidence/public-regressions.xml"
+      ],
+      "returncode": 0,
+      "seconds": 6.0889773750677705,
+      "stdout_sha256": "83173f4487aacbd663406ac85f0347176b63f26ee2b05bbcda2f82ca2fd687b9",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "relocated",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/edpi-b2-venv/bin/python",
+        "-O",
+        "packet/audit/verify_v2.py",
+        "packet/serving"
+      ],
+      "returncode": 0,
+      "seconds": 1.3391012499341741,
+      "stdout_sha256": "bb030a2dddc45ba96b19aca92ebbd451b445ac2024f45ad8c9884e0dd02575e6",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "relocated-refusal",
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon-edpi-2026-11-26/artifacts/edpi-b2-venv/bin/python",
+        "-O",
+        "packet/audit/verify_v2.py",
+        "packet/audit/records/before/misleading-packet"
+      ],
+      "returncode": 1,
+      "seconds": 0.6302787089953199,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "a6a624d54bc28a33ec401fa5c1eb3fd5472cff222cd4b0f9670f8939db637476"
+    }
+  ],
+  "native_producer_reexecuted": false,
+  "fresh_task_confirmation": false,
+  "owner_enrolled": false,
+  "complete_cost_advantage": false,
+  "hosted_ci_dispatched": false,
+  "limitations": "Exposed readback and focused software regression selection; no new native/task outcome or complete repository suite.",
+  "documentation_checks": {
+    "documents": 373,
+    "mermaid_blocks": 25,
+    "errors": [],
+    "scope": "local file links and code fences; Mermaid rendering is separate"
+  },
+  "diagram_checks": {
+    "record": "diagram-validation.json",
+    "render_count": 50,
+    "diagram_count": 25,
+    "failed": 0,
+    "reviewed_full_size": [
+      1,
+      5,
+      11,
+      12,
+      21
+    ]
+  },
+  "static_checks": [
+    {
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/danielwahnich/workspace/nisayon/.venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "returncode": 0,
+      "stdout": "995 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "frozen_projection_files_verified": 105,
+  "frozen_python_sources_parsed": 28,
+  "full_diff_whitespace_checks": {
+    "checks": [
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "caee53032a8fad14e4520d97b0af019ac8df2326",
+          "HEAD"
+        ],
+        "returncode": 2,
+        "stdout": "experiments/edpi_phase2/serving/synthetic-only.patch:15: trailing whitespace.\n+ \nexperiments/edpi_phase2/serving/synthetic-only.patch:36: trailing whitespace.\n+ \nexperiments/edpi_phase2/serving/synthetic-only.patch:36: new blank line at EOF.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check",
+          "caee53032a8fad14e4520d97b0af019ac8df2326",
+          "HEAD",
+          "--",
+          ".",
+          ":(exclude)experiments/edpi_phase2/serving/synthetic-only.patch"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "exception": "The byte-bound unified patch contains mandatory one-space context lines for blank source lines, including its last line. Preserve those original patch bytes; all other outgoing paths pass."
+  }
+}

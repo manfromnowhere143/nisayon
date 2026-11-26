@@ -1,0 +1,58 @@
+{
+  "schema": "nisayon.edpi.selection-symmetry-audit.v1",
+  "status": "verified",
+  "analysis": "post-hoc; no protocol, observations, thresholds or frozen source changed",
+  "partial_states": 2800,
+  "state_budget_checks": 16331,
+  "zero_numerator_checks": 575,
+  "observed_trace_states": 1174,
+  "matched_retained_choices": 212,
+  "matched_retained_trials": 48,
+  "unequal_weight_control": {
+    "probes": [
+      {
+        "id": "p0",
+        "weight": 1,
+        "cost": 1
+      },
+      {
+        "id": "p1",
+        "weight": 1,
+        "cost": 1
+      },
+      {
+        "id": "p2",
+        "weight": 2,
+        "cost": 1
+      }
+    ],
+    "answers": {
+      "static": {
+        "probe": "p0",
+        "reason": "all affected; shortest execution first"
+      },
+      "coverage": {
+        "probe": "p2",
+        "reason": "population coverage per cost"
+      },
+      "uncertainty": {
+        "probe": "p2",
+        "reason": "largest unresolved weighted range"
+      },
+      "decision": {
+        "probe": "p2",
+        "scores": {
+          "p0": "156",
+          "p1": "156",
+          "p2": "158"
+        },
+        "reason": "maximin elimination of incompatible decision pairs per control step",
+        "acquisition_premise": "prospective cell resolves to -1, 0 or 1; this is an ordering heuristic when measurement stays ambiguous; no prior probability or authority to accept"
+      }
+    }
+  },
+  "wall_seconds": 5.3169111660681665,
+  "source_sha256": "73b4304d6a10bfdb104036ef7181fad80430a187218b184ee5e572f6db3101ce",
+  "freeze_sha256": "fbdbf539e44df70a8ed5b31de1c582a12233dae31a17607f5008f1e8236e91c7",
+  "scope": "Enumeration n=1..4, all six integer intervals plus unmeasured, one heterogeneous cost vector per n and all affordability classes. Proof in SYMMETRY.md covers arbitrary n, positive costs and common positive weights. The unequal-weight control is algebra, not physical evidence or superiority."
+}

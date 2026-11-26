@@ -19,6 +19,24 @@ This negative result sets a more demanding next question: can justified
 structure in a real change make some experiments more consequential than others,
 and can using that structure save complete work at matched decision quality?
 
+## Phase II: observable differences and an open decision
+
+The [new public packet](../experiments/edpi_phase2/README.md) establishes a
+physical inertia/fluid dependency and different native serving-input contracts.
+It also retains seven counterexamples against the first evidence reader and
+a supplement that checks all 1,170 assigned inputs across the same 324 cases.
+These are concrete mechanism and verification results. They do not define which
+correction an independent owner should accept.
+
+No new selector was built. The required prospective witness must show that two
+justified acquisition choices can change an engineering decision, not merely
+produce different measurements or experiment orders. The owner-value campaign,
+complete-cost baseline and fresh task confirmation remain open. The
+[decision specification](../experiments/edpi_phase2/MATHEMATICS.md) distinguishes
+robust admissibility, missing model coverage, complementary experiments and
+abstention; the [prior-art matrix](../experiments/edpi_phase2/PRIOR_ART.md) identifies
+established alternatives and the limits of the literature review.
+
 ## The architecture follows the authority boundary
 
 Candidate generation may change a controller. Experimental reasoning may propose
@@ -32,13 +50,13 @@ boundary, not a claim that a general autonomous learning system is implemented.
 %%{init: {"htmlLabels": false}}%%
 flowchart TB
     accTitle: Experimental choice and qualification authority
-    accDescr: An owner freezes the claim, measurement and acceptance rule. The research selector receives allowed experiments and observed evidence, while an executor produces raw records. A separate reference calculation audits results. Qualification requires the frozen rule and mandatory confirmation. Candidate generation and experiment choice have no write access to the acceptance rule in this logical design; the current finite process boundary is narrower than a general security guarantee.
+    accDescr: An owner freezes the claim, measurement and acceptance rule. The research selector receives allowed experiments and observed evidence, while an executor produces raw records. A separate scoped reference checks assigned inputs and output obligations; this does not attest execution authenticity. Qualification requires the frozen rule and mandatory confirmation. Candidate generation and experiment choice have no write access to the acceptance rule in this logical design; the current finite process boundary is narrower than a general security guarantee.
     O["Owner-defined claim<br/>domain · measurement · acceptance"]:::authority
     C["Candidate proposal<br/>controller or deployment change"]:::work
     S["Experiment selection<br/>observed evidence · allowed probes"]:::work
     X["Bounded execution<br/>reset · paired run · measured cost"]:::work
-    E[("Raw evidence<br/>results · failures · missing observations")]:::evidence
-    R["Separate reference calculation<br/>model-relative audit"]:::authority
+    E[("Raw evidence<br/>assigned inputs · outputs · failures")]:::evidence
+    R["Separate scoped reference<br/>input assignment + output obligations"]:::authority
     Q["Qualification authority<br/>frozen rule + required confirmation"]:::authority
     D["Scoped outcome<br/>supported · contradicted · unresolved"]:::evidence
     O --> S
@@ -190,6 +208,11 @@ dependencies, operating domains and qualification obligations. This document
 authorizes no physical deployment and reports no hardware result.
 
 ## The single next value experiment
+
+The serving intake supplies a concrete contract distinction: may generated
+placeholders be omitted, and are missing real views acceptable? Source inspection
+and the native matrix cannot answer the second question for an absent owner.
+Obtain that acceptance contract and a permitted raw reproducer first.
 
 Admit one independently owned deployment change with a live correction decision
 under the [owner comparison protocol](OWNER_COMPARISON.md). Before execution,
