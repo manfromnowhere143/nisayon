@@ -110,6 +110,7 @@ def parser() -> argparse.ArgumentParser:
     execution.add_argument("plan", type=Path)
     inspection = commands.add_parser("inspect", help="Assess retained bytes without running code")
     inspection.add_argument("store", type=Path)
+    inspection.add_argument("--plan-sha256", help="Externally retained assigned plan identity")
     reuse = commands.add_parser("reuse", help="Check what prior evidence can support after change")
     reuse.add_argument("store", type=Path)
     reuse.add_argument("plan", type=Path)
@@ -127,6 +128,8 @@ def parser() -> argparse.ArgumentParser:
         "review", help="Verify a portable file and recompute its assessment"
     )
     review.add_argument("bundle", type=Path)
+    review.add_argument("--plan-sha256", help="Externally retained assigned plan identity")
+    review.add_argument("--sha256", help="Externally retained archive SHA-256")
     change_review = commands.add_parser(
         "review-change", help="Recompute a two-stage qualification receipt without executing code"
     )
@@ -234,7 +237,9 @@ def main() -> None:
             result = export_run(args.store, args.out)
             code = 0
         elif args.command == "review":
-            result = inspect_bundle(args.bundle)
+            result = inspect_bundle(
+                args.bundle, expected_plan_sha256=args.plan_sha256, expected_sha256=args.sha256
+            )
             code = {"adopt": 0, "reject": 1, "unresolved": 3}[result["software_decision"]]
         elif args.command == "review-change":
             result = inspect_change(args.directory)
@@ -324,7 +329,7 @@ def main() -> None:
                 evidence = run_plan(plan, context=context)
                 result = assess_change(CaseSpec.from_dict(declaration["case"]), evidence).record()
             else:
-                result = inspect_run(args.store).record()
+                result = inspect_run(args.store, expected_plan_sha256=args.plan_sha256).record()
             code = {"adopt": 0, "reject": 1, "unresolved": 3}[result["software_decision"]]
         print(json.dumps(result, indent=2, allow_nan=False))
         raise SystemExit(code)

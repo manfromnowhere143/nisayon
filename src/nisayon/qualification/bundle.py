@@ -310,13 +310,21 @@ def _read_bundle(
     return index, data, _sha(raw)
 
 
-def inspect_bundle(bundle: str | Path, *, include_plan: bool = False) -> dict:
+def inspect_bundle(
+    bundle: str | Path,
+    *,
+    include_plan: bool = False,
+    expected_plan_sha256: str | None = None,
+    expected_sha256: str | None = None,
+) -> dict:
     """Verify transport and reassess in a private directory without native execution.
 
     Invalid transport raises ValueError. A readable but inconsistent saved
     assessment yields an unresolved review, with both assessments retained.
     """
     index, payload, archive_sha = _read_bundle(Path(bundle))
+    if expected_sha256 is not None and archive_sha != expected_sha256:
+        raise ValueError("Review archive differs from the externally expected SHA-256")
     recorded = _json(payload.pop("assessment.json"))
     if not isinstance(recorded, dict) or recorded.get("schema") != (
         "nisayon.qualification.assessment.v1"
@@ -332,6 +340,8 @@ def inspect_bundle(bundle: str | Path, *, include_plan: bool = False) -> dict:
             raise ValueError("Malformed review plan") from error
         if index["plan_sha256"] != plan.sha256:
             raise ValueError("Review plan identity mismatch")
+        if expected_plan_sha256 is not None and plan.sha256 != expected_plan_sha256:
+            raise ValueError("Review plan differs from the externally assigned plan")
         assessment = _assess(evidence)
     # An assessor may change. Preserve both identities and compare all other fields.
     same = canonical_bytes({k: v for k, v in recorded.items() if k != "assessment_tool"}) == (

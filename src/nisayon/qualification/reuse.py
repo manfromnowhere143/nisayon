@@ -35,6 +35,8 @@ def _reuse_report(old: ExperimentPlan, assessment: dict, proposed: ExperimentPla
             changes.append(field)
     if old_value.get("read_policy") != new_value.get("read_policy"):
         changes.append("read_policy")
+    if canonical_bytes(old_value.get("execution")) != canonical_bytes(new_value.get("execution")):
+        changes.append("execution")
     old_context, new_context = old_value["context"], new_value["context"]
     for field in ("python", "python_sha256", "native_environment"):
         if canonical_bytes(old_context[field]) != canonical_bytes(new_context[field]):

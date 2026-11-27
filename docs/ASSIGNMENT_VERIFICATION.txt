@@ -1,0 +1,80 @@
+Native assignment verification — developer preview, 27 November 2026
+
+A returned artifact can be internally consistent and still describe a different
+experiment from the one assigned. Keep the authoritative plan digest separately
+from the producer's return value.
+
+SDK:
+    assessment = inspect_run(store, expected_plan_sha256=assigned_plan_sha256)
+    review = inspect_bundle(
+        bundle,
+        expected_plan_sha256=assigned_plan_sha256,
+        expected_sha256=expected_archive_sha256,
+    )
+
+CLI:
+    nisayon-qualify inspect STORE --plan-sha256 ASSIGNED_PLAN_SHA256
+    nisayon-qualify review BUNDLE --plan-sha256 ASSIGNED_PLAN_SHA256 \
+        --sha256 EXPECTED_ARCHIVE_SHA256
+
+The archive digest is optional and checks transport identity. The plan digest
+binds the review to an independently assigned experiment. A digest supplied only
+inside an untrusted producer response cannot serve as that external authority.
+Unpinned review remains available for inspecting what a retained artifact says.
+It does not establish applicability to a separately assigned question.
+
+The production assessor reconstructs every required role/probe assignment and
+checks the typed canonical request against the frozen plan. Source/read/runtime
+witnesses, completeness, reference/oracle agreement and a detected negative
+control precede candidate comparison. Input identity is exact; a declared output
+tolerance does not permit input substitution. A valid adverse comparison returns
+reject. Missing, corrupt or unsupported evidence cannot become adopt.
+Deployment authorization remains separate and unresolved.
+
+Native execution receipt contract
+New plans use nisayon.qualification.plan.v3 and include an execution declaration.
+Runner and assessor share one command constructor. The receipt must match the
+frozen interpreter, package, bootstrap and original request/output paths.
+A completed receipt requires an integer exit code zero and no error. Boolean or
+floating exit codes are not equivalent to an integer, even when Python == says
+otherwise. This closes witnessed receipt consistency gaps without adding an
+execution engine or changing the qualification comparator.
+
+Migration
+v1/v2 plans remain readable under their historical scope; they do not gain v3's
+command binding. New execution uses a new current plan. Legitimate evidence
+relocation preserves original execution paths and remains reviewable without
+the owner's source or Python environment. Review never executes packet code.
+Historical malformed receipt decisions need reassessment. Portable review keeps
+recorded and recomputed assessments distinct rather than rewriting history.
+An execution-declaration change is visible in evidence reuse analysis.
+
+Trust and scientific limits
+The native adapter observes trusted local Python code. It is not a sandbox,
+cryptographic execution witness, full dependency tracer or proof of physical
+truth. A privileged producer can fabricate measurements and rehash an internally
+consistent store. A signature would authenticate the producer's statement; it
+would not establish that the statement is scientifically correct.
+Remote execution therefore needs an explicit trusted execution boundary and,
+where required, independent reproduction. Same-plan inspection is legitimate
+reuse, not evidence of a fresh run. Use a unique frozen output location and an
+external execution ledger for separate remote invocations.
+Native software qualification does not establish robot task success, fresh
+population transfer or deployment approval.
+
+Runnable example
+After installing this source, run:
+    python examples/qualification/nv03_demo.py --out /tmp/nisayon-demo-NEW
+
+It uses the actual CLI to initialize an exposed numerical example, reject a
+wrong-sign change, execute a correction, export and review both artifacts,
+refuse assignment substitution/corruption, and verify after source removal and
+artifact relocation. It requires no GPU. Its small numerical policy functions
+are examples, not a claim of robot-policy qualification or autonomous discovery.
+
+Regression coverage
+tests/qualification/test_execution_assignment.py exercises inconsistent receipts,
+external pins, relocation and review without subprocess execution. The existing
+qualification suite covers canonical inputs, negative controls, read obligations,
+partial execution, historical formats and evidence reuse. All claims retain the
+trusted-runner and declared-contract premises above.

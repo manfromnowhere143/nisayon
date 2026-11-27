@@ -10,7 +10,8 @@ from nisayon.engine.io import canonical_bytes, decode_json, digest, file_digest
 
 from .compare import difference
 from .context import project_file, tool_identity
-from .models import PLAN_SCHEMA, Assessment, CaseSpec, ExperimentPlan, RunEvidence
+from .execution_contract import verify_receipt
+from .models import LEGACY_PLAN_SCHEMA, Assessment, CaseSpec, ExperimentPlan, RunEvidence
 from .reads import check_read_witness
 
 
@@ -113,7 +114,7 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
             "target": plan["case"]["targets"][assignment["role"]],
             "input": probes[assignment["probe"]]["input"],
         }
-        if plan["schema"] == PLAN_SCHEMA:
+        if plan["schema"] != LEGACY_PLAN_SCHEMA:
             expected_request["read_policy"] = plan["read_policy"]
             expected_request["read_library_roots"] = plan["context"]["native_environment"][
                 "library_roots"
@@ -131,6 +132,7 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
             errors.append(f"incomplete:{name}")
             continue
         record = _read(root, name + "/record.json", expected)
+        verify_receipt(record, plan, assignment)
         attempts.append({"id": name, "status": record["status"], "error": record["error"]})
         if record["request_sha256"] != digest(request):
             raise ValueError("Attempt identity mismatch")
@@ -144,7 +146,7 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
         required_calls = {target["callable"], *target.get("required_calls", [])}
         observation_schema = (
             "nisayon.qualification.observation.v2"
-            if plan["schema"] == PLAN_SCHEMA
+            if plan["schema"] != LEGACY_PLAN_SCHEMA
             else "nisayon.qualification.observation.v1"
         )
         if (
@@ -166,7 +168,7 @@ def _observations(root: Path, plan: dict, expected: dict) -> tuple[dict, list[st
         ):
             errors.append(f"undeclared_or_changed_import:{name}")
             continue
-        if plan["schema"] == PLAN_SCHEMA:
+        if plan["schema"] != LEGACY_PLAN_SCHEMA:
             errors.extend(
                 f"{issue}:{name}"
                 for issue in check_read_witness(
@@ -300,9 +302,11 @@ def assess_change(case: CaseSpec, evidence: RunEvidence) -> Assessment:
     return Assessment.from_dict(result)
 
 
-def inspect_run(root: str | Path) -> Assessment:
+def inspect_run(root: str | Path, *, expected_plan_sha256: str | None = None) -> Assessment:
     from .runner import evidence_at
 
     evidence = evidence_at(root)
+    if expected_plan_sha256 is not None:
+        evidence = RunEvidence(evidence.root, expected_plan_sha256)
     case = CaseSpec.from_dict(ExperimentPlan.read(evidence.root / "plan.json").record()["case"])
     return assess_change(case, evidence)

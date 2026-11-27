@@ -11,6 +11,7 @@ from pathlib import Path
 from nisayon.engine.io import digest, file_digest, write_json
 
 from .context import ExecutionContext, project_file, tool_identity
+from .execution_contract import declaration, worker_argv
 from .models import PLAN_SCHEMA, READ_POLICY, ROLES, CaseSpec, ExperimentPlan, RunEvidence
 
 
@@ -41,6 +42,7 @@ def plan_change(case: CaseSpec, *, context: ExecutionContext) -> ExperimentPlan:
         {
             "schema": PLAN_SCHEMA,
             "read_policy": READ_POLICY,
+            "execution": declaration(Path(__file__).resolve().parents[1]),
             "case": value,
             "context": context.record(),
             "sources": sources,
@@ -76,25 +78,7 @@ def _attempt(request: dict, directory: Path, context: ExecutionContext, timeout:
     package = Path(__file__).resolve().parents[1]
     # Load only this SDK. Adding its whole site-packages directory would shadow
     # the owner's libraries and contaminate its measured environment.
-    bootstrap = (
-        "import importlib.util, sys; "
-        f"spec = importlib.util.spec_from_file_location('nisayon', {str(package / '__init__.py')!r}, "
-        f"submodule_search_locations=[{str(package)!r}]); "
-        "module = importlib.util.module_from_spec(spec); sys.modules['nisayon'] = module; "
-        "spec.loader.exec_module(module); "
-        "from nisayon.qualification.worker import main; main()"
-    )
-    argv = [
-        str(context.python),
-        "-I",
-        "-B",
-        "-X",
-        f"pycache_prefix={directory / 'bytecode-cache'}",
-        "-c",
-        bootstrap,
-        str(directory / "request.json"),
-        str(directory / "observation.json"),
-    ]
+    argv = worker_argv(str(context.python), directory, package)
     started = time.perf_counter()
     process = None
     status = "failed"
