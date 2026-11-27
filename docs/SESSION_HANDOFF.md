@@ -1,3 +1,27 @@
+# Ricci: inspect decisions before changing control · 27 November 2026
+
+Read [RB-02 results](../experiments/ricci_brain02/RESULTS.md),
+[reproduction commands](../experiments/ricci_brain02/README.md) and the
+[scientific inspection contract](../experiments/ricci_brain02/OBSERVABILITY.md).
+The unchanged Brain 01 producer has 34 new native development episodes and a
+raw audit of the 202 historical episodes. The candidate remains unpromoted.
+Task-phase arithmetic crosses a strict guard; nine terminal rejected QPs have
+independently checked feasible witnesses under the original tolerances.
+The next correction must isolate numerical phase semantics before broader
+physical information-value or morphology claims.
+
+Final selected checks comprise 96 experiment tests, 57 production evidence-I/O
+tests, eleven historical trajectory reproductions and six exact physics/sensor
+replays. The two read-only inspection examples bind actual quantities and model
+identities. No live telemetry, complete controller checkpoint, motor authority
+or deployment acceptance follows. Fresh confirmation and owner-cost value remain
+open. Public summaries do not replace the raw stores required for full replay.
+
+This update continues public ancestry and excludes private session history.
+The earlier negative results and source handoffs remain below.
+
+---
+
 # Phase II: review assigned inputs before claiming a correction · 26 November 2026
 
 Read the [Phase II packet](../experiments/edpi_phase2/README.md),

@@ -209,6 +209,18 @@ have distinct scopes.
 
 ## Latest progress
 
+**27 November — trace recovery decisions to actual control.** The
+[Ricci investigation](experiments/ricci_brain02/README.md) audits all 202 retained
+episodes and executes 34 new native trials. Eight nominal reruns complete;
+eleven historical trajectories reproduce exactly in the pinned environment.
+The action/time study exposes a task-phase arithmetic boundary. An independent
+solver also finds feasible witnesses for all nine terminal QPs in three censored
+contact cases, while the original numerical gate correctly rejects their earlier
+solutions. These findings narrow the next controller investigation; they do not
+establish a recovery gain. A [read-only scientific inspection contract](experiments/ricci_brain02/OBSERVABILITY.md)
+now binds actual observations, decisions, commands, clocks and model identities
+for laboratory integration. Candidate promotion and fresh confirmation remain open.
+
 **26 November — physical dependencies, serving contracts and a corrected reader.**
 The [Phase II evidence](experiments/edpi_phase2/README.md) reproduces a
 robosuite inertia/fluid mechanism and retains the failed XML identity check that

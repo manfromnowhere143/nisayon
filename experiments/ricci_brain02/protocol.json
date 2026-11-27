@@ -1,0 +1,554 @@
+{
+  "schema": "ricci.rb02.factorial.v1",
+  "created_utc": "2026-11-27T07:02:23.168593+00:00",
+  "status": "prospectively_frozen_development_protocol",
+  "question": "Separate action identity from scheduled decision time on exposed compound-03; separate contact model and solver iteration effects on nominal task.",
+  "baseline": "Unchanged Brain 01 source; no candidate revision.",
+  "source_revision": "df1a258540a0b55e2f2f53b2d844d4e58081828f",
+  "exposure": "All source cases exposed. This campaign is causal diagnosis and reproduction, not fresh confirmation or controller qualification.",
+  "hypotheses": [
+    "H_action: early plant_foot alone is insufficient whereas another permitted action may preserve the task.",
+    "H_time: changing scheduled decision time for a fixed action changes observed outcome under identical initial conditions. No monotonicity assumed.",
+    "H_contact: nominal nonqualification depends on contact time constant and/or iteration cap and/or payload; no inference of physical infeasibility from optimizer rejection."
+  ],
+  "fixed_authority": [
+    "Same estimator, policy observation boundary, QP, actuator limits, 20 ms delivery, 350 ms blend and evaluation semantics.",
+    "Fixed arms use a privileged scheduled event solely for intervention control; they are not online diagnosis or causal information acquisition policies.",
+    "Every action changes a fully recomputed downstream native trajectory.",
+    "No control, sensor, evaluator, threshold or contact-admission edits during campaign."
+  ],
+  "primary_endpoints": [
+    "Existing completed / fall / drop / constraint violation / censoring outcomes separately.",
+    "Earliest decision, command admission and >=0.1 Nm effective applied-command difference; task phase at decision.",
+    "Complete matched predecision observations and issued/applied commands.",
+    "Observed action-time map only; no continuous recovery boundary or fitted sigmoid."
+  ],
+  "contact_design": "Two 2x2 faces: iterations {40,80} x contact constant {.01,.02} at mass .15, and mass {.15,.4} x contact constant {.02,.03} at iterations 80. Shared center reused from new nominal-00. Contact constant changes model compliance, not just numerical accuracy.",
+  "analysis": "Report every cell, including no intervention before termination. Deterministic controlled contrasts; no population confidence from repeated grid cells. No controller promotion. Independent replay selected before outcomes: nominal-00, compound-none, compound-candidate, compound-shared-000ms, compound-shared-660ms and contact-m150-tc10-i40.",
+  "limits": {
+    "max_artifact_bytes": 2500000000,
+    "episode_reservation_bytes": 120000000,
+    "minimum_free_bytes": 2684354560,
+    "maximum_wall_s": 1200,
+    "max_episodes": 34
+  },
+  "stopping": "Stop on operational error, source drift or resource limit; retain partials. Scientific failure/censoring does not stop subsequent cells. A prefix failure invalidates its comparison and must be investigated, never silently dropped.",
+  "independent_confirmation": "Not performed. Exposed diagnostic cases cannot satisfy the fresh 32-pair obligation or promote a changed controller.",
+  "costs": "Measure execution, simulation interactions, artifacts and analyzer overhead. Human review, integration and maintenance remain separately unmeasured. No complete-work savings claim.",
+  "episodes": [
+    {
+      "id": "nominal-00",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 11,
+        "payload_mass": 0.15,
+        "friction": 0.6,
+        "latency_s": 0.004,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-01",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 23,
+        "payload_mass": 0.25,
+        "friction": 0.6,
+        "latency_s": 0.004,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-02",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 37,
+        "payload_mass": 0.4,
+        "friction": 0.5,
+        "latency_s": 0.004,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-03",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 41,
+        "payload_mass": 0.15,
+        "friction": 0.8,
+        "latency_s": 0.008,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-04",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 53,
+        "payload_mass": 0.3,
+        "friction": 0.55,
+        "latency_s": 0.008,
+        "noise_scale": 1.5,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-05",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 67,
+        "payload_mass": 0.15,
+        "friction": 0.5,
+        "latency_s": 0.004,
+        "noise_scale": 1.5,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-06",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 79,
+        "payload_mass": 0.4,
+        "friction": 0.8,
+        "latency_s": 0.004,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "nominal-07",
+      "group": "nominal_reproduction",
+      "config": {
+        "sensor_seed": 83,
+        "payload_mass": 0.25,
+        "friction": 0.65,
+        "latency_s": 0.008,
+        "noise_scale": 1.0,
+        "arm": "baseline",
+        "shared_action": "track"
+      }
+    },
+    {
+      "id": "compound-none",
+      "group": "exposed_control",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "track",
+        "arm": "none"
+      }
+    },
+    {
+      "id": "compound-candidate",
+      "group": "exposed_control",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "track",
+        "arm": "candidate"
+      }
+    },
+    {
+      "id": "compound-lower_load-000ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.0
+      }
+    },
+    {
+      "id": "compound-plant_foot-000ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.0
+      }
+    },
+    {
+      "id": "compound-shared-000ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.0
+      }
+    },
+    {
+      "id": "compound-lower_load-100ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.1
+      }
+    },
+    {
+      "id": "compound-plant_foot-100ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.1
+      }
+    },
+    {
+      "id": "compound-shared-100ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.1
+      }
+    },
+    {
+      "id": "compound-lower_load-300ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.3
+      }
+    },
+    {
+      "id": "compound-plant_foot-300ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.3
+      }
+    },
+    {
+      "id": "compound-shared-300ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.3
+      }
+    },
+    {
+      "id": "compound-lower_load-600ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.6
+      }
+    },
+    {
+      "id": "compound-plant_foot-600ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.6
+      }
+    },
+    {
+      "id": "compound-shared-600ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.6
+      }
+    },
+    {
+      "id": "compound-lower_load-660ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.66
+      }
+    },
+    {
+      "id": "compound-plant_foot-660ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.66
+      }
+    },
+    {
+      "id": "compound-shared-660ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.66
+      }
+    },
+    {
+      "id": "compound-lower_load-900ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "lower_load",
+        "arm": "fixed",
+        "privileged_delay": 0.9
+      }
+    },
+    {
+      "id": "compound-plant_foot-900ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "plant_foot",
+        "arm": "fixed",
+        "privileged_delay": 0.9
+      }
+    },
+    {
+      "id": "compound-shared-900ms",
+      "group": "action_time_factorial",
+      "config": {
+        "sensor_seed": 2039,
+        "payload_mass": 0.38,
+        "friction": 0.54,
+        "latency_s": 0.008,
+        "noise_scale": 1.35,
+        "scenario": "compound",
+        "onset": 6.6,
+        "slip_friction": 0.105,
+        "shared_action": "shared",
+        "arm": "fixed",
+        "privileged_delay": 0.9
+      }
+    },
+    {
+      "id": "contact-m150-tc10-i40",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.15,
+        "contact_time_constant": 0.01,
+        "iterations": 40
+      }
+    },
+    {
+      "id": "contact-m150-tc10-i80",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.15,
+        "contact_time_constant": 0.01,
+        "iterations": 80
+      }
+    },
+    {
+      "id": "contact-m150-tc20-i40",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.15,
+        "contact_time_constant": 0.02,
+        "iterations": 40
+      }
+    },
+    {
+      "id": "contact-m150-tc30-i80",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.15,
+        "contact_time_constant": 0.03,
+        "iterations": 80
+      }
+    },
+    {
+      "id": "contact-m400-tc20-i80",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.4,
+        "contact_time_constant": 0.02,
+        "iterations": 80
+      }
+    },
+    {
+      "id": "contact-m400-tc30-i80",
+      "group": "contact_factorial",
+      "config": {
+        "arm": "baseline",
+        "shared_action": "track",
+        "sensor_seed": 11,
+        "payload_mass": 0.4,
+        "contact_time_constant": 0.03,
+        "iterations": 80
+      }
+    }
+  ]
+}

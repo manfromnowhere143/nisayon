@@ -1,0 +1,14 @@
+{
+  "schema": "ricci.rb02.contact-audit-freeze.v1",
+  "utc": "2026-11-27T07:16:24.142180+00:00",
+  "source_sha256": "2d2e0a3287ea9176d79b2c0c7a8f9696fb5b3a3a57e2be23c4ac32cab15a0e1c",
+  "cases": [
+    "contact-m150-tc10-i40",
+    "contact-m150-tc10-i80",
+    "contact-m400-tc30-i80"
+  ],
+  "test": "Recompute every policy command; inspect original constraint residuals; run HiGHS feasibility on the last three recorded QPs of every case. No changed physical futures, no adjusted tolerances.",
+  "gate": "Refuse if original policy commands do not reproduce. Independent witness must satisfy every original constraint under original per-row numerical tolerances.",
+  "resources": "Three recorded traces, nine LPs <=5 seconds each; 120 second command ceiling; no simulator campaign or financial cost.",
+  "reference_outcomes_observed": false
+}

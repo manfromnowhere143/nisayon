@@ -205,6 +205,15 @@ A software contract cannot supply an owner's missing physical acceptance rule.
 
 ## Implemented code and data flow
 
+Ricci's [27 November investigation](../experiments/ricci_brain02/README.md)
+adds a separate native research path: unchanged Brain 01 execution, sealed
+episodes, independent numerical checks and a [read-only inspection projection](../experiments/ricci_brain02/OBSERVABILITY.md).
+The projection exposes actual quantities and missing clocks without supplying
+policy inputs, motor authority or qualification decisions. NL-01 owns the
+laboratory view; RB-02 owns these physical semantics. Numerical phase and contact
+solution-quality gates remain open. No production kernel or evidence format is
+replaced.
+
 These components exist in the current Python package. The workspace CLI starts
 commands and retains engineering records; MCP provides context and navigation.
 Both are separate from the experiment and assessment interfaces. Entry points bind
@@ -225,6 +234,9 @@ flowchart TB
     N["Separate native research probes<br/>physical dependencies · serving inputs"] --> P["Frozen source + raw arrays<br/>failed attempts retained"]
     P --> A["Protocol-specific readback<br/>assigned inputs + scoped outputs"]
     A --> U["Software / mechanism finding<br/>deployment gate still separate"]
+    RB["Ricci native research execution<br/>unchanged Brain 01"] --> RE["Sealed episodes<br/>causal and numerical checks"]
+    RE --> RV["Read-only scientific inspection<br/>observations · clocks · commands · model"]
+    RV --> LV["Laboratory view boundary<br/>no motor or qualification authority"]
     R --> K["evaluation/costs.py<br/>nested measurements · explicit unknowns"]
     E --> O["Scoped assessment and report"]
     K --> O
@@ -241,6 +253,7 @@ flowchart TB
 | Cost accounting | [Reconciliation](../src/nisayon/evaluation/costs.py), [regressions](../tests/evaluation/test_evaluation_costs.py) | Nested measurements count once; invalid or unmeasured cost remains explicit. |
 | Bounded integration cases | [Temporal runtime](../src/nisayon/engine/temporal_runtime.py), [processor cases](../src/nisayon/engine/processor_case.py) | [Temporal interface](experiments/TEMPORAL_INTERFACE.md); constructed software execution and retained readback, with no robot-performance inference. |
 | Phase II research proxies | [Source and observations](../experiments/edpi_phase2/README.md), [assigned-input reader](../experiments/edpi_phase2/audit/verify_v2.py) | Native physical/serving distinctions and retained reader failures; no owner enrollment, task confirmation or acquisition advantage. |
+| Ricci scientific inspection | [Research execution](../experiments/ricci_brain02/README.md), [contract and examples](../experiments/ricci_brain02/OBSERVABILITY.md) | Source-bound offline reconstruction; phase and QP findings remain development evidence. No live telemetry, exact controller checkpoint or deployment acceptance. |
 | Declared decision probes | [Finite API](../src/nisayon/engine/identifiability.py), [controls](../tests/engine/test_decision_probes.py) | Exact bounded enumeration; supplied models and labels are premises. |
 | Confirmation research | [Prediction-audit qualification](../scripts/experiments/qualify_prediction_audit.py), [cost challenge](../scripts/experiments/challenge_prediction_audit_cost.py) | Exposed finite arithmetic, separate from the production confirmation service. |
 | Upstream investigation | [Bounded worker](../src/nisayon/engagement_agent.py), [controls](../tests/test_engagement_agent.py) | [Manual invocation and review](ENGAGEMENT_INVESTIGATIONS.md); no automatic delivery, experiment execution or lesson promotion. |
