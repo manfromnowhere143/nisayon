@@ -109,6 +109,26 @@ it("keeps repeatable camera controls beside Motion Study without recreating the 
   expect(renderer.dispose).not.toHaveBeenCalled();
   expect(renderer.reset).not.toHaveBeenCalled();
 });
+it("ends authored motion before opening retained Brain inspection and preserves the scene", async () => {
+  await mount();
+  const canvas = host.querySelector("canvas"), renderer = vi.mocked(createRicciRenderer).mock.results.at(-1)!.value;
+  await click(button("Motion Study"));
+  await click(host.querySelector('[aria-label="Play preview"]')!);
+  expect(renderer.trace.mock.calls.at(-1)?.[2]).toBe(true);
+  expect(host.querySelector(".ricci-trace-caption")).not.toBeNull();
+  await click(button("Brain 01"));
+  expect(host.querySelector(".brain-inspection")).not.toBeNull();
+  expect(host.querySelector(".ricci-trace-caption, .ricci-transport")).toBeNull();
+  expect(renderer.trace.mock.calls.at(-1)?.[2]).toBe(false);
+  const stopped = renderer.trace.mock.calls.length;
+  await act(async () => new Promise(resolve => setTimeout(resolve, 80)));
+  expect(renderer.trace).toHaveBeenCalledTimes(stopped);
+  await click(button("Brain 01"));
+  expect(host.querySelector(".brain-inspection")).toBeNull();
+  expect(host.querySelector(".ricci-trace-caption, .ricci-transport")).toBeNull();
+  expect(host.querySelector("canvas")).toBe(canvas);
+  expect(renderer.dispose).not.toHaveBeenCalled();
+});
 it("keeps accessible descriptions usable when graphics fails and retries with a fresh canvas", async () => {
   vi.mocked(createRicciRenderer).mockImplementationOnce(()=>{throw new Error("No GPU");}); await mount();
   const canvas=host.querySelector("canvas"); await click(host.querySelector('[data-part="ankle_foot"]')!);

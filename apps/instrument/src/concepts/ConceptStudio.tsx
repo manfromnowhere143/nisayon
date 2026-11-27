@@ -304,7 +304,18 @@ export function ConceptStudio({
         </button>
         <div className="ricci-camera-access" ref={setViewControlsHost} />
         <button type="button" data-ricci-inspect data-detail-trigger aria-expanded={panel === "brain"}
-          onClick={event => { if (panel === "brain") closePanel(); else { dismissPart(); setMotion(false); setCompare(false); setMotionOptions(false); openPanel("brain", event.currentTarget); } }}>
+          onClick={event => {
+            if (panel === "brain") closePanel();
+            else {
+              dismissPart();
+              setMotion(false);
+              setPreview(false);
+              setPlaying(false);
+              setCompare(false);
+              setMotionOptions(false);
+              openPanel("brain", event.currentTarget);
+            }
+          }}>
           <InstrumentSymbol name="brain" /><span>Brain 01</span>
         </button>
         <button
