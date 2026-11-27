@@ -1074,7 +1074,7 @@ button {
 /* ---- diagnostics ----------------------------------------------------------------- */
 
 .diag {
-  border-top: var(--hairline) dashed var(--rule-strong);
+  border: 0;
   padding-top: 10px;
   display: grid;
   gap: 8px;
@@ -1088,8 +1088,37 @@ button {
 
 .diag-actions {
   display: flex;
-  gap: 6px;
+  gap: 0 24px;
   flex-wrap: wrap;
+}
+
+.diag-profiles { display: flex; align-items: center; gap: 0 24px; flex-wrap: wrap; }
+.diag-profiles > span { color: var(--ink-2); }
+.diag-action, .diag-tests > summary {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  text-shadow: inherit;
+  min-height: 44px;
+  padding: 10px 0;
+  text-align: left;
+  cursor: pointer;
+}
+.diag-action[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 7px; text-decoration-thickness: 1px; }
+.diag-action:disabled { opacity: .5; cursor: default; }
+.diag-action:focus-visible, .diag-tests > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.diag-tests > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.diag-tests > summary::-webkit-details-marker { display: none; }
+.diag-tests > summary::after { content: "+"; }
+.diag-tests[open] > summary::after { content: "−"; }
+.diag-tests .fine { margin-block: 4px 12px; }
+@media (hover: hover) and (pointer: fine) {
+  :root:not([data-pointer-type="touch"]) .diag-action:hover:not(:disabled),
+  :root:not([data-pointer-type="touch"]) .diag-tests > summary:hover { text-decoration: underline; text-underline-offset: 7px; }
 }
 
 /* ---- preferences ------------------------------------------------------------------- */

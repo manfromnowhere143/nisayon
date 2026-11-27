@@ -113,24 +113,34 @@ export function Diagnostics({ scene }: Props) {
           <dd>{String(state.reducedMotion)}</dd>
         </div>
       </dl>
-      <p className="fine">Local session samples, not a field INP score. Event Timing is browser-reported and rounded. GPU time excludes display presentation; disjoint timer results are discarded.</p>
-      <div className="diag-actions">
-        <button type="button" className="quiet" onClick={saveMeasurements}>Save device measurements</button>
-        <label>Rendering <select aria-label="Rendering profile" value={info?.quality ?? "interactive"} disabled={!scene} onChange={event => { scene?.setQuality(event.target.value as RenderProfile); setTick(t => t + 1); }}>{Object.entries(RENDER_PROFILES).map(([id, profile]) => <option key={id} value={id}>{profile.label}</option>)}</select></label>
-        <button type="button" className="quiet" disabled={!scene || state.reducedMotion} onClick={() => scene?.cameraStudy()}>Measure 6-second camera path</button>
-        <button type="button" className="quiet" onClick={() => scene?.simulateContextLoss()} disabled={!scene}>
-          Simulate GPU context loss
-        </button>
-        <button type="button" className="quiet" onClick={() => void runSwitches()} disabled={switching === "running 20 switches…"}>
-          Run 20 run switches
-        </button>
-        {(import.meta.env.DEV ? VARIANTS : []).map(([label, url]) => (
-          <button key={url} type="button" className="quiet" aria-pressed={state.evidenceUrl === url} onClick={() => store.setEvidence(url)}>
-            evidence: {label}
-          </button>
-        ))}
+      <div className="diag-profiles" role="group" aria-label="Rendering profile">
+        <span>Rendering</span>
+        {Object.entries(RENDER_PROFILES).map(([id, profile]) => <button
+          key={id} type="button" className="diag-action" disabled={!scene}
+          aria-pressed={(info?.quality ?? "interactive") === id}
+          onClick={() => { scene?.setQuality(id as RenderProfile); setTick(t => t + 1); }}
+        >{profile.label}</button>)}
       </div>
-      {switching ? <p className="fine num">{switching}</p> : null}
+      <div className="diag-actions">
+        <button type="button" className="diag-action" onClick={saveMeasurements}>Save device measurements <span aria-hidden="true">↗</span></button>
+      </div>
+      <p className="fine">Local session samples, not a field INP score. Event Timing is browser-reported and rounded. GPU time excludes display presentation; disjoint timer results are discarded.</p>
+      {import.meta.env.DEV ? <details className="diag-tests">
+        <summary>Developer recovery tests</summary>
+        <p className="fine">These tests move the camera, change the selected recording, or deliberately interrupt the lab. Damaged test evidence must be refused.</p>
+        <div className="diag-actions">
+          <button type="button" className="diag-action" disabled={!scene || state.reducedMotion} onClick={() => scene?.cameraStudy()}>Measure 6-second camera path</button>
+          <button type="button" className="diag-action" onClick={() => scene?.simulateContextLoss()} disabled={!scene}>Simulate GPU context loss</button>
+          <button type="button" className="diag-action" onClick={() => void runSwitches()} disabled={switching === "running 20 switches…"}>Run 20 run switches</button>
+        </div>
+        <details className="diag-tests">
+          <summary>Evidence refusal fixtures</summary>
+          <div className="diag-actions">
+            {VARIANTS.map(([label, url]) => <button key={url} type="button" className="diag-action" aria-pressed={state.evidenceUrl === url} onClick={() => store.setEvidence(url)}>Test evidence: {label}</button>)}
+          </div>
+        </details>
+        {switching ? <p className="fine num" role="status">{switching}</p> : null}
+      </details> : null}
       </EvidenceFlow>
     </section>
   );

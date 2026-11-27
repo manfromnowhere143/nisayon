@@ -181,6 +181,7 @@ export function ConceptStudio({
       data-stage={inLab ? "lab" : "black"}
       data-motion={motion}
       data-part-open={panel === "part"}
+      data-brain-open={panel === "brain"}
       data-context-open={panel !== null}
       onKeyDown={(event) => {
         // The native camera disclosure owns the first Escape, before playback.
