@@ -71,7 +71,7 @@ it("opens all retained assignments, keeps modal choices interactive, and exposes
   expect(host.querySelectorAll(".study-trial")).toHaveLength(26);
   expect(host.textContent).toContain("progress lost");
   expect(host.textContent).toContain("execution disconnected");
-  await click([...host.querySelectorAll("button")].find(e => e.textContent === "Inspect decisive condition ↗")!);
+  await click([...host.querySelectorAll("button")].find(e => e.textContent === "Inspect decisive condition")!);
   expect(host.querySelector('[aria-label="Absolute progress obligation"]')?.textContent).toContain("Minimum 0.0100 m");
   expect(host.querySelector('[aria-label="Absolute progress obligation"]')?.textContent).toContain("Below minimum");
   const arm = host.querySelector('[aria-label="Study arm"]')!;

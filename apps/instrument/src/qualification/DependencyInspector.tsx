@@ -28,7 +28,7 @@ export function DependencyInspector({ explanation: e }: { explanation: Dependenc
   const dependents = [...e.checks.filter(c => c.depends.includes(selected)), ...e.decisions.filter(d => d.depends.includes(selected))].map(node => node.id);
   const choose = (id: string) => { setSelected(id); selector.current?.focus({ preventScroll: true }); };
   const nodeKind = (id: string) => e.inputs.some(i => i.id === id) ? "input" : e.checks.some(c => c.id === id) ? "check" : "decision requirements";
-  const link = (id: string) => <button type="button" onClick={() => choose(id)} aria-label={`Inspect ${nodeKind(id)} ${id}`}><span>{id}</span><small>{nodeKind(id)}</small><span aria-hidden="true">↗</span></button>;
+  const link = (id: string) => <button type="button" onClick={() => choose(id)} aria-label={`Inspect ${nodeKind(id)} ${id}`}><span>{id}</span><small>{nodeKind(id)}</small></button>;
   return <section className="dependency-inspector" aria-labelledby="dependency-heading">
     <div className="projection-section-title"><h2 id="dependency-heading">Why these checks?</h2><span>Recorded plan · {e.planning.status}</span></div>
     <p className="dependency-intro">Follow the declared dependencies, then compare the plan with what actually happened. These links describe a program, not demonstrated physical causes.</p>

@@ -48,7 +48,9 @@ function localReviewPlugin(): Plugin {
 export default defineConfig({
   plugins: [react(), exportsPlugin(), guidesPlugin(), localReviewPlugin(), localFilmPlugin(), offlinePlugin(here)],
   base: "./",
-  server: { port: 5173, host: "127.0.0.1" },
+  server: { port: 5173, host: "127.0.0.1", ...(process.env.NISAYON_LOCAL_LAB === "1" ? {
+    proxy: { "/api/lab": { target: "http://127.0.0.1:8787", changeOrigin: true } },
+  } : {}) },
   preview: { port: 4173, host: "127.0.0.1" },
   build: {
     // Open previews can still request a previous release's lazy lab. Keep

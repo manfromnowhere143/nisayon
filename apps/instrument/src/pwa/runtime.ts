@@ -48,7 +48,7 @@ export function startOfflineSupport(): () => void {
       if (stopped) return;
       currentRegistration = registration;
       const update = () => {
-        if (stopped) return;
+        if (stopped || currentRegistration !== registration) return;
         const failed = registration.installing?.state === "redundant";
         publish({
           status: registration.active ? "ready" : failed ? "error" : "saving",
@@ -56,9 +56,11 @@ export function startOfflineSupport(): () => void {
         });
       };
       const watch = () => {
+        if (stopped || currentRegistration !== registration) return;
         const worker = registration.installing;
         if (worker) {
           const changed = () => {
+            if (stopped || currentRegistration !== registration) return;
             if (
               worker.state === "redundant" &&
               !registration.active &&
@@ -87,11 +89,11 @@ export function startOfflineSupport(): () => void {
       cleanups.push(() =>
         navigator.serviceWorker.removeEventListener("controllerchange", controlled),
       );
-      // Long-lived tabs check again when revisited, without reloading a review.
+      // Revisited tabs and restored mobile pages check without reloading a review.
       // Bound checks so switching windows cannot create an update request loop.
       let lastCheck = 0;
       const check = () => {
-        if (stopped || retrying || document.visibilityState !== "visible" || !navigator.onLine)
+        if (stopped || currentRegistration !== registration || retrying || document.visibilityState !== "visible" || !navigator.onLine)
           return;
         const now = Date.now();
         if (now - lastCheck < 60_000) return;
@@ -100,9 +102,11 @@ export function startOfflineSupport(): () => void {
       };
       document.addEventListener("visibilitychange", check);
       window.addEventListener("online", check);
+      window.addEventListener("pageshow", check);
       cleanups.push(() => {
         document.removeEventListener("visibilitychange", check);
         window.removeEventListener("online", check);
+        window.removeEventListener("pageshow", check);
       });
       watch();
       controlled();
@@ -126,7 +130,13 @@ export function startOfflineSupport(): () => void {
     try {
       await currentRegistration.update();
     } catch {
-      if (!stopped) publish({ status: currentRegistration.active ? "ready" : "error", update: state.update });
+      if (!stopped && !currentRegistration.active) {
+        // Browsers can remove a registration whose first install failed. Its
+        // stale handle cannot update; registering the same scope recovers it.
+        // Do not await ready here: another failed installation leaves it pending.
+        currentRegistration = undefined;
+        void register();
+      } else if (!stopped) publish({ status: "ready", update: state.update });
     } finally { retrying = false; }
   };
   // Install these before the first registration, so an offline first visit
@@ -134,9 +144,11 @@ export function startOfflineSupport(): () => void {
   const reconnected = () => { if (state.status === "error") void retry(); };
   const requested = () => { void retry(); };
   window.addEventListener("online", reconnected);
+  window.addEventListener("pageshow", reconnected);
   window.addEventListener("nisayon:retry-offline", requested);
   cleanups.push(() => {
     window.removeEventListener("online", reconnected);
+    window.removeEventListener("pageshow", reconnected);
     window.removeEventListener("nisayon:retry-offline", requested);
   });
   const schedule = () => {

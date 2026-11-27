@@ -1,70 +1,431 @@
-/* The architecture occupies the viewport. Controls are stable reading planes;
-   the renderer alone moves, and every destination also has an ordinary button. */
-.retained-lab .app .identity { position: absolute; inset: 0 0 auto; background: linear-gradient(var(--ground), transparent); }
-.retained-lab .app .stage { padding: 0; }
-.retained-lab .app .scene-box { border: 0; border-radius: 0; touch-action: pan-y; }
-.retained-lab .scene-box:focus-visible { outline-offset: -5px; }
-.retained-lab .scene-heading { top: 108px; left: 32px; max-width: min(37%, 390px); padding: 20px 24px; border-left: 1px solid var(--rule-strong); background: linear-gradient(100deg, var(--glass) 35%, transparent); border-radius: 0 10px 10px 0; }
-.lab-location { display: flex; align-items: center; gap: 14px; font: .59rem var(--mono); letter-spacing: .15em; color: var(--ink-2); }
-.lab-location > span { opacity: .4; }
-.retained-lab .scene-heading h1 { margin-block: 18px; font-size: clamp(1.65rem, 3.2vw, 3.4rem); }
-.retained-lab .scene-heading .research-micro { font-size: .58rem; letter-spacing: .1em; margin-bottom: 8px; color: var(--ink-2); }
-.retained-lab .scene-heading p { line-height: 1.65; }
-.retained-lab .scene-heading .scene-outcome { margin-top: 7px; }
-.retained-lab .scene-model-label { bottom: calc(var(--instrument-dock-reserve, 140px) + 77px); left: 32px; padding: 5px 9px; background: var(--glass); border-radius: 5px; }
-.retained-lab .view-controls { bottom: calc(var(--instrument-dock-reserve, 140px) + 16px); left: 32px; transform: none; border-radius: 14px; }
-.retained-lab .view-controls .segment { min-height: 44px; }
-.retained-lab .scene-caption { right: 32px; bottom: calc(var(--instrument-dock-reserve, 140px) + 24px); background: var(--glass); border-radius: 8px; padding: 9px 12px; color: var(--ink-2); }
-.retained-lab .scene-caption > span:first-child { max-width: 240px; }
-.retained-lab .selected-part-control { left: 32px; bottom: calc(var(--instrument-dock-reserve, 140px) + 112px); }
-.retained-lab .scene-legend { bottom: calc(var(--instrument-dock-reserve, 140px) + 168px); left: 32px; }
-.retained-lab .view-controls .source-room-toggle { border-left: 1px solid var(--rule); border-radius: 0; margin-left: 3px; }
-.instrument-dock { width: 440px; }
-.instrument-dock .research-dock { width: min(100%, 430px); grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.opening-concepts { min-height: 44px; padding: 8px 14px; background: #0b111775; color: #fff; border: 1px solid #ffffff38; border-radius: 30px; font-size: .7rem; }
-.opening-concepts span { margin-left: 12px; }
-@media (max-width: 1000px) {
-  .retained-lab .scene-heading { top: 150px; left: 20px; padding: 12px 16px; max-width: 50%; }
-  .retained-lab .scene-caption { bottom: calc(var(--instrument-dock-reserve, 140px) + 76px); right: 20px; max-width: 45%; font-size: .57rem; }
-  .retained-lab .view-controls { left: 20px; }
-  .retained-lab .selected-part-control, .retained-lab .scene-model-label, .retained-lab .scene-legend { left: 20px; }
+/* A scene, three independent touch targets, and detail within the viewport. */
+.retained-lab .app {
+  --scene-control-clearance: max(88px, calc(3.4rem + 34px));
+  --transport-reserve: 96px;
+  --instrument-dock-reserve: 20px;
+  height: 100dvh;
+  overflow: hidden;
 }
-@media (max-width: 600px) {
-  .workspace-actions { top: calc(76px + var(--safe-top)); left: 14px; right: 14px; flex-direction: row; justify-content: space-between; gap: 5px; }
-  .workspace-actions button { flex: 1; min-height: 44px; padding-inline: 7px; }
-  .retained-lab .scene-heading { top: 143px; left: 14px; max-width: 75%; padding: 9px 12px; }
-  .retained-lab .scene-heading h1 { font-size: 1.8rem; margin-block: 8px; }
-  .retained-lab .scene-heading p { font-size: .63rem; }
-  .retained-lab .scene-heading .research-micro, .lab-location { font-size: .53rem; }
-  .retained-lab .scene-heading .scene-outcome { margin-top: 3px; }
-  .retained-lab .scene-heading .research-micro { margin-bottom: 3px; }
-  .retained-lab .view-controls { bottom: calc(var(--instrument-dock-reserve, 140px) + 8px); left: 12px; right: 12px; width: max-content; max-width: calc(100% - 24px); }
-  .retained-lab .view-controls .segment { padding-inline: 9px; font-size: .63rem; }
-  .retained-lab .view-controls .camera-preset { display: none; }
-  .retained-lab .scene-model-label { display: none; }
-  .retained-lab .selected-part-control { left: 14px; bottom: calc(var(--instrument-dock-reserve, 140px) + 67px); }
-  .retained-lab .scene-caption { left: 14px; right: auto; bottom: calc(var(--instrument-dock-reserve, 140px) + 119px); max-width: calc(100% - 28px); font-size: .54rem; padding: 5px 8px; }
-  .retained-lab .scene-caption > span:first-child { max-width: none; text-align: left; }
-  .retained-lab .scene-legend { bottom: calc(var(--instrument-dock-reserve, 140px) + 151px); left: 14px; max-width: 85%; }
-  .instrument-dock .research-dock > button { gap: 4px; font-size: .62rem; padding-inline: 4px; }
-  .instrument-dock .research-dock svg { width: 14px; height: 14px; }
+.retained-lab .app .stage {
+  padding: 0;
+  height: 100%;
+}
+.retained-lab .app .scene-area {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #080b0e;
+}
+.retained-lab .app .scene-box {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  border-radius: 0;
+  touch-action: none;
+  height: auto;
+}
+.retained-lab .scene-box:focus-visible {
+  outline-offset: -5px;
+}
+.retained-lab .app .identity {
+  position: absolute;
+  inset: 0 0 auto;
+  padding: calc(20px + var(--safe-top)) 28px 12px;
+  background: none;
+  min-height: 72px;
+  z-index: 110;
+  border: 0;
+  pointer-events: none;
+}
+.retained-lab .identity > * {
+  pointer-events: auto;
+}
+.retained-lab .identity-main,
+.retained-lab .identity > .case-select {
+  display: none;
+}
+.retained-lab .identity-brand {
+  font-size: 1.125rem;
+  text-shadow: 0 1px 16px #0008;
+}
+.retained-lab .identity-brand svg {
+  width: 26px;
+  height: 26px;
+}
+.retained-lab .identity > .workspace-menu {
+  margin-left: auto;
+  width: auto;
+  min-width: 100px;
+  border: 0;
+  border-radius: 24px;
+  background: #161e24f0;
+  color: #edf0f2;
+  padding: 10px 18px;
+  box-shadow: 0 4px 18px #0002;
+  font-size: 0.8125rem;
+}
+.retained-lab .scene-heading {
+  position: absolute;
+  top: calc(104px + var(--safe-top));
+  left: max(32px, var(--safe-left, 0px));
+  max-width: 55%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  text-shadow: 0 2px 20px #0007;
+  pointer-events: none;
+}
+.retained-lab .scene-heading h1 {
+  font-size: clamp(1.5rem, 3vw, 2.625rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+.retained-lab .scene-heading p {
+  font-size: 0.75rem;
+  margin: 0;
+  color: var(--ink-2);
+}
+.scene-access {
+  position: absolute;
+  top: calc(104px + var(--safe-top));
+  right: max(28px, var(--safe-right, 0px));
+  z-index: 30;
+}
+.scene-access button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 24px;
+  padding: 10px 18px;
+  background: #161e24f0;
+  box-shadow: 0 4px 18px #0002;
+  color: #edf0f2;
+  font-size: 0.8125rem;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.scene-access button span {
+  color: #b8c4cc;
+  font-size: 0.75rem;
+}
+/* One continuous timeline: play, scrub, moment. Every control is unbacked. */
+.scene-playback { position: fixed; left: max(18px,var(--safe-left)); right: max(18px,var(--safe-right)); bottom: calc(22px + var(--safe-bottom)); margin-inline: auto; width: auto; max-width: 580px; z-index: 110; display: grid; grid-template-columns: 44px minmax(0,1fr) 64px; gap: 12px; align-items: center; pointer-events: none; border: 0; background: none; padding: 0; box-shadow: none; }
+.scene-playback button { pointer-events: auto; min-height: 48px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: #edf1f3; touch-action: manipulation; text-shadow: 0 1px 8px #000b; }
+.scene-play-control { width: 44px; display: grid; place-items: center; }
+.scene-play-control svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; filter: drop-shadow(0 1px 4px #0009); }
+.scene-moment-control { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 3px; font-size: .6875rem; line-height: 1.2; }
+.scene-playback output { font-size: .75rem; color: #edf1f3; font-weight: 450; font-variant-numeric: tabular-nums; }
+.scene-evidence-control { position: absolute; bottom: 60px; right: 0; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 4px; font-size: .8125rem; }
+.scene-playback small { font-size: .6875rem; color: #d3dde4; }
+.scene-playback [data-outcome="failed"] { color: #f0c2b6; }
+.scene-scrubber { --progress: 0%; appearance: none; -webkit-appearance: none; min-width: 0; width: 100%; height: 44px; margin: 0; padding: 0; pointer-events: auto; touch-action: none; cursor: ew-resize; background: transparent; border: 0; border-radius: 0; filter: drop-shadow(0 1px 3px #0008); }
+.scene-scrubber::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(to right,#edf1f3 var(--progress),#d0dae05c var(--progress)); border-radius: 2px; }
+.scene-scrubber::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 10px; height: 10px; margin-top: -4px; border: 0; border-radius: 50%; background: #f0f4f7; }
+.scene-scrubber::-moz-range-track { height: 2px; background: #d0dae05c; }
+.scene-scrubber::-moz-range-progress { height: 2px; background: #edf1f3; }
+.scene-scrubber::-moz-range-thumb { width: 10px; height: 10px; border: 0; border-radius: 50%; background: #f0f4f7; }
+.scene-scrubber:focus-visible { outline: 1px solid #edf1f3; outline-offset: 4px; }
+.recorded-timeline {
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.recorded-timeline label > span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-3);
+}
+.recorded-timeline input {
+  display: block;
+  width: 100%;
+  height: 34px;
+  accent-color: #d5dde2;
+}
+.recorded-timeline > div {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.recorded-timeline button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: #242d33;
+  border-radius: 20px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+}
+.recorded-timeline button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+}
+.scene-detail .view-controls {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  transform: none;
+  inset: auto;
+  width: auto;
+  max-width: none;
+  padding: 0;
+  margin: 0 0 20px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  gap: 6px;
+}
+.scene-detail .view-controls .segment {
+  display: block;
+  min-height: 44px;
+  font-size: 0.8125rem;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 20px;
+  background: #242d33;
+}
+.scene-detail .view-controls .segment[aria-pressed="true"] {
+  background: #dce3e8;
+  color: #14191d;
+}
+.scene-detail .scene-caption {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  inset: auto;
+  max-width: none;
+  background: none;
+  padding: 0;
+  margin: 12px 0 22px;
+  color: var(--ink-3);
+  font-size: 0.75rem;
+}
+.scene-detail .scene-caption > span {
+  max-width: none;
+  text-align: left;
+}
+.scene-detail .scene-tools {
+  position: static;
+  display: block;
+  height: auto;
+}
+.scene-detail .part-picker {
+  display: grid;
+  gap: 7px;
+}
+.scene-detail .overlay-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 16px;
+}
+.scene-detail .overlay-tools button {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 18px;
+  background: #242d33;
+  font-size: 0.8125rem;
+}
+.scene-detail .overlay-tools button[aria-pressed="true"] {
+  background: #dce3e8;
+  color: #12171b;
+}
+.scene-detail .part-details {
+  justify-self: start;
+}
+.retained-lab .scene-selection { position: absolute; top: calc(190px + var(--safe-top)); left: max(32px,var(--safe-left)); z-index: 3; display: flex; align-items: center; max-width: 65%; color: #edf1f3; text-shadow: 0 1px 8px #000b; }
+.retained-lab .selected-part-control { display: flex; align-items: center; gap: 10px; min-height: 44px; border: 0; padding: 0; background: transparent; box-shadow: none; border-radius: 0; text-align: left; color: inherit; font-size: .75rem; text-shadow: inherit; }
+.selected-part-control small { font-size: .625rem; color: #d0d9df; }
+.selection-dismiss { min-width: 44px; min-height: 44px; padding: 10px; border: 0; background: transparent; color: inherit; }
+.selection-dismiss svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.3; }
+.retained-lab .scene-model-label {
+  display: none;
+}
+.retained-lab:has(.selected-part-control) .scene-model-label {
+  display: none;
+}
+.retained-lab .scene-legend {
+  left: 32px;
+  bottom: 150px;
+  font-size: 0.75rem;
+}
+.retained-lab .ended {
+  left: 24px;
+  right: 24px;
+  bottom: 95px;
+  max-width: 420px;
+}
+@media (max-width: 700px) {
+  .retained-lab .app .identity {
+    padding: calc(14px + var(--safe-top)) 16px 8px;
+    min-height: 66px;
+  }
+  .retained-lab .identity-brand {
+    font-size: 1.0625rem;
+  }
+  .retained-lab .identity > .workspace-menu {
+    min-width: 92px;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+  }
+  .retained-lab .scene-heading {
+    top: calc(87px + var(--safe-top));
+    left: 18px;
+    max-width: 60%;
+  }
+  .retained-lab .scene-heading h1 {
+    font-size: 1.75rem;
+    margin-bottom: 6px;
+  }
+  .retained-lab .scene-heading p {
+    font-size: 0.75rem;
+  }
+  .scene-access {
+    top: calc(91px + var(--safe-top));
+    right: 16px;
+  }
+  .scene-access button {
+    font-size: 0.75rem;
+    padding: 9px 13px;
+    gap: 6px;
+  }
+  .scene-access button span {
+    font-size: 0.6875rem;
+  }
+  .retained-lab .scene-model-label {
+    display: none;
+  }
+  .retained-lab .scene-legend {
+    left: 16px;
+    bottom: 145px;
+  }
+  .retained-lab .app[data-context-open="true"] .scene-box {
+    inset: 0;
+  }
+  .retained-lab .app[data-context-open="true"] .scene-heading {
+    top: calc(87px + var(--safe-top));
+  }
+  .retained-lab .app[data-context-open="true"] .scene-heading h1 {
+    font-size: 1.75rem;
+  }
+  .retained-lab .app[data-context-open="true"] .scene-selection,
+  .retained-lab .app[data-context-open="true"] .scene-legend {
+    display: none;
+  }
 }
 @media (max-width: 350px) {
-  .retained-lab .view-controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: calc(100% - 24px); }
-  .retained-lab .view-controls .source-room-toggle { margin-left: 0; border-left: 0; }
-  .retained-lab .selected-part-control { bottom: calc(var(--instrument-dock-reserve, 140px) + 112px); }
-  .retained-lab .scene-caption { bottom: calc(var(--instrument-dock-reserve, 140px) + 164px); }
-  .retained-lab .scene-legend { bottom: calc(var(--instrument-dock-reserve, 140px) + 196px); }
+  .retained-lab .scene-heading h1 {
+    font-size: 1.5625rem;
+  }
 }
-@media (max-width: 350px) and (max-height: 700px) {
-  .retained-lab .scene-heading { top: calc(124px + var(--safe-top)); padding: 6px 10px; }
-  .retained-lab .scene-heading h1 { font-size: 1.4rem; margin-block: 4px; }
-  .retained-lab .scene-heading p:not(.scene-outcome):not(.research-micro) { display: none; }
-}
-@media (max-height: 680px) and (min-width: 601px) {
-  .retained-lab .scene-heading { top: 92px; padding: 10px 16px; }
-  .retained-lab .scene-heading h1 { font-size: 1.8rem; margin-block: 8px; }
+@media (orientation: landscape) and (max-height: 500px) {
+  .retained-lab .scene-heading {
+    top: 75px;
+  }
+  .retained-lab .scene-heading h1 {
+    font-size: 1.375rem;
+  }
+  .scene-access {
+    top: 74px;
+  }
+  .retained-lab .app[data-context-open="true"] .scene-box {
+    inset: 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .retained-lab *, .concept-studio * { scroll-behavior: auto; transition: none !important; animation: none !important; }
+  .retained-lab *,
+  .retained-lab *::before {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }
+
+/* Scene labels stay legible over either floor material. */
+.retained-lab .scene-area::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 220px;
+  background: linear-gradient(#0b11198c, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.retained-lab .scene-heading {
+  z-index: 2;
+  color: #edf1f3;
+}
+.retained-lab .scene-heading p {
+  color: #cbd5dc;
+}
+.retained-lab .identity-brand {
+  color: #edf1f3;
+}
+.scene-detail .analysis-nav {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+.scene-detail .analysis-tab {
+  box-shadow: none !important;
+}
+.retained-lab .scene-detail .scene-caption > span:first-child {
+  display: block;
+  max-width: none;
+  text-align: left;
+}
+.scene-detail .section-tabs {
+  border: 0;
+}
+.scene-detail .section-tab.is-selected {
+  border: 0;
+  background: #303940;
+  border-radius: 18px;
+}
+.scene-detail .choice-trigger {
+  border: 0;
+  background: #242d33;
+  border-radius: 12px;
+}
+.scene-detail .part-details {
+  border: 0;
+  padding: 8px 16px;
+  background: #26313a;
+}
+.retained-lab .app .identity {
+  padding-left: max(28px, var(--safe-left));
+  padding-right: max(28px, var(--safe-right));
+}
+@media (max-width: 700px) {
+  .retained-lab .app .identity {
+    padding-left: max(16px, var(--safe-left));
+    padding-right: max(16px, var(--safe-right));
+  }
+  .retained-lab .scene-heading {
+    left: max(18px, var(--safe-left));
+  }
+  .scene-access {
+    right: max(16px, var(--safe-right));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+}
+@media (orientation: landscape) and (max-height: 500px) {
+}
+/* Scene framing is another floating control, with no backing strip or pill. */
+.scene-access > button { padding: 7px 0 7px 8px; background: transparent; border-radius: 0; box-shadow: none; gap: 7px; text-shadow: 0 1px 12px #0009; }
+.scene-access > button > svg { width: 29px; height: 24px; filter: drop-shadow(0 1px 5px #0008); }
+.scene-access > button > span.sr-only { display: block; }
+
+.retained-lab .scene-legend { bottom: calc(150px + var(--safe-bottom)); padding: 0; border: 0; background: none; text-shadow: 0 1px 6px #000b; }
+@media (max-width:700px) { .retained-lab .scene-selection { left: max(18px,var(--safe-left)); top: calc(161px + var(--safe-top)); } }
+@media (orientation:landscape) and (max-height:500px) { .retained-lab .scene-selection { top: 136px; } .scene-playback { max-width: 440px; bottom: calc(12px + var(--safe-bottom)); } .scene-evidence-control { bottom: 48px; } }

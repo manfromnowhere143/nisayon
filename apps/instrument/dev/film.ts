@@ -5,11 +5,11 @@ import { join } from "node:path";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { Plugin } from "vite";
 
-const localConfig = join(homedir(), ".local/share/nisayon/cinematic-media/v3-2026-11-09/film.json");
+const localConfig = join(homedir(), ".local/share/nisayon/cinematic-media/approved-2026-11-23/film.json");
 const loopback = new Set(["127.0.0.1", "::1", "::ffff:127.0.0.1"]);
 const identifier = /^[a-zA-Z0-9]{20,128}$/;
 
-/** The private film has no public playback ID. This issuer runs only in the
+/** Signed review playback uses a separate policy. This issuer runs only in the
  * loopback dev/preview server. Nothing here enters the static application,
  * accepts a file, runs an experiment or reads a portable review. */
 export function serveLocalFilm(configPath = localConfig) {

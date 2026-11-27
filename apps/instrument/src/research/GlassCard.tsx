@@ -1,3 +1,5 @@
+import { focusReturnTarget } from "../ui/focusPresentation";
+import { EvidenceScroll } from "../ui/EvidenceFlow";
 import { useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /** Native modal semantics keep the underlying experiment still and inert.
@@ -44,10 +46,7 @@ export function GlassCard({
   };
   useLayoutEffect(() => {
     const node = dialog.current!;
-    const origin =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+    const origin = focusReturnTarget(document.activeElement);
     if (typeof node.showModal === "function") node.showModal();
     else node.setAttribute("open", "");
     heading.current?.focus({ preventScroll: true });
@@ -102,7 +101,7 @@ export function GlassCard({
           </svg>
         </button>
       </header>
-      <div className="glass-card-content">{children}</div>
+      <div className="glass-card-content"><EvidenceScroll>{children}</EvidenceScroll></div>
     </dialog>
   );
 }

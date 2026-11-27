@@ -31,7 +31,7 @@ export function RecordExplorer({ value }: { value: Json | undefined }) {
   const index = Math.min(page, pages - 1);
   return <div className="record-explorer">
     <div className="record-breadcrumb"><button disabled={!trail.length} onClick={() => { setTrail(trail.slice(0, -1)); setPage(0); }}>← Back</button><span>{trail.length ? trail.map(key => shortText(key, 72)).join(" / ") : "Record"}</span></div>
-    <div className="record-explorer-body" ref={body}>{entries ? entries.slice(index * size, (index + 1) * size).map(([key, item]) => <button className="record-field" key={key} onClick={() => { setTrail([...trail, key]); setPage(0); }}><span>{shortText(key, 120)}</span><code>{preview(item)}</code><span aria-hidden="true">↗</span></button>) : <code className="record-value">{raw.slice(index * capacity.characters, (index + 1) * capacity.characters)}</code>}</div>
+    <div className="record-explorer-body" ref={body}>{entries ? entries.slice(index * size, (index + 1) * size).map(([key, item]) => <button className="record-field" key={key} onClick={() => { setTrail([...trail, key]); setPage(0); }}><span>{shortText(key, 120)}</span><code>{preview(item)}</code></button>) : <code className="record-value">{raw.slice(index * capacity.characters, (index + 1) * capacity.characters)}</code>}</div>
     <div className="review-pagination"><button disabled={index === 0} onClick={() => setPage(index - 1)} aria-label="Previous record page">←</button><span>{index + 1} / {pages}</span><button disabled={index + 1 === pages} onClick={() => setPage(index + 1)} aria-label="Next record page">→</button></div>
   </div>;
 }

@@ -77,3 +77,26 @@ it("does not accept a film endpoint redirecting playback to an unrelated origin"
   vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ hls: "https://unrelated.example/video", mp4: urls.mp4 }))));
   await expect(filmSource(new AbortController().signal)).rejects.toThrow("Invalid film origin");
 });
+it("keeps the cut-specific poster until a decoded frame, not playlist readiness", async () => {
+  let decoded: VideoFrameRequestCallback | undefined;
+  const cancel=vi.fn();
+  // jsdom does not implement this browser API; install only for this test.
+  const prototype = HTMLVideoElement.prototype;
+  Object.defineProperty(prototype,"requestVideoFrameCallback",{configurable:true,value:(callback:VideoFrameRequestCallback)=>{decoded=callback;return 7;}});
+  Object.defineProperty(prototype,"cancelVideoFrameCallback",{configurable:true,value:cancel});
+  try {
+  await act(async()=>root.render(<Film poster="/approved.webp" playRequested={true} onClose={()=>{}} source={async()=>urls}/>));
+  expect(host.querySelector('.film-picture')?.getAttribute('data-frame-ready')).toBe('false');
+  expect(host.querySelector('.film-poster')?.getAttribute('src')).toBe('/approved.webp');
+  await act(async()=>decoded!(0,{} as VideoFrameCallbackMetadata));
+  expect(host.querySelector('.film-picture')?.getAttribute('data-frame-ready')).toBe('true');
+  await act(async()=>root.render(null));expect(cancel).toHaveBeenCalledWith(7);
+  } finally { Reflect.deleteProperty(prototype,"requestVideoFrameCallback"); Reflect.deleteProperty(prototype,"cancelVideoFrameCallback"); }
+});
+it("offers an explicit play action when a direct Film link has no user activation", async () => {
+  await act(async()=>root.render(<Film poster="/approved.webp" playRequested={false} onClose={()=>{}} source={async()=>urls}/>));
+  expect(host.querySelector('.film-start')?.textContent).toBe('Play film');
+  expect(HTMLMediaElement.prototype.play).not.toHaveBeenCalled();
+  await act(async()=>host.querySelector<HTMLButtonElement>('.film-start')!.click());
+  expect(HTMLMediaElement.prototype.play).toHaveBeenCalledOnce();
+});

@@ -96,7 +96,7 @@ it("opens the verified system without starting a hidden robot scene", async () =
   await waitFor(() => !!host.querySelector(".system-workspace"));
   await click(button("Evidence"));
   expect(host.querySelectorAll(".index-entry")).toHaveLength(9);
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   expect(host.querySelector(".retained-lab")?.hasAttribute("inert")).toBe(true);
   expect(host.querySelector(".app")).toBeNull();
   expect(labLoader.fetch).not.toHaveBeenCalled();
@@ -105,13 +105,18 @@ it("opens the verified system without starting a hidden robot scene", async () =
   expect(localStorage.getItem("nisayon.ground")).toBe("paper");
 });
 
-it("reserves the header center for the investigation switch without text underneath", async () => {
+it("keeps reviews under Develop and engine records under Library in the floating navigation", async () => {
   await mount("#view=qualify");
-  expect(host.querySelector('[aria-label="Investigation type"]')).not.toBeNull();
-  expect(host.querySelector('.research-header .research-edition')).toBeNull();
-  await click(button("Develop"));
   expect(host.querySelector('[aria-label="Investigation type"]')).toBeNull();
-  expect(host.querySelector('.research-header .research-edition')?.textContent).toContain("EXPERIMENT ENGINE");
+  expect(host.querySelector('[aria-label="Instrument navigation"] button[aria-current="page"]')?.textContent).toContain("Develop");
+  expect(button("← Develop")).toBeDefined();
+  await click(button("Library"));
+  await waitFor(() => !!host.querySelector(".system-workspace"));
+  await click(button("Engine"));
+  await click(host.querySelector(".library-records")!);
+  expect(location.hash).toContain("view=checks");
+  expect(host.querySelector('[aria-label="Instrument navigation"] button[aria-current="page"]')?.textContent).toContain("Library");
+  expect(host.querySelector('[aria-label="Investigation type"]')).toBeNull();
 });
 
 it("handles pointer focus in Library without a prior visit to the robot lab", async () => {
@@ -144,7 +149,7 @@ it("opens all retained progress with separate available and review states", asyn
   await click([...host.querySelectorAll(".progress-tabs button")].find(b => b.textContent?.startsWith("In review"))!);
   expect(host.querySelector("dialog")?.textContent).toContain("Draft PR");
   expect(host.querySelector("dialog")?.textContent).toContain("Open PR");
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   expect(document.activeElement).toBe(open);
 });
 
@@ -172,7 +177,7 @@ it("shows every current investigation with its own scope and verified source bin
       if (i < entry.sources.length - 1)
         await click(host.querySelector('[aria-label="Next source record"]')!);
     }
-    await click(host.querySelector(".glass-card-close")!);
+    await click(host.querySelector(".library-reading-close")!);
   }
   expect(host.querySelector(".control-summary")?.textContent).toContain(
     "76/76",
@@ -230,8 +235,8 @@ it("keeps a corrupt catalog unavailable and verifies again when asked to retry",
 it("keeps robot selection, theme and playback isolated while moving through research", async () => {
   await mount();
   await waitFor(() => !!host.querySelector(".system-workspace"));
-  await click(button("Investigate"));
-  await waitFor(() => !!host.querySelector(".transport"));
+  await click(button("Laboratory"));
+  await waitFor(() => !!host.querySelector(".scene-playback"));
   await act(async () =>
     window.dispatchEvent(
       new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }),
@@ -246,15 +251,15 @@ it("keeps robot selection, theme and playback isolated while moving through rese
     ),
   );
   expect(location.search).toBe(moment);
-  await click(button("Investigate"));
+  await click(button("Laboratory"));
   expect(location.search).toBe(moment);
   expect(host.querySelector(".retained-lab")?.hasAttribute("inert")).toBe(
     false,
   );
-  expect(host.querySelector(".transport-row")?.textContent).toContain("1");
-  await click(host.querySelector('.workspace-actions button')!);
-  expect(host.querySelector('dialog[open]')?.textContent).toContain("Experiment evidence");
-  await click(host.querySelector('.glass-card-close')!);
+  expect(host.querySelector(".scene-moment-control")?.getAttribute("aria-label")).toContain("1");
+  await click(host.querySelector('.scene-evidence-control')!);
+  expect(host.querySelector('dialog[open]')?.textContent).toContain("Evidence");
+  await click(host.querySelector('.scene-detail-heading > button')!);
   expect(host.querySelector('.reading')).toBeNull();
   expect(location.search).toBe(moment);
 });
@@ -269,8 +274,8 @@ it("leaves an invalid view explicit instead of showing a different investigation
 it("returns from the lab logo to the opening and preserves the recorded moment through history", async () => {
   vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
   await mount();
-  await click(button("Investigate"));
-  await waitFor(() => !!host.querySelector(".transport"));
+  await click(button("Laboratory"));
+  await waitFor(() => !!host.querySelector(".scene-playback"));
   await act(async () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true })));
   const moment = location.search;
   const app = host.querySelector(".app");
@@ -291,7 +296,7 @@ it("returns from the lab logo to the opening and preserves the recorded moment t
   expect(host.querySelector(".opening")).toBeNull();
   expect(host.querySelector(".app")).toBe(app);
   expect(location.search).toBe(moment);
-  expect(host.querySelector(".transport-row")?.textContent).toContain("1");
+  expect(host.querySelector(".scene-moment-control")?.getAttribute("aria-label")).toContain("1");
 });
 
 it("hides a previous catalog immediately and ignores a superseded load", async () => {
@@ -309,7 +314,8 @@ it("hides a previous catalog immediately and ignores a superseded load", async (
     window.dispatchEvent(new PopStateEvent("popstate"));
   });
   expect(host.querySelector(".investigation-workspace")).toBeNull();
-  expect(host.textContent).toContain("Reading the evidence.");
+  expect(host.querySelector(".library-loading")?.getAttribute("aria-busy")).toBe("true");
+  expect(host.textContent).not.toContain("Reading the evidence.");
   await act(async () => {
     history.pushState(
       null,
@@ -385,7 +391,7 @@ it("opens a centered evidence card, retains the selected condition, and restores
   await click(opener);
   expect(host.querySelector("dialog")?.hasAttribute("open")).toBe(true);
   expect(document.activeElement).toBe(
-    host.querySelector(".glass-card-header h2"),
+    host.querySelector(".library-reading-header h2"),
   );
   const field = host.querySelector("dialog .test-field")!;
   expect(
@@ -393,7 +399,7 @@ it("opens a centered evidence card, retains the selected condition, and restores
   ).toContain("Control 8:");
   await click(field.querySelectorAll("button")[17]!);
   expect(location.hash).toContain("sample=17");
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   expect(host.querySelector("dialog")).toBeNull();
   expect(document.activeElement).toBe(opener);
   await click(opener);
@@ -421,7 +427,7 @@ it("keeps all controls and investigations reachable on a compact workspace", asy
   expect(host.querySelector(".stage-card-reading")?.textContent).toContain(
     "working deployment",
   );
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   await click(button("Evidence"));
   const titles: string[] = [];
   for (let i = 0; i < Math.ceil(catalog.cases.length / 3); i++) {
@@ -434,7 +440,7 @@ it("keeps all controls and investigations reachable on a compact workspace", asy
       await click(host.querySelector('[aria-label="Next investigations"]')!);
   }
   expect(titles).toEqual(catalog.cases.map((c) => c.title));
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   await act(async () => window.dispatchEvent(new CustomEvent("nisayon:navigate", { detail: "research" })));
   await click(
     [...host.querySelectorAll(".investigation-rail button")].find((b) =>
@@ -476,9 +482,44 @@ it("preserves the system stage while opening the full source atlas", async () =>
   expect(host.querySelector(".module-source code")?.textContent).toContain(
     ".py",
   );
-  await click(host.querySelector(".glass-card-close")!);
+  await click(host.querySelector(".library-reading-close")!);
   expect(stage.getAttribute("aria-pressed")).toBe("true");
   expect(host.querySelectorAll(".system-plate.is-active")).toHaveLength(1);
+});
+
+it("uses one Library reading at a time and returns keyboard focus without losing the stage", async () => {
+  await mount();
+  const stage = host.querySelectorAll<HTMLButtonElement>(".method-stages button")[2]!;
+  await click(stage);
+  const detail = host.querySelector<HTMLButtonElement>(".method-peek")!;
+  detail.focus();
+  await click(detail);
+  expect(host.querySelectorAll(".library-reading[open]")).toHaveLength(1);
+  expect(host.querySelector<HTMLElement>(".system-overview")?.hidden).toBe(true);
+  expect(host.querySelector("dialog")?.textContent).toContain("Freeze the candidate");
+  const evidence = button("Evidence");
+  evidence.focus();
+  await click(evidence);
+  expect(host.querySelectorAll(".library-reading[open]")).toHaveLength(1);
+  expect(host.querySelector(".stage-card-reading")).toBeNull();
+  expect(host.querySelectorAll(".index-entry")).toHaveLength(9);
+  await act(async () => document.activeElement!.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true, cancelable: true })));
+  expect(host.querySelector(".library-reading")).toBeNull();
+  expect(document.activeElement).toBe(evidence);
+  expect(stage.getAttribute("aria-pressed")).toBe("true");
+  expect(host.querySelector<HTMLElement>(".system-overview")?.hidden).toBe(false);
+});
+
+it("lets a stage selection replace a reading immediately", async () => {
+  await mount();
+  await click(button("Engine"));
+  const retain = host.querySelectorAll<HTMLButtonElement>(".method-stages button")[4]!;
+  retain.focus();
+  await click(retain);
+  expect(host.querySelector(".library-reading")).toBeNull();
+  expect(document.activeElement).toBe(retain);
+  expect(host.querySelector(".method-peek")?.textContent).toContain("change your mind");
+  expect(labLoader.fetch).not.toHaveBeenCalled();
 });
 
 it("makes every word of a long engine description reachable without enlarging its card", async () => {
@@ -514,42 +555,48 @@ it("makes every word of a long engine description reachable without enlarging it
 
 it("closes the lab modal on route change while retaining the exact recorded moment", async () => {
   await mount();
-  await click(button("Investigate"));
-  await waitFor(() => !!host.querySelector(".transport"));
+  await click(button("Laboratory"));
+  await waitFor(() => !!host.querySelector(".scene-playback"));
   const moment = location.search;
-  await click(host.querySelector('.workspace-actions button')!);
+  await click(host.querySelector('.scene-evidence-control')!);
   expect(host.querySelector('dialog[open]')).not.toBeNull();
   await act(async () => window.dispatchEvent(new CustomEvent("nisayon:navigate", { detail: "develop" })));
   expect(host.querySelector('.develop-workspace')).not.toBeNull();
   expect(host.querySelector('dialog[open]')).toBeNull();
   expect(document.activeElement?.textContent).toContain("The experiment stays");
-  await click(button("Investigate"));
+  await click(button("Laboratory"));
   expect(location.search).toBe(moment);
   expect(host.querySelector('dialog[open]')).toBeNull();
 });
 
 
-it("keeps device access and theme reachable in the compact software workspace, with focus return", async () => {
+it("keeps device access and theme in the compact native controls menu, without a reading modal", async () => {
   await mount("#view=qualify");
-  const controls = host.querySelector<HTMLButtonElement>(".research-workspace-menu")!;
-  controls.focus();
+  const controls = host.querySelector<HTMLButtonElement>(".instrument-navigation .workspace-menu")!;
   await click(controls);
-  const menu = host.querySelector("dialog")!;
+  const menu = host.querySelector<HTMLElement>('.workspace-popover[popover="auto"]')!;
+  expect(menu).not.toBeNull(); expect(host.querySelector("dialog")).toBeNull();
+  await click(menu.querySelector('[aria-label="Tools"]')!);
   const device = menu.querySelector<HTMLButtonElement>('[aria-label="Nisayon on this device"]')!;
-  device.focus();
-  await click(device);
-  expect(host.querySelectorAll("dialog")).toHaveLength(2);
+  device.focus(); await click(device);
+  expect(host.querySelectorAll("dialog")).toHaveLength(1);
   await click(host.querySelector('[aria-label="Close Nisayon on this device"]')!);
-  expect(document.activeElement).toBe(device);
   await click(menu.querySelector('[aria-label="Switch to paper ground"]')!);
   expect(document.documentElement.dataset.ground).toBe("paper");
-  await act(async () => menu.dispatchEvent(new Event("cancel", { cancelable: true })));
-  expect(host.querySelector("dialog")).toBeNull();
-  expect(document.activeElement).toBe(controls);
-  await click(controls);
   await act(async () => {
     history.replaceState(null, "", "/#view=system");
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   });
-  expect(host.querySelector("dialog")).toBeNull();
+  expect(host.querySelectorAll(".instrument-navigation > .workspace-popover-rail")).toHaveLength(1);
+  expect(host.querySelectorAll('.instrument-navigation [aria-label="Contextual tools"]')).toHaveLength(1);
+  expect(host.querySelectorAll('.instrument-navigation .workspace-tool-rail > button')).toHaveLength(1);
+  expect(host.querySelectorAll('.instrument-navigation .workspace-destinations > button')).toHaveLength(4);
+});
+it("retains the verified catalog across Library, Develop and evidence navigation",async()=>{
+ const loader=vi.fn(async()=>catalog);await mount('#view=system',loader);
+ for(const view of ['develop','system','research','system']){
+  await act(async()=>window.dispatchEvent(new CustomEvent('nisayon:navigate',{detail:view})));
+  expect(host.textContent).not.toContain('Reading the evidence.');
+ }
+ expect(loader).toHaveBeenCalledTimes(1);
 });

@@ -5,7 +5,6 @@ import { recordingEnd, type LoadedRun } from "../data/loader";
 import { contextualFinding, statusWords } from "../model/findings";
 import type { CaseRecord, Depth, Moment } from "../model/types";
 import { useStore } from "../state/useStore";
-import { Icon } from "./Icon";
 
 interface Props {
   caseRecord: CaseRecord;
@@ -45,10 +44,10 @@ export function Finding({ caseRecord, run, moment, depth, onInspect }: Props) {
         {depth === "moment" ? (
           <>
             <button type="button" className="quiet depth-open" onClick={() => store.setDepth("fork")}>
-              Compare <Icon name="open" />
+              Compare
             </button>
             <button type="button" className="quiet depth-open" onClick={() => store.setDepth("decision")}>
-              Decision <Icon name="open" />
+              Decision
             </button>
           </>
         ) : null}

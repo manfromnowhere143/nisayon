@@ -1,3 +1,5 @@
+import { RicciEntry } from "../concepts/RicciEntry";
+import { prepareRicci } from "../concepts/loadRicci";
 import {
   lazy,
   Suspense,
@@ -14,7 +16,8 @@ import { BrandMark } from "../ui/BrandMark";
 import type { OpeningStatus } from "../ui/States";
 import { InstrumentDock } from "./InstrumentDock";
 import { LabBoundary } from "./LabBoundary";
-import { AppAccess, AppAccessButton } from "../pwa/AppAccess";
+import { AppAccess } from "../pwa/AppAccess";
+import { workspaceUtilities } from "../ui/WorkspaceActions";
 import { useEvidenceMotion } from "./useEvidenceMotion";
 import {
   loadResearchCatalog,
@@ -23,7 +26,7 @@ import {
 } from "./catalog";
 import { InvestigationDiagram } from "./Diagrams";
 import { SystemWorkspace } from "./SystemWorkspace";
-import { GlassCard } from "./GlassCard";
+import { LibraryReading } from "./LibraryReading";
 import { ResearchReading } from "./ResearchReading";
 import { FixedEvidenceLayout } from "../ui/useDocumentEvidence";
 import { installFocusPresentation } from "../ui/focusPresentation";
@@ -39,10 +42,13 @@ import {
   type ResearchRoute,
 } from "./navigation";
 
+
 const RecordedLab = lazy(() =>
   import("../App").then((module) => ({ default: module.App })),
 );
-const Concepts = lazy(() => import("../concepts/ConceptStudio").then(module => ({ default: module.ConceptStudio })));
+// Start the existing route chunk when navigation intent is clear. This creates
+// no hidden WebGL context and does not download robot imagery or models.
+const prepareConcepts = prepareRicci;
 const ProjectionReview = lazy(() => import("../qualification/ProjectionReview"));
 const CASE_LABEL: Record<CaseId, string> = {
   transfer: "Transfer",
@@ -84,12 +90,16 @@ export function Experience({
   );
   const [labVisited, setLabVisited] = useState(route.surface === "lab");
   const [instrumentEntered, setInstrumentEntered] = useState(route.surface !== "home");
+  const [offlineOptedIn, setOfflineOptedIn] = useState(false);
   useEffect(() => {
     if (route.surface !== "home") setInstrumentEntered(true);
   }, [route.surface]);
   // Preserve the complete offline instrument, but do not download its deferred
   // scene merely because somebody visits the cinematic opening.
-  useEffect(() => instrumentEntered ? startOfflineSupport() : undefined, [instrumentEntered]);
+  // Ricci inspection must not initiate the full instrument's cinematic/media
+  // precache. Entering an evidence surface retains the existing offline flow.
+  const offlineRequested = instrumentEntered && (route.surface !== "concepts" || offlineOptedIn);
+  useEffect(() => offlineRequested ? startOfflineSupport() : undefined, [offlineRequested]);
   const [labOpening, setLabOpening] = useState<OpeningStatus>({
     waiting: true,
     stage: "module",
@@ -98,6 +108,10 @@ export function Experience({
   const [transportHost, setTransportHost] = useState<HTMLDivElement | null>(
     null,
   );
+  // One resource-byte denominator spans recording and geometry. Once bytes
+  // arrive the line remains full while qualification/first paint completes.
+  const loadPercent = labOpening.progress === undefined ? undefined : Math.floor(labOpening.progress * 100);
+  const loadAnnouncement = loadPercent === undefined ? labOpening.detail : loadPercent < 100 ? `${loadPercent}% transferred · ${labOpening.stage}` : "Preparing the first frame";
   const labReady = useRef(false);
   const [catalogState, setCatalog] = useState<CatalogState>({
     kind: "loading",
@@ -111,8 +125,6 @@ export function Experience({
   const [attempt, setAttempt] = useState(0);
   const [ground, setGround] = useState(readGround);
   const [copied, setCopied] = useState("");
-  const [workspaceControls, setWorkspaceControls] = useState(false);
-  useEffect(() => { setWorkspaceControls(false); }, [route.surface]);
   const [review, setReview] = useState<ReviewBundle | null>(null);
   const [projection, setProjection] = useState<ProjectionSelection | null>(null);
   const [requestedExample, setRequestedExample] = useState<"rejected" | null>(null);
@@ -246,15 +258,24 @@ export function Experience({
     setVisualPage("mechanism");
     setMobilePanel("visual");
   }, [route.surface, route.caseId]);
+  const needsCatalog = ["system", "research", "lab"].includes(route.surface);
+  const catalogRead = useRef<{ identity: string; attempt: number; loader: typeof catalogLoader; value?: ResearchCatalog }>({ identity: "", attempt: -1, loader: catalogLoader });
   useEffect(() => {
-    // The opening and local review do not need a research catalog request.
-    if (!["system", "research", "lab"].includes(route.surface)) return;
+    // Navigation does not invalidate an already verified catalog. Only exact
+    // identity, explicit retry or loader replacement starts verification.
+    if (!needsCatalog) return;
+    const read = catalogRead.current;
+    if (read.identity === route.catalog && read.attempt === attempt && read.loader === catalogLoader && read.value) {
+      setCatalog({ kind: "ready", identity: route.catalog, value: read.value }); return;
+    }
     const controller = new AbortController();
     setCatalog({ kind: "loading", identity: route.catalog });
     catalogLoader(route.catalog, controller.signal)
       .then((value) => {
-        if (!controller.signal.aborted)
+        if (!controller.signal.aborted) {
+          catalogRead.current = { identity: route.catalog, attempt, loader: catalogLoader, value };
           setCatalog({ kind: "ready", value, identity: route.catalog });
+        }
       })
       .catch((error) => {
         if (!controller.signal.aborted)
@@ -266,7 +287,7 @@ export function Experience({
           });
       });
     return () => controller.abort();
-  }, [route.catalog, route.surface, attempt, catalogLoader]);
+  }, [route.catalog, needsCatalog, attempt, catalogLoader]);
   useEffect(() => {
     if (!copied) return;
     const timer = window.setTimeout(() => setCopied(""), 3000);
@@ -319,32 +340,12 @@ export function Experience({
       : "",
   );
 
-  const headerTools = <>
-    <AppAccessButton />
-    <button
-      onClick={copyLink}
-      aria-label="Copy this investigation link"
-      className="research-icon"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m9 15 6-6M7 10 5 12a4 4 0 0 0 6 6l2-2m-2-8 2-2a4 4 0 0 1 6 6l-2 2" />
-      </svg>
-    </button>
-    <button
-      className="research-icon"
-      onClick={toggleGround}
-      aria-label={`Switch to ${ground === "black" ? "paper" : "black"} ground`}
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="7" />
-        <path
-          d="M12 5a7 7 0 0 1 0 14Z"
-          fill="currentColor"
-          stroke="none"
-        />
-      </svg>
-    </button>
-  </>;
+  const headerTools = workspaceUtilities({
+    ground,
+    toggleGround: route.surface === "concepts" ? undefined : toggleGround,
+    copyLink: () => { void copyLink(); },
+    copyLabel: "Copy this investigation link",
+  });
 
   return (
     <FixedEvidenceLayout.Provider value={true}><div className="instrument-root">
@@ -399,7 +400,11 @@ export function Experience({
             <BrandMark className="boot-mark" size={64} />
             <p className="boot-wordmark">Nisayon</p>
           </div>
-          <p className="lab-loading-detail">{labOpening.detail}</p>
+          <div className="lab-loading-progress">
+            <progress max={100} value={loadPercent} aria-label="Laboratory loading" aria-valuetext={loadAnnouncement} />
+            {loadPercent !== undefined && loadPercent < 100 ? <output aria-hidden="true">{loadPercent}%</output> : null}
+          </div>
+          <span className="sr-only">{loadAnnouncement}</span>
         </div>
       ) : null}
       {(
@@ -432,18 +437,8 @@ export function Experience({
             {route.surface !== "qualify" && route.surface !== "checks" ? <span className="research-edition">
               EXPERIMENT ENGINE / PHYSICAL AI
             </span> : null}
-            <div className="research-header-tools">{headerTools}</div>
-            {route.surface === "qualify" || route.surface === "checks" ? <button
-              className="workspace-menu research-workspace-menu"
-              aria-label="Workspace controls"
-              aria-haspopup="dialog"
-              onClick={() => setWorkspaceControls(true)}
-            ><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16" /><circle cx="9" cy="7" r="2" /><circle cx="15" cy="17" r="2" /></svg></button> : null}
           </header>
-          {(route.surface === "qualify" || route.surface === "checks") && workspaceControls ? <GlassCard
-            title="Workspace controls"
-            onClose={() => setWorkspaceControls(false)}
-          ><div className="research-workspace-tools">{headerTools}</div></GlassCard> : null}
+
           {copied ? (
             <span className="research-toast" role="status">
               {copied}
@@ -471,7 +466,7 @@ export function Experience({
                   Open the system
                 </button>
               </main>
-            ) : route.surface === "checks" ? <Suspense fallback={<p role="status">Opening recorded engine checks…</p>}><ProjectionReview heading={heading} selection={projection} setSelection={setProjection} archives={() => navigate({ surface: "qualify" })} /></Suspense> : route.surface === "concepts" ? <Suspense fallback={<p role="status">Opening the concept studio…</p>}><Concepts heading={heading} laboratory={lab} /></Suspense> : route.surface === "qualify" ? <Qualification active develop={() => navigate({ surface: "develop" })} bundle={review} setBundle={setReview} initialExample={requestedExample} onExampleConsumed={() => setRequestedExample(null)} /> : route.surface === "lab" || route.surface === "home" ? null : route.surface === "develop" ? <Develop review={() => navigate({ surface: "qualify" })} /> : catalog.kind === "error" ? (
+            ) : route.surface === "checks" ? <Suspense fallback={<p role="status">Opening recorded engine checks…</p>}><ProjectionReview heading={heading} selection={projection} setSelection={setProjection} archives={() => navigate({ surface: "system" })} /></Suspense> : route.surface === "concepts" ? <RicciEntry heading={heading} laboratory={lab} /> : route.surface === "qualify" ? <Qualification active develop={() => navigate({ surface: "develop" })} bundle={review} setBundle={setReview} initialExample={requestedExample} onExampleConsumed={() => setRequestedExample(null)} /> : route.surface === "lab" || route.surface === "home" ? null : route.surface === "develop" ? <Develop review={() => navigate({ surface: "qualify" })} /> : catalog.kind === "error" ? (
               <main className="research-error">
                 <p className="research-micro">Evidence unavailable</p>
                 <h1 ref={heading} tabIndex={-1}>
@@ -485,18 +480,13 @@ export function Experience({
                   Retry verification
                 </button>
                 <button className="research-text-action" onClick={lab}>
-                  Open the recorded lab ↗
+                  Open the recorded lab
                 </button>
               </main>
             ) : catalog.kind === "loading" ? (
-              <main className="research-error" aria-busy="true">
-                <p className="research-micro">Nisayon / research</p>
-                <h1 ref={heading} tabIndex={-1}>
-                  Reading the evidence.
-                </h1>
-                <p role="status">
-                  Verifying the exact catalog named by this selection.
-                </p>
+              <main className="library-loading" aria-busy="true" aria-label="Loading Library">
+                <span className="sr-only" role="status">Verifying the selected evidence catalog.</span>
+                <div aria-hidden="true" className="library-loading-rule" />
               </main>
             ) : route.surface === "system" ? (
               <SystemWorkspace
@@ -505,6 +495,7 @@ export function Experience({
                 choose={choose}
                 lab={lab}
                 study={study}
+                records={() => navigate({ surface: "checks" })}
               />
             ) : current ? (
               <main
@@ -569,10 +560,11 @@ export function Experience({
                     Explanation & sources
                   </button>
                 </nav>
-                <div className="investigation-composition">
+                <div className="investigation-composition" data-reading={visualPage !== "mechanism" || undefined}>
                   <section
                     ref={visual}
                     className="research-visual"
+                    inert={visualPage !== "mechanism"}
                     aria-label="Interactive evidence"
                     data-visual-page="mechanism"
                     data-case={current.id}
@@ -612,10 +604,9 @@ export function Experience({
                     />
                   </section>
                   {visualPage === "evidence" ? (
-                    <GlassCard
+                    <LibraryReading
                       title={current.code + " · Retained evidence"}
                       eyebrow={current.kind}
-                      wide
                       onClose={() => setVisualPage("mechanism")}
                     >
                       <section
@@ -630,13 +621,16 @@ export function Experience({
                           select={navigate}
                         />
                       </section>
-                    </GlassCard>
+                    </LibraryReading>
                   ) : null}
                   <ResearchReading
                     key={current.id}
                     entry={current}
                     catalog={route.catalog}
                     revision={catalog.value.sourceCommit}
+                    section={visualPage.startsWith("read:") ? visualPage.slice(5) : null}
+                    setSection={section => setVisualPage(section ? `read:${section}` : "mechanism")}
+                    suppressed={visualPage === "evidence"}
                   />
                 </div>
                 <div className="investigation-next">
@@ -690,7 +684,6 @@ export function Experience({
           </footer>
         </div>
       )}
-      {!route.issue && ["lab", "qualify", "checks"].includes(route.surface) ? <nav className="investigate-mode" aria-label="Investigation type"><button aria-pressed={route.surface === "lab"} onClick={() => navigate({ surface: "lab" })}>Robot</button><button aria-pressed={route.surface === "qualify"} onClick={() => navigate({ surface: "qualify" })}>Software</button><button aria-pressed={route.surface === "checks"} onClick={() => navigate({ surface: "checks" })}>Records</button></nav> : null}
       {route.surface !== "home" || route.issue ? <InstrumentDock
         surface={
           showResearch && route.surface === "lab" ? "research" : route.surface
@@ -698,8 +691,10 @@ export function Experience({
         loading={labOpening.waiting}
         navigate={(surface) => navigate({ surface })}
         transportHost={setTransportHost}
+        prepareConcepts={prepareConcepts}
+        utilities={headerTools}
       /> : null}
-      <AppAccess onOpen={() => instrument.current?.pause()} />
+      <AppAccess onOpen={() => { instrument.current?.pause(); setOfflineOptedIn(true); }} />
     </div></FixedEvidenceLayout.Provider>
   );
 }

@@ -2,6 +2,7 @@ import { createContext, useContext, useId, useLayoutEffect, useRef, useState, ty
 import { FixedEvidenceLayout, useDocumentEvidence } from "./useDocumentEvidence";
 
 const FlowContext = createContext(false);
+export function EvidenceScroll({ children }: { children: ReactNode }) { return <FlowContext.Provider value={true}>{children}</FlowContext.Provider>; }
 export const EvidenceIdentity = createContext("");
 export const useEvidenceFlow = () => useContext(FlowContext);
 const GAP = 32;
@@ -152,17 +153,17 @@ function Flow({ children, label, identity }: { children: ReactNode; label: strin
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
     }
   }}>
-    {full ? <header className="full-reading-bar"><h2 className="full-reading-heading" tabIndex={-1}>{label}</h2><button type="button" className="quiet" onClick={() => setFull(false)}>Return to workspace <span aria-hidden="true">↙</span></button></header> : null}
+    {full ? <header className="full-reading-bar"><h2 className="full-reading-heading" tabIndex={-1}>{label}</h2><button type="button" className="quiet" onClick={() => setFull(false)}>Return to workspace </button></header> : null}
     <div ref={viewport} className="evidence-viewport">
       <div ref={content} id={id} className="evidence-columns" inert={clipped} aria-hidden={clipped || undefined} style={(!full || fixed) && !documentLayout ? { transform: `translateX(${-layout.page * (layout.width + GAP)}px)` } : undefined} onFocusCapture={event => {
         if ((full && !fixed) || documentLayout || !content.current || !layout.width) return;
         const rect = event.target.getClientRects()[0];
         if (rect) go(columnAt(rect.left - content.current.getBoundingClientRect().left, layout.width, layout.pages));
       }}><FlowContext.Provider value={true}>{children}</FlowContext.Provider></div>
-      {clipped ? <div className="evidence-full-prompt"><p>This view needs more room at this window or text size.</p><button type="button" className="quiet" onClick={event => enterFull(event.currentTarget)}>Read in full <span aria-hidden="true">↗</span></button></div> : null}
+      {clipped ? <div className="evidence-full-prompt"><p>This view needs more room at this window or text size.</p><button type="button" className="quiet" onClick={event => enterFull(event.currentTarget)}>Read in full </button></div> : null}
     </div>
     <footer className="evidence-pagination" hidden={(full && !fixed) || documentLayout} aria-label={`${label} pages`}>
-      <button type="button" className="full-reading-link" onClick={event => enterFull(event.currentTarget)}>Read in full <span aria-hidden="true">↗</span></button>
+      <button type="button" className="full-reading-link" onClick={event => enterFull(event.currentTarget)}>Read in full </button>
       {layout.pages > 1 && (!oversize || (full && fixed)) ? <div className="evidence-page-navigation"><button type="button" className="ibtn" aria-label={`Previous ${label.toLowerCase()} page`} aria-controls={id} disabled={layout.page === 0} onClick={() => go(layout.page - 1)}>‹</button><label className="evidence-page-number"><span className="sr-only">{label} page</span><input type="number" min={1} max={layout.pages} value={layout.page + 1} aria-controls={id} onChange={event => { if (event.target.value) go(Number(event.target.value) - 1); }} /><span aria-hidden="true">/ {layout.pages}</span></label><button type="button" className="ibtn" aria-label={`Next ${label.toLowerCase()} page`} aria-controls={id} disabled={layout.page === layout.pages - 1} onClick={() => go(layout.page + 1)}>›</button></div> : <span className="evidence-page-count">{clipped ? "Full reading available" : layout.width ? "1 / 1" : ""}</span>}
       <span className="sr-only" role="status">{layout.width ? `${label}, page ${layout.page + 1} of ${layout.pages}` : ""}</span>
     </footer>

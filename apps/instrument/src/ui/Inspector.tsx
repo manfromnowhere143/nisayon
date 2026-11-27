@@ -1,15 +1,14 @@
 import { EvidenceFlow } from "./EvidenceFlow";
-import { GlassCard } from "../research/GlassCard";
+import { SceneDetail } from "./SceneDetail";
 // The accessible DOM inspector: every reading on the canvas resolves here to
 // the same generation, bundle, run, row and phase, with its digests.
 
 import { createContext, useContext, useState } from "react";
-import type { LoadIssue, LoadedRun } from "../data/loader";
+import { resolveWithin, type LoadIssue, type LoadedRun } from "../data/loader";
 import { actionLabel, firstActionMismatch, signed, timeForPhase } from "../model/findings";
 import { shortSha, type CaseRecord, type Generation, type Moment } from "../model/types";
 import { useStore } from "../state/useStore";
 import { VISUAL_ASSET } from "../scene/visualAssetPin";
-import { Icon } from "./Icon";
 import { PagedFacts } from "./RecordPages";
 import { shortUrl } from "./RunSelector";
 import { bodyDepth, bodyLabel } from "../model/spatial";
@@ -40,16 +39,7 @@ export function Inspector({ generation, caseRecord, run, moment, open }: Props) 
   const originalCubeZ = row ? (moment.phase === "before" ? (row.observation?.cube_pos[2] ?? null) : row.cube_height_m) : null;
 
   return (
-    <GlassCard title="Source inspector" eyebrow="RETAINED EVIDENCE" wide onClose={() => store.toggleInspector(false)}><aside id="inspector" className="inspector" aria-labelledby="inspector-heading">
-      <div className="inspector-bar">
-        <h2 id="inspector-heading" className="inspector-title">
-          Inspector
-        </h2>
-        <button type="button" className="ibtn" aria-label="Close inspector" onClick={() => store.toggleInspector(false)}>
-          <Icon name="close" />
-        </button>
-      </div>
-
+    <SceneDetail className="scene-side-reading" title="Sources" caption="Exact records for the selected run" onClose={() => store.toggleInspector(false)}><aside id="inspector" className="inspector" aria-label="Source inspector">
       <label className="panel-select"><span>Inspect</span><select aria-label="Inspector section" value={section} onChange={(event) => setSection(event.target.value)}>{INSPECTOR_SECTIONS.map((name) => <option key={name}>{name}</option>)}</select></label>
       <div className="inspector-content"><InspectorSection.Provider value={section}>
       <Section title="Selection">
@@ -208,9 +198,9 @@ export function Inspector({ generation, caseRecord, run, moment, open }: Props) 
       </Section>
       <Section title="Sources">
         <PagedFacts label="Inspector details">
-          <Fact k="manifest" v={`${shortUrl(generation.manifestUrl)} · ${generation.sha256}`} mono />
-          <Fact k="samples" v={`${run.record.samples.path} · ${run.record.samples.sha256} · ${run.record.samples.byte_length} bytes`} mono />
-          <Fact k="frames" v={run.record.frames ? `${run.record.frames.path} · ${run.record.frames.sha256} · ${run.record.frames.byte_length} bytes` : "none"} mono />
+          <Fact k="manifest" v={<><a href={generation.manifestUrl} target="_blank" rel="noreferrer">{shortUrl(generation.manifestUrl)}</a> · {generation.sha256}</>} mono />
+          <Fact k="samples" v={<><a href={resolveWithin(generation.baseUrl, run.record.samples.path, "run")} target="_blank" rel="noreferrer">{run.record.samples.path}</a> · {run.record.samples.sha256} · {run.record.samples.byte_length} bytes</>} mono />
+          <Fact k="frames" v={run.record.frames ? <><a href={resolveWithin(generation.baseUrl, run.record.frames.path, "run")} target="_blank" rel="noreferrer">{run.record.frames.path}</a> · {run.record.frames.sha256} · {run.record.frames.byte_length} bytes</> : "none"} mono />
           {run.record.sources.map((s) => (
             <Fact key={s.path} k={s.kind} v={`${s.path} · ${s.sha256}`} mono />
           ))}
@@ -241,7 +231,7 @@ export function Inspector({ generation, caseRecord, run, moment, open }: Props) 
         </PagedFacts>
       </Section>
       </InspectorSection.Provider></div>
-    </aside></GlassCard>
+    </aside></SceneDetail>
   );
 }
 

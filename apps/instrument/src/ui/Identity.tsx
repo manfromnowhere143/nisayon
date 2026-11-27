@@ -1,17 +1,18 @@
+import { prepareRicci } from "../concepts/loadRicci";
 // The quiet identity line: case, task, stage, generation digest, the fixture
 // label when the manifest carries one, the ground control and the link.
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { GlassCard } from "../research/GlassCard";
+import { useLayoutEffect, useRef } from "react";
+import { WorkspaceMenu, type WorkspaceAction } from "./WorkspaceMenu";
+import { workspaceUtilities } from "./WorkspaceActions";
+import { InstrumentSymbol } from "./InstrumentSymbol";
+import { WorkspaceNavigation } from "./WorkspaceNavigation";
 import { StudyWorkspace } from "./StudyWorkspace";
 import type { CaseRecord, Generation } from "../model/types";
-import { shortSha } from "../model/types";
 import { useInstrumentState, useStore } from "../state/useStore";
-import { Icon } from "./Icon";
 import { BrandMark } from "./BrandMark";
 import { Choice } from "./Choice";
 import { openResearch } from "../research/navigation";
-import { AppAccessButton } from "../pwa/AppAccess";
 
 interface Props {
   generation: Generation;
@@ -23,8 +24,6 @@ export function Identity({ generation, caseRecord, active = true }: Props) {
   const store = useStore();
   const state = useInstrumentState();
   const header = useRef<HTMLElement>(null);
-  const [controls, setControls] = useState(false);
-  useEffect(() => { if (!active) setControls(false); }, [active]);
   useLayoutEffect(() => {
     const node = header.current;
     if (!node) return;
@@ -50,6 +49,19 @@ export function Identity({ generation, caseRecord, active = true }: Props) {
       ) : generation.cases.length > 1 ? (
         <div className="case-select"><Choice label="Case in this generation" value={caseRecord.case_key} options={generation.cases.map((entry) => ({ value: entry.case_key, label: entry.case_key }))} onChange={(value) => store.selectCase(value)} busy={state.pendingSelection !== null} /></div>
       ) : null;
+  const actions: WorkspaceAction[] = [
+    { id: "study", label: state.study?.pin ? "Return to study" : "Study", icon: <InstrumentSymbol name="study" />, onSelect: () => store.openStudy() },
+    { id: "sources", label: `Generation ${generation.sha256}; open the inspector's sources`, title: "Sources", icon: <InstrumentSymbol name="sources" />, onSelect: () => store.toggleInspector(true) },
+    ...(caseSelector ? [{ id: "recording", label: "Recorded experiment", icon: <InstrumentSymbol name="recording" />, content: <>
+      <label className="workspace-recording"><span>Recorded experiment</span><select aria-label="Choose a recorded experiment" value={caseRecord.case_key} onChange={event => state.library.length ? store.selectLibraryCase(event.target.value) : store.selectCase(event.target.value)}>
+        {state.library.length ? <>{!state.library.some(entry => entry.caseKey === caseRecord.case_key) ? <option value={caseRecord.case_key}>Current generation</option> : null}{state.library.map(entry => <option key={entry.caseKey} value={entry.caseKey}>{entry.caseId}</option>)}</> : generation.cases.map(entry => <option key={entry.case_key} value={entry.case_key}>{entry.case_key}</option>)}
+      </select></label>
+      {state.pendingSelection ? <p role="status">Opening recording…</p> : null}
+      {currentExport && currentExport.generation !== generation.sha256 ? <button type="button" className="export-update" onClick={() => store.selectLibraryCase(currentExport.caseKey)}>Open current export</button> : null}
+      {fixture ? <span className="fine">Development fixture</span> : null}
+    </> }] : []),
+    ...workspaceUtilities({ ground: state.ground, toggleGround: () => store.toggleGround(), copyLink: () => { void store.copyLink(); }, copyLabel: "Copy a link to this exact moment" }),
+  ];
   return (
     <header ref={header} className="identity">
       <a className="identity-brand" href="/" aria-label="Nisayon home" onClick={(event) => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && event.button === 0) { event.preventDefault(); openResearch("home"); } }}><BrandMark /><span>Nisayon</span></a>
@@ -70,28 +82,7 @@ export function Identity({ generation, caseRecord, active = true }: Props) {
       {caseSelector}
       {state.selectionIssue ? <p className="selection-notice" role="alert">Could not open that selection: {state.selectionIssue.message}. The previous verified experiment remains displayed. <button type="button" className="quiet" onClick={() => store.clearSelectionIssue()}>Dismiss</button></p> : null}
       {state.libraryIssue ? <span className="fine" role="status">Library unavailable · current source remains open</span> : null}
-      <button className="workspace-menu" aria-haspopup="dialog" onClick={() => setControls(true)} aria-label="Workspace controls"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg></button>
-      {active && controls ? <GlassCard title="Workspace controls" onClose={() => setControls(false)}><div className="identity-side">
-        {caseSelector ? <section className="workspace-recording" aria-label="Choose a recorded experiment"><p className="eyebrow">Recorded experiment</p>{caseSelector}</section> : null}
-        <AppAccessButton />
-        <button type="button" className="chip research-open" onClick={() => openResearch()}>Investigate ↗</button>
-        <button type="button" className="chip study-open" aria-haspopup="dialog" onClick={() => store.openStudy()}>{state.study?.pin ? "Return to study ↗" : "Study ↗"}</button>
-        {currentExport && currentExport.generation !== generation.sha256 ? <button type="button" className="chip export-update" onClick={() => store.selectLibraryCase(currentExport.caseKey)} title="Open the generation currently listed by the export catalog. Back returns to this pinned moment.">Open current export ↗</button> : null}
-        {fixture ? (
-          <span className="chip chip-warn" title={generation.label ?? ""}>
-            development fixture
-          </span>
-        ) : null}
-        <button type="button" className="chip mono" title={`generation ${generation.sha256}`} aria-label={`Generation ${generation.sha256}; open the inspector's sources`} onClick={() => store.toggleInspector(true)}>
-          {shortSha(generation.sha256)}
-        </button>
-        <button type="button" className="ibtn" aria-label={`Ground: ${state.ground}. Switch to ${state.ground === "black" ? "paper" : "black"}`} aria-pressed={state.ground === "paper"} onClick={() => store.toggleGround()}>
-          <Icon name="ground" />
-        </button>
-        <button type="button" className="ibtn" aria-label="Copy a link to this exact moment" onClick={() => void store.copyLink()}>
-          <Icon name="link" />
-        </button>
-      </div></GlassCard> : null}
+      <WorkspaceMenu active={active} label="Workspace" onOpen={prepareRicci} navigation={<WorkspaceNavigation current="lab" navigate={openResearch} prepareRicci={prepareRicci} />} actions={actions} />
       {state.copied !== "idle" ? (
         <p className="copied" role="status">
           {state.copied === "copied" ? "Link copied." : "Clipboard unavailable; copy from the inspector's link field."}

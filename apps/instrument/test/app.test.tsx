@@ -30,13 +30,13 @@ async function mount(search: string, readings = true): Promise<void> {
   await act(async () => {
     r.render(<App loader={options} />);
   });
-  await waitFor(() => container!.querySelector(".transport") !== null || container!.querySelector(".state") !== null);
-  // Analysis is now an explicit centered surface; preserve the existing
+  await waitFor(() => container!.querySelector(".scene-playback") !== null || container!.querySelector(".state") !== null);
+  // Analysis is an explicit scene detail; preserve the existing
   // evidence-agreement controls by opening it through its public affordance.
-  const evidence = container!.querySelector<HTMLButtonElement>('.workspace-actions button');
-  if (evidence) await act(async () => evidence.click());
+  const evidence = container!.querySelector<HTMLButtonElement>('.scene-evidence-control');
+  if (evidence && evidence.getAttribute("aria-expanded") !== "true") await act(async () => evidence.click());
   if (readings && container!.querySelector('.case-brief')) await act(async () => {
-    Array.from(container!.querySelectorAll<HTMLButtonElement>('.analysis-tab')).find((button) => button.textContent === "Readings")!.click();
+    Array.from(container!.querySelectorAll<HTMLButtonElement>('.case-brief button')).find((button) => button.textContent === "Inspect readings")!.click();
   });
 }
 
@@ -50,6 +50,14 @@ async function waitFor(predicate: () => boolean, timeout = 4000): Promise<void> 
   }
 }
 
+function selectedRow(): string {
+  return container!.querySelector('.scene-moment-control')?.getAttribute('aria-label')?.match(/row \d+/)?.[0] ?? '';
+}
+async function sceneCaption() {
+  await act(async () => container!.querySelector<HTMLButtonElement>('.scene-access button')!.click());
+  await act(async () => [...container!.querySelectorAll<HTMLButtonElement>('.scene-framing-secondary button')].find(b => b.textContent === 'Adjust view')!.click());
+  return text('.scene-caption .num');
+}
 function text(selector: string): string {
   return container!.querySelector(selector)?.textContent?.replace(/\s+/g, " ").trim() ?? "";
 }
@@ -81,7 +89,8 @@ describe("the instrument in a DOM", () => {
     await mount("", false);
     const selected = window.location.search;
     expect(container!.querySelector(".case-brief")).not.toBeNull();
-    expect(text(".scene-heading")).toContain("RECORDED SIMULATION");
+    expect(container!.querySelector(".scene-heading")).toBeNull();
+    expect(container!.querySelector(".scene-area > h1.sr-only")).not.toBeNull();
     const inspect = Array.from(container!.querySelectorAll<HTMLButtonElement>(".case-brief button")).find((button) => button.textContent?.startsWith("Inspect readings"))!;
     inspect.focus();
     await act(async () => inspect.click());
@@ -100,7 +109,7 @@ describe("the instrument in a DOM", () => {
   it("opens the computed first mismatch of the regression run and pins it in the URL", async () => {
     await mount("");
     expect(text(".finding-headline")).toBe("Gripper command reversed at step 0.");
-    expect(text(".transport-row")).toBe("row 0");
+    expect(selectedRow()).toBe("row 0");
     expect(text(".transport-time")).toBe("0.05 s");
     const params = new URLSearchParams(window.location.search);
     expect(params.get("r")).toBe("regression-0");
@@ -119,9 +128,9 @@ describe("the instrument in a DOM", () => {
     await press("ArrowRight");
     await press("ArrowRight");
     await press("p");
-    expect(text(".transport-row")).toBe("row 2");
+    expect(selectedRow()).toBe("row 2");
     expect(text(".transport-time")).toBe("0.10 s");
-    expect(text(".scene-caption .num")).toBe("before · 0.10 s");
+    expect(await sceneCaption()).toBe("before · 0.10 s");
     await press("i");
     const inspector = container!.querySelector("#inspector");
     expect(inspector).not.toBeNull();
@@ -137,30 +146,32 @@ describe("the instrument in a DOM", () => {
 
   it("returns keyboard focus to the inspector opener without changing the moment", async () => {
     await mount("");
-    await act(async () => container!.querySelector<HTMLButtonElement>(".glass-card-close")!.click());
-    const opener = container!.querySelector<HTMLButtonElement>('.tbtn[aria-controls="inspector"]')!;
+    await act(async () => container!.querySelector<HTMLButtonElement>(".scene-detail-heading > button")!.click());
+    await act(async () => container!.querySelector<HTMLButtonElement>('.workspace-menu')!.click());
+    await act(async () => container!.querySelector<HTMLButtonElement>('[aria-label="Tools"]')!.click());
+    const opener = container!.querySelector<HTMLButtonElement>('.workspace-tools-list button[aria-label^="Generation"]')!;
     expect(opener).not.toBeNull();
     opener.focus();
     await act(async () => opener.click());
     // The visible modal title owns focus; the embedded inspector's duplicate
     // heading is hidden. Keyboard focus must stay on the named dialog title.
     const dialog = container!.querySelector("#inspector")!.closest("dialog")!;
-    const title = dialog.querySelector(".glass-card-header h2")!;
-    expect(title.textContent).toBe("Source inspector");
+    const title = dialog.querySelector(".scene-detail-heading h2")!;
+    expect(title.textContent).toBe("Sources");
     expect(dialog.getAttribute("aria-labelledby")).toBe(title.id);
     expect(document.activeElement).toBe(title);
     expect(title.getAttribute("data-pointer-focus")).toBeNull();
     const selected = window.location.search;
     await act(async () => dialog.dispatchEvent(new Event("cancel", { cancelable: true })));
     expect(container!.querySelector("#inspector")).toBeNull();
-    expect(document.activeElement).toBe(opener);
+    expect(document.activeElement).toBe(container!.querySelector('.workspace-menu'));
     expect(window.location.search).toBe(selected);
   });
 
   it("switches to an actual aligned sample, reports a shorter recording and reloads the same view", async () => {
     await mount("");
     await press("End");
-    expect(text(".transport-row")).toBe("row 399");
+    expect(selectedRow()).toBe("row 399");
     await press("r");
     await waitFor(() => new URLSearchParams(window.location.search).get("r") !== "regression-0");
     const selected = new URLSearchParams(window.location.search).get("r");
@@ -171,7 +182,7 @@ describe("the instrument in a DOM", () => {
     const query = window.location.search;
     await mount(query);
     expect(text(".transport-time")).toBe("2.20 s");
-    expect(text(".transport-row")).toBe("row 43");
+    expect(selectedRow()).toBe("row 43");
   });
 
   it("opens Compare with the paired run as a ghost and preserves the fork locator", async () => {
@@ -189,7 +200,7 @@ describe("the instrument in a DOM", () => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
     await waitFor(() => container!.querySelector(".depth") === null);
-    expect(text(".transport-row")).toBe("row 0");
+    expect(selectedRow()).toBe("row 0");
   });
 
   it("refuses an out-of-range row and offers the computed default explicitly", async () => {
@@ -200,14 +211,14 @@ describe("the instrument in a DOM", () => {
     await act(async () => {
       (container!.querySelector(".state-actions button") as HTMLButtonElement).click();
     });
-    await waitFor(() => container!.querySelector(".transport") !== null);
-    expect(text(".transport-row")).toBe("row 0");
+    await waitFor(() => container!.querySelector(".scene-playback") !== null);
+    expect(selectedRow()).toBe("row 0");
   });
 
   it("reports corrupt bytes of another run as a notice and keeps the verified run displayed", async () => {
     // The tampered file is reference-0's samples; regression-0 verifies and opens normally.
     await mount("?evidence=dev-fixture-corrupt-child%2Fevidence.json");
-    expect(text(".transport-row")).toBe("row 0");
+    expect(selectedRow()).toBe("row 0");
     const reference = Array.from(container!.querySelectorAll(".segment")).find((b) => b.textContent?.includes("reference-0")) as HTMLButtonElement;
     await act(async () => {
       reference.click();
@@ -224,20 +235,20 @@ describe("the instrument in a DOM", () => {
     expect(container!.querySelector(".state-error")).not.toBeNull();
     expect(text(".state-kicker")).toBe("manifest · integrity");
     expect(text(".state-error")).toContain("expected");
-    expect(container!.querySelector(".transport")).toBeNull();
+    expect(container!.querySelector(".scene-playback")).toBeNull();
   });
 
   it("keeps original readings when frames are missing", async () => {
     await mount("?evidence=dev-fixture-missing-frames%2Fevidence.json&i=3");
     // The default run is regression-0, whose frames exist in this variant; reference-0's frames file is the missing one.
-    expect(text(".transport-row")).toBe("row 3");
+    expect(selectedRow()).toBe("row 3");
     const reference = Array.from(container!.querySelectorAll(".segment")).find((b) => b.textContent?.includes("reference-0")) as HTMLButtonElement;
     await act(async () => {
       reference.click();
     });
     await waitFor(() => text(".scene-unavailable-title") === "Reconstruction unavailable");
     expect(new URLSearchParams(window.location.search).get("r")).toBe("reference-0");
-    expect(text(".transport-row")).toBe("row 3");
+    expect(selectedRow()).toBe("row 3");
     expect(text(".transport-time")).toBe("0.20 s");
     expect(container!.querySelector(".lane")).not.toBeNull();
   });
@@ -267,7 +278,7 @@ describe("depths that read the frozen records", () => {
     expect(facts.some((f) => f.startsWith("verdict"))).toBe(true);
     expect(facts.find((f) => f.startsWith("condition id"))).toContain("seed-10000");
     // The moment itself did not move.
-    expect(text(".transport-row")).toBe("row 0");
+    expect(selectedRow()).toBe("row 0");
     await act(async () => {
       window.history.back();
       window.dispatchEvent(new PopStateEvent("popstate"));
@@ -335,7 +346,7 @@ describe("interrupted transitions", () => {
     await act(async () => window.dispatchEvent(new PopStateEvent("popstate")));
     await waitFor(() => container!.querySelector(".state-invalid") !== null);
     expect(text(".state-body")).toContain("row 9999 is outside");
-    expect(container!.querySelector(".transport")).toBeNull();
+    expect(container!.querySelector(".scene-playback")).toBeNull();
   });
 
   it("switches to D05, exposes the exact 10423 reason and opens its paired execution", async () => {
@@ -348,8 +359,12 @@ describe("interrupted transitions", () => {
     expect(text(".depth")).toContain("no sample locator");
     const inspect = Array.from(container!.querySelectorAll(".depth-actions button")).find((b) => b.textContent?.includes("confirmation-correction-10423")) as HTMLButtonElement;
     await act(async () => inspect.click());
-    await waitFor(() => text(".depth-anchor").includes("confirmation-correction-10423") && text(".scene-caption").includes("confirmation-reference-10423"));
-    expect(text(".transport-row")).toBe("row 0");
+    await waitFor(() => text(".depth-anchor").includes("confirmation-correction-10423"));
+    await sceneCaption();
+    expect(text(".scene-caption")).toContain("confirmation-reference-10423");
+    await act(async () => container!.querySelector<HTMLButtonElement>(".scene-detail-heading > button")!.click());
+    await act(async () => container!.querySelector<HTMLButtonElement>(".scene-evidence-control")!.click());
+    expect(selectedRow()).toBe("row 0");
     expect(new URLSearchParams(location.search).get("b")).toBe("3c9ccd073556053f3900f240b85972b5f657138b1b1e8e62dda8d841959b2b0b");
     await act(async () => history.back());
     await waitFor(() => text(".depth-title") === "Conditions");
@@ -358,7 +373,7 @@ describe("interrupted transitions", () => {
 
   it("keeps early links bound to the original D01 root", async () => {
     await mount("?g=0ee415adfbca09e60a090a2f545c4e9d1193cc8a057a7648b1486148207e93c7&i=344&p=after");
-    expect(text(".transport-row")).toBe("row 344");
+    expect(selectedRow()).toBe("row 344");
     expect(text(".transport-time")).toBe("17.25 s");
     expect(new URLSearchParams(location.search).get("evidence")).toBeNull();
   });
@@ -379,7 +394,7 @@ describe("interrupted transitions", () => {
     });
     expect(new URLSearchParams(window.location.search).get("r")).toBe("correction-exploration-0");
     expect(text(".finding-status")).toContain("task completed");
-    expect(text(".transport-row")).toBe("row 0");
+    expect(selectedRow()).toBe("row 0");
   });
 
   it("keeps the selected moment through a ground change and a resize", async () => {
@@ -389,7 +404,7 @@ describe("interrupted transitions", () => {
     await act(async () => {
       window.dispatchEvent(new Event("resize"));
     });
-    expect(text(".transport-row")).toBe("row 7");
+    expect(selectedRow()).toBe("row 7");
     expect(new URLSearchParams(window.location.search).get("p")).toBe("before");
     await press("t");
     expect(document.documentElement.getAttribute("data-ground")).toBe("black");
@@ -402,20 +417,20 @@ describe("recorded updates and selected readings", () => {
     const pin = "0ee415adfbca09e60a090a2f545c4e9d1193cc8a057a7648b1486148207e93c7";
     const query = `?g=${pin}&c=development-ablation-001%2FD01-gripper-sign%2FB&b=373e33e88bd43538a56ce7cf111e5db10519a0afe4f9bc5ae46340e4502d856a&r=regression-0&i=344&p=before`;
     await mount(query);
-    await act(async () => container!.querySelector<HTMLButtonElement>('[aria-label="Workspace controls"]')!.click());
+    await act(async () => container!.querySelector<HTMLButtonElement>('[aria-label="Workspace"]')!.click());
     await waitFor(() => container!.querySelector(".export-update") !== null);
     const before = window.location.search;
     const store = (window as unknown as { __nisayon: { store: import("../src/state/store").InstrumentStore } }).__nisayon.store;
     await act(async () => { await store.refreshLibrary(); });
     expect(window.location.search).toBe(before);
-    expect(text(".transport-row")).toBe("row 344");
-    expect(text(".scene-caption .num")).toBe("before · 17.20 s");
+    expect(selectedRow()).toBe("row 344");
+    expect(await sceneCaption()).toBe("before · 17.20 s");
     await act(async () => { (container!.querySelector(".export-update") as HTMLButtonElement).click(); });
     await waitFor(() => new URLSearchParams(location.search).get("g") !== pin);
     const published = await options.fetch("http://fixture.test/fixtures/ui/recorded/D01-gripper-sign/evidence.json").then(r => r.json()) as { manifest: { sha256: string } };
     expect(new URLSearchParams(location.search).get("g")).toBe(published.manifest.sha256);
     await act(async () => { history.back(); });
-    await waitFor(() => text(".transport-row") === "row 344");
+    await waitFor(() => selectedRow() === "row 344");
     expect(new URLSearchParams(location.search).get("g")).toBe(pin);
   });
   it("keeps action time and post-action reading time explicit as the selected row moves", async () => {
@@ -426,13 +441,13 @@ describe("recorded updates and selected readings", () => {
     const readings = Array.from(container!.querySelectorAll(".selected-readings > div")).map((node) => node.textContent);
     expect(readings[0]).toContain("0.10 s");
     expect(readings[2]).toContain("0.15 s");
-    expect(text(".scene-caption .num")).toBe("before · 0.10 s");
+    expect(await sceneCaption()).toBe("before · 0.10 s");
   });
   it("uses the D03 age finding for the transport event shortcut", async () => {
     await mount("?evidence=fixtures%2Fui%2Frecorded%2FD03-observation-backlog%2Fevidence.json");
     await press("End");
     await press("m");
-    expect(text(".transport-row")).toBe("row 1");
+    expect(selectedRow()).toBe("row 1");
     expect(text(".finding-detail")).toContain("50 ms");
   });
 });
@@ -446,24 +461,21 @@ describe("bounded dashboard records", () => {
     await act(async () => button!.click());
   }
 
-  it("retains every exact D10 finding in the fitted surface and full reading without moving the moment", async () => {
+  it("retains every exact D10 finding in the focused scroll surface without moving the moment", async () => {
     await mount("?evidence=fixtures/ui/recorded/D10-opaque-policy-state/evidence.json&d=decision");
-    const row = text(".transport-row");
+    const row = selectedRow();
     await clickVisible("Evaluator · 7");
     const reasons = Array.from(container!.querySelectorAll(".reason")).filter(visible);
     expect(reasons).toHaveLength(7);
     expect(container!.querySelectorAll('.flow-records[aria-label="Evaluator findings"]')).toHaveLength(1);
     const seen = reasons.map(reason => reason.textContent ?? "");
-    const flow = reasons[0]!.closest(".evidence-flow")!;
-    await act(async () => flow.querySelector<HTMLButtonElement>(".full-reading-link")!.click());
-    expect(flow.getAttribute("data-full-reading")).toBe("true");
-    expect(Array.from(flow.querySelectorAll(".reason")).map(reason => reason.textContent)).toEqual(seen);
-    await act(async () => flow.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true })));
-    expect(flow.getAttribute("data-full-reading")).toBe("false");
+    // All findings share the focused surface's internal scroll region.
+    expect(reasons.every(reason => !!reason.closest('.scene-detail-content'))).toBe(true);
+    expect(container!.querySelector('.full-reading-link')).toBeNull();
     expect(seen.join(" ")).toContain("reset_evidence_incomplete");
     expect(seen.join(" ")).toContain("0.8213408026614656");
     expect(seen.join(" ")).toContain("producer_validity_claim_ignored");
-    expect(text(".transport-row")).toBe(row);
+    expect(selectedRow()).toBe(row);
     await clickVisible("Confirmation");
     expect(Array.from(container!.querySelectorAll(".decision-block")).filter(visible)[0]!.textContent).toContain("No record referenced.");
   });
@@ -480,7 +492,7 @@ describe("bounded dashboard records", () => {
     expect(sections()).toHaveLength(1);
     expect(sections()[0]!.textContent).toContain("manifest");
     expect(sections()[0]!.textContent).toContain(new URLSearchParams(window.location.search).get("g"));
-    expect(text(".transport-row")).toBe("row 1");
+    expect(selectedRow()).toBe("row 1");
   });
 
   it("reads the actual diagnosis, costs and engine interface catalog without claiming a live worker", async () => {
@@ -499,7 +511,7 @@ describe("bounded dashboard records", () => {
       expect(spy).toHaveBeenCalledWith("/api/engine.json", expect.objectContaining({ cache: "no-cache" }));
       const endpoints = Array.from(container!.querySelectorAll<HTMLAnchorElement>(".endpoint-links a"));
       expect(endpoints.map((a) => a.getAttribute("href"))).toEqual(["/api/publication.json", "/fixtures/ui/study/evidence.json", "/api/engine.json", "/fixtures/ui/recorded/library.json"]);
-      expect(text(".transport-row")).toBe("row 0");
+      expect(selectedRow()).toBe("row 0");
     } finally { spy.mockRestore(); }
   });
 });

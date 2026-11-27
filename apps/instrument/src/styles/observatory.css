@@ -51,13 +51,12 @@ button:not(:disabled) { cursor: pointer; }
 .research-header-tools { gap: 4px; }
 .research-footer { color: var(--ink-3); opacity: .8; }
 .research-footer a { color: inherit; text-decoration: none; text-underline-offset: 4px; }
-.research-footer a:hover { text-decoration: underline; }
+@media (hover: hover) and (pointer: fine) {
+:where(:root:not([data-pointer-type="touch"])) .research-footer a:hover { text-decoration: underline; }
+}
 .research-micro { color: var(--ink-3); font-size: .625rem; letter-spacing: .14em; line-height: 1.6; }
 .research-action { min-height: 44px; border-radius: 12px; padding: 11px 20px; }
 .research-text-action { min-height: 44px; }
-.investigate-mode { position: fixed; top: 19px; left: 50%; transform: translateX(-50%); z-index: 105; display: flex; padding: 3px; border: 1px solid var(--glass-rim); border-radius: 30px; background: var(--glass); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-.investigate-mode button { min-height: 36px; min-width: 82px; padding: 6px 16px; border: 0; border-radius: 25px; background: none; font-size: .75rem; color: var(--ink-3); }
-.investigate-mode button[aria-pressed="true"] { background: var(--selected); box-shadow: inset 0 0 0 1px var(--glass-rim); color: var(--ink); }
 .instrument-dock { border-radius: 24px; background: var(--glass); box-shadow: inset 0 1px 0 var(--glass-sheen), 0 12px 45px #0003; }
 .instrument-dock .research-dock::before { display: none; }
 .research-dock > button { color: var(--ink-3); transition: color 180ms, background 180ms; }
@@ -114,7 +113,8 @@ button:not(:disabled) { cursor: pointer; }
 .glass-card-close { width: 44px; height: 44px; }
 .glass-card-header { gap: 12px; }
 .glass-card-header h2 { color: var(--ink); font-size: 1.2rem; overflow-wrap: anywhere; }
-.glass-card-content { overflow: hidden; }
+.glass-card-content { overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.research-glass-card .glass-card-content :is(.section-deck,.deck-content,.deck-panel,.inspector-content,.reading-content,.study-detail-content,.study-trials,.study-report) { flex: none; min-height: auto; height: auto; overflow: visible; }
 .research-glass-card .evidence-flow { min-height: 0; }
 .instrument-root .app .scene-area { visibility: visible; }
 .instrument-root .app .research-glass-card .inspector { position: static; inset: auto; padding: 0; border: 0; border-radius: 0; box-shadow: none; width: 100%; height: 100%; max-height: none; overflow: hidden; }
@@ -248,7 +248,9 @@ button:not(:disabled) { cursor: pointer; }
 .develop-actions { display: flex; align-items: center; gap: 24px; }
 .develop-actions > span { margin-left: auto; font-size: .65rem; color: var(--ink-3); }
 @media (hover: hover) {
-  .workspace-actions button:hover, .workspace-menu:hover, .probe-tile:hover, .record-field:hover { background: var(--selected); border-color: var(--rule-strong); }
+  @media (hover: hover) and (pointer: fine) {
+  :where(:root:not([data-pointer-type="touch"])) .workspace-actions button:hover, :where(:root:not([data-pointer-type="touch"])) .workspace-menu:hover, :where(:root:not([data-pointer-type="touch"])) .probe-tile:hover, :where(:root:not([data-pointer-type="touch"])) .record-field:hover { background: var(--selected); border-color: var(--rule-strong); }
+  }
 }
 @media (max-width: 1000px) {
   .identity > .case-select { display: none; }
@@ -269,8 +271,6 @@ button:not(:disabled) { cursor: pointer; }
   .identity-brand span { display: none; }
   .identity .case-select { max-width: calc(100vw - 220px); margin-left: auto; }
   .identity .case-select .choice-trigger { font-size: .6rem; }
-  .investigate-mode { top: 6px; left: 50%; transform: translateX(-50%); }
-  .investigate-mode button { min-width: 66px; padding: 5px 12px; min-height: 44px; font-size: .75rem; }
   .research-workspace[data-view="qualify"] .research-brand span { display: none; }
   .research-workspace[data-view="qualify"] .research-header-tools { margin-left: auto; }
   .workspace-actions { top: 138px; right: 24px; flex-direction: column; gap: 6px; }
@@ -364,7 +364,7 @@ button:not(:disabled) { cursor: pointer; }
   .review-summary { padding-block: 12px; gap: 12px; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  .instrument-dock, .investigate-mode, .workspace-actions button, .retained-lab .view-controls { background: var(--glass-opaque); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .instrument-dock, .workspace-actions button, .retained-lab .view-controls { background: var(--glass-opaque); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .research-glass-card { background: var(--glass-opaque); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .research-glass-card::backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
@@ -380,3 +380,9 @@ button:not(:disabled) { cursor: pointer; }
   .review-question { display: none; }
   .command-description { display: none; }
 }
+
+/* One global dock; these links identify the tool's home, not another mode bar. */
+.workspace-context{display:flex;align-items:center;justify-content:space-between;gap:16px;flex:none;font:9px var(--mono);letter-spacing:.06em;color:var(--ink-3)}
+.workspace-context button{min-height:44px;font:12px var(--sans)}
+.system-toolbar .library-records{margin-left:auto;min-height:44px;white-space:nowrap}
+@media(max-width:760px){.system-toolbar{flex-wrap:wrap}.system-toolbar .library-records{margin-left:0}.system-toolbar .system-coordinate{margin-left:auto}}

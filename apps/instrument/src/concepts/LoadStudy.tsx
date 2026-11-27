@@ -42,12 +42,12 @@ export function LoadStudy() {
       <input type="range" min={control.min} max={control.max} step={control.step} value={inputs[control.key]} aria-label={control.label} aria-valuetext={`${control.key === "share" ? Math.round(inputs.share * 100) : inputs[control.key]} ${control.unit}`} onChange={event => set(control.key, event.currentTarget.valueAsNumber)} />
     </label>)}</div>
     <p className="concept-fine">Schematic, not to scale. Assumed per arm: 4 kg, centre of mass 0.25 m from the shoulder. Horizontal, static arms; vertical supports; chosen load split. This does not establish an actuator rating, grasp feasibility or balance.</p>
-    <button className="concept-text-button" aria-expanded={showDerivation} onClick={() => setShowDerivation(value => !value)}> {showDerivation ? "Hide" : "Inspect"} the calculation <span aria-hidden="true">↗</span></button>
+    <button className="concept-text-button" aria-expanded={showDerivation} onClick={() => setShowDerivation(value => !value)}> {showDerivation ? "Hide" : "Inspect"} the calculation </button>
     {showDerivation ? <div className="load-derivation">
       <p><code>τL = mₐ g rₐ + α mₚ g rₚ</code><br /><code>τR = mₐ g rₐ + (1 − α) mₚ g rₚ</code></p>
       <p>Each arm contributes {result.armMoment.toFixed(3)} N·m. The two vertical supports sum to {result.totalPayloadN.toFixed(2)} N. The selected load split is assumed; it is not solved from tray contact geometry.</p>
       <p>Acceleration, joint friction, transmissions, asymmetry in arm pose, torque–speed limits, heating and contact stability are outside this model. Motor selection needs those constraints and measurements.</p>
-      <a href="/media/ricci/study-sources.txt" target="_blank" rel="noopener">Read the study inputs and source boundary ↗</a>
+      <a href="/media/ricci/study-sources.txt" target="_blank" rel="noopener">Read the study inputs and source boundary</a>
     </div> : null}
     <button className="concept-text-button" onClick={() => setInputs(INITIAL_LOAD)}>Reset study inputs</button>
   </div>;

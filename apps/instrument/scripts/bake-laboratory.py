@@ -3,7 +3,6 @@
 Run export-laboratory.mjs, then Blender --background --python this-file.
 Outputs are concept lighting assets, not a measured building or digital twin.
 """
-
 import hashlib
 import json
 import math
@@ -33,7 +32,7 @@ scene.render.threads = 6
 scene.view_settings.view_transform = "Standard"
 scene.view_settings.look = "None"
 scene.world.use_nodes = True
-scene.world.node_tree.nodes["Background"].inputs["Color"].default_value = (0.58, 0.73, 0.83, 1)
+scene.world.node_tree.nodes["Background"].inputs["Color"].default_value = (.58, .73, .83, 1)
 scene.world.node_tree.nodes["Background"].inputs["Strength"].default_value = 1.25
 
 materials = {}
@@ -50,10 +49,8 @@ for entry in source["materials"]:
 convert = Matrix(((1, 0, 0, 0), (0, 0, -1, 0), (0, 1, 0, 0), (0, 0, 0, 1)))
 floor = None
 for entry in source["meshes"]:
-    positions = [
-        Vector(entry["positions"][i : i + 3]) for i in range(0, len(entry["positions"]), 3)
-    ]
-    triangles = [entry["indices"][i : i + 3] for i in range(0, len(entry["indices"]), 3)]
+    positions = [Vector(entry["positions"][i:i+3]) for i in range(0, len(entry["positions"]), 3)]
+    triangles = [entry["indices"][i:i+3] for i in range(0, len(entry["indices"]), 3)]
     vertices, faces = [], []
     for values in entry["transforms"]:
         matrix = convert @ Matrix([values[i::4] for i in range(4)])
@@ -72,26 +69,22 @@ for entry in source["meshes"]:
         for polygon in mesh.polygons:
             for loop in polygon.loop_indices:
                 index = mesh.loops[loop].vertex_index
-                uv.data[loop].uv = entry["uv"][2 * index : 2 * index + 2]
+                uv.data[loop].uv = entry["uv"][2*index:2*index+2]
 
 sun_data = bpy.data.lights.new("Architectural daylight", "SUN")
 sun_data.energy = 3
 sun_data.angle = math.radians(2)
-sun_data.color = (1, 0.92, 0.81)
+sun_data.color = (1, .92, .81)
 sun = bpy.data.objects.new("Architectural daylight", sun_data)
 scene.collection.objects.link(sun)
 sun.location = convert @ Vector((-8, 10, -6))
-sun.rotation_euler = (
-    ((convert @ Vector((0, 0, -2))) - sun.location).to_track_quat("-Z", "Y").to_euler()
-)
+sun.rotation_euler = ((convert @ Vector((0, 0, -2))) - sun.location).to_track_quat("-Z", "Y").to_euler()
 
 assert floor is not None
 bpy.ops.object.select_all(action="DESELECT")
 floor.select_set(True)
 bpy.context.view_layer.objects.active = floor
-lightmap = bpy.data.images.new(
-    "Static indirect floor irradiance", width=1024, height=1024, float_buffer=True
-)
+lightmap = bpy.data.images.new("Static indirect floor irradiance", width=1024, height=1024, float_buffer=True)
 node = floor.active_material.node_tree.nodes.new("ShaderNodeTexImage")
 node.image = lightmap
 floor.active_material.node_tree.nodes.active = node
@@ -114,7 +107,7 @@ camera = bpy.data.objects.new("Bay reflection probe", camera_data)
 scene.collection.objects.link(camera)
 camera.location = convert @ Vector((0, 1.1, 0))
 # Three's equirectangular u=.5 faces +X, with +Z to the image's right.
-camera.rotation_euler = (math.pi / 2, 0, -math.pi / 2)
+camera.rotation_euler = (math.pi/2, 0, -math.pi/2)
 scene.camera = camera
 scene.render.resolution_x = 1024
 scene.render.resolution_y = 512
@@ -130,11 +123,7 @@ manifest = {
     "export_sha256": hashlib.sha256(source_bytes).hexdigest(),
     "method": "Cycles; 64 samples; 4 diffuse and glossy bounces; floor indirect diffuse only, reduced from 1024 to 512 pixels and encoded as 8-bit sRGB; denoised 1024x512 equirectangular radiance from the empty bay",
     "scope": "Static building geometry only. No recorded robot, task, physics, sensor or NVIDIA runtime.",
-    "assets": {
-        p.name: {"bytes": p.stat().st_size, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
-        for p in PUBLIC.iterdir()
-        if p.suffix in (".png", ".hdr")
-    },
+    "assets": {p.name: {"bytes": p.stat().st_size, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in PUBLIC.iterdir() if p.suffix in (".png", ".hdr")},
 }
 (PUBLIC / "sources.json").write_text(json.dumps(manifest, indent=2) + "\n")
 bpy.ops.wm.save_as_mainfile(filepath=str(ARTIFACT / "laboratory-lighting.blend"))

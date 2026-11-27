@@ -1,0 +1,363 @@
+/* The laboratory remains the surface. Controls carry their own ink and focus,
+   without cards, backdrop filters or another continuously composited layer. */
+.workspace-popover.workspace-popover-rail,
+.workspace-popover.workspace-popover-actions {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  overflow: visible;
+}
+.workspace-popover.workspace-popover-rail { pointer-events: none; }
+.workspace-popover-rail > .workspace-popover-content {
+  position: relative;
+  display: block;
+  overflow: visible;
+  padding-top: 54px;
+}
+.workspace-popover-rail .workspace-rail-list {
+  display: grid;
+  width: 48px;
+  margin-left: auto;
+  gap: 4px;
+  max-height: max(0px,calc(var(--workspace-available-height, 100dvh) - 54px));
+  overflow-y: auto;
+  scrollbar-width: none;
+  pointer-events: auto;
+  overscroll-behavior: contain;
+}
+.workspace-popover-rail .workspace-rail-list[hidden] { display: none; }
+.workspace-popover-rail .workspace-destinations { width: 48px; gap: 4px; }
+/* Adjacent 48px targets: the small appearance mark sits close to the cube
+   without an empty utility row or overlapping touch areas. */
+.workspace-tool-rail { position: absolute; top: 0; right: 48px; display: flex; pointer-events: auto; }
+.workspace-popover-actions > .workspace-popover-content { display: grid; gap: 4px; padding: 0; overflow-y: auto; scrollbar-width: none; }
+.workspace-popover.workspace-popover-rail .workspace-destinations button,
+.workspace-popover .workspace-tool,
+.workspace-popover .workspace-actions-list button.workspace-tool {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #edf2f5;
+}
+.workspace-popover-rail .workspace-destinations button > span,
+.workspace-popover-rail .workspace-destinations button > i { display: none; }
+.workspace-popover-rail .workspace-destinations button > svg,
+.workspace-popover .workspace-tool > svg {
+  width: 28px;
+  height: 28px;
+  color: inherit;
+  filter: drop-shadow(0 1px 1px #000d) drop-shadow(0 0 3px #0007);
+}
+.workspace-popover.workspace-popover-rail .workspace-destinations button { color: #fff; padding: 8px; }
+.workspace-popover-rail .workspace-destinations button > svg { width: 32px; height: 32px; stroke-width: 1.65; }
+.workspace-popover .workspace-tools-trigger > svg { width: 24px; height: 24px; }
+.workspace-popover .workspace-appearance > svg { width: 22px; height: 22px; stroke-width: 1.5; }
+.workspace-popover.workspace-popover-rail .workspace-destinations button[aria-current="page"] {
+  background: transparent;
+  color: #fff;
+  text-decoration: none;
+}
+.workspace-popover-rail .workspace-destinations button[aria-current="page"] svg { stroke-width: 1.9; }
+.workspace-popover-rail button:focus-visible { color: #fff; background: transparent; }
+/* The Lab keeps white scene ink; reading workspaces follow their chosen ground. */
+:root[data-ground="paper"] .instrument-navigation:not([data-surface="concepts"]) .workspace-popover {
+  --menu-ink: #25282c;
+  --menu-muted: #4b525a;
+  --ink: #25282c;
+  color: var(--menu-ink);
+  text-shadow: none;
+}
+:root[data-ground="paper"] .instrument-navigation:not([data-surface="concepts"]) .workspace-popover :is(.workspace-tool, .workspace-destinations button) { color: var(--menu-ink); }
+:root[data-ground="paper"] .instrument-navigation:not([data-surface="concepts"]) .workspace-popover svg { filter: none; }
+/* Ricci owns a dark exhibit even when the saved reading ground is paper. */
+.instrument-navigation[data-surface="concepts"] { --ink: #edf1f3; color: var(--ink); }
+.instrument-navigation[data-surface="concepts"] .workspace-popover { --menu-ink: #edf1f3; --menu-muted: #c5d0d8; }
+@media (hover:hover) and (pointer:fine) {
+  :where(:root:not([data-pointer-type="touch"])) .workspace-popover-rail button:hover { color: #fff; background: transparent; }
+}
+.workspace-popover-rail .workspace-popover {
+  --ground: transparent;
+  --ground-2: transparent;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  text-shadow: 0 1px 3px #000, 0 2px 12px #0009;
+  pointer-events: auto;
+}
+.workspace-popover-rail .workspace-recording > span { display: none; }
+.workspace-popover-rail .workspace-recording select { background: transparent; border: 0; border-bottom: 1px solid #e3edf350; border-radius: 0; color: #e8eff3; }
+
+/* Opposing anchors share exact 48px hit areas, regardless of glyph size. */
+.retained-lab .identity > .workspace-menu {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  padding: 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+/* Enlarge the main glyph without moving its rail or shrinking its hit area. */
+button.workspace-menu[data-workspace-navigation="true"] { padding: 6px; }
+button.workspace-menu[data-workspace-navigation="true"] > svg { width: 36px; height: 36px; }
+.retained-lab .scene-access {
+  top: calc(104px + var(--safe-top));
+  left: max(28px, var(--safe-left));
+  right: auto;
+}
+.scene-framing .scene-framing-current {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  padding: 0;
+}
+.scene-framing .scene-framing-current svg { width: 42px; height: 32px; }
+/* Match the destination rail's matte white and tight optical edge. No glow
+   surface, animated lighting, or full-screen compositing layer. */
+.scene-framing button { color: #fff; }
+.scene-framing button svg { stroke-width: 1.8; filter: drop-shadow(0 1px 1px #000d) drop-shadow(0 0 3px #0007); }
+.scene-framing .scene-framing-options button svg { width: 34px; height: 28px; }
+.scene-framing .scene-framing-options { left: calc(100% + 14px); right: auto; }
+.scene-framing .scene-framing-secondary { left: 0; right: auto; }
+.scene-framing .scene-framing-secondary button { justify-content: flex-start; }
+.retained-lab .scene-selection {
+  top: calc(96px + var(--safe-top));
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 190px);
+  justify-content: center;
+}
+.retained-lab .selected-part-control { font-size: .8125rem; }
+.retained-lab .selected-part-control small { font-size: .75rem; }
+
+/* Shared floating reading language. Data, source links and exact values remain
+   native text; content scrolls only when the available viewport requires it. */
+.retained-lab .scene-detail {
+  --ink: #f1f4f6;
+  --ink-2: #e0e7ec;
+  --ink-3: #d4dfe5;
+  --rule: #e3edf330;
+  --rule-strong: #e3edf350;
+  --ground: transparent;
+  --ground-2: transparent;
+  --glass: transparent;
+  --selected: transparent;
+  color: var(--ink);
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0 4px;
+  text-shadow: 0 1px 3px #000, 0 2px 12px #0009;
+  font-size: .8125rem;
+  animation: none;
+  bottom: calc(150px + var(--safe-bottom));
+  max-height: min(540px, calc(100dvh - 250px - var(--safe-top) - var(--safe-bottom)));
+}
+.retained-lab .scene-detail-heading { align-items: center; margin: 0 0 6px; min-height: 44px; }
+.retained-lab .scene-detail-heading h2 { font-size: .875rem; font-weight: 450; letter-spacing: .015em; }
+.retained-lab .scene-detail-heading p { font-size: .75rem; margin-top: 2px; }
+.retained-lab .scene-detail-heading > button { margin: 0 -4px 0 8px; padding: 12px; }
+.retained-lab .scene-detail button { text-shadow: inherit; box-shadow: none; }
+.retained-lab .scene-detail :is(.quiet, .analysis-tab, .section-tab, .choice-trigger, .overlay-tools button, .recorded-timeline button, .part-details, .case-brief-path button) {
+  background: transparent;
+  border-radius: 0;
+  color: inherit;
+}
+.retained-lab .scene-detail :is(.analysis-tab[aria-pressed="true"], .section-tab.is-selected, .overlay-tools button[aria-pressed="true"]) {
+  background: transparent;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 7px;
+  text-decoration-thickness: 1px;
+}
+.retained-lab .scene-detail .analysis-nav { gap: 0 8px; margin-bottom: 14px; }
+.retained-lab .scene-detail .analysis-tab { font-size: .8125rem; padding: 4px 0; margin-right: 10px; }
+.retained-lab .scene-detail .choice-trigger { border: 0; border-bottom: 1px solid var(--rule); padding: 6px 0; }
+.retained-lab .scene-detail :is(.case-brief-finding, .case-brief-decisions, .brief-command, .case-brief-status, .case-brief-scope) { background: transparent; box-shadow: none; border-radius: 0; }
+.retained-lab .scene-detail .case-brief-finding h3 { font-size: 1.25rem; line-height: 1.3; font-weight: 450; margin: 0 0 16px; }
+.retained-lab .scene-detail .brief-command { padding: 0; margin: 12px 0; gap: 28px; }
+.retained-lab .scene-detail .brief-command dd { font-size: 1rem; font-weight: 450; }
+.retained-lab .scene-detail .case-brief-status { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-block: 16px; }
+.retained-lab .scene-detail .case-brief-status dt { font-size: .75rem; }
+.retained-lab .scene-detail .case-brief-status dd { font-size: .8125rem; }
+.retained-lab .scene-detail .case-brief-sources { align-items: center; }
+.retained-lab .scene-detail .case-brief-sources button { background: transparent; padding-inline: 0; font-size: .8125rem; }
+.retained-lab .scene-detail :is(.case-brief-detail,.brief-scope,.brief-qualification) { font-size: .8125rem; line-height: 1.6; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] :is(.brief-qualification,.case-brief-status,.brief-scope,.case-brief-detail) { display: none; }
+.retained-lab .case-brief[data-compact="true"] .brief-summary { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 12px; color: var(--ink-2); font-size: .75rem; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] .case-brief-sources { justify-content: center; margin: 0; }
+.retained-lab .case-brief[data-compact="true"] .case-brief-finding h3 { font-size: 1rem; margin-bottom: 8px; }
+.retained-lab .case-brief[data-compact="true"] .brief-command { margin-block: 8px; }
+.retained-lab .case-brief[data-compact="true"] .brief-command dd { font-size: .9375rem; margin-top: 3px; }
+.retained-lab .scene-detail-reading {
+  left: max(18px,var(--safe-left));
+  right: max(18px,var(--safe-right));
+  width: auto;
+  max-width: 480px;
+  margin-inline: auto;
+  bottom: calc(82px + var(--safe-bottom));
+  max-height: min(540px,calc(100dvh - 250px - var(--safe-top) - var(--safe-bottom)));
+}
+.retained-lab .scene-detail-reading:has(.case-brief[data-expanded="false"]) {
+  left: max(18px,var(--safe-left));
+  right: max(18px,var(--safe-right));
+  width: auto;
+  max-width: 480px;
+  margin-inline: auto;
+  bottom: calc(82px + var(--safe-bottom));
+}
+.retained-lab .scene-detail-reading:has(.case-brief[data-expanded="false"]) .scene-detail-heading { position: absolute; top: 0; right: 0; z-index: 1; margin: 0; }
+.retained-lab .scene-detail-reading:has(.case-brief[data-expanded="false"]) .scene-detail-heading > div { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.retained-lab .scene-detail-reading:has(.case-brief[data-expanded="false"]) .scene-detail-heading > button { margin: 0; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] { text-align: center; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] .case-brief-finding h3 { max-width: min(28ch,calc(100% - 88px)); margin: 0 auto 6px; text-wrap: balance; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] .brief-summary { justify-content: center; gap: 6px 16px; margin-bottom: 6px; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] .brief-command { justify-content: center; grid-template-columns: repeat(2,minmax(0,140px)); gap: 32px; margin-inline: auto; }
+.retained-lab .case-brief[data-compact="true"][data-expanded="false"] .brief-command > div { text-align: center; }
+
+/* Moment is one live instrument above the persistent playback axis. */
+.retained-lab .scene-detail-moment {
+  left: max(18px,var(--safe-left));
+  right: max(18px,var(--safe-right));
+  width: auto;
+  max-width: 420px;
+  margin-inline: auto;
+  bottom: calc(82px + var(--safe-bottom));
+}
+.instrument-root .scene-playback { grid-template-columns: 44px minmax(0,1fr) 64px 64px; }
+.instrument-root .scene-evidence-control { position: static; align-items: center; font-size: .6875rem; }
+.instrument-root .scene-moment-control { align-items: center; }
+.instrument-root .scene-playback button[aria-expanded="true"] > span { text-decoration: underline; text-underline-offset: 4px; }
+.retained-lab .scene-detail-moment .moment-inspection { gap: 0; padding: 0; height: auto; }
+.retained-lab .scene-detail-moment .scene-detail-heading { position: absolute; top: 0; right: 0; z-index: 1; margin: 0; }
+.retained-lab .scene-detail-moment .scene-detail-heading > div { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.retained-lab .scene-detail-moment .scene-detail-heading > button { margin: 0; }
+.retained-lab .scene-detail-heading > button svg { display: block; width: 20px; height: 20px; filter: drop-shadow(0 1px 3px #000); }
+.retained-lab .scene-detail-moment .inspection-steps { width: 300px; max-width: calc(100% - 88px); margin: 0 auto 6px; border: 0; }
+.retained-lab .scene-detail-moment .inspection-steps button { padding: 4px; font-size: .75rem; background: transparent; border: 0; text-align: center; }
+.retained-lab .scene-detail-moment .inspection-steps button[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 7px; }
+.retained-lab .scene-detail-moment .inspection-body { margin: 0 auto; gap: 0; max-width: 300px; min-height: 92px; align-content: start; }
+.retained-lab .scene-detail-moment .inspection-context { justify-content: center; font-size: .6875rem; margin: 0 0 8px; }
+.retained-lab .scene-detail-moment .inspection-measures { margin: 0; padding: 0; gap: 18px; }
+.retained-lab .scene-detail-moment .inspection-measures > div { padding: 0; background: transparent; border: 0; gap: 3px; text-align: center; }
+.retained-lab .scene-detail-moment .inspection-command { gap: 12px; }
+.retained-lab .scene-detail-moment .inspection-command > div { gap: 3px; text-align: center; }
+.retained-lab .scene-detail-moment :is(.inspection-measures strong,.inspection-command strong) { font-size: 1.0625rem; font-weight: 450; font-variant-numeric: tabular-nums; letter-spacing: -.025em; }
+.retained-lab .scene-detail-moment :is(.inspection-measures span,.inspection-command span,.inspection-measures small) { font-size: .75rem; }
+.retained-lab .scene-detail-moment .inspection-result-note { text-align: center; font-size: .6875rem; margin: 8px 0 0; }
+.retained-lab .scene-detail-moment .inspection-result-note span { color: var(--ink-2); }
+.retained-lab .scene-detail-moment .inspection-details { display: grid; gap: 12px; padding: 12px 0 0; border-top: 1px solid var(--rule); }
+.retained-lab .scene-detail-moment .inspection-details[hidden] { display: none; }
+.retained-lab .scene-detail-moment .moment-clock { padding: 0; background: none; }
+.retained-lab .scene-detail-moment .moment-clock svg { height: 20px; margin: 4px 0 0; }
+.retained-lab .scene-detail-moment .moment-clock-values b { font-size: .8125rem; }
+.retained-lab .scene-detail-moment .inspection-source { padding-block: 4px; font-size: .75rem; }
+.retained-lab .scene-detail-moment .inspection-source button { border: 0; background: transparent; padding: 4px; font-size: inherit; }
+.retained-lab .scene-detail-moment .inspection-actions { justify-content: center; gap: 20px; margin: 0; }
+.retained-lab .scene-detail-moment .inspection-explanation { font-size: .75rem; }
+
+/* A short finding invites interaction. Record, decision and scope are separate
+   native disclosures rather than one expanded report over the equipment. */
+.retained-lab .case-brief .brief-explore { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 20px; margin-top: 8px; }
+.retained-lab .case-brief .brief-explore button { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px; border: 0; background: transparent; font: .8125rem/1.3 var(--sans); }
+.retained-lab .case-brief .brief-explore button span { font-size: 1rem; }
+.retained-lab .case-brief > .case-brief-sources { justify-content: center; margin-top: 0; }
+.retained-lab .case-brief > .case-brief-sources button { display: flex; align-items: center; gap: 7px; padding-inline: 12px; }
+.retained-lab .case-brief .case-brief-more { margin-top: 8px; border-top: 1px solid var(--rule); }
+.retained-lab .case-brief-more > details { margin: 0; border-bottom: 1px solid var(--rule); }
+.retained-lab .case-brief-more > details > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 4px 0; font-size: .8125rem; cursor: pointer; list-style: none; }
+.retained-lab .case-brief-more > details > summary::-webkit-details-marker { display: none; }
+.retained-lab .case-brief-more > details > summary::after { content: "+"; }
+.retained-lab .case-brief-more > details[open] > summary::after { content: "−"; }
+.retained-lab .case-brief-more .brief-detail-body { padding: 0 0 12px; }
+.retained-lab .case-brief-more .brief-detail-body > p { font-size: .75rem; margin: 4px 0 10px; }
+.retained-lab .case-brief-more .case-brief-status { margin-block: 12px; }
+.retained-lab .case-brief-more .case-brief-decisions dl { margin: 8px 0 12px; }
+
+/* Camera/body tools open from the left anchor, keeping navigation independent. */
+.retained-lab .scene-detail.scene-detail-selector {
+  left: max(28px,var(--safe-left));
+  right: auto;
+  top: calc(162px + var(--safe-top));
+  bottom: auto;
+  width: min(300px,calc(100vw - 100px));
+  max-height: calc(100dvh - 270px - var(--safe-top) - var(--safe-bottom));
+  padding: 0;
+}
+.retained-lab .scene-detail-selector .scene-adjustments { margin: 0; }
+.retained-lab .scene-detail-selector .section-tabs { margin: 0 0 10px; }
+.retained-lab .scene-detail-selector .section-tab { flex: none; padding: 4px 0; margin-right: 20px; font-size: .8125rem; }
+.retained-lab .scene-detail-selector .overlay-tools { display: flex; flex-wrap: wrap; gap: 2px 18px; margin-top: 8px; }
+.retained-lab .scene-detail-selector .overlay-tools button { padding: 4px 0; font-size: .8125rem; }
+.retained-lab .scene-detail-selector .part-picker { grid-template-columns: minmax(0,1fr) auto; gap: 6px 12px; align-items: center; }
+.retained-lab .scene-detail-selector .part-picker > span { grid-column: 1/-1; font-size: .75rem; }
+.retained-lab .scene-detail-selector .scene-source-choice { margin-top: 10px; }
+.retained-lab .scene-detail-selector .scene-caption { margin: 2px 0 0; font-size: .75rem; }
+
+@media (max-width:700px) {
+  .retained-lab .scene-access { top: calc(91px + var(--safe-top)); left: max(16px,var(--safe-left)); right: auto; }
+  .retained-lab .scene-detail { left: max(18px,var(--safe-left)); right: max(18px,var(--safe-right)); width: auto; max-width: 580px; max-height: calc(100dvh - 244px - var(--safe-top) - var(--safe-bottom)); }
+  .retained-lab .scene-selection { top: calc(82px + var(--safe-top)); max-width: calc(100% - 140px); }
+  .retained-lab .selected-part-control { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .retained-lab .scene-detail.scene-detail-selector { left: max(18px,var(--safe-left)); right: auto; top: calc(147px + var(--safe-top)); width: min(300px,calc(100vw - 90px)); max-height: calc(100dvh - 249px - var(--safe-top) - var(--safe-bottom)); }
+}
+@media (orientation:landscape) and (max-height:500px) {
+  .retained-lab .scene-access { top: calc(74px + var(--safe-top)); }
+  .retained-lab .scene-detail { top: calc(70px + var(--safe-top)); bottom: calc(90px + var(--safe-bottom)); max-height: none; width: auto; }
+  .retained-lab .scene-detail-moment { max-width: 440px; top: auto; bottom: calc(72px + var(--safe-bottom)); max-height: calc(100dvh - 160px - var(--safe-top) - var(--safe-bottom)); }
+  .retained-lab .scene-detail.scene-detail-selector { top: calc(128px + var(--safe-top)); bottom: calc(80px + var(--safe-bottom)); max-height: none; width: min(300px,36vw); }
+  .retained-lab .scene-detail-reading { top: auto; bottom: calc(72px + var(--safe-bottom)); max-width: 440px; max-height: calc(100dvh - 160px - var(--safe-top) - var(--safe-bottom)); }
+  .retained-lab .scene-detail-reading:has(.case-brief[data-expanded="false"]) { top: auto; bottom: calc(72px + var(--safe-bottom)); max-width: 440px; max-height: calc(100dvh - 160px - var(--safe-top) - var(--safe-bottom)); }
+}
+@media (forced-colors:active) {
+  .retained-lab .scene-detail,.workspace-popover.workspace-popover-rail,.workspace-popover-rail .workspace-popover { background: Canvas; color: CanvasText; text-shadow: none; border: 1px solid CanvasText; }
+  .workspace-popover-rail .workspace-destinations button,.workspace-popover .workspace-tool { color: ButtonText; }
+}
+
+/* Evidence and Sources have a left reading area on a wide scene. Phones retain
+   the lower reading position, with long records scrolling above transport. */
+.retained-lab .scene-detail.scene-detail-reading.scene-side-reading {
+  top: auto;
+  bottom: calc(88px + var(--safe-bottom));
+  max-height: min(42dvh, calc(100dvh - 244px - var(--safe-top) - var(--safe-bottom)));
+}
+.scene-side-reading :is(p, dd, a, code) { overflow-wrap: anywhere; }
+@media (min-width: 701px) {
+  .retained-lab .scene-detail.scene-detail-reading.scene-side-reading {
+    left: max(28px, var(--safe-left));
+    right: auto;
+    width: clamp(290px, 31vw, 420px);
+    max-width: calc(100vw - 56px - var(--safe-left) - var(--safe-right));
+    margin-inline: 0;
+    max-height: min(620px, calc(100dvh - 260px - var(--safe-top) - var(--safe-bottom)));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .retained-lab .scene-detail.scene-detail-reading.scene-side-reading {
+    left: max(18px, var(--safe-left));
+    right: auto;
+    width: min(340px, 44vw);
+    margin-inline: 0;
+    bottom: calc(72px + var(--safe-bottom));
+    max-height: calc(100dvh - 208px - var(--safe-top) - var(--safe-bottom));
+  }
+}

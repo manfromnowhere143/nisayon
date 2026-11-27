@@ -30,7 +30,7 @@ async function click(label: string) {
 
 it("imports the actual native SDK export and opens its five pairs through the existing review", async () => {
   await act(async () => root.render(<CheckReview active bundle={await bundle()} />));
-  await click("Task outcomes ↗");
+  await click("Task outcomes");
   const dialog = host.querySelector("dialog")!;
   expect(dialog.querySelectorAll("tbody tr")).toHaveLength(5);
   expect(dialog.textContent).toContain("No regression observed in 5 recorded pairs");

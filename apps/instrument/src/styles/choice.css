@@ -1,6 +1,8 @@
 /* One small glass control layer. The scene remains a single persistent canvas. */
 .choice-trigger { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; max-width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: 11px; background: var(--ground-2); color: var(--ink); font: inherit; font-size: 0.8rem; text-align: left; cursor: pointer; touch-action: manipulation; transition: background 120ms ease, border-color 120ms ease; }
-.choice-trigger:hover, .choice-trigger[aria-expanded="true"] { background: var(--selected); border-color: var(--mark-quiet); }
+.choice-trigger[aria-expanded="true"] { background: var(--selected); border-color: var(--mark-quiet); }
+@media (hover: hover) and (pointer: fine) {
+:where(:root:not([data-pointer-type="touch"])) .choice-trigger:hover { background: var(--selected); border-color: var(--mark-quiet); } }
 .choice-trigger:disabled { opacity: 0.45; cursor: default; }
 .choice-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .choice-chevron { flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.1; transition: transform 120ms var(--ease-damped); }

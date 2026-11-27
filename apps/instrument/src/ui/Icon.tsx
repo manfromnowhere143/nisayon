@@ -1,7 +1,7 @@
 // Hairline marks in one stroke weight. No filled shapes except the play mark.
 
 interface Props {
-  name: "prev" | "next" | "play" | "pause" | "fork" | "inspect" | "ground" | "link" | "close" | "back" | "open" | "view";
+  name: "prev" | "next" | "play" | "pause" | "fork" | "inspect" | "ground" | "link" | "close" | "back" | "view";
 }
 
 export function Icon({ name }: Props) {
@@ -69,12 +69,6 @@ export function Icon({ name }: Props) {
       return (
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" {...common}>
           <path d="M14.5 6.5 9 12l5.5 5.5M9 12h9" />
-        </svg>
-      );
-    case "open":
-      return (
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" {...common}>
-          <path d="M7 17 17 7M9 7h8v8" />
         </svg>
       );
     case "view":

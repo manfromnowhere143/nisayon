@@ -178,7 +178,7 @@ export function EngineAtlas({
           outcomes set that boundary.
         </p>
         <button className="research-text-action" onClick={onStudy}>
-          Open retained Study ↗
+          Open retained Study
         </button>
       </footer>
     </section>

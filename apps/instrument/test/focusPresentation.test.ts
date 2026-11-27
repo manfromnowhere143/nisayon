@@ -1,6 +1,19 @@
 import { afterEach, beforeEach, expect, it } from "vitest";
 import { installFocusPresentation } from "../src/ui/focusPresentation";
 
+it("tracks real input on hybrid screens independently from keyboard focus", () => {
+  const dispose = installFocusPresentation(document);
+  const send = (type: string, pointerType: string) => {
+    const event = new Event(type, { bubbles: true }); Object.defineProperty(event, "pointerType", { value: pointerType }); document.dispatchEvent(event);
+  };
+  send("pointerdown", "touch"); expect(document.documentElement.dataset.pointerType).toBe("touch");
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
+  expect(document.documentElement.dataset.focusModality).toBe("keyboard");
+  expect(document.documentElement.dataset.pointerType).toBe("touch");
+  send("pointermove", "mouse"); expect(document.documentElement.dataset.pointerType).toBe("mouse");
+  dispose(); delete document.documentElement.dataset.pointerType;
+});
+
 let cleanup: () => void;
 let button: HTMLButtonElement;
 beforeEach(() => {
@@ -56,6 +69,17 @@ it("retains pointer presentation when a native select completes with a zero-coun
   expect(select.dataset.pointerFocus).toBeUndefined();
   select.dispatchEvent(new MouseEvent("click", { detail: 0, bubbles: true }));
   expect(select.dataset.pointerFocus).toBeUndefined();
+});
+it.each(["mouse", "touch", "pen"])("preserves a zero-count %s PointerEvent click without losing keyboard focus", pointerType => {
+  button.dispatchEvent(new Event("pointerdown", { bubbles: true }));
+  button.focus();
+  const event = new MouseEvent("click", { detail: 0, bubbles: true });
+  Object.defineProperty(event, "pointerType", { value: pointerType });
+  button.dispatchEvent(event);
+  expect(button.dataset.pointerFocus).toBe("true");
+  expect(document.activeElement).toBe(button);
+  button.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab", bubbles: true }));
+  expect(button.dataset.pointerFocus).toBeUndefined();
 });
 it("preserves pointer modality across listener replacement without blurring the focused control", () => {
   const select = document.querySelector("select")!;
@@ -131,4 +155,16 @@ it("preserves visible heading focus for keyboard and assistive dialog opening", 
   heading.focus();
   expect(document.activeElement).toBe(heading);
   expect(heading.dataset.pointerFocus).toBeUndefined();
+});
+
+it("carries actual mesh pointer modality through an inspector and back to its canvas", () => {
+  const canvas=document.createElement("canvas"); canvas.tabIndex=0; canvas.dataset.focusControl="";
+  const heading=document.createElement("h2"); heading.tabIndex=-1;
+  document.querySelector("main")!.append(canvas,heading);
+  canvas.dispatchEvent(new Event("pointerdown",{bubbles:true})); heading.focus();
+  expect(heading.dataset.pointerFocus).toBe("true");
+  document.querySelector("#close")!.dispatchEvent(new Event("pointerdown",{bubbles:true})); canvas.focus();
+  expect(canvas.dataset.pointerFocus).toBe("true"); expect(document.activeElement).toBe(canvas);
+  canvas.dispatchEvent(new KeyboardEvent("keydown",{key:"ArrowLeft",bubbles:true}));
+  expect(canvas.dataset.pointerFocus).toBeUndefined();
 });

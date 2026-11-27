@@ -35,7 +35,7 @@ function button(text: string) { return [...host.querySelectorAll("button")].find
 
 it("opens a cold visit without requesting a catalog, film or hidden lab", async () => {
   await act(async () => root.render(<StrictMode><Experience catalogLoader={catalogLoader} /></StrictMode>));
-  expect(host.querySelector(".opening h1")?.textContent).toContain("Put to the test.");
+  expect(host.querySelector(".opening h1")?.textContent).toBe("Nisayon");
   expect(catalogLoader).not.toHaveBeenCalled();
   expect(host.querySelector(".app,video[src],source")).toBeNull();
   expect(host.querySelector(".research-workspace")?.hasAttribute("inert")).toBe(true);
@@ -47,7 +47,7 @@ it("keeps a usable still and direct instrument entry when the poster fails", asy
   await mount();
   await act(async () => host.querySelector("img")!.dispatchEvent(new Event("error")));
   expect(host.textContent).toContain("Scene unavailable");
-  expect(host.querySelector("img")).toBeNull();
+  expect(host.querySelector(".opening-image img")).toBeNull();
   await act(async () => host.querySelector<HTMLButtonElement>('[aria-label="Open Nisayon"]')!.click());
   expect(navigate).toHaveBeenCalledWith("lab");
 });
@@ -75,8 +75,9 @@ it("handles film failure, retry and browser Back without hiding the next action"
   expect(host.querySelector('[role="alert"]')).toBeNull();
   await act(async () => { history.replaceState(null, "", "/#view=home"); window.dispatchEvent(new PopStateEvent("popstate")); });
   expect(host.querySelector("dialog")).toBeNull();
-  await act(async () => host.querySelector<HTMLButtonElement>('[aria-label="Inspect the retained rejected software change"]')!.click());
-  expect(inspectExample).toHaveBeenCalledOnce();
+  await act(async () => host.querySelector<HTMLButtonElement>('[aria-label="Open Nisayon"]')!.click());
+  expect(navigate).toHaveBeenCalledWith("lab");
+  expect(host.querySelector(".opening-evidence")).toBeNull();
 });
 
 it("binds the opening example to the exact retained public package", async () => {

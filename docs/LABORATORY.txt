@@ -1,0 +1,123 @@
+Nisayon laboratory — research preview, 27 November 2026
+
+A consequential integration change needs an explicit engineering obligation and
+reproducible evidence. The laboratory inspects retained PandaLift and G1 results
+and executes one bounded contact protocol through the same Python functions used
+by its CLI and loopback service. The existing qualification kernel owns decisions.
+
+Available surfaces
+- PandaLift: retained measured trajectories, component inspection, exact command
+  and observation readings, baseline/regression/correction comparison. Historical
+  B2 replay reproduced 0/10 unchanged and 9/10 corrected; exposed conditions only.
+- Contact dynamics: research preview. Four independently simulated prescribed
+  force runs distinguish effective friction and force gain under a declared model.
+  Execution requires the locked local native profile. The public website provides
+  a verified retained example, plots, exact-row replay, provenance and download.
+- Ricci Brain 01: read-only G1 scientific inspection. Sensors, estimates, residual
+  compatibility, decisions, optimization, command admission and physical outcomes
+  come through RB-02's ricci.scientific-inspection.v1 projection. The conceptual
+  Ricci body is not animated with G1 measured poses. Three exposed executions are
+  compared; both baseline and candidate fail this case. Privileged information is
+  a diagnostic comparator, not deployable performance or an autonomous discovery.
+- Actuation, metrology and morphology instruments: not executable laboratory
+  capabilities. No controls imply that these instruments already exist.
+
+Local reproduction, in a fresh checkout/environment
+  uv sync --frozen --group native
+  .venv/bin/python -m nisayon.lab capabilities
+  .venv/bin/python -m nisayon.lab validate --out contact-spec.json
+  .venv/bin/python -m nisayon.lab run contact-spec.json --out artifacts/contact-001
+  .venv/bin/python -m nisayon.lab inspect artifacts/contact-001 --sha256 DIGEST
+
+Use the packet_sha256 returned by run for DIGEST. Output directories and spec
+files must be new. This source profile differs from the published SDK 0.2.0 wheel;
+do not assume that installing that older wheel provides nisayon.lab.
+
+A minimal external Python integration is examples/lab/contact_change.py:
+  .venv/bin/python examples/lab/contact_change.py --out artifacts/change-001
+  .venv/bin/python examples/lab/contact_change.py --out artifacts/unchanged-001 \
+    --unchanged --require-supported
+
+The changed default rejects displacement equivalence; the unchanged control
+supports it. Both retain deployment unresolved. Exit 0 means complete execution;
+--require-supported adds exit 3 for a rejected/unresolved relation. In CI, retain
+the entire packet as the job artifact and independently inspect its pinned digest.
+This works inside GitHub Actions or GitLab CI without a separate scientific
+implementation. Hosted workflows remain manual-dispatch under the repository's
+standing instruction; this change does not enable automatic paid CI.
+
+Local browser execution
+  .venv/bin/python -m nisayon.lab serve --out artifacts/local-lab \
+    --allow-origin http://127.0.0.1:5307
+  cd apps/instrument
+  NISAYON_LOCAL_LAB=1 npm run dev -- --port 5307 --strictPort
+
+Open http://127.0.0.1:5307/#view=lab and select Contact dynamics or the Experiment
+console. A built app may instead be served with --frontend apps/instrument/dist.
+The public HTTPS website does not call a user's loopback service. Unsupported
+execution is labelled unavailable; a retained replay remains available offline.
+
+HTTP contract, local only
+GET  /api/lab/capabilities             Versioned capabilities and session token.
+POST /api/lab/validate                 Complete supported parameter object.
+POST /api/lab/runs                     {parameters, expected_id}; returns 202.
+GET  /api/lab/runs/ID                  Queued/running/complete/cancelled/failed.
+POST /api/lab/runs/ID/cancel            Empty object; cooperative cancellation.
+GET  /api/lab/runs/ID/packet            Verified inspection after sealing.
+GET  /api/lab/runs/ID/export            Full portable ZIP after verification.
+
+POST requests require Content-Type: application/json and X-Nisayon-Session from
+capability discovery. Host and Origin must match explicit loopback addresses.
+Validation returns experiment_id; execute reconstructs the registered protocol
+from parameters and requires that exact expected_id. The browser must not rewrite
+the full specification: Python's canonical 1.0 and JavaScript's 1 have different
+JSON spelling. The native authority normalizes parameters before computing identity.
+HTTP 400 is an invalid/unsupported request, 403 is a boundary refusal, 404 means
+unknown run/route. Error messages are bounded. There is no arbitrary code route,
+remote motor endpoint, hosted tenant service, unbounded telemetry queue or shell.
+
+One worker, at most 32 retained jobs per service session, 32 KB request limit,
+3-second socket limit, 10-second native wall budget and 2 MB packet limit. Run
+progress is polled; there is no streaming claim. Progress frequency does not change
+5 ms scientific measurements. Cancellation retains a valid partial packet where
+possible and yields unresolved; a failed process is never a successful experiment.
+Do not expose this local development service on a public interface.
+
+Identity and compatibility
+schemas/lab/experiment.v1.json and capabilities.v1.json describe the envelope.
+Python validators additionally check canonical identity, cross-field travel and
+horizon bounds, source/runtime compatibility and readback consistency. Semantic
+identity includes protocol revision, parameters, exact source hashes and declared
+runtime versions. It excludes run UUID, output path, creation time, wall cost and
+visual camera/material/quality state. A reproducible specification is not a promise
+of bitwise deterministic execution on every hardware/solver version.
+
+Contact protocol revision 2 corrects the finite visual-crop description; physical
+mechanisms and thresholds are unchanged. Revision 1 remains inspectable read-only.
+Execution requires current source, runtime and revision. Historical packets retain
+their original IDs and copied producer source; no migration rewrites them.
+
+Physical scope
+MuJoCo 3.3.2; 1 ms Euler steps; Newton solver, 100 iterations, elliptic soft
+contact. Two guided translational degrees of freedom; rigid body; known mass;
+0.05 m/s initial sliding speed; two constant commanded forces; matched initial
+states; 5 ms exact measurements. Independent prescribed open-loop futures are not
+closed-loop policy counterfactuals. Slider and arrows use authoritative exact rows.
+The finite track is a display crop of an infinite physical plane, with no end stops.
+
+Under the sliding approximation m*a = gain*u - mu*m*g, two distinct input levels
+identify the two effective parameters if the assumptions hold. Mean acceleration
+is fitted from velocity after the transient. Inadequate input separation, stiction,
+contact loss, incomplete rows or large residuals leave inference unresolved.
+Simulated forces are validation channels, not measured hardware sensors. This is
+an exposed development example, not a general causal diagnosis or cost advantage.
+
+Verification
+  .venv/bin/python -m pytest tests/test_lab_contact.py -q
+  cd apps/instrument && npm run check
+Tests cover native repeatability, unchanged comparison, rejection, incomplete and
+failed execution, cancellation, corrupted/resealed data, source changes, numerical
+bounds, browser number serialization and loopback boundary refusal. Historical
+Panda/G1 reproduction uses its own original profiles, never overwritten by these
+commands. Inspect work/research/nl01-2026-11-27 for local receipts and remaining
+performance/visual limitations; private research records are not public authority.

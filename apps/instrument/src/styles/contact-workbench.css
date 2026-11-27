@@ -1,0 +1,43 @@
+.contact-workbench { width: min(430px, calc(100vw - 40px)); }
+.contact-sections { display: flex; gap: 20px; border-bottom: 1px solid var(--rule); margin-bottom: 18px; }
+.contact-sections button { background: none; border: 0; color: var(--ink-3); padding: 0 0 12px; min-height: 44px; }
+.contact-sections button[aria-pressed="true"] { color: var(--ink); box-shadow: 0 1px var(--ink); }
+.contact-parameters { border: 0; padding: 0; margin: 20px 0; display: grid; gap: 12px; }
+.contact-parameters legend { color: var(--ink-3); padding: 0 0 12px; }
+.contact-parameters > label { display: grid; grid-template-columns: 1fr 110px; gap: 20px; align-items: center; }
+.contact-input { display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+.contact-input input { width: 78px; min-width: 0; padding: 8px; border: 1px solid var(--rule-strong); background: transparent; color: var(--ink); border-radius: 4px; }
+.contact-input > span { font-size: .75rem; color: var(--ink-3); }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact-actions button, .contact-condition button, .contact-playback button { min-height: 44px; padding: 8px 12px; background: transparent; border: 1px solid var(--rule-strong); color: var(--ink); border-radius: 5px; }
+.contact-actions button:disabled { opacity: .42; }
+.contact-condition { display: flex; align-items: center; gap: 10px; margin: 12px 0 18px; }
+.contact-condition > span { margin-right: auto; color: var(--ink-3); }
+.contact-condition [aria-pressed="true"] { background: #ffffff12; border-color: #a7b4bf; }
+.contact-trace { display: block; width: 100%; height: auto; margin: 12px 0; overflow: visible; }
+.contact-trace text { fill: var(--ink-3); font: 10px ui-monospace, monospace; }
+.contact-playback { display: flex; align-items: center; gap: 12px; }
+.contact-playback label { flex: 1; min-width: 0; }
+.contact-playback input { width: 100%; min-height: 44px; accent-color: #bdc9d0; }
+.contact-playback output { font: 12px ui-monospace, monospace; white-space: nowrap; }
+.contact-note { color: var(--ink-3); font-size: .75rem; line-height: 1.55; }
+.contact-facts { margin: 20px 0; }
+.contact-facts > div { display: flex; justify-content: space-between; gap: 16px; padding: 7px 0; border-bottom: 1px solid var(--rule); }
+.contact-facts dt { color: var(--ink-3); }
+.contact-facts dd { margin: 0; font-variant-numeric: tabular-nums; }
+.contact-layer { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.contact-layer input { width: 18px; height: 18px; accent-color: #bdc9d0; }
+.contact-command, .contact-provenance code { display: block; white-space: normal; overflow-wrap: anywhere; font: 11px/1.6 ui-monospace, monospace; }
+.contact-provenance { border-top: 1px solid var(--rule); padding-top: 14px; margin-top: 24px; }
+.contact-verdict { font-size: 1.25rem; letter-spacing: -.025em; line-height: 1.3; margin: 24px 0 12px; }
+.contact-estimates { width: 100%; border-collapse: collapse; font-size: .75rem; }
+.contact-estimates caption { text-align: left; color: var(--ink-3); margin: 20px 0 12px; }
+.contact-estimates th, .contact-estimates td { text-align: right; border-bottom: 1px solid var(--rule); padding: 10px 5px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.contact-estimates th:first-child { text-align: left; }
+.contact-error { color: #f0c8ac; overflow-wrap: anywhere; }
+@media (max-width: 700px) and (min-height:501px) {
+  .retained-lab .scene-detail.contact-workbench { top: auto; max-height: 48dvh; bottom: calc(26px + var(--safe-bottom,0px)); }
+  .contact-workbench .contact-sections { margin-bottom: 8px; }
+  .contact-workbench .contact-condition { margin: 4px 0 8px; }
+  .contact-parameters > label { gap: 12px; }
+}

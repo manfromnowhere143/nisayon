@@ -1,0 +1,267 @@
+/* A bounded optical surface; the scene never acquires a full-screen blur. */
+.workspace-popover {
+  --menu-ink: #f0f3f5;
+  --menu-muted: #b9c4cc;
+  --ink: #f0f3f5;
+  --ink-2: #c9d3da;
+  --ink-3: #b9c4cc;
+  --ground: #182128;
+  --ground-2: #222c34;
+  --selected: #ffffff0c;
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid #dcecff24;
+  border-radius: 24px;
+  color: var(--menu-ink);
+  color-scheme: dark;
+  background: #182128;
+  box-shadow:
+    inset 0 1px 0 #ffffff19,
+    0 18px 52px #050b1266;
+  overflow: hidden;
+  flex-direction: column;
+  transform-origin: 100% 0;
+  transition:
+    opacity 130ms ease,
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.workspace-popover:popover-open {
+  display: flex;
+}
+.workspace-popover:not(:popover-open) {
+  display: none;
+}
+.workspace-popover::backdrop {
+  background: transparent;
+}
+.workspace-popover > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  padding: 0 0 6px 12px;
+  color: var(--menu-muted);
+  font: 0.75rem/1.4 var(--sans);
+  letter-spacing: 0.025em;
+}
+.workspace-popover > header button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--menu-muted);
+}
+.workspace-popover svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  flex: none;
+}
+.workspace-popover-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #73808b66 transparent;
+}
+.workspace-destinations {
+  display: grid;
+  gap: 3px;
+}
+.workspace-popover .workspace-destinations button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 51px;
+  width: 100%;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 15px;
+  background: transparent;
+  color: var(--menu-ink);
+  text-align: left;
+  font: 0.9375rem/1.4 var(--sans);
+  letter-spacing: -0.015em;
+}
+.workspace-destinations button > svg {
+  width: 28px;
+  height: 28px;
+  color: #c4d1db;
+}
+.workspace-destinations button > span {
+  flex: 1;
+}
+.workspace-destinations button > i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: transparent;
+}
+.workspace-popover .workspace-destinations button[aria-current="page"] {
+  background: linear-gradient(110deg, #c8dfef19, #c8dfef07);
+}
+.workspace-destinations button[aria-current="page"] > i {
+  background: #d1e2ed;
+  box-shadow: 0 0 7px #c5dfea45;
+}
+.workspace-popover .workspace-actions-list {
+  display: grid;
+  gap: 2px;
+}
+.workspace-popover .workspace-actions-list button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  height: auto;
+  border: 0;
+  border-radius: 12px;
+  padding: 8px 13px;
+  text-align: left;
+  background: transparent;
+  color: var(--menu-ink);
+  font: 0.8125rem/1.5 var(--sans);
+}
+.workspace-actions-list .mono {
+  color: var(--menu-muted);
+  font-size: 0.6875rem;
+}
+.workspace-popover .workspace-recording {
+  display: grid;
+  flex: none;
+  gap: 8px;
+  margin: 0 5px;
+  padding: 10px 8px 0;
+  font-size: 0.6875rem;
+  color: var(--menu-muted);
+  border-top: 1px solid #d7e9f314;
+}
+.workspace-popover select {
+  min-height: 44px;
+  width: 100%;
+  background: #090f1545;
+  color: var(--menu-ink);
+  border: 0;
+  border-radius: 11px;
+  padding: 10px;
+  font: 0.8125rem var(--sans);
+}
+.workspace-popover .workspace-utilities {
+  display: flex;
+  flex-wrap: wrap;
+  flex: none;
+  justify-content: space-evenly;
+  gap: 8px;
+  margin-top: 1px;
+  padding: 10px 4px 2px;
+  border-top: 1px solid #d7e9f314;
+}
+.workspace-popover .workspace-utilities button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  height: auto;
+  min-width: 48px;
+  min-height: 62px;
+  padding: 9px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--menu-muted);
+}
+.workspace-utilities [data-utility-label]::after {
+  content: attr(data-utility-label);
+  font: 0.6875rem/1.2 var(--sans);
+}
+.workspace-popover :is(button, select, a):focus-visible {
+  outline: 2px solid #e2edf5;
+  outline-offset: -3px;
+}
+@supports (backdrop-filter: blur(1px)) {
+  .workspace-popover {
+    background: linear-gradient(145deg, #34434dc9, #121a22eb 65%);
+    backdrop-filter: blur(22px) saturate(1.15);
+    -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  }
+}
+@starting-style {
+  .workspace-popover:popover-open {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.985);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  :where(:root:not([data-pointer-type="touch"]))
+    .workspace-popover
+    button:hover {
+    background: #d3e6f216;
+    color: #fff;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace-popover {
+    transition: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .workspace-popover {
+    background: #182128;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+}
+@media (forced-colors: active) {
+  .workspace-popover {
+    --menu-ink: CanvasText;
+    --menu-muted: CanvasText;
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+    backdrop-filter: none;
+  }
+  .workspace-destinations button > svg {
+    color: CanvasText;
+  }
+  .workspace-destinations button[aria-current="page"] {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+  .workspace-destinations button[aria-current="page"] > i {
+    background: Highlight;
+  }
+}
+/* An open workcell within its workspace: one floating, accessible invoker. */
+button.workspace-menu,
+.retained-lab .identity > button.workspace-menu,
+.instrument-navigation button.workspace-menu {
+  display: grid; place-items: center; width: 48px; min-width: 48px; height: 48px; min-height: 48px; padding: 8px; border: 0; border-radius: 0; background: transparent; box-shadow: none;
+}
+button.workspace-menu > svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.5; filter: drop-shadow(0 1px 6px #0007); }
+@media (hover:hover) and (pointer:fine) {
+  :where(:root:not([data-pointer-type="touch"])) button.workspace-menu:hover,
+  :where(:root:not([data-pointer-type="touch"])) .retained-lab .identity > button.workspace-menu:hover,
+  :where(:root:not([data-pointer-type="touch"])) .instrument-navigation button.workspace-menu:hover { background: transparent; box-shadow: none; color: #fff; }
+}
+@media (prefers-reduced-motion:no-preference) { button.workspace-menu > svg { transition: opacity 150ms ease; } button.workspace-menu[aria-expanded="true"] > svg { opacity: .65; } }
+@media (forced-colors:active) { button.workspace-menu { color: ButtonText; } }

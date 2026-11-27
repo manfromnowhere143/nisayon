@@ -69,7 +69,7 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .quiet:hover:not(:disabled) { background: var(--selected); }
+  :where(:root:not([data-pointer-type="touch"])) .quiet:hover:not(:disabled) { background: var(--selected); }
 }
 
 .quiet:disabled {
@@ -93,8 +93,8 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .ibtn:hover:not(:disabled),
-  .tbtn:hover:not(:disabled) { color: var(--ink); }
+  :where(:root:not([data-pointer-type="touch"])) .ibtn:hover:not(:disabled),
+  :where(:root:not([data-pointer-type="touch"])) .tbtn:hover:not(:disabled) { color: var(--ink); }
 }
 
 .ibtn[aria-pressed="true"],
@@ -1206,7 +1206,7 @@ button {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .cond:hover:not(:disabled) { background: var(--selected); }
+  :where(:root:not([data-pointer-type="touch"])) .cond:hover:not(:disabled) { background: var(--selected); }
 }
 
 .cond.is-selected {

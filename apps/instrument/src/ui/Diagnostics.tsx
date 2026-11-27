@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { SceneHandle } from "../scene/renderer";
 import { DEFAULT_EVIDENCE } from "../state/locator";
 import { useInstrumentState, useStore } from "../state/useStore";
+import { RENDER_PROFILES, type RenderProfile } from "../scene/renderProfile";
 
 interface Props {
   scene: SceneHandle | null;
@@ -52,22 +53,25 @@ export function Diagnostics({ scene }: Props) {
     const screen = state.screen;
     if (screen.kind !== "ready") return;
     const runs = screen.caseRecord.runs;
-    const before = memory?.usedJSHeapSize ?? null;
+    const heap = () => (performance as unknown as { memory?: { usedJSHeapSize: number } }).memory?.usedJSHeapSize ?? null;
+    const before = heap();
     setSwitching("running 20 switches…");
-    for (let i = 1; i <= 20; i += 1) {
+    try { for (let i = 1; i <= 20; i += 1) {
       const next = runs[i % runs.length]!;
       store.selectRun(next.run);
       // Wait until the store reports that run as selected.
-      await new Promise<void>((resolve) => {
+      await new Promise<void>((resolve, reject) => {
+        const started = performance.now();
         const check = (): void => {
           const s = store.getState().screen;
           if (s.kind === "ready" && s.moment.run.run_id === next.run.run_id && s.pendingRun === null) resolve();
+          else if (performance.now() - started > 10000) reject(new Error("Run switch exceeded 10 seconds; measurements remain available."));
           else setTimeout(check, 16);
         };
         check();
       });
-    }
-    const after = memory?.usedJSHeapSize ?? null;
+    } } catch (error) { setSwitching(error instanceof Error ? error.message : "Switch measurement failed"); return; }
+    const after = heap();
     setSwitching(`20 switches done · heap ${fmtMb(before)} → ${fmtMb(after)} · cache ${store.cacheSize()} entries · ${info ? `${scene?.info().geometries} geometries` : "no scene"}`);
   };
 
@@ -92,11 +96,14 @@ export function Diagnostics({ scene }: Props) {
         </div>
         <div><dt>input → next paint</dt><dd className="num">{m.browserEvents.supported ? `Event Timing ≥16 ms · n ${m.browserEvents.count} · p95 ${fmtMs(m.browserEvents.p95)} · max ${fmtMs(m.browserEvents.max)}` : "Event Timing not exposed by this browser"}</dd></div>
         <div><dt>long tasks</dt><dd className="num">{m.longTasks.supported ? `${m.longTasks.count} tasks · total ${fmtMs(m.longTasks.totalMs)} · max ${fmtMs(m.longTasks.maxMs)}` : "Long Task API not exposed by this browser"}</dd></div>
-        <div><dt>render submission / GPU</dt><dd className="num">{info ? `CPU n ${info.timing.cpu.count} · p95 ${fmtMs(info.timing.cpu.p95)}; GPU ${info.timing.gpu.supported ? `n ${info.timing.gpu.count} · p95 ${fmtMs(info.timing.gpu.p95)}` : "timer unavailable"}` : "No WebGL handle"}</dd></div>
+        <div><dt>CPU submission</dt><dd className="num">{info ? `n ${info.timing.cpu.count} · p50 ${fmtMs(info.timing.cpu.p50)} · p95 ${fmtMs(info.timing.cpu.p95)} · p99 ${fmtMs(info.timing.cpu.p99)}` : "No WebGL handle"}</dd></div>
+        <div><dt>GPU elapsed</dt><dd className="num">{info?.timing.gpu.supported ? `n ${info.timing.gpu.count} · p50 ${fmtMs(info.timing.gpu.p50)} · p95 ${fmtMs(info.timing.gpu.p95)} · p99 ${fmtMs(info.timing.gpu.p99)}` : "Timer unavailable"}</dd></div>
+        <div><dt>camera frame intervals</dt><dd className="num">{info ? `n ${info.timing.motionIntervals.count} · p50 ${fmtMs(info.timing.motionIntervals.p50)} · p95 ${fmtMs(info.timing.motionIntervals.p95)} · p99 ${fmtMs(info.timing.motionIntervals.p99)}` : "No WebGL handle"}</dd></div>
         <div>
           <dt>renderer</dt>
-          <dd className="num">{info ? `${info.geometries} geometries · ${info.textures} textures · ${info.calls} draw calls · ${info.frames} frames` : "no WebGL handle"}</dd>
+          <dd className="num">{info ? `${info.geometries} geometries · ${info.textures} textures · ${info.calls} calls · ${info.triangles} triangles across all passes · ${info.frames} frames` : "no WebGL handle"}</dd>
         </div>
+        {info?.workstation ? <div><dt>recording display</dt><dd className="num">{info.workstation.uploads} redraws · {(info.workstation.textureBytes / 1024).toFixed(0)} KiB RGBA per texture · {info.workstation.pending ? "update queued" : "unchanged"}</dd></div> : null}
         <div>
           <dt>device pixel ratio</dt>
           <dd className="num">{window.devicePixelRatio}</dd>
@@ -109,6 +116,8 @@ export function Diagnostics({ scene }: Props) {
       <p className="fine">Local session samples, not a field INP score. Event Timing is browser-reported and rounded. GPU time excludes display presentation; disjoint timer results are discarded.</p>
       <div className="diag-actions">
         <button type="button" className="quiet" onClick={saveMeasurements}>Save device measurements</button>
+        <label>Rendering <select aria-label="Rendering profile" value={info?.quality ?? "interactive"} disabled={!scene} onChange={event => { scene?.setQuality(event.target.value as RenderProfile); setTick(t => t + 1); }}>{Object.entries(RENDER_PROFILES).map(([id, profile]) => <option key={id} value={id}>{profile.label}</option>)}</select></label>
+        <button type="button" className="quiet" disabled={!scene || state.reducedMotion} onClick={() => scene?.cameraStudy()}>Measure 6-second camera path</button>
         <button type="button" className="quiet" onClick={() => scene?.simulateContextLoss()} disabled={!scene}>
           Simulate GPU context loss
         </button>

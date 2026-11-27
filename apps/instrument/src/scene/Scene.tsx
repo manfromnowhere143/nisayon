@@ -1,3 +1,4 @@
+import { bindOrbitGestures } from "./orbitGestures";
 // Present the detailed, source-bound Panda. A load or graphics failure is an
 // explicit recoverable state; it never silently substitutes a schematic robot.
 
@@ -12,6 +13,9 @@ import type { Vec3 } from "../model/pose";
 import { corners } from "./framing";
 import { loadCollisionView, type CollisionView } from "./collisionAssets";
 import type { LabSetting } from "./architecture";
+import { VISUAL_ASSET } from "./visualAssetPin";
+import type { WorkstationReading } from "../model/workstation";
+import type { BodyAnnotation } from "./bodyAnnotation";
 
 interface Props {
   frame: FramePhase | null;
@@ -31,15 +35,20 @@ interface Props {
   onFirstFrame: () => void;
   onUnavailable?: (() => void) | undefined;
   onLoadProgress?: ((detail: string) => void) | undefined;
+  onTransferProgress?: ((loaded: number) => void) | undefined;
   onHandle: (handle: SceneHandle | null) => void;
   spatial: SpatialLayerState;
   observationBounds: readonly Vec3[];
   onPick: (body: number) => void;
+  workstation: WorkstationReading | null;
+  onWorkstation: (origin: HTMLElement) => void;
+  onContact?: (origin: HTMLElement) => void;
+  onPartAnchor?: (anchor: BodyAnnotation | null) => void;
 }
 
 type Mode = "webgl" | "webgl-unavailable" | "webgl-lost";
 
-export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostModel, ghostModelSha, recordings, focus, setting = "architecture", view, ground, tone, reducedMotion, onFirstFrame, onUnavailable, onLoadProgress, onHandle, spatial, observationBounds, onPick }: Props) {
+export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostModel, ghostModelSha, recordings, focus, setting = "architecture", view, ground, tone, reducedMotion, onFirstFrame, onUnavailable, onLoadProgress, onTransferProgress, onHandle, spatial, observationBounds, onPick, workstation, onWorkstation, onContact, onPartAnchor }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<SceneHandle | null>(null);
@@ -80,8 +89,14 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
   unavailableRef.current = onUnavailable;
   const progressRef = useRef(onLoadProgress);
   progressRef.current = onLoadProgress;
+  const transferRef = useRef(onTransferProgress);
+  transferRef.current = onTransferProgress;
   const pickRef = useRef(onPick);
   pickRef.current = onPick;
+  const workstationRef = useRef(onWorkstation);
+  workstationRef.current = onWorkstation;
+  const contactRef = useRef(onContact); contactRef.current = onContact;
+  const anchorRef = useRef(onPartAnchor); anchorRef.current = onPartAnchor;
 
   useLayoutEffect(() => {
     const canvas = canvasRef.current;
@@ -90,6 +105,7 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
       onContextLost: () => setMode("webgl-lost"),
       onContextRestored: () => setMode("webgl"),
       onFirstFrame: () => { setPainted(true); firstFrameRef.current(); },
+      onPartAnchor: anchor => anchorRef.current?.(anchor),
     });
     handleRef.current = handle;
     onHandle(handle);
@@ -119,18 +135,21 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
 
   useEffect(() => {
     let cancelled = false;
-    if (!handleRef.current || qualified.ready) return;
+    if (qualified.ready) { transferRef.current?.(VISUAL_ASSET.byte_length); return; }
+    if (!handleRef.current) return;
     progressRef.current?.("Loading detailed Panda geometry");
     void loadVisualAsset(model, modelSha, generation, {
       ...defaultOptions(),
       onProgress: ({ loaded, total }) => {
         if (cancelled) return;
+        transferRef.current?.(loaded);
         progressRef.current?.(total && loaded < total
           ? `Loading Panda geometry · ${Math.floor(100 * loaded / total)}%`
           : "Verifying detailed Panda geometry");
       },
     }).then((asset) => {
       if (cancelled) return;
+      transferRef.current?.(VISUAL_ASSET.byte_length);
       progressRef.current?.("Preparing the detailed lab");
       setVisual({ model, asset, issue: null });
     }).catch((error: unknown) => {
@@ -183,6 +202,10 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
   }, [ground, attempt]);
 
   useLayoutEffect(() => {
+    handleRef.current?.setWorkstation(workstation);
+  }, [workstation, attempt]);
+
+  useLayoutEffect(() => {
     if (asset) handleRef.current?.present();
   }, [model, asset, frame, ghostFrame, tone]);
 
@@ -200,63 +223,29 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
     setAttempt((value) => value + 1);
   };
 
-  // Pointer orbit: mouse drags orbit freely; touch drags orbit horizontally so
-  // vertical page scrolling stays available (touch-action: pan-y).
   useEffect(() => {
     const box = boxRef.current;
     if (!box) return;
-    let dragging: { id: number; x: number; y: number; startX: number; startY: number; moved: boolean; touch: boolean; body: string | null } | null = null;
-    const down = (event: PointerEvent): void => {
-      if (event.button !== 0) return;
-      if (event.target instanceof Element && event.target.closest("button, a")) return;
-      const target = event.target instanceof Element ? event.target.closest("[data-body]") : null;
-      dragging = { id: event.pointerId, x: event.clientX, y: event.clientY, startX: event.clientX, startY: event.clientY, moved: false, touch: event.pointerType === "touch", body: target?.getAttribute("data-body") ?? null };
-      box.setPointerCapture(event.pointerId);
-    };
-    const move = (event: PointerEvent): void => {
-      if (!dragging || event.pointerId !== dragging.id) return;
-      if (!dragging.moved && Math.hypot(event.clientX - dragging.startX, event.clientY - dragging.startY) < 5) return;
-      dragging.moved = true;
-      const dx = event.clientX - dragging.x;
-      const dy = event.clientY - dragging.y;
-      dragging.x = event.clientX;
-      dragging.y = event.clientY;
-      handleRef.current?.orbit(dx * 0.006, dragging.touch ? 0 : dy * 0.006);
-    };
-    const up = (event: PointerEvent): void => {
-      if (!dragging || event.pointerId !== dragging.id) return;
-      if (event.type === "pointerup" && !dragging.moved && Math.hypot(event.clientX - dragging.startX, event.clientY - dragging.startY) < 5) {
+    return bindOrbitGestures(box, {
+      orbit: (dx, dy) => handleRef.current?.orbit(dx * .006, dy * .006),
+      zoom: factor => handleRef.current?.zoom(factor),
+      tap: event => {
         const rect = box.getBoundingClientRect();
-        const body = handleRef.current && rect.width && rect.height ? handleRef.current.pick((event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2) : dragging.body === null ? null : Number(dragging.body);
-        if (body !== null && Number.isInteger(body)) pickRef.current(body);
-      }
-      dragging = null;
-    };
-    const wheel = (event: WheelEvent): void => {
-      if (!event.ctrlKey && !event.metaKey) return;
-      event.preventDefault();
-      handleRef.current?.zoom(Math.exp(event.deltaY * 0.002));
-    };
-    box.addEventListener("pointerdown", down);
-    box.addEventListener("pointermove", move);
-    box.addEventListener("pointerup", up);
-    box.addEventListener("pointercancel", up);
-    box.addEventListener("wheel", wheel, { passive: false });
-    return () => {
-      box.removeEventListener("pointerdown", down);
-      box.removeEventListener("pointermove", move);
-      box.removeEventListener("pointerup", up);
-      box.removeEventListener("pointercancel", up);
-      box.removeEventListener("wheel", wheel);
-    };
+        const hit = handleRef.current && rect.width && rect.height ? handleRef.current.pick((event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2) : null;
+        if (hit?.kind === "body") pickRef.current(hit.body);
+        if (hit?.kind === "workstation") workstationRef.current(box);
+        if (hit?.kind === "instrument" && hit.id === "contact") contactRef.current?.(box);
+      },
+    }, "pointerup");
   }, []);
 
   return (
     <div ref={boxRef} className="scene-box" data-mode={mode} data-focus={focus} data-setting={setting} data-presentation={sceneIssue ? "unavailable" : asset && painted ? "ready" : "preparing"}
-      tabIndex={0} role="group" aria-label="Interactive laboratory. Arrow keys orbit, plus and minus zoom, Home resets the camera. Select a body from Scene controls."
+      data-focus-control tabIndex={0} role="group" aria-label="Interactive laboratory. Arrow keys orbit, plus and minus zoom, Home resets the camera. Enter opens the experiment console. Select a body from Scene controls."
       onKeyDown={event => {
         if (event.target !== event.currentTarget) return;
         const handle = handleRef.current;
+        if (event.key === "Enter") { event.preventDefault(); workstationRef.current(event.currentTarget); return; }
         if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "+", "=", "-", "Home", "Escape"].includes(event.key)) event.preventDefault();
         if (event.key === "ArrowLeft") handle?.orbit(-.12, 0);
         if (event.key === "ArrowRight") handle?.orbit(.12, 0);
@@ -280,13 +269,12 @@ export function Scene({ frame, ghostFrame, model, modelSha, generation, ghostMod
           <button type="button" className="quiet" onClick={retry}>Retry detailed lab</button>
         </div>
       ) : null}
-      {spatial.options.observations || spatial.options.path || spatial.options.axes || spatial.options.goal || spatial.options.collision || spatial.selectedBody !== null ? <div className="scene-legend" aria-label="Spatial overlay key">
+      {spatial.options.observations || spatial.options.path || spatial.options.axes || spatial.options.goal || spatial.options.collision ? <div className="scene-legend" aria-label="Spatial overlay key">
         {spatial.options.observations ? <><span><i className="key-consumed" />Consumed</span><span><i className="key-acquired" />Acquired at action</span></> : null}
         {spatial.options.path ? <span><i className="key-path" />{spatial.start > 0 ? "Recent configuration path" : "Configuration path"}</span> : null}
         {spatial.options.axes ? <span>Body axes · X Y Z</span> : null}
         {spatial.options.goal ? <span>Controller goal · selected configuration {frame?.sim_time_s.toFixed(3)} s</span> : null}
         {spatial.options.collision ? <span role="status">{collisionView ? "Collision X-ray · finite shapes; no contacts" : collision?.model === model && collision.issue ? collision.issue : "Verifying collision geometry…"}</span> : null}
-        {spatial.selectedBody !== null ? <span>{asset ? "Selected surface / body origin" : "Selected body origin"}</span> : null}
       </div> : null}
     </div>
   );

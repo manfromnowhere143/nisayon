@@ -35,9 +35,15 @@ describe("source-derived case brief", () => {
     const loaded = await load();
     const navigate = await render(loaded);
     expect(host.querySelector(".case-brief-status")!.textContent).toBe("ExecutioncompletedMeasurementobservedTask outcomefailed");
-    expect(host.querySelector(".case-brief-finding h4")!.textContent).toBe("Gripper command reversed at step 0.");
+    expect(host.querySelector(".case-brief-finding h3")!.textContent).toBe("Gripper command reversed at step 0.");
     expect(host.querySelector(".case-brief-scope")!.textContent).toContain("Both original development comparisons found no decision or efficiency advantage.");
-    expect(host.textContent).toContain("Recorded simulation.");
+    expect(host.textContent).toContain("Recorded simulation, not a live robot or a new experiment.");
+    expect(host.querySelector(".case-brief-more")!.hasAttribute("hidden")).toBe(true);
+    await act(async () => host.querySelector<HTMLButtonElement>(".case-brief-sources button")!.click());
+    expect(host.querySelector(".case-brief-more")!.hasAttribute("hidden")).toBe(false);
+    expect(host.querySelectorAll('.case-brief-more > details')).toHaveLength(3);
+    expect(host.querySelectorAll('.case-brief-more > details[open]')).toHaveLength(1);
+    expect(host.querySelector('.case-brief-detail')!.textContent).toContain("−1.000135");
     const links = Array.from(host.querySelectorAll<HTMLAnchorElement>(".case-brief-sources a"));
     expect(links[0]!.href).toBe(loaded.generation.manifestUrl);
     expect(links[1]!.href).toBe(new URL(loaded.run.record.samples.path, loaded.generation.baseUrl).href);
@@ -58,6 +64,6 @@ describe("source-derived case brief", () => {
     await render(await load(id));
     expect(host.querySelector(".case-brief-decisions dl > div:first-child dd")!.textContent).toBe("unresolved");
     expect(host.textContent).not.toContain("undefined");
-    if (id === "D10-opaque-policy-state") expect(host.querySelector(".case-brief-finding h4")!.textContent).toBe("Policy state was not recorded.");
+    if (id === "D10-opaque-policy-state") expect(host.querySelector(".case-brief-finding h3")!.textContent).toBe("Policy state was not recorded.");
   });
 });

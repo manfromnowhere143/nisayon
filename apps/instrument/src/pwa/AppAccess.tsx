@@ -17,6 +17,7 @@ export function AppAccessButton() {
     <button
       type="button"
       className="ibtn research-icon app-access-button"
+      data-utility-label="Device"
       aria-label="Nisayon on this device"
       aria-haspopup="dialog"
       onClick={() => window.dispatchEvent(new Event("nisayon:app-access"))}
@@ -123,7 +124,7 @@ export function AppAccess({ onOpen }: { onOpen: () => void }) {
             </h3>
             <p>
               {installed
-                ? "Nisayon is running as an app. Investigate, Library and Develop stay connected through the navigation below."
+                ? "Nisayon is running as an app. Use Workspace or Navigate at the top right to move between Laboratory, Library, Ricci and Develop."
                 : "Keep Nisayon in your Dock or on your Home Screen. It opens in its own window, with the same saved theme and exact experiment links."}
             </p>
             {!installed && prompt ? (
@@ -132,7 +133,7 @@ export function AppAccess({ onOpen }: { onOpen: () => void }) {
                 disabled={installing}
                 onClick={() => void install()}
               >
-                {installing ? "Opening installation…" : "Install Nisayon ↗"}
+                {installing ? "Opening installation…" : "Install Nisayon"}
               </button>
             ) : null}
             {!installed && !prompt ? (
@@ -176,6 +177,7 @@ export function AppAccess({ onOpen }: { onOpen: () => void }) {
               need a connection, as do the intro and background video. A recording
               already open remains usable while it is held in this window.
             </p>
+            <p>Ricci’s generated geometry and part descriptions are included in the saved workspace.</p>
             {offline.status === "error" ? <button className="research-action" disabled={!online} onClick={retryOfflineSupport}>
               {online ? "Retry offline setup" : "Reconnect to retry setup"}
             </button> : null}

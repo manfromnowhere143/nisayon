@@ -1,24 +1,29 @@
 import { useState } from "react";
 import { catalogUrl, type ResearchCase } from "./catalog";
-import { GlassCard } from "./GlassCard";
+import { LibraryReading } from "./LibraryReading";
 import { Pages } from "./WorkspaceControls";
 
 export function ResearchReading({
   entry,
   catalog,
   revision,
+  section,
+  setSection,
+  suppressed = false,
 }: {
   entry: ResearchCase;
   catalog: string;
   revision: string;
+  section: string | null;
+  setSection: (section: string | null) => void;
+  suppressed?: boolean;
 }) {
-  const [section, setSection] = useState<string | null>(null);
   const [source, setSource] = useState(0);
   const [sourceView, setSourceView] = useState("records");
   const record = entry.sources[source]!;
   return (
-    <aside className="research-reading">
-      <div className="reading-summary">
+    <aside className="research-reading" hidden={suppressed} inert={suppressed}>
+      <div className="reading-summary" hidden={section !== null}>
         <p className={`research-status status-${entry.status}`}>
           {entry.status}
           <span> · within this scope</span>
@@ -28,22 +33,22 @@ export function ResearchReading({
         <nav className="reading-actions" aria-label="Inspect the explanation">
           <button onClick={() => setSection("mechanism")}>
             <span>What changed</span>
-            <span aria-hidden="true">↗</span>
+
           </button>
           <button onClick={() => setSection("limit")}>
             <span>What remains open</span>
-            <span aria-hidden="true">↗</span>
+
           </button>
           <button onClick={() => setSection("sources")}>
             <span>
               Inspect sources <small>{entry.sources.length}</small>
             </span>
-            <span aria-hidden="true">↗</span>
+
           </button>
         </nav>
       </div>
       {section ? (
-        <GlassCard
+        <LibraryReading
           title={entry.code + " · " + entry.title}
           eyebrow="EVIDENCE / EXPLANATION"
           onClose={() => setSection(null)}
@@ -150,7 +155,7 @@ export function ResearchReading({
                       href={catalogUrl(catalog)}
                       download="nisayon-research-catalog.json"
                     >
-                      Download pinned catalog ↗
+                      Download pinned catalog
                     </a>
                     {entry.links.map((link) => (
                       <a
@@ -159,7 +164,7 @@ export function ResearchReading({
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {link.title} ↗
+                        {link.title}
                       </a>
                     ))}
                   </>
@@ -167,7 +172,7 @@ export function ResearchReading({
               </section>
             ) : null}
           </div>
-        </GlassCard>
+        </LibraryReading>
       ) : null}
     </aside>
   );

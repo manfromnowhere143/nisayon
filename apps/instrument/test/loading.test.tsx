@@ -47,19 +47,20 @@ it("shows the site opening once, then reveals verified data without a staged vis
       expect(opening.querySelector(".boot-wordmark")).toBe(wordmark);
       expect(opening.querySelector(".boot-mark")).toBe(mark);
       expect(signature.innerHTML).toBe(initialSignature);
-      expect(element.querySelector(".transport")).toBeNull();
+      expect(element.querySelector(".scene-playback")).toBeNull();
       await act(async () => releases[index]!());
     }
-    await waitFor(() => element.querySelector(".transport") !== null);
+    await waitFor(() => element.querySelector(".scene-playback") !== null);
     expect(opening.getAttribute("data-revealed")).toBe("true");
     expect(signature.innerHTML).toBe(initialSignature);
     // A transparent opening would paint its wordmark over the ready scene.
     // It must already be removed in the commit that presents the instrument.
     expect(document.querySelector(".boot-screen")).toBeNull();
     expect(element.querySelector(".reading")).toBeNull();
-    expect(element.querySelector(".scene-heading")).not.toBeNull();
-    await act(async () => element.querySelector<HTMLButtonElement>(".workspace-actions button")!.click());
-    expect(element.querySelector(".finding-headline")?.textContent).toBe("Gripper command reversed at step 0.");
+    expect(element.querySelector(".scene-heading")).toBeNull();
+    expect(element.querySelector(".scene-area > h1.sr-only")).not.toBeNull();
+    await act(async () => element.querySelector<HTMLButtonElement>(".scene-evidence-control")!.click());
+    expect(element.querySelector(".case-brief h3")?.textContent).toBe("Gripper command reversed at step 0.");
   } finally {
     releases.forEach((release) => release());
     await act(async () => root.unmount());
@@ -118,9 +119,9 @@ it("keeps the dashboard mounted across delayed case changes, browser history and
       digest: async (bytes) => createHash("sha256").update(Buffer.from(new Uint8Array(bytes))).digest("hex"),
       maxBytes: 64 * 1024 * 1024,
     }} />));
-    await waitFor(() => element.querySelector(".transport") !== null && document.querySelector(".boot-screen") === null);
+    await waitFor(() => element.querySelector(".scene-playback") !== null && document.querySelector(".boot-screen") === null);
     const originalScene = element.querySelector(".scene-box");
-    const originalTransport = element.querySelector(".transport");
+    const originalTransport = element.querySelector(".scene-playback");
     const originalUrl = store().currentUrl();
     const next = store().getState().library.find((entry) => entry.caseId === "D10-opaque-policy-state")!;
     let replayedOpening = false;
@@ -132,7 +133,7 @@ it("keeps the dashboard mounted across delayed case changes, browser history and
     expect(element.querySelector(".choice-pending")?.textContent).toContain("Opening D10-opaque-policy-state");
     expect(element.querySelector('[aria-label="Recorded experiment"]')?.textContent).toContain("D01-gripper-sign");
     expect(element.querySelector(".scene-box")).toBe(originalScene);
-    expect(element.querySelector(".transport")).toBe(originalTransport);
+    expect(element.querySelector(".scene-playback")).toBe(originalTransport);
     expect(element.querySelector(".identity-case")?.textContent).toContain("D01-gripper-sign");
     expect(store().currentUrl()).toBe(originalUrl);
     expect(document.querySelector(".boot-screen")).toBeNull();
@@ -141,7 +142,7 @@ it("keeps the dashboard mounted across delayed case changes, browser history and
     await act(async () => release());
     await waitFor(() => element.querySelector(".identity-case")?.textContent?.includes("D10-opaque-policy-state") === true);
     expect(element.querySelector(".scene-box")).toBe(originalScene);
-    expect(element.querySelector(".transport")).toBe(originalTransport);
+    expect(element.querySelector(".scene-playback")).toBe(originalTransport);
     expect(store().getState().playing).toBe(false);
     await act(async () => { history.back(); });
     await waitFor(() => element.querySelector(".identity-case")?.textContent?.includes("D01-gripper-sign") === true);
@@ -152,7 +153,7 @@ it("keeps the dashboard mounted across delayed case changes, browser history and
     await act(async () => store().setEvidence("missing-selection/evidence.json"));
     await waitFor(() => element.querySelector(".selection-notice") !== null);
     expect(element.querySelector(".scene-box")).toBe(originalScene);
-    expect(element.querySelector(".transport")).toBe(originalTransport);
+    expect(element.querySelector(".scene-playback")).toBe(originalTransport);
     expect(store().currentUrl()).toBe(beforeFailure);
     expect(element.querySelector(".selection-notice")?.textContent).toContain("previous verified experiment remains displayed");
     expect(replayedOpening).toBe(false);

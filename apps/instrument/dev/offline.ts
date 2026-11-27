@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Plugin } from "vite";
 import { CATALOG_SHA } from "../src/research/catalogPin";
+import { FLOOR_OCCLUSION } from "../src/scene/floorOcclusion";
 
 /** A release-specific, integrity-bound research shell. Recordings, mutable
  * indexes, API responses and external source links never enter this cache. */
@@ -40,6 +41,7 @@ export function offlinePlugin(root: string): Plugin {
           "apple-touch-icon.png",
           "media/cinematic/hall-960.webp",
           "media/cinematic/hall-1600.webp",
+          FLOOR_OCCLUSION.slice(1),
           `research/${CATALOG_SHA}/catalog.json`,
         ]) {
           files.set(file, readFileSync(join(root, "public", file)));

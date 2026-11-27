@@ -77,7 +77,7 @@ export function UpstreamLine({
             {current.date.slice(5).replace("-", "/")}
           </time>
         </span>
-        <span className="upstream-title">{current.title} ↗</span>
+        <span className="upstream-title">{current.title}</span>
       </a>
       {onOpen ? <button className="progress-open" type="button" onClick={onOpen} aria-label={`View all ${records.length} progress records`}><span>{records.length}</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12M4 10h12M4 14h12" /></svg></button> : null}
       {presented.length > 1 ? (

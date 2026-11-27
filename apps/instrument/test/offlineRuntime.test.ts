@@ -74,6 +74,26 @@ it("does not retry a failed registration after cleanup", async () => {
   expect(serviceWorker.register).toHaveBeenCalledOnce();
 });
 
+it("re-registers a removed first installation without replacing the open document", async () => {
+  const { runtime, registration, serviceWorker } = await setup(false, false, true);
+  registration.active = null;
+  registration.update.mockRejectedValueOnce(new Error("Registration no longer exists"));
+  const replacement = Object.assign(new EventTarget(), {
+    active: new EventTarget(), installing: null, waiting: null,
+    update: vi.fn(async () => registration),
+  });
+  serviceWorker.register.mockResolvedValueOnce(replacement);
+  const documentBefore = document.documentElement;
+  runtime.retryOfflineSupport();
+  await vi.advanceTimersByTimeAsync(0);
+  expect(serviceWorker.register).toHaveBeenCalledTimes(2);
+  expect(runtime.offlineSnapshot().status).toBe("ready");
+  expect(document.documentElement).toBe(documentBefore);
+  registration.installing = Object.assign(new EventTarget(), { state: "redundant" });
+  registration.dispatchEvent(new Event("updatefound"));
+  expect(runtime.offlineSnapshot().status).toBe("ready");
+});
+
 it("does not duplicate a reconnect recovery with the periodic update check", async () => {
   const { registration } = await setup(false, false, true);
   registration.active = null;
@@ -144,4 +164,26 @@ it("keeps saved reading available when a background update check fails", async (
   window.dispatchEvent(new Event("online"));
   await Promise.resolve();
   expect(runtime.offlineSnapshot()).toEqual({ status: "ready", update: false });
+});
+
+it("checks a restored mobile page once without replacing the loaded review", async () => {
+  const { runtime, registration, serviceWorker } = await setup();
+  await vi.advanceTimersByTimeAsync(60_000);
+  window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true }));
+  document.dispatchEvent(new Event("visibilitychange"));
+  expect(registration.update).toHaveBeenCalledTimes(2);
+  expect(serviceWorker.register).toHaveBeenCalledOnce();
+  expect(runtime.offlineSnapshot()).toEqual({ status: "ready", update: false });
+  stop?.();
+  await vi.advanceTimersByTimeAsync(60_000);
+  window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true }));
+  expect(registration.update).toHaveBeenCalledTimes(2);
+});
+
+it("recovers failed offline setup when a page returns from the back-forward cache", async () => {
+  const { runtime, serviceWorker } = await setup(false, true);
+  window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true }));
+  await vi.advanceTimersByTimeAsync(0);
+  expect(serviceWorker.register).toHaveBeenCalledTimes(2);
+  expect(runtime.offlineSnapshot().status).toBe("ready");
 });

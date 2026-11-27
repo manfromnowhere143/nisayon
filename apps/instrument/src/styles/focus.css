@@ -1,8 +1,20 @@
 /* One presentation rule for the shell, lab and their native top-layer cards.
    Only targets marked by an actual pointer interaction qualify. Focus stays
    on the element; keyboard/assistive input clears the marker synchronously. */
-@media (forced-colors: none) {
-  :is(.instrument-root, .app) [data-pointer-focus="true"]:focus {
-    outline: none;
+/* This is a deliberate cascade boundary, including lazy route styles. Important
+   rules in this named layer cannot be reversed by a component's normal focus
+   rule arriving later. Never blur controls or suppress keyboard/text-entry focus. */
+@layer input-modality {
+  @media (forced-colors: none) {
+    /* Floating navigation uses a baseline cue, never a surrounding square.
+       This stays keyboard-visible even after lazy route CSS is installed. */
+    :is(.instrument-root, .app) :is(button.workspace-menu, .workspace-popover-rail .workspace-destinations button, .workspace-tool):focus-visible:not([data-pointer-focus="true"]) {
+      outline: none !important;
+      box-shadow: inset 0 -2px currentColor !important;
+    }
+    :is(.instrument-root, .app) [data-pointer-focus="true"]:focus,
+    :root:not([data-focus-modality="keyboard"]) :is(.instrument-root, .app) :is(h1,h2,h3,h4,h5,h6)[tabindex="-1"]:focus {
+      outline: none !important;
+    }
   }
 }

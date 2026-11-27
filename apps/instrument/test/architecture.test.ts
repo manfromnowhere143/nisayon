@@ -14,7 +14,9 @@ it("keeps the presentation separate from body identity and batches the static ha
       if (object instanceof THREE.InstancedMesh) expect([...object.instanceMatrix.array].every(Number.isFinite)).toBe(true);
     }
   });
-  expect(drawables).toBeLessThan(25);
+  expect(drawables).toBeLessThan(30);
+  expect(hall.workstations.info.stations).toBe(1);
+  expect(hall.workstations.screens).toHaveLength(1);
   const bounds = new THREE.Box3().setFromObject(hall.root);
   // The distant garden backing extends one metre below the visible floor.
   expect(bounds.min.y).toBeGreaterThanOrEqual(-1.01);

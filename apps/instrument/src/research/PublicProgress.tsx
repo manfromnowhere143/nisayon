@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { GlassCard } from "./GlassCard";
+import { LibraryReading } from "./LibraryReading";
 import { UpstreamLine } from "./UpstreamLine";
 import { Pages } from "./WorkspaceControls";
 import type { ResearchCatalog } from "./catalog";
@@ -16,7 +17,7 @@ const shipped = (row: ProgressRecord) => ["merged", "released", "available"].inc
 const reviewing = (row: ProgressRecord) => row.status === "open" || row.status === "draft";
 const readableTime = (value: string) => new Intl.DateTimeFormat("en", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
 
-export function PublicProgress({ retained = [] }: { retained: ResearchCatalog["upstream"] }) {
+export function PublicProgress({ retained = [], onOpen }: { retained: ResearchCatalog["upstream"]; onOpen?: (records: ProgressRecord[], snapshot: ProgressSnapshot) => void }) {
   const [snapshot, setSnapshot] = useState<ProgressSnapshot>(() => client?.current() ?? SAVED_PROGRESS);
   const [opened, setOpened] = useState(false);
   useEffect(() => {
@@ -38,12 +39,15 @@ export function PublicProgress({ retained = [] }: { retained: ResearchCatalog["u
     ...retained.map(row => ({ ...row, id: row.url, repository: row.title.split(" · ")[0]!, updatedAt: `${row.date}T12:00:00Z`, observedAt: `${row.date}T12:00:00Z`, kind: "adoption" as const })),
   ].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
   return <>
-    <UpstreamLine records={records} onOpen={() => setOpened(true)} />
+    {onOpen ? <button className="library-progress" aria-label={`View all ${records.length} progress records`} onClick={() => onOpen(records, snapshot)}>
+      <span>Public work</span><span>{records.length}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+    </button> : <UpstreamLine records={records} onOpen={() => setOpened(true)} />}
     {opened ? <ProgressReading records={records} snapshot={snapshot} onClose={() => setOpened(false)} /> : null}
   </>;
 }
 
-function ProgressReading({ records: incoming, snapshot, onClose }: { records: ProgressRecord[]; snapshot: ProgressSnapshot; onClose: () => void }) {
+export function ProgressReading({ records: incoming, snapshot, onClose, floating = false }: { records: ProgressRecord[]; snapshot: ProgressSnapshot; onClose: () => void; floating?: boolean }) {
+  const Reading = floating ? LibraryReading : GlassCard;
   // Keep the page under inspection stable until it is reopened.
   const [records] = useState(incoming), [observed] = useState(snapshot);
   const [tab, setTab] = useState("All"), [requestedPage, setPage] = useState(0);
@@ -60,7 +64,7 @@ function ProgressReading({ records: incoming, snapshot, onClose }: { records: Pr
   }, [tab]);
   const selected = records.filter(row => tab === "Available" ? shipped(row) : tab === "In review" ? reviewing(row) : true);
   const pages = Math.max(1, Math.ceil(selected.length / perPage)), page = Math.min(requestedPage, pages - 1);
-  return <GlassCard title="Progress, with the evidence." eyebrow="NISAYON / PUBLIC WORK" onClose={onClose}>
+  return <Reading title="Progress, with the evidence." eyebrow="NISAYON / PUBLIC WORK" onClose={onClose}>
     <div className="progress-reading">
       <nav className="workspace-tabs progress-tabs" aria-label="Progress filters">
         {["All", "Available", "In review", "Sources"].map(name => <button key={name} aria-pressed={name === tab} onClick={() => { setTab(name); setPage(0); }}>{name}{name !== "Sources" ? <span>{records.filter(row => name === "Available" ? shipped(row) : name === "In review" ? reviewing(row) : true).length}</span> : null}</button>)}
@@ -75,12 +79,12 @@ function ProgressReading({ records: incoming, snapshot, onClose }: { records: Pr
           {selected.slice(page * perPage, (page + 1) * perPage).map(row => <a className="progress-entry" key={row.id} href={row.url} target="_blank" rel="noopener noreferrer" title={row.title}>
             <span className="progress-entry-meta"><span>{row.repository}</span><time dateTime={row.date}>{row.date}</time></span>
             <strong>{row.title}</strong>
-            <span className={`progress-entry-status progress-${row.status}`}>{STATUS_LABEL[row.status]} <span aria-hidden="true">↗</span></span>
+            <span className={`progress-entry-status progress-${row.status}`}>{STATUS_LABEL[row.status]} </span>
           </a>)}
           {selected.length === 0 ? <p>No records in this selection.</p> : null}
         </div>
         <footer className="progress-footer"><span className="progress-freshness">{observed.connection === "current" ? "GitHub checked" : "Saved record"} · {readableTime(observed.checkedAt)}</span><Pages page={page} count={pages} onChange={setPage} label="progress records" /></footer>
       </>}
     </div>
-  </GlassCard>;
+  </Reading>;
 }

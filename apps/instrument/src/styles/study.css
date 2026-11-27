@@ -77,7 +77,8 @@
 .study-copy { min-height: 44px; font-size: .72rem; white-space: nowrap; }
 .study-path { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding: 5px; border: 1px solid var(--glass-rim); border-radius: 12px; background: var(--glass); flex-shrink: 0; }
 .study-path button { appearance: none; background: transparent; border: 0; border-radius: 8px; color: var(--ink-2); padding: 8px 4px; min-height: 44px; font: inherit; font-size: .68rem; line-height: 1.5; cursor: pointer; }
-.study-path button:hover { background: var(--selected); color: var(--ink); }
+@media (hover: hover) and (pointer: fine) {
+:where(:root:not([data-pointer-type="touch"])) .study-path button:hover { background: var(--selected); color: var(--ink); } }
 .study-path button:disabled { opacity: .4; cursor: default; }
 .study-pending { color: var(--ink-3); margin: 0; font-size: .75rem; min-height: 1.5em; flex-shrink: 0; }
 .study-detail[aria-busy="true"] .study-detail-content { opacity: .6; }

@@ -137,10 +137,10 @@ function Fork({ caseRecord, run, ghost, ghostIssue }: { caseRecord: CaseRecord; 
           </button>
         ) : null}
         <button type="button" className="quiet depth-open" onClick={() => store.setDepth("conditions")} aria-describedby={confirmationAvailable ? undefined : "conditions-note"}>
-          Conditions <Icon name="open" />
+          Conditions
         </button>
         <button type="button" className="quiet depth-open" onClick={() => store.setDepth("decision")}>
-          Decision <Icon name="open" />
+          Decision
         </button>
       </div>
       {!confirmationAvailable ? (
@@ -262,7 +262,7 @@ function Conditions({ caseRecord, condition }: { caseRecord: CaseRecord; conditi
       )}
       <div className="depth-actions">
         <button type="button" className="quiet depth-open" onClick={() => store.setDepth("decision")}>
-          Decision <Icon name="open" />
+          Decision
         </button>
       </div>
     </div>

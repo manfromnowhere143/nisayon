@@ -1,8 +1,9 @@
 import { useState, type Ref } from "react";
 import type { CaseId, ResearchCatalog } from "./catalog";
 import { SystemDiagram } from "./Diagrams";
-import { PublicProgress } from "./PublicProgress";
-import { GlassCard } from "./GlassCard";
+import { PublicProgress, ProgressReading } from "./PublicProgress";
+import type { ProgressRecord, ProgressSnapshot } from "./progress";
+import { LibraryReading } from "./LibraryReading";
 import { EngineAtlas } from "./EngineAtlas";
 import { Pages, useCompactWorkspace } from "./WorkspaceControls";
 
@@ -56,18 +57,20 @@ export function SystemWorkspace({
   choose,
   lab,
   study,
+  records,
 }: {
   catalog: ResearchCatalog;
   heading: Ref<HTMLHeadingElement>;
   choose: (id: CaseId) => void;
   lab: () => void;
   study: () => void;
+  records?: () => void;
 }) {
-  const [view, setView] = useState<(typeof VIEWS)[number]>("Overview");
+  const [view, setView] = useState<(typeof VIEWS)[number] | "Stage" | "Progress">("Overview");
+  const [progress, setProgress] = useState<{ records: ProgressRecord[]; snapshot: ProgressSnapshot } | null>(null);
   const [stage, setStage] = useState(0);
   const [page, setPage] = useState(0);
   const [boundaryPage, setBoundaryPage] = useState(0);
-  const [stageOpen, setStageOpen] = useState(false);
   const compact = useCompactWorkspace();
   const perPage = compact ? 3 : 9;
   const pageCount = Math.ceil(catalog.cases.length / perPage);
@@ -76,145 +79,39 @@ export function SystemWorkspace({
   return (
     <main id="research-content" className="system-workspace">
       <header className="system-intro">
-        <div>
-          <p className="research-micro">THE EXPERIMENT ENGINE</p>
-          <h1 ref={heading} tabIndex={-1}>
-            From a failed task to a correction <span>that holds.</span>
-          </h1>
-        </div>
-        <p className="system-lede">
-          A deployment changes. A robot fails.
-          <br />
-          Make the next experiment inspectable.
-        </p>
+        <p className="research-micro">LIBRARY / THE EXPERIMENT ENGINE</p>
+        <h1 ref={heading} tabIndex={-1}>From a failed task to a correction <span>that holds.</span></h1>
       </header>
-      <div className="system-toolbar">
-        <nav className="workspace-tabs" aria-label="System views">
-          {VIEWS.map((v) => (
-            <button
-              key={v}
-              aria-pressed={v === view}
-              onClick={() => setView(v)}
-            >
-              {v}
-            </button>
-          ))}
-        </nav>
-        <span className="system-coordinate">
-          {catalog.asOf} <code>{catalog.sourceCommit.slice(0, 7)}</code>
-        </span>
-      </div>
       <div className="system-panel">
-        <div className="system-overview">
-          <div className="system-anatomy">
-            <SystemDiagram active={stage} />
-            <nav className="method-stages" aria-label="Experiment stages">
-              {STAGES.map((s, i) => (
-                <button
-                  key={s.label}
-                  aria-pressed={stage === i}
-                  onClick={() => setStage(i)}
-                >
-                  <span>0{i + 1}</span>
-                  {s.label}
-                  <i aria-hidden="true" />
-                </button>
-              ))}
-            </nav>
-            <PublicProgress retained={catalog.upstream} />
-          </div>
-          <section
-            className="system-method"
-            aria-label="Inspect the experiment mechanism"
-          >
-            <button className="method-peek" onClick={() => setStageOpen(true)}>
+        <div className="system-overview" hidden={view !== "Overview"}>
+          <div className="system-anatomy"><SystemDiagram active={stage} /></div>
+          <section className="system-method" aria-label="Inspect the experiment mechanism">
+            <button className="method-peek" onClick={() => setView("Stage")} aria-label={`Read ${stageInfo.label}: ${stageInfo.title}`}>
               <span>{stageInfo.title}</span>
-              <span aria-hidden="true">↗</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
             </button>
-            <div className="method-explanation" aria-live="polite">
-              <p className="research-micro">
-                0{stage + 1} / {stageInfo.label}
-              </p>
-              <h2>{stageInfo.title}</h2>
-              <p>{stageInfo.text}</p>
-              <span className="method-scope">{stageInfo.scope}</span>
-              <button
-                className="research-text-action"
-                onClick={() =>
-                  stageInfo.caseId ? choose(stageInfo.caseId) : lab()
-                }
-              >
-                {stageInfo.evidence} ↗
-              </button>
-            </div>
-            {catalog.cases.some((c) => c.id === "dispatch") ? (
-              <button
-                className="research-latest"
-                onClick={() => choose("dispatch")}
-              >
-                <span className="research-micro">N052 / RETAINED INVESTIGATION</span>
-                <b>Collect the plan that is ready in time.</b>
-                <span>Inspect the dispatch boundary ↗</span>
-              </button>
-            ) : catalog.cases.some((c) => c.id === "promotion") ? (
-              <button
-                className="research-latest"
-                onClick={() => choose("promotion")}
-              >
-                <span className="research-micro">N051 / RETAINED INVESTIGATION</span>
-                <b>Bind the evidence a decision reads.</b>
-                <span>Inspect the promotion gate ↗</span>
-              </button>
-            ) : catalog.cases.some((c) => c.id === "attention") ? (
-              <button
-                className="research-latest"
-                onClick={() => choose("attention")}
-              >
-                <span className="research-micro">N050 / RETAINED INVESTIGATION</span>
-                <b>Preserve what the policy can see.</b>
-                <span>Inspect the attention contract ↗</span>
-              </button>
-            ) : (
-              <button
-                className="research-text-action"
-                onClick={() => choose("transfer")}
-              >
-                Inspect a real correction ↗
-              </button>
-            )}
+            <span className="method-scope">{stageInfo.scope}</span>
           </section>
         </div>
-        {stageOpen ? (
-          <GlassCard
-            title={stageInfo.title}
-            eyebrow={`0${stage + 1} / ${stageInfo.label}`}
-            onClose={() => setStageOpen(false)}
-          >
-            <div className="stage-card-reading">
-              <p>{stageInfo.text}</p>
-              <p className="method-scope">{stageInfo.scope}</p>
-              <button
-                className="research-text-action"
-                onClick={() =>
-                  stageInfo.caseId ? choose(stageInfo.caseId) : lab()
-                }
-              >
-                {stageInfo.evidence} ↗
-              </button>
-            </div>
-          </GlassCard>
-        ) : null}
-        {view !== "Overview" ? (
-          <GlassCard
+        {view === "Stage" ? <LibraryReading key="stage" title={stageInfo.title} eyebrow={`0${stage + 1} / ${stageInfo.label}`} onClose={() => setView("Overview")}>
+          <div className="stage-card-reading">
+            <p>{stageInfo.text}</p>
+            <p className="method-scope">{stageInfo.scope}</p>
+            <button className="research-text-action" onClick={() => stageInfo.caseId ? choose(stageInfo.caseId) : lab()}>{stageInfo.evidence}</button>
+          </div>
+        </LibraryReading> : null}
+        {view === "Progress" && progress ? <ProgressReading floating records={progress.records} snapshot={progress.snapshot} onClose={() => setView("Overview")} /> : null}
+        {view !== "Overview" && view !== "Stage" && view !== "Progress" ? (
+          <LibraryReading
+            key={view}
             title={
               view === "Evidence"
-                ? "The evidence, in its own shape."
+                ? "Evidence"
                 : view === "Engine"
-                  ? "Inside the engine."
-                  : "What the evidence leaves open."
+                  ? "Inside the engine"
+                  : "What remains open"
             }
-            eyebrow="NISAYON / SYSTEM"
-            wide
+            eyebrow="LIBRARY"
             onClose={() => setView("Overview")}
           >
             {view === "Evidence" ? (
@@ -223,10 +120,7 @@ export function SystemWorkspace({
                 aria-label="Selected investigations"
               >
                 <div className="research-index-heading">
-                  <p>
-                    Robot outcomes. Software witnesses. Constructed models.
-                    Explicit unknowns.
-                  </p>
+
                   <span className="research-micro">
                     {catalog.cases.length} investigations
                   </span>
@@ -253,7 +147,7 @@ export function SystemWorkspace({
                           {c.status}
                         </span>
                         <span className="index-entry-arrow" aria-hidden="true">
-                          ↗
+
                         </span>
                       </button>
                     ))}
@@ -266,14 +160,14 @@ export function SystemWorkspace({
                     label="investigations"
                   />
                 ) : null}
+                <p className="library-catalog-identity">Recorded {catalog.asOf} · <code title={`Source revision ${catalog.sourceCommit}`}>{catalog.sourceCommit.slice(0, 7)}</code></p>
               </section>
             ) : null}
             {view === "Engine" && catalog.modules ? (
-              <EngineAtlas
-                modules={catalog.modules}
-                revision={catalog.sourceCommit}
-                onStudy={study}
-              />
+              <>
+                {records ? <button className="research-text-action library-records" onClick={records}>Engine records</button> : null}
+                <EngineAtlas modules={catalog.modules} revision={catalog.sourceCommit} onStudy={study} />
+              </>
             ) : null}
             {view === "Engine" && !catalog.modules ? (
               <p>
@@ -314,7 +208,7 @@ export function SystemWorkspace({
                     className="research-text-action"
                     onClick={() => choose("cost")}
                   >
-                    Inspect the cost boundary ↗
+                    Inspect the cost boundary
                   </button>
                 </section>
                 {catalog.adoption ? (
@@ -343,15 +237,26 @@ export function SystemWorkspace({
                       rel="noreferrer"
                     >
                       Inspect merged correction{" "}
-                      {catalog.adoption.revision.slice(0, 7)} ↗
+                      {catalog.adoption.revision.slice(0, 7)}
                     </a>
                   </section>
                 ) : null}
               </div>
             ) : null}
-          </GlassCard>
+          </LibraryReading>
         ) : null}
       </div>
+      <footer className="library-controls">
+        <nav className="method-stages" aria-label="Experiment stages">
+          {STAGES.map((s, i) => <button key={s.label} aria-pressed={stage === i} onClick={() => { setStage(i); setView("Overview"); }}>
+            <span>0{i + 1}</span>{s.label}<i aria-hidden="true" />
+          </button>)}
+        </nav>
+        <nav className="workspace-tabs library-views" aria-label="System views">
+          {VIEWS.map(v => <button key={v} aria-pressed={v === view} onClick={() => setView(v)}>{v}</button>)}
+        </nav>
+        <PublicProgress retained={catalog.upstream} onOpen={(records, snapshot) => { setProgress({ records, snapshot }); setView("Progress"); }} />
+      </footer>
     </main>
   );
 }

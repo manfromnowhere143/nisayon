@@ -3,7 +3,7 @@
 // Static headings are intentional focus destinations when a dialog or reading
 // opens. They need the same input-modality policy as the invoking control.
 // Text entry and arbitrary tabindex containers remain under native heuristics.
-const CONTROL = "button, a[href], summary, select, input[type=range], [role=button], :is(h1,h2,h3,h4,h5,h6)[tabindex='-1']";
+const CONTROL = "button, a[href], summary, select, input[type=range], [role=button], [data-focus-control], :is(h1,h2,h3,h4,h5,h6)[tabindex='-1']";
 const MODIFIERS = new Set(["Shift", "Control", "Alt", "Meta", "CapsLock"]);
 const installations = new WeakMap<Document, { users: number; dispose: () => void }>();
 
@@ -50,7 +50,14 @@ function listen(document: Document): () => void {
       marked.add(control);
     }
   };
+  // Capability media queries alone cannot identify a touchscreen tap on a
+  // laptop with a mouse. Keep actual pointer type separate from focus modality.
+  const pointerType = (event: Event) => {
+    const type = (event as PointerEvent).pointerType;
+    if (type) document.documentElement.dataset.pointerType = type;
+  };
   const pointer = (event: Event) => {
+    pointerType(event);
     document.documentElement.dataset.focusModality = "pointer";
     const popup = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-focus-owner]") : null;
     const owner = popup?.dataset.focusOwner ? document.getElementById(popup.dataset.focusOwner) : null;
@@ -67,6 +74,10 @@ function listen(document: Document): () => void {
   };
   const click = (event: MouseEvent) => {
     if (event.detail !== 0) return;
+    // PointerEvent clicks can have a zero count (including native completion).
+    // Use their actual device type before applying the keyboard/AT fallback.
+    // Keyboard and assistive clicks have no pointerType and remain visible.
+    if ((event as PointerEvent).pointerType) { pointer(event); return; }
     const popup = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-focus-owner]") : null;
     if (popupOwner && popup?.dataset.focusOwner === popupOwner.id && document.activeElement === popupOwner) { mark(popupOwner); return; }
     // Native popup completion can have a zero click count. That count alone
@@ -86,14 +97,33 @@ function listen(document: Document): () => void {
     mark(document.activeElement);
   }
   document.addEventListener("pointerdown", pointer, true);
+  document.addEventListener("pointermove", pointerType, true);
   document.addEventListener("keydown", key, true);
   document.addEventListener("click", click, true);
   document.addEventListener("focusin", focus, true);
   return () => {
     clear();
     document.removeEventListener("pointerdown", pointer, true);
+    document.removeEventListener("pointermove", pointerType, true);
     document.removeEventListener("keydown", key, true);
     document.removeEventListener("click", click, true);
     document.removeEventListener("focusin", focus, true);
   };
+}
+
+/** A control inside a closing native popover cannot receive visible focus. */
+export function focusReturnTarget(element: Element | null): HTMLElement | null {
+  if (!(element instanceof HTMLElement)) return null;
+  let target = element;
+  const visited = new Set<HTMLElement>();
+  while (!visited.has(target)) {
+    visited.add(target);
+    const popover = target.closest<HTMLElement>("[popover]");
+    if (!popover) break;
+    const invoker = [...document.querySelectorAll<HTMLButtonElement>("[popovertarget]")]
+      .find(button => button.getAttribute("popovertarget") === popover.id);
+    if (!invoker) break;
+    target = invoker;
+  }
+  return target;
 }

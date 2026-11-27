@@ -11,6 +11,7 @@ import type { FramePhase, ModelRecord } from "../src/model/types";
 import { decodeVisualAsset, type VisualAsset } from "../src/scene/visualAssets";
 import { VISUAL_ASSET } from "../src/scene/visualAssetPin";
 import type { InstrumentStore } from "../src/state/store";
+import type { LoadProgress, LoaderOptions } from "../src/data/loader";
 import { App } from "../src/App";
 import { Experience } from "../src/research/Experience";
 import { CATALOG_SHA } from "../src/research/catalogPin";
@@ -41,6 +42,7 @@ const controlled = vi.hoisted(() => ({
   }[],
   spatial: vi.fn(),
   resize: vi.fn(),
+  progress: null as ((progress: LoadProgress) => void) | null,
 }));
 vi.mock("../src/scene/renderer", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../src/scene/renderer")>()),
@@ -72,7 +74,7 @@ vi.mock("../src/scene/renderer", async (importOriginal) => ({
       setSpatial: (...args: unknown[]) => {
         controlled.spatial(...args);
       },
-      setCollision: vi.fn(),
+      setWorkstation: vi.fn(), setContact: vi.fn(), setCollision: vi.fn(),
       setView: vi.fn(),
       setGround: vi.fn(),
       resize: controlled.resize,
@@ -82,7 +84,10 @@ vi.mock("../src/scene/renderer", async (importOriginal) => ({
 }));
 vi.mock("../src/scene/visualAssets", async (importOriginal) => ({
   ...(await importOriginal<typeof import("../src/scene/visualAssets")>()),
-  loadVisualAsset: () => controlled.load!,
+  loadVisualAsset: (_model: unknown, _sha: unknown, _generation: unknown, options: LoaderOptions) => {
+    controlled.progress = options.onProgress ?? null;
+    return controlled.load!;
+  },
 }));
 
 let resolve: (asset: VisualAsset) => void, reject: (error: Error) => void;
@@ -93,6 +98,7 @@ const asset = decodeVisualAsset(
 let root: Root | null = null,
   element: HTMLDivElement;
 beforeEach(() => {
+  controlled.progress = null;
   controlled.ready = false;
   controlled.model = null;
   controlled.asset = null;
@@ -144,7 +150,7 @@ async function mount() {
       />,
     ),
   );
-  await waitFor(() => element.querySelector(".transport") !== null);
+  await waitFor(() => element.querySelector(".scene-playback") !== null);
 }
 
 it("never reveals the transient schematic while detailed geometry is pending, including after decode but before paint", async () => {
@@ -217,7 +223,7 @@ it("presents each selected pose in the same commit as its clock, without waiting
       model: screen.run.model,
       frame: screen.run.frames!.rows[selected]![phase],
     });
-    expect(element.querySelector(".transport")!.textContent).toContain(
+    expect(element.querySelector(".scene-moment-control")!.getAttribute("aria-label")).toContain(
       `row ${selected}`,
     );
   }
@@ -384,16 +390,16 @@ async function mountExperience(view = "system") {
 }
 async function navigate(label: string) {
   const button = [
-    ...element.querySelectorAll<HTMLButtonElement>(".research-dock button"),
-  ].find((button) => button.textContent?.trim() === label)!;
+    ...element.querySelectorAll<HTMLButtonElement>('[aria-label="Instrument navigation"] button'),
+  ].find((button) => button.textContent?.trim() === (label === "Lab" ? "Laboratory" : label))!;
   await act(async () => button.click());
 }
 
 it("keeps the shared opening until first paint, with one persistent navigation and a retained playback portal", async () => {
   await mountExperience();
-  const dock = element.querySelector(".research-dock");
-  await navigate("Investigate");
-  await waitFor(() => !!element.querySelector(".transport"));
+  const playbackHost = element.querySelector(".instrument-playback-host");
+  await navigate("Lab");
+  await waitFor(() => !!element.querySelector(".scene-playback"));
   const store = (window as unknown as { __nisayon: { store: InstrumentStore } })
     .__nisayon.store;
   expect(store.getState().initializing).toBe(false);
@@ -403,10 +409,10 @@ it("keeps the shared opening until first paint, with one persistent navigation a
   );
   expect(document.getElementById("site-opening")).toBeNull();
   expect(
-    element.querySelectorAll('[aria-label="Instrument navigation"]'),
+    Array.from(element.querySelectorAll('[aria-label="Instrument navigation"]')).filter(node => !node.closest("[inert]")),
   ).toHaveLength(1);
   expect(
-    element.querySelector(".instrument-playback .transport"),
+    element.querySelector(".instrument-playback-host .scene-playback"),
   ).not.toBeNull();
   await act(async () => resolve(asset));
   expect(element.querySelector(".lab-loading")).not.toBeNull();
@@ -416,23 +422,47 @@ it("keeps the shared opening until first paint, with one persistent navigation a
     false,
   );
   const canvas = element.querySelector(".scene-canvas"),
-    transport = element.querySelector(".transport");
+    transport = element.querySelector(".scene-playback");
   await act(async () => store.selectSample(24, "after"));
   await navigate("Library");
   expect(
-    element.querySelector(".instrument-playback")!.hasAttribute("hidden"),
+    element.querySelector(".instrument-playback-host")!.hasAttribute("hidden"),
   ).toBe(true);
-  await navigate("Investigate");
-  expect(element.querySelector(".research-dock")).toBe(dock);
+  await navigate("Lab");
+  expect(element.querySelector(".instrument-playback-host")).toBe(playbackHost);
   expect(element.querySelector(".scene-canvas")).toBe(canvas);
-  expect(element.querySelector(".transport")).toBe(transport);
+  expect(element.querySelector(".scene-playback")).toBe(transport);
   expect(element.querySelector(".lab-loading")).toBeNull();
-  expect(transport!.textContent).toContain("row 24");
+  expect(transport!.querySelector(".scene-moment-control")?.getAttribute("aria-label")).toContain("row 24");
+});
+
+it("continues one measured resource line across recording and geometry, and still waits for the qualified frame", async () => {
+  await mountExperience("lab");
+  await waitFor(() => !!controlled.progress);
+  const store = (window as unknown as { __nisayon: { store: InstrumentStore } }).__nisayon.store;
+  const screen = store.getState().screen;
+  if (screen.kind !== "ready") throw Error("recording not ready");
+  const record = screen.run.record;
+  const dataBytes = record.samples.byte_length + record.model!.byte_length + record.frames!.byte_length;
+  const total = dataBytes + VISUAL_ASSET.byte_length;
+  const line = element.querySelector<HTMLProgressElement>(".lab-loading progress")!;
+  expect(element.querySelectorAll(".lab-loading progress")).toHaveLength(1);
+  expect(line.value).toBe(Math.floor(100 * dataBytes / total));
+  const loaded = Math.floor(VISUAL_ASSET.byte_length / 4);
+  await act(async () => controlled.progress!({ url: VISUAL_ASSET.path, stage: "run", loaded, total: VISUAL_ASSET.byte_length }));
+  expect(element.querySelector(".lab-loading progress")).toBe(line);
+  expect(line.value).toBe(Math.floor(100 * (dataBytes + loaded) / total));
+  await act(async () => resolve(asset));
+  expect(line.value).toBe(100);
+  expect(element.querySelector(".lab-loading")).not.toBeNull();
+  expect(element.querySelector(".lab-loading output")).toBeNull();
+  await act(async () => controlled.callbacks!.onFirstFrame());
+  expect(element.querySelector(".lab-loading")).toBeNull();
 });
 
 it("releases a direct lab opening into an explicit recovery state without a fallback robot", async () => {
   await mountExperience("lab");
-  await waitFor(() => !!element.querySelector(".transport"));
+  await waitFor(() => !!element.querySelector(".scene-playback"));
   expect(document.getElementById("site-opening")).toBeNull();
   expect(element.querySelectorAll(".lab-loading")).toHaveLength(1);
   await act(async () => reject(new Error("Detailed geometry hash mismatch")));
@@ -446,7 +476,7 @@ it("releases a direct lab opening into an explicit recovery state without a fall
 
 it("allows leaving a cold lab and completing its first frame without stealing the new view", async () => {
   await mountExperience("lab");
-  await waitFor(() => !!element.querySelector(".transport"));
+  await waitFor(() => !!element.querySelector(".scene-playback"));
   await navigate("Library");
   await act(async () => resolve(asset));
   await act(async () => controlled.callbacks!.onFirstFrame());
@@ -455,6 +485,6 @@ it("allows leaving a cold lab and completing its first frame without stealing th
   expect(element.querySelector(".retained-lab")!.hasAttribute("inert")).toBe(
     true,
   );
-  await navigate("Investigate");
+  await navigate("Lab");
   expect(element.querySelector(".lab-loading")).toBeNull();
 });

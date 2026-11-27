@@ -1,129 +1,9 @@
-/* One stable control surface across the instrument. Playback belongs to the
-   lab; navigation remains available during its first load and error states. */
-.instrument-dock {
-  position: fixed;
-  z-index: 110;
-  left: 50%;
-  bottom: max(12px, env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
-  width: 346px;
-  max-width: calc(
-    100% - 24px - env(safe-area-inset-left, 0px) -
-      env(safe-area-inset-right, 0px)
-  );
-  padding: 4px;
-  border: 1px solid var(--glass-rim);
-  border-radius: 30px;
-  background: var(--glass);
-  color: var(--ink);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
-  backdrop-filter: blur(24px) saturate(1.1);
-  box-shadow:
-    inset 0 1px 0 var(--glass-sheen),
-    0 8px 28px #0002;
-}
-.instrument-dock[data-playback="true"]:has(.transport) {
-  width: 650px;
-  border-radius: 26px;
-}
-.research-dock {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px;
-  width: min(100%, 336px);
-  margin: 0 auto;
-}
-.research-dock::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: calc((100% - 4px) / 3);
-  border: 1px solid var(--glass-rim);
-  border-radius: 999px;
-  background: var(--selected);
-  box-shadow: inset 0 1px 0 var(--glass-sheen);
-  transform: translateX(0);
-  transition: transform 0.42s var(--ease-damped);
-  pointer-events: none;
-}
-.instrument-dock[data-view="research"] .research-dock::before {
-  transform: translateX(calc(100% + 2px));
-}
-.instrument-dock[data-view="lab"] .research-dock::before {
-  transform: translateX(calc(200% + 4px));
-}
-.research-dock > button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  min-height: 44px;
-  border: 0;
-  padding: 0 8px;
-  border-radius: 999px;
-  background: none;
-  color: var(--ink);
-  font-size: 0.75rem;
-  white-space: nowrap;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-.research-dock svg {
-  width: 17px;
-  height: 17px;
-  flex: 0 0 auto;
-}
-.instrument-dock :focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
-}
-.instrument-playback {
-  padding: 0 8px 5px;
-  margin: 0 4px 4px;
-  border-bottom: 1px solid var(--rule);
-}
-.instrument-playback:empty {
-  display: none;
-}
-.instrument-playback .transport-dock {
-  position: static;
-  transform: none;
-  width: 100%;
-  max-height: none;
-  display: grid;
-  grid-template-columns: minmax(80px, 1fr) auto;
-  gap: 8px;
-  align-items: center;
-}
-.instrument-playback .glass {
-  border: 0;
-  background: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-.instrument-playback .transport-rail {
-  padding: 0;
-  width: 100%;
-  height: 44px;
-}
-.instrument-playback .transport {
-  padding: 0;
-  flex-wrap: nowrap;
-  min-height: 48px;
-}
-.instrument-playback .transport-readout {
-  min-width: 85px;
-  padding: 0 7px;
-}
-.retained-lab .app {
-  --transport-reserve: max(
-    var(--instrument-dock-reserve, 0px),
-    calc(126px + max(12px, env(safe-area-inset-bottom, 0px)))
-  );
-}
+/* Navigation has no playback shelf. Each scene control owns its own surface. */
+.instrument-navigation{position:fixed;z-index:110;top:calc(19px + var(--safe-top, 0px));right:max(24px,var(--safe-right, 0px))}
+.instrument-navigation .workspace-menu{width:auto;min-width:100px;padding:10px 18px;border:0;border-radius:24px;background:var(--glass-opaque);color:var(--ink);font-size:13px;box-shadow:0 5px 18px #0002}
+.instrument-playback-host{display:contents}.instrument-playback-host[hidden]{display:none}
+:root{--instrument-dock-reserve:20px}
+@media(max-width:700px){.instrument-navigation{top:calc(14px + var(--safe-top, 0px));right:max(14px,var(--safe-right, 0px))}}
 .lab-loading {
   z-index: 90;
 }
@@ -131,13 +11,12 @@
   align-self: center;
   font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
 }
-.lab-loading-detail {
-  position: absolute;
-  top: calc(50% + 78px);
-  width: min(460px, 80%);
-  text-align: center;
-  font: 0.6875rem/1.6 var(--mono);
-}
+.lab-loading-progress { position: absolute; top: calc(50% + 84px); display: flex; align-items: center; gap: 12px; color: var(--ink); }
+.lab-loading-progress progress { appearance: none; width: 156px; height: 2px; border: 0; background: color-mix(in srgb,currentColor 22%,transparent); color: var(--ink); }
+.lab-loading-progress progress::-webkit-progress-bar { background: color-mix(in srgb,currentColor 22%,transparent); }
+.lab-loading-progress progress::-webkit-progress-value { background: currentColor; }
+.lab-loading-progress progress::-moz-progress-bar { background: currentColor; }
+.lab-loading-progress output { min-width: 3ch; font: .625rem/1 var(--mono); font-variant-numeric: tabular-nums; }
 .lab-unavailable {
   width: min(560px, calc(100% - 48px));
   margin: auto;
@@ -352,14 +231,14 @@
    app and landscape phones. Dynamic viewport units follow browser chrome. */
 .research-workspace {
   height: 100dvh;
-  padding-top: env(safe-area-inset-top, 0px);
+  padding-top: var(--safe-top, 0px);
 }
 .research-header {
-  padding-inline: max(24px, env(safe-area-inset-left, 0px))
-    max(24px, env(safe-area-inset-right, 0px));
+  padding-inline: max(24px, var(--safe-left, 0px))
+    max(24px, var(--safe-right, 0px));
 }
 .retained-lab .app {
-  padding-top: env(safe-area-inset-top, 0px);
+  padding-top: var(--safe-top, 0px);
 }
 .research-icon,
 .glass-card-close {
@@ -368,12 +247,12 @@
 }
 .research-glass-card {
   max-height: calc(
-    100dvh - 24px - env(safe-area-inset-top, 0px) -
-      env(safe-area-inset-bottom, 0px)
+    100dvh - 24px - var(--safe-top, 0px) -
+      var(--safe-bottom, 0px)
   );
   max-width: calc(
-    100vw - 24px - env(safe-area-inset-left, 0px) -
-      env(safe-area-inset-right, 0px)
+    100vw - 24px - var(--safe-left, 0px) -
+      var(--safe-right, 0px)
   );
 }
 @media (min-width: 761px) and (max-width: 1100px) {
@@ -395,17 +274,13 @@
     padding-top: 18px;
   }
   .research-header {
-    padding-inline: max(16px, env(safe-area-inset-left, 0px))
-      max(16px, env(safe-area-inset-right, 0px));
+    padding-inline: max(16px, var(--safe-left, 0px))
+      max(16px, var(--safe-right, 0px));
   }
   .research-body {
-    padding-inline: max(16px, env(safe-area-inset-left, 0px))
-      max(16px, env(safe-area-inset-right, 0px));
+    padding-inline: max(16px, var(--safe-left, 0px))
+      max(16px, var(--safe-right, 0px));
     margin-bottom: var(--instrument-dock-reserve, 78px);
-  }
-  .retained-lab .app {
-    padding-inline: max(14px, env(safe-area-inset-left, 0px))
-      max(14px, env(safe-area-inset-right, 0px));
   }
   .research-glass-card input:not([type="range"]),
   .research-glass-card select,
@@ -414,50 +289,10 @@
     font-size: 16px;
   }
 }
-@media (max-width: 600px) {
-  .retained-lab .app {
-    --transport-reserve: max(
-      var(--instrument-dock-reserve, 0px),
-      calc(164px + max(12px, env(safe-area-inset-bottom, 0px)))
-    );
-  }
-  .instrument-dock[data-playback="true"]:has(.transport) {
-    width: 440px;
-  }
-  .instrument-playback .transport-dock {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-  }
-  .instrument-playback .transport-rail {
-    height: 32px;
-    margin-block: 4px;
-  }
-  .instrument-playback .transport {
-    min-height: 44px;
-  }
-  .instrument-playback
-    .tbtn:is([aria-label="Previous row"], [aria-label="Next row"]) {
-    display: none;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
-  .instrument-dock *,
-  .instrument-dock *::before,
   .system-core-position {
     transition: none !important;
     animation: none !important;
-  }
-}
-@media (prefers-reduced-transparency: reduce), (forced-colors: active) {
-  .instrument-dock {
-    background: var(--ground);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-}
-@supports not (backdrop-filter: blur(1px)) {
-  .instrument-dock {
-    background: var(--glass-opaque);
   }
 }
 .scene-recovery {

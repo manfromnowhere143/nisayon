@@ -8,11 +8,19 @@ import { createCollisionLayer } from "./collisionLayer";
 import type { CollisionView } from "./collisionAssets";
 import { frameTiming } from "../perf/frameTiming";
 import { createEvidenceLayer, type SpatialLayerState } from "./evidenceLayer";
-import { pickBody } from "./picking";
+import { pickScene, type ScenePick } from "./picking";
+import { createWorkstationDisplay, contactWorkstationReading } from "./workstationDisplay";
+import type { WorkstationReading } from "../model/workstation";
+import { confineLabCamera } from "./labCamera";
+import { projectBodyAnnotation, sameBodyAnnotation, type BodyAnnotation } from "./bodyAnnotation";
 import type { VisualAsset } from "./visualAssets";
 import { wallVisible } from "./room";
 import { createArchitecture, type LabSetting, type LabDestination } from "./architecture";
+import { loadFloorOcclusion } from "./floorOcclusion";
 import { DAYLIGHT, daylightEnvironment } from "./daylight";
+import { cameraEase, readRenderProfile, renderPixelRatio, RENDER_PROFILES, saveRenderProfile, type RenderProfile } from "./renderProfile";
+import type { ContactView } from "../lab/contactData";
+import { LAB_LAYOUT } from "./laboratoryLayout";
 import type { FramePhase, ModelRecord } from "../model/types";
 import { MUJOCO_TO_THREE, bodyPosition, toThreeVector } from "./convert";
 import { fitCamera, CAMERA_FOV, DEFAULT_BOUNDS, VIEW_EYES, VIEW_ORIGIN, type SceneView, type SubjectBounds } from "./framing";
@@ -102,6 +110,7 @@ export interface SceneCallbacks {
   onContextLost: () => void;
   onContextRestored: () => void;
   onFirstFrame: () => void;
+  onPartAnchor?: (anchor: BodyAnnotation | null) => void;
 }
 
 export interface SceneHandle {
@@ -112,8 +121,9 @@ export interface SceneHandle {
   setPrimary(frame: FramePhase | null, tone: Tone): void;
   setGhost(frame: FramePhase | null): void;
   setSpatial(state: SpatialLayerState): void;
+  setWorkstation(reading: WorkstationReading | null): void;
   setCollision(view: CollisionView | null): void;
-  pick(x: number, y: number): number | null;
+  pick(x: number, y: number): ScenePick | null;
   setView(view: SceneView, animate: boolean): void;
   setGround(ground: Ground): void;
   orbit(deltaAzimuth: number, deltaElevation: number): void;
@@ -121,7 +131,10 @@ export interface SceneHandle {
   resetView(): void;
   resize(): void;
   simulateContextLoss(): boolean;
-  info(): { geometries: number; textures: number; calls: number; frames: number; timing: ReturnType<ReturnType<typeof frameTiming>["summary"]> };
+  setQuality(profile: RenderProfile): void;
+  cameraStudy(): void;
+  setContact(active: boolean, view: ContactView | null): void;
+  info(): { geometries: number; textures: number; calls: number; triangles: number; frames: number; quality: RenderProfile; drawingBuffer: { width: number; height: number }; timing: ReturnType<ReturnType<typeof frameTiming>["summary"]>; workstation: { uploads: number; textureBytes: number; identity: string | null; pending: boolean } | null };
   dispose(): void;
 }
 
@@ -135,7 +148,8 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     if (!context) return null;
     renderer = new THREE.WebGLRenderer({ canvas, context, antialias: true, alpha: true });
   } catch { return null; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  let quality = readRenderProfile();
+  renderer.setPixelRatio(renderPixelRatio(window.innerWidth, window.innerHeight, window.devicePixelRatio || 1, quality));
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.95;
@@ -144,17 +158,24 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   renderer.shadowMap.needsUpdate = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.localClippingEnabled = true;
+  // Reflector invokes a nested render. Accumulate all passes until the outer
+  // frame completes; the default reset reports only the final pass's calls.
+  renderer.info.autoReset = false;
 
   const scene = new THREE.Scene();
-  const architecture = createArchitecture();
+  const compact = Math.min(window.innerWidth, window.innerHeight) < 600;
+  const architecture = createArchitecture({ compact, planarReflection: RENDER_PROFILES[quality].planarReflection });
+  const workstation = createWorkstationDisplay(document.createElement("canvas"), compact ? 512 : 768);
+  let recordingDisplay: WorkstationReading | null = null, contactDisplayActive = false;
+  architecture.workstations.bindDisplay(workstation?.material ?? null);
   scene.add(architecture.root);
   let setting: LabSetting = "architecture";
   let destination: LabDestination = "lab";
   // Studio illumination is a display treatment, never a recorded sensor value.
   // Its cube texture is shared by the scene and released with the renderer.
   let environment: THREE.WebGLRenderTarget | null = null;
-  let radiance: THREE.DataTexture | null = null;
-  let lighting: "fallback" | "baked" | "unavailable" = "fallback";
+
+  const lighting = "shared-procedural";
   function lightEnvironment() {
     environment?.dispose();
     environment = null;
@@ -162,8 +183,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     const room = setting === "architecture" ? daylightEnvironment() : new RoomEnvironment();
     const pmrem = new THREE.PMREMGenerator(renderer);
     try {
-      environment = setting === "architecture" && radiance ? pmrem.fromEquirectangular(radiance)
-        : pmrem.fromScene(room instanceof THREE.Scene ? room : room.scene, 0.06, 0.1, 100, { size: 128, position: new THREE.Vector3(0, 1, 0) });
+      environment = pmrem.fromScene(room instanceof THREE.Scene ? room : room.scene, 0.06, 0.1, 100, { size: 128, position: new THREE.Vector3(0, 1, 0) });
       scene.environment = environment.texture;
       scene.environmentIntensity = setting === "architecture" ? 1.05 : .55;
     } catch { /* Direct lighting remains a complete rendering path. */ }
@@ -191,7 +211,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   key.position.copy(toThreeVector(1.6, -2.2, 3.2));
   key.target.position.copy(TARGET);
   key.castShadow = true;
-  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.mapSize.set(2048, 2048);
   key.shadow.camera.left = -1.2;
   key.shadow.camera.right = 1.2;
   key.shadow.camera.top = 1.2;
@@ -210,6 +230,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
 
   let ground: Ground = initialGround;
   let model: ModelRecord | null = null;
+  let annotationBodies: ReadonlySet<number> = new Set();
   let visualAsset: VisualAsset | null = null;
   let native: ReturnType<typeof buildNativeSurfaces> | null = null;
   let collision: ReturnType<typeof createCollisionLayer> | null = null;
@@ -217,6 +238,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   let primary: Figure | null = null;
   let ghost: Figure | null = null;
   let lastPrimaryFrame: FramePhase | null = null;
+  let lastPartAnchor: BodyAnnotation | null = null;
   let lastGhostFrame: FramePhase | null = null;
   let lastTone: Tone = "neutral";
   let frameCount = 0;
@@ -228,10 +250,24 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   const spherical = new THREE.Spherical();
   const offset = new THREE.Vector3();
   let animation: { from: THREE.Spherical; to: THREE.Spherical; start: number; duration: number; raf: number } | null = null;
+  let contactCamera: { target: THREE.Vector3; spherical: THREE.Spherical; fov: number; automatic: boolean; distance: number } | null = null;
+  let contactPortrait = false;
+  function composeContactCamera() {
+    const portrait = contactCamera !== null && camera.aspect < .85;
+    if (portrait !== contactPortrait) {
+      spherical.radius *= portrait ? 1.55 : 1 / 1.55;
+      fittedDistance = spherical.radius; contactPortrait = portrait;
+    }
+    // Reserve the lower portrait region for accessible floating readings.
+    // An off-axis projection moves the instrument optically, never physically.
+    if (portrait) camera.setViewOffset(lastWidth,lastHeight,0,lastHeight*.24,lastWidth,lastHeight);
+    else camera.clearViewOffset();
+  }
 
   function placeCameraFromSpherical(): void {
     offset.setFromSpherical(spherical);
     camera.position.copy(TARGET).add(offset);
+    if (setting === "architecture") confineLabCamera(camera.position, TARGET, spherical.phi < .5);
     camera.lookAt(TARGET);
   }
 
@@ -268,7 +304,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   const timing = frameTiming(renderer.getContext() as WebGL2RenderingContext);
   function renderFrame(): void {
     if (disposed || lost || !canvas.parentElement?.clientWidth || !canvas.parentElement.clientHeight) return;
-    architecture.cutaway(setting === "architecture" && camera.position.y > 5.9);
+    architecture.cutaway(setting === "architecture" && spherical.phi < .5);
     if (primary && model) for (const primitive of primary.primitives) {
       const geom = model.geoms[primitive.geom]!;
       // Only the display treatment is replaced. Its recorded geometry remains
@@ -278,13 +314,33 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
       const p = primitive.mesh.position, q = primitive.mesh.quaternion;
       primitive.mesh.visible = setting === "source" && wallVisible([camera.position.x, -camera.position.z, camera.position.y], [TARGET.x, -TARGET.z, TARGET.y], [p.x, p.y, p.z], [q.w, q.x, q.y, q.z], geom.size[2]);
     }
-    const started = timing.begin();
-    try { renderer.render(scene, camera); } finally { timing.end(started); }
+    const started = timing.begin(animation !== null);
+    try {
+      if (architecture.root.visible) workstation?.flush();
+      renderer.info.reset();
+      renderer.render(scene, camera);
+    } finally { timing.end(started); }
     frameCount += 1;
+    publishPartAnchor();
     if (!firstFrameReported && primary && lastPrimaryFrame) {
       firstFrameReported = true;
       callbacks.onFirstFrame();
     }
+  }
+  function publishPartAnchor() {
+    if (!callbacks.onPartAnchor) return;
+    const body = spatial?.selectedBody, box = canvas.parentElement;
+    let next: BodyAnnotation | null = null;
+    if (model && lastPrimaryFrame && body != null && box?.clientWidth && box.clientHeight) {
+      // Selection is committed in React's layout phase. Project it immediately,
+      // before paint, rather than showing a provisional label until the next GPU draw.
+      root.updateMatrixWorld(true); camera.updateMatrixWorld(true);
+      const index = body * 3;
+      const origin = toThreeVector(lastPrimaryFrame.xpos[index]!, lastPrimaryFrame.xpos[index + 1]!, lastPrimaryFrame.xpos[index + 2]!);
+      next = projectBodyAnnotation([native?.primary.root ?? primary?.group].filter((value): value is THREE.Group => !!value),
+        body, origin, camera, box.clientWidth, box.clientHeight, annotationBodies);
+    }
+    if (!sameBodyAnnotation(lastPartAnchor, next)) { lastPartAnchor = next; callbacks.onPartAnchor(next); }
   }
   function requestRender(): void {
     if (disposed || lost || renderRequested || !canvas.parentElement?.clientWidth || !canvas.parentElement.clientHeight) return;
@@ -299,22 +355,22 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     architecture.palette(ground === "paper");
     architecture.root.visible = setting === "architecture";
     const hall = setting === "architecture";
-    renderer.toneMappingExposure = hall ? 1.45 : .95;
-    scene.background = hall ? new THREE.Color(0xb3c4b8) : null;
-    scene.fog = hall ? new THREE.Fog(0xb3c4b8, 18, 43) : null;
+    renderer.toneMappingExposure = hall ? 1.1 : .95;
+    scene.background = hall ? new THREE.Color(0x969e9f) : null;
+    scene.fog = hall ? new THREE.Fog(0x969e9f, 18, 43) : null;
     hemi.color.set(p.hemiSky);
     hemi.groundColor.set(p.hemiGround);
-    hemi.intensity = hall ? .55 : p.hemiIntensity;
-    hemi.color.set(hall ? 0xc5deed : p.hemiSky); hemi.groundColor.set(hall ? 0x736c50 : p.hemiGround);
+    hemi.intensity = hall ? 1.15 : p.hemiIntensity;
+    hemi.color.set(hall ? 0xd9e0eb : p.hemiSky); hemi.groundColor.set(hall ? 0x33373d : p.hemiGround);
     key.intensity = hall ? DAYLIGHT.intensity : p.keyIntensity;
     key.color.set(hall ? DAYLIGHT.colour : 0xffffff);
     key.position.copy(hall ? new THREE.Vector3(...DAYLIGHT.sun) : toThreeVector(1.6, -2.2, 3.2));
     key.target.position.copy(hall ? new THREE.Vector3(...DAYLIGHT.target) : VIEW_TARGET);
-    const span = hall ? 13 : 1.2;
+    const span = hall ? 3.2 : 1.2;
     Object.assign(key.shadow.camera, { left: -span, right: span, top: span, bottom: -span, far: hall ? 42 : 8 });
     key.shadow.camera.updateProjectionMatrix();
-    key.shadow.normalBias = hall ? .012 : .004;
-    fill.intensity = hall ? .16 : .35; rim.intensity = hall ? .12 : .6;
+    key.shadow.normalBias = hall ? .003 : .004;
+    fill.intensity = hall ? .4 : .35; rim.intensity = hall ? .3 : .6;
     renderer.shadowMap.needsUpdate = true;
     for (const figure of [primary, ghost]) {
       if (!figure) continue;
@@ -505,6 +561,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     const height = Math.floor(parent.clientHeight);
     if (width === lastWidth && height === lastHeight) { requestRender(); return; }
     lastWidth = width; lastHeight = height;
+    renderer.setPixelRatio(renderPixelRatio(width, height, window.devicePixelRatio || 1, quality));
     // Resolve contact and joint shadows on a large stage without adding a
     // second renderer, postprocessing pass or idle animation. Compact stages
     // keep the original shadow budget. Release the old target on transitions.
@@ -518,6 +575,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    if (contactCamera) { composeContactCamera(); placeCameraFromSpherical(); }
     if (automaticFraming) {
       stopAnimation();
       spherical.copy(fittedView(selectedView));
@@ -533,22 +591,18 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     }
   }
 
-  function easeOut(t: number): number {
-    return 1 - Math.pow(1 - t, 3);
-  }
-
   function moveToView(view: SceneView, animate: boolean) {
     stopAnimation();
     const fromTarget = TARGET.clone(), from = spherical.clone();
     const to = fittedView(view), toTarget = TARGET.clone();
-    if (!animate || !firstFrameReported) {
+    if (!animate || !firstFrameReported || (fromTarget.distanceToSquared(toTarget) < 1e-12 && Math.abs(from.radius-to.radius) + Math.abs(from.phi-to.phi) + Math.abs(from.theta-to.theta) < 1e-8)) {
       spherical.copy(to); placeCameraFromSpherical(); requestRender(); return;
     }
     TARGET.copy(fromTarget);
     const start = performance.now(), duration = 420;
     const step = () => {
       if (!animation) return;
-      const t = Math.min(1, (performance.now() - start) / duration), k = easeOut(t);
+      const t = Math.min(1, (performance.now() - start) / duration), k = cameraEase(t);
       TARGET.lerpVectors(fromTarget, toTarget, k);
       spherical.radius = THREE.MathUtils.lerp(from.radius, to.radius, k);
       spherical.phi = THREE.MathUtils.lerp(from.phi, to.phi, k);
@@ -565,6 +619,8 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   function onContextLost(event: Event): void {
     event.preventDefault();
     lost = true;
+    lastPartAnchor = null;
+    callbacks.onPartAnchor?.(null);
     timing.reset();
     // Release the old target while its context is lost. Disposing it after
     // restoration would try to delete GPU objects from the previous context.
@@ -583,6 +639,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     timing.restore();
     renderer.shadowMap.needsUpdate = true;
     lightEnvironment();
+    workstation?.restore();
     callbacks.onContextRestored();
     requestRender();
   }
@@ -593,20 +650,9 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
   applyPalette();
   resize();
 
-  // Authored lighting is optional and never blocks the recorded experiment.
-  // Late loads release their GPU resources after unmount; restoration rebuilds
-  // PMREM from the retained CPU texture. No continuous refinement loop.
-  void import("three/addons/loaders/HDRLoader.js").then(async ({ HDRLoader }) => {
-    const texture = await new HDRLoader().loadAsync(`${import.meta.env.BASE_URL}media/laboratory/bay-radiance.hdr`);
-    if (disposed) { texture.dispose(); return; }
-    radiance = texture; lighting = "baked";
-    if (!lost) { lightEnvironment(); requestRender(); }
-  }).catch(() => { if (!disposed) lighting = "unavailable"; });
-  void new THREE.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}media/laboratory/floor-indirect.png`).then(texture => {
-    if (disposed) { texture.dispose(); return; }
-    texture.colorSpace = THREE.SRGBColorSpace;
-    architecture.setFloorLightMap(texture); requestRender();
-  }).catch(() => { /* The building retains direct light and contact shadows. */ });
+  // This contact mask belongs to the revised static room. The previous warm
+  // room light map is a different revision and remains unused.
+  const releaseFloorOcclusion = loadFloorOcclusion(architecture, requestRender);
 
   return {
     setSetting(next, nextDestination) {
@@ -627,6 +673,7 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
       if (model !== record) {
         collision?.dispose(); collision = null; collisionView = null;
         model = record;
+        annotationBodies = new Set(record.bodies.filter(body => /^(robot|gripper)/.test(body.name)).map(body => body.index));
         if (primary) disposeFigure(primary);
         if (ghost) disposeFigure(ghost);
         primary = buildFigure(record, false);
@@ -678,7 +725,12 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
       spatial = state;
       updateSpatial();
       collision?.pose(lastPrimaryFrame, !!state.options.collision);
+      publishPartAnchor();
       requestRender();
+    },
+    setWorkstation(reading) {
+      recordingDisplay = reading;
+      if (!contactDisplayActive && workstation?.set(reading) && architecture.root.visible) requestRender();
     },
     setCollision(view) {
       if (view === collisionView) return;
@@ -689,9 +741,10 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
     pick(x, y) {
       if (!lastPrimaryFrame || disposed || lost) return null;
       root.updateMatrixWorld(true);
+      architecture.root.updateMatrixWorld(true);
       camera.updateMatrixWorld(true);
       raycaster.setFromCamera(new THREE.Vector2(x, y), camera);
-      return pickBody(raycaster, [primary?.group, native?.primary.root].filter((group): group is THREE.Group => group !== undefined));
+      return pickScene(raycaster, [architecture.root, primary?.group, native?.primary.root].filter((group): group is THREE.Group => group !== undefined));
     },
     setView(view, animate) {
       selectedView = view;
@@ -733,20 +786,59 @@ export function createSceneRenderer(canvas: HTMLCanvasElement, initialGround: Gr
       window.setTimeout(() => extension.restoreContext(), 1500);
       return true;
     },
+    setQuality(profile) {
+      quality = profile; saveRenderProfile(profile);
+      architecture.setReflection(RENDER_PROFILES[profile].planarReflection);
+      lastWidth = 0; lastHeight = 0; resize();
+    },
+    setContact(active, view) {
+      architecture.contact.update(view,active);
+      contactDisplayActive = active;
+      workstation?.set(active ? view ? contactWorkstationReading(view) : null : recordingDisplay);
+      if (active && !contactCamera) {
+        stopAnimation();
+        contactCamera = { target: TARGET.clone(), spherical: spherical.clone(), fov: camera.fov, automatic: automaticFraming, distance: fittedDistance };
+        automaticFraming = false; TARGET.set(...LAB_LAYOUT.contactInspection.target); camera.fov = 35;
+        spherical.copy(sphericalOf(new THREE.Vector3(...LAB_LAYOUT.contactInspection.eye))); fittedDistance = spherical.radius;
+        composeContactCamera();
+        camera.updateProjectionMatrix(); placeCameraFromSpherical();
+      } else if (!active && contactCamera) {
+        stopAnimation(); TARGET.copy(contactCamera.target); spherical.copy(contactCamera.spherical);
+        camera.fov = contactCamera.fov; fittedDistance = contactCamera.distance; automaticFraming = contactCamera.automatic;
+        contactCamera = null; contactPortrait = false; camera.clearViewOffset(); camera.updateProjectionMatrix(); placeCameraFromSpherical();
+      }
+      renderer.shadowMap.needsUpdate = true;
+      requestRender();
+    },
+    cameraStudy() {
+      stopAnimation(); timing.clearSamples();
+      const from = spherical.clone(), start = performance.now(), duration = 6000;
+      const step = () => {
+        if (!animation) return;
+        const t = Math.min(1, (performance.now() - start) / duration);
+        const arc = t <= .5 ? cameraEase(t * 2) : 1 - cameraEase((t - .5) * 2);
+        spherical.theta = from.theta + .55 * arc;
+        placeCameraFromSpherical(); requestRender();
+        if (t < 1) animation.raf = requestAnimationFrame(step); else animation = null;
+      };
+      animation = { from, to: from.clone(), start, duration, raf: requestAnimationFrame(step) };
+    },
     info() {
-      return { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures, calls: renderer.info.render.calls, frames: frameCount, timing: timing.summary(), lighting };
+      return { geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures, calls: renderer.info.render.calls, triangles: renderer.info.render.triangles, frames: frameCount, quality, drawingBuffer: { width: canvas.width, height: canvas.height }, timing: timing.summary(), lighting, workstation: workstation?.info() ?? null };
     },
     dispose() {
       disposed = true;
       timing.dispose();
       key.shadow.map?.dispose();
       environment?.dispose();
-      radiance?.dispose();
+
       stopAnimation();
       if (renderRequested) cancelAnimationFrame(renderRequested);
       canvas.removeEventListener("webglcontextlost", onContextLost);
       canvas.removeEventListener("webglcontextrestored", onContextRestored);
       native?.dispose();
+      workstation?.dispose();
+      releaseFloorOcclusion();
       architecture.dispose();
       collision?.dispose();
       evidence.dispose();

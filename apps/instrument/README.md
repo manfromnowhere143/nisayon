@@ -88,3 +88,71 @@ component, reversed sign in the regression run; a clip in the reference run),
 the coordinate conversion, the URL codec, and DOM-level agreement of transport,
 caption and inspector in jsdom (which also exercises the SVG fallback).
 Browser evidence is retained under `docs/ui/visual/` when captured.
+
+### Interaction presentation
+
+The shared `src/ui/focusPresentation.ts` and `src/styles/focus.css` own input
+modality across routes, including styles loaded after the shell. Preserve their
+cascade boundary: pointer activation and scripted heading focus must not leave
+a persistent outline, while Tab, keyboard activation and forced colours retain
+visible focus. Do not fix a pointer outline by calling `blur()` or disabling
+focus globally. Include canvas controls through `data-focus-control`.
+
+Use the actual click's `pointerType` before treating a zero click count as
+keyboard or assistive activation. Native pointer completions can also report
+zero. Genuine keyboard/assistive clicks still receive visible focus. Floating
+navigation uses a small baseline cue for keyboard focus, without a surrounding
+frame. Resolve focus return through every closing popover to a visible invoker.
+Gate hover with both device capability and the last actual pointer type, so a
+touchscreen tap on a laptop does not retain a mouse-hover appearance.
+
+Lab progress has one owner. Use retained byte lengths and actual transfer counts
+across recording and geometry loading; never reset the line at a stage change,
+invent a timed percentage, or delay an already usable frame. Verification,
+decoding and the first paint remain real readiness conditions.
+
+`WorkspaceMenu`, `WorkspaceNavigation`, and `workspaceUtilities` are shared by
+Lab, Library, and Ricci, including direct Ricci entry. Destinations extend down
+from the cube. Appearance is the only adjacent action, on a separate 48px target
+directly to its left. Tools replaces the destination list on the same vertical
+axis, with a Back control and keyboard focus transfer. The list fits the visual
+viewport and safe areas, including keyboard and zoom changes. Native popovers
+keep Escape and light dismissal; preserve accessible names on icon-only buttons.
+Ricci's dark exhibit owns its foreground independently of the saved reading
+ground. Its View controls sit beside Motion Study, and its desktop transport is
+centered above those controls. Evidence and Sources use the laboratory's left
+reading space on desktop and a bounded reading above playback on a phone.
+
+PWA restoration checks for an update on `pageshow`, through the same bounded
+check used for visibility changes. It does not reload an active recording or
+replace the selected moment. Keep update listeners removable on disposal.
+
+Library has one selected stage and one open reading. `LibraryReading` replaces
+the drawing within the same canvas; it does not create a backdrop or another
+render loop. Keep stage and view controls available, restore keyboard focus on
+close, and never stack readings. Long source records scroll within that bounded
+reading. Public work opens the retained records without an idle rotating ticker.
+The diagram is visible immediately; stage transitions remain finite and obey
+reduced motion. Keep source revisions, failure states, and qualifications intact
+when shortening presentation text.
+
+A selected surface owns both its background and foreground. SVG sections use
+`--svg-surface-ink`, which the global legibility policy consumes; a global theme
+must not repaint selected dark text white. Check selected, hovered, focused and
+disabled states with the actual lazy route stylesheet loaded. Check route entry
+from both stored grounds, not only a fresh default session.
+
+Before calling a visual interaction finished, inspect the real page with mouse,
+keyboard and touch at desktop, 390 and 320 CSS px. Retain front/selected captures,
+verify focus return, reduced motion, scroll and failure recovery, and distinguish
+responsive emulation from physical-device testing. DOM tests cannot establish
+pixel contrast, WebGL appearance or frame rate.
+
+### Native activation and layout changes
+
+Pointer events qualify a mesh tap or orbit; the native `click` commits the tap.
+Do not open, scroll or reflow an inspector from `pointerup`: a later compatibility
+click can hit a control that moved under the finger. A frame or timeout is not
+an ordering guarantee. Keep cancellation and orbit ineligible for activation,
+and verify that one touch produces one canvas click and zero navigation clicks.
+The retained browser regression is `work/research/ricci-exhibit-2026-11-23/mesh/tap_activation_qa.mjs`.

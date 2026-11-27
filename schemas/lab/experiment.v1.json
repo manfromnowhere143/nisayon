@@ -1,0 +1,411 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nisayon.danielwahnich.dev/schemas/lab/experiment.v1.json",
+  "title": "Nisayon bounded experiment envelope v1",
+  "description": "Structural validation only. validate_experiment recomputes semantic identity and checks executable source/runtime.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "spec"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema",
+        "protocol",
+        "protocol_sha256",
+        "parameters",
+        "producer",
+        "runtime"
+      ],
+      "properties": {
+        "schema": {
+          "const": "nisayon.lab.experiment.v1"
+        },
+        "protocol": {
+          "enum": [
+            {
+              "schema": "nisayon.lab.contact.v1",
+              "id": "contact-force-separation",
+              "revision": 2,
+              "status": "research_preview",
+              "embodiment": "two-axis guided rigid slider; no proprietary robot",
+              "visualization": {
+                "slider_half_size_m": [
+                  0.04,
+                  0.03,
+                  0.02
+                ],
+                "surface": "infinite physical plane; finite presentation crop has no contact boundaries",
+                "frame_mapping": "MuJoCo z-up to Three y-up: (x,z,-y)",
+                "interpolation": "none; display exact retained rows",
+                "force_arrow_scale_m_per_n": 0.02
+              },
+              "solver": {
+                "name": "MuJoCo",
+                "version": "3.3.2",
+                "integrator": "Euler",
+                "solver": "Newton",
+                "iterations": 100,
+                "timestep_s": 0.001,
+                "cone": "elliptic",
+                "contact_solref": [
+                  0.01,
+                  1.0
+                ]
+              },
+              "coordinates": {
+                "frame": "bench_world",
+                "axes": "x travel, y lateral, z up",
+                "units": "SI",
+                "gravity_m_s2": [
+                  0.0,
+                  0.0,
+                  -9.81
+                ]
+              },
+              "initial_state": {
+                "distribution": "one deterministic state per role and input",
+                "settle_s": 0.2,
+                "travel_m": 0.0,
+                "velocity_m_s": 0.05,
+                "randomness": "none",
+                "paired_reset": "same qpos and qvel after settling"
+              },
+              "intervention": "two prescribed constant force commands; independent physics futures",
+              "action": "command N times declared motor gain; no learned policy or feedback controller",
+              "measurement_period_s": 0.005,
+              "measurement_phase": "state and forces after mj_forward at the reported simulation time",
+              "channels": {
+                "x_m": {
+                  "unit": "m",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "v_m_s": {
+                  "unit": "m/s",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "a_m_s2": {
+                  "unit": "m/s2",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "command_n": {
+                  "unit": "N",
+                  "origin": "declared",
+                  "use": "analysis"
+                },
+                "applied_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                },
+                "contact_x_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                },
+                "normal_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                }
+              },
+              "analysis": {
+                "model": "mean acceleration = gain*u/m - effective_mu*g",
+                "acceleration": "least-squares velocity slope after 0.025 s, separately per input",
+                "max_velocity_residual_rms_m_s": 0.025,
+                "min_force_separation_n": 0.1,
+                "interpretation": "conditional effective parameters, not calibrated material estimates"
+              },
+              "obligation": "candidate terminal displacement within declared absolute tolerance of reference",
+              "qualification_authority": "nisayon.qualification.assess_measurements",
+              "limits": [
+                "exposed, prescribed experiment; no autonomous diagnosis or adaptive cost claim",
+                "soft contact simulation, rigid guided body, known mass; not hardware validation",
+                "force channels are simulator validation, not physical sensors",
+                "stiction, loss of contact or inadequate excitation leave the fit unresolved",
+                "no statistical generalization, safety certificate or deployment authorization"
+              ],
+              "budgets": {
+                "episodes": 4,
+                "max_physics_steps": 3000,
+                "max_wall_s": 10.0,
+                "max_packet_bytes": 2000000,
+                "max_measurements": 404
+              },
+              "failure": "retain incomplete measurements; qualification unresolved",
+              "cancellation": "cooperative check at every physics step; retain partial packet"
+            },
+            {
+              "schema": "nisayon.lab.contact.v1",
+              "id": "contact-force-separation",
+              "revision": 1,
+              "status": "research_preview",
+              "embodiment": "two-axis guided rigid slider; no proprietary robot",
+              "visualization": {
+                "slider_half_size_m": [
+                  0.04,
+                  0.03,
+                  0.02
+                ],
+                "surface": "infinite plane shown as a finite 2 m bench",
+                "frame_mapping": "MuJoCo z-up to Three y-up: (x,z,-y)",
+                "interpolation": "none; display exact retained rows",
+                "force_arrow_scale_m_per_n": 0.02
+              },
+              "solver": {
+                "name": "MuJoCo",
+                "version": "3.3.2",
+                "integrator": "Euler",
+                "solver": "Newton",
+                "iterations": 100,
+                "timestep_s": 0.001,
+                "cone": "elliptic",
+                "contact_solref": [
+                  0.01,
+                  1.0
+                ]
+              },
+              "coordinates": {
+                "frame": "bench_world",
+                "axes": "x travel, y lateral, z up",
+                "units": "SI",
+                "gravity_m_s2": [
+                  0.0,
+                  0.0,
+                  -9.81
+                ]
+              },
+              "initial_state": {
+                "distribution": "one deterministic state per role and input",
+                "settle_s": 0.2,
+                "travel_m": 0.0,
+                "velocity_m_s": 0.05,
+                "randomness": "none",
+                "paired_reset": "same qpos and qvel after settling"
+              },
+              "intervention": "two prescribed constant force commands; independent physics futures",
+              "action": "command N times declared motor gain; no learned policy or feedback controller",
+              "measurement_period_s": 0.005,
+              "measurement_phase": "state and forces after mj_forward at the reported simulation time",
+              "channels": {
+                "x_m": {
+                  "unit": "m",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "v_m_s": {
+                  "unit": "m/s",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "a_m_s2": {
+                  "unit": "m/s2",
+                  "origin": "simulated",
+                  "use": "analysis"
+                },
+                "command_n": {
+                  "unit": "N",
+                  "origin": "declared",
+                  "use": "analysis"
+                },
+                "applied_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                },
+                "contact_x_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                },
+                "normal_n": {
+                  "unit": "N",
+                  "origin": "simulated",
+                  "use": "validation_only"
+                }
+              },
+              "analysis": {
+                "model": "mean acceleration = gain*u/m - effective_mu*g",
+                "acceleration": "least-squares velocity slope after 0.025 s, separately per input",
+                "max_velocity_residual_rms_m_s": 0.025,
+                "min_force_separation_n": 0.1,
+                "interpretation": "conditional effective parameters, not calibrated material estimates"
+              },
+              "obligation": "candidate terminal displacement within declared absolute tolerance of reference",
+              "qualification_authority": "nisayon.qualification.assess_measurements",
+              "limits": [
+                "exposed, prescribed experiment; no autonomous diagnosis or adaptive cost claim",
+                "soft contact simulation, rigid guided body, known mass; not hardware validation",
+                "force channels are simulator validation, not physical sensors",
+                "stiction, loss of contact or inadequate excitation leave the fit unresolved",
+                "no statistical generalization, safety certificate or deployment authorization"
+              ],
+              "budgets": {
+                "episodes": 4,
+                "max_physics_steps": 3000,
+                "max_wall_s": 10.0,
+                "max_packet_bytes": 2000000,
+                "max_measurements": 404
+              },
+              "failure": "retain incomplete measurements; qualification unresolved",
+              "cancellation": "cooperative check at every physics step; retain partial packet"
+            }
+          ]
+        },
+        "protocol_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "mass_kg",
+            "reference_friction",
+            "candidate_friction",
+            "reference_gain",
+            "candidate_gain",
+            "low_force_n",
+            "high_force_n",
+            "duration_s",
+            "displacement_tolerance_m"
+          ],
+          "properties": {
+            "mass_kg": {
+              "type": "number",
+              "default": 0.4,
+              "minimum": 0.2,
+              "maximum": 1.0,
+              "unit": "kg",
+              "title": "Slider mass; identical in both systems"
+            },
+            "reference_friction": {
+              "type": "number",
+              "default": 0.3,
+              "minimum": 0.05,
+              "maximum": 1.0,
+              "unit": "1",
+              "title": "Reference sliding friction"
+            },
+            "candidate_friction": {
+              "type": "number",
+              "default": 0.45,
+              "minimum": 0.05,
+              "maximum": 1.0,
+              "unit": "1",
+              "title": "Candidate sliding friction"
+            },
+            "reference_gain": {
+              "type": "number",
+              "default": 1.0,
+              "minimum": 0.5,
+              "maximum": 1.5,
+              "unit": "1",
+              "title": "Reference command-to-force gain"
+            },
+            "candidate_gain": {
+              "type": "number",
+              "default": 1.0,
+              "minimum": 0.5,
+              "maximum": 1.5,
+              "unit": "1",
+              "title": "Candidate command-to-force gain"
+            },
+            "low_force_n": {
+              "type": "number",
+              "default": 2.0,
+              "minimum": 1.0,
+              "maximum": 8.0,
+              "unit": "N",
+              "title": "First prescribed force command"
+            },
+            "high_force_n": {
+              "type": "number",
+              "default": 4.0,
+              "minimum": 1.0,
+              "maximum": 8.0,
+              "unit": "N",
+              "title": "Second prescribed force command"
+            },
+            "duration_s": {
+              "type": "number",
+              "default": 0.3,
+              "minimum": 0.1,
+              "maximum": 0.5,
+              "unit": "s",
+              "title": "Duration after each matched reset",
+              "multipleOf": 0.005
+            },
+            "displacement_tolerance_m": {
+              "type": "number",
+              "default": 0.005,
+              "minimum": 0.0,
+              "maximum": 0.05,
+              "unit": "m",
+              "title": "Declared equivalence obligation"
+            }
+          }
+        },
+        "producer": {
+          "type": "object",
+          "required": [
+            "protocol.py",
+            "contact.py",
+            "measurements.py",
+            "models.py",
+            "io.py"
+          ],
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "runtime": {
+          "type": "object",
+          "required": [
+            "packages",
+            "python",
+            "machine",
+            "system"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "packages": {
+              "type": "object",
+              "required": [
+                "mujoco",
+                "numpy"
+              ],
+              "additionalProperties": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "python": {
+              "type": "string"
+            },
+            "machine": {
+              "type": "string"
+            },
+            "system": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

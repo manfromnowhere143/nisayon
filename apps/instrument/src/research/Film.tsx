@@ -16,13 +16,17 @@ export async function filmSource(signal: AbortSignal): Promise<{ hls: string; mp
   return { hls: hls as string, mp4: mp4 as string };
 }
 
+export const FILM_POSTER = "/media/film/approved-2026-11-23-poster.webp";
+
+
 export function Film({ poster, playRequested, onClose, source = filmSource }: {
-  poster: string; playRequested: boolean; onClose: () => void; source?: typeof filmSource;
+  poster: string; playRequested: boolean; onClose: () => void; source?: (signal: AbortSignal) => Promise<{ mp4: string; hls?: string }>;
 }) {
   const dialog = useRef<HTMLDialogElement>(null), close = useRef<HTMLButtonElement>(null);
   const video = useRef<HTMLVideoElement>(null), stream = useRef<Hls | null>(null);
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [attempt, setAttempt] = useState(0);
+  const [frameReady, setFrameReady] = useState(false), [needsPlay, setNeedsPlay] = useState(false);
   useLayoutEffect(() => {
     const origin = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const node = dialog.current!;
@@ -32,20 +36,27 @@ export function Film({ poster, playRequested, onClose, source = filmSource }: {
   }, []);
   useEffect(() => {
     const controller = new AbortController(), element = video.current!;
-    setState("loading");
+    setState("loading"); setFrameReady(false); setNeedsPlay(false);
+    let frameRequest = 0;
+    const shown = () => { if (!controller.signal.aborted) { setFrameReady(true); setState("ready"); setNeedsPlay(false); } };
+    const decoded = () => { if (typeof element.requestVideoFrameCallback !== "function" && element.readyState >= 2) shown(); };
+    if (typeof element.requestVideoFrameCallback === "function") frameRequest = element.requestVideoFrameCallback(shown);
+    element.addEventListener("loadeddata", decoded);
+
     const play = () => {
       if ((playRequested || attempt > 0) && !controller.signal.aborted && !document.hidden) {
         stream.current?.startLoad(-1);
-        void element.play().catch(() => { /* Native play remains available when autoplay is denied. */ });
-      }
+        void element.play().catch(() => { if (!controller.signal.aborted) setNeedsPlay(true); });
+      } else if (!controller.signal.aborted) setNeedsPlay(true);
     };
     const begin = () => stream.current?.startLoad(-1);
     const hidden = () => { if (document.hidden) { element.pause(); stream.current?.stopLoad(); } };
-    const failed = () => { if (!controller.signal.aborted) { element.pause(); stream.current?.stopLoad(); setState("error"); } };
+    const failed = () => { if (!controller.signal.aborted) { element.pause(); stream.current?.stopLoad(); setNeedsPlay(false); setState("error"); } };
     element.addEventListener("play", begin); element.addEventListener("error", failed);
     document.addEventListener("visibilitychange", hidden);
     void source(controller.signal).then(async urls => {
       if (controller.signal.aborted) return;
+      if (!urls.hls) { element.src = urls.mp4; play(); if (!playRequested) setNeedsPlay(true); return; }
       const { default: HlsPlayer } = await import("hls.js");
       if (controller.signal.aborted) return;
       // Chromium can advertise native HLS while failing this separate-audio
@@ -53,28 +64,32 @@ export function Film({ poster, playRequested, onClose, source = filmSource }: {
       // on platforms without supported MediaSource / ManagedMediaSource.
       if (!HlsPlayer.isSupported()) {
         element.src = element.canPlayType("application/vnd.apple.mpegurl") ? urls.hls : urls.mp4;
-        setState("ready"); play(); return;
+        play(); return;
       }
       const hls = new HlsPlayer({ capLevelToPlayerSize: true, startLevel: -1, maxBufferLength: 20, maxMaxBufferLength: 30, backBufferLength: 10, autoStartLoad: false });
       stream.current = hls;
-      hls.on(HlsPlayer.Events.MEDIA_ATTACHED, () => { if (!controller.signal.aborted) hls.loadSource(urls.hls); });
-      hls.on(HlsPlayer.Events.MANIFEST_PARSED, () => { if (!controller.signal.aborted) { setState("ready"); play(); } });
+      hls.on(HlsPlayer.Events.MEDIA_ATTACHED, () => { if (!controller.signal.aborted) hls.loadSource(urls.hls!); });
+      hls.on(HlsPlayer.Events.MANIFEST_PARSED, () => { if (!controller.signal.aborted) { play(); } });
       hls.on(HlsPlayer.Events.ERROR, (_event, data) => { if (data.fatal) failed(); });
       hls.attachMedia(element);
     }).catch(() => { if (!controller.signal.aborted) setState("error"); });
     return () => {
-      controller.abort(); element.pause(); stream.current?.destroy(); stream.current = null;
+      controller.abort(); if (frameRequest) element.cancelVideoFrameCallback?.(frameRequest);
+      element.removeEventListener("loadeddata", decoded);
+      element.pause(); stream.current?.destroy(); stream.current = null;
       element.removeEventListener("play", begin); element.removeEventListener("error", failed);
       document.removeEventListener("visibilitychange", hidden); element.removeAttribute("src");
     };
   }, [source, playRequested, attempt]);
   return <dialog ref={dialog} className="film-screen" aria-label="Nisayon film" onCancel={event => { event.preventDefault(); onClose(); }}>
-    <div className="film-picture">
-      <video ref={video} controls playsInline preload="none" poster={poster} aria-label="Nisayon multi-robot film, 1 minute 20 seconds" aria-describedby="film-description">
-        <track kind="captions" src="/media/cinematic/v3-captions.vtt" srcLang="en" label="English" />
+    <div className="film-picture" data-frame-ready={frameReady}>
+      <video ref={video} controls playsInline preload="none" poster={poster} aria-label="Nisayon film, 1 minute 24.5 seconds" aria-describedby="film-description">
+
       </video>
-      {state === "loading" ? <p className="film-status" role="status">Opening film</p> : null}
-      {state === "error" ? <div className="film-status film-error" role="alert"><p>The film could not load.</p><button onClick={() => setAttempt(n => n + 1)}>Try again <span aria-hidden="true">↗</span></button></div> : null}
+      <img className="film-poster" src={poster} alt="" aria-hidden="true" />
+      {needsPlay ? <button className="film-start" onClick={() => { void video.current?.play().then(() => setNeedsPlay(false)).catch(() => setNeedsPlay(true)); }}>Play film</button> : null}
+      {state === "loading" ? <span className="sr-only" role="status">Opening film</span> : null}
+      {state === "error" ? <div className="film-status film-error" role="alert"><p>The film could not load.</p><button onClick={() => setAttempt(n => n + 1)}>Try again </button></div> : null}
     </div>
     <header className="film-header">
       <span className="film-signature"><BrandMark size={25} /><span>Nisayon</span></span>
@@ -82,11 +97,8 @@ export function Film({ poster, playRequested, onClose, source = filmSource }: {
         <details className="film-information" id="film-description">
           <summary>About the film</summary>
           <div>
-            <p>A silver humanoid crosses a robotics hall. A mechanical apparatus introduces Nisayon as an experiment engine for physical AI.</p>
-            <p>A historical input-convention correction changes three signs in a ten-value observation block. With fixed policy weights, nine of ten fresh paired simulator tasks complete after correction, versus zero of ten before. One condition still fails.</p>
-            <p>A separate authored coordinate example compares nine exposed samples and shows matching and wrong-sign software decisions. Subsequent diagrams propose selecting experiments and testing applicability. These remain research ambitions.</p>
-            <p>The ending brings a humanoid, a moving carrier and a workstation arm into the same hall. These generated robot scenes illustrate the vision, not current Nisayon hardware, telemetry or general autonomous improvement.</p>
-            <p>Instrumental music accompanies the film; there is no spoken narration.</p>
+            <p>A humanoid carries a tray through a robotics hall. The film moves from that proposed future to retained evidence and the question: what survives a change?</p>
+            <p>The generated robot scenes illustrate the research direction. They do not demonstrate current Nisayon hardware, measured robot motion or autonomous improvement.</p>
           </div>
         </details>
         <button ref={close} className="film-close" aria-label="Close film" onClick={onClose}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button>

@@ -37,7 +37,7 @@ it("presents check reuse in the existing review surface with scoped saved claims
 it("keeps historical simulation scope and unknown costs visible", async () => {
   await act(async () => root.render(<Harness initial={await retained("historical")} />));
   expect(host.querySelector(".review-question")?.textContent).toContain("Unconverged");
-  await click("costs ↗");
+  await click("costs");
   expect(host.querySelector("dialog")?.textContent).toContain("Complete cost remains unknown");
 });
 it.each(["unknown", "failed"])("retains %s checks with unresolved deployment", async name => {

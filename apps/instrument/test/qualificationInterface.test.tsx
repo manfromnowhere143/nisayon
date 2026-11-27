@@ -33,7 +33,7 @@ it.each([['accepted', 'passing example', 'adopt'], ['rejected', 'detected defect
   vi.stubGlobal("fetch", fetcher);
   client.openReview.mockResolvedValue(await retained(`sdk-v2-${name}`));
   await act(async () => root.render(<Harness initial={null} />));
-  await click(`Inspect a ${label} ↗`);
+  await click(`Inspect a ${label}`);
   expect(fetcher).toHaveBeenCalledWith(`/examples/qualification/${name}.nisayon.zip`, expect.objectContaining({ signal: expect.any(AbortSignal) }));
   expect(client.openReview.mock.calls[0]![0].name).toBe(`${name}.nisayon.zip`);
   expect(host.querySelector(`[data-decision="${decision}"]`)).not.toBeNull();
@@ -43,7 +43,7 @@ it.each([['accepted', 'passing example', 'adopt'], ['rejected', 'detected defect
 it("keeps local import available when a public example cannot be fetched", async () => {
   vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }));
   await act(async () => root.render(<Harness initial={null} />));
-  await click("Inspect a passing example ↗");
+  await click("Inspect a passing example");
   expect(host.querySelector('[role="alert"]')?.textContent).toContain("still open a local review");
   expect(host.querySelector('input[type="file"]')).not.toBeNull();
   expect(client.openReview).not.toHaveBeenCalled();
@@ -52,7 +52,7 @@ it("cancels a public example fetch without reporting an import failure", async (
   const fetcher = vi.fn((_url, options: RequestInit) => new Promise((_resolve, reject) => options.signal!.addEventListener("abort", () => reject(new DOMException("cancelled", "AbortError")))));
   vi.stubGlobal("fetch", fetcher);
   await act(async () => root.render(<Harness initial={null} />));
-  await click("Inspect a passing example ↗");
+  await click("Inspect a passing example");
   await click("Cancel");
   expect(fetcher.mock.calls[0]![1].signal!.aborted).toBe(true);
   expect(host.querySelector('[role="alert"]')).toBeNull();

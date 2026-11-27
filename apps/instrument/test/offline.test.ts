@@ -354,9 +354,9 @@ it("keeps manifest identity, icons and all three shortcuts within the installed 
   expect(new URL(manifest.start_url, scope).hash).toBe("#view=system");
   expect(
     manifest.shortcuts.map(
-      (shortcut: { url: string }) => new URL(shortcut.url, scope).hash,
+      (shortcut: { name: string; url: string }) => [shortcut.name, new URL(shortcut.url, scope).hash],
     ),
-  ).toEqual(["#view=system", "#view=research", "#view=lab"]);
+  ).toEqual([["Lab", "#view=lab"], ["Ricci", "#view=concepts"], ["Develop", "#view=develop"]]);
   for (const icon of manifest.icons) {
     const bytes = readFileSync(join(PUBLIC_DIR, icon.src));
     expect(`${bytes.readUInt32BE(16)}x${bytes.readUInt32BE(20)}`).toBe(

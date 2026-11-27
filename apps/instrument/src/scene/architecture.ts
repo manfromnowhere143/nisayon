@@ -1,11 +1,15 @@
 // Presentation architecture, in Three's y-up metres. This group has no bodies,
-// collisions, controls or recorded state. It never participates in picking.
+// collisions or simulation state. Displays have a separate presentation hit
+// identity; visible furniture can occlude a pick without becoming a body.
 import * as THREE from "three";
+import { Reflector } from "three/addons/objects/Reflector.js";
+import { createWorkstations } from "./workstations";
+import { createContactBench } from "./contactBench";
 
 export type LabSetting = "architecture" | "source";
 export type LabDestination = "lab" | "workspace" | "grasp";
 
-export function createArchitecture() {
+export function createArchitecture({ compact = false, planarReflection = false } = {}) {
   const root = new THREE.Group();
   root.name = "Conceptual laboratory architecture";
   root.userData.presentationOnly = true;
@@ -27,17 +31,16 @@ export function createArchitecture() {
   grain.wrapS = grain.wrapT = THREE.RepeatWrapping;
   grain.minFilter = THREE.LinearMipmapLinearFilter; grain.magFilter = THREE.LinearFilter;
   grain.generateMipmaps = true; grain.repeat.set(3, 3); grain.needsUpdate = true; textures.add(grain);
-  const concrete = material(new THREE.MeshStandardMaterial({ name: "Chalk mineral plaster", color: 0xc3bcae, roughness: .83, bumpMap: grain, bumpScale: .0007 }));
-  const stone = material(new THREE.MeshStandardMaterial({ name: "Honed limestone", color: 0x8d9187, roughness: .36, metalness: 0 }));
-  const steel = material(new THREE.MeshStandardMaterial({ name: "Brushed graphite aluminium", color: 0x303b3a, roughness: .34, metalness: .82 }));
-  const timber = material(new THREE.MeshStandardMaterial({ name: "Warm ash acoustic lining", color: 0xb1a186, roughness: .76, side: THREE.DoubleSide }));
-  const garden = material(new THREE.MeshStandardMaterial({ name: "Garden ground", color: 0x758167, roughness: 1 }));
+  const concrete = material(new THREE.MeshStandardMaterial({ name: "Chalk mineral plaster", color: 0xb9babc, roughness: .83, bumpMap: grain, bumpScale: .0007 }));
+  const stone = material(new THREE.MeshStandardMaterial({ name: "Dark honed mineral floor", color: 0x24292d, roughness: .78, metalness: 0, envMapIntensity: .32 }));
+  const steel = material(new THREE.MeshStandardMaterial({ name: "Brushed graphite aluminium", color: 0x25282c, roughness: .34, metalness: .82 }));
+  const timber = material(new THREE.MeshStandardMaterial({ name: "Continuous pale vault", color: 0xb4b5b8, roughness: .78, side: THREE.DoubleSide }));
+  const garden = material(new THREE.MeshStandardMaterial({ name: "Garden ground", color: 0x555a58, roughness: 1 }));
   const glass = material(new THREE.MeshStandardMaterial({ name: "Architectural glazing", color: 0xb8d0ca, roughness: .1, metalness: .1, transparent: true, opacity: .065, depthWrite: false, side: THREE.DoubleSide }));
-  const light = material(new THREE.MeshBasicMaterial({ color: 0xd8e9e4 }));
   const backdrop = material(new THREE.MeshBasicMaterial({ name: "Distant garden atmosphere", color: 0xa4b7b3, side: THREE.DoubleSide }));
-  const leaf = material(new THREE.MeshStandardMaterial({ color: 0x3b4d43, roughness: 1, side: THREE.DoubleSide }));
-  const trunk = material(new THREE.MeshStandardMaterial({ color: 0x4d5149, roughness: 1 }));
-  const line = material(new THREE.LineBasicMaterial({ color: 0x4c534b, transparent: true, opacity: .2 }));
+  const leaf = material(new THREE.MeshStandardMaterial({ color: 0x4b514e, roughness: 1, side: THREE.DoubleSide }));
+  const trunk = material(new THREE.MeshStandardMaterial({ color: 0x454846, roughness: 1 }));
+  const line = material(new THREE.LineBasicMaterial({ color: 0x4c534b, transparent: true, opacity: .09 }));
   const section = new THREE.Plane(new THREE.Vector3(0, -1, 0), 3);
   let sectioned = false;
   const boxGeometry = geometry(new THREE.BoxGeometry(1, 1, 1));
@@ -64,11 +67,14 @@ export function createArchitecture() {
   }
   arch.closePath();
   const archGeometry = geometry(new THREE.ExtrudeGeometry(arch, { depth: .42, bevelEnabled: true, bevelSize: .035, bevelThickness: .025, bevelSegments: 2, steps: 1, curveSegments: 64 }));
-  for (const z of [-10, -6, -2, 2, 6, 10]) {
-    const rib = new THREE.Mesh(archGeometry, concrete); rib.name = "Vault rib"; rib.position.z = z;
-    rib.castShadow = rib.receiveShadow = true; root.add(rib);
+  const ribPositions = [-10, -6, -2, 2, 6, 10];
+  const ribs = new THREE.InstancedMesh(archGeometry, concrete, ribPositions.length);
+  ribs.name = "Vault ribs";
+  for (const [index,z] of ribPositions.entries()) {
+    ribs.setMatrixAt(index,new THREE.Matrix4().makeTranslation(0,0,z));
     for (const x of [-5.59, 5.59]) box(x, 1.15, z + .21, .24, 2.3, .5, concrete);
   }
+  root.add(ribs); instances.push(ribs);
   // The upper shell deliberately leaves a narrow, continuous clerestory.
   for (const side of [-1, 1]) {
     const positions: number[] = [], indices: number[] = [];
@@ -80,15 +86,8 @@ export function createArchitecture() {
     const g = geometry(new THREE.BufferGeometry());
     g.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3)); g.setIndex(indices); g.computeVertexNormals();
     const roof = new THREE.Mesh(g, timber); roof.name = "Vault acoustic shell";
-    roof.castShadow = roof.receiveShadow = true; root.add(roof);
-    // Real, fine longitudinal battens give the vault a human construction scale.
-    for (let i = 0; i < 42; i++) {
-      const a = .15 + (Math.PI / 2 - .3) * i / 41;
-      const list = boxMatrices.get(timber) ?? [];
-      list.push(new THREE.Matrix4().compose(new THREE.Vector3(side * 5.73 * Math.cos(a), 2.3 + 4.42 * Math.sin(a), .225),
-        new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), -side * a), new THREE.Vector3(.035, .06, 20.45)));
-      boxMatrices.set(timber, list);
-    }
+    root.add(roof);
+
   }
 
   const floorGeometry = geometry(new THREE.PlaneGeometry(15, 24));
@@ -97,17 +96,28 @@ export function createArchitecture() {
   const floor = new THREE.Mesh(floorGeometry, stone);
   floor.name = "Laboratory floor"; floor.rotation.x = -Math.PI / 2; floor.position.y = -.016;
   floor.receiveShadow = true; root.add(floor);
+  // One bounded planar reflection, rendered from actual scene geometry. It is
+  // a low-opacity material pass, not an image backdrop or a task collision.
+  const reflection = new Reflector(floorGeometry, { color:0x3a424a, textureWidth:compact ? 384 : 768, textureHeight:compact ? 384 : 768, multisample:compact ? 0 : 2 });
+  reflection.name="Honed floor reflection";reflection.rotation.x=-Math.PI/2;reflection.position.y=-.014;
+  reflection.userData.ignorePick = true;
+  const reflectionMaterial=reflection.material as THREE.ShaderMaterial;
+  reflectionMaterial.fragmentShader=reflectionMaterial.fragmentShader.replace("color ), 1.0", "color ), 0.045");
+  reflectionMaterial.fragmentShader=reflectionMaterial.fragmentShader.replace("vec4 base = texture2DProj( tDiffuse, vUv );", `
+    vec2 uv=vUv.xy/vUv.w; vec4 base=vec4(0.0);
+    for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++)base+=texture2D(tDiffuse,uv+vec2(float(x),float(y))*.0025)/9.0;
+  `);
+  reflectionMaterial.transparent=true;reflectionMaterial.depthWrite=false;root.add(reflection);
+  reflection.visible = planarReflection;
   const gardenFloor = new THREE.Mesh(geometry(new THREE.PlaneGeometry(32, 44)), garden);
   gardenFloor.name = "Garden ground"; gardenFloor.rotation.x = -Math.PI / 2; gardenFloor.position.y = -.027;
   gardenFloor.receiveShadow = true; root.add(gardenFloor);
-  // Floor joints and the active bay footprint are graphic orientation cues.
+  // Subtle floor joints belong to the presentation architecture.
   const joints: number[] = [];
   for (let x = -7; x <= 7; x += 2) joints.push(x, -.011, -12, x, -.011, 12);
   for (let z = -12; z <= 12; z += 2) joints.push(-7, -.011, z, 7, -.011, z);
   const floorLines = geometry(new THREE.BufferGeometry()); floorLines.setAttribute("position", new THREE.Float32BufferAttribute(joints, 3));
   root.add(new THREE.LineSegments(floorLines, line));
-  for (const x of [-1.55, 1.3]) box(x, .006, 0, .012, .006, 2.4, light);
-  for (const z of [-1.2, 1.2]) box(-.125, .006, z, 2.86, .006, .012, light);
 
   // Glazed garden and rear elevation, with real mullion depth.
   box(-6.1, 2.75, 0, .035, 5.5, 23, glass);
@@ -118,32 +128,10 @@ export function createArchitecture() {
   for (let x = -5.6; x <= 5.6; x += 1.4) box(x, 2.75, -10.25, .045, 5.5, .07, steel);
   for (const y of [0.08, 2.8, 5.4]) { box(-6.05, y, 0, .09, .06, 22, steel); box(0, y, -10.2, 12, .06, .09, steel); }
 
-  // Quiet gallery: furniture only. No decorative robots suggesting live work.
-  box(4.72, 2.85, -3.5, 2.2, .22, 12.5, concrete);
-  box(4.72, 3.34, -3.5, 2.2, .7, 12.5, glass);
-  box(3.59, 3.76, -3.5, .05, .04, 12.5, steel);
-  box(3.61, 2.7, -3.5, .025, .025, 12.3, light);
-  for (const z of [-9, -6, -3, 0, 2.6]) {
-    box(3.6, 3.34, z, .035, .84, .035, steel);
-    box(4.95, 1.31, z, .13, 2.62, .13, steel);
-  }
-  for (const z of [-7, -3, 1]) {
-    box(4.7, .85, z, 1.65, .08, 1.5, concrete);
-    box(5.23, .4, z, .5, .8, 1.25, steel);
-    box(4.65, 1.19, z - .35, .6, .42, .035, steel);
-    box(4.65, .91, z - .16, .35, .025, .13, steel);
-    box(4.2, .47, z + .55, .52, .06, .49, timber);
-    box(4.2, .72, z + .79, .52, .48, .04, timber);
-    for (const x of [4, 4.4]) for (const offset of [.36, .74]) box(x, .22, z + offset, .025, .44, .025, steel);
-  }
-  // The gallery has a stair route rather than a floating slab.
-  // These are spatial design elements, not a certified building design.
-  for (let i = 0; i < 18; i++) {
-    const h = (i + 1) * 2.96 / 18;
-    box(4.72, h / 2, 7.8 - i * .29, 1.24, h, .29, concrete);
-  }
-  box(4.72, 2.98, -3.5, 2.2, .025, 12.5, timber);
-  box(3.8, 2.99, -3.5, .33, .25, 11.7, steel);
+  // One working bay: the unchanged Panda source, adjacent operator console,
+  // and a narrow contact instrument. Circulation stays on the continuous floor.
+  const workstations = createWorkstations(); root.add(workstations.root);
+  const contact = createContactBench(); root.add(contact.root);
 
   // Folded leaves on connected branch systems, with deterministic local
   // colour variation. Three instanced draws; no alpha cards or idle animation.
@@ -153,7 +141,7 @@ export function createArchitecture() {
   const trunkGeometry = geometry(new THREE.CylinderGeometry(.035, .085, 1, 9));
   const branchGeometry = geometry(new THREE.CylinderGeometry(.004, .022, 1, 5));
   const treeCount = 24, branchesPerTree = 18, leavesPerBranch = 22;
-  const foliage = new THREE.InstancedMesh(leafGeometry, leaf, treeCount * branchesPerTree * leavesPerBranch + 14 * 70);
+  const foliage = new THREE.InstancedMesh(leafGeometry, leaf, treeCount * branchesPerTree * leavesPerBranch);
   const trunks = new THREE.InstancedMesh(trunkGeometry, trunk, treeCount);
   const branches = new THREE.InstancedMesh(branchGeometry, trunk, treeCount * branchesPerTree);
   foliage.name = "Garden foliage"; trunks.name = "Garden trunks"; branches.name = "Garden branches";
@@ -177,48 +165,51 @@ export function createArchitecture() {
         const seed = key + k * 7, t = .35 + .65 * random(seed + 3);
         transform.position.copy(stem).lerp(end, t).add(new THREE.Vector3((random(seed + 2) - .5) * .55, (random(seed + 4) - .5) * .45, (random(seed + 5) - .5) * .55));
         transform.rotation.set(random(seed + 6) * 2, azimuth, random(seed + 7) * 2); transform.scale.setScalar(1 + random(seed + 8) * .65); transform.updateMatrix();
-        foliage.setMatrixAt(leafIndex, transform.matrix); foliage.setColorAt(leafIndex++, leafColour.setHSL(.23 + random(seed) * .04, .2 + random(seed + 1) * .15, .45 + random(seed + 2) * .22));
+        foliage.setMatrixAt(leafIndex, transform.matrix); foliage.setColorAt(leafIndex++, leafColour.setHSL(.27, .04, .35 + random(seed + 2) * .18));
       }
     }
   }
-  for (let i = 0; i < 14; i++) {
-    for (let j = 0; j < 70; j++) {
-      const seed = i * 80 + j;
-      transform.position.set(3.65 + (random(seed) - .5) * .45, 2.87 - random(seed + 2) * .9, -9 + i * .8 + (random(seed + 1) - .5) * .6);
-      transform.rotation.set(random(seed + 4) * 3, random(seed + 5) * 6, random(seed + 3) * 3); transform.scale.setScalar(.8); transform.updateMatrix(); foliage.setMatrixAt(leafIndex, transform.matrix); foliage.setColorAt(leafIndex++, leafColour.setHSL(.26, .3, .58));
-    }
-  }
-  foliage.castShadow = foliage.receiveShadow = trunks.castShadow = branches.castShadow = true;
+  // The bounded real-time shadow map belongs to the subject, not the whole
+  // twenty-metre building. Distant architecture uses the shared diffuse light;
+  // clipping it into the subject map produces false polygonal floor shadows.
+  foliage.receiveShadow = trunks.castShadow = branches.castShadow = false;
+  foliage.castShadow = false;
   root.add(foliage, trunks, branches);
   instances.push(foliage, trunks, branches);
   for (const [m, matrices] of boxMatrices) {
     const mesh = new THREE.InstancedMesh(boxGeometry, m, matrices.length);
     matrices.forEach((matrix, index) => mesh.setMatrixAt(index, matrix));
     mesh.name = m.name || "Architecture details";
-    mesh.receiveShadow = true; mesh.castShadow = m !== glass && m !== backdrop && m !== light;
+    mesh.receiveShadow = mesh.castShadow = false;
     root.add(mesh); instances.push(mesh);
   }
 
   return {
     root,
+    workstations,
+    contact,
+    setReflection(enabled: boolean) { reflection.visible = enabled; },
     cutaway(active: boolean) {
       if (sectioned === active) return;
       sectioned = active;
       // An overhead camera sections only the presentation building. Recorded
       // robot and collision materials are owned by another, untouched group.
-      for (const m of [concrete, timber, steel, glass, light]) { m.clippingPlanes = active ? [section] : null; m.needsUpdate = true; }
+      for (const m of [concrete, timber, steel, glass]) { m.clippingPlanes = active ? [section] : null; m.needsUpdate = true; }
     },
     setFloorLightMap(texture: THREE.Texture) {
       if (stone.lightMap) { textures.delete(stone.lightMap); stone.lightMap.dispose(); }
       textures.add(texture); stone.lightMap = texture; stone.lightMapIntensity = 1; stone.needsUpdate = true;
     },
-    palette(paper: boolean) {
-      concrete.color.set(paper ? 0xd0c7b6 : 0xc6bfb0);
-      stone.color.set(paper ? 0xadb0a5 : 0x9aa397);
-      backdrop.color.set(0xb3c4b8);
-      leaf.color.set(0x71815d);
-      light.color.set(paper ? 0xe1ece0 : 0x9abfbe);
+    setFloorOcclusion(texture: THREE.Texture) {
+      if (stone.aoMap) { textures.delete(stone.aoMap); stone.aoMap.dispose(); }
+      textures.add(texture); stone.aoMap = texture; stone.aoMapIntensity = .78; stone.needsUpdate = true;
     },
-    dispose() { root.removeFromParent(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); instances.forEach(mesh => mesh.dispose()); },
+    palette(paper: boolean) {
+      concrete.color.set(paper ? 0xc8c9cc : 0xb9babc);
+      stone.color.set(paper ? 0x373c40 : 0x24292d);
+      backdrop.color.set(0x969e9f);
+      leaf.color.set(0x616764);
+    },
+    dispose() { contact.dispose(); workstations.dispose(); reflection.dispose(); root.removeFromParent(); geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); instances.forEach(mesh => mesh.dispose()); },
   };
 }

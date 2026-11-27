@@ -15,8 +15,9 @@ import { applyGround, readGround, type Ground } from "./ground";
 
 export { readGround, type Ground } from "./ground";
 
+export interface OpeningTransfer { loaded: number; total: number; reconstruction: boolean }
 export type Screen =
-  | { kind: "loading"; stage: LoadStage; detail: string }
+  | { kind: "loading"; stage: LoadStage; detail: string; transfer?: OpeningTransfer }
   | { kind: "error"; error: LoadError }
   | { kind: "invalid-locator"; problems: string[]; suggestion: { moment: Moment; depth: Depth } | null; label: string | null }
   | {
@@ -187,9 +188,9 @@ export class InstrumentStore {
     // A new selection loads beside the verified selection. Commit its source,
     // identity, readings and URL together; never relabel the retained scene.
     if (!retained) this.set({ evidenceUrl });
-    const loading = (stage: LoadStage, detail: string): void => {
+    const loading = (stage: LoadStage, detail: string, transfer?: OpeningTransfer): void => {
       if (retained && this.ready()) this.set({ pendingSelection: { caseKey: locator.caseKey, stage, detail } });
-      else this.setScreen({ kind: "loading", stage, detail });
+      else this.setScreen({ kind: "loading", stage, detail, ...(transfer ? { transfer } : {}) });
     };
     if (locator.problems.length > 0) {
       this.setScreen({ kind: "invalid-locator", problems: locator.problems, suggestion: null, label: null });
@@ -228,7 +229,9 @@ export class InstrumentStore {
         if (found) runRecord = found;
         else problems.push(`run "${locator.run.run_id}" of bundle ${locator.run.bundle_sha256.slice(0, 8)}… is not in case "${caseRecord.case_key}"`);
       }
-      loading("run", `verifying ${runRecord.run.run_id}`);
+      const total = runRecord.samples.byte_length + (runRecord.model?.byte_length ?? 0) + (runRecord.frames?.byte_length ?? 0);
+      const reconstruction = !!(runRecord.model && runRecord.frames);
+      loading("run", `verifying ${runRecord.run.run_id}`, { loaded: 0, total, reconstruction });
       const transfers = new Map<string, { loaded: number; total: number | null }>();
       let reported = 0;
       const run = await openRun(generation, caseRecord, runRecord.run, signal, {
@@ -241,10 +244,9 @@ export class InstrumentStore {
           if (now - reported < 100 && progress.loaded !== progress.total) return;
           reported = now;
           const loaded = [...transfers.values()].reduce((sum, item) => sum + item.loaded, 0);
-          const total = runRecord.samples.byte_length + (runRecord.model?.byte_length ?? 0) + (runRecord.frames?.byte_length ?? 0);
           loading("run", loaded < total
             ? `Loading ${runRecord.run.run_id} · ${Math.min(99, Math.floor(100 * loaded / total))}%`
-            : `Verifying ${runRecord.run.run_id}`);
+            : `Verifying ${runRecord.run.run_id}`, { loaded, total, reconstruction });
         },
       }, this.cache);
       if (!this.current(token)) return;

@@ -1,0 +1,990 @@
+:root[data-surface="concepts"] {
+  color-scheme: dark;
+  background: #090a0c;
+  --ground: #090a0c;
+  --ground-2: #11161a;
+  --ink: #eceef1;
+  --ink-2: #d2d8dd;
+  --ink-3: #aeb8bf;
+  --glass: #171d22;
+  --glass-opaque: #171d22;
+  --rule: #ffffff20;
+  --rule-strong: #ffffff40;
+}
+html[data-surface="concepts"],
+html[data-surface="concepts"] body,
+html[data-surface="concepts"] #root {
+  height: 100%;
+  overflow: hidden;
+}
+.research-workspace[data-view="concepts"] {
+  position: fixed;
+  inset: 0;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+  background: #090a0c;
+}
+.research-workspace[data-view="concepts"] .research-body {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  overflow: hidden;
+  margin: 0;
+}
+.research-workspace[data-view="concepts"] .research-header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  background: none;
+  border: 0;
+  pointer-events: none;
+}
+.research-workspace[data-view="concepts"] .research-brand {
+  pointer-events: auto;
+}
+.research-workspace[data-view="concepts"] .research-edition,
+.research-workspace[data-view="concepts"] .research-footer {
+  display: none;
+}
+.ricci-exhibit {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: #eceef1;
+  background: #090a0c;
+  --ricci-muted: #b3bdc5;
+  --ricci-control-clearance: max(102px, calc(4rem + 38px));
+}
+.ricci-title {
+  position: absolute;
+  left: 32px;
+  top: calc(90px + var(--safe-top, 0px));
+  z-index: 2;
+  pointer-events: none;
+}
+.ricci-title h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+.ricci-title h1:focus {
+  outline: none;
+}
+.ricci-title p {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  color: var(--ricci-muted);
+}
+.ricci-stage {
+  position: absolute;
+  inset: calc(150px + var(--safe-top, 0px)) 20px
+    calc(108px + var(--safe-bottom, 0px));
+  isolation: isolate;
+}
+.ricci-render {
+  position: relative;
+  height: 100%;
+  min-width: 0;
+}
+.ricci-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+  border: 0;
+}
+.ricci-canvas:active {
+  cursor: grabbing;
+}
+.ricci-render[data-renderer="failed"] .ricci-canvas {
+  visibility: hidden;
+}
+.ricci-render-status {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  color: var(--ricci-muted);
+}
+.ricci-render-failure {
+  position: absolute;
+  inset: 20px auto auto 50%;
+  transform: translateX(-50%);
+  width: min(380px, 90%);
+  padding: 20px;
+  background: #171d22;
+  border-radius: 18px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-height: calc(100% - 40px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+}
+.ricci-render-failure h2 {
+  font-size: 1.1875rem;
+  font-weight: 450;
+}
+.ricci-render-failure button {
+  min-height: 44px;
+}
+.ricci-render-failure details {
+  margin-top: 14px;
+}
+.ricci-render-failure svg {
+  width: 100%;
+  max-height: 180px;
+}
+.ricci-stage-actions {
+  position: absolute;
+  z-index: 8;
+  bottom: calc(20px + var(--safe-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 28px;
+  align-items: start;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+}
+.ricci-stage-actions > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 104px;
+  min-height: 66px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #dce2e6;
+  font-size: 0.75rem;
+  touch-action: manipulation;
+}
+.ricci-stage-actions svg {
+  width: 42px;
+  height: 42px;
+  padding: 5px;
+  border-radius: 14px;
+  background: #171d22;
+  box-shadow: 0 4px 16px #0003;
+}
+.ricci-stage-actions
+  button:is([aria-pressed="true"], [aria-expanded="true"])
+  svg {
+  background: #343e46;
+  color: #fff;
+}
+.ricci-view-controls .workspace-menu {
+  width: 48px;
+  min-width: 48px;
+  padding: 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #ecedef;
+  font-size: 0.8125rem;
+}
+.ricci-view-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.ricci-view-options button {
+  min-height: 44px;
+  padding: 8px 12px;
+  background: none;
+  border: 0;
+  color: inherit;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+.ricci-annotation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.ricci-callout {
+  position: absolute;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #edf0f2;
+  box-shadow: none;
+  text-shadow: 0 1px 3px #000, 0 2px 12px #0009;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  box-sizing: border-box;
+  color-scheme: dark;
+}
+.ricci-callout > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  min-height: 44px;
+  margin-bottom: 0;
+}
+.ricci-callout h2 {
+  font-size: .875rem;
+  line-height: 1.3;
+  font-weight: 450;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.ricci-callout h2:focus {
+  outline: none;
+}
+.ricci-callout h2 small {
+  display: block;
+  color: #aeb8bf;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  margin-top: 4px;
+}
+.ricci-close {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  padding: 11px;
+  margin: 0;
+  color: #edf1f3;
+  border: 0;
+  background: none;
+}
+.ricci-close svg {
+  width: 100%;
+  height: 100%;
+}
+.ricci-callout-scroll {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #5f6b73 transparent;
+}
+.ricci-callout-fact {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.ricci-callout-fact small {
+  display: block;
+  font-size: 0.6875rem;
+  color: #b2bdc5;
+  letter-spacing: 0;
+  margin-top: 4px;
+}
+.ricci-callout footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: none;
+  padding-top: 0;
+}
+.ricci-callout footer > span {
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: #b2bdc5;
+  max-width: 110px;
+}
+.ricci-callout footer button {
+  min-height: 44px;
+  min-width: 62px;
+  padding: 8px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #edf1f3;
+  text-shadow: inherit;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-size: 0.75rem;
+}
+.ricci-part-copy {
+  margin: 0;
+}
+.ricci-part-copy > div {
+  margin-top: 18px;
+}
+.ricci-part-copy > div:first-child {
+  margin-top: 0;
+}
+.ricci-part-copy dt {
+  font-size: 0.75rem;
+  color: #adb9c1;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+.ricci-part-copy dd {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.ricci-part-limit,
+.ricci-reveal-label,
+.ricci-occluded {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: #c5ced4;
+  margin-top: 18px;
+}
+.ricci-part-source {
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: #b3bdc5;
+}
+.ricci-part-source a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+.ricci-leader {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.ricci-leader path {
+  fill: none;
+  stroke: #8b98a2;
+  stroke-width: 1;
+  opacity: 0.7;
+}
+.ricci-leader circle {
+  fill: #d8e2e8;
+}
+.ricci-annotation[data-ready="false"] .ricci-callout {
+  visibility: hidden;
+}
+.ricci-parts ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.ricci-parts button {
+  min-height: 44px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  color: #dce3e8;
+  background: none;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.ricci-parts button[aria-pressed="true"] {
+  background: #303b43;
+  color: #fff;
+}
+.ricci-selection-error {
+  position: absolute;
+  left: 24px;
+  top: 145px;
+  z-index: 5;
+  background: #171d22;
+  padding: 18px;
+  border-radius: 14px;
+  font-size: 0.8125rem;
+}
+.ricci-selection-error button {
+  min-height: 44px;
+}
+.ricci-transport {
+  position: absolute;
+  right: 32px;
+  bottom: calc(118px + var(--safe-bottom, 0px));
+  z-index: 6;
+  width: min(350px, 34vw);
+  padding: 18px;
+  background: #171d22;
+  border-radius: 18px;
+  font-size: 0.8125rem;
+}
+.ricci-transport > p {
+  font-size: 0.75rem;
+  color: #bdc7ce;
+  margin: 0 0 12px;
+}
+.ricci-time-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.ricci-time-controls input {
+  min-width: 0;
+  flex: 1;
+  accent-color: #dce4e9;
+}
+.ricci-time-controls output {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ricci-transport button {
+  min-height: 44px;
+  padding: 8px 10px;
+  background: transparent;
+  color: #e0e7ec;
+  border: 0;
+  border-radius: 18px;
+  font-size: 0.75rem;
+}
+.ricci-time-controls button {
+  background: #29343c;
+}
+.ricci-transport nav,
+.ricci-study-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 8px;
+}
+.ricci-study-choice {
+  display: grid;
+  gap: 8px;
+  font-size: 0.8125rem;
+  margin-block: 20px;
+}
+.ricci-study-choice select {
+  max-width: 100%;
+  font-size: 0.875rem;
+  min-height: 44px;
+  background: #242c33;
+  color: inherit;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px;
+}
+.ricci-text-control {
+  min-height: 44px;
+  padding: 10px 0;
+  margin-top: 14px;
+  background: none;
+  color: inherit;
+  border: 0;
+  text-align: left;
+  font-size: 0.8125rem;
+}
+.ricci-comparing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.ricci-trace-caption {
+  position: absolute;
+  left: 16px;
+  top: 0;
+  display: grid;
+  gap: 5px;
+  max-width: 70%;
+  font-size: 0.75rem;
+  color: #c5cfd5;
+  pointer-events: none;
+}
+.ricci-trace-caption small {
+  font-size: 0.6875rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  :where(:root:not([data-pointer-type="touch"]))
+    .ricci-stage-actions
+    button:hover
+    svg {
+    background: #29343c;
+  }
+  :where(:root:not([data-pointer-type="touch"])) .ricci-parts button:hover {
+    background: #242e35;
+  }
+  :where(:root:not([data-pointer-type="touch"]))
+    .ricci-callout
+    footer
+    button:hover {
+    color: #fff;
+    background: none;
+  }
+}
+@media (max-width: 700px) {
+  .ricci-title {
+    left: 20px;
+    top: calc(82px + var(--safe-top, 0px));
+  }
+  .ricci-title h1 {
+    font-size: 1.5625rem;
+  }
+  .ricci-title p {
+    font-size: 0.6875rem;
+    margin-top: 6px;
+  }
+  .ricci-stage {
+    inset: calc(90px + 3rem + var(--safe-top, 0px)) 0
+      calc(var(--ricci-control-clearance) + var(--safe-bottom, 0px));
+    --ricci-pocket: clamp(190px, 29dvh, 250px);
+  }
+  .ricci-canvas {
+    height: calc(100% - var(--ricci-pocket));
+  }
+  .ricci-stage-actions {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    gap: 6px;
+    justify-content: space-around;
+    bottom: calc(17px + var(--safe-bottom, 0px));
+  }
+  .ricci-stage-actions > button {
+    width: 98px;
+    font-size: 0.6875rem;
+    gap: 7px;
+  }
+  .ricci-stage-actions svg {
+    width: 40px;
+    height: 40px;
+  }
+  .ricci-view-controls .workspace-menu {
+    font-size: 0.75rem;
+    min-width: 48px;
+    padding: 8px;
+  }
+  .ricci-callout {
+    padding: 0;
+    border-radius: 0;
+  }
+  .ricci-callout h2 {
+    font-size: .875rem;
+  }
+  .ricci-callout-fact {
+    font-size: 1.125rem;
+    margin-bottom: 0;
+  }
+  .ricci-callout-fact small {
+    font-size: 0.6875rem;
+  }
+  .ricci-callout footer > span {
+    max-width: none;
+  }
+  .ricci-transport {
+    left: 16px;
+    right: 16px;
+    bottom: calc(
+      var(--ricci-control-clearance) + 8px + var(--safe-bottom, 0px)
+    );
+    width: auto;
+    max-height: calc(var(--ricci-pocket, 250px) - 15px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 16px;
+  }
+  .ricci-transport nav {
+    gap: 0;
+  }
+  .ricci-comparing {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .ricci-comparing .ricci-render {
+    --ricci-pocket: 250px;
+  }
+  .ricci-trace-caption {
+    top: 0;
+    left: 16px;
+    max-width: 90%;
+    font-size: 0.6875rem;
+  }
+  .ricci-trace-caption small {
+    font-size: 0.6875rem;
+  }
+}
+@media (max-height: 650px) and (max-width: 700px) {
+  .ricci-stage {
+    top: 122px;
+    --ricci-pocket: 172px;
+  }
+  .ricci-title {
+    top: 74px;
+  }
+  .ricci-title h1 {
+    font-size: 1.375rem;
+  }
+  .ricci-title p {
+    font-size: 0.6875rem;
+  }
+  .ricci-callout h2 {
+    font-size: 0.875rem;
+  }
+  .ricci-callout-fact {
+    font-size: 1.125rem;
+  }
+  .ricci-callout > header {
+    margin-bottom: 5px;
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-title {
+    left: 24px;
+    top: 70px;
+  }
+  .ricci-title h1 {
+    font-size: 1.375rem;
+  }
+  .ricci-title p {
+    font-size: 0.6875rem;
+  }
+  .ricci-stage {
+    inset: 110px 16px 16px;
+  }
+  .ricci-canvas {
+    width: calc(100% - 300px);
+    height: 100%;
+  }
+  .ricci-stage-actions {
+    left: 24px;
+    right: auto;
+    transform: none;
+    gap: 10px;
+    bottom: 12px;
+    z-index: 8;
+  }
+  .ricci-stage-actions > button {
+    width: 88px;
+    min-height: 54px;
+    font-size: 0.6875rem;
+  }
+  .ricci-stage-actions svg {
+    width: 32px;
+    height: 32px;
+  }
+  .ricci-stage {
+    bottom: 75px;
+  }
+  .ricci-transport {
+    width: 280px;
+    left: auto;
+    right: 18px;
+    bottom: 16px;
+    max-height: calc(100dvh - 130px);
+    padding: 14px;
+  }
+  .ricci-callout {
+    padding: 0;
+  }
+  .ricci-trace-caption {
+    top: 0;
+    font-size: 0.6875rem;
+    max-width: 55%;
+  }
+  .ricci-trace-caption small {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ricci-stage-actions svg {
+    transition: background-color 160ms ease;
+  }
+  .ricci-callout {
+    animation: ricci-detail-enter 160ms ease;
+  }
+  @keyframes ricci-detail-enter {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ricci-exhibit * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .ricci-callout {
+    background: #151a1e;
+    box-shadow: none;
+  }
+}
+@media (forced-colors: active) {
+  .ricci-callout,
+  .ricci-transport {
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+  .ricci-leader path {
+    stroke: CanvasText;
+  }
+  .ricci-leader circle {
+    fill: CanvasText;
+  }
+}
+
+@media (max-width: 700px) {
+  .ricci-exhibit > .scene-detail {
+    top: auto;
+    bottom: calc(
+      var(--ricci-control-clearance) + 8px + var(--safe-bottom, 0px)
+    );
+    max-height: calc(clamp(190px, 29dvh, 250px) - 12px);
+    padding: 14px;
+  }
+  .ricci-exhibit > .scene-detail .scene-detail-heading {
+    margin-bottom: 8px;
+  }
+}
+@media (max-width: 700px) and (max-height: 650px) {
+  .ricci-exhibit > .scene-detail {
+    max-height: 160px;
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-exhibit > .scene-detail {
+    top: 110px;
+    bottom: 16px;
+    max-height: calc(100dvh - 126px);
+    width: 280px;
+    right: 18px;
+    left: auto;
+  }
+}
+
+/* Expansion starts with the new information; the envelope remains in the full detail. */
+.ricci-callout[data-expanded="true"] .ricci-callout-fact {
+  display: none;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-stage {
+    bottom: 16px;
+  }
+  .ricci-canvas {
+    height: calc(100% - 59px);
+  }
+}
+@media (max-width: 700px) and (min-height: 501px) {
+  .ricci-title {
+    right: 20px;
+  }
+  .ricci-title p {
+    max-width: 100%;
+  }
+  .ricci-stage {
+    top: calc(58px + 5rem + var(--safe-top, 0px));
+  }
+}
+@media (max-width: 700px) and (max-height: 650px) and (min-height: 501px) {
+  .ricci-stage {
+    top: calc(42px + 5rem + var(--safe-top, 0px));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-stage {
+    top: 64px;
+  }
+  .ricci-title p {
+    max-width: 180px;
+  }
+  .ricci-exhibit > .scene-detail {
+    top: 80px;
+    max-height: calc(100dvh - 96px);
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-stage {
+    left: max(16px, var(--safe-left));
+    right: max(16px, var(--safe-right));
+  }
+  .ricci-stage-actions {
+    left: max(24px, var(--safe-left));
+  }
+  .ricci-exhibit > .scene-detail {
+    right: max(18px, var(--safe-right));
+  }
+}
+
+.ricci-title {
+  z-index: 4;
+}
+.ricci-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+@media (min-width: 701px) and (min-height: 501px) {
+  .ricci-render[data-selection="true"] .ricci-render-failure {
+    left: auto;
+    right: 10px;
+    transform: none;
+    width: min(380px, calc(100% - 260px));
+  }
+}
+.ricci-exhibit .ricci-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+}
+.ricci-exhibit[data-stage="lab"] .ricci-title {
+  text-shadow: 0 2px 18px #0008;
+}
+.ricci-exhibit[data-stage="lab"] .ricci-stage-actions > button {
+  text-shadow: 0 1px 10px #000a;
+}
+@media (max-width: 700px) {
+  .ricci-frame {
+    height: calc(100% - var(--ricci-pocket));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-frame {
+    width: calc(100% - 300px);
+    height: calc(100% - 59px);
+  }
+}
+/* Comparison keeps two independent, bounded views rather than stacking canvases. */
+.ricci-comparing .ricci-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 700px) {
+  .ricci-comparing .ricci-canvas {
+    height: calc(100% - var(--ricci-pocket));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-comparing .ricci-canvas {
+    width: calc(100% - 300px);
+    height: calc(100% - 59px);
+  }
+}
+.ricci-exhibit[data-stage="lab"]::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 230px;
+  background: linear-gradient(#060c145c, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+/* A comparison divides the full scene; it does not restore a boxed backdrop. */
+.ricci-exhibit .ricci-comparing .ricci-canvas {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 50vw;
+  height: 100dvh;
+}
+.ricci-comparing .ricci-render + .ricci-render .ricci-canvas {
+  left: 50vw;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-comparing .ricci-frame {
+    width: 100%;
+  }
+}
+.ricci-exhibit[data-stage="lab"] .ricci-title p {
+  color: #f0f4f6;
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-title {
+    left: max(24px, var(--safe-left));
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-stage-actions {
+    bottom: calc(12px + var(--safe-bottom));
+  }
+  .ricci-exhibit > .scene-detail,
+  .ricci-transport {
+    bottom: calc(16px + var(--safe-bottom));
+  }
+}
+/* Camera controls belong with Motion Study, clear of the navigation rail. */
+.ricci-stage-actions > .ricci-camera-access { width: 104px; }
+.ricci-camera-access .ricci-view-controls { position: static; display: flex; flex-direction: column; align-items: center; gap: 2px; color: #dce2e6; font-size: .75rem; }
+.ricci-camera-access .workspace-menu { flex: none; padding: 0; }
+.ricci-camera-access .workspace-menu > svg { width: 42px; height: 42px; }
+.ricci-stage-actions > button > svg,
+.ricci-camera-access .workspace-menu > svg,
+.ricci-stage-actions > button:is([aria-pressed="true"], [aria-expanded="true"]) > svg { background: none; box-shadow: none; border-radius: 0; }
+.ricci-stage-actions > button:is([aria-pressed="true"], [aria-expanded="true"]) > span { text-decoration: underline; text-underline-offset: 5px; }
+.ricci-stage-actions button:focus-visible > svg { background: none; box-shadow: none; }
+@media (hover:hover) and (pointer:fine) { :where(:root:not([data-pointer-type="touch"])) .ricci-stage-actions button:hover > svg { background: none; box-shadow: none; } }
+.workspace-popover.ricci-view-popover { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; color: #edf1f3; text-shadow: 0 1px 3px #000, 0 2px 12px #0009; transform-origin: bottom center; }
+.ricci-view-popover > header { position: relative; justify-content: center; padding: 0 44px; min-height: 44px; }
+.ricci-view-popover > header > button { position: absolute; right: 0; top: 0; }
+.ricci-view-popover button > svg { width: 22px; height: 22px; padding: 0; background: none; box-shadow: none; }
+.ricci-view-popover .ricci-view-options { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.ricci-view-presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.ricci-view-adjust { display: grid; grid-template-columns: repeat(5, minmax(44px, 1fr)); gap: 4px; width: 100%; }
+.ricci-view-popover .ricci-view-options button { display: grid; place-items: center; min-width: 0; min-height: 44px; padding: 4px; background: none; font-size: .75rem; text-align: center; text-shadow: inherit; }
+.ricci-view-popover .ricci-view-options svg { width: 22px; height: 22px; padding: 0; border: 0; background: none; box-shadow: none; }
+@media (max-width: 700px) {
+  .ricci-stage-actions { left: max(12px, var(--safe-left)); right: max(12px, var(--safe-right)); gap: 4px; }
+  .ricci-stage-actions > :is(button, .ricci-camera-access) { flex: 1; min-width: 0; width: auto; max-width: 104px; }
+  .ricci-camera-access .ricci-view-controls { font-size: .6875rem; }
+  .ricci-camera-access .workspace-menu > svg { width: 40px; height: 40px; }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .ricci-stage-actions { gap: 4px; right: auto; }
+  .ricci-stage-actions > :is(button, .ricci-camera-access) { width: 68px; flex: none; }
+  .ricci-camera-access .ricci-view-controls { gap: 0; font-size: .6875rem; }
+  .ricci-camera-access .workspace-menu > svg { width: 32px; height: 32px; }
+}
+@media (forced-colors: active) { .workspace-popover.ricci-view-popover { color: CanvasText; background: Canvas; text-shadow: none; border: 1px solid CanvasText; } }
+@media (hover:hover) and (pointer:fine) { :where(:root:not([data-pointer-type="touch"])) .ricci-view-controls .workspace-menu:hover { background: transparent; box-shadow: none; } }
+
+/* Motion unfolds as a floating instrument, with detail only on request. */
+.ricci-exhibit .ricci-transport { position: absolute; left: max(20px,var(--safe-left)); right: max(20px,var(--safe-right)); bottom: calc(112px + var(--safe-bottom)); width: auto; max-width: 480px; margin-inline: auto; max-height: none; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible; color: #edf1f3; text-shadow: 0 1px 7px #000b; }
+.ricci-transport > p { margin: 0 0 5px; font-size: .6875rem; text-align: center; color: #c5d0d8; }
+.ricci-time-controls { display: grid; grid-template-columns: 44px minmax(0,1fr) max-content 44px; gap: 10px; }
+.ricci-time-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: none; border-radius: 0; box-shadow: none; }
+.ricci-time-controls button svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.4; filter: drop-shadow(0 1px 3px #0008); }
+.ricci-time-controls input { width: 100%; height: 44px; }
+.ricci-motion-options { position: absolute; left: 0; right: 0; bottom: calc(100% + 10px); animation: motion-options-reveal 160ms ease-out; }
+.ricci-motion-options nav, .ricci-motion-options .ricci-study-actions { justify-content: center; gap: 6px; margin: 0; }
+.ricci-motion-options button { background: none; box-shadow: none; border-radius: 0; text-shadow: inherit; }
+.ricci-motion-options button[aria-pressed="true"] { text-decoration: underline; text-underline-offset: 5px; }
+.ricci-preparation { position: absolute; z-index: 5; top: 50%; left: 50%; transform: translate(-50%,-50%); display: flex; align-items: center; gap: 10px; pointer-events: none; transition: opacity 120ms linear; }
+.ricci-preparation[data-ready="true"] { opacity: 0; visibility: hidden; }
+.ricci-preparation progress { appearance: none; width: 120px; height: 2px; border: 0; background: #dce8ef30; }
+.ricci-preparation progress::-webkit-progress-bar { background: #dce8ef30; }
+.ricci-preparation progress::-webkit-progress-value { background: #e1eaf0; }
+.ricci-preparation progress::-moz-progress-bar { background: #e1eaf0; }
+.ricci-preparation span { font: .625rem/1 var(--mono); color: #cad5dd; font-variant-numeric: tabular-nums; }
+@keyframes motion-options-reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (max-width:700px) and (min-height:501px) {
+  /* Recover only the space formerly reserved for the large card. The camera's
+     pose and desktop frame stay unchanged when a control opens. */
+  .ricci-stage, .ricci-comparing .ricci-render { --ricci-pocket: 166px; }
+  .ricci-exhibit .ricci-transport { bottom: calc(105px + var(--safe-bottom)); }
+  .ricci-trace-caption { top: 0; }
+}
+@media (orientation:landscape) and (max-height:500px) {
+  .ricci-exhibit .ricci-transport { left: auto; right: max(18px,var(--safe-right)); width: 280px; bottom: calc(94px + var(--safe-bottom)); }
+}
+@media (prefers-reduced-motion:reduce) { .ricci-motion-options { animation: none; } .ricci-preparation { transition: none; } }

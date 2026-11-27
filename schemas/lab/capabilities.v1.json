@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nisayon.danielwahnich.dev/schemas/lab/capabilities.v1.json",
+  "title": "Local laboratory capability envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "execution",
+    "instruments",
+    "qualification"
+  ],
+  "properties": {
+    "schema": {
+      "const": "nisayon.lab.capabilities.v1"
+    },
+    "execution": {
+      "const": "local_registered_protocols"
+    },
+    "qualification": {
+      "type": "string"
+    },
+    "session": {
+      "type": "string",
+      "description": "Ephemeral local CSRF token, never experiment identity."
+    },
+    "instruments": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "status",
+          "executable",
+          "operations",
+          "protocol",
+          "parameters_schema",
+          "default"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "research_preview",
+              "developer_preview"
+            ]
+          },
+          "executable": {
+            "type": "boolean"
+          },
+          "operations": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "validate",
+                "execute",
+                "cancel",
+                "inspect",
+                "export"
+              ]
+            }
+          },
+          "protocol": {
+            "type": "object"
+          },
+          "parameters_schema": {
+            "type": "object"
+          },
+          "default": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

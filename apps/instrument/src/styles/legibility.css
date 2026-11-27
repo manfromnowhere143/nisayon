@@ -28,8 +28,10 @@
     -webkit-text-fill-color: var(--ink);
   }
   :root[data-ground="black"] :is(svg text, svg tspan) {
-    color: var(--ink);
-    fill: var(--ink);
+    /* A selected graphic owns its foreground/background pair. Theme defaults
+       must not paint white text onto a component's silver selected surface. */
+    color: var(--svg-surface-ink, var(--ink));
+    fill: var(--svg-surface-ink, var(--ink));
     fill-opacity: 1;
   }
   :root[data-ground="black"] :is(.pair-dot, .test-field button) {
